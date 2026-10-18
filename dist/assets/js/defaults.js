@@ -11,6 +11,7 @@ settings: {
   heroWords: 'Waves, Atoms, Vectors, Forces, Equations, Graphs',
   siteName: 'ConceptLab',
   footer: 'Created by Taimur Shams — an independent student-led educational project.',
+  credit: 'Created by Taimur Shams & Moshiur Rahman Araf',
   about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।'
 },
 theme: { p: '#38bdf8', s: '#7dd3fc', a: '#fbbf24', bg: '#000000', glow: '#0ea5e9', fx: 'on' },
@@ -206,7 +207,8 @@ games: [
  {w:'PROBABILITY',h:'ঘটনার সম্ভাবনা'},
  {w:'WAVELENGTH',h:'পরপর দুই সমদশা বিন্দুর দূরত্ব'}]}},
  {id:'periodic-quest',type:'periodic',on:true,icon:'🧪',t:'Periodic Quest',d:'মৌলকে সঠিক ঘরে বসাও, পর্যায়বৃত্ত ধর্মের প্রবণতা ও গুরুত্বপূর্ণ ব্যতিক্রম শেখো।',diff:'Medium',xp:60,data:{}},
- {id:'element-sprint',type:'elementSprint',on:true,icon:'⚡',t:'Element Sprint',d:'সময়ের চাপে মৌলের প্রতীক ও পারমাণবিক সংখ্যা দ্রুত শনাক্ত করো।',diff:'Easy',xp:35,data:{}},
+ {id:'mass-atlas',type:'massAtlas',on:true,icon:'⚖️',t:'Mass Atlas',d:'রঙিন পর্যায়সারণীতে মৌলের পারমাণবিক ভর দেখো, খুঁজে বের করো এবং সঠিকভাবে সাজাও।',diff:'Medium',xp:55,data:{}},
+  {id:'element-sprint',type:'elementSprint',on:true,icon:'⚡',t:'Element Sprint',d:'সময়ের চাপে মৌলের প্রতীক ও পারমাণবিক সংখ্যা দ্রুত শনাক্ত করো।',diff:'Easy',xp:35,data:{}},
  {id:'trend-duel',type:'trendDuel',on:true,icon:'⚔️',t:'Trend Duel',d:'পারমাণবিক আকার, আয়নীকরণ শক্তি ও রাসায়নিক ধর্মের তুলনায় জিতো।',diff:'Medium',xp:45,data:{}},
 
 ],

@@ -28,7 +28,7 @@ function load(d){
     if(x.id==='qc-12'&&['bohr','quantum'].indexOf(out.sim)>=0)out.sim='quantumNumbers';
     return out});saved.forEach(function(x){if(x&&x.id&&!defaults.some(function(y){return y.id===x.id}))merged.push(x)});return merged})(),
   home:(d.home&&d.home.sections)?d.home:def.home,
-  games:Array.isArray(d.games)?d.games:def.games,
+  games:(function(){var saved=Array.isArray(d.games)?d.games:null;if(!saved)return def.games;var ids={};saved.forEach(function(x){if(x&&x.id)ids[x.id]=1});return saved.concat((def.games||[]).filter(function(x){return x.id==='mass-atlas'&&!ids[x.id]}))})(),
   labs:(function(){var defaults=Array.isArray(def.labs)?def.labs:[],saved=Array.isArray(d.labs)?d.labs:[],byId={};saved.forEach(function(x){if(x&&x.id)byId[x.id]=x});var merged=defaults.map(function(x){return byId[x.id]||x});saved.forEach(function(x){if(x&&x.id&&!defaults.some(function(y){return y.id===x.id}))merged.push(x)});return merged})(),
   gam:Object.assign({},def.gam,d.gam||{})};
  if(!(d.home&&d.home.sections)&&d.settings){D.home.sections.forEach(function(s){if(s.type=='purpose'){if(d.settings.missionTitle)s.h=d.settings.missionTitle;if(d.settings.mission1)s.p=d.settings.mission1;if(d.settings.mission2)s.p2=d.settings.mission2}})}
@@ -47,7 +47,7 @@ function statics(){
  var nav=$('header nav');if(nav){var wanted=[['#/','Home','nav_home'],['#/chapters','Explore Chapters','nav_chapters'],['#/play','🎮 Arcade','nav_play'],['#/lab','Simulations','nav_lab'],['#/progress','My Progress','nav_progress'],['#/study-space','Study Space',null],['#/smart-practice','Smart Practice',null],['#/analytics','Analytics',null],['#/leaderboard','Leaderboard','nav_leaderboard'],['#/about','About','nav_about']];wanted.forEach(function(item){var links=$$('a[href="'+item[0]+'"]',nav);if(!links.length){var a=document.createElement('a');a.href=item[0];a.textContent=item[1];nav.appendChild(a);links=[a]}links.slice(1).forEach(function(a){a.remove()});links[0].textContent=item[2]?X(item[2]):item[1]});}
  var hb=$('.hbtn');if(hb)hb.textContent='▶ '+X('btn_play');
  var lg=$('.brand svg, .brand .logo');if(lg)lg.outerHTML='<img class="logo" src="assets/images/conceptlab-main-logo.webp" alt="" width="38" height="38">'
- var set=function(i,t){var n=document.getElementById(i);if(n)n.textContent=t};set('bn',S.siteName);set('fb',S.siteName);set('ft',S.footer);set('ftop',X('ft_top'));document.title=S.siteName+': Unlocking core concepts';
+ var set=function(i,t){var n=document.getElementById(i);if(n)n.textContent=t};set('bn',S.siteName);set('fb',S.siteName);set('ft',S.credit==null?'':S.credit);set('ftop',X('ft_top'));document.title=S.siteName+': Unlocking core concepts';
  chip();
 }
 
