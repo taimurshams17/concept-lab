@@ -113,11 +113,13 @@ var SEC={
 /* ------------------------------------------------------------ pages */
 var chF='all',chQ='';
 function chGrid(){
- var q=chQ.trim().toLowerCase(),groups={},any=false;
+ var q=chQ.trim().toLowerCase(),groups={},any=false,subjectOrder=Object.keys(SUB);
  Object.keys(L).forEach(function(k){if(chF!=='all'&&chF!==k)return;L[k].forEach(function(c){var title=String(c.chapterTitle||c.chapter||c.t||'Chapter').trim()||'Chapter';if(c.id==='qualitative-chemistry'&&CHL.some(function(x){return x.id==='qc-01'}))return;var key=k+'::'+title;if(!groups[key])groups[key]={s:k,title:title,items:[]};groups[key].items.push(c)})});
- var out=Object.keys(groups).map(function(key,i){var g=groups[key],hay=g.title+' '+SUB[g.s];if(q&&hay.toLowerCase().indexOf(q)<0&&!g.items.some(function(c){return String(c.t||'').toLowerCase().indexOf(q)>=0}))return'';any=true;var ready=g.items.filter(function(c){return c.status==='available'}).length;var href='#/chapter-list/'+encodeURIComponent(g.s+'|'+g.title);return '<a class="card ch av chapter-index-card tilt rv" style="--d:'+(i*.025)+'s" href="'+E(href)+'"><span class="bd2">'+E(SUB[g.s])+'</span><span class="cico">📚</span><h3>'+E(g.title)+'</h3><p>'+g.items.length+'টি কনসেপ্ট · '+ready+'টি চালু</p><span class="go">কনসেপ্টগুলো দেখুন →</span></a>'}).join('');
- return any?'<div class="chapter-index-grid gA g3">'+out+'</div>':'<p class="lead c" style="margin:40px auto">কোনো অধ্যায় পাওয়া যায়নি।</p>';
+ var matching=Object.keys(groups).map(function(key){var g=groups[key],hay=g.title+' '+SUB[g.s];if(q&&hay.toLowerCase().indexOf(q)<0&&!g.items.some(function(c){return String(c.t||'').toLowerCase().indexOf(q)>=0}))return null;return g}).filter(Boolean);
+ var out=subjectOrder.filter(function(k){return matching.some(function(g){return g.s===k})}).map(function(k){var arr=matching.filter(function(g){return g.s===k});return '<section class="chapter-subject-group" data-chapter-subject="'+E(k)+'"><header class="chapter-subject-heading"><span class="chapter-subject-dot"></span><div><h2>'+E(SUB[k]||k)+'</h2><p>'+arr.length+'টি অধ্যায় · বিষয়ভিত্তিক তালিকা</p></div></header><div class="chapter-index-grid gA g3">'+arr.map(function(g,i){any=true;var ready=g.items.filter(function(c){return c.status==='available'}).length,href='#/chapter-list/'+encodeURIComponent(g.s+'|'+g.title);return '<a class="card ch av chapter-index-card tilt rv" style="--d:'+(i*.025)+'s" href="'+E(href)+'"><span class="bd2">'+E(SUB[g.s])+'</span><span class="cico">📚</span><h3>'+E(g.title)+'</h3><p>'+g.items.length+'টি কনসেপ্ট · '+ready+'টি চালু</p><span class="go">কনসেপ্টগুলো দেখুন →</span></a>'}).join('')+'</div></section>'}).join('');
+ return any?'<div class="chapter-subject-groups">'+out+'</div>':'<p class="lead c" style="margin:40px auto">কোনো অধ্যায় পাওয়া যায়নি।</p>';
 }
+
 var pages={
  'study-space':function(){return studySpace()},
  'smart-practice':function(){return smartPractice()},
