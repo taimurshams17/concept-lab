@@ -42,7 +42,7 @@ function mk(us, b) {
   const s = randomBytes(16).toString("hex"); us[u] = { s, h: H(p, s) }; return u;
 }
 function users_ok(rec, p) { if (!rec) return false; const a = Buffer.from(H(p, rec.s)), b = Buffer.from(rec.h); return a.length === b.length && timingSafeEqual(a, b); }
-const SIMS = ["line", "force", "flame", "wave", "projectile", "pendulum", "spring", "circuit", "gas", "vectors", "unit", "tangent", "matrix", "circle", "kinetics", "equilibrium", "ph", "titration", "electrochem", "optics", "magnetic", "periodic", "bond", "stoich", "integration", "probability", "custom", "none"];
+const SIMS = ["bohr", "rutherford", "rutherfordModel", "line", "force", "flame", "wave", "projectile", "pendulum", "spring", "circuit", "gas", "vectors", "unit", "tangent", "matrix", "circle", "kinetics", "equilibrium", "ph", "titration", "electrochem", "optics", "magnetic", "periodic", "bond", "stoich", "integration", "probability", "dalton", "atomBasics", "atomCounting", "thomson", "cathode", "spectrum", "emissionLines", "planckQuantum", "deBroglie", "uncertainty", "quantumNumbers", "quantum", "quantumSpin", "spinOrbitalDiagram", "orbitals", "orbitalCapacity", "aufbau", "nplusl", "pauli", "isotope", "isotopeCompare", "atomicNotation", "atomicNotation2", "valence", "hund", "ionization", "electroncloud", "isotone", "shellCapacity", "orbitalCount", "aufbauOrder", "hundRule", "electronConfig", "valenceShell", "custom", "none"];
 const SEC_TYPES = ["marquee", "stats", "goals", "stages", "lab", "arcade", "purpose", "features", "roadmap", "subjects", "faq", "cta", "text"];
 const GAME_TYPES = ["blitz", "memory", "tf", "scramble", "balance", "cannon", "slope", "flame"];
 const BADGE_KINDS = ["xp", "stages", "sims", "games", "streak", "perfect"];

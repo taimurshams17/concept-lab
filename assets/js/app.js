@@ -16,7 +16,17 @@ function load(d){
  d=d||{};var def=clone(DEF);
  D={settings:Object.assign({},def.settings,d.settings||{}),theme:Object.assign({},def.theme,d.theme||{}),texts:d.texts||{},
   subjects:(d.subjects&&d.subjects.length)?d.subjects:def.subjects,
-  chapters:(function(){var defaults=def.chapters||[],saved=Array.isArray(d.chapters)?d.chapters:[],byId={};saved.forEach(function(x){if(x&&x.id)byId[x.id]=x});var merged=defaults.map(function(x){var old=byId[x.id];if(!old)return x;var out=Object.assign({},x,old);if(/^qc-\d+$/.test(x.id)&&old.sim==='bohr'&&x.sim&&x.sim!=='bohr')out.sim=x.sim;return out});saved.forEach(function(x){if(x&&x.id&&!defaults.some(function(y){return y.id===x.id}))merged.push(x)});return merged})(),
+  chapters:(function(){var defaults=def.chapters||[],saved=Array.isArray(d.chapters)?d.chapters:[],byId={};saved.forEach(function(x){if(x&&x.id)byId[x.id]=x});var merged=defaults.map(function(x){var old=byId[x.id];if(!old)return x;var out=Object.assign({},x,old);if(/^qc-\d+$/.test(x.id)&&x.sim)out.sim=x.sim;
+    /* Migrate old saved qualitative-chemistry mappings that predated the topic-specific simulation set. */
+    if(x.id==='qc-01'&&['dalton','bohr'].indexOf(out.sim)>=0)out.sim='atomBasics';
+    if(x.id==='qc-03'&&out.sim==='bohr')out.sim='thomson';
+    if(x.id==='qc-04'&&['bohr','rutherford'].indexOf(out.sim)>=0)out.sim='rutherfordModel';
+    if(x.id==='qc-05'&&['bohr','cathode'].indexOf(out.sim)>=0)out.sim='rutherford';
+    if(x.id==='qc-09'&&['bohr','quantum'].indexOf(out.sim)>=0)out.sim='planckQuantum';
+    if(x.id==='qc-10'&&['bohr','quantum'].indexOf(out.sim)>=0)out.sim='deBroglie';
+    if(x.id==='qc-11'&&['bohr','quantum'].indexOf(out.sim)>=0)out.sim='uncertainty';
+    if(x.id==='qc-12'&&['bohr','quantum'].indexOf(out.sim)>=0)out.sim='quantumNumbers';
+    return out});saved.forEach(function(x){if(x&&x.id&&!defaults.some(function(y){return y.id===x.id}))merged.push(x)});return merged})(),
   home:(d.home&&d.home.sections)?d.home:def.home,
   games:Array.isArray(d.games)?d.games:def.games,
   labs:(function(){var defaults=Array.isArray(def.labs)?def.labs:[],saved=Array.isArray(d.labs)?d.labs:[],byId={};saved.forEach(function(x){if(x&&x.id)byId[x.id]=x});var merged=defaults.map(function(x){return byId[x.id]||x});saved.forEach(function(x){if(x&&x.id&&!defaults.some(function(y){return y.id===x.id}))merged.push(x)});return merged})(),
