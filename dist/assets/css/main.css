@@ -544,3 +544,40 @@ header nav a{flex-shrink:0}
 
 /* Keep the Stage 3-to-4 action visible after the interactive simulation. */
 .stage-next-wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line,rgba(120,180,220,.18))}.stage-next-wrap .mutt{margin:0;flex:1 1 220px}.stage-next-wrap .btn{min-height:46px;white-space:nowrap}@media(max-width:600px){.stage-next-wrap{display:grid;grid-template-columns:1fr}.stage-next-wrap .btn{width:100%;justify-content:center}}
+
+/* Qualitative Chemistry: richer atom-model simulation controls */
+#sim .ctl select,#sim .ctl .btn{font:inherit;max-width:100%;}#sim canvas.cv2{display:block;width:100%;height:auto;min-height:250px;border-radius:16px;background:radial-gradient(ellipse at center,rgba(18,45,70,.72),rgba(2,8,18,.96));border:1px solid rgba(125,190,230,.16)}#sim .ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}#sim .ctl .control{display:flex;flex-direction:column;gap:7px;min-width:0}#sim .ctl select{background:#0b1726;color:#e2e8f0;border:1px solid #334155;border-radius:10px;padding:10px}
+
+/* Chapter-first explorer and readable concept index */
+.chapter-index-grid,.chapter-concept-list{display:grid;gap:14px;margin-top:24px}
+.chapter-index-card{position:relative;min-height:180px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-decoration:none;border:1px solid rgba(125,190,230,.18);background:linear-gradient(145deg,rgba(15,35,54,.96),rgba(7,17,29,.96));transition:transform .2s,border-color .2s,box-shadow .2s}
+.chapter-index-card:hover{transform:translateY(-3px);border-color:var(--p);box-shadow:0 14px 34px rgba(0,0,0,.22)}
+.chapter-index-card h3{margin:2px 0 0;font-size:1.14rem;line-height:1.45}
+.chapter-index-card p{margin:0;color:var(--muted,#9fb6cb);font-size:.92rem}
+.chapter-index-card .cico{font-size:1.5rem}
+.chapter-concept-list{grid-template-columns:1fr}
+.concept-index-row{display:flex;align-items:center;gap:16px;padding:18px;text-decoration:none;color:inherit;min-width:0}
+.concept-index-row.av{cursor:pointer}
+.concept-index-row:hover{border-color:var(--p)}
+.concept-index-row>div{flex:1;min-width:0}
+.concept-index-row h3{margin:0 0 5px;font-size:1rem;line-height:1.5}
+.concept-index-row p{margin:0;color:var(--muted,#9fb6cb);font-size:.88rem}
+.concept-index-num{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:12px;background:rgba(56,189,248,.12);color:var(--p);font-weight:800}
+.concept-index-row .go{white-space:nowrap;color:var(--p);font-size:.88rem}
+.concept-reading-label{display:inline-flex;margin:0 0 10px;padding:6px 10px;border-radius:8px;background:rgba(56,189,248,.1);color:var(--p);font-size:.82rem;font-weight:700}
+.concept-explanation .bn.bl{line-height:1.95;font-size:1.04rem}
+@media(min-width:720px){.chapter-index-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.chapter-concept-list{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.concept-index-row{gap:10px;padding:13px}.concept-index-num{flex-basis:34px;height:34px}.concept-index-row .go{font-size:.76rem}.chapter-index-card{min-height:145px}}
+
+
+/* Arcade discoverability and mobile-first Periodic Quest */
+.arcade-page .arcade-hint{margin:8px 0 18px;color:var(--mut);font-size:13px}
+.arcade-page .gA.g3{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.arcade-page .gm{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:clamp(14px,2vw,22px);height:100%}
+.arcade-page .gm h3,.arcade-page .gm p{overflow-wrap:anywhere}.arcade-page .gm p{flex:1;line-height:1.55}.arcade-page .gm .go{margin-top:8px;font-weight:750;color:var(--p)}
+.pq-table{width:100%;box-sizing:border-box;grid-template-columns:repeat(18,minmax(0,1fr));gap:2px;overflow:visible}
+.pq-cell{width:100%;box-sizing:border-box;min-width:0;padding:2px 0;min-height:40px}
+.pq-f{width:83.333%;max-width:83.333%;grid-template-columns:repeat(15,minmax(0,1fr));gap:2px}
+.pq-cell small{font-size:clamp(7px,.75vw,9px)}.pq-cell b{font-size:clamp(8px,1vw,13px)}.pq-tray .btn{min-height:42px}
+@media(max-width:760px){.arcade-page .gA.g3{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px!important}.arcade-page .gm{padding:13px;border-radius:14px;gap:7px}.arcade-page .gm h3{font-size:15px;line-height:1.3}.arcade-page .gm p{font-size:12px;line-height:1.45}.arcade-page .gmeta{flex-wrap:wrap;gap:5px;font-size:11px}.pq-table{grid-template-columns:repeat(18,minmax(0,1fr));gap:1px;padding:0}.pq-cell{min-height:36px;border-radius:3px}.pq-cell small{font-size:clamp(5px,1.55vw,7px);line-height:1}.pq-cell b{font-size:clamp(6px,1.8vw,10px);line-height:1.1}.pq-f{width:83.333%;max-width:83.333%;grid-template-columns:repeat(15,minmax(0,1fr));gap:1px}.pq-f .pq-cell{min-height:32px}.pq-tray{gap:6px}.pq-tray .btn{min-width:0;min-height:42px;padding:8px 7px;font-size:12px}.pq-table+.mutt{font-size:11px}}
+@media(max-width:390px){.arcade-page .gA.g3{grid-template-columns:1fr}.arcade-page .gm{padding:15px}.arcade-page .gm h3{font-size:16px}.pq-cell{min-height:30px}.pq-cell small{font-size:5px}.pq-cell b{font-size:6px}.pq-f .pq-cell{min-height:27px}}

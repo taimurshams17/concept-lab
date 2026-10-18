@@ -1,8 +1,17 @@
-# আপডেট নোট — ConceptLab
+# আপডেট নোট — Qualitative Chemistry
 
-- Admin Panel-এর Footer text হুবহু রাখা হয়; `Moshiur Rahman Araf`-কে ভুল করে `Taimur Shams` দিয়ে প্রতিস্থাপন করা বন্ধ করা হয়েছে।
-- Admin content-এ থাকা simulation entries-এর সঙ্গে built-in simulation catalogue ID অনুযায়ী merge হয়, তাই পুরোনো/অসম্পূর্ণ CMS তালিকায় শুধু ১৪টি entry থাকলেও বাকি built-in entries হারিয়ে যায় না। Admin-এর existing entry ও visibility setting অগ্রাধিকার পায়।
-- Concept-এর Stage 3 (Interactive Simulation)-এ দৃশ্যমান Next button যোগ করা হয়েছে, যা Stage 4 quiz-এ নিয়ে যায়। বোতামে চাপ দিলে Stage 3 progress-ও সংরক্ষণ হয়।
-- Responsive Stage 3 Next button styling যোগ করা হয়েছে।
+- Explore Chapters এখন প্রথমে শুধু অধ্যায়ের কার্ড দেখায়। অধ্যায়ে ক্লিক করলে আলাদা পৃষ্ঠায় ওই অধ্যায়ের কনসেপ্ট তালিকা আসে।
+- Qualitative Chemistry-তে ৩১টি কনসেপ্ট এবং ৩১টি আলাদা Stage 3 simulation module যুক্ত/ম্যাপ করা হয়েছে।
+- প্রতিটি কনসেপ্টের জন্য ১০টি করে অনুশীলনী MCQ রাখা হয়েছে (মোট ৩১০টি)। এগুলোকে PDF-এর হুবহু প্রশ্ন বলা হচ্ছে না; PDF স্ক্যান হওয়ায় মূল শিরোনাম ও প্রশ্নের পৃষ্ঠা-অনুযায়ী যাচাই এখনো বাকি।
+- Admin Panel-এ নতুন simulation key-গুলোর নাম যোগ করা হয়েছে। পুরনো saved content লোড হলেও নতুন qc-24–qc-31 কনসেপ্ট যোগ হবে এবং পুরনো shared Bohr simulation mapping মাইগ্রেট হবে।
+- Stage 1/2-এ বাস্তব উদাহরণ ও মূল ধারণার label যোগ করা হয়েছে; অধ্যায়ের কনসেপ্ট তালিকায় প্রতিটি কনসেপ্টের MCQ সংখ্যা দেখানো হয়।
 
-Build এবং JavaScript syntax checks চালানো হয়েছে। লাইভ Netlify deployment-এর পর admin save, footer display, simulation count ও stage transition হাতে পরীক্ষা করতে হবে।
+## Build
+`npm run build` চালালে `dist/` আপডেট হবে।
+
+
+## Arcade ও মোবাইল আপডেট (১৮ অক্টোবর ২০২৬)
+- Arcade navigation-এ স্পষ্ট 🎮 Arcade লেবেল এবং সরাসরি গেম-কার্ড তালিকা।
+- Periodic Quest, Element Sprint ও Trend Duel গেম যোগ করা হয়েছে।
+- Periodic table-এর ১৮-কলামের গ্রিড ও ল্যান্থানয়েড/অ্যাক্টিনয়েড অংশ মোবাইলে আরও স্পষ্ট দেখানোর জন্য responsive CSS।
+- মোবাইলে গেম কার্ড, বাটন ও ট্রে-এর spacing উন্নত করা হয়েছে।
