@@ -1,0 +1,12 @@
+{
+  "name": "concept-lab",
+  "version": "3.0.0",
+  "private": true,
+  "description": "ConceptLab: concept-first HSC lessons in Bengali, with an admin panel",
+  "scripts": {
+    "build": "node scripts/build-static.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
