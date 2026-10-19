@@ -1086,3 +1086,16 @@ body.navopen .nav-backdrop{position:fixed!important;inset:0!important;width:100v
 .pgw .about-icon,.pgw .lab-icon,.pgw .chapter-icon{animation:orbitDrift 7s ease-in-out infinite}
 @media(max-width:700px){.home-lab:before,.home-games:before,.sec-stages:before,.sec-features:before,.sec-subjects:before,.goals:before,.pgw.lab-page:before,.pgw.chapter-page:before,.pgw.arcade-page:before,.study-page:before{width:100px;height:100px;right:4px;top:8%;opacity:.7}.home-lab:after,.home-games:after,.sec-stages:after,.sec-features:after,.sec-subjects:after,.goals:after,.pgw.lab-page:after,.pgw.chapter-page:after,.pgw.arcade-page:after,.study-page:after{font-size:14px;left:10px;bottom:8%;letter-spacing:.08em}}
 @media(prefers-reduced-motion:reduce){.home-lab:before,.home-games:before,.sec-stages:before,.sec-features:before,.sec-subjects:before,.goals:before,.pgw.lab-page:before,.pgw.chapter-page:before,.pgw.arcade-page:before,.study-page:before,.home-lab:after,.home-games:after,.sec-stages:after,.sec-features:after,.sec-subjects:after,.goals:after,.pgw.lab-page:after,.pgw.chapter-page:after,.pgw.arcade-page:after,.study-page:after,.home-lab .home-lab-head .lab-copy .pill,.home-page .sec-features .ic,.home-page .sec-stages .ic,.pgw .about-icon,.pgw .lab-icon,.pgw .chapter-icon{animation:none!important}}
+
+
+/* ConceptLab v6.8: reliable carousel centering, softened side cards, compact mobile XP feedback. */
+.gdeck-track{scroll-padding-inline:50%;scroll-snap-type:x mandatory;touch-action:pan-y pan-x}
+.gdeck-card{filter:blur(1.35px);opacity:.43;transform:scale(.84);transition:transform .38s cubic-bezier(.2,.75,.2,1),opacity .38s ease,filter .38s ease,border-color .38s ease,box-shadow .38s ease}
+.gdeck-card.on{filter:blur(0);opacity:1;transform:scale(1);z-index:3}
+.gdeck-card:focus-visible{filter:blur(0);opacity:1;transform:scale(1);z-index:4}
+@media(min-width:900px){.gdeck-track{--cw:min(320px,32vw);gap:18px}.gdeck-card:not(.on){transform:scale(.83)}}
+@media(max-width:600px){.gdeck-track{--cw:min(76vw,290px);gap:10px;padding-top:14px;padding-bottom:18px}.gdeck-card{padding:14px;border-radius:18px;min-height:204px}.gdeck-card:not(.on){filter:blur(1px);opacity:.48;transform:scale(.88)}.gdeck-ico{filter:drop-shadow(0 0 7px hsl(var(--h) 90% 60%/.24))}}
+.toast.xp{position:fixed;right:16px;top:78px;max-width:min(320px,calc(100vw - 32px));width:max-content;white-space:normal;overflow-wrap:anywhere;line-height:1.45;font-size:13px;transform:translateY(-8px);padding:10px 14px}
+.toast.xp.in{transform:translateY(0)}
+@media(max-width:600px){.toast.xp{top:auto!important;right:12px!important;bottom:calc(18px + env(safe-area-inset-bottom));left:12px!important;width:max-content;max-width:calc(100vw - 24px);margin:0 auto;text-align:center;padding:9px 13px;font-size:12.5px;border-radius:13px;box-shadow:0 8px 28px rgba(0,0,0,.48);transform:translateY(10px)}.toast.xp.in{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.gdeck-card,.gdeck-card.on{transition:none!important;filter:none!important}}
