@@ -1123,3 +1123,25 @@ body.navopen .nav-backdrop{position:fixed!important;inset:0!important;width:100v
 @keyframes scienceBob{50%{transform:translateY(-5px)}}
 @media(max-width:720px){.science-outro-panel{grid-template-columns:1fr;gap:16px;border-radius:20px;padding:22px 18px}.science-outro-copy h2{font-size:27px}.science-outro-art svg{max-height:165px}.science-formula-track{padding:13px 0}.home-science-outro{padding-bottom:42px}.horizon .hb1,.horizon .hb2,.horizon .hb3{opacity:.09}}
 @media(prefers-reduced-motion:reduce){.science-formula-track,.science-outro-art .so-path,.science-outro-art .so-atom,.science-outro-art .so-flask,.science-outro-art .so-wave{animation:none!important}}
+
+/* ConceptLab v7.0: discovery → refined chapter CTA → formula ticker. */
+.home-final-cta{position:relative;padding:clamp(24px,4vw,48px) 0 clamp(18px,3vw,30px)!important}
+.home-final-cta .cta{position:relative;isolation:isolate;max-width:900px;margin:0 auto;padding:clamp(28px,4.4vw,48px) clamp(20px,5vw,56px)!important;border-radius:24px!important;text-align:center;background:linear-gradient(135deg,rgba(5,19,32,.92),rgba(3,8,15,.9))!important;border:1px solid rgba(56,189,248,.26)!important;box-shadow:0 18px 54px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.045)!important;overflow:hidden}
+.home-final-cta .cta:before{content:"";position:absolute;z-index:-1;inset:-45% 15% 15%;border-radius:50%;background:radial-gradient(ellipse,rgba(56,189,248,.13),transparent 68%);filter:blur(14px);animation:chapterCtaAura 8s ease-in-out infinite alternate;pointer-events:none}
+.home-final-cta .cta h2{max-width:720px;margin:0 auto 12px!important;font-size:clamp(25px,3.4vw,40px)!important;line-height:1.16;letter-spacing:-.035em}
+.home-final-cta .cta p{max-width:620px;margin:0 auto 20px!important;color:var(--mut)}
+.home-final-cta .cta .btn{margin-top:8px;min-height:48px;padding-inline:24px;box-shadow:0 8px 24px rgba(56,189,248,.16);transition:transform .22s ease,box-shadow .22s ease}
+.home-final-cta .cta .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(56,189,248,.23)}
+.home-final-cta .cta.rv.in{animation:chapterCtaEnter .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes chapterCtaAura{to{transform:translate3d(0,12px,0) scale(1.13);opacity:.72}}
+@keyframes chapterCtaEnter{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.home-final-formula{position:relative;padding:0 0 clamp(26px,5vw,52px);overflow:hidden}
+.home-final-formula .science-formula-ticker{margin:0;border-block-color:rgba(125,211,252,.18);background:linear-gradient(90deg,rgba(5,16,27,.12),rgba(10,34,53,.74),rgba(5,16,27,.12));box-shadow:0 -12px 42px rgba(14,165,233,.035)}
+.home-final-formula .science-formula-track{padding:19px 0;text-shadow:0 0 16px rgba(56,189,248,.12)}
+/* Restore a little of the lower horizon glow without reintroducing oversized balls. */
+.horizon{background:radial-gradient(95% 75% at 50% 135%,color-mix(in srgb,var(--glow) 37%,transparent),color-mix(in srgb,var(--glow) 13%,transparent) 42%,transparent 74%)}
+.horizon .hb1{opacity:.15}.horizon .hb2{opacity:.15}.horizon .hb3{opacity:.17}
+.horizon .hl{opacity:.20;box-shadow:0 0 22px 4px color-mix(in srgb,var(--glow) 23%,transparent)}
+.home-science-outro:before{background:radial-gradient(ellipse at 50% 100%,rgba(14,165,233,.115),transparent 68%)}
+@media(max-width:720px){.home-final-cta{padding:22px 0 16px!important}.home-final-cta .cta{border-radius:19px!important;padding:28px 18px!important}.home-final-cta .cta h2{font-size:27px!important}.home-final-formula{padding-bottom:28px}.home-final-formula .science-formula-track{padding:14px 0}.horizon .hb1,.horizon .hb2,.horizon .hb3{opacity:.11}}
+@media(prefers-reduced-motion:reduce){.home-final-cta .cta:before,.home-final-cta .cta.rv.in{animation:none!important}.home-final-cta .cta .btn{transition:none!important}}
