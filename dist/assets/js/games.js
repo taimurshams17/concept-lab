@@ -14,18 +14,18 @@ function keyhandler(r,fn){function h(e){if(!r.isConnected){document.removeEventL
 function flameSvg(c){return'<svg viewBox="0 0 200 240" class="flame-svg"><defs><radialGradient id="fgg" cx="50%" cy="85%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="'+c+'"/><stop offset="1" stop-color="'+c+'" stop-opacity="0"/></radialGradient></defs><ellipse cx="100" cy="140" rx="90" ry="104" fill="url(#fgg)" opacity=".55"/><path class="fl1" d="M100 24C132 70 150 100 144 140C140 176 120 190 100 190C80 190 60 176 56 140C50 100 68 70 100 24Z" fill="'+c+'" opacity=".92"/><path class="fl2" d="M100 70C122 100 130 120 126 146C123 170 112 182 100 182C88 182 77 170 74 146C70 120 78 100 100 70Z" fill="#fff" opacity=".6"/><rect x="86" y="188" width="28" height="36" rx="4" fill="#475569"/><rect x="72" y="222" width="56" height="10" rx="4" fill="#334155"/></svg>'}
 
 /* ================= Quiz Blitz ================= */
-G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a}});
+G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
  if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
  if(pool.length<2)return empty(r,'Add some questions in the admin panel to play this game.');
- var T=+d.time||60,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0;
+ var T=+d.time||60,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}
  function nxt(){if(!order.length)order=sh(pool.slice());cur=order.pop();var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');lock=false}
  qa(r,'#qa').onclick=function(e){var b=e.target.closest('.opt');if(!b||lock||over)return;lock=true;var ok=b.dataset.ok=='1';
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')})}
-  h();if(lives<=0)return setTimeout(end,800);setTimeout(nxt,ok?320:950)};
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<12)missed.push({q:cur.q,a:cur.o[cur.a],e:cur.e});if(cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}}
+  h();if(lives<=0)return setTimeout(end,cur.e&&!ok?1800:800);setTimeout(nxt,ok?320:(cur.e?1900:950))};
  A.every(r,150,function(){var left=T-(performance.now()-t0)/1000;qa(r,'#tm').textContent=Math.max(0,Math.ceil(left));qa(r,'#tb').style.width=Math.max(0,left/T*100)+'%';if(left<=0)end()});
- function end(){if(over)return;over=true;A.done({score:score,pct:Math.min(1,score/200),detail:correct+' correct'})}
+ function end(){if(over)return;over=true;A.done({score:score,pct:Math.min(1,score/200),detail:correct+' correct',review:missed})}
  h();nxt()};
 
 /* ================= Formula Memory ================= */
@@ -41,16 +41,16 @@ G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(f
 
 /* ================= True or False ================= */
 G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});if(items.length<2)return empty(r,'Add statements in the admin panel.');
- var list=sh(items.slice()).slice(0,10),i=0,lives=3,score=0,combo=0,right=0,lock=false,over=false;
+ var list=sh(items.slice()).slice(0,10),i=0,lives=3,score=0,combo=0,right=0,lock=false,over=false,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],['Card','pg','']])+'<div class="card tfc" id="tc"></div>';
  function isT(it){return it.t===true||String(it.t)==='true'||String(it.t)==='1'}
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives);qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length}
  function show(){lock=false;qa(r,'#tc').innerHTML='<p class="bn qt">'+E(list[i].s)+'</p><div class="tfrow"><button class="tfb t" data-v="1">✔ '+E(X('g_true'))+' <small>←</small></button><button class="tfb f" data-v="0">✘ '+E(X('g_false'))+' <small>→</small></button></div><p class="ex" id="ex"></p><div id="nx"></div>';h()}
  function ans(v){if(lock||over)return;lock=true;var it=list[i],ok=(v==isT(it));qq(r,'.tfb').forEach(function(b){var bv=b.dataset.v=='1';b.classList.add(bv==isT(it)?'ok':(bv==v?'no':'dim'))});
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--}qa(r,'#ex').innerHTML=(ok?'✔ ':'✘ ')+E(it.e||'');h();
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--;if(missed.length<12)missed.push({q:it.s,a:isT(it)?'সত্য':'মিথ্যা',e:it.e||''})}qa(r,'#ex').innerHTML=(ok?'✔ ':'✘ ')+E(it.e||'');h();
   if(lives<=0||i>=list.length-1){setTimeout(end,1400)}else{qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+E(X('g_next'))+'</button>';qa(r,'#nb').onclick=nx}}
  function nx(){i++;show()}
- function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct'})}
+ function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct',review:missed})}
  r.onclick=function(e){var b=e.target.closest('.tfb');if(b)ans(b.dataset.v=='1')};
  keyhandler(r,function(e){if(e.key=='ArrowLeft')ans(true);else if(e.key=='ArrowRight')ans(false);else if((e.key=='Enter'||e.key==' ')&&lock){var nb=qa(r,'#nb');if(nb){e.preventDefault();nb.click()}}});show()};
 
@@ -314,4 +314,40 @@ G.trendDuel=function(r,g,A){
  }
  show();
 };
+
+/* ================= Odd One Out ================= */
+G.oddOne=function(r,g,A){var X=A.X,E=A.E,sets=((g.data||{}).sets||[]).filter(function(s){return s&&Array.isArray(s.i)&&s.i.filter(Boolean).length>=3&&s.i[+s.odd]!=null&&String(s.i[+s.odd]).trim()!==''});
+ if(sets.length<2)return empty(r,'Add at least 2 sets in the admin panel.');
+ var list=sh(sets.slice()).slice(0,8),i=0,score=0,combo=0,right=0,lock=false,over=false,missed=[];
+ r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],['Round','pg','']])+'<div class="card" id="oc"></div>';
+ function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/2));qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length}
+ function show(){lock=false;var s=list[i],opts=sh(s.i.map(function(t,k){return{t:t,k:k}}).filter(function(o){return o.t!=null&&String(o.t).trim()!==''}));
+  qa(r,'#oc').innerHTML='<p class="bn qt">'+E(s.q||'কোনটি অন্যগুলোর মতো নয়?')+'</p><div class="odd-grid">'+opts.map(function(o){return'<button class="opt" data-k="'+o.k+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div>';h()}
+ function pick(b){if(lock||over)return;lock=true;var s=list[i],k=+b.dataset.k,odd=+s.odd,ok=k===odd;
+  qq(r,'.opt').forEach(function(o){if(+o.dataset.k===odd)o.classList.add('ok');else if(o===b)o.classList.add('no');else o.classList.add('dim')});
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/2));right++}else{combo=0;if(missed.length<12)missed.push({q:(s.q||'অন্যরকমটি কোনটি?')+' ('+s.i.filter(Boolean).join(', ')+')',a:s.i[odd],e:s.why||''})}
+  qa(r,'#ex').textContent=(ok?'✔ ':'✘ সঠিক উত্তর: '+s.i[odd]+'। ')+(s.why||'');h();
+  var last=i>=list.length-1;qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+(last?'ফলাফল দেখুন →':E(X('g_next')))+'</button>';
+  qa(r,'#nb').onclick=function(){if(last)return end();i++;show()}}
+ function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct',review:missed})}
+ r.onclick=function(e){var b=e.target.closest('.opt');if(b&&b.closest('#oc'))pick(b)};show()};
+
+/* ================= Step Order ================= */
+G.stepOrder=function(r,g,A){var X=A.X,E=A.E,puz=((g.data||{}).puzzles||[]).filter(function(p){return p&&Array.isArray(p.steps)&&p.steps.filter(function(s){return s&&String(s).trim()}).length>=3}).map(function(p){return{t:p.t||'ধাপগুলো সাজান',steps:p.steps.filter(function(s){return s&&String(s).trim()}),why:p.why||''}});
+ if(puz.length<1)return empty(r,'Add at least 1 puzzle in the admin panel.');
+ var list=sh(puz.slice()).slice(0,5),i=0,score=0,total=0,over=false,missed=[],mist=0,placed=0,order=[];
+ r.innerHTML=hud([[X('g_score'),'sc',0],['Puzzle','pg',''],['ভুল চাল','ms',0]])+'<div class="card" id="sc2"></div>';
+ function h(){qa(r,'#sc').textContent=score;qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length;qa(r,'#ms').textContent=mist}
+ function show(){var p=list[i];mist=0;placed=0;order=sh(p.steps.map(function(t,k){return{t:t,k:k}}));
+  qa(r,'#sc2').innerHTML='<p class="bn qt">'+E(p.t)+'</p><p class="mutt">ধাপগুলো সঠিক ক্রমে একটি একটি করে ট্যাপ করুন।</p><ol class="step-done" id="sd"></ol><div class="step-bank" id="sb">'+order.map(function(o){return'<button class="opt step-chip" data-k="'+o.k+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div>';h()}
+ function tap(b){if(over||b.disabled)return;var p=list[i],k=+b.dataset.k;
+  if(k===placed){b.disabled=true;b.classList.add('ok');var li=document.createElement('li');li.textContent=p.steps[k];qa(r,'#sd').appendChild(li);b.remove();placed++;
+   if(placed===p.steps.length){var frac=Math.max(0,1-.25*mist);total+=frac;score+=Math.max(5,Math.round(30*frac));if(mist>0&&missed.length<12)missed.push({q:p.t,a:p.steps.map(function(s,n){return(n+1)+') '+s}).join(' → '),e:p.why});
+    qa(r,'#ex').textContent=(mist?'সম্পূর্ণ হয়েছে ('+mist+'টি ভুল চাল)। ':'✔ নিখুঁত! ')+(p.why||'');h();var last=i>=list.length-1;
+    qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+(last?'ফলাফল দেখুন →':E(X('g_next')))+'</button>';qa(r,'#nb').onclick=function(){if(last)return end();i++;show()}}
+   else h()}
+  else{mist++;b.classList.add('no');setTimeout(function(){b.classList.remove('no')},450);qa(r,'#ex').textContent='✘ এটি এখন নয়—আগে কোন ধাপটি হবে ভাবুন।';h()}}
+ function end(){if(over)return;over=true;A.done({score:score,pct:total/list.length,detail:Math.round(total*10)/10+' / '+list.length+' puzzles solved cleanly',review:missed})}
+ r.onclick=function(e){var b=e.target.closest('.step-chip');if(b)tap(b)};show()};
+
 return G})();

@@ -1,9 +1,23 @@
 import { getStore } from "@netlify/blobs";
-import { scryptSync, randomBytes, timingSafeEqual, createHmac } from "node:crypto";
+import { scryptSync, randomBytes, timingSafeEqual, createHmac, createHash } from "node:crypto";
 
 export const config = { path: "/api/*" };
 
 const st = () => getStore("conceptlab");
+const hs = () => getStore("history");
+const ss = () => getStore("sync");
+const keyOf = (email) => createHash("sha256").update(String(email)).digest("hex").slice(0, 40);
+const HISTORY_MAX = 20;
+async function snapshot(content, by) {
+  const idx = (await st().get("historyIndex", { type: "json" })) || [];
+  const id = "v" + Date.now().toString(36) + randomBytes(2).toString("hex");
+  await hs().setJSON(id, content);
+  idx.unshift({ id, at: new Date().toISOString(), by: String(by || ""), bytes: JSON.stringify(content).length, chapters: Array.isArray(content.chapters) ? content.chapters.length : 0 });
+  const drop = idx.splice(HISTORY_MAX);
+  for (const d of drop) { try { await hs().delete(d.id); } catch {} }
+  await st().setJSON("historyIndex", idx);
+  return id;
+}
 const ms = () => getStore("media");
 const J = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 const H = (p, s) => scryptSync(p, s, 32).toString("hex");
@@ -44,7 +58,8 @@ function mk(us, b) {
 function users_ok(rec, p) { if (!rec) return false; const a = Buffer.from(H(p, rec.s)), b = Buffer.from(rec.h); return a.length === b.length && timingSafeEqual(a, b); }
 const SIMS = ["bohr", "rutherford", "rutherfordModel", "line", "force", "flame", "wave", "projectile", "pendulum", "spring", "circuit", "gas", "vectors", "unit", "tangent", "matrix", "circle", "kinetics", "equilibrium", "ph", "titration", "electrochem", "optics", "magnetic", "periodic", "bond", "stoich", "integration", "probability", "dalton", "atomBasics", "atomCounting", "thomson", "cathode", "spectrum", "emissionLines", "planckQuantum", "deBroglie", "uncertainty", "quantumNumbers", "quantum", "quantumSpin", "spinOrbitalDiagram", "orbitals", "orbitalCapacity", "aufbau", "nplusl", "pauli", "isotope", "isotopeCompare", "atomicNotation", "atomicNotation2", "valence", "hund", "ionization", "electroncloud", "isotone", "shellCapacity", "orbitalCount", "aufbauOrder", "hundRule", "electronConfig", "valenceShell", "custom", "none"];
 const SEC_TYPES = ["marquee", "stats", "goals", "stages", "lab", "arcade", "purpose", "features", "roadmap", "subjects", "faq", "cta", "text"];
-const GAME_TYPES = ["blitz", "memory", "tf", "scramble", "balance", "cannon", "slope", "flame"];
+const GAME_TYPES = ["blitz", "memory", "tf", "scramble", "balance", "cannon", "slope", "flame", "periodic", "massAtlas", "elementSprint", "trendDuel", "oddOne", "stepOrder"];
+const MISSION_GOALS = ["stages", "quiz", "games", "sims", "daily", "xp", "perfect", "review"];
 const BADGE_KINDS = ["xp", "stages", "sims", "games", "streak", "perfect"];
 const isId = (v, n = 40) => typeof v === "string" && new RegExp("^[a-zA-Z0-9_-]{1,%d}$".replace("%d", n)).test(v);
 function validateExtra(b) {
@@ -67,6 +82,29 @@ function validateExtra(b) {
   if (b.labs != null) {
     if (!Array.isArray(b.labs) || b.labs.length > 250) throw new Error("Invalid simulations list");
     for (const l of b.labs) if (!l || !isId(l.id) || !SIMS.includes(l.sim) || typeof l.t !== "string") throw new Error("Invalid simulation entry");
+  }
+  if (b.deletedGames != null && (!Array.isArray(b.deletedGames) || b.deletedGames.length > 80 || b.deletedGames.some((x) => !isId(x)))) throw new Error("Invalid deleted games list");
+  if (b.daily != null) {
+    const d = b.daily;
+    if (typeof d !== "object" || Array.isArray(d)) throw new Error("Invalid daily challenge settings");
+    if (d.count != null && !(Number(d.count) >= 1 && Number(d.count) <= 20)) throw new Error("Daily question count must be 1-20");
+    if (d.xp != null && !(Number(d.xp) >= 0 && Number(d.xp) <= 500)) throw new Error("Invalid daily XP");
+    if (d.pinned != null && (!Array.isArray(d.pinned) || d.pinned.length > 40 || d.pinned.some((x) => typeof x !== "string" || x.length > 80))) throw new Error("Invalid pinned daily questions");
+  }
+  if (b.missions != null) {
+    if (!Array.isArray(b.missions) || b.missions.length > 80) throw new Error("Invalid missions");
+    const ids = new Set();
+    for (const m of b.missions) {
+      if (!m || !isId(m.id) || ids.has(m.id) || typeof m.t !== "string") throw new Error("Invalid mission");
+      ids.add(m.id);
+      if (m.goals != null && (!Array.isArray(m.goals) || m.goals.length > 12 || m.goals.some((g) => !g || !MISSION_GOALS.includes(g.k) || !(Number(g.n) >= 1 && Number(g.n) <= 1000)))) throw new Error("Invalid mission goal");
+    }
+  }
+  if (b.practice != null) {
+    const p = b.practice;
+    if (typeof p !== "object" || Array.isArray(p)) throw new Error("Invalid practice settings");
+    if (p.intervals != null && (!Array.isArray(p.intervals) || p.intervals.length < 1 || p.intervals.length > 8 || p.intervals.some((x) => !(Number(x) >= 0 && Number(x) <= 365)))) throw new Error("Revision intervals must be 1-8 numbers of days (0-365)");
+    if (p.sessionSize != null && !(Number(p.sessionSize) >= 1 && Number(p.sessionSize) <= 50)) throw new Error("Practice session size must be 1-50");
   }
   if (b.gam != null) {
     if (typeof b.gam !== "object") throw new Error("Invalid rewards");
@@ -183,10 +221,30 @@ export default async (req) => {
       if (m === "GET") return J({ user: { name: rec.name, email: rec.email, xp: Math.max(0, Number(rec.xp) || 0) } });
       if (m === "POST") {
         const delta = Math.floor(Number(body.delta));
-        if (!Number.isFinite(delta) || delta < 1 || delta > 100) return J({ error: "Invalid XP award" }, 400);
+        if (!Number.isFinite(delta) || delta < 1 || delta > 600) return J({ error: "Invalid XP award" }, 400);
         rec.xp = Math.max(0, Number(rec.xp) || 0) + delta;
         all[email] = rec; await st().setJSON("students", all);
         return J({ xp: rec.xp });
+      }
+      return J({ error: "Method not allowed" }, 405);
+    }
+    if (p === "/student-sync") {
+      const email = await whoStudent(req);
+      if (!email) return J({ error: "Please sign in again" }, 401);
+      if (m === "GET") {
+        const row = await ss().get(keyOf(email), { type: "json" });
+        return J({ sync: row || null });
+      }
+      if (m === "PUT") {
+        const d = body && body.data;
+        if (!d || typeof d !== "object" || Array.isArray(d)) return J({ error: "Invalid sync data" }, 400);
+        const out = {};
+        for (const k of ["cl", "cl2", "study", "mis"]) { if (d[k] != null) { if (typeof d[k] !== "object" || Array.isArray(d[k])) return J({ error: "Invalid sync data" }, 400); out[k] = d[k]; } }
+        if (out.cl2) delete out.cl2.xp;
+        if (JSON.stringify(out).length > 250000) return J({ error: "Progress data is too large to sync" }, 413);
+        const row = { at: new Date().toISOString(), data: out };
+        await ss().setJSON(keyOf(email), row);
+        return J({ saved: true, at: row.at });
       }
       return J({ error: "Method not allowed" }, 405);
     }
@@ -217,7 +275,43 @@ export default async (req) => {
       return J({ removed: true });
     }
     if (p === "/student-stats" && m === "GET") { const all = await students(); const rows = Object.values(all).map((u) => ({ name: String(u.name || "Student"), email: String(u.email || ""), school: String(u.school || ""), xp: Math.max(0, Number(u.xp) || 0), createdAt: u.createdAt || null })).sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || ""))); return J({ count: rows.length, students: rows }); }
-    if (p === "/content" && m === "PUT") { validate(body); await st().setJSON("content", body); return J({ saved: true }); }
+    if (p === "/content" && m === "PUT") {
+      validate(body);
+      const prev = await st().get("content", { type: "json" });
+      if (prev && Object.keys(prev).length) { try { await snapshot(prev, me); } catch {} }
+      await st().setJSON("content", body);
+      return J({ saved: true });
+    }
+    if (p === "/content-history" && m === "GET") return J({ items: (await st().get("historyIndex", { type: "json" })) || [] });
+    if (p === "/content-history" && m === "POST") {
+      const id = String(body.id || "");
+      if (!/^v[a-z0-9]{4,30}$/.test(id)) throw new Error("Invalid version id");
+      const old = await hs().get(id, { type: "json" });
+      if (!old) throw new Error("That version no longer exists");
+      validate(old);
+      const cur = await st().get("content", { type: "json" });
+      if (cur && Object.keys(cur).length) { try { await snapshot(cur, me + " (before restore)"); } catch {} }
+      await st().setJSON("content", old);
+      return J({ restored: true });
+    }
+    if (p === "/student-insights" && m === "GET") {
+      const all = Object.values(await students()).slice(0, 400);
+      let withSync = 0, active7 = 0, attempts = 0, accSum = 0, accN = 0, streakBest = 0;
+      const missed = {}, dayCount = {};
+      const since = Date.now() - 7 * 864e5;
+      for (const u of all) {
+        const row = await ss().get(keyOf(u.email), { type: "json" }).catch(() => null);
+        if (!row || !row.data) continue;
+        withSync++;
+        if (Date.parse(row.at || 0) >= since) active7++;
+        const study = row.data.study || {};
+        (study.history || []).forEach((h) => { attempts++; if (Number.isFinite(h.accuracy)) { accSum += h.accuracy; accN++; } });
+        (study.review || []).forEach((r) => { if (r && r.conceptId) missed[r.conceptId] = (missed[r.conceptId] || 0) + (Number(r.wrongCount) || 1); });
+        streakBest = Math.max(streakBest, Number((row.data.cl2 || {}).streak) || 0);
+      }
+      const top = Object.entries(missed).sort((a, b) => b[1] - a[1]).slice(0, 15).map(([conceptId, wrong]) => ({ conceptId, wrong }));
+      return J({ students: all.length, withSync, active7, attempts, avgAccuracy: accN ? Math.round(accSum / accN) : null, bestStreak: streakBest, topMissed: top, dayCount });
+    }
     if (p === "/media-list" && m === "GET") {
       const { blobs } = await ms().list();
       return J({ items: await Promise.all(blobs.map(async (b) => ({ id: b.key, name: (await ms().getMetadata(b.key))?.metadata?.name || b.key, url: "/api/media/" + b.key }))) });

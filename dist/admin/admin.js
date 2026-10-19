@@ -3,8 +3,8 @@
   var T = localStorage.getItem('clt') || '', ME = localStorage.getItem('clu') || '', D = null, sec = 'dashboard', cur = -1, dirty = false;
   var SUBS = {}, DEF = window.CL_DEF, SCH = window.CL_SCHEMA;
   var SIMS = { atomBasics: 'Atom structure / particle counts', rutherfordModel: 'Rutherford nuclear atom model', planckQuantum: 'Planck energy quanta', deBroglie: 'de Broglie matter wave', uncertainty: 'Heisenberg uncertainty', quantumNumbers: 'Four quantum-number validator', spinOrbitalDiagram: 'Electron spin & orbital diagram', bohr: 'Bohr shell explorer', rutherford: 'Rutherford alpha scattering', dalton: 'Dalton atom model', atomCounting: 'Atom counting model', thomson: 'Thomson plum-pudding model', cathode: 'Cathode-ray tube', spectrum: 'Energy-level spectrum', emissionLines: 'Emission transition', quantum: 'Quantum-number validity', quantumSpin: 'Electron spin selector', orbitals: 'Orbital shape explorer', orbitalCapacity: 'Subshell capacity', aufbau: 'Orbital filling diagram', nplusl: '(n+l) filling rule', pauli: 'Pauli exclusion model', isotope: 'Nucleus / isotope model', isotone: 'Isotone comparison', atomicNotation: 'Atomic notation calculator', atomicNotation2: 'Nuclide symbol builder', valence: 'Valence-electron model', hund: 'Hund rule (p orbitals)', ionization: 'Ionization-energy trend', electroncloud: 'Electron probability cloud', isotopeCompare: 'Isotope comparison', shellCapacity: '2n² shell capacity', orbitalCount: 'Orbital count by l', aufbauOrder: 'Aufbau order explorer', hundRule: 'Hund rule (d orbitals)', electronConfig: 'Electron configuration builder', valenceShell: 'Valence shell explorer', line: 'Straight line graph', force: 'Force and motion', flame: 'Flame test colours', wave: 'Wave machine', projectile: 'Projectile launcher', pendulum: 'Pendulum', spring: 'Spring and mass', circuit: 'Ohm’s law circuit', gas: 'Gas particles', vectors: 'Vector adder', unit: 'Unit circle', tangent: 'Derivative / tangent zoom', matrix: 'Matrix transformer', circle: 'Circle explorer', kinetics: 'Reaction kinetics', equilibrium: 'Chemical equilibrium', ph: 'pH explorer', titration: 'Acid–base titration', electrochem: 'Electrochemical cell', optics: 'Thin lens optics', magnetic: 'Magnetic field', periodic: 'Periodic trends', bond: 'Chemical bonding & polarity', stoich: 'Stoichiometry / limiting reagent', integration: 'Definite integral area model', probability: 'Probability trials', custom: 'Custom (paste your own HTML/JS)', none: 'No simulation' };
-  var NAV = [['dashboard', 'Dashboard'], ['students', 'Students & Accounts'], ['feedback', 'Feedback'], ['home', 'Home Page'], ['chapters', 'Chapters'], ['games', 'Games (Arcade)'], ['labs', 'Simulations (Lab)'], ['rewards', 'XP & Badges'], ['subjects', 'Subjects'], ['texts', 'All Texts'], ['media', 'Images / Media'], ['theme', 'Theme / Colors'], ['settings', 'Website Settings'], ['team', 'Team & Password']];
-  var TITLES = { dashboard: 'Dashboard', students: 'Students & Accounts', feedback: 'Feedback', home: 'Home Page', chapters: 'Chapters', games: 'Games (Arcade)', labs: 'Simulations (Lab)', rewards: 'XP & Badges', theme: 'Theme / Colors', settings: 'Website Settings', team: 'Team & Password', subjects: 'Subjects', texts: 'All Texts', media: 'Images / Media' };
+  var NAV = [['dashboard', 'Dashboard'], ['students', 'Students & Accounts'], ['feedback', 'Feedback'], ['home', 'Home Page'], ['roadmap', 'Roadmap'], ['chapters', 'Chapters'], ['games', 'Games (Arcade)'], ['labs', 'Simulations (Lab)'], ['daily', 'Daily & Missions'], ['practice', 'Practice & Sync'], ['questions', 'Question Bank'], ['insights', 'Learning Insights'], ['health', 'Content Health'], ['backup', 'Backup & History'], ['rewards', 'XP & Badges'], ['subjects', 'Subjects'], ['texts', 'All Texts'], ['media', 'Images / Media'], ['theme', 'Theme / Colors'], ['settings', 'Website Settings'], ['team', 'Team & Password']];
+  var TITLES = { daily: 'Daily Challenge & Missions', practice: 'Smart Practice & Cloud Sync', questions: 'Question Bank', insights: 'Learning Insights', health: 'Content Health', backup: 'Backup & Version History', dashboard: 'Dashboard', students: 'Students & Accounts', feedback: 'Feedback', home: 'Home Page', roadmap: 'Roadmap', chapters: 'Chapters', games: 'Games (Arcade)', labs: 'Simulations (Lab)', rewards: 'XP & Badges', theme: 'Theme / Colors', settings: 'Website Settings', team: 'Team & Password', subjects: 'Subjects', texts: 'All Texts', media: 'Images / Media' };
   var YN = { 1: 'Visible', 0: 'Hidden' };
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
   function rid(p) { return (p || 'x') + '-' + Date.now().toString(36) + Math.floor(Math.random() * 1e3).toString(36); }
@@ -28,6 +28,9 @@
 
   /* ---------- generic list editor ---------- */
   var TPL = {
+    mission: function () { return { id: rid('m'), i: '🎯', t: 'New mission', d: '', s: '', xp: 20, on: true, link: '#/chapters', hint: '', goals: [{ k: 'stages', n: 3 }] }; },
+    g_odd: function () { return { q: '', i: ['', '', '', ''], odd: 0, why: '' }; },
+    g_step: function () { return { t: '', steps: ['', '', '', ''], why: '' }; },
     sec_t: function () { return { t: 'New' }; },
     sec_stat: function () { return { t: 'New number', k: 'custom', v: '10' }; },
     sec_goal: function () { return { i: '⭐', t: 'New card', p: '' }; },
@@ -71,9 +74,15 @@
     qcDefaults.forEach(function(dc){ var ex=d.chapters.filter(function(c){return c.id===dc.id})[0]; if(!ex){d.chapters.push(clone(dc));} });
     def.chapters.filter(function(c){return /^qc-\d+$/.test(c.id)}).forEach(function(dc){var ex=d.chapters.filter(function(c){return c.id===dc.id})[0];if(ex&&ex.sim==='bohr'&&dc.sim&&dc.sim!=='bohr')ex.sim=dc.sim;if(ex&&dc.id==='qc-01'&&ex.sim==='dalton')ex.sim='atomBasics';});
     d.home = d.home && d.home.sections ? d.home : def.home;
+    if (d.home && Array.isArray(d.home.sections) && !d.home.sections.some(function (x) { return x && (x.id === 's-ayat-hadith' || x.type === 'ayatHadith'); })) {
+      var ahSection = (def.home.sections || []).filter(function (x) { return x.id === 's-ayat-hadith'; })[0];
+      if (ahSection) { var stageIndex = d.home.sections.findIndex(function (x) { return x && (x.id === 's-stages' || x.type === 'stages'); }); d.home.sections.splice(stageIndex >= 0 ? stageIndex + 1 : d.home.sections.length, 0, clone(ahSection)); }
+    }
     d.games = Array.isArray(d.games) ? d.games : def.games;
     d.labs = Array.isArray(d.labs) ? d.labs : def.labs;
     d.gam = Object.assign({}, def.gam, d.gam || {});
+    d.daily = Object.assign({}, def.daily, d.daily || {}); d.practice = Object.assign({}, def.practice, d.practice || {}); d.missions = Array.isArray(d.missions) ? d.missions : def.missions; d.deletedGames = Array.isArray(d.deletedGames) ? d.deletedGames : [];
+    (def.games || []).forEach(function (g) { if (/^(odd-one|step-order|periodic-quest|element-sprint|trend-duel)/.test(g.id) && !d.games.some(function (x) { return x.id === g.id; }) && d.deletedGames.indexOf(g.id) < 0) d.games.push(clone(g)); });
     d.texts = d.texts || {};
     CL_TXT.forEach(function (g) { g[1].forEach(function (t) { if (d.texts[t[0]] == null || d.texts[t[0]] === '') d.texts[t[0]] = t[2]; }); });
     d.chapters.forEach(function (c) { c.blocks = c.blocks || []; c.q = c.q || []; });
@@ -96,14 +105,15 @@
     }).catch(function (e) { if (T) return; root.innerHTML = '<div class="auth"><div class="card2"><h1>Cannot reach the server</h1><p>The admin panel works only on the deployed Netlify site (deployed from GitHub). ' + E(e.message) + '</p></div></div>'; });
   }
   function shell() {
-    root.innerHTML = '<div class="app"><aside class="sb"><div class="who"><div class="av">' + E((ME || 'A').slice(0, 2).toUpperCase()) + '</div><div><b>' + E(D.settings.siteName || 'ConceptLab') + '</b><a href="/" target="_blank">View live site ↗</a></div></div><nav>' + NAV.map(function (n) { return '<button data-s="' + n[0] + '">' + n[1] + '</button>'; }).join('') + '</nav><button class="so" id="so">Sign Out</button></aside><main class="mn"><header class="tp"><div><h1 id="ttl"></h1><p>Signed in as <b>' + E(ME) + '</b></p></div><div class="act"><span id="dot"></span><a class="b2" href="/" target="_blank">Preview Site</a><button class="b1" id="sv">Save changes</button></div></header><div id="body"></div></main></div>';
-    $('#so').onclick = out; $('#sv').onclick = save;
+    root.innerHTML = '<div class="app"><aside class="sb"><div class="who"><div class="av">' + E((ME || 'A').slice(0, 2).toUpperCase()) + '</div><div><b>' + E(D.settings.siteName || 'ConceptLab') + '</b><a href="/" target="_blank">View live site ↗</a></div></div><nav>' + NAV.map(function (n) { return '<button data-s="' + n[0] + '">' + n[1] + '</button>'; }).join('') + '</nav><button class="so" id="so">Sign Out</button></aside><main class="mn"><header class="tp"><div><h1 id="ttl"></h1><p>Signed in as <b>' + E(ME) + '</b></p></div><div class="act"><span id="dot"></span><button class="b2" id="gsb">🔍 Search</button><a class="b2" href="/" target="_blank">Preview Site</a><button class="b1" id="sv">Save changes</button></div></header><div id="body"></div></main></div>';
+    $('#so').onclick = out; $('#sv').onclick = save; $('#gsb').onclick = openSearch;
     document.querySelectorAll('.sb nav button').forEach(function (b) { b.onclick = function () { sec = b.dataset.s; cur = -1; view(); }; });
     $('#body').oninput = onIn; $('#body').onchange = onIn; $('#body').onclick = onClick; view();
   }
-  function save() { api('PUT', '/content', D).then(function () { dirty = false; $('#dot').className = ''; toast('Saved. Changes are live.'); }).catch(function (e) { toast(e.message, 1); }); }
+  function save() { normExtra(); api('PUT', '/content', D).then(function () { dirty = false; $('#dot').className = ''; toast('Saved. Changes are live.'); }).catch(function (e) { toast(e.message, 1); }); }
   function mark() { dirty = true; var d = $('#dot'); if (d) d.className = 'on'; }
   function onIn(e) {
+    if (e.target.id === 'qbq') { qb.q = e.target.value; qb.page = 0; if (e.type === 'change') view(); return; }
     var p = e.target.dataset && e.target.dataset.p; if (!p) return;
     var v = e.target.value; if (/\.a$/.test(p)) v = +v; if (e.target.dataset.num) v = v === '' ? '' : +v; if (/\.on$/.test(p)) v = (v === '1'); set(D, p, v); mark();
     if (e.type === 'change' && /\.(status|sim)$|blocks\.\d+\.t$/.test(p)) view();
@@ -113,7 +123,7 @@
     sync();
     var t = TITLES[sec]; if (cur >= 0 && { chapters: 1, home: 1, games: 1, labs: 1 }[sec]) t = { chapters: 'Edit concept', home: 'Edit section', games: 'Edit game', labs: 'Edit simulation' }[sec];
     $('#ttl').textContent = t;
-    var V = { dashboard: vDash, students: vStudents, feedback: vFeedback, home: cur >= 0 ? vSecEdit : vHome, chapters: cur >= 0 ? vEdit : vChapters, games: cur >= 0 ? vGameEdit : vGames, labs: cur >= 0 ? vLabEdit : vLabs, rewards: vRewards, theme: vTheme, settings: vSet, team: vTeam, subjects: vSubs, texts: vTexts, media: vMedia };
+    var V = { dashboard: vDash, students: vStudents, feedback: vFeedback, home: cur >= 0 ? vSecEdit : vHome, roadmap: vRoadmap, chapters: cur >= 0 ? vEdit : vChapters, games: cur >= 0 ? vGameEdit : vGames, labs: cur >= 0 ? vLabEdit : vLabs, rewards: vRewards, daily: vDaily, practice: vPractice, questions: vQuestions, insights: vInsights, health: vHealth, backup: vBackup, theme: vTheme, settings: vSet, team: vTeam, subjects: vSubs, texts: vTexts, media: vMedia };
     $('#body').innerHTML = V[sec](); window.scrollTo(0, 0);
     if (sec === 'dashboard') loadStudentCount();
     if (sec === 'students') loadStudents();
@@ -162,7 +172,7 @@
 
   function vDash() {
     var av = D.chapters.filter(function (c) { return c.status === 'available'; }).length; var chapterNames = {}; D.chapters.forEach(function (c) { chapterNames[String(c.s) + '::' + String(c.chapterTitle || c.chapter || c.t || 'Chapter')] = 1; });
-    var cards = [['student-count', 'Student accounts', '<span id="studentCountValue">Loading…</span> registered'], ['feedback', 'Feedback', 'View messages sent by visitors'], ['home', 'Home Page', D.home.sections.length + ' sections, hero text'], ['chapters', 'Chapters & Concepts', Object.keys(chapterNames).length + ' chapters · ' + D.chapters.length + ' concepts (' + av + ' available)'], ['games', 'Games (Arcade)', D.games.length + ' games'], ['labs', 'Simulations (Lab)', D.labs.length + ' simulations'], ['rewards', 'XP & Badges', (D.gam.badges || []).length + ' badges, XP rules'], ['texts', 'All Texts', 'Change any word on the site'], ['media', 'Images / Media', 'Upload and manage images'], ['subjects', 'Subjects', D.subjects.length + ' subjects'], ['theme', 'Theme / Colors', 'Colours, glow, effects'], ['settings', 'Website Settings', 'Site name, footer, about'], ['team', 'Team & Password', 'Add your friend, change password']];
+    var cards = [['student-count', 'Student accounts', '<span id="studentCountValue">Loading…</span> registered'], ['feedback', 'Feedback', 'View messages sent by visitors'], ['home', 'Home Page', D.home.sections.length + ' sections, hero text'], ['chapters', 'Chapters & Concepts', Object.keys(chapterNames).length + ' chapters · ' + D.chapters.length + ' concepts (' + av + ' available)'], ['daily', 'Daily & Missions', (D.missions || []).length + ' missions, daily challenge'], ['practice', 'Practice & Sync', 'Revision gaps, step help, cloud sync'], ['questions', 'Question Bank', 'Edit every question & explanation'], ['insights', 'Learning Insights', 'Most-missed concepts, activity'], ['health', 'Content Health', 'Find empty or broken content'], ['backup', 'Backup & History', 'Download, restore versions'], ['games', 'Games (Arcade)', D.games.length + ' games'], ['labs', 'Simulations (Lab)', D.labs.length + ' simulations'], ['rewards', 'XP & Badges', (D.gam.badges || []).length + ' badges, XP rules'], ['texts', 'All Texts', 'Change any word on the site'], ['media', 'Images / Media', 'Upload and manage images'], ['subjects', 'Subjects', D.subjects.length + ' subjects'], ['theme', 'Theme / Colors', 'Colours, glow, effects'], ['settings', 'Website Settings', 'Site name, footer, about'], ['team', 'Team & Password', 'Add your friend, change password']];
     return '<div class="card2"><h3 class="gh">Welcome back</h3><p class="hint">Everything on the website is editable here. Pick a section, change it, then press Save changes. Saved changes go live immediately.</p><div class="dash">' + cards.map(function (c) { return c[0] === 'student-count' ? '<div class="dc student-count-card"><b>' + c[1] + '</b><span><strong id="studentCountValue">Loading…</strong> registered students</span></div>' : '<button class="dc" data-go="' + c[0] + '"><b>' + c[1] + '</b><span>' + E(c[2]) + '</span></button>'; }).join('') + '</div></div>';
   }
   function secTitle(s) { var t = SCH.secTypes[s.type]; return E(s.h ? String(s.h).replace('|', ' ') : (t ? t.n : s.type)); }
@@ -183,6 +193,26 @@
     (tp.f || []).forEach(function (fd) { h += fld(P + '.' + fd[0], fd); });
     if (tp.items) h += listEd(P + '.items', tp.items[0], tp.items[1], tp.items[2]);
     return h + '</div>';
+  }
+  function vRoadmap() {
+    var idx = (D.home.sections || []).findIndex(function (s) { return s.id === 's-road' || s.type === 'roadmap'; });
+    if (idx < 0) { toast('Roadmap section was not found in Home Page content.', 1); return '<div class="card2"><p class="hint">Roadmap section was not found. Open Home Page to check your sections.</p></div>'; }
+    var path = 'home.sections.' + idx, secRoad = D.home.sections[idx];
+    secRoad.items = Array.isArray(secRoad.items) ? secRoad.items : [];
+    var h = '<div class="card2"><p class="hint">Edit the public Roadmap section here. Change phase names, descriptions and statuses, then press <b>Save changes</b> to publish.</p>' +
+      SEL('Show Roadmap on the website?', path + '.on', YN) +
+      F('Small label', path + '.pill') +
+      F('Heading (use | to split into two lines)', path + '.h') +
+      F('Intro text', path + '.p', 'area', 3) +
+      '<h3 class="gh">Phases <span class="cnt">' + secRoad.items.length + '</span></h3>';
+    secRoad.items.forEach(function (it, i) {
+      var b = path + '.items.' + i;
+      h += '<div class="qc"><div class="qh"><b>Phase ' + (i + 1) + '</b><button data-ld="' + path + '.items|' + i + '">Delete phase</button></div>' +
+        F('Phase label', b + '.d') + F('Title', b + '.t') + F('Description', b + '.p', 'area', 3) +
+        SEL('Status', b + '.s', { done: 'Done', now: 'In progress', next: 'Coming next' }) + '</div>';
+    });
+    h += '<button class="b1" data-la="' + path + '.items" data-tpl="sec_road">+ Add phase</button></div>';
+    return h;
   }
   function vSubs() { return '<div class="card2"><p class="hint">Add or rename subjects (for example Biology, ICT). Each chapter belongs to one subject.</p>' + D.subjects.map(function (s, i) { return '<div class="it"><input class="si" data-p="subjects.' + i + '.name" value="' + E(s.name) + '"><button data-ds="' + i + '">Delete</button></div>'; }).join('') + '<br><button class="b1" id="adds">+ Add subject</button></div>'; }
   function vTexts() { return CL_TXT.map(function (g) { return '<div class="card2"><h3 class="gh">' + g[0] + '</h3>' + g[1].map(function (t) { return F(t[1], 'texts.' + t[0], t[2].length > 55 ? 'area' : 'text', 2); }).join('') + '</div>'; }).join(''); }
@@ -270,8 +300,139 @@
     mark(); toast(add + ' concepts added, ' + fill + ' concepts migrated/filled. Press Save changes.'); view();
   }
   function swap(path, i, d) { var a = get(D, path), j = i + d; if (a && a[j] !== undefined) { var t = a[i]; a[i] = a[j]; a[j] = t; mark(); view(); } }
+  /* ---------- v6 admin: daily/missions, practice, insights, question bank, health, backup, search ---------- */
+  var GOALS = { '': '— none —', stages: 'Concept stages completed', quiz: 'Quizzes completed', games: 'Games played', sims: 'Different simulations tried', daily: 'Daily challenge days done', xp: 'Total XP', perfect: 'Perfect quizzes', review: 'Correct mistake-book reviews' };
+  var qb = { q: '', f: 'all', page: 0 };
+  function subOpts() { var o = { '': 'All subjects' }; D.subjects.forEach(function (s) { o[s.id] = s.name; }); return o; }
+  function missionEd() {
+    var arr = D.missions = D.missions || [], h = '<h3 class="gh">Learning missions <span class="cnt">' + arr.length + '</span></h3><p class="hint">Each mission has up to 3 goals. A mission with a subject only counts that subject\'s stages and quizzes. Students claim the XP reward when all goals are met.</p>';
+    arr.forEach(function (m, i) {
+      var B = 'missions.' + i; m.goals = m.goals || [];
+      h += '<div class="qc"><div class="qh"><b>#' + (i + 1) + ' ' + E(m.t || '') + '</b><span><button data-lm="missions|' + i + '|-1">↑</button> <button data-lm="missions|' + i + '|1">↓</button> <button data-ld="missions|' + i + '">Remove</button></span></div>' +
+        SEL('Visible?', B + '.on', YN) + '<div class="g2">' + F('Icon (emoji)', B + '.i') + F('Title', B + '.t') + '</div>' + F('Description', B + '.d', 'area', 2) + '<div class="g2">' + SEL('Subject', B + '.s', subOpts()) + F('XP reward', B + '.xp', 'num') + '</div><div class="g2">' + F('Start button link (e.g. #/chapters)', B + '.link') + F('Hint (shown under 💡)', B + '.hint') + '</div>';
+      for (var g = 0; g < 3; g++) { m.goals[g] = m.goals[g] || { k: '', n: 1 }; h += '<div class="g2">' + SEL('Goal ' + (g + 1), B + '.goals.' + g + '.k', GOALS) + F('Target number', B + '.goals.' + g + '.n', 'num') + '</div>'; }
+      h += '</div>';
+    });
+    return h + '<button class="b2" data-la="missions" data-tpl="mission">+ Add mission</button>';
+  }
+  function vDaily() {
+    D.daily = D.daily || {}; var d = D.daily, qs = [];
+    D.chapters.forEach(function (c) { if (c.status === 'available') (c.q || []).forEach(function (q, i) { qs.push([c.id + ':' + i, c.t + ' #' + (i + 1) + ' — ' + String(q.q || '').slice(0, 60)]); }); });
+    return '<div class="card2"><h3 class="gh">Daily Challenge</h3><p class="hint">Every day the site picks questions from all available chapter quizzes (same set for every student, changes at midnight). Wrong answers go to the student\'s mistake book.</p>' +
+      SEL('Show Daily Challenge?', 'daily.on', YN).replace('data-p="daily.on"', 'data-p="daily.on" data-bool="1"') + F('Page title', 'daily.title') + F('Intro text', 'daily.intro', 'area', 2) +
+      '<div class="g4">' + F('Questions per day (1-20)', 'daily.count', 'num') + F('XP for a full set', 'daily.xp', 'num') + F('Bonus XP (perfect, no hints)', 'daily.bonus', 'num') + SEL('Hint button', 'daily.hints', { 1: 'Enabled', 0: 'Disabled' }) + '</div>' +
+      '<h3 class="gh">Pinned questions <span class="cnt">' + (d.pinned || []).length + '</span></h3><p class="hint">Pinned questions always appear first (e.g. before an exam). Pick from the list; remove to unpin.</p>' +
+      (d.pinned || []).map(function (k, i) { return '<div class="it"><span>' + E(k) + '</span><span class="sp"></span><button data-unpin="' + i + '">Unpin</button></div>'; }).join('') +
+      '<div class="row2" style="margin-top:10px"><select id="pinsel">' + qs.map(function (x) { return '<option value="' + E(x[0]) + '">' + E(x[1]) + '</option>'; }).join('') + '</select><button class="b2" id="pinadd">+ Pin question</button></div></div>' +
+      '<div class="card2">' + missionEd() + '</div>';
+  }
+  function vPractice() {
+    D.practice = D.practice || {};
+    return '<div class="card2"><h3 class="gh">Smart Practice (mistake book)</h3><p class="hint">Wrong answers return after these gaps. Each correct review moves to the next gap; a wrong answer restarts from the first. After the last gap the question is mastered and removed.</p>' +
+      F('Revision gaps in days (comma separated, e.g. 1,3,7,14)', 'practice.intervals') + '<div class="g2">' + F('Questions per practice session (1-50)', 'practice.sessionSize', 'num') + SEL('Step-by-step help on hard questions', 'practice.stepHints', { 1: 'Enabled', 0: 'Disabled' }) + '</div></div>' +
+      '<div class="card2"><h3 class="gh">Cloud sync</h3><p class="hint">Signed-in students automatically sync progress, quiz history, badges, streaks, mistake book and missions across devices through this site\'s server function (Netlify Blobs). XP is always stored on the server.</p><button class="b2" id="syncTest">Check sync API</button> <span id="syncRes" class="hint"></span></div>' +
+      '<div class="card2"><h3 class="gh">Explanations</h3><p class="hint">Short explanations are shown under every wrongly answered quiz, daily and game question. Add or improve them in <b>Question Bank</b>.</p><button class="b2" data-go="questions">Open Question Bank</button></div>';
+  }
+  function vInsights() { setTimeout(loadInsights, 0); return '<div class="card2"><h3 class="gh">Learning insights</h3><p class="hint">Built from progress that students have synced to the server. Use it to find concepts whose explanations need improvement.</p><div id="insBox">Loading…</div></div>'; }
+  function loadInsights() {
+    api('GET', '/student-insights').then(function (r) {
+      var box = $('#insBox'); if (!box) return;
+      var nm = function (id) { var c = D.chapters.filter(function (x) { return x.id === id; })[0]; return c ? c.t : id; };
+      box.innerHTML = '<div class="dash">' + [['Students', r.students], ['With synced progress', r.withSync], ['Active (7 days)', r.active7], ['Quiz attempts', r.attempts], ['Average score', r.avgAccuracy == null ? '—' : r.avgAccuracy + '%'], ['Best streak', r.bestStreak]].map(function (x) { return '<div class="dc"><b>' + x[0] + '</b><span><strong>' + E(x[1]) + '</strong></span></div>'; }).join('') + '</div><h3 class="gh">Most-missed concepts</h3>' +
+        (r.topMissed.length ? r.topMissed.map(function (m) { var ix = -1; D.chapters.forEach(function (c, i) { if (c.id === m.conceptId) ix = i; }); return '<div class="it"><b>' + E(nm(m.conceptId)) + '</b><span class="mu">· ' + m.wrong + ' wrong answers</span><span class="sp"></span>' + (ix >= 0 ? '<button data-jump="chapters|' + ix + '">Edit concept</button>' : '') + '</div>'; }).join('') : '<p class="hint">No data yet.</p>');
+    }).catch(function (e) { var box = $('#insBox'); if (box) box.textContent = e.message; });
+  }
+  function qList() {
+    var out = [], q = qb.q.trim().toLowerCase();
+    D.chapters.forEach(function (c, ci) { (c.q || []).forEach(function (x, qi) {
+      var miss = !String(x.e || '').trim(), long = String(x.e || '').length > 160;
+      if (qb.f === 'noexp' && !miss) return; if (qb.f === 'long' && !long) return;
+      if (q && (String(x.q || '') + ' ' + String(x.e || '') + ' ' + c.t).toLowerCase().indexOf(q) < 0) return;
+      out.push({ ci: ci, qi: qi, c: c, x: x });
+    }); });
+    return out;
+  }
+  function vQuestions() {
+    var all = qList(), per = 15, pages = Math.max(1, Math.ceil(all.length / per)); qb.page = Math.min(qb.page, pages - 1);
+    var tot = 0, noexp = 0; D.chapters.forEach(function (c) { (c.q || []).forEach(function (x) { tot++; if (!String(x.e || '').trim()) noexp++; }); });
+    var h = '<div class="card2"><p class="hint">' + tot + ' questions in total · <b>' + noexp + '</b> without an explanation. Keep explanations short (1-2 sentences, under 160 characters).</p><div class="row2"><input id="qbq" class="srch" placeholder="Search questions, explanations, concepts…" value="' + E(qb.q) + '">' +
+      [['all', 'All'], ['noexp', 'No explanation'], ['long', 'Too long']].map(function (f) { return '<button class="' + (qb.f === f[0] ? 'b1' : 'b2') + '" data-qbf="' + f[0] + '">' + f[1] + '</button>'; }).join(' ') + '</div></div>';
+    all.slice(qb.page * per, qb.page * per + per).forEach(function (r) {
+      var B = 'chapters.' + r.ci + '.q.' + r.qi;
+      h += '<div class="qc"><div class="qh"><b>' + E(r.c.t) + ' · Q' + (r.qi + 1) + '</b><span><button data-jump="chapters|' + r.ci + '">Open concept</button></span></div>' + F('Question', B + '.q', 'area', 2) + '<div class="g2">' + [0, 1, 2, 3].map(function (k) { return F('Option ' + (k + 1), B + '.o.' + k); }).join('') + '</div>' + SEL('Correct answer', B + '.a', { 0: 'Option 1', 1: 'Option 2', 2: 'Option 3', 3: 'Option 4' }) + F('Short explanation (' + String(r.x.e || '').length + ' chars)', B + '.e', 'area', 2) + '</div>';
+    });
+    return h + '<div class="row2" style="margin-top:14px"><button class="b2" data-qbp="-1">← Prev</button><span class="hint">Page ' + (qb.page + 1) + ' / ' + pages + ' · ' + all.length + ' shown</span><button class="b2" data-qbp="1">Next →</button></div>';
+  }
+  function audit() {
+    var is = [], add = function (sev, msg, sec, cur) { is.push({ sev: sev, msg: msg, sec: sec, cur: cur }); };
+    D.chapters.forEach(function (c, i) {
+      if (c.status !== 'available') return;
+      if (!String(c.hook || '').trim()) add('warn', c.t + ': Stage 1 hook is empty', 'chapters', i);
+      if (!String(c.intu || '').trim()) add('warn', c.t + ': Stage 2 intuition is empty', 'chapters', i);
+      if (!(c.q || []).length) add('warn', c.t + ': no quiz questions', 'chapters', i);
+      (c.q || []).forEach(function (q, k) {
+        if (!String(q.q || '').trim()) add('err', c.t + ' Q' + (k + 1) + ': empty question', 'chapters', i);
+        var op = (q.o || []).map(function (o) { return String(o || '').trim(); });
+        if (op.some(function (o) { return !o; })) add('err', c.t + ' Q' + (k + 1) + ': an option is empty', 'chapters', i);
+        if (new Set(op).size < op.length) add('err', c.t + ' Q' + (k + 1) + ': duplicate options', 'chapters', i);
+        if (!String(q.e || '').trim()) add('info', c.t + ' Q' + (k + 1) + ': no explanation', 'questions', -1);
+      });
+    });
+    D.games.forEach(function (g, i) { var dt = g.data || {}, n = { blitz: (dt.q || []).length, memory: (dt.pairs || []).length, tf: (dt.items || []).length, scramble: (dt.words || []).length, balance: (dt.eqs || []).length, oddOne: (dt.sets || []).length, stepOrder: (dt.puzzles || []).length }[g.type]; if (n != null && n < 2 && !(g.type === 'blitz' && String(dt.useChapters) !== '0')) add('warn', 'Game "' + g.t + '" has too little content (' + n + ')', 'games', i); });
+    (D.missions || []).forEach(function (m, i) { if (!(m.goals || []).some(function (g) { return g.k; })) add('warn', 'Mission "' + m.t + '" has no goals', 'daily', -1); if (m.s && !SUBS[m.s]) add('err', 'Mission "' + m.t + '" uses a missing subject', 'daily', -1); });
+    return is;
+  }
+  function vHealth() {
+    var is = audit(), c = { err: 0, warn: 0, info: 0 }; is.forEach(function (x) { c[x.sev]++; });
+    return '<div class="card2"><h3 class="gh">Content health check</h3><p class="hint">Static checks of the content you are editing (not saved yet). Errors can break a question; warnings are quality gaps.</p><div class="dash"><div class="dc"><b>Errors</b><span><strong>' + c.err + '</strong></span></div><div class="dc"><b>Warnings</b><span><strong>' + c.warn + '</strong></span></div><div class="dc"><b>Notes</b><span><strong>' + c.info + '</strong></span></div></div></div><div class="card2">' +
+      (is.length ? is.slice(0, 150).map(function (x) { return '<div class="it"><span class="tg ' + (x.sev === 'err' ? '' : 'av') + '">' + x.sev + '</span><span>' + E(x.msg) + '</span><span class="sp"></span><button data-jump="' + x.sec + '|' + x.cur + '">Fix</button></div>'; }).join('') + (is.length > 150 ? '<p class="hint">…and ' + (is.length - 150) + ' more.</p>' : '') : '<p class="hint">✓ No problems found.</p>') + '</div>';
+  }
+  function vBackup() {
+    setTimeout(loadHistory, 0);
+    return '<div class="card2"><h3 class="gh">Backup file</h3><p class="hint">Download all content as a JSON file, or load a previous file. Loading only fills the editor; press Save changes to publish.</p><button class="b1" id="bkExport">⬇ Download backup</button> <button class="b2" id="bkImport">⬆ Load backup file</button></div>' +
+      '<div class="card2"><h3 class="gh">Version history</h3><p class="hint">Every save keeps the previous version (last 20). Restoring publishes that version immediately and keeps the current one as a new history entry.</p><div id="histBox">Loading…</div></div>';
+  }
+  function loadHistory() { api('GET', '/content-history').then(function (r) { var b = $('#histBox'); if (!b) return; b.innerHTML = r.items.length ? r.items.map(function (v) { return '<div class="it"><b>' + E(new Date(v.at).toLocaleString()) + '</b><span class="mu">· ' + E(v.by || '') + ' · ' + v.chapters + ' concepts · ' + Math.round(v.bytes / 1024) + ' KB</span><span class="sp"></span><button data-restore="' + E(v.id) + '">Restore</button></div>'; }).join('') : '<p class="hint">No saved versions yet. They appear after your next save.</p>'; }).catch(function (e) { var b = $('#histBox'); if (b) b.textContent = e.message; }); }
+  function normExtra() {
+    if (D.practice) { var iv = D.practice.intervals; if (typeof iv === 'string') iv = iv.split(/[,\s]+/).filter(Boolean).map(Number).filter(function (x) { return x >= 0 && x <= 365; }); if (!Array.isArray(iv) || !iv.length) iv = [1, 3, 7, 14]; D.practice.intervals = iv.slice(0, 8); D.practice.sessionSize = Math.max(1, Math.min(50, +D.practice.sessionSize || 10)); D.practice.stepHints = +D.practice.stepHints === 0 ? 0 : 1; }
+    if (D.daily) { D.daily.count = Math.max(1, Math.min(20, +D.daily.count || 5)); D.daily.xp = Math.max(0, Math.min(500, +D.daily.xp || 0)); D.daily.bonus = Math.max(0, Math.min(500, +D.daily.bonus || 0)); D.daily.hints = +D.daily.hints === 0 ? 0 : 1; D.daily.on = +D.daily.on === 0 || D.daily.on === false ? 0 : 1; D.daily.pinned = (D.daily.pinned || []).slice(0, 40); }
+    (D.missions || []).forEach(function (m) { m.goals = (m.goals || []).filter(function (g) { return g && g.k; }).map(function (g) { return { k: g.k, n: Math.max(1, Math.min(1000, +g.n || 1)) }; }); m.xp = Math.max(0, +m.xp || 0); if (typeof m.on !== 'boolean') m.on = !(m.on === 0 || m.on === '0'); m.s = m.s || ''; });
+    (D.games || []).forEach(function (g) { if (g.type === 'oddOne') (g.data.sets || []).forEach(function (s) { s.odd = +s.odd || 0; }); });
+  }
+  function globalSearch(q) {
+    q = q.trim().toLowerCase(); if (q.length < 2) return [];
+    var r = [], has = function (s) { return String(s || '').toLowerCase().indexOf(q) >= 0; };
+    D.chapters.forEach(function (c, i) { if (has(c.t) || has(c.chapterTitle) || has(c.hook) || has(c.intu)) r.push(['Concept', c.t, 'chapters', i]); (c.q || []).forEach(function (x) { if (has(x.q) || has(x.e)) r.push(['Question', c.t + ': ' + String(x.q).slice(0, 70), 'questions', -1]); }); });
+    D.games.forEach(function (g, i) { if (has(g.t) || has(g.d)) r.push(['Game', g.t, 'games', i]); });
+    (D.missions || []).forEach(function (m) { if (has(m.t) || has(m.d)) r.push(['Mission', m.t, 'daily', -1]); });
+    CL_TXT.forEach(function (g) { g[1].forEach(function (t) { if (has(t[1]) || has(D.texts[t[0]])) r.push(['Text', t[1] + ' — ' + String(D.texts[t[0]] || '').slice(0, 50), 'texts', -1]); }); });
+    D.home.sections.forEach(function (s, i) { if (has(s.h) || has(s.p) || has(s.pill)) r.push(['Home section', String(s.h || s.type).replace('|', ' '), 'home', i]); });
+    return r.slice(0, 40);
+  }
+  function openSearch() {
+    var m = document.createElement('div'); m.id = 'mdl'; m.innerHTML = '<div><div class="qh"><b>Search everything</b><span><button class="b2" id="gsx">Close</button></span></div><input id="gsq" class="srch" placeholder="Type at least 2 letters…" autofocus><div id="gsr" style="margin-top:10px"></div></div>'; document.body.appendChild(m);
+    var inp = m.querySelector('#gsq'), res = m.querySelector('#gsr'); inp.focus();
+    inp.oninput = function () { var r = globalSearch(inp.value); res.innerHTML = r.length ? r.map(function (x) { return '<div class="it"><span class="tg av">' + x[0] + '</span><span>' + E(x[1]) + '</span><span class="sp"></span><button data-jump="' + x[2] + '|' + x[3] + '">Open</button></div>'; }).join('') : '<p class="hint">' + (inp.value.trim().length < 2 ? '' : 'No results.') + '</p>'; };
+    m.querySelector('#gsx').onclick = function () { m.remove(); };
+    res.onclick = function (e) { var b = e.target.closest('[data-jump]'); if (b) { var j = b.dataset.jump.split('|'); m.remove(); sec = j[0]; cur = +j[1]; view(); } };
+  }
+  function onClick2(e) {
+    var t = e.target.closest('button'); if (!t) return false; var d = t.dataset;
+    if (d.jump) { var j = d.jump.split('|'); sec = j[0]; cur = +j[1]; view(); return true; }
+    if (d.unpin != null) { D.daily.pinned.splice(+d.unpin, 1); mark(); view(); return true; }
+    if (t.id === 'pinadd') { var v = $('#pinsel') && $('#pinsel').value; D.daily.pinned = D.daily.pinned || []; if (v && D.daily.pinned.indexOf(v) < 0) { D.daily.pinned.push(v); mark(); view(); } return true; }
+    if (d.qbf) { qb.f = d.qbf; qb.page = 0; view(); return true; }
+    if (d.qbp) { qb.page = Math.max(0, qb.page + +d.qbp); view(); return true; }
+    if (t.id === 'syncTest') { api('GET', '/student-insights').then(function (r) { $('#syncRes').textContent = '✓ Sync API reachable. ' + r.withSync + ' of ' + r.students + ' students have synced data.'; }).catch(function (x) { $('#syncRes').textContent = '✗ ' + x.message; }); return true; }
+    if (t.id === 'bkExport') { var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(D, null, 1)], { type: 'application/json' })); a.download = 'conceptlab-backup-' + new Date().toISOString().slice(0, 10) + '.json'; a.click(); return true; }
+    if (t.id === 'bkImport') { var i = document.createElement('input'); i.type = 'file'; i.accept = 'application/json'; i.onchange = function () { var f = i.files[0]; if (!f) return; var r = new FileReader(); r.onload = function () { try { var o = JSON.parse(r.result); if (!o || !Array.isArray(o.chapters) || !o.settings || !o.theme) throw new Error('Not a ConceptLab backup'); if (!confirm('Load this backup into the editor? Unsaved edits will be replaced.')) return; norm(o); mark(); toast('Backup loaded. Press Save changes to publish.'); view(); } catch (x) { toast(x.message, 1); } }; r.readAsText(f); }; i.click(); return true; }
+    if (d.restore) { if (confirm('Restore this version now? It goes live immediately.')) api('POST', '/content-history', { id: d.restore }).then(function () { return api('GET', '/content'); }).then(function (c) { norm(c); dirty = false; $('#dot').className = ''; toast('Version restored and live.'); view(); }).catch(function (x) { toast(x.message, 1); }); return true; }
+    if (t.id === 'gsb') { openSearch(); return true; }
+    return false;
+  }
   function onClick(e) {
     var t = e.target.closest('button'); if (!t) return; var d = t.dataset;
+    if (onClick2(e)) return;
     if (d.pick) return picker(d.pick);
     if (d.pdf) { var pp = d.pdf; return upPdf(function (u) { set(D, pp, u); mark(); view(); }); }
     if (t.id === 'upl') return up(function () { view(); });
@@ -282,7 +443,7 @@
     if (d.ld) { var a = d.ld.split('|'); get(D, a[0]).splice(+a[1], 1); mark(); return view(); }
     if (d.lm) { var m = d.lm.split('|'); return swap(m[0], +m[1], +m[2]); }
     if (d.tg) { var cv = get(D, d.tg); set(D, d.tg, cv === false ? true : false); mark(); return view(); }
-    if (d.dtop) { var q = d.dtop.split('|'); if (confirm('Delete this item? This cannot be undone after you save.')) { get(D, q[0]).splice(+q[1], 1); mark(); view(); } return; }
+    if (d.dtop) { var q = d.dtop.split('|'); if (confirm('Delete this item? This cannot be undone after you save.')) { if (q[0] === 'games') { var gx = D.games[+q[1]]; if (gx) { D.deletedGames = D.deletedGames || []; D.deletedGames.push(gx.id); } } get(D, q[0]).splice(+q[1], 1); mark(); view(); } return; }
     /* chapter blocks */
     if (t.id === 'addb') { D.chapters[cur].blocks.push({ t: 'text', v: '', c: '' }); mark(); return view(); }
     if (d.bd != null) { D.chapters[cur].blocks.splice(+d.bd, 1); mark(); return view(); }
@@ -319,6 +480,7 @@
     if (d.du) { if (confirm('Remove ' + d.du + '?')) api('DELETE', '/users', { username: d.du }).then(function () { toast('Removed'); loadUsers(); }).catch(function (e) { toast(e.message, 1); }); return; }
     if (t.id === 'cpw') return api('POST', '/password', { old: $('#op').value, new: $('#n2').value }).then(function () { toast('Password changed'); $('#op').value = $('#n2').value = ''; }).catch(function (e) { toast(e.message, 1); });
   }
+  window.addEventListener('keydown', function (e) { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's' && $('#sv')) { e.preventDefault(); save(); } if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k' && $('#sv')) { e.preventDefault(); openSearch(); } });
   window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
   boot();
 })();
