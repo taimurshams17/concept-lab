@@ -1047,3 +1047,42 @@ body.navopen .nav-backdrop{position:fixed!important;inset:0!important;width:100v
 .pgw .card.scroll-reveal{transition-delay:var(--d,0s)}
 @media(max-width:600px){#nav.nav-portal{width:calc(100vw - 24px)!important;max-height:calc(100dvh - 95px - env(safe-area-inset-top))!important}#nav.nav-portal a{min-height:44px;font-size:14px;padding:12px 14px}}
 @media(prefers-reduced-motion:reduce){.scroll-reveal,.scroll-reveal.is-visible{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}#nav.nav-portal{animation:none!important}}
+
+
+/* ConceptLab v6.7: center the Interactive Playground heading on wide screens. */
+.home-lab-head{justify-content:center;text-align:center}
+.home-lab-head .lab-copy{width:100%;max-width:820px;margin-inline:auto;display:flex;flex-direction:column;align-items:center}
+.home-lab-head .lab-copy p{max-width:680px;margin-inline:auto}
+.home-lab-head .lab-tags{justify-content:center}
+.home-lab .home-lab-carousel{max-width:920px;margin-inline:auto}
+@media(max-width:700px){.home-lab-head{justify-content:center;text-align:center}.home-lab-head .lab-copy{align-items:center}.home-lab-head .lab-copy p{max-width:42rem}}
+
+/* Arcade carousel: keep the chosen card mathematically centered on desktop and mobile. */
+.gdeck{width:100%;min-width:0}
+.gdeck-track{scroll-padding-inline:50%;scroll-behavior:smooth;align-items:stretch}
+.gdeck-card{scroll-snap-stop:always}
+.gdeck-card.on{position:relative;z-index:2}
+@media(min-width:900px){.gdeck-track{--cw:min(320px,34vw);padding-inline:calc(50% - var(--cw)/2)}.gdeck-card{min-height:240px}}
+@media(prefers-reduced-motion:reduce){.gdeck-track{scroll-behavior:auto}}
+
+/* More science-inspired animated accents throughout the lower homepage and learning tabs. */
+@keyframes orbitDrift{0%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(8px,-13px,0) rotate(8deg)}100%{transform:translate3d(0,0,0) rotate(0deg)}}
+@keyframes formulaFloat{0%,100%{transform:translateY(0) rotate(-3deg);opacity:.32}50%{transform:translateY(-12px) rotate(3deg);opacity:.7}}
+@keyframes energySweep{0%{background-position:0% 50%;opacity:.45}50%{opacity:.9}100%{background-position:200% 50%;opacity:.45}}
+@keyframes orbitSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.home-lab,.home-games,.sec-stages,.sec-features,.sec-subjects,.goals,.road,.home-page .sec-sims,.pgw.lab-page,.pgw.chapter-page,.pgw.arcade-page,.study-page{position:relative;isolation:isolate}
+.home-lab:before,.home-games:before,.sec-stages:before,.sec-features:before,.sec-subjects:before,.goals:before,.pgw.lab-page:before,.pgw.chapter-page:before,.pgw.arcade-page:before,.study-page:before{content:"";position:absolute;z-index:-1;pointer-events:none;width:clamp(110px,17vw,220px);height:clamp(110px,17vw,220px);right:clamp(4px,5vw,70px);top:12%;border:1px solid rgba(56,189,248,.13);border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(56,189,248,.12),transparent 65%);box-shadow:inset 0 0 28px rgba(56,189,248,.04);animation:orbitDrift 8s ease-in-out infinite}
+.home-lab:after,.home-games:after,.sec-stages:after,.sec-features:after,.sec-subjects:after,.goals:after,.pgw.lab-page:after,.pgw.chapter-page:after,.pgw.arcade-page:after,.study-page:after{content:"∑   Δx   v²   π";position:absolute;z-index:-1;pointer-events:none;left:clamp(8px,4vw,48px);bottom:12%;font:600 clamp(15px,2vw,25px)/1.2 Inter,system-ui,sans-serif;letter-spacing:.16em;color:rgba(125,211,252,.12);animation:formulaFloat 7s ease-in-out infinite}
+.home-lab:before,.pgw.lab-page:before{border-style:dashed;animation:orbitSpin 42s linear infinite}
+.home-games:before,.pgw.arcade-page:before{right:auto;left:4%;top:22%;width:100px;height:100px;animation:orbitDrift 9s ease-in-out infinite}
+.sec-stages:after,.pgw.chapter-page:after{content:"F = ma   E = mc²"}
+.sec-features:after,.study-page:after{content:"∫ f(x)dx   H₂O"}
+.home-lab .home-lab-head .lab-copy .pill{animation:formulaFloat 5.5s ease-in-out infinite}
+.home-lab .home-lab-carousel{position:relative}
+.home-lab .home-lab-carousel:before{content:"";position:absolute;left:8%;right:8%;top:-7px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--p),var(--s),transparent);background-size:200% 100%;animation:energySweep 6s linear infinite;pointer-events:none}
+.home-page .sec-features .ic,.home-page .sec-stages .ic{animation:orbitDrift 6s ease-in-out infinite}
+.home-page .sec-features .card:nth-child(2) .ic,.home-page .sec-stages .card:nth-child(2) .ic{animation-delay:-2s}
+.home-page .sec-features .card:nth-child(3) .ic,.home-page .sec-stages .card:nth-child(3) .ic{animation-delay:-4s}
+.pgw .about-icon,.pgw .lab-icon,.pgw .chapter-icon{animation:orbitDrift 7s ease-in-out infinite}
+@media(max-width:700px){.home-lab:before,.home-games:before,.sec-stages:before,.sec-features:before,.sec-subjects:before,.goals:before,.pgw.lab-page:before,.pgw.chapter-page:before,.pgw.arcade-page:before,.study-page:before{width:100px;height:100px;right:4px;top:8%;opacity:.7}.home-lab:after,.home-games:after,.sec-stages:after,.sec-features:after,.sec-subjects:after,.goals:after,.pgw.lab-page:after,.pgw.chapter-page:after,.pgw.arcade-page:after,.study-page:after{font-size:14px;left:10px;bottom:8%;letter-spacing:.08em}}
+@media(prefers-reduced-motion:reduce){.home-lab:before,.home-games:before,.sec-stages:before,.sec-features:before,.sec-subjects:before,.goals:before,.pgw.lab-page:before,.pgw.chapter-page:before,.pgw.arcade-page:before,.study-page:before,.home-lab:after,.home-games:after,.sec-stages:after,.sec-features:after,.sec-subjects:after,.goals:after,.pgw.lab-page:after,.pgw.chapter-page:after,.pgw.arcade-page:after,.study-page:after,.home-lab .home-lab-head .lab-copy .pill,.home-page .sec-features .ic,.home-page .sec-stages .ic,.pgw .about-icon,.pgw .lab-icon,.pgw .chapter-icon{animation:none!important}}
