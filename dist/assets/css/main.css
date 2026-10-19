@@ -1145,3 +1145,58 @@ body.navopen .nav-backdrop{position:fixed!important;inset:0!important;width:100v
 .home-science-outro:before{background:radial-gradient(ellipse at 50% 100%,rgba(14,165,233,.115),transparent 68%)}
 @media(max-width:720px){.home-final-cta{padding:22px 0 16px!important}.home-final-cta .cta{border-radius:19px!important;padding:28px 18px!important}.home-final-cta .cta h2{font-size:27px!important}.home-final-formula{padding-bottom:28px}.home-final-formula .science-formula-track{padding:14px 0}.horizon .hb1,.horizon .hb2,.horizon .hb3{opacity:.11}}
 @media(prefers-reduced-motion:reduce){.home-final-cta .cta:before,.home-final-cta .cta.rv.in{animation:none!important}.home-final-cta .cta .btn{transition:none!important}}
+
+
+/* ConceptLab v7.1 — extra science motion after discovery + polished motion across tabs. */
+.home-discovery-motion{position:relative;isolation:isolate;padding:clamp(20px,3.5vw,42px) 0 clamp(30px,5vw,60px);overflow:hidden}
+.home-discovery-motion:before{content:"";position:absolute;z-index:-1;inset:4% 0 8%;pointer-events:none;background:radial-gradient(ellipse at 18% 50%,rgba(14,165,233,.09),transparent 32%),radial-gradient(ellipse at 82% 55%,rgba(139,92,246,.08),transparent 35%)}
+.discovery-motion-head{text-align:center;max-width:720px;margin:0 auto 22px}
+.discovery-motion-head h2{font-size:clamp(24px,3.2vw,36px);line-height:1.16;letter-spacing:-.035em;margin:12px 0 9px}
+.discovery-motion-head p{max-width:610px;margin:0 auto;color:var(--mut)}
+.discovery-motion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,20px)}
+.discovery-motion-card{position:relative;min-width:0;padding:16px 17px 18px;border:1px solid rgba(125,211,252,.16);border-radius:20px;overflow:hidden;background:linear-gradient(145deg,rgba(8,23,38,.86),rgba(3,10,19,.8));box-shadow:inset 0 1px rgba(255,255,255,.025);transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease}
+.discovery-motion-card:after{content:"";position:absolute;inset:auto -25% -70% -25%;height:110px;pointer-events:none;background:radial-gradient(ellipse,rgba(56,189,248,.11),transparent 70%);opacity:.8}
+.discovery-motion-card:hover{transform:translateY(-4px);border-color:rgba(125,211,252,.32);box-shadow:0 14px 34px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.035)}
+.dm-visual{height:102px;display:grid;place-items:center;margin:-2px -2px 12px;border-radius:14px;background:radial-gradient(ellipse at 50% 50%,rgba(14,165,233,.10),transparent 68%);overflow:hidden}
+.dm-visual svg{width:100%;max-width:300px;height:100%;overflow:visible}
+.dm-gridline{fill:none;stroke:rgba(125,211,252,.12);stroke-width:.7}
+.dm-wave-line{fill:none;stroke:#38bdf8;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:7 6;filter:drop-shadow(0 0 4px rgba(56,189,248,.3));animation:dmWaveTravel 5s linear infinite}
+.dm-wave-dot{fill:#a5f3fc;filter:drop-shadow(0 0 5px rgba(56,189,248,.6));animation:dmDotPulse 2.8s ease-in-out infinite}
+.dm-orbit-group{transform-origin:130px 50px;animation:dmOrbitTurn 18s linear infinite}
+.dm-orbit-group ellipse{fill:none;stroke:rgba(125,211,252,.65);stroke-width:1.4;stroke-dasharray:3 5}
+.dm-sun{fill:#fbbf24;filter:drop-shadow(0 0 7px rgba(251,191,36,.48))}.dm-planet{fill:#38bdf8;filter:drop-shadow(0 0 5px rgba(56,189,248,.55))}
+.dm-field{fill:none;stroke:rgba(56,189,248,.76);stroke-width:1.5;stroke-dasharray:4 5;animation:dmFieldFlow 6s linear infinite}.dm-field-two{stroke:rgba(167,139,250,.62);animation-direction:reverse;animation-duration:8s}
+.dm-magnet{fill:rgba(56,189,248,.18);stroke:#7dd3fc;stroke-width:1.5}.dm-magnet-cut{stroke:rgba(251,191,36,.8);stroke-width:2}.dm-particle{fill:#fbbf24;animation:dmParticleFloat 3.4s ease-in-out infinite}.dm-particle-two{fill:#a78bfa;animation-delay:-1.6s}
+.dm-kicker{font-size:10px;font-weight:750;letter-spacing:.13em;color:#7dd3fc}.discovery-motion-card h3{font-size:17px;line-height:1.3;margin:7px 0 6px}.discovery-motion-card p{font-size:13px;line-height:1.55;color:var(--mut);margin:0;max-width:38ch}
+@keyframes dmWaveTravel{to{stroke-dashoffset:-104}}@keyframes dmDotPulse{50%{r:6;opacity:.65}}@keyframes dmOrbitTurn{to{transform:rotate(360deg)}}@keyframes dmFieldFlow{to{stroke-dashoffset:-72}}@keyframes dmParticleFloat{50%{transform:translateY(-9px);opacity:.55}}
+/* All inner tabs get a subtle entrance and a consistent, restrained interactive lift. */
+.pgw:not(.auth-wrap)>.rv,.pgw:not(.auth-wrap)>h1.rv,.pgw:not(.auth-wrap)>.lead.rv,.pgw:not(.auth-wrap)>.pill.rv{animation:tabHeaderEnter .62s cubic-bezier(.2,.7,.2,1) both}
+.pgw .card.rv,.pgw .filters.rv,.pgw .tabs.rv{transition:transform .42s cubic-bezier(.2,.7,.2,1),opacity .42s ease,border-color .24s ease,box-shadow .24s ease;transition-delay:var(--d,0s)}
+.pgw .card.rv:hover{border-color:rgba(125,211,252,.28)}
+.pgw.chapters-page:before,.pgw.arcade-page:before,.pgw.lab-page:before,.pgw.daily-page:before,.pgw.leaderboard-page:before,.pgw.study-page:before,.pgw.about-page:before{content:"";position:absolute;z-index:-1;pointer-events:none;top:100px;right:clamp(10px,5vw,70px);width:clamp(90px,12vw,150px);height:clamp(90px,12vw,150px);border:1px solid rgba(56,189,248,.13);border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(56,189,248,.07),transparent 68%);animation:tabOrbitDrift 10s ease-in-out infinite}
+.pgw.chapters-page:after,.pgw.arcade-page:after,.pgw.lab-page:after,.pgw.daily-page:after,.pgw.leaderboard-page:after,.pgw.study-page:after,.pgw.about-page:after{content:"";position:absolute;z-index:-1;pointer-events:none;left:clamp(8px,4vw,48px);top:260px;width:clamp(38px,5vw,64px);height:clamp(38px,5vw,64px);border:1px dashed rgba(167,139,250,.2);border-radius:50%;animation:tabOrbitSpin 26s linear infinite}
+.pgw.chapters-page>.filters,.pgw.arcade-page>.daily,.pgw.profile-page>.profile-head,.pgw.about-page>.card:first-of-type{animation:tabCardEnter .68s .08s both}
+@keyframes tabHeaderEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes tabCardEnter{from{opacity:0;transform:translateY(15px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes tabOrbitDrift{50%{transform:translate3d(-8px,12px,0) scale(1.035);opacity:.65}}@keyframes tabOrbitSpin{to{transform:rotate(360deg)}}
+@media(max-width:760px){.discovery-motion-grid{grid-template-columns:1fr;gap:12px}.discovery-motion-card{display:grid;grid-template-columns:96px minmax(0,1fr);column-gap:14px;align-content:center;padding:12px;border-radius:16px}.dm-visual{grid-row:1 / span 3;height:88px;margin:0;align-self:center}.dm-kicker{align-self:end;font-size:9px}.discovery-motion-card h3{font-size:15px;margin:4px 0}.discovery-motion-card p{font-size:12px;line-height:1.45}.discovery-motion-head{margin-bottom:16px}.pgw.chapters-page:before,.pgw.arcade-page:before,.pgw.lab-page:before,.pgw.daily-page:before,.pgw.leaderboard-page:before,.pgw.study-page:before,.pgw.about-page:before{width:76px;height:76px;right:8px;top:75px;opacity:.7}}
+@media(prefers-reduced-motion:reduce){.dm-wave-line,.dm-wave-dot,.dm-orbit-group,.dm-field,.dm-particle,.pgw:not(.auth-wrap)>.rv,.pgw:not(.auth-wrap)>h1.rv,.pgw:not(.auth-wrap)>.lead.rv,.pgw:not(.auth-wrap)>.pill.rv,.pgw.chapters-page:before,.pgw.arcade-page:before,.pgw.lab-page:before,.pgw.daily-page:before,.pgw.leaderboard-page:before,.pgw.study-page:before,.pgw.about-page:before,.pgw.chapters-page:after,.pgw.arcade-page:after,.pgw.lab-page:after,.pgw.daily-page:after,.pgw.leaderboard-page:after,.pgw.study-page:after,.pgw.about-page:after{animation:none!important}.discovery-motion-card,.pgw .card.rv{transition:none!important}}
+
+/* ConceptLab v7.2 — tighten formula/footer spacing and add restrained motion across inner tabs. */
+.home-final-formula{padding-bottom:8px!important;margin-bottom:0!important}
+.home-final-formula .science-formula-ticker{margin-bottom:0!important}
+.home-final-formula .science-formula-track{padding-block:14px!important}
+footer{margin-top:14px!important}
+@media(max-width:720px){.home-final-formula{padding-bottom:5px!important}.home-final-formula .science-formula-track{padding-block:11px!important}footer{margin-top:8px!important;padding-bottom:26px}}
+/* Fine-grained animated accents for learning, games, simulations, progress and about views. */
+.pgw{isolation:isolate}
+.pgw .card,.pgw .game-card,.pgw .chapter-card,.pgw .sim-card,.pgw .stat-card{transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s ease,box-shadow .28s ease}
+@media(hover:hover){.pgw .card:hover,.pgw .game-card:hover,.pgw .chapter-card:hover,.pgw .sim-card:hover,.pgw .stat-card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,.32);box-shadow:0 12px 28px rgba(0,0,0,.16),0 0 18px rgba(56,189,248,.055)}}
+.pgw .card.rv,.pgw .game-card.rv,.pgw .chapter-card.rv,.pgw .sim-card.rv,.pgw .stat-card.rv{will-change:transform,opacity}
+.pgw .card.rv.in,.pgw .game-card.rv.in,.pgw .chapter-card.rv.in,.pgw .sim-card.rv.in,.pgw .stat-card.rv.in{animation:tabItemRise .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+.pgw.lab-page .card:before,.pgw.chapters-page .card:before,.pgw.study-page .card:before,.pgw.daily-page .card:before,.pgw.leaderboard-page .card:before,.pgw.about-page .card:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:linear-gradient(180deg,transparent,rgba(56,189,248,.42),rgba(167,139,250,.25),transparent);opacity:0;transition:opacity .3s ease;pointer-events:none}
+.pgw.lab-page .card:hover:before,.pgw.chapters-page .card:hover:before,.pgw.study-page .card:hover:before,.pgw.daily-page .card:hover:before,.pgw.leaderboard-page .card:hover:before,.pgw.about-page .card:hover:before{opacity:1}
+.pgw .filters,.pgw .tabs{animation:tabToolsEnter .48s .06s both}
+.pgw .pill{transition:background .25s ease,border-color .25s ease,transform .25s ease}
+.pgw .pill:hover{transform:translateY(-1px);border-color:rgba(56,189,248,.3)}
+@keyframes tabItemRise{from{opacity:.4;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tabToolsEnter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.pgw .card,.pgw .game-card,.pgw .chapter-card,.pgw .sim-card,.pgw .stat-card,.pgw .pill{transition:none!important}.pgw .card.rv.in,.pgw .game-card.rv.in,.pgw .chapter-card.rv.in,.pgw .sim-card.rv.in,.pgw .stat-card.rv.in,.pgw .filters,.pgw .tabs{animation:none!important}}
