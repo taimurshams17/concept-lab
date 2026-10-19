@@ -1099,3 +1099,27 @@ body.navopen .nav-backdrop{position:fixed!important;inset:0!important;width:100v
 .toast.xp.in{transform:translateY(0)}
 @media(max-width:600px){.toast.xp{top:auto!important;right:12px!important;bottom:calc(18px + env(safe-area-inset-bottom));left:12px!important;width:max-content;max-width:calc(100vw - 24px);margin:0 auto;text-align:center;padding:9px 13px;font-size:12.5px;border-radius:13px;box-shadow:0 8px 28px rgba(0,0,0,.48);transform:translateY(10px)}.toast.xp.in{transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.gdeck-card,.gdeck-card.on{transition:none!important;filter:none!important}}
+
+/* ConceptLab v6.9: soften oversized orb/bubble visuals and add a polished science outro. */
+.orb-wrap svg defs~circle{pointer-events:none}
+.orb-wrap svg > circle:first-of-type{opacity:.48}
+.orb-wrap svg > circle.pulse{opacity:.82}
+.horizon .hb1{width:32vw;height:22vh;opacity:.12;filter:blur(72px)}
+.horizon .hb2{width:28vw;height:20vh;opacity:.12;filter:blur(76px)}
+.horizon .hb3{width:22vw;height:16vh;opacity:.14;filter:blur(78px)}
+/* Section-sized decorative rings were reading as large balls; retain only faint orbital outlines. */
+.home-lab:before,.home-games:before,.sec-stages:before,.sec-features:before,.sec-subjects:before,.goals:before,.pgw.lab-page:before,.pgw.chapter-page:before,.pgw.arcade-page:before,.study-page:before{width:86px;height:86px;opacity:.32;background:radial-gradient(circle at 35% 35%,rgba(56,189,248,.035),transparent 72%);box-shadow:none;border-color:rgba(56,189,248,.09)}
+.home-games:before,.pgw.arcade-page:before{width:66px;height:66px;opacity:.26}
+.science-formula-ticker{overflow:hidden;position:relative;margin:18px 0 0;border-block:1px solid rgba(125,211,252,.13);background:linear-gradient(90deg,rgba(5,16,27,.25),rgba(10,34,53,.62),rgba(5,16,27,.25));mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.science-formula-track{display:flex;align-items:center;gap:clamp(20px,3vw,42px);width:max-content;padding:17px 0;color:rgba(226,245,255,.78);font:600 clamp(16px,2vw,25px)/1.2 Inter,system-ui,sans-serif;letter-spacing:.015em;animation:scienceTicker 34s linear infinite}
+.science-formula-track i{font-style:normal;color:#38bdf8;text-shadow:0 0 12px rgba(56,189,248,.65);font-size:.8em}
+@keyframes scienceTicker{to{transform:translateX(-50%)}}
+.home-science-outro{position:relative;isolation:isolate;overflow:hidden;padding:22px 0 clamp(46px,7vw,88px)}
+.home-science-outro:before{content:"";position:absolute;z-index:-1;inset:10% 0 0;background:radial-gradient(ellipse at 50% 100%,rgba(14,165,233,.09),transparent 68%);pointer-events:none}
+.science-outro-panel{position:relative;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:center;gap:clamp(20px,5vw,60px);padding:clamp(20px,4vw,44px);border:1px solid rgba(56,189,248,.18);border-radius:26px;background:linear-gradient(135deg,rgba(5,17,29,.82),rgba(3,8,15,.65));box-shadow:inset 0 1px rgba(255,255,255,.025);overflow:hidden}
+.science-outro-copy{position:relative;z-index:1}.science-outro-copy h2{font-size:clamp(25px,3.5vw,42px);line-height:1.14;letter-spacing:-.035em;margin:16px 0 12px}.science-outro-copy p{max-width:420px;color:var(--mut);margin:0 0 20px}.science-outro-art{min-width:0}.science-outro-art svg{display:block;width:100%;height:auto;overflow:visible}.science-outro-art path{fill:none;stroke:url(#scienceLine);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.science-outro-art .so-path{stroke-dasharray:5 9;animation:scienceFlow 8s linear infinite}.science-outro-art .so-path-alt{opacity:.48;animation-direction:reverse;animation-duration:11s}.science-outro-art .so-atom{transform-origin:260px 105px;animation:scienceAtom 16s linear infinite}.science-outro-art .so-atom ellipse{fill:none;stroke:rgba(125,211,252,.58);stroke-width:1.4}.science-outro-art .so-node{fill:#38bdf8;filter:drop-shadow(0 0 5px rgba(56,189,248,.55))}.science-outro-art .so-node-alt{fill:#fbbf24}.science-outro-art .so-flask{stroke:#7dd3fc;stroke-width:1.7;fill:none;animation:scienceBob 5s ease-in-out infinite}.science-outro-art .so-flask circle{fill:#38bdf8;stroke:none}.science-outro-art .so-wave{stroke:#fbbf24;stroke-width:2.6;filter:drop-shadow(0 0 4px rgba(251,191,36,.3));animation:scienceBob 4s ease-in-out infinite reverse}
+@keyframes scienceFlow{to{stroke-dashoffset:-112}}
+@keyframes scienceAtom{to{transform:rotate(360deg)}}
+@keyframes scienceBob{50%{transform:translateY(-5px)}}
+@media(max-width:720px){.science-outro-panel{grid-template-columns:1fr;gap:16px;border-radius:20px;padding:22px 18px}.science-outro-copy h2{font-size:27px}.science-outro-art svg{max-height:165px}.science-formula-track{padding:13px 0}.home-science-outro{padding-bottom:42px}.horizon .hb1,.horizon .hb2,.horizon .hb3{opacity:.09}}
+@media(prefers-reduced-motion:reduce){.science-formula-track,.science-outro-art .so-path,.science-outro-art .so-atom,.science-outro-art .so-flask,.science-outro-art .so-wave{animation:none!important}}

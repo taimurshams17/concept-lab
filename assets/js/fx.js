@@ -6,18 +6,18 @@ function rgb(h){h=(h||'#38bdf8').replace('#','');return[parseInt(h.substr(0,2),1
 /* ---------- background canvas ---------- */
 var cv=document.getElementById('stars'),cx=cv&&cv.getContext('2d'),W=0,H=0,stars=[],embers=[],shoots=[],planets=[],px=0,py=0,tx=0,ty=0,dpr=1,nextShoot=2;
 function size(){if(!cv)return;dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
- var n=Math.min(230,Math.round(W*H/8500));stars=[];for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,z:.2+Math.random()*.8,r:Math.random()*1.3+.2,t:Math.random()*6.28,s:.4+Math.random()*1.6});
- var m=Math.round(Math.min(26,W/48));embers=[];for(var j=0;j<m;j++)embers.push(ember(true));
+ var n=Math.min(170,Math.round(W*H/11500));stars=[];for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,z:.2+Math.random()*.8,r:Math.random()*1.3+.2,t:Math.random()*6.28,s:.4+Math.random()*1.6});
+ var m=Math.round(Math.min(W<700?6:11,W/(W<700?105:95)));embers=[];for(var j=0;j<m;j++)embers.push(ember(true));
  /* Sparse, low-opacity celestial objects: fixed in the sky so they feel like distant scenery. */
  planets=[
-  {x:W*.82,y:H*.22,r:Math.min(25,W*.035),c:'#38bdf8',ring:true},
-  {x:W*.13,y:H*.58,r:Math.min(14,W*.021),c:'#c084fc',ring:false},
-  {x:W*.72,y:H*.76,r:Math.min(9,W*.014),c:'#fbbf24',ring:false},
-  {x:W*.39,y:H*.17,r:Math.min(10,W*.014),c:'#a78bfa',ring:false},
-  {x:W*.58,y:H*.43,r:Math.min(16,W*.022),c:'#7dd3fc',ring:true},
-  {x:W*.91,y:H*.57,r:Math.min(12,W*.017),c:'#f9a8d4',ring:false},
-  {x:W*.30,y:H*.82,r:Math.min(15,W*.019),c:'#fbbf24',ring:false},
-  {x:W*.66,y:H*.91,r:Math.min(8,W*.012),c:'#c4b5fd',ring:false}
+  {x:W*.82,y:H*.22,r:Math.min(15,W*.022),c:'#38bdf8',ring:true},
+  {x:W*.13,y:H*.58,r:Math.min(8,W*.012),c:'#c084fc',ring:false},
+  {x:W*.72,y:H*.76,r:Math.min(6,W*.009),c:'#fbbf24',ring:false},
+  {x:W*.39,y:H*.17,r:Math.min(6,W*.009),c:'#a78bfa',ring:false},
+  {x:W*.58,y:H*.43,r:Math.min(10,W*.014),c:'#7dd3fc',ring:true},
+  {x:W*.91,y:H*.57,r:Math.min(7,W*.01),c:'#f9a8d4',ring:false},
+  {x:W*.30,y:H*.82,r:Math.min(8,W*.012),c:'#fbbf24',ring:false},
+  {x:W*.66,y:H*.91,r:Math.min(5,W*.008),c:'#c4b5fd',ring:false}
  ];
 }
 function ember(init){return{x:Math.random()*W,y:init?H-Math.random()*H*.55:H+10,r:Math.random()*2.2+.6,v:12+Math.random()*34,w:Math.random()*6.28,a:.2+Math.random()*.6}}
