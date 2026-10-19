@@ -20,7 +20,7 @@ navigation: [
  {id:'play',href:'#/play',label:'Games',enabled:true},
  {id:'lab',href:'#/lab',label:'Simulations',enabled:true},
  {id:'progress',href:'#/progress',label:'My Progress',enabled:true},
- {id:'study-space',href:'#/study-space',label:'Study Space',enabled:true},
+ {id:'hub',href:'#/hub',label:'Student Hub',enabled:true},  {id:'study-space',href:'#/study-space',label:'Study Space',enabled:true},
  {id:'daily',href:'#/daily',label:'Daily & Missions',enabled:true},
  {id:'smart-practice',href:'#/smart-practice',label:'Smart Practice',enabled:true},
  {id:'analytics',href:'#/analytics',label:'Analytics',enabled:true},

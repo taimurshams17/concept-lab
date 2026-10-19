@@ -1200,3 +1200,51 @@ footer{margin-top:14px!important}
 @keyframes tabItemRise{from{opacity:.4;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
 @keyframes tabToolsEnter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.pgw .card,.pgw .game-card,.pgw .chapter-card,.pgw .sim-card,.pgw .stat-card,.pgw .pill{transition:none!important}.pgw .card.rv.in,.pgw .game-card.rv.in,.pgw .chapter-card.rv.in,.pgw .sim-card.rv.in,.pgw .stat-card.rv.in,.pgw .filters,.pgw .tabs{animation:none!important}}
+
+/* v7.3 Student Hub */
+.hub-tabs{display:flex;gap:.5rem;overflow-x:auto;padding:.3rem 0 .9rem;-webkit-overflow-scrolling:touch}
+.hub-tabs button{flex:0 0 auto;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:999px;padding:.55rem 1rem;font:600 .9rem inherit;cursor:pointer;transition:border-color .2s,transform .2s}
+.hub-tabs button:hover{transform:translateY(-2px);border-color:var(--p)}
+.hub-tabs button.on{border-color:var(--p);color:var(--s);box-shadow:0 0 0 1px var(--p) inset}
+.hubc{padding:clamp(1rem,3vw,1.6rem);animation:hubIn .35s ease both}
+@keyframes hubIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hub-row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.hub-in{flex:1 1 150px;min-width:0;background:#000;color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:.65rem .8rem;font:inherit;font-size:1rem}
+.hub-in:focus{outline:2px solid var(--p);outline-offset:1px}
+.hub-big{font:700 clamp(2.2rem,9vw,3.6rem) 'Sora',sans-serif;color:var(--s);text-align:center;margin:.8rem 0;font-variant-numeric:tabular-nums}
+.hub-item{display:flex;align-items:center;gap:.7rem;justify-content:space-between;padding:.6rem .7rem;margin:.4rem 0;border:1px solid var(--line);border-radius:12px}
+.hub-item.done .hub-t{text-decoration:line-through;opacity:.55}
+.hub-t{flex:1;min-width:0;overflow-wrap:anywhere}.hub-days{color:var(--a);font-weight:700}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem}.hub-g{display:flex;flex-direction:column;gap:.3rem;font-size:.9rem;color:var(--mut)}
+.hub-flip{min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.6rem;padding:1.2rem;margin:.8rem 0;border:1px dashed var(--p);border-radius:16px;font-size:1.3rem;cursor:pointer;overflow-wrap:anywhere}.hub-flip small{font-size:.75rem;color:var(--mut)}
+.hub-mem{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;max-width:420px;margin:.8rem auto}
+.hub-mc{aspect-ratio:1;font:700 clamp(1rem,5vw,1.5rem) inherit;background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:transform .25s}.hub-mc.on{background:#06283f;border-color:var(--p);color:var(--s)}.hub-mc:active{transform:scale(.94)}
+@media (prefers-reduced-motion:reduce){.hubc{animation:none}.hub-tabs button,.hub-mc{transition:none}}
+
+.hub-teaser{margin:1.2rem auto}
+.hub-tz{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;text-decoration:none;color:var(--tx);transition:transform .25s,border-color .25s;position:relative;overflow:hidden}
+.hub-tz:hover{transform:translateY(-3px);border-color:var(--p)}
+.hub-tz::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(56,189,248,.12) 50%,transparent 65%);transform:translateX(-100%);animation:hubSh 4.5s ease-in-out infinite}
+.hub-ic{font-size:2rem;animation:hubFl 3s ease-in-out infinite}.hub-go{margin-left:auto;color:var(--s);font-weight:700;white-space:nowrap}
+@keyframes hubSh{to{transform:translateX(100%)}}@keyframes hubFl{50%{transform:translateY(-5px)}}
+.hub-bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin:.3rem 0 .5rem}.hub-bar i{display:block;height:100%;background:var(--p);transition:width .4s}
+.hub-f{font-family:'Lora',serif;color:var(--s);overflow-wrap:anywhere}
+@media (max-width:520px){.hub-tz{flex-wrap:wrap}.hub-go{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.hub-tz::after,.hub-ic{animation:none}.hub-tz,.hub-bar i{transition:none}}
+
+/* v7.4 Student Hub refinements */
+.hub-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr))!important;gap:.5rem!important}
+.hub-g{gap:.22rem!important;font-size:.82rem!important}
+.hub-g .hub-in,.hub-g select{min-height:36px!important;padding:.45rem .6rem!important;font-size:.86rem!important}
+.hub .hubc{padding:clamp(14px,2vw,22px)!important}
+.hub-hero-btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;white-space:nowrap}
+.hero-actions .hub-hero-btn{flex:0 0 auto}
+@media(max-width:600px){.hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.42rem!important}.hub-g select{width:100%;min-width:0}.hero-actions .hub-hero-btn{flex:1 1 100%;width:100%;box-sizing:border-box;min-height:48px;margin-top:0}.hero-actions .sim-explore{flex:1 1 100%;width:100%;box-sizing:border-box}.hero-actions{align-items:stretch}.hub .hubc{padding:14px!important}}
+@media(max-width:350px){.hub-grid{grid-template-columns:minmax(0,1fr)!important}}
+
+/* v7.5 GPA Calculator compact controls and subject labels */
+.hub .hub-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:.4rem!important}
+.hub .hub-g{gap:.16rem!important;font-size:.76rem!important;line-height:1.25!important;min-width:0}
+.hub .hub-g select,.hub .hub-g .hub-in{min-height:30px!important;height:32px!important;padding:.25rem .38rem!important;font-size:.78rem!important;line-height:1.15!important;width:100%;min-width:0}
+@media(max-width:600px){.hub .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.38rem!important}.hub .hub-g{font-size:.74rem!important}.hub .hub-g select,.hub .hub-g .hub-in{height:30px!important;min-height:30px!important;padding:.22rem .32rem!important;font-size:.76rem!important}}
+@media(max-width:350px){.hub .hub-grid{grid-template-columns:minmax(0,1fr)!important}}
