@@ -12,8 +12,22 @@ settings: {
   siteName: 'ConceptLab',
   footer: 'Created by Taimur Shams — an independent student-led educational project.',
   credit: 'Created by Taimur Shams & Moshiur Rahman Araf',
-  about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।'
+  about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।'
 },
+navigation: [
+ {id:'home',href:'#/',label:'Home',enabled:true},
+ {id:'chapters',href:'#/chapters',label:'Explore Chapters',enabled:true},
+ {id:'play',href:'#/play',label:'Games',enabled:true},
+ {id:'lab',href:'#/lab',label:'Simulations',enabled:true},
+ {id:'progress',href:'#/progress',label:'My Progress',enabled:true},
+ {id:'study-space',href:'#/study-space',label:'Study Space',enabled:true},
+ {id:'daily',href:'#/daily',label:'Daily & Missions',enabled:true},
+ {id:'smart-practice',href:'#/smart-practice',label:'Smart Practice',enabled:true},
+ {id:'analytics',href:'#/analytics',label:'Analytics',enabled:true},
+ {id:'leaderboard',href:'#/leaderboard',label:'Leaderboard',enabled:true},
+ {id:'about',href:'#/about',label:'About',enabled:true}
+],
+customPages: [],
 theme: { p: '#38bdf8', s: '#7dd3fc', a: '#fbbf24', bg: '#000000', glow: '#0ea5e9', fx: 'on' },
 subjects: [{ id: 'math', name: 'Higher Mathematics' }, { id: 'chem', name: 'Chemistry' }, { id: 'phy', name: 'Physics' }],
 
@@ -374,6 +388,68 @@ var NEW=[
   {t:'২×২ ম্যাট্রিক্সের বিপরীত',steps:['a, b, c, d চিহ্নিত করুন','det = ad − bc বের করুন','det ≠ ০ কিনা দেখুন','বিপরীত = (১/det)·[d −b; −c a] লিখুন'],why:'নির্ণায়ক শূন্য হলে বিপরীত নেই—তাই আগে det যাচাই।'}]}}
 ];
 NEW.forEach(function(g){if(!D.games.some(function(x){return x.id===g.id}))D.games.push(g)});
+var EXTRA_GAMES=[
+ {id:'edu-physics-formula-sprint',type:'blitz',on:true,icon:'⚡',t:'Physics Formula Sprint',d:'বেগ, বল, তরঙ্গ ও শক্তির সূত্র দ্রুত চিনে নাও।',diff:'Easy',xp:35,data:{time:45,q:[
+  {q:'নিউটনের দ্বিতীয় সূত্র কোনটি?',o:['F = ma','v = fλ','P = VI','ρ = m/V'],a:0,e:'নিট বল = ভর × ত্বরণ।'},
+  {q:'সমবেগে সরলরেখায় চললে ত্বরণ কত?',o:['শূন্য','ধ্রুবক কিন্তু শূন্য নয়','অসীম','ভরের সমান'],a:0,e:'বেগ পরিবর্তন না হলে ত্বরণ শূন্য।'},
+  {q:'তরঙ্গের বেগের সম্পর্ক কোনটি?',o:['v = fλ','F = ma','W = Fs²','p = mv²'],a:0,e:'তরঙ্গের বেগ = কম্পাঙ্ক × তরঙ্গদৈর্ঘ্য।'},
+  {q:'ক্ষমতার SI একক কোনটি?',o:['ওয়াট','জুল','নিউটন','পাসকেল'],a:0,e:'ক্ষমতা হলো একক সময়ে কাজ করার হার; একক ওয়াট।'},
+  {q:'ভরবেগের সূত্র কোনটি?',o:['p = mv','F = qv','V = IR²','E = mc'],a:0,e:'ভরবেগ = ভর × বেগ।'},
+  {q:'কাজের সাধারণ সূত্র কোনটি?',o:['W = Fs cos θ','W = F/s','W = m/v','W = Pt²'],a:0,e:'বল ও সরণের মধ্যবর্তী কোণ θ হলে W = Fs cos θ.'}] }},
+ {id:'edu-chemistry-ion-challenge',type:'blitz',on:true,icon:'🧪',t:'Chemistry Ion Challenge',d:'আয়ন, আধান ও রাসায়নিক সূত্র মিলিয়ে দেখো।',diff:'Medium',xp:40,data:{time:50,q:[
+  {q:'ম্যাগনেসিয়াম সাধারণত কোন আয়ন গঠন করে?',o:['Mg²⁺','Mg⁺','Mg²⁻','Mg³⁺'],a:0,e:'ম্যাগনেসিয়াম সাধারণত দুটি ইলেকট্রন হারিয়ে Mg²⁺ গঠন করে।'},
+  {q:'ক্লোরাইড আয়নের আধান কত?',o:['−1','+1','−2','0'],a:0,e:'ক্লোরিন একটি ইলেকট্রন গ্রহণ করলে Cl⁻ হয়।'},
+  {q:'ক্যালসিয়াম ক্লোরাইডের সঠিক সূত্র কোনটি?',o:['CaCl₂','Ca₂Cl','CaCl','Ca₂Cl₂'],a:0,e:'Ca²⁺-এর আধান সাম্য করতে দুটি Cl⁻ লাগে।'},
+  {q:'Na⁺ আয়নে ইলেকট্রন সংখ্যা কত?',o:['১০','১১','১২','৯'],a:0,e:'সোডিয়ামের পারমাণবিক সংখ্যা ১১; Na⁺ একটি ইলেকট্রন হারায়।'},
+  {q:'নাইট্রেট আয়নের সূত্র কোনটি?',o:['NO₃⁻','NO₂⁻','NH₄⁺','CO₃²⁻'],a:0,e:'নাইট্রেট আয়ন হলো NO₃⁻।'},
+  {q:'অ্যালুমিনিয়াম আয়নের সাধারণ আধান কত?',o:['+3','+1','−3','+2'],a:0,e:'অ্যালুমিনিয়াম সাধারণত Al³⁺ গঠন করে।'}]}},
+ {id:'edu-math-concept-scramble',type:'scramble',on:true,icon:'🧩',t:'Math Concept Scramble',d:'ইঙ্গিত দেখে গুরুত্বপূর্ণ গণিতের পরিভাষা সাজাও।',diff:'Medium',xp:35,data:{words:[
+  {w:'VECTOR',h:'মান ও দিক—দুটিই আছে'}, {w:'MATRIX',h:'সারি ও কলামে সাজানো সংখ্যার বিন্যাস'},
+  {w:'INTEGRAL',h:'ক্যালকুলাসে সঞ্চয় বা সমাকলনের ধারণা'}, {w:'DERIVATIVE',h:'তাৎক্ষণিক পরিবর্তনের হার'},
+  {w:'DETERMINANT',h:'বর্গ ম্যাট্রিক্সের সঙ্গে যুক্ত একটি স্কেলার'}, {w:'PROBABILITY',h:'কোনো ঘটনার সম্ভাবনার পরিমাপ'}]}},
+ {id:'edu-physics-unit-rush',type:'memory',on:true,icon:'🧲',t:'Physics Unit Rush',d:'ভৌত রাশি ও SI এককের জোড়া মেলাও।',diff:'Easy',xp:30,data:{pairs:[
+  {a:'বল',b:'নিউটন (N)'},{a:'শক্তি',b:'জুল (J)'},{a:'ক্ষমতা',b:'ওয়াট (W)'},
+  {a:'চাপ',b:'পাসকেল (Pa)'},{a:'বৈদ্যুতিক আধান',b:'কুলম্ব (C)'},{a:'কম্পাঙ্ক',b:'হার্টজ (Hz)'}]}},
+ {id:'edu-chem-reaction-race',type:'tf',on:true,icon:'⚗️',t:'Reaction Reality Check',d:'রাসায়নিক বিক্রিয়া ও সংরক্ষণ সূত্র নিয়ে সত্য-মিথ্যা যাচাই করো।',diff:'Easy',xp:30,data:{items:[
+  {s:'সাধারণ রাসায়নিক বিক্রিয়ায় পরমাণু পুনর্বিন্যস্ত হয়।',t:'true',e:'বিক্রিয়ায় বন্ধন বদলায়, কিন্তু সাধারণত পরমাণুর নিউক্লিয়াস বদলায় না।'},
+  {s:'একটি রাসায়নিক সমীকরণে উভয় পাশে প্রতিটি মৌলের পরমাণু সংখ্যা সমান হওয়া উচিত।',t:'true',e:'সমীকরণ সমতা ভর সংরক্ষণের সঙ্গে সামঞ্জস্য রাখে।'},
+  {s:'অনুঘটক সাম্যাবস্থার ধ্রুবক বদলে দেয়।',t:'false',e:'অনুঘটক সাম্যাবস্থায় পৌঁছানোর গতি বাড়ায়; সাম্যাবস্থার অবস্থান বা K বদলায় না।'},
+  {s:'সব অ্যাসিডের pH ৭-এর বেশি।',t:'false',e:'জলীয় দ্রবণে অ্যাসিডিক দ্রবণের pH সাধারণত ৭-এর কম (২৫°C-এ)।'},
+  {s:'মোলার ভর সাধারণত g/mol এককে প্রকাশ করা হয়।',t:'true',e:'প্রতি মোল পদার্থের ভরের একক g/mol বহুল ব্যবহৃত।'}]}},
+ {id:'edu-math-truth-arena',type:'tf',on:true,icon:'📐',t:'Math Truth Arena',d:'ফাংশন, জ্যামিতি ও সংখ্যার ধারণা যাচাই করো।',diff:'Medium',xp:35,data:{items:[
+  {s:'৯ একটি মৌলিক সংখ্যা।',t:'false',e:'৯ = ৩ × ৩, তাই এটি যৌগিক সংখ্যা।'},
+  {s:'একটি বর্গ ম্যাট্রিক্সের নির্ণায়ক নির্ধারণ করা যায়।',t:'true',e:'নির্ণায়ক কেবল বর্গ ম্যাট্রিক্সের জন্য সংজ্ঞায়িত।'},
+  {s:'sin²θ + cos²θ = 1 একটি পরিচিত ত্রিকোণমিতিক পরিচিতি।',t:'true',e:'এটি মৌলিক পিথাগোরীয় পরিচিতি।'},
+  {s:'যেকোনো বাস্তব সংখ্যার বর্গ ঋণাত্মক হয়।',t:'false',e:'বাস্তব সংখ্যার বর্গ শূন্য বা ধনাত্মক।'},
+  {s:'দুটি ভেক্টর পরস্পর লম্ব হলে তাদের ডট গুণফল শূন্য।',t:'true',e:'অশূন্য লম্ব ভেক্টরের ডট গুণফল |a||b|cos 90° = 0।'}]}},
+ {id:'edu-formula-pair-cosmos',type:'memory',on:true,icon:'🌌',t:'Formula Pair Cosmos',d:'বিখ্যাত সূত্র ও তাদের অর্থ/প্রয়োগের জোড়া মেলাও।',diff:'Medium',xp:35,data:{pairs:[
+  {a:'F = ma',b:'নিউটনের দ্বিতীয় সূত্র'},{a:'V = IR',b:'ওহমের সূত্র'},
+  {a:'v = fλ',b:'তরঙ্গের বেগ'},{a:'p = mv',b:'ভরবেগ'},
+  {a:'A = πr²',b:'বৃত্তের ক্ষেত্রফল'},{a:'D = b² − 4ac',b:'দ্বিঘাত সমীকরণের নিরূপক'}]}},
+ {id:'edu-hsc-term-scramble',type:'scramble',on:true,icon:'🪐',t:'HSC Term Scramble',d:'বিজ্ঞান ও গণিতের ইংরেজি পরিভাষা সাজিয়ে মনে রাখো।',diff:'Medium',xp:35,data:{words:[
+  {w:'ACCELERATION',h:'বেগ পরিবর্তনের হার'}, {w:'EQUILIBRIUM',h:'সাম্যাবস্থা'},
+  {w:'ELECTROLYSIS',h:'বিদ্যুৎ প্রবাহের মাধ্যমে রাসায়নিক পরিবর্তন'}, {w:'WAVELENGTH',h:'পরপর দুই সমদশা বিন্দুর দূরত্ব'},
+  {w:'PROBABILITY',h:'কোনো ঘটনার সম্ভাবনা'}, {w:'PHOTOSYNTHESIS',h:'আলোক শক্তি ব্যবহার করে খাদ্য তৈরির প্রক্রিয়া'}]}},
+ {id:'edu-physics-odd-one',type:'oddOne',on:true,icon:'🧠',t:'Physics Odd-One Lab',d:'পদার্থবিজ্ঞানের ধারণার মধ্যে অমিলটি খুঁজে নাও।',diff:'Easy',xp:30,data:{sets:[
+  {q:'কোনটি ভেক্টর রাশি?',i:['ভর','সময়','বল','তাপমাত্রা'],odd:0,why:'বল একটি ভেক্টর; ভর, সময় ও তাপমাত্রা স্কেলার।'},
+  {q:'কোনটি শক্তির একক নয়?',i:['জুল','কিলোজুল','ওয়াট-ঘণ্টা','নিউটন'],odd:3,why:'নিউটন বলের একক, শক্তির নয়।'},
+  {q:'কোনটি তড়িৎচৌম্বক তরঙ্গ নয়?',i:['রেডিও তরঙ্গ','দৃশ্যমান আলো','এক্স-রে','শব্দ তরঙ্গ'],odd:3,why:'শব্দ যান্ত্রিক তরঙ্গ; চলতে মাধ্যম লাগে।'},
+  {q:'কোনটি SI মৌলিক রাশি নয়?',i:['দৈর্ঘ্য','সময়','তাপগতীয় তাপমাত্রা','বল'],odd:3,why:'বল একটি লব্ধ রাশি; F = ma।'}]}},
+ {id:'edu-math-step-order',type:'stepOrder',on:true,icon:'🪜',t:'Math Step Builder',d:'সমীকরণ সমাধানের ধাপগুলো সঠিক ক্রমে সাজাও।',diff:'Medium',xp:40,data:{puzzles:[
+  {t:'দ্বিঘাত সমীকরণের মূল',steps:['a, b ও c-এর মান চিহ্নিত করুন','D = b² − 4ac নির্ণয় করুন','x = (−b ± √D)/(2a)-তে মান বসান','পাওয়া মূলগুলো যাচাই করুন'],why:'প্রথমে সহগ চিহ্নিত, তারপর নিরূপক এবং শেষে মূলের সূত্র।'},
+  {t:'দুই বিন্দু থেকে সরলরেখার সমীকরণ',steps:['দুই বিন্দুর স্থানাঙ্ক লিখুন','m = (y₂ − y₁)/(x₂ − x₁) থেকে ঢাল নির্ণয় করুন','y − y₁ = m(x − x₁) সূত্রে বসান','সমীকরণ সরল করে লিখুন'],why:'বিন্দু-ঢাল সূত্র ব্যবহার করতে প্রথমে ঢাল জানা দরকার।'}]}},
+ {id:'edu-chem-lab-sequence',type:'stepOrder',on:true,icon:'🔬',t:'Chem Lab Sequence',d:'মোল গণনা ও টাইট্রেশনের মূল ধাপগুলো সাজাও।',diff:'Medium',xp:40,data:{puzzles:[
+  {t:'মোল থেকে কণার সংখ্যা',steps:['পদার্থের ভর ও মোলার ভর লিখুন','n = m/M থেকে মোল নির্ণয় করুন','মোলকে আভোগাড্রো ধ্রুবক দিয়ে গুণ করুন','একক ও তাৎপর্যপূর্ণ অঙ্ক যাচাই করুন'],why:'ভর থেকে আগে মোল, তারপর কণার সংখ্যা পাওয়া যায়।'},
+  {t:'অ্যাসিড–ক্ষার টাইট্রেশন',steps:['ব্যুরেটে জানা ঘনমাত্রার দ্রবণ নিন','ফ্লাস্কে অজানা দ্রবণ ও উপযুক্ত নির্দেশক দিন','দ্রবণ ধীরে যোগ করে ফ্লাস্ক নাড়ান','এন্ডপয়েন্টে পাঠ লিখে হিসাব করুন'],why:'সঠিক পাঠ ও সমতা-সম্পর্ক ব্যবহার করেই অজানা ঘনমাত্রা নির্ণয় হয়।'}]}},
+ {id:'edu-flame-colour-detective',type:'flame',on:true,icon:'🔥',t:'Flame Colour Detective',d:'শিখার রং দেখে পরিচিত ধাতব আয়ন শনাক্ত করো।',diff:'Medium',xp:40,data:{items:[
+  {n:'Sodium (Na⁺)',c:'#f5cf35',l:'উজ্জ্বল হলুদ শিখা'},
+  {n:'Potassium (K⁺)',c:'#ad8df2',l:'হালকা বেগুনি/লিলাক শিখা'},
+  {n:'Calcium (Ca²⁺)',c:'#d96c4a',l:'ইট-লাল শিখা'},
+  {n:'Copper (Cu²⁺)',c:'#39c7a5',l:'নীলাভ-সবুজ শিখা'}]}},
+ {id:'edu-projectile-range-challenge',type:'cannon',on:true,icon:'🎯',t:'Projectile Range Challenge',d:'কোণ ও প্রাথমিক বেগ বদলে লক্ষ্যবস্তুতে আঘাত করো; প্রক্ষেপণের ধারণা বোঝো।',diff:'Medium',xp:45,data:{}},
+ {id:'edu-line-slope-challenge',type:'slope',on:true,icon:'📈',t:'Line Slope Challenge',d:'গ্রাফের ঢাল ও y-intercept ঠিক করে বিন্দুগুলোর মধ্য দিয়ে রেখা চালাও।',diff:'Medium',xp:45,data:{}}
+];
+EXTRA_GAMES.forEach(function(g){if(!D.games.some(function(x){return x.id===g.id}))D.games.push(g)});
 SC.game.oddOne={n:'Odd One Out',list:['data.sets','Sets (4 items, mark the odd one)',[['q','Question (optional)'],['i.0','Item 1'],['i.1','Item 2'],['i.2','Item 3'],['i.3','Item 4'],['odd','Which one is the odd one?','sel',{0:'Item 1',1:'Item 2',2:'Item 3',3:'Item 4'}],['why','Short explanation (shown when wrong)']],'g_odd']};
 SC.game.stepOrder={n:'Step Order',list:['data.puzzles','Puzzles (write steps in the CORRECT order)',[['t','Puzzle title'],['steps.0','Step 1'],['steps.1','Step 2'],['steps.2','Step 3'],['steps.3','Step 4'],['why','Short explanation']],'g_step']};
 SC.game.periodic={n:'Periodic Quest (auto)'};SC.game.massAtlas={n:'Mass Atlas (auto)'};SC.game.elementSprint={n:'Element Sprint (auto)'};SC.game.trendDuel={n:'Trend Duel (auto)'};

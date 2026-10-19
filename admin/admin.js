@@ -3,8 +3,8 @@
   var T = localStorage.getItem('clt') || '', ME = localStorage.getItem('clu') || '', D = null, sec = 'dashboard', cur = -1, dirty = false;
   var SUBS = {}, DEF = window.CL_DEF, SCH = window.CL_SCHEMA;
   var SIMS = { atomBasics: 'Atom structure / particle counts', rutherfordModel: 'Rutherford nuclear atom model', planckQuantum: 'Planck energy quanta', deBroglie: 'de Broglie matter wave', uncertainty: 'Heisenberg uncertainty', quantumNumbers: 'Four quantum-number validator', spinOrbitalDiagram: 'Electron spin & orbital diagram', bohr: 'Bohr shell explorer', rutherford: 'Rutherford alpha scattering', dalton: 'Dalton atom model', atomCounting: 'Atom counting model', thomson: 'Thomson plum-pudding model', cathode: 'Cathode-ray tube', spectrum: 'Energy-level spectrum', emissionLines: 'Emission transition', quantum: 'Quantum-number validity', quantumSpin: 'Electron spin selector', orbitals: 'Orbital shape explorer', orbitalCapacity: 'Subshell capacity', aufbau: 'Orbital filling diagram', nplusl: '(n+l) filling rule', pauli: 'Pauli exclusion model', isotope: 'Nucleus / isotope model', isotone: 'Isotone comparison', atomicNotation: 'Atomic notation calculator', atomicNotation2: 'Nuclide symbol builder', valence: 'Valence-electron model', hund: 'Hund rule (p orbitals)', ionization: 'Ionization-energy trend', electroncloud: 'Electron probability cloud', isotopeCompare: 'Isotope comparison', shellCapacity: '2n² shell capacity', orbitalCount: 'Orbital count by l', aufbauOrder: 'Aufbau order explorer', hundRule: 'Hund rule (d orbitals)', electronConfig: 'Electron configuration builder', valenceShell: 'Valence shell explorer', line: 'Straight line graph', force: 'Force and motion', flame: 'Flame test colours', wave: 'Wave machine', projectile: 'Projectile launcher', pendulum: 'Pendulum', spring: 'Spring and mass', circuit: 'Ohm’s law circuit', gas: 'Gas particles', vectors: 'Vector adder', unit: 'Unit circle', tangent: 'Derivative / tangent zoom', matrix: 'Matrix transformer', circle: 'Circle explorer', kinetics: 'Reaction kinetics', equilibrium: 'Chemical equilibrium', ph: 'pH explorer', titration: 'Acid–base titration', electrochem: 'Electrochemical cell', optics: 'Thin lens optics', magnetic: 'Magnetic field', periodic: 'Periodic trends', bond: 'Chemical bonding & polarity', stoich: 'Stoichiometry / limiting reagent', integration: 'Definite integral area model', probability: 'Probability trials', custom: 'Custom (paste your own HTML/JS)', none: 'No simulation' };
-  var NAV = [['dashboard', 'Dashboard'], ['students', 'Students & Accounts'], ['feedback', 'Feedback'], ['home', 'Home Page'], ['roadmap', 'Roadmap'], ['chapters', 'Chapters'], ['games', 'Games (Arcade)'], ['labs', 'Simulations (Lab)'], ['daily', 'Daily & Missions'], ['practice', 'Practice & Sync'], ['questions', 'Question Bank'], ['insights', 'Learning Insights'], ['health', 'Content Health'], ['backup', 'Backup & History'], ['rewards', 'XP & Badges'], ['subjects', 'Subjects'], ['texts', 'All Texts'], ['media', 'Images / Media'], ['theme', 'Theme / Colors'], ['settings', 'Website Settings'], ['team', 'Team & Password']];
-  var TITLES = { daily: 'Daily Challenge & Missions', practice: 'Smart Practice & Cloud Sync', questions: 'Question Bank', insights: 'Learning Insights', health: 'Content Health', backup: 'Backup & Version History', dashboard: 'Dashboard', students: 'Students & Accounts', feedback: 'Feedback', home: 'Home Page', roadmap: 'Roadmap', chapters: 'Chapters', games: 'Games (Arcade)', labs: 'Simulations (Lab)', rewards: 'XP & Badges', theme: 'Theme / Colors', settings: 'Website Settings', team: 'Team & Password', subjects: 'Subjects', texts: 'All Texts', media: 'Images / Media' };
+  var NAV = [['dashboard', 'Dashboard'], ['pages', 'Pages & Tabs'], ['students', 'Students & Accounts'], ['feedback', 'Feedback'], ['home', 'Home Page'], ['roadmap', 'Roadmap'], ['chapters', 'Chapters'], ['games', 'Games (Arcade)'], ['labs', 'Simulations (Lab)'], ['daily', 'Daily & Missions'], ['practice', 'Practice & Sync'], ['questions', 'Question Bank'], ['insights', 'Learning Insights'], ['health', 'Content Health'], ['backup', 'Backup & History'], ['rewards', 'XP & Badges'], ['subjects', 'Subjects'], ['texts', 'All Texts'], ['media', 'Images / Media'], ['theme', 'Theme / Colors'], ['settings', 'Website Settings'], ['team', 'Team & Password']];
+  var TITLES = { pages: 'Pages & Tabs', daily: 'Daily Challenge & Missions', practice: 'Smart Practice & Cloud Sync', questions: 'Question Bank', insights: 'Learning Insights', health: 'Content Health', backup: 'Backup & Version History', dashboard: 'Dashboard', students: 'Students & Accounts', feedback: 'Feedback', home: 'Home Page', roadmap: 'Roadmap', chapters: 'Chapters', games: 'Games (Arcade)', labs: 'Simulations (Lab)', rewards: 'XP & Badges', theme: 'Theme / Colors', settings: 'Website Settings', team: 'Team & Password', subjects: 'Subjects', texts: 'All Texts', media: 'Images / Media' };
   var YN = { 1: 'Visible', 0: 'Hidden' };
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
   function rid(p) { return (p || 'x') + '-' + Date.now().toString(36) + Math.floor(Math.random() * 1e3).toString(36); }
@@ -65,8 +65,9 @@
   /* ---------- normalise loaded content ---------- */
   function norm(d) {
     d = d || {}; var def = clone(DEF);
-    d.settings = Object.assign({}, def.settings, d.settings || {});
+    d.settings = Object.assign({}, def.settings, d.settings || {}); var oldAbout = 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।'; if (d.settings.about === oldAbout) d.settings.about = 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।';
     d.theme = Object.assign({}, def.theme, d.theme || {});
+    var navDefaults = Array.isArray(def.navigation) ? def.navigation : [], navSaved = Array.isArray(d.navigation) ? d.navigation : [], navById = {}; navSaved.forEach(function (x) { if (x && x.id) navById[x.id] = x; }); d.navigation = navDefaults.map(function (x) { return Object.assign({}, x, navById[x.id] || {}); }); navSaved.forEach(function (x) { if (x && x.id && !navDefaults.some(function (n) { return n.id === x.id; })) d.navigation.push(x); }); d.customPages = Array.isArray(d.customPages) ? d.customPages : [];
     d.subjects = d.subjects && d.subjects.length ? d.subjects : def.subjects;
     d.chapters = d.chapters && d.chapters.length ? d.chapters : def.chapters;
     /* Add newly authored Qualitative Chemistry concepts to older saved content and migrate the former shared Bohr simulation. */
@@ -82,7 +83,7 @@
     d.labs = Array.isArray(d.labs) ? d.labs : def.labs;
     d.gam = Object.assign({}, def.gam, d.gam || {});
     d.daily = Object.assign({}, def.daily, d.daily || {}); d.practice = Object.assign({}, def.practice, d.practice || {}); d.missions = Array.isArray(d.missions) ? d.missions : def.missions; d.deletedGames = Array.isArray(d.deletedGames) ? d.deletedGames : [];
-    (def.games || []).forEach(function (g) { if (/^(odd-one|step-order|periodic-quest|element-sprint|trend-duel)/.test(g.id) && !d.games.some(function (x) { return x.id === g.id; }) && d.deletedGames.indexOf(g.id) < 0) d.games.push(clone(g)); });
+    (def.games || []).forEach(function (g) { if ((/^(odd-one|step-order|periodic-quest|element-sprint|trend-duel)/.test(g.id) || /^edu-/.test(g.id)) && !d.games.some(function (x) { return x.id === g.id; }) && d.deletedGames.indexOf(g.id) < 0) d.games.push(clone(g)); });
     d.texts = d.texts || {};
     CL_TXT.forEach(function (g) { g[1].forEach(function (t) { if (d.texts[t[0]] == null || d.texts[t[0]] === '') d.texts[t[0]] = t[2]; }); });
     d.chapters.forEach(function (c) { c.blocks = c.blocks || []; c.q = c.q || []; });
@@ -115,7 +116,7 @@
   function onIn(e) {
     if (e.target.id === 'qbq') { qb.q = e.target.value; qb.page = 0; if (e.type === 'change') view(); return; }
     var p = e.target.dataset && e.target.dataset.p; if (!p) return;
-    var v = e.target.value; if (/\.a$/.test(p)) v = +v; if (e.target.dataset.num) v = v === '' ? '' : +v; if (/\.on$/.test(p)) v = (v === '1'); set(D, p, v); mark();
+    var v = e.target.value; if (/\.a$/.test(p)) v = +v; if (e.target.dataset.num) v = v === '' ? '' : +v; if (/\.(on|enabled)$/.test(p)) v = (v === '1'); set(D, p, v); mark();
     if (e.type === 'change' && /\.(status|sim)$|blocks\.\d+\.t$/.test(p)) view();
   }
   function view() {
@@ -123,11 +124,44 @@
     sync();
     var t = TITLES[sec]; if (cur >= 0 && { chapters: 1, home: 1, games: 1, labs: 1 }[sec]) t = { chapters: 'Edit concept', home: 'Edit section', games: 'Edit game', labs: 'Edit simulation' }[sec];
     $('#ttl').textContent = t;
-    var V = { dashboard: vDash, students: vStudents, feedback: vFeedback, home: cur >= 0 ? vSecEdit : vHome, roadmap: vRoadmap, chapters: cur >= 0 ? vEdit : vChapters, games: cur >= 0 ? vGameEdit : vGames, labs: cur >= 0 ? vLabEdit : vLabs, rewards: vRewards, daily: vDaily, practice: vPractice, questions: vQuestions, insights: vInsights, health: vHealth, backup: vBackup, theme: vTheme, settings: vSet, team: vTeam, subjects: vSubs, texts: vTexts, media: vMedia };
+    var V = { dashboard: vDash, pages: vPages, students: vStudents, feedback: vFeedback, home: cur >= 0 ? vSecEdit : vHome, roadmap: vRoadmap, chapters: cur >= 0 ? vEdit : vChapters, games: cur >= 0 ? vGameEdit : vGames, labs: cur >= 0 ? vLabEdit : vLabs, rewards: vRewards, daily: vDaily, practice: vPractice, questions: vQuestions, insights: vInsights, health: vHealth, backup: vBackup, theme: vTheme, settings: vSet, team: vTeam, subjects: vSubs, texts: vTexts, media: vMedia };
     $('#body').innerHTML = V[sec](); window.scrollTo(0, 0);
     if (sec === 'dashboard') loadStudentCount();
     if (sec === 'students') loadStudents();
     if (sec === 'feedback') loadFeedback();
+  }
+
+  function vPages() {
+    var map = {
+      home: ['Home page', 'home', 'Hero, home sections, Ayat/Hadith and Daily Inspiration'],
+      chapters: ['Explore Chapters', 'chapters', 'Concepts, questions, explanations and chapter status'],
+      play: ['Games', 'games', 'Game content, settings, visibility and ordering'],
+      lab: ['Simulations', 'labs', 'Interactive lab catalogue and descriptions'],
+      progress: ['My Progress', 'rewards', 'XP rules and badges'],
+      'study-space': ['Study Space', 'texts', 'Labels and explanatory text'],
+      daily: ['Daily & Missions', 'daily', 'Daily challenge and learning missions'],
+      'smart-practice': ['Smart Practice', 'practice', 'Review intervals and practice options'],
+      analytics: ['Analytics', 'texts', 'Public labels and interface text'],
+      leaderboard: ['Leaderboard', 'texts', 'Public labels and interface text'],
+      about: ['About', 'settings', 'About copy, credits and website settings']
+    };
+    var nav = Array.isArray(D.navigation) ? D.navigation : [];
+    var h = '<div class="pages-intro"><div><span class="eyebrow">SITE CONTROL CENTER</span><h2>Pages & Tabs</h2><p>Manage which destinations appear in the public menu, rename tabs, change their order and jump straight to the correct content editor. Add custom pages for future sections without editing code.</p></div><button class="b1" id="addCustomPage">＋ Create custom page</button></div>';
+    h += '<div class="pages-stats"><div><strong>' + nav.length + '</strong><span>Built-in tabs</span></div><div><strong>' + nav.filter(function (n) { return n.enabled !== false && n.enabled !== '0'; }).length + '</strong><span>Visible in menu</span></div><div><strong>' + (D.customPages || []).length + '</strong><span>Custom pages</span></div></div>';
+    h += '<div class="card2"><h3 class="gh">Built-in tabs</h3><p class="hint">Each row controls a public navigation item. “Edit content” opens the current editor for that tab. The destination itself remains available by direct URL when hidden from the menu.</p><div class="page-manager-list">';
+    nav.forEach(function (n, i) {
+      var info = map[n.id] || [n.label || n.id, 'texts', 'Edit the labels and content associated with this destination'];
+      var href = n.href || '#/' + (n.id === 'home' ? '' : n.id);
+      h += '<section class="page-manager-row"><div class="page-manager-identity"><span class="page-manager-index">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + E(info[0]) + '</b><small>' + E(href) + '</small><span>' + E(info[2]) + '</span></div></div><div class="page-manager-fields">' + F('Menu label', 'navigation.' + i + '.label') + SEL('Menu visibility', 'navigation.' + i + '.enabled', YN) + '</div><div class="page-manager-actions"><button data-lm="navigation|' + i + '|-1" aria-label="Move up">↑</button><button data-lm="navigation|' + i + '|1" aria-label="Move down">↓</button><button class="b2" data-go="' + E(info[1]) + '">Edit content ↗</button></div></section>';
+    });
+    h += '</div></div>';
+    h += '<div class="card2"><h3 class="gh">Custom pages</h3><p class="hint">Create a new public page, set its menu name, edit its text and publish it. Content is rendered as text, not arbitrary HTML, to avoid breaking the site layout.</p>';
+    if (!(D.customPages || []).length) h += '<div class="empty-students"><h3>No custom pages yet</h3><p>Create a custom page to add a new destination to the public menu.</p></div>';
+    (D.customPages || []).forEach(function (pg, i) {
+      var P = 'customPages.' + i;
+      h += '<article class="custom-page-editor"><div class="qh"><div><b>' + E(pg.title || pg.navLabel || 'Untitled page') + '</b><small class="custom-page-route">#/page/' + E(pg.slug || pg.id) + '</small></div><span>' + SEL('Published?', P + '.on', YN).replace('<label class="f">', '<label class="f compact-field">') + '</span></div><div class="g2"><div>' + F('Page title', P + '.title') + F('Menu label', P + '.navLabel') + '</div><div>' + F('URL slug (a-z, 0-9 and hyphens)', P + '.slug') + '<p class="hint">Public address: <b>#/page/' + E(pg.slug || pg.id) + '</b></p></div></div>' + F('Page content (plain text; separate paragraphs with a blank line)', P + '.body', 'area', 6) + '<div class="page-manager-actions"><button class="b2" data-go="pages">Refresh editor</button><button class="dg" data-delete-page="' + i + '">Delete page</button></div></article>';
+    });
+    return h + '</div>';
   }
 
   /* ---------- views ---------- */
@@ -172,7 +206,7 @@
 
   function vDash() {
     var av = D.chapters.filter(function (c) { return c.status === 'available'; }).length; var chapterNames = {}; D.chapters.forEach(function (c) { chapterNames[String(c.s) + '::' + String(c.chapterTitle || c.chapter || c.t || 'Chapter')] = 1; });
-    var cards = [['student-count', 'Student accounts', '<span id="studentCountValue">Loading…</span> registered'], ['feedback', 'Feedback', 'View messages sent by visitors'], ['home', 'Home Page', D.home.sections.length + ' sections, hero text'], ['chapters', 'Chapters & Concepts', Object.keys(chapterNames).length + ' chapters · ' + D.chapters.length + ' concepts (' + av + ' available)'], ['daily', 'Daily & Missions', (D.missions || []).length + ' missions, daily challenge'], ['practice', 'Practice & Sync', 'Revision gaps, step help, cloud sync'], ['questions', 'Question Bank', 'Edit every question & explanation'], ['insights', 'Learning Insights', 'Most-missed concepts, activity'], ['health', 'Content Health', 'Find empty or broken content'], ['backup', 'Backup & History', 'Download, restore versions'], ['games', 'Games (Arcade)', D.games.length + ' games'], ['labs', 'Simulations (Lab)', D.labs.length + ' simulations'], ['rewards', 'XP & Badges', (D.gam.badges || []).length + ' badges, XP rules'], ['texts', 'All Texts', 'Change any word on the site'], ['media', 'Images / Media', 'Upload and manage images'], ['subjects', 'Subjects', D.subjects.length + ' subjects'], ['theme', 'Theme / Colors', 'Colours, glow, effects'], ['settings', 'Website Settings', 'Site name, footer, about'], ['team', 'Team & Password', 'Add your friend, change password']];
+    var cards = [['student-count', 'Student accounts', '<span id="studentCountValue">Loading…</span> registered'], ['pages', 'Pages & Tabs', 'Control public navigation, tab order, visibility and custom pages'], ['feedback', 'Feedback', 'View messages sent by visitors'], ['home', 'Home Page', D.home.sections.length + ' sections, hero text'], ['chapters', 'Chapters & Concepts', Object.keys(chapterNames).length + ' chapters · ' + D.chapters.length + ' concepts (' + av + ' available)'], ['daily', 'Daily & Missions', (D.missions || []).length + ' missions, daily challenge'], ['practice', 'Practice & Sync', 'Revision gaps, step help, cloud sync'], ['questions', 'Question Bank', 'Edit every question & explanation'], ['insights', 'Learning Insights', 'Most-missed concepts, activity'], ['health', 'Content Health', 'Find empty or broken content'], ['backup', 'Backup & History', 'Download, restore versions'], ['games', 'Games (Arcade)', D.games.length + ' games'], ['labs', 'Simulations (Lab)', D.labs.length + ' simulations'], ['rewards', 'XP & Badges', (D.gam.badges || []).length + ' badges, XP rules'], ['texts', 'All Texts', 'Change any word on the site'], ['media', 'Images / Media', 'Upload and manage images'], ['subjects', 'Subjects', D.subjects.length + ' subjects'], ['theme', 'Theme / Colors', 'Colours, glow, effects'], ['settings', 'Website Settings', 'Site name, footer, about'], ['team', 'Team & Password', 'Add your friend, change password']];
     return '<div class="card2"><h3 class="gh">Welcome back</h3><p class="hint">Everything on the website is editable here. Pick a section, change it, then press Save changes. Saved changes go live immediately.</p><div class="dash">' + cards.map(function (c) { return c[0] === 'student-count' ? '<div class="dc student-count-card"><b>' + c[1] + '</b><span><strong id="studentCountValue">Loading…</strong> registered students</span></div>' : '<button class="dc" data-go="' + c[0] + '"><b>' + c[1] + '</b><span>' + E(c[2]) + '</span></button>'; }).join('') + '</div></div>';
   }
   function secTitle(s) { var t = SCH.secTypes[s.type]; return E(s.h ? String(s.h).replace('|', ' ') : (t ? t.n : s.type)); }
@@ -398,6 +432,7 @@
     if (D.daily) { D.daily.count = Math.max(1, Math.min(20, +D.daily.count || 5)); D.daily.xp = Math.max(0, Math.min(500, +D.daily.xp || 0)); D.daily.bonus = Math.max(0, Math.min(500, +D.daily.bonus || 0)); D.daily.hints = +D.daily.hints === 0 ? 0 : 1; D.daily.on = +D.daily.on === 0 || D.daily.on === false ? 0 : 1; D.daily.pinned = (D.daily.pinned || []).slice(0, 40); }
     (D.missions || []).forEach(function (m) { m.goals = (m.goals || []).filter(function (g) { return g && g.k; }).map(function (g) { return { k: g.k, n: Math.max(1, Math.min(1000, +g.n || 1)) }; }); m.xp = Math.max(0, +m.xp || 0); if (typeof m.on !== 'boolean') m.on = !(m.on === 0 || m.on === '0'); m.s = m.s || ''; });
     (D.games || []).forEach(function (g) { if (g.type === 'oddOne') (g.data.sets || []).forEach(function (s) { s.odd = +s.odd || 0; }); });
+    (D.customPages || []).forEach(function (page, i) { page.title = String(page.title || 'Untitled page').trim(); page.navLabel = String(page.navLabel || page.title).trim(); page.body = String(page.body || ''); var slug = String(page.slug || page.title).toLowerCase(); if (slug.normalize) slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); slug = slug.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48) || 'learning-page'; var base = slug, suffix = 2; while ((D.customPages || []).some(function (other, j) { return j !== i && other.slug === slug; })) slug = base + '-' + suffix++; page.slug = slug; if (typeof page.on !== 'boolean') page.on = !(page.on === 0 || page.on === '0' || page.on === false); });
   }
   function globalSearch(q) {
     q = q.trim().toLowerCase(); if (q.length < 2) return [];
@@ -438,6 +473,17 @@
     if (t.id === 'upl') return up(function () { view(); });
     if (d.dm) { if (confirm('Delete this image? Places using it will show nothing.')) api('DELETE', '/media', { id: d.dm }).then(function () { view(); }); return; }
     if (d.cp) { try { navigator.clipboard.writeText(location.origin + d.cp); toast('Link copied'); } catch (x) { toast(d.cp); } return; }
+    if (t.id === 'addCustomPage') {
+      var title = prompt('Enter the public page title:', 'New learning page');
+      if (!title || !title.trim()) return;
+      title = title.trim();
+      var slug = title.normalize ? title.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : title;
+      slug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48) || 'learning-page';
+      var baseSlug = slug, suffix = 2; while ((D.customPages || []).some(function (x) { return x.slug === slug; })) slug = baseSlug + '-' + suffix++;
+      D.customPages.push({ id: rid('page'), slug: slug, title: title, navLabel: title, body: 'এই পেজের লেখা এখানে লিখুন।\n\nপ্রতিটি নতুন অনুচ্ছেদের মাঝে একটি ফাঁকা লাইন রাখুন।', on: true });
+      mark(); return view();
+    }
+    if (d.deletePage != null) { if (confirm('Delete this custom page? It will be removed from the public menu after saving.')) { D.customPages.splice(+d.deletePage, 1); mark(); return view(); } return; }
     /* generic lists */
     if (d.la) { var arr = get(D, d.la); if (!arr) { set(D, d.la, []); arr = get(D, d.la); } arr.push(TPL[d.tpl]()); mark(); return view(); }
     if (d.ld) { var a = d.ld.split('|'); get(D, a[0]).splice(+a[1], 1); mark(); return view(); }
