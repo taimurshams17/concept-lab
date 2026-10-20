@@ -397,7 +397,7 @@ var NEW=[
 ];
 NEW.forEach(function(g){if(!D.games.some(function(x){return x.id===g.id}))D.games.push(g)});
 var EXTRA_GAMES=[
- {id:'edu-physics-formula-sprint',type:'blitz',on:true,icon:'⚡',t:'Physics Formula Sprint',d:'বেগ, বল, তরঙ্গ ও শক্তির সূত্র দ্রুত চিনে নাও।',diff:'Easy',xp:35,data:{time:45,q:[
+ {id:'edu-physics-formula-sprint',type:'blitz',on:true,icon:'⚡',t:'Physics Formula Sprint',d:'বেগ, বল, তরঙ্গ ও শক্তির সূত্র দ্রুত চিনে নাও।',diff:'Easy',xp:35,data:{useChapters:false,time:45,q:[
   {q:'নিউটনের দ্বিতীয় সূত্র কোনটি?',o:['F = ma','v = fλ','P = VI','ρ = m/V'],a:0,e:'নিট বল = ভর × ত্বরণ।'},
   {q:'সমবেগে সরলরেখায় চললে ত্বরণ কত?',o:['শূন্য','ধ্রুবক কিন্তু শূন্য নয়','অসীম','ভরের সমান'],a:0,e:'বেগ পরিবর্তন না হলে ত্বরণ শূন্য।'},
   {q:'তরঙ্গের বেগের সম্পর্ক কোনটি?',o:['v = fλ','F = ma','W = Fs²','p = mv²'],a:0,e:'তরঙ্গের বেগ = কম্পাঙ্ক × তরঙ্গদৈর্ঘ্য।'},

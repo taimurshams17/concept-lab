@@ -15,7 +15,7 @@ function flameSvg(c){return'<svg viewBox="0 0 200 240" class="flame-svg"><defs><
 
 /* ================= Quiz Blitz ================= */
 G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
- if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
+ if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
  if(pool.length<2)return empty(r,'Add some questions in the admin panel to play this game.');
  var T=+d.time||60,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';

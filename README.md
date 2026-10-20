@@ -19,3 +19,10 @@ Saved admin content overrides the built-in content. See SETUP-GUIDE.md to deploy
 - The home-page simulation carousel cycles through visible entries (not only unique engine types), so topic-specific entries appear in the left/right showcase.
 - Admin > Chapters > edit a concept lets you choose an interactive simulation engine for Stage 3.
 - New interactive engines include qualitative models for reaction kinetics, equilibrium, pH, titration, electrochemistry, thin-lens optics, magnetic field, periodic trends, bond polarity and stoichiometry. These are learning models, not substitutes for lab measurements or a verified official syllabus checklist.
+
+
+## ConceptLab v8.9 update
+- Added a homepage Quick Access launchpad for the core features, all three subjects, and the Student Hub tools.
+- Added a card-based three-line menu with monochrome icons, short descriptions, and direct links to all 11 Student Hub tools.
+- Added a persistent bottom navigation: Home, Chapters, Arcade, Simulations, Student Hub, and About.
+- See `UPDATE-CONCEPTLAB-V8.9-PHYSICSVERSE-INSPIRED-BN.md` for the full update summary.
