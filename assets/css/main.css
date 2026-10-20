@@ -1248,3 +1248,64 @@ footer{margin-top:14px!important}
 .hub .hub-g select,.hub .hub-g .hub-in{min-height:30px!important;height:32px!important;padding:.25rem .38rem!important;font-size:.78rem!important;line-height:1.15!important;width:100%;min-width:0}
 @media(max-width:600px){.hub .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.38rem!important}.hub .hub-g{font-size:.74rem!important}.hub .hub-g select,.hub .hub-g .hub-in{height:30px!important;min-height:30px!important;padding:.22rem .32rem!important;font-size:.76rem!important}}
 @media(max-width:350px){.hub .hub-grid{grid-template-columns:minmax(0,1fr)!important}}
+/* v7.7: compact GPA controls and readable projectile-motion lesson */
+.hub .hub-grid .hub-g select{height:32px!important;min-height:32px!important;max-height:32px!important;padding:3px 7px!important;font-size:12px!important;line-height:1.1!important;box-sizing:border-box!important;appearance:auto!important}
+.hub .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.42rem!important}
+.hub .hub-g{min-width:0;overflow-wrap:anywhere}
+.projectile-theory{margin-top:20px;padding:clamp(16px,3vw,28px);line-height:1.7}
+.projectile-theory h2{font-size:clamp(1.5rem,4vw,2rem);margin:.1rem 0 .2rem}
+.projectile-theory h3{font-size:1.1rem;margin:1.4rem 0 .4rem;color:var(--tx)}
+.projectile-theory p,.projectile-theory li{color:var(--mut)}
+.projectile-theory ul,.projectile-theory ol{padding-left:1.35rem}
+.projectile-theory code{white-space:normal;overflow-wrap:anywhere;color:var(--s);font-size:.95em}
+@media(max-width:350px){.hub .hub-grid{grid-template-columns:minmax(0,1fr)!important}}
+
+/* Professional, editable footer */
+footer{position:relative;border-top:1px solid rgba(105,180,220,.18);background:linear-gradient(180deg,rgba(8,18,31,.96),rgba(3,8,15,1));padding:70px 0 28px;margin-top:64px}footer .waves{opacity:.18} .footer-pro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,1fr) auto;gap:28px;align-items:center;position:relative;z-index:1}.footer-brand b{font-size:1.25rem;letter-spacing:-.02em;color:#f4f8ff}.footer-brand p{color:#a7b5c8;max-width:480px;line-height:1.65;margin:.55rem 0}.footer-label{font-size:.72rem;letter-spacing:.16em;font-weight:800;color:#8da6bd;display:block;margin-bottom:12px}.footer-social{display:inline-flex;align-items:center;gap:11px;padding:12px 15px;border:1px solid rgba(99,170,220,.28);border-radius:12px;background:rgba(35,104,164,.12);color:#eaf5ff;text-decoration:none;font-weight:700;transition:transform .2s,border-color .2s,background .2s}.footer-social:hover{transform:translateY(-2px);border-color:#4db7f2;background:rgba(35,104,164,.22)}.footer-social svg{width:22px;height:22px;fill:#65b9ff;flex:none}.footer-pro #ftop{color:#a7b5c8;text-decoration:none;white-space:nowrap}.footer-pro #ftop:hover{color:#fff}@media(max-width:680px){footer{padding:54px 0 24px}.footer-pro{grid-template-columns:1fr;gap:24px;align-items:start}.footer-pro #ftop{justify-self:start}.footer-social{width:fit-content;max-width:100%;box-sizing:border-box}}
+
+/* v8.1: mobile-first Projectile Motion lab interface */
+.pmx{min-width:0;max-width:100%;gap:12px!important}
+.pmx *{box-sizing:border-box}
+.pmx .pmx-intro{padding:2px 2px 4px}
+.pmx .pmx-intro h2{font-size:clamp(1.45rem,5vw,2rem);letter-spacing:-.025em;line-height:1.15}
+.pmx .pmx-intro p{line-height:1.55}
+.pmx [data-pm="scenario"]{border-radius:12px;padding:10px 12px;font-size:1rem;max-width:100%;box-sizing:border-box}
+.pmx [data-pmcanvas]{width:100%;height:clamp(250px,68vw,360px)!important;max-height:360px;touch-action:pan-y}
+.pmx [data-pmb]{min-height:44px;justify-content:center}
+.pmx [data-pmresults] .card{min-width:0;overflow-wrap:anywhere;border-radius:13px;background:linear-gradient(145deg,rgba(19,39,58,.82),rgba(7,17,29,.94));border-color:rgba(115,180,225,.18)}
+.pmx [data-pmresults] small{display:block;line-height:1.35;min-height:2.5em}
+.pmx [data-pmresults] div div{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.pmx [data-pmconcept],.pmx details.card{min-width:0;overflow:hidden;border-radius:15px}
+.pmx [data-pmformula]{overflow-wrap:anywhere;word-break:normal;line-height:1.7}
+.pmx [data-pmformula] p{margin:.55rem 0}
+.pmx details summary{line-height:1.45;padding:2px 0}
+.pmx details label{display:block;min-width:0;font-size:.9rem;line-height:1.45}
+.pmx details input[type=range]{display:block;min-height:28px;margin:8px 0 2px;accent-color:var(--p,#38bdf8);touch-action:pan-y}
+.pmx output{display:inline-block;font-weight:800;color:var(--s,#7dd3fc);font-variant-numeric:tabular-nums;margin-top:2px}
+@media(max-width:600px){
+ .pmx{gap:10px!important}
+ .pmx .pmx-intro p:last-child{font-size:.88rem;margin:.45rem 0 0}
+ .pmx> .card:has([data-pm="scenario"]){padding:12px!important;border-radius:15px}
+ .pmx [data-pm="scenario"]{min-height:46px!important;margin-top:8px!important;font-size: .94rem;padding:10px!important}
+ .pmx [data-pmcanvas]{height:clamp(235px,66vw,300px)!important}
+ .pmx>div:has(>[data-pmb="play"]){display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important}
+ .pmx [data-pmb]{width:100%;min-width:0;min-height:46px;padding:10px 8px;font-size:.86rem;white-space:normal;line-height:1.2}
+ .pmx details.card{padding:13px!important}
+ .pmx details [style*="grid-template-columns:repeat(auto-fit"]{grid-template-columns:minmax(0,1fr)!important;gap:13px!important}
+ .pmx details label{font-size:.88rem}
+ .pmx details input[type=range]{width:100%;height:28px;margin:7px 0 0}
+ .pmx [data-pmresults]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ .pmx [data-pmresults] .card{padding:10px!important}
+ .pmx [data-pmresults] small{font-size:.72rem;min-height:2.6em}
+ .pmx [data-pmresults] div div{font-size:1rem!important;line-height:1.25}
+ .pmx [data-pmconcept]{padding:13px!important}
+ .pmx [data-pmconcept] h3{font-size:1.05rem;line-height:1.35}
+ .pmx [data-pmformula],.pmx [data-pmnote],.pmx details.card p,.pmx details.card li{font-size:.88rem;line-height:1.65}
+ .pmx details ol{padding-left:1.2rem}
+}
+@media(max-width:360px){
+ .pmx [data-pmb]{font-size:.8rem}
+ .pmx [data-pmresults] .card{padding:8px!important}
+ .pmx [data-pmresults] div div{font-size:.92rem!important}
+ .pmx [data-pmcanvas]{height:235px!important}
+}

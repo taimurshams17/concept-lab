@@ -70,8 +70,20 @@ function statics(){
 
  var hb=$('.hbtn');if(hb)hb.textContent='▶ '+X('btn_play');
  var lg=$('.brand svg, .brand .logo');if(lg)lg.outerHTML='<img class="logo" src="assets/images/conceptlab-main-logo.webp" alt="" width="38" height="38">'
- var set=function(i,t){var n=document.getElementById(i);if(n)n.textContent=t};set('bn',S.siteName);set('fb',S.siteName);set('ft',S.credit==null?'':S.credit);set('ftop',X('ft_top'));document.title=S.siteName+': Unlocking core concepts';
- chip();
+ var set=function(i,t){var n=document.getElementById(i);if(n)n.textContent=t};
+ set('bn',S.siteName);set('fb',S.siteName);set('ft',S.credit==null?'':S.credit);
+ set('footerTagline',S.footerText||S.footerTitle||'');set('footerFacebookLabel',S.facebookLabel||'Join our Facebook Page');
+ var fba=document.getElementById('footerFacebook');if(fba)fba.href=S.facebookUrl||'https://www.facebook.com';
+ var fs=document.getElementById('footerSocials');
+ if(fs){
+  var links=[{label:S.facebookLabel||'Join our Facebook Page',url:S.facebookUrl||'https://www.facebook.com',kind:'facebook'}].concat(Array.isArray(S.socialLinks)?S.socialLinks:[]);
+  fs.innerHTML=links.filter(function(x){return x&&x.url&&x.label}).map(function(x){
+   var kind=String(x.kind||'social').toLowerCase();
+   var icon=kind==='facebook'?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.7 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6H17V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.5v3.2h2.8V21z"/></svg>':'<span aria-hidden="true">↗</span>';
+   return '<a class="footer-social" href="'+String(x.url).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" target="_blank" rel="noopener noreferrer">'+icon+'<span>'+String(x.label).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span></a>';
+  }).join('');
+ }
+ set('ftop',X('ft_top'));document.title=S.siteName+': Unlocking core concepts'; chip();
 }
 
 /* ------------------------------------------------------------ progress, XP, badges */
