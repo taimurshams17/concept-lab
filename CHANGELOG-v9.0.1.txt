@@ -1,0 +1,4 @@
+ConceptLab v9.0.1 hotfix
+- Fixes the actual #nav.nav-portal mobile drawer width and text wrapping, not just notification-like selectors.
+- Narrows simulation icon matching to each card title to reduce accidental matches against nearby card content.
+- Browser visual verification is still required after deployment.

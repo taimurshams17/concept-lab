@@ -134,10 +134,52 @@
     [/লেখচিত্র|graph|chart|trend|analytics|data|statistic/i, 'chart'],
     [/দিকনির্দেশ|map|location|navigate|compass|direction/i, 'compass']
   ];
+
+  // Prefer a simulation-specific icon based on the actual card title.
+  // This avoids the old broad "physics"/"chemistry" rules assigning one icon to every card.
+  const simulationTitleRules = [
+    [/pendulum/i, 'waves'],
+    [/spring\s*(?:&|and)\s*mass|harmonic/i, 'magnet'],
+    [/ohm|circuit|resistance|voltage|current/i, 'plug'],
+    [/gas particles|ideal gas|gas law|pressure/i, 'thermometer'],
+    [/projectile|parabolic motion/i, 'rocket'],
+    [/newton|force|motion|inertia/i, 'target'],
+    [/gravity|gravitational|orbit/i, 'planet'],
+    [/wave|sound|frequency|oscillation/i, 'waves'],
+    [/lens|mirror|refraction|reflection|optics/i, 'telescope'],
+    [/magnet|magnetic/i, 'magnet'],
+    [/electric|charge|coulomb/i, 'bolt'],
+    [/rutherford|alpha.?scattering|nucleus/i, 'atom'],
+    [/atom|atomic|electron|proton|neutron/i, 'atom'],
+    [/molecule|chemical bond|reaction|stoichiometry/i, 'beaker'],
+    [/acid|base|ph|indicator/i, 'flask'],
+    [/periodic table|element/i, 'chart'],
+    [/density|buoyancy|fluid|archimedes/i, 'scale'],
+    [/heat|thermal|temperature|thermodynamic/i, 'thermometer'],
+    [/pendulum|simple harmonic/i, 'waves'],
+    [/probability|statistics|distribution/i, 'chart'],
+    [/geometry|triangle|circle|polygon/i, 'compass'],
+    [/function|equation|algebra|calculus|graph/i, 'chart'],
+    [/matrix|vector/i, 'ruler'],
+    [/cell|biology|dna|genetic/i, 'dna'],
+    [/microscope/i, 'microscope'],
+    [/solar|planet|astronomy|space/i, 'planet'],
+    [/rocket|satellite/i, 'satellite'],
+    [/friction|inclined plane/i, 'stairs'],
+    [/lever|torque|rotation|angular/i, 'tools'],
+    [/collision|momentum/i, 'target'],
+    [/projectile/i, 'rocket']
+  ];
   function contextualIcon(node, emoji) {
     const host = node && (node.parentElement || node.parentNode);
     const card = host && (host.closest('a,button,article,li,[class*=card],[class*=tile],[class*=item],[class*=game],[class*=sim]') || host.parentElement || host);
     const context = ((card && card.textContent) || (host && host.textContent) || '').slice(0, 700);
+    const titleNode = card && (card.querySelector('h2,h3,h4,.title,.card-title,[class*=title]'));
+    const titleContext = titleNode ? titleNode.textContent.trim() : context;
+    const isSimulationCard = !!(card && card.matches('[class*=sim], [class*=simulation], article, a'));
+    if (isSimulationCard) {
+      for (const rule of simulationTitleRules) if (rule[0].test(titleContext)) return rule[1];
+    }
     for (const rule of semanticRules) if (rule[0].test(context)) return rule[1];
     return map.get(emoji) || 'generic';
   }
