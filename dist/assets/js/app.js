@@ -147,9 +147,9 @@ var ION_CHALLENGE_MORE=[
  {q:'কোনটি পলিআটমিক আয়ন?',o:['NH₄⁺','Na⁺','Cl⁻','Mg²⁺'],a:0,e:'NH₄⁺ একাধিক পরমাণু নিয়ে গঠিত একটি আয়ন।'}
 ];
 var CANONICAL_SIM_ID_BY_KEY={
- wave:'wave',projectile:'projectile',pendulum:'pendulum',spring:'spring',circuit:'circuit',gas:'gas',
- force:'hsc-phy-newton',vectors:'vectors',unit:'unit',tangent:'tangent',matrix:'matrix',circle:'circle',line:'line',
- flame:'flame',kinetics:'hsc-chem-kinetics',electrochem:'hsc-chem-electrochem'
+ wave:'wave',projectile:'hsc-phy-projectile',pendulum:'hsc-phy-periodic',spring:'hsc-phy-spring',circuit:'hsc-phy-circuit',gas:'hsc-phy-gas',
+ force:'hsc-phy-newton',vectors:'hsc-math-vectors',unit:'hsc-math-trig',tangent:'hsc-math-diff',matrix:'hsc-math-matrix',circle:'hsc-math-circle',line:'hsc-math-line',
+ flame:'hsc-chem-flame',kinetics:'hsc-chem-kinetics',electrochem:'hsc-chem-electrochem'
 };
 function normalizeCatalog(){
  var allGames=D.games||[],primaryScramble=allGames.filter(function(g){return g&&g.id==='scramble'})[0];
@@ -163,7 +163,7 @@ function normalizeCatalog(){
  kept.forEach(function(g,i){var ico=GAME_ICON_BY_ID[g.id]||g.icon||GAME_ICON_FALLBACK[i%GAME_ICON_FALLBACK.length];if(seenIcons[ico]){var j=0;while(j<GAME_ICON_FALLBACK.length&&seenIcons[GAME_ICON_FALLBACK[j]])j++;ico=GAME_ICON_FALLBACK[j]||('🔹'+(i+1))}g.icon=ico;seenIcons[ico]=1});
  kept.sort(function(a,b){return a.id==='chemistry-ion-challenge'?-1:b.id==='chemistry-ion-challenge'?1:0});D.games=kept;
  var rawLabs=D.labs||[],seenSimRenderers=Object.create(null);
- D.labs=rawLabs.filter(function(l){if(!l)return false;var canonical=CANONICAL_SIM_ID_BY_KEY[l.sim];if(canonical&&l.id!==canonical)return false;var renderer=String(l.sim||'').trim();if(renderer&&seenSimRenderers[renderer])return false;if(renderer)seenSimRenderers[renderer]=l.id||true;return true});
+ D.labs=rawLabs.filter(function(l){if(!l)return false;if(l.id==='pendulum'||l.id==='hsc-phy-magnetic')return false;var canonical=CANONICAL_SIM_ID_BY_KEY[l.sim];if(canonical&&l.id!==canonical)return false;var renderer=String(l.sim||'').trim();if(renderer&&seenSimRenderers[renderer])return false;if(renderer)seenSimRenderers[renderer]=l.id||true;return true});
  D.labs.forEach(function(l){if(l.id==='wave'||l.id==='projectile'||l.id==='flame')l.on=true});
  var rush=kept.filter(function(g){return g.id==='physics-unit-rush'})[0];if(rush){rush.t='Physics Unit Rush';rush.d='HSC পদার্থবিজ্ঞানের SI একক, মাত্রা, সূত্র ও মৌলিক ধারণা নিয়ে দ্রুত MCQ চ্যালেঞ্জ। চারটি বিকল্প থেকে সঠিক উত্তর বেছে নিন; ভুল হলে ব্যাখ্যা দেখুন।';rush.data=rush.data||{};rush.data.time=Math.max(70,+rush.data.time||50);rush.data.useChapters='0';var qs=rush.data.q||[],have=Object.create(null);qs.forEach(function(q){have[String(q.q||'').trim().toLowerCase()]=1});PHYSICS_UNIT_RUSH_MORE.forEach(function(q){var k=q.q.trim().toLowerCase();if(!have[k]){qs.push(q);have[k]=1}});rush.data.q=qs}
  var ion=kept.filter(function(g){return g.id==='chemistry-ion-challenge'})[0];if(ion){ion.type='ionDetective';ion.on=true;ion.icon='🛟';ion.t='Ion Detective: আয়ন শনাক্তকরণ';ion.d='ভার্চুয়াল ল্যাবে বিকারক যোগ, পর্যবেক্ষণ নোট, ধনায়ন-ঋণায়ন শনাক্তকরণ, শিখা ও অধঃক্ষেপ পরীক্ষা এবং ভর্তি-ধাঁচের চ্যালেঞ্জ।';ion.diff='Medium';ion.xp=Math.max(50,+ion.xp||50);ion.data=ion.data||{};ion.data.time=Math.max(60,+ion.data.time||60);ion.data.useChapters='0';var iq=ion.data.q||[],ih=Object.create(null);iq.forEach(function(q){ih[String(q.q||'').trim().toLowerCase()]=1});ION_CHALLENGE_MORE.forEach(function(q){var k=q.q.trim().toLowerCase();if(!ih[k]){iq.push(q);ih[k]=1}});ion.data.q=iq}
@@ -237,7 +237,7 @@ function statics(){
   groups.forEach(function(group){var rows=group.ids.map(function(id){return byId[id]}).filter(Boolean);if(!rows.length)return;menuHeading(group.title);rows.forEach(function(item){used[item.id]=1;menuLink(item)})});
   var extra=navItems.filter(function(item){return !used[item.id]});if(extra.length){menuHeading('MORE PAGES');extra.forEach(menuLink)}
   var hubTools=[
-   ['focus','⏱','Focus Timer','Pomodoro সেশন ও বিরতি'],['exam','📅','Exam Countdown','পরীক্ষার দিন গুনে রাখুন'],['gpa','🎓','GPA Calculator','HSC গ্রেড পয়েন্ট হিসাব'],['plan','☑','Study Planner','দৈনিক পড়ার কাজ সাজান'],['cards','▤','Flashcards','প্রশ্ন ও উত্তর দিয়ে রিভিশন'],['notes','✎','Quick Notes','গুরুত্বপূর্ণ নোট সংরক্ষণ'],['revision','📚','Revision Tracker','বিষয়ভিত্তিক রিভিশন চিহ্নিত করুন'],['syllabus','▤','Syllabus Tracker','তিন বিষয়ের সিলেবাস ট্র্যাক করুন'],['form','📐','Formula Sheet','গণিত, রসায়ন ও পদার্থের সূত্র'],['hab','🌱','Daily Habits','পড়ার অভ্যাসের ধারাবাহিকতা']
+   ['focus','⏱','Focus Timer','Pomodoro সেশন ও বিরতি'],['exam','📅','Exam Countdown','পরীক্ষার দিন গুনে রাখুন'],['gpa','🎓','GPA Calculator','HSC গ্রেড পয়েন্ট হিসাব'],['calculator','🧮','fx-991ES PLUS Calculator','Casio-style scientific calculator for mobile and desktop'],['tools','📐','Geometry Tools','Virtual compass, protractor, ruler and pencil'],['plan','☑','Study Planner','দৈনিক পড়ার কাজ সাজান'],['cards','▤','Flashcards','প্রশ্ন ও উত্তর দিয়ে রিভিশন'],['notes','✎','Quick Notes','গুরুত্বপূর্ণ নোট সংরক্ষণ'],['revision','📚','Revision Tracker','বিষয়ভিত্তিক রিভিশন চিহ্নিত করুন'],['syllabus','▤','Syllabus Tracker','তিন বিষয়ের সিলেবাস ট্র্যাক করুন'],['form','📐','Formula Sheet','গণিত, রসায়ন ও পদার্থের সূত্র'],['hab','🌱','Daily Habits','পড়ার অভ্যাসের ধারাবাহিকতা']
   ];menuHeading('STUDENT HUB · ALL TOOLS');hubTools.forEach(function(t){var a=document.createElement('a');a.className='menu-tile hub-tool';a.href='#/hub/'+t[0];a.setAttribute('data-menu-id','hub-'+t[0]);a.innerHTML='<span class="menu-tile-icon" aria-hidden="true">'+t[1]+'</span><span class="menu-tile-copy"><b>'+E(t[2])+'</b><small>'+E(t[3])+'</small></span><span class="menu-tile-arrow" aria-hidden="true">↗</span>';nav.appendChild(a)});
   (D.customPages||[]).filter(function(page){return page&&page.on!==false&&page.on!==0&&page.on!=='0'}).forEach(function(page){var a=document.createElement('a');a.className='menu-tile';a.href='#/page/'+encodeURIComponent(page.slug||page.id);a.innerHTML='<span class="menu-tile-icon" aria-hidden="true">◇</span><span class="menu-tile-copy"><b>'+E(page.navLabel||page.title||'Custom page')+'</b><small>ConceptLab-এর অতিরিক্ত পেজ</small></span><span class="menu-tile-arrow" aria-hidden="true">↗</span>';nav.appendChild(a)});
  }
@@ -355,71 +355,99 @@ var SIM_ICON_BY_ID={
  "hsc-math-probability":"🎲",
  "hsc-math-complex":"ℂ",
  "hsc-math-conics":"🥏",
- "hsc-math-trig-graph":"〽️"
+ "hsc-math-trig-graph":"〽️",
+ "hsc-math-vector-products":"↗️",
+ "hsc-math-limit":"↝",
+ "hsc-math-combinatorics":"🎲",
+ "hsc-chem-isomers":"🧬",
+ "hsc-chem-intermolecular":"🧲",
+ "hsc-chem-solution-prep":"🧪",
+ "hsc-chem-solubility":"🌡️",
+ "hsc-chem-electrolysis":"🔋",
+ "hsc-chem-organic-mechanism":"⚗️",
+ "hsc-phy-circular-motion":"🌀",
+ "hsc-phy-standing-waves":"〰️",
+ "hsc-phy-capacitor":"⚡",
+ "hsc-phy-induction":"🧲",
+ "hsc-phy-photoelectric":"💡"
 };
 var SIM_TITLE_BN={
- "hsc-chem-rutherford":"রাদারফোর্ডের আলফা কণা বিচ্ছুরণ",
- "hsc-chem-bohr":"বোর পরমাণু ও ইলেকট্রন স্তর",
- "wave":"তরঙ্গ যন্ত্র",
- "projectile":"প্রক্ষেপণ গতির পরীক্ষাগার",
- "pendulum":"সরল দোলক পরীক্ষণ",
- "spring":"স্প্রিং ও ভর",
- "circuit":"ওহমের সূত্রের বর্তনী",
- "gas":"গ্যাস কণার গতি",
- "force":"বল ও গতি",
- "vectors":"ভেক্টর যোগ",
- "unit":"একক বৃত্ত",
- "tangent":"ঢাল ও অন্তরজ",
- "matrix":"ম্যাট্রিক্স রূপান্তর",
- "circle":"বৃত্তের অনুসন্ধান",
- "line":"সরলরেখার স্টুডিও",
- "flame":"শিখা পরীক্ষা",
- "river-boat":"নৌকা ও নদীর স্রোত",
- "mirror-optics":"সমতল ও গোলীয় দর্পণ",
- "tiger-deer":"বাঘ–হরিণের ধাওয়া",
- "bus-train-motion":"বাস–ট্রেনের আপেক্ষিক গতি",
- "inclined-plane-friction":"ঘর্ষণসহ আনত তল",
- "ion-identification":"আয়ন শনাক্তকরণ ল্যাব",
- "wet-test":"সিক্ত পরীক্ষা",
- "hsc-phy-vectors":"ভেক্টরের উপাংশ",
- "hsc-phy-projectile":"প্রক্ষেপণের কোণ ও পাল্লা",
- "hsc-phy-newton":"নিউটনের দ্বিতীয় সূত্র",
- "hsc-phy-work-energy":"কাজ ও গতিশক্তি",
- "hsc-phy-gravity":"মহাকর্ষ ও কক্ষীয় গতি",
- "hsc-phy-periodic":"সরল ছন্দিত গতি",
- "hsc-phy-spring":"স্প্রিং ধ্রুবক ও দোলন",
- "hsc-phy-wave":"তরঙ্গ সমীকরণের অনুসন্ধান",
- "hsc-phy-gas":"গ্যাসের গতিতত্ত্ব",
- "hsc-phy-circuit":"তড়িৎ প্রবাহ ও ওহমের সূত্র",
- "hsc-phy-magnetic":"বিদ্যুৎ প্রবাহের চৌম্বক ক্ষেত্র",
- "hsc-phy-optics":"জ্যামিতিক আলোকবিজ্ঞান: পাতলা লেন্স",
- "hsc-chem-flame":"গুণগত বিশ্লেষণ: শিখা পরীক্ষা",
- "hsc-chem-periodic":"পর্যায়বৃত্ত ধর্মের অনুসন্ধান",
- "hsc-chem-bond":"রাসায়নিক বন্ধন ও পোলারিটি",
- "hsc-chem-kinetics":"বিক্রিয়ার হার ও তাপমাত্রা",
- "hsc-chem-equilibrium":"রাসায়নিক সাম্য ও লা শাতেলিয়ে নীতি",
- "hsc-chem-ph":"pH ও হাইড্রোজেন আয়নের ঘনমাত্রা",
- "hsc-chem-titration":"অম্ল–ক্ষার টাইট্রেশন রেখা",
- "hsc-chem-electrochem":"তড়িৎ-রাসায়নিক কোষ",
- "hsc-chem-gas":"গ্যাসের সূত্র ও মোলার আয়তন",
- "hsc-chem-stoich":"স্টয়কিওমেট্রি ও সীমাবদ্ধ বিকারক",
- "hsc-chem-redox":"জারণ–বিজারণ ও ইলেকট্রন স্থানান্তর",
- "hsc-chem-thermo":"তাপমাত্রা ও বিক্রিয়ার শক্তি",
- "hsc-math-line":"সরলরেখার সমীকরণ",
- "hsc-math-circle":"বৃত্তের সমীকরণ",
- "hsc-math-matrix":"ম্যাট্রিক্স রূপান্তর ও নির্ণায়ক",
- "hsc-math-vectors":"ভেক্টর যোগ ও উপাংশ",
- "hsc-math-trig":"ত্রিকোণমিতি: একক বৃত্ত",
- "hsc-math-diff":"অন্তরীকরণ: স্পর্শক ও ঢাল",
- "hsc-math-integration":"সমাকলন ও ক্ষেত্রফল",
- "hsc-math-functions":"ফাংশন ও লেখচিত্রের রূপান্তর",
- "hsc-math-probability":"স্থানাঙ্ক ও সম্ভাব্যতার দৃশ্যায়ন",
- "hsc-math-complex":"জটিল সমতলের রূপান্তর",
- "hsc-math-conics":"কনিকের অনুসন্ধান",
- "hsc-math-trig-graph":"ত্রিকোণমিতিক তরঙ্গের লেখচিত্র"
+ "hsc-chem-rutherford":"Rutherford Alpha Scattering",
+ "hsc-chem-bohr":"Bohr Atom & Electron Levels",
+ "wave":"Wave Machine",
+ "projectile":"Projectile Motion Lab",
+ "pendulum":"Simple Harmonic Motion",
+ "spring":"Spring & Mass",
+ "circuit":"Ohm's Law Circuit",
+ "gas":"Gas Particles",
+ "force":"Force & Motion",
+ "vectors":"Vector Addition Lab",
+ "unit":"Unit Circle Explorer",
+ "tangent":"Differentiation: Tangent & Gradient",
+ "matrix":"Matrix Transformation Lab",
+ "circle":"Circle Equation Explorer",
+ "line":"Straight Line Explorer",
+ "flame":"Flame Test Lab",
+ "river-boat":"River Boat: Relative Velocity",
+ "mirror-optics":"Spherical & Plane Mirrors",
+ "tiger-deer":"Tiger & Deer: Chase Motion",
+ "bus-train-motion":"Bus & Train: Relative Motion",
+ "inclined-plane-friction":"Inclined Plane with Friction",
+ "ion-identification":"Ion Identification Lab",
+ "wet-test":"Wet Test Lab",
+ "hsc-phy-vectors":"Vector Resolution Lab",
+ "hsc-phy-projectile":"Projectile Motion: Angle & Range",
+ "hsc-phy-newton":"Newton's Second Law",
+ "hsc-phy-work-energy":"Work & Kinetic Energy",
+ "hsc-phy-gravity":"Gravity & Orbital Motion",
+ "hsc-phy-periodic":"Simple Harmonic Motion",
+ "hsc-phy-spring":"Spring Constant & Oscillation",
+ "hsc-phy-wave":"Wave Equation Explorer",
+ "hsc-phy-gas":"Kinetic Theory of Gases",
+ "hsc-phy-circuit":"Current Electricity & Ohm's Law",
+ "hsc-phy-magnetic":"Magnetic Field of a Current",
+ "hsc-phy-optics":"Geometrical Optics: Thin Lens",
+ "hsc-chem-flame":"Qualitative Analysis: Flame Test",
+ "hsc-chem-periodic":"Periodic Trend Explorer",
+ "hsc-chem-bond":"Chemical Bonding & Polarity",
+ "hsc-chem-kinetics":"Reaction Rate & Temperature",
+ "hsc-chem-equilibrium":"Chemical Equilibrium & Le Chatelier's Principle",
+ "hsc-chem-ph":"pH & Hydrogen Ion Concentration",
+ "hsc-chem-titration":"Acid–Base Titration Curve",
+ "hsc-chem-electrochem":"Electrochemical Cell",
+ "hsc-chem-gas":"Gas Laws & Molar Volume",
+ "hsc-chem-stoich":"Stoichiometry & Limiting Reagent",
+ "hsc-chem-redox":"Redox & Electron Transfer",
+ "hsc-chem-thermo":"Reaction Energy & Temperature",
+ "hsc-math-line":"Straight-Line Equation Explorer",
+ "hsc-math-circle":"Circle Equation Explorer",
+ "hsc-math-matrix":"Matrix Transformation & Determinant",
+ "hsc-math-vectors":"Vector Addition & Components",
+ "hsc-math-trig":"Trigonometry: Unit Circle",
+ "hsc-math-diff":"Differentiation: Tangent & Gradient",
+ "hsc-math-integration":"Integration & Area Explorer",
+ "hsc-math-functions":"Function & Graph Transformation Lab",
+ "hsc-math-probability":"Probability Simulator",
+ "hsc-math-complex":"Complex Plane Transformer",
+ "hsc-math-conics":"Circle & Conic Explorer",
+ "hsc-math-trig-graph":"Trigonometric Graph Explorer",
+ "hsc-math-vector-products":"Vector Dot & Cross Product Lab",
+ "hsc-math-limit":"Limit Explorer",
+ "hsc-math-combinatorics":"Permutation & Combination Lab",
+ "hsc-chem-isomers":"Isomer Builder",
+ "hsc-chem-intermolecular":"Intermolecular Forces Explorer",
+ "hsc-chem-solution-prep":"Solution Preparation Lab",
+ "hsc-chem-solubility":"Solubility Curve Challenge",
+ "hsc-chem-electrolysis":"Electrolysis & Faraday's Law",
+ "hsc-chem-organic-mechanism":"Organic Reaction Mechanism Lab",
+ "hsc-phy-circular-motion":"Circular Motion & Banking",
+ "hsc-phy-standing-waves":"Standing Waves & Resonance",
+ "hsc-phy-capacitor":"Electric Field & Capacitor",
+ "hsc-phy-induction":"Electromagnetic Induction Lab",
+ "hsc-phy-photoelectric":"Photoelectric Effect"
 };
 function simIcon(l){return l&&(SIM_ICON_BY_ID[l.id]||l.icon)||'🔬'}
-function simTitle(l){return l&&(SIM_TITLE_BN[l.id]||l.t||l.title)||'সিমুলেশন'}
+function simTitle(l){return l&&(SIM_TITLE_BN[l.id]||l.t||l.title)||'Simulation'}
 function labIcon(key){var l=LABS.filter(function(x){return x.sim==key})[0];return l?simIcon(l):'🔬'}
 
 /* ------------------------------------------------------------ home sections */
@@ -437,10 +465,10 @@ function secHero(){var words=String(S.heroWords||'').split(',').map(function(w){
  return'<div class="w hero"><div class="hero-copy"><span class="pill rv"><i></i>'+E(S.badge)+'</span><h1 class="rv">'+E(S.h1)+'</h1><p class="lead rv">'+E(S.lead)+'</p>'+(words.length?'<p class="typed rv">'+E(S.heroPre)+' <b data-type="'+E(words.join('|'))+'"></b><span class="caret"></span></p>':'')+'</div><div class="orb-wrap" aria-hidden="true">'+heroSvg()+'</div></div>'}
 function homeQuickAccess(){
  var features=[
-  ['#/chapters','📖','Explore Chapters','তিনটি বিষয়ের অধ্যায় ও কনসেপ্ট'],['#/play','🎮','Arcade','গেম খেলুন, স্কোর ও XP বাড়ান'],['#/lab','🔬','Simulations','চলক বদলে ফলাফল নিজে দেখুন'],['#/hub','🎓','Student Hub','পড়াশোনার দরকারি টুল এক জায়গায়'],['#/smart-practice','🧠','Smart Practice','ভুল প্রশ্ন আবার অনুশীলন করুন'],['#/study-space','🔖','Study Space','নোট, বুকমার্ক ও সূত্র গুছিয়ে রাখুন'],['#/daily','📅','Daily Missions','আজকের লক্ষ্য ও শেখার ধারাবাহিকতা'],['#/progress','📈','My Progress','অগ্রগতি, লেভেল ও ব্যাজ দেখুন']
+  ['#/chapters','📖','Explore Chapters','তিনটি বিষয়ের অধ্যায় ও কনসেপ্ট'],['#/play','🎮','Arcade','গেম খেলুন, স্কোর ও XP বাড়ান'],['#/lab','🔬','Simulations','চলক বদলে ফলাফল নিজে দেখুন'],['#/hub','🎓','Student Hub','পড়াশোনার দরকারি টুল এক জায়গায়'],['#/hub/calculator','🧮','fx-991ES PLUS Calculator','Casio-style scientific calculator'],['#/hub/tools','📐','Geometry Tools','Virtual compass, protractor, ruler and pencil'],['#/smart-practice','🧠','Smart Practice','ভুল প্রশ্ন আবার অনুশীলন করুন'],['#/study-space','🔖','Study Space','নোট, বুকমার্ক ও সূত্র গুছিয়ে রাখুন'],['#/daily','📅','Daily Missions','আজকের লক্ষ্য ও শেখার ধারাবাহিকতা'],['#/progress','📈','My Progress','অগ্রগতি, লেভেল ও ব্যাজ দেখুন']
  ];
  var subjectData=[['math','📐','Higher Mathematics','গণিতের ধারণা, সূত্র ও অনুশীলন'],['chem','🧪','Chemistry','বিক্রিয়া, বন্ধন ও রসায়নের ধারণা'],['phy','⚛','Physics','গতি, বল, শক্তি ও প্রকৃতির নিয়ম']];
- var tools=[['focus','⏱','Focus Timer'],['exam','📅','Exam Countdown'],['gpa','🎓','GPA Calculator'],['plan','✅','Study Planner'],['cards','🧩','Flashcards'],['notes','📝','Quick Notes'],['revision','📚','Revision Tracker'],['syllabus','📖','Syllabus Tracker'],['form','📐','Formula Sheet'],['hab','🌱','Daily Habits']];
+ var tools=[['focus','⏱','Focus Timer'],['exam','📅','Exam Countdown'],['gpa','🎓','GPA Calculator'],['calculator','🧮','fx-991ES PLUS Calculator'],['tools','📐','Geometry Tools'],['plan','✅','Study Planner'],['cards','🧩','Flashcards'],['notes','📝','Quick Notes'],['revision','📚','Revision Tracker'],['syllabus','📖','Syllabus Tracker'],['form','📐','Formula Sheet'],['hab','🌱','Daily Habits']];
  return'<section class="home-launchpad" aria-label="Quick access to ConceptLab features"><div class="w"><div class="launch-head"><span class="pill"><i></i> QUICK ACCESS</span><h2>এক জায়গায় শেখা, অনুশীলন ও পরিকল্পনা</h2><p>ConceptLab-এর প্রধান ফিচারগুলোতে সরাসরি যান—উচ্চতর গণিত, রসায়ন ও পদার্থবিজ্ঞান একসঙ্গে।</p></div><div class="launch-feature-grid">'+features.map(function(x,i){return'<a class="launch-feature-card" href="'+x[0]+'" style="--launch-delay:'+(i*.035)+'s"><span class="launch-feature-icon" aria-hidden="true">'+x[1]+'</span><span class="launch-feature-copy"><b>'+x[2]+'</b><small>'+x[3]+'</small></span><span class="launch-feature-arrow" aria-hidden="true">↗</span></a>'}).join('')+'</div><div class="launch-subject-head"><div><span class="launch-eyebrow">THREE SUBJECTS · ONE LAB</span><h3>বিষয় বেছে শুরু করুন</h3></div><a href="#/chapters">সব অধ্যায় <span aria-hidden="true">→</span></a></div><div class="launch-subject-grid">'+subjectData.map(function(x){var seen={};(L[x[0]]||[]).forEach(function(c){seen[String(c.chapterTitle||c.chapter||c.t||'Chapter').trim()]=1});return'<a class="launch-subject-card subject-'+x[0]+'" href="#/chapters" data-subject-go="'+x[0]+'"><span class="launch-subject-icon" aria-hidden="true">'+x[1]+'</span><span><b>'+x[2]+'</b><small>'+Object.keys(seen).length+' অধ্যায় · '+(L[x[0]]||[]).length+' কনসেপ্ট</small><em>'+x[3]+'</em></span><span class="launch-subject-arrow" aria-hidden="true">→</span></a>'}).join('')+'</div><div class="launch-tool-head"><div><span class="launch-eyebrow">STUDENT HUB TOOLKIT</span><h3>দৈনন্দিন পড়াশোনার টুল</h3></div><a href="#/hub">সব টুল দেখুন <span aria-hidden="true">→</span></a></div><div class="launch-tool-grid">'+tools.map(function(x){return'<a class="launch-tool" href="#/hub/'+x[0]+'"><span class="launch-tool-icon" aria-hidden="true">'+x[1]+'</span><span>'+x[2]+'</span><span class="launch-tool-arrow" aria-hidden="true">↗</span></a>'}).join('')+'</div></div></section>'
 }
 var MOTIVATION_QUOTES=[

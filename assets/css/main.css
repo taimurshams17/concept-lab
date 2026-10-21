@@ -2402,3 +2402,350 @@ body.navopen #clMessagePanel{display:none!important}
 #app .about-card .about-icon-person svg,#app .about-card .about-icon-feedback svg{display:block;width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #app .about-card .about-icon-person{color:#6ee7b7}
 #app .about-card .about-icon-feedback{color:#fdba74}
+
+
+/* Consistent labels and headings for new interactive simulation panels. */
+.lab-detail-page .addsim-head{margin:0 0 12px;padding:14px 15px;border:1px solid rgba(125,211,252,.18);border-radius:13px;background:rgba(56,189,248,.055)}
+.lab-detail-page .addsim-head h3{margin:0 0 5px;font-size:clamp(18px,4vw,23px);line-height:1.35}
+.lab-detail-page .addsim-head p{margin:0;color:var(--mut);font-size:12px;line-height:1.7}
+.lab-detail-page .addsim-select{display:grid;gap:7px;max-width:100%;margin:12px 0;font-size:12px;font-weight:750;color:var(--txt)}
+.lab-detail-page .addsim-select select{width:100%;min-width:0;min-height:42px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--txt)}
+/* Student Hub: mobile-first scientific calculator and practical tool kit. */
+.scalc{min-width:0;overflow:hidden;padding:clamp(12px,3vw,22px)!important}
+.scalc-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+.scalc-heading h3{margin:0 0 3px;font-size:clamp(18px,4vw,23px);line-height:1.25}
+.scalc-heading p{margin:0;color:var(--mut);font-size:12px;line-height:1.5}
+.scalc-display-label{display:block;margin:8px 0 5px;color:var(--mut);font-size:12px;font-weight:700}
+.scalc-expression{display:block;width:100%;min-width:0;box-sizing:border-box;min-height:61px;padding:12px 14px;border:1px solid rgba(125,211,252,.3);border-radius:14px;background:rgba(2,12,23,.8);color:#f8fafc;font:600 clamp(24px,7vw,38px)/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:right;letter-spacing:.01em;outline-offset:3px}
+.scalc-answer{min-height:29px;margin:6px 2px 11px;color:#67e8f9;font:700 clamp(19px,5vw,25px)/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:right;overflow-wrap:anywhere}
+.scalc-science{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0 0 9px}
+.scalc-keypad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.scalc-key{display:flex;align-items:center;justify-content:center;min-width:0;min-height:46px;padding:8px 3px;border:1px solid rgba(148,163,184,.19);border-radius:11px;background:#13273a;color:#e7f2fc;font-size:clamp(13px,3.4vw,17px);font-weight:700;line-height:1.1;cursor:pointer;touch-action:manipulation}
+.scalc-science .scalc-key{min-height:43px;background:#142f45;color:#a5e6fa;font-size:clamp(11px,3vw,14px)}
+.scalc-key:hover{border-color:rgba(125,211,252,.6);background:#1a3b54}
+.scalc-key:active{transform:scale(.98)}
+.scalc-key.danger{background:rgba(190,48,65,.16);color:#fda4af;border-color:rgba(251,113,133,.25)}
+.scalc-key.equals{background:#0d7492;color:#fff;border-color:#38bdf8;font-size:20px}
+.scalc-hint{font-size:11px;line-height:1.6;margin:12px 0}
+.scalc-history{border-top:1px solid var(--line);margin-top:13px;padding-top:12px}
+.scalc-history h4{margin:0 0 8px;font-size:14px}
+.scalc-history-row{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-width:0;padding:9px 11px;margin:5px 0;border:1px solid var(--line);border-radius:10px;background:rgba(148,163,184,.05);color:var(--txt);text-align:left;cursor:pointer}
+.scalc-history-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+.scalc-history-row b{flex:0 0 auto;color:#67e8f9;font-size:12px}
+.student-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;min-width:0}
+.student-tools>.hubc{min-width:0;margin:0!important;padding:clamp(12px,2.5vw,19px)!important;overflow:hidden}
+.student-tools .tools-compass,.student-tools .tools-protractor,.student-tools .tools-guide{grid-column:1/-1}
+.tools-card-head{display:flex;align-items:flex-start;gap:11px;margin-bottom:13px}
+.tools-card-head h3{margin:0 0 4px;font-size:clamp(16px,3.5vw,20px);line-height:1.35}
+.tools-card-head p{margin:0;color:var(--mut);font-size:12px;line-height:1.6}
+.tools-icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid rgba(125,211,252,.18);border-radius:13px;background:rgba(56,189,248,.07);font-size:24px}
+.compass-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.85fr);align-items:center;gap:clamp(12px,3vw,24px)}
+.compass-svg{display:block;width:min(100%,310px);height:auto;margin:auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.18))}
+.compass-info{min-width:0}.compass-info> b{display:block;font-size:14px}.compass-info p{font-size:12px;line-height:1.65;color:var(--mut);overflow-wrap:anywhere}
+.compass-degree{font-size:clamp(27px,6vw,42px);font-weight:800;line-height:1.2;color:#7dd3fc;margin:5px 0}
+.compass-info label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 6px;font-size:12px;font-weight:700}
+.compass-info input[type=range],.tools-protractor input[type=range]{width:100%;min-height:30px;accent-color:#38bdf8;cursor:pointer}
+.compass-info .btn{min-height:42px;margin:6px 0;font-size:12px}
+.compass-info .mutt,.tools-protractor .mutt,.tools-stopwatch .mutt,.tools-converter .mutt{font-size:11px;line-height:1.65}
+.protractor-svg{display:block;width:min(100%,640px);height:auto;margin:2px auto 10px}
+.tool-angle-readout{text-align:center;font-size:15px;color:var(--mut)}
+.tool-angle-readout b{color:#fbbf24;font-size:20px}
+.tool-stopwatch-display{margin:22px 0;text-align:center;font:700 clamp(27px,7vw,42px)/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.03em;color:#67e8f9}
+.tools-stopwatch .hub-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.tools-converter>label{display:block;margin:10px 0;font-size:12px;font-weight:700;line-height:1.6}
+.tools-converter .hub-in{width:100%;box-sizing:border-box;margin-top:5px;min-height:42px;font-size:14px}
+.unit-convert-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:7px;margin-top:10px}
+.unit-convert-row label{min-width:0;font-size:12px;font-weight:700}.unit-convert-row .btn{min-height:42px;margin-bottom:0}
+.unit-result{display:flex;flex-direction:column;gap:3px;margin-top:14px;padding:12px;border:1px solid rgba(125,211,252,.2);border-radius:12px;background:rgba(56,189,248,.06)}
+.unit-result small{color:var(--mut);font-size:11px}.unit-result b{font-size:clamp(18px,4vw,24px);color:#67e8f9;overflow-wrap:anywhere}
+.tools-guide h3{margin-top:0}.tools-guide p{font-size:13px;line-height:1.8;color:var(--mut)}
+.hub-tabs{scrollbar-width:thin}.hub-tabs button{touch-action:manipulation}
+@media(max-width:600px){
+ .student-tools{grid-template-columns:minmax(0,1fr);gap:10px}
+ .student-tools>.hubc,.student-tools .tools-compass,.student-tools .tools-protractor,.student-tools .tools-guide{grid-column:1}
+ .compass-layout{grid-template-columns:minmax(0,1fr);gap:12px}
+ .compass-svg{width:min(76vw,275px)}
+ .compass-info{display:flex;flex-direction:column;align-items:stretch}.compass-info> b,.compass-degree{text-align:center}
+ .compass-info .btn{width:100%}
+ .scalc{padding:12px!important}
+ .scalc-science{gap:5px}.scalc-keypad{gap:6px}
+ .scalc-key{min-height:46px;border-radius:10px}
+ .scalc-science .scalc-key{min-height:42px;padding:7px 1px}
+ .scalc-expression{padding:10px 11px;min-height:58px}
+ .unit-convert-row{gap:6px}
+ .unit-convert-row .btn{padding:8px;min-width:40px}
+}
+@media(max-width:365px){.scalc-keypad{gap:5px}.scalc-key{min-height:43px;font-size:13px}.scalc-science .scalc-key{font-size:10px}.tools-icon{flex-basis:36px;width:36px;height:36px;font-size:21px}.tools-card-head{gap:8px}}
+/* Simulation controls for the expanded Higher Math, Chemistry and Physics labs. */
+.lab-detail-page .simcard canvas{max-width:100%;border-radius:12px}
+.lab-detail-page .simcard select,.lab-detail-page .simcard input[type=number],.lab-detail-page .simcard input[type=text]{max-width:100%;box-sizing:border-box}
+.lab-detail-page .mechanism-card,.lab-detail-page .iso-card{overflow-wrap:anywhere}
+.lab-detail-page .mechanism-equation{font-size:clamp(15px,3.7vw,24px);line-height:1.7}
+.lab-detail-page .mechanism-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.lab-detail-page .mechanism-card{padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.lab-detail-page .mechanism-card ol{padding-left:22px;line-height:1.8}
+.lab-detail-page .iso-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px}
+.lab-detail-page .iso-card{padding:13px;border:1px solid var(--line);border-radius:12px;background:rgba(148,163,184,.045)}
+.lab-detail-page .iso-card h4{margin:0 0 8px;font-size:15px}
+.lab-detail-page .iso-card p{margin:6px 0;font-size:12px;line-height:1.6;color:var(--mut)}
+@media(max-width:560px){.lab-detail-page .mechanism-steps{grid-template-columns:1fr}.lab-detail-page .mechanism-equation{font-size:15px}.lab-detail-page .iso-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-detail-page .iso-card{padding:9px}.lab-detail-page .iso-card h4{font-size:13px}}
+
+
+/* fx-991ES PLUS-inspired calculator shell: compact five-column hardware keypad. */
+.casio-shell{box-sizing:border-box;background:linear-gradient(155deg,#384552 0%,#222d38 44%,#121a22 100%)!important;border:1px solid #596776!important;border-radius:20px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 14px 34px rgba(0,0,0,.3)!important;padding:clamp(10px,2.6vw,18px)!important;max-width:580px;margin-inline:auto;overflow:hidden}
+.casio-top{display:grid;grid-template-columns:1fr auto;align-items:center;gap:5px 10px;padding:2px 4px 12px;color:#f1f5f9}
+.casio-wordmark{font-family:Arial,sans-serif;font-size:clamp(21px,5vw,28px);font-weight:900;letter-spacing:.035em;line-height:1.1}
+.casio-model{font-size:clamp(13px,3.4vw,17px);font-weight:750;letter-spacing:.015em;text-align:right}.casio-model b{font-size:.82em;color:#dce5ec}
+.casio-solar{grid-column:1/-1;justify-self:end;width:96px;height:19px;display:flex;gap:2px;padding:3px 5px;background:#101820;border:1px solid #617080;border-radius:3px;box-sizing:border-box}.casio-solar i{display:block;flex:1;background:linear-gradient(90deg,#172938,#243f52);border-right:1px solid #3c5669}
+.casio-display-frame{padding:8px 10px 6px;border:2px solid #0d1417;border-radius:7px;background:linear-gradient(150deg,#cbd5c4,#aab7a2);box-shadow:inset 0 2px 7px rgba(0,0,0,.24);margin:0 1px 12px}
+.casio-display-status{display:flex;justify-content:space-between;gap:8px;min-height:15px;font:700 10px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:#334155;letter-spacing:.06em}
+.casio-shell .scalc-expression{background:transparent!important;color:#17221a!important;border:0!important;border-radius:0!important;box-shadow:none!important;min-height:45px;padding:5px 1px!important;font:500 clamp(20px,5.5vw,30px)/1.25 ui-monospace,SFMono-Regular,Menlo,monospace!important;letter-spacing:0!important}
+.casio-shell .scalc-answer{color:#17221a!important;min-height:30px;margin:0;padding:0 1px 2px;font:700 clamp(18px,4.8vw,25px)/1.25 ui-monospace,SFMono-Regular,Menlo,monospace!important}
+.casio-keypad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;min-width:0}
+.casio-row,.scalc-row{display:contents}
+.casio-shell .scalc-key{position:relative;box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-width:0;width:100%;min-height:43px;height:43px;padding:8px 2px 4px;border-radius:7px;border:1px solid #080d12;background:linear-gradient(180deg,#24313d 0%,#101820 100%);box-shadow:0 2px 0 #05090c, inset 0 1px 0 rgba(255,255,255,.13);color:#f8fafc;font:700 clamp(11px,3vw,15px)/1.1 Arial,sans-serif;touch-action:manipulation;overflow:hidden}
+.casio-shell .scalc-key .scalc-key-main{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip;text-align:center}
+.casio-shell .scalc-key small{position:absolute;top:2px;left:3px;right:3px;font:700 clamp(6px,1.65vw,8px)/1 Arial,sans-serif;color:#f4b75e;text-align:left;white-space:nowrap;pointer-events:none}
+.casio-shell .scalc-key.function{background:linear-gradient(180deg,#dce3e8,#aab6c0);color:#1f2937;border-color:#778592;box-shadow:0 2px 0 #64717c,inset 0 1px 0 rgba(255,255,255,.9)}
+.casio-shell .scalc-key.number{background:linear-gradient(180deg,#f5f7f8,#dce2e6);color:#111827;border-color:#8f9aa4;box-shadow:0 2px 0 #77838e,inset 0 1px 0 #fff;font-size:clamp(15px,4vw,19px)}
+.casio-shell .scalc-key.operator{background:linear-gradient(180deg,#667886,#364958);color:#fff;border-color:#263845}
+.casio-shell .scalc-key.shift{background:linear-gradient(180deg,#ffce70,#d78a24);color:#30200c;border-color:#a76918}
+.casio-shell .scalc-key.alpha{background:linear-gradient(180deg,#eeb0c9,#be7195);color:#301425;border-color:#98516f}
+.casio-shell .scalc-key.mode{background:linear-gradient(180deg,#b4c4d0,#8397a7);color:#162735;border-color:#667c8d}
+.casio-shell .scalc-key.danger{background:linear-gradient(180deg,#f29b8e,#be4c4c);color:#fff;border-color:#8d3434}
+.casio-shell .scalc-key.equals{background:linear-gradient(180deg,#4e9dcb,#196b9d);color:white;border-color:#114d73;font-size:clamp(14px,3.8vw,19px)}
+.casio-shell .scalc-key:active{transform:translateY(1px);box-shadow:0 1px 0 #05090c}
+.casio-shell .scalc-key:focus-visible{outline:2px solid #7dd3fc;outline-offset:1px;z-index:1}
+.casio-shell.is-shifted [data-v="shift"],.casio-shell.is-alpha [data-v="alpha"]{outline:2px solid #fef3c7;outline-offset:1px}
+.casio-shell .scalc-hint{color:#cbd5e1;font-size:10px;line-height:1.5;margin:11px 2px}
+.casio-shell .scalc-history{border-color:#566575;color:#e2e8f0}.casio-shell .scalc-history h4{color:#f1f5f9}
+.casio-shell .scalc-history-row{background:rgba(255,255,255,.07);border-color:#566575;color:#f1f5f9}.casio-shell .scalc-history-row b{color:#7dd3fc}
+.geometry-zone{display:grid;gap:12px;min-width:0}.geometry-card{min-width:0;overflow:hidden}.geometry-tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.geometry-tool{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;box-sizing:border-box;min-width:0;min-height:75px;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--txt);text-align:left;cursor:pointer;touch-action:manipulation}
+.geometry-tool>span{font-size:21px;line-height:1.1}.geometry-tool b{font-size:12px;line-height:1.25}.geometry-tool small{font-size:10px;line-height:1.35;color:var(--mut)}
+.geometry-tool.on{border-color:#38bdf8;background:rgba(56,189,248,.12);box-shadow:inset 0 0 0 1px rgba(56,189,248,.34)}
+.geometry-status{padding:10px 12px;margin:8px 0 10px;border:1px solid rgba(56,189,248,.24);border-radius:10px;background:rgba(56,189,248,.08);font-size:12px;line-height:1.6;color:var(--txt)}
+.geometry-canvas-wrap{width:100%;max-width:100%;overflow:hidden;border:1px solid #afbdca;border-radius:10px;background:#f8fafc;touch-action:none}
+#geomCanvas{display:block;width:100%;height:auto;aspect-ratio:10/7;max-width:100%;touch-action:none;cursor:crosshair}
+.geometry-angle-controls{margin-top:13px;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(148,163,184,.045)}
+.geometry-angle-controls>label{display:block;font-weight:750;font-size:13px;margin-bottom:6px}.geometry-angle-row{display:grid;grid-template-columns:minmax(0,90px) auto minmax(0,1fr);align-items:center;gap:9px}
+.geometry-angle-row input{width:100%;box-sizing:border-box;min-width:0;min-height:42px;padding:8px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--txt);font:inherit;font-size:16px}
+.geometry-angle-row>span{font-size:12px;color:var(--mut)}.geometry-angle-row .btn{min-height:42px;white-space:nowrap;padding:8px 12px}
+.geometry-angle-controls p{font-size:11px;line-height:1.6;margin:8px 0 0}.geometry-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}.geometry-actions .btn{flex:1 1 auto;min-height:42px;font-size:12px}
+.geometry-actions .btn.danger{border-color:rgba(248,113,113,.4);color:#fca5a5}.geometry-readout{margin-top:10px;padding:10px;border-radius:10px;background:rgba(16,185,129,.09);color:var(--txt);font-weight:750;font-size:13px}.geometry-note{font-size:11px;line-height:1.65;margin:10px 2px 0}.geometry-extra{margin-top:0}
+@media(max-width:390px){.casio-shell{padding:8px!important;border-radius:14px!important}.casio-keypad{gap:4px}.casio-shell .scalc-key{height:40px;min-height:40px;border-radius:6px;padding-left:1px;padding-right:1px}.casio-shell .scalc-key small{left:2px;right:1px;font-size:6px}.casio-display-frame{padding:6px 7px 4px}.geometry-tool-grid{gap:5px}.geometry-tool{padding:7px 6px;min-height:70px}.geometry-tool small{font-size:9px}.geometry-angle-row{grid-template-columns:minmax(0,80px) auto minmax(0,1fr);gap:6px}.geometry-angle-row .btn{padding:7px 8px;font-size:11px}}
+@media(max-width:330px){.casio-keypad{gap:3px}.casio-shell .scalc-key{height:38px;min-height:38px;font-size:10px}.casio-shell .scalc-key.number{font-size:14px}.casio-shell .scalc-key small{display:none}.geometry-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.geometry-angle-row{grid-template-columns:minmax(0,1fr) auto}.geometry-angle-row .btn{grid-column:1/-1;width:100%}}
+
+
+/* ConceptLab mobile/desktop polish — calculator, geometry compass, and Student Hub. */
+.hub{width:min(100%,1180px);min-width:0;margin-inline:auto;box-sizing:border-box}
+.hub #hubBody,.hub #hubBody>*{min-width:0;max-width:100%;box-sizing:border-box}
+.hub .hubc,.hub .hub-row,.hub .hub-grid,.hub .hub-item,.hub .hub-g{min-width:0}
+.hub .hub-row>.hub-in,.hub .hub-row>select,.hub .hub-row>input{flex:1 1 180px;max-width:100%;min-width:0;box-sizing:border-box}
+.hub .hub-row>.btn{flex:0 0 auto;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.hub .hub-tabs{max-width:100%;scrollbar-width:thin;overscroll-behavior-x:contain}
+@media(min-width:900px){.hub .hub-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));overflow:visible}.hub .hub-tabs button{min-width:0;white-space:normal;min-height:44px}.hub #hubBody{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}}
+@media(max-width:899px){.hub .hub-tabs{display:flex;overflow-x:auto}.hub .hub-tabs button{flex:0 0 auto;white-space:nowrap}}
+
+/* A contemporary finish while preserving the fx-991ES PLUS physical-key concept. */
+.casio-shell{width:min(100%,650px);background:radial-gradient(ellipse at 50% -10%,rgba(92,146,177,.24),transparent 44%),linear-gradient(155deg,#263949 0%,#182632 48%,#0c151f 100%)!important;border:1px solid rgba(148,190,216,.43)!important;border-radius:24px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -2px 0 rgba(0,0,0,.3),0 18px 42px rgba(0,0,0,.28)!important;padding:clamp(10px,2.5vw,20px)!important}
+.casio-brand-lockup{min-width:0;display:flex;flex-direction:column;gap:3px}
+.casio-wordmark{font-size:clamp(22px,5.3vw,30px);letter-spacing:.045em;text-shadow:0 1px 0 rgba(255,255,255,.15)}
+.casio-series{font-size:clamp(7px,1.7vw,9px);font-weight:800;letter-spacing:.14em;color:#7dd3fc;white-space:nowrap}
+.casio-model{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:clamp(13px,3.4vw,17px)}
+.casio-model small{font-size:7px;letter-spacing:.1em;color:#a9c1d2}
+.casio-solar{border-radius:5px;height:20px;width:106px;background:linear-gradient(180deg,#111e29,#070e14);box-shadow:inset 0 1px 3px rgba(0,0,0,.8);border-color:#536d80}
+.casio-solar i{background:linear-gradient(90deg,#13283a,#244e69);border-right-color:#365e75}
+.casio-display-frame{position:relative;border:2px solid #070d12;border-radius:12px;background:linear-gradient(150deg,#e2f3d6,#c6dfb8 58%,#b5d1a6);box-shadow:inset 0 2px 8px rgba(18,39,22,.28),0 4px 0 rgba(0,0,0,.15);margin:0 0 14px;padding:9px 12px 8px}
+.casio-display-status span{display:inline-flex;align-items:center;min-height:17px;color:#344d34;font-size:9px}
+.casio-shell .scalc-expression{min-height:50px;font-size:clamp(19px,5.4vw,31px)!important;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.casio-shell .scalc-answer{min-height:34px;border-top:1px solid rgba(46,76,41,.13);padding-top:5px!important;font-size:clamp(18px,4.7vw,26px)!important;overflow-wrap:anywhere}
+.casio-keypad{gap:clamp(3px,.85vw,7px)}
+.casio-shell .scalc-key{min-height:clamp(42px,6.5vw,50px);height:clamp(42px,6.5vw,50px);border-radius:10px;padding:9px 2px 4px;border:1px solid #08131d;background:linear-gradient(180deg,#294052 0%,#142432 100%);box-shadow:0 3px 0 #07111a,inset 0 1px 0 rgba(255,255,255,.15);font-size:clamp(10px,2.6vw,15px);transition:filter .15s,transform .08s,box-shadow .08s}
+.casio-shell .scalc-key:hover{filter:brightness(1.14)}
+.casio-shell .scalc-key.function{background:linear-gradient(180deg,#ecf2f7,#cbd7e0);color:#1a2a39;border-color:#9aabba;box-shadow:0 3px 0 #7f91a1,inset 0 1px 0 #fff}
+.casio-shell .scalc-key.number{background:linear-gradient(180deg,#fff,#e4ebf0);color:#122334;border-color:#a8b7c3;box-shadow:0 3px 0 #8796a1,inset 0 1px 0 #fff;font-size:clamp(15px,4vw,20px)}
+.casio-shell .scalc-key.operator{background:linear-gradient(180deg,#668aa1,#35576d);color:#fff;border-color:#244458;box-shadow:0 3px 0 #142c3a,inset 0 1px 0 rgba(255,255,255,.22)}
+.casio-shell .scalc-key.shift{background:linear-gradient(180deg,#ffe1a0,#f4ad40);color:#3d2706;border-color:#c17c20;box-shadow:0 3px 0 #7f4a0a,inset 0 1px 0 #fff2cf}
+.casio-shell .scalc-key.alpha{background:linear-gradient(180deg,#ffc8dc,#e68db3);color:#4a1830;border-color:#bd6a92;box-shadow:0 3px 0 #7c3c59,inset 0 1px 0 #ffe8f1}
+.casio-shell .scalc-key.mode{background:linear-gradient(180deg,#d7e8f3,#91b4ca);color:#162d3c;border-color:#6a91aa;box-shadow:0 3px 0 #466c83,inset 0 1px 0 #eff9ff}
+.casio-shell .scalc-key.danger{background:linear-gradient(180deg,#ffb5a9,#da625a);color:#fff;border-color:#9a3c3b;box-shadow:0 3px 0 #792b2b,inset 0 1px 0 rgba(255,255,255,.3)}
+.casio-shell .scalc-key.equals{background:linear-gradient(180deg,#4be1bf,#0ba88d);color:#042b2a;border-color:#087967;box-shadow:0 3px 0 #075347,inset 0 1px 0 rgba(255,255,255,.35)}
+.casio-shell .scalc-key small{font-size:clamp(6px,1.55vw,8px);left:4px;right:3px;color:#d1a34b}
+.casio-shell .scalc-key.function small,.casio-shell .scalc-key.mode small{color:#b36c11}
+.casio-shell .scalc-key:active{transform:translateY(2px);box-shadow:0 1px 0 #05090c}
+.casio-shell .scalc-hint{color:#b9cddd;font-size:11px;line-height:1.65;margin:12px 3px}
+.casio-shell .scalc-history{padding:13px;border:1px solid rgba(148,190,216,.2);border-radius:15px;background:rgba(0,0,0,.12)}
+.casio-shell .scalc-history h4{font-size:14px;letter-spacing:.02em}
+.casio-shell .scalc-history-row{gap:8px;padding:10px;border-radius:10px}
+.casio-shell .scalc-history-row span,.casio-shell .scalc-history-row b{font-size:clamp(10px,2.8vw,12px)}
+
+.geometry-compass-panel{display:grid;gap:8px;padding:12px;margin:10px 0 12px;border:1px solid rgba(45,212,191,.22);border-radius:14px;background:linear-gradient(135deg,rgba(20,184,166,.08),rgba(56,189,248,.055))}
+.geometry-compass-state{font-size:13px;font-weight:750;line-height:1.65;overflow-wrap:anywhere}
+.geometry-compass-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.geometry-compass-actions .btn{min-width:0;min-height:44px;padding:9px 8px;font-size:12px;line-height:1.35;white-space:normal;overflow-wrap:anywhere}
+.geometry-compass-actions .btn:disabled{opacity:.5;cursor:not-allowed}
+.geometry-compass-panel p{font-size:11px;line-height:1.6;margin:0}
+.geometry-tool-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.geometry-tool{transition:border-color .15s,background .15s,transform .12s}
+.geometry-tool:active{transform:scale(.985)}
+.geometry-tool b,.geometry-tool small{overflow-wrap:anywhere;word-break:normal}
+.geometry-canvas-wrap{border-color:rgba(125,211,252,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+#geomCanvas{touch-action:none;user-select:none;-webkit-user-select:none}
+.geometry-angle-controls,.geometry-actions,.geometry-readout{min-width:0;max-width:100%;box-sizing:border-box}
+.geometry-angle-row{grid-template-columns:minmax(0,90px) auto minmax(0,1fr)}
+.geometry-angle-row .btn{white-space:normal;overflow-wrap:anywhere}
+.geometry-extra{grid-template-columns:repeat(2,minmax(0,1fr))}
+.student-tools .unit-convert-row,.student-tools .hub-row,.student-tools label{min-width:0}
+.student-tools select,.student-tools input{max-width:100%;min-width:0;box-sizing:border-box}
+@media(max-width:650px){
+ .casio-shell{max-width:100%;padding:clamp(8px,2.4vw,12px)!important;border-radius:18px!important}
+ .casio-keypad{gap:clamp(3px,1vw,5px)}
+ .casio-shell .scalc-key{min-height:clamp(40px,12vw,48px);height:clamp(40px,12vw,48px);border-radius:8px;padding:8px 1px 4px;font-size:clamp(9px,3.15vw,13px)}
+ .casio-shell .scalc-key.number{font-size:clamp(14px,4.4vw,18px)}
+ .casio-shell .scalc-key small{left:2px;right:1px;top:2px;font-size:clamp(5px,1.8vw,7px)}
+ .casio-model small{font-size:6px}
+ .geometry-tool-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .geometry-compass-actions{grid-template-columns:minmax(0,1fr)}
+ .geometry-compass-actions .btn{width:100%}
+ .geometry-extra{grid-template-columns:minmax(0,1fr)}
+ .geometry-angle-row{grid-template-columns:minmax(0,80px) auto minmax(0,1fr);gap:6px}
+ .geometry-angle-row .btn{padding:8px;font-size:11px}
+ .hub .hubc{overflow-wrap:anywhere}
+ .hub .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .hub .hub-row>.hub-in,.hub .hub-row>input,.hub .hub-row>select{flex-basis:100%}
+}
+@media(max-width:390px){
+ .casio-shell .scalc-key{min-height:39px;height:39px;border-radius:7px;font-size:9px}
+ .casio-shell .scalc-key.number{font-size:14px}
+ .casio-shell .scalc-key small{display:block;font-size:5px;left:1px;right:0}
+ .casio-series{letter-spacing:.08em}
+ .geometry-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .geometry-tool{min-height:68px;padding:8px}
+ .geometry-angle-row{grid-template-columns:minmax(0,1fr) auto}
+ .geometry-angle-row .btn{grid-column:1/-1;width:100%}
+ .hub .hub-grid{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(prefers-reduced-motion:reduce){.casio-shell .scalc-key,.geometry-tool{transition:none}}
+
+@media(max-width:600px){
+ .simcard>.ctl{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .simcard>.ctl>div{padding:8px 7px}
+ .simcard>.ctl label{display:grid;grid-template-columns:minmax(0,1fr);justify-content:start;align-items:start;gap:3px;font-size:11px;line-height:1.35;overflow-wrap:anywhere}
+ .simcard>.ctl output{font-size:12px;white-space:normal;overflow-wrap:anywhere}
+ .simcard>.ctl input[type=range]{width:100%;max-width:100%;margin:3px 0 0}
+ .motion-stage{width:100%;max-width:100%}
+ .motion-stage svg{width:100%;height:auto;max-height:none}
+ .motion-results{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .motion-results>div{min-width:0;overflow-wrap:anywhere}
+}
+@media(max-width:350px){.simcard>.ctl{grid-template-columns:minmax(0,1fr)}.motion-results{grid-template-columns:minmax(0,1fr)}}
+
+/* ConceptLab responsive visual refresh — calculator, geometry board and Student Hub */
+.casio-shell{box-sizing:border-box;width:min(100%,680px);max-width:680px;margin-inline:auto;padding:clamp(12px,2.4vw,20px)!important;border:1px solid rgba(125,211,252,.22)!important;border-radius:28px!important;background:radial-gradient(ellipse at 18% 0%,rgba(34,211,238,.12),transparent 34%),linear-gradient(145deg,#152333 0%,#101a28 58%,#0a1220 100%)!important;box-shadow:0 22px 55px rgba(1,8,20,.38),inset 0 1px 0 rgba(255,255,255,.08)!important;overflow:hidden}
+.casio-top{grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:4px 4px 14px!important;align-items:center}
+.casio-wordmark{font-size:clamp(22px,4.8vw,29px)!important;letter-spacing:.055em;color:#f4f9ff;text-shadow:0 0 22px rgba(56,189,248,.15)}
+.casio-series{display:block;margin-top:4px;color:#86a5bb;font-size:clamp(7px,1.5vw,9px);font-weight:800;letter-spacing:.15em;line-height:1.35}
+.casio-model{color:#d5e7f5;font-size:clamp(12px,2.8vw,16px)!important;letter-spacing:.01em}
+.casio-model b{color:#67e8f9!important}
+.casio-model small{font-size:7px!important;letter-spacing:.13em;color:#89a9bf!important}
+.casio-solar{display:grid;grid-template-columns:repeat(6,7px);gap:3px;align-items:center;justify-content:end;padding:7px 9px;border-radius:7px;border:1px solid #243e50;background:#0b1723}
+.casio-solar i{height:15px;border-radius:2px;background:linear-gradient(160deg,#1e5b7a,#0d2b42);border:1px solid rgba(103,232,249,.18)}
+.casio-display-frame{margin:0 0 15px!important;padding:11px 13px 9px!important;border:1px solid rgba(103,232,249,.5)!important;border-radius:16px!important;background:linear-gradient(145deg,#d9f3e8 0%,#c5e6dc 50%,#b8d9d1 100%)!important;box-shadow:inset 0 2px 9px rgba(8,54,54,.14),0 8px 22px rgba(0,0,0,.16)!important}
+.casio-display-status{font-size:10px!important;letter-spacing:.15em;color:#365b58!important}
+.casio-shell .scalc-expression{min-height:48px!important;padding:5px 1px!important;color:#102c2a!important;font-size:clamp(19px,5vw,30px)!important;font-weight:600!important;line-height:1.3!important;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.casio-shell .scalc-answer{min-height:35px!important;padding:7px 1px 1px!important;border-top:1px solid rgba(16,44,42,.13);color:#092d29!important;font-size:clamp(18px,4.5vw,25px)!important;font-weight:800!important;line-height:1.25!important;overflow-wrap:anywhere}
+.casio-keypad{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(4px,.8vw,7px)!important}
+.casio-shell .scalc-key{position:relative;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;min-width:0;height:clamp(43px,5.6vw,51px)!important;min-height:clamp(43px,5.6vw,51px)!important;padding:10px 3px 4px!important;overflow:hidden;border:1px solid rgba(148,185,207,.17)!important;border-radius:12px!important;background:linear-gradient(155deg,#31495b 0%,#1a2b3a 100%)!important;color:#f4f9ff!important;box-shadow:0 3px 0 #091522,inset 0 1px 0 rgba(255,255,255,.1)!important;font-size:clamp(10px,2.2vw,14px)!important;font-weight:750!important;line-height:1.05!important;touch-action:manipulation;transition:transform .12s ease,filter .12s ease,border-color .12s ease}
+.casio-shell .scalc-key .scalc-key-main{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip;text-align:center}
+.casio-shell .scalc-key small{position:absolute;top:3px;left:4px;right:3px;font-size:clamp(6px,1.35vw,8px)!important;line-height:1;color:#fbbf64!important;text-align:left;white-space:nowrap;pointer-events:none}
+.casio-shell .scalc-key.function{background:linear-gradient(155deg,#f1f6fb 0%,#c8d7e3 100%)!important;color:#183143!important;border-color:#a6bac9!important;box-shadow:0 3px 0 #748b9b,inset 0 1px 0 #fff!important}
+.casio-shell .scalc-key.function small{color:#9b5b0a!important}
+.casio-shell .scalc-key.number{background:linear-gradient(155deg,#fff 0%,#e4edf4 100%)!important;color:#102539!important;border-color:#d1dce5!important;box-shadow:0 3px 0 #99a9b7,inset 0 1px 0 #fff!important;font-size:clamp(15px,3.7vw,19px)!important}
+.casio-shell .scalc-key.operator{background:linear-gradient(155deg,#4d7991 0%,#234b62 100%)!important;color:#f8fcff!important;border-color:#3c6379!important;box-shadow:0 3px 0 #122b3b,inset 0 1px 0 rgba(255,255,255,.18)!important}
+.casio-shell .scalc-key.shift{background:linear-gradient(155deg,#ffdf91 0%,#eaaa3d 100%)!important;color:#462b04!important;border-color:#ffcf70!important;box-shadow:0 3px 0 #966117,inset 0 1px 0 #fff1c5!important}
+.casio-shell .scalc-key.alpha{background:linear-gradient(155deg,#ffd7e7 0%,#e9a0bf 100%)!important;color:#4b1c32!important;border-color:#f1b5d0!important;box-shadow:0 3px 0 #8d4966,inset 0 1px 0 #fff!important}
+.casio-shell .scalc-key.mode{background:linear-gradient(155deg,#d4eafa 0%,#8fb8d1 100%)!important;color:#143047!important;border-color:#a6cbe0!important;box-shadow:0 3px 0 #456e85,inset 0 1px 0 #fff!important}
+.casio-shell .scalc-key.danger{background:linear-gradient(155deg,#ffb8b1 0%,#d66a68 100%)!important;color:#fff!important;border-color:#e58c8b!important;box-shadow:0 3px 0 #873b41,inset 0 1px 0 rgba(255,255,255,.3)!important}
+.casio-shell .scalc-key.equals{background:linear-gradient(155deg,#65f1d1 0%,#0da88d 100%)!important;color:#06382f!important;border-color:#5fe4c5!important;box-shadow:0 3px 0 #086451,inset 0 1px 0 rgba(255,255,255,.4)!important;font-size:clamp(14px,3.4vw,19px)!important}
+.casio-shell .scalc-key:hover{filter:brightness(1.08);border-color:rgba(103,232,249,.62)!important}
+.casio-shell .scalc-key:active{transform:translateY(2px);box-shadow:0 1px 0 #091522!important}
+.casio-shell .scalc-key:focus-visible{outline:2px solid #67e8f9;outline-offset:2px;z-index:2}
+.casio-shell .scalc-hint{margin:13px 3px;color:#9bb6c9;font-size:11px;line-height:1.65}
+.casio-shell .scalc-history{padding:12px;border:1px solid rgba(125,211,252,.16);border-radius:16px;background:rgba(4,12,21,.32);color:#dceaf4}
+.casio-shell .scalc-history h4{color:#e8f5ff;font-size:13px}
+.casio-shell .scalc-history-row{display:flex;min-width:0;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px;padding:10px;border:1px solid rgba(125,211,252,.15);border-radius:11px;background:rgba(255,255,255,.045);color:#e9f4fc}
+.casio-shell .scalc-history-row span{min-width:0;overflow-wrap:anywhere}
+.casio-shell .scalc-history-row b{color:#67e8f9;overflow-wrap:anywhere}
+.hub,.hub *{box-sizing:border-box;min-width:0}
+.hub{width:100%;max-width:1240px;margin-inline:auto}
+.hub .hub-tabs{display:flex;flex-wrap:nowrap;gap:7px;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:6px 1px 12px}
+.hub .hub-tabs button{flex:0 0 auto;max-width:100%;min-height:40px;border-radius:12px;white-space:nowrap}
+.hub .hubc{max-width:100%;overflow-wrap:anywhere}
+.hub .hub-row{max-width:100%;align-items:stretch}
+.hub .hub-row>.btn{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.geometry-zone,.geometry-card,.geometry-canvas-wrap,.student-tools{width:100%;max-width:100%;min-width:0}
+.geometry-tool-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.geometry-tool{min-width:0;max-width:100%;padding:12px 9px;overflow-wrap:anywhere}
+.geometry-canvas-wrap{overflow:hidden;border-radius:15px;background:#f8fafc}
+.geometry-canvas-wrap #geomCanvas{display:block;width:100%;height:auto;max-width:100%;aspect-ratio:10/7;touch-action:none;cursor:crosshair}
+.geometry-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.geometry-actions .btn{min-width:0;white-space:normal;overflow-wrap:anywhere;min-height:44px}
+.geometry-compass-actions{grid-template-columns:repeat(3,minmax(0,1fr))}
+.geometry-compass-actions .btn{min-width:0;min-height:46px}
+.geometry-extra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.geometry-extra .card{min-width:0}
+.student-tools .unit-convert-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:8px}
+.student-tools .unit-convert-row label{min-width:0}
+.student-tools .unit-convert-row select,.student-tools input,.student-tools select{width:100%;max-width:100%;min-width:0}
+.motion-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.motion-results>div{min-width:0;overflow-wrap:anywhere}
+@media(min-width:900px){.hub .hub-tabs{flex-wrap:wrap;overflow:visible}.hub .hubc{padding:clamp(18px,2vw,26px)!important}.geometry-zone{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}.geometry-extra{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+ .casio-shell{padding:clamp(9px,2.4vw,14px)!important;border-radius:22px!important}
+ .casio-top{gap:6px 8px;padding-bottom:11px!important}
+ .casio-solar{grid-template-columns:repeat(6,5px);padding:5px 6px;gap:2px}.casio-solar i{height:11px}
+ .casio-keypad{gap:4px!important}
+ .casio-shell .scalc-key{height:clamp(41px,11vw,48px)!important;min-height:clamp(41px,11vw,48px)!important;border-radius:10px!important;padding:9px 1px 4px!important;font-size:clamp(9px,2.8vw,12px)!important}
+ .casio-shell .scalc-key.number{font-size:clamp(14px,4vw,17px)!important}
+ .casio-shell .scalc-key small{font-size:6px!important;left:2px;right:1px;top:2px}
+ .hub .hub-tabs{padding-bottom:9px}
+ .hub .hubc{padding:13px!important;margin-bottom:11px}
+ .geometry-tool-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .geometry-tool{padding:10px 6px;min-height:72px}
+ .geometry-tool span{font-size:22px}
+ .geometry-tool b{font-size:11px;line-height:1.25}
+ .geometry-tool small{font-size:9px;line-height:1.35}
+ .geometry-compass-actions{grid-template-columns:minmax(0,1fr)}
+ .geometry-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .geometry-extra{grid-template-columns:minmax(0,1fr)}
+ .student-tools .unit-convert-row{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+ .simcard>.ctl{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .simcard>.ctl>div{min-width:0;padding:9px 7px}
+ .simcard>.ctl label{display:flex;flex-direction:column;align-items:stretch;gap:4px;line-height:1.35;font-size:12px}
+ .simcard>.ctl output{font-size:12px;white-space:normal;overflow-wrap:anywhere}
+ .simcard>.ctl input[type=range]{width:100%;max-width:100%;margin:4px 0 0;touch-action:pan-y}
+ .motion-stage,.motion-stage svg{width:100%;max-width:100%;height:auto;max-height:none}
+ .motion-results{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:400px){
+ .casio-shell{padding:8px!important;border-radius:17px!important}
+ .casio-top{grid-template-columns:minmax(0,1fr) auto}
+ .casio-wordmark{font-size:21px!important}
+ .casio-series{font-size:6px;letter-spacing:.1em}
+ .casio-model{font-size:11px!important}
+ .casio-model small{font-size:5.5px!important}
+ .casio-keypad{gap:3px!important}
+ .casio-shell .scalc-key{height:40px!important;min-height:40px!important;border-radius:8px!important;font-size:9px!important}
+ .casio-shell .scalc-key.number{font-size:13px!important}
+ .casio-shell .scalc-key small{font-size:5.5px!important;left:1px;right:0}
+ .geometry-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .geometry-angle-row{grid-template-columns:minmax(0,1fr);gap:7px}
+ .geometry-angle-row .btn{width:100%;grid-column:auto}
+ .geometry-actions{grid-template-columns:minmax(0,1fr)}
+ .student-tools .unit-convert-row{grid-template-columns:minmax(0,1fr)}
+ .student-tools .unit-convert-row>[data-h="unitSwap"]{width:100%}
+ .simcard>.ctl{grid-template-columns:minmax(0,1fr)}
+ .motion-results{grid-template-columns:minmax(0,1fr)}
+}
+@media(prefers-reduced-motion:reduce){.casio-shell .scalc-key{transition:none}}
