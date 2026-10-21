@@ -14,7 +14,10 @@ var DROP_GAME_IDS={
  'formula-pair-cosmos':1,'edu-formula-pair-cosmos':1,'edu-flame-colour-detective':1,'edu-physics-unit-rush':1,
  'edu-physics-formula-sprint':1,'edu-chemistry-ion-challenge':1,'edu-math-concept-scramble':1,'edu-hsc-term-scramble':1,
  'edu-physics-odd-one':1,'edu-math-step-order':1,'edu-math-truth-arena':1,'edu-projectile-range-challenge':1,'edu-line-slope-challenge':1,
- 'math-concept-scramble':1,'hsc-term-scramble':1
+ 'chem-reaction-race':1,'physics-formula-sprint':1,'math-truth-arena':1,'edu-chem-reaction-race':1,
+ 'odd-one-chem':1,'odd-one-math':1,'step-order-chem':1,'step-order-math':1,'organic-pathway':1,
+ 'chem-organic-conversion-map':1,'virtual-lab-escape-room':1,'edu-chem-lab-sequence':1,
+ 'molecular-shape-challenge':1,'chem-stoichiometry-game':1,'math-concept-scramble':1,'hsc-term-scramble':1
 };
 var GAME_ICON_BY_ID={
  "blitz":"⚡",
@@ -47,8 +50,8 @@ var GAME_ICON_BY_ID={
 };
 var GAME_TITLE_BN={
  "blitz":"Quick Quiz Blitz",
- "memory":"Formula Memory",
- "tf":"True or False",
+ "memory":"Formula & Molecule Memory",
+ "tf":"Science & Math: True or False",
  "scramble":"Term Scramble",
  "balance":"Equation Balance",
  "cannon":"Projectile Target",
@@ -65,10 +68,10 @@ var GAME_TITLE_BN={
  "mass-atlas":"Mass Atlas",
  "element-sprint":"Element Sprint",
  "trend-duel":"Periodic Trends Duel",
- "odd-one-phy":"Physics Odd One Out",
+ "odd-one-phy":"Odd One Out: Science & Math",
  "odd-one-chem":"Chemistry Odd One Out",
  "odd-one-math":"Math Odd One Out",
- "step-order-phy":"Physics Step Order",
+ "step-order-phy":"Step Order Challenge",
  "step-order-chem":"Chemistry Step Order",
  "step-order-math":"Math Step Order",
  "edu-chem-reaction-race":"Reaction Race",
@@ -157,6 +160,31 @@ function normalizeCatalog(){
   allGames.filter(function(g){return g&&['math-concept-scramble','hsc-term-scramble','edu-math-concept-scramble','edu-hsc-term-scramble'].indexOf(g.id)>=0}).forEach(function(g){((g.data||{}).words||[]).forEach(function(w){var k=String(w.w||'').toUpperCase();if(k&&!wordSeen[k]){wordSeen[k]=1;wordBank.push(w)}})});
   primaryScramble.data.words=wordBank;
  }
+ /* Merge genuinely overlapping mini-games into one richer game before hiding their duplicate cards. */
+ function mergeCollection(primaryId,sourceIds,field,keyOf){
+  var target=allGames.filter(function(g){return g&&g.id===primaryId})[0];if(!target)return;
+  target.data=target.data||{};var dest=Array.isArray(target.data[field])?target.data[field].slice():[],seen=Object.create(null);
+  function add(v){var k=String(keyOf(v)||'').trim().toLowerCase();if(k&&!seen[k]){seen[k]=1;dest.push(v)}}
+  dest.forEach(function(v){var k=String(keyOf(v)||'').trim().toLowerCase();if(k)seen[k]=1});
+  allGames.filter(function(g){return g&&sourceIds.indexOf(g.id)>=0}).forEach(function(g){(((g.data||{})[field])||[]).forEach(add)});
+  target.data[field]=dest;
+ }
+ function textKey(v){return v&&typeof v==='object'?String(v.q||v.s||v.t||v.w||''):String(v||'')}
+ mergeCollection('balance',['chem-reaction-race'],'eqs',function(v){return v});
+ mergeCollection('tf',['physics-formula-sprint','math-truth-arena','edu-chem-reaction-race','edu-math-truth-arena'],'items',textKey);
+ mergeCollection('odd-one-phy',['odd-one-chem','odd-one-math','edu-physics-odd-one'],'sets',textKey);
+ mergeCollection('step-order-phy',['step-order-chem','step-order-math','organic-pathway','chem-organic-conversion-map','virtual-lab-escape-room','edu-chem-lab-sequence','edu-math-step-order'],'puzzles',textKey);
+ mergeCollection('memory',['formula-pair-cosmos','edu-formula-pair-cosmos','molecular-shape-challenge','edu-physics-unit-rush'],'pairs',function(v){return v&&String(v.a||'')});
+ mergeCollection('stoichiometry-sprint',['chem-stoichiometry-game'],'q',textKey);
+ mergeCollection('physics-unit-rush',['edu-physics-formula-sprint'],'q',textKey);
+ mergeCollection('chemistry-ion-challenge',['edu-chemistry-ion-challenge'],'q',textKey);
+ mergeCollection('flame',['edu-flame-colour-detective'],'items',function(v){var n=String(v&&v.n||''),m=n.match(/Na|Ca|Cu|Ba|Li|K/);return m?m[0]:n});
+ var equationGame=allGames.filter(function(g){return g&&g.id==='balance'})[0];if(equationGame){equationGame.t='Equation Balance';equationGame.d='Balance chemical equations by matching every atom on both sides. Choose a reaction, adjust coefficients, and check your reasoning.';equationGame.diff='Medium';equationGame.xp=Math.max(50,+equationGame.xp||50)}
+ var truthGame=allGames.filter(function(g){return g&&g.id==='tf'})[0];if(truthGame){truthGame.t='Science & Math: True or False';truthGame.d='Test physics, chemistry and higher-math statements in one mixed-subject challenge.';truthGame.data=truthGame.data||{};truthGame.data.time=Math.max(60,+truthGame.data.time||60)}
+ var oddGame=allGames.filter(function(g){return g&&g.id==='odd-one-phy'})[0];if(oddGame){oddGame.t='Odd One Out: Science & Math';oddGame.d='Find the item that does not belong across physics, chemistry and mathematics.'}
+ var stepGame=allGames.filter(function(g){return g&&g.id==='step-order-phy'})[0];if(stepGame){stepGame.t='Step Order Challenge';stepGame.d='Arrange physics, chemistry and maths solution steps into the correct logical order.'}
+ var memoryGame=allGames.filter(function(g){return g&&g.id==='memory'})[0];if(memoryGame){memoryGame.t='Formula & Molecule Memory';memoryGame.d='Match formulas, laws and molecular shapes. Fewer moves earn a better result.'}
+ var stoichGame=allGames.filter(function(g){return g&&g.id==='stoichiometry-sprint'})[0];if(stoichGame){stoichGame.t='Stoichiometry Sprint';stoichGame.d='Practice mole calculations, balanced-equation ratios and limiting-reactant reasoning in one timed challenge.'}
  var kept=[],titles=Object.create(null),seenIcons=Object.create(null);
  (D.games||[]).forEach(function(g){if(!g||!g.id||DROP_GAME_IDS[g.id])return;var raw=String(GAME_TITLE_BN[g.id]||g.t||g.title||g.id).toLowerCase().normalize('NFKD');var title=raw.replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,'');if(!title)title=String(g.id).toLowerCase();if(title==='flamecolourdetective'||title==='formulapaircosmos')return;if(titles[title])return;titles[title]=1;kept.push(g)});
  (D.labs||[]).forEach(function(l,i){var ico=SIM_ICON_BY_ID[l.id]||l.icon||'🧩';if(seenIcons[ico]){var j=0;while(j<GAME_ICON_FALLBACK.length&&seenIcons[GAME_ICON_FALLBACK[j]])j++;ico=GAME_ICON_FALLBACK[j]||('🔹'+(i+1));if(!SIM_ICON_BY_ID[l.id])l.icon=ico;}seenIcons[ico]=1});
@@ -237,7 +265,7 @@ function statics(){
   groups.forEach(function(group){var rows=group.ids.map(function(id){return byId[id]}).filter(Boolean);if(!rows.length)return;menuHeading(group.title);rows.forEach(function(item){used[item.id]=1;menuLink(item)})});
   var extra=navItems.filter(function(item){return !used[item.id]});if(extra.length){menuHeading('MORE PAGES');extra.forEach(menuLink)}
   var hubTools=[
-   ['focus','⏱','Focus Timer','Pomodoro সেশন ও বিরতি'],['exam','📅','Exam Countdown','পরীক্ষার দিন গুনে রাখুন'],['gpa','🎓','GPA Calculator','HSC গ্রেড পয়েন্ট হিসাব'],['calculator','🧮','fx-991ES PLUS Calculator','Casio-style scientific calculator for mobile and desktop'],['tools','📐','Geometry Tools','Virtual compass, protractor, ruler and pencil'],['plan','☑','Study Planner','দৈনিক পড়ার কাজ সাজান'],['cards','▤','Flashcards','প্রশ্ন ও উত্তর দিয়ে রিভিশন'],['notes','✎','Quick Notes','গুরুত্বপূর্ণ নোট সংরক্ষণ'],['revision','📚','Revision Tracker','বিষয়ভিত্তিক রিভিশন চিহ্নিত করুন'],['syllabus','▤','Syllabus Tracker','তিন বিষয়ের সিলেবাস ট্র্যাক করুন'],['form','📐','Formula Sheet','গণিত, রসায়ন ও পদার্থের সূত্র'],['hab','🌱','Daily Habits','পড়ার অভ্যাসের ধারাবাহিকতা']
+   ['focus','⏱','Focus Timer','Pomodoro সেশন ও বিরতি'],['exam','📅','Exam Countdown','পরীক্ষার দিন গুনে রাখুন'],['gpa','🎓','GPA Calculator','HSC গ্রেড পয়েন্ট হিসাব'],['tools','📐','Geometry Tools','Virtual compass, protractor, ruler and pencil'],['plan','☑','Study Planner','দৈনিক পড়ার কাজ সাজান'],['cards','▤','Flashcards','প্রশ্ন ও উত্তর দিয়ে রিভিশন'],['notes','✎','Quick Notes','গুরুত্বপূর্ণ নোট সংরক্ষণ'],['revision','📚','Revision Tracker','বিষয়ভিত্তিক রিভিশন চিহ্নিত করুন'],['syllabus','▤','Syllabus Tracker','তিন বিষয়ের সিলেবাস ট্র্যাক করুন'],['form','📐','Formula Sheet','গণিত, রসায়ন ও পদার্থের সূত্র'],['hab','🌱','Daily Habits','পড়ার অভ্যাসের ধারাবাহিকতা']
   ];menuHeading('STUDENT HUB · ALL TOOLS');hubTools.forEach(function(t){var a=document.createElement('a');a.className='menu-tile hub-tool';a.href='#/hub/'+t[0];a.setAttribute('data-menu-id','hub-'+t[0]);a.innerHTML='<span class="menu-tile-icon" aria-hidden="true">'+t[1]+'</span><span class="menu-tile-copy"><b>'+E(t[2])+'</b><small>'+E(t[3])+'</small></span><span class="menu-tile-arrow" aria-hidden="true">↗</span>';nav.appendChild(a)});
   (D.customPages||[]).filter(function(page){return page&&page.on!==false&&page.on!==0&&page.on!=='0'}).forEach(function(page){var a=document.createElement('a');a.className='menu-tile';a.href='#/page/'+encodeURIComponent(page.slug||page.id);a.innerHTML='<span class="menu-tile-icon" aria-hidden="true">◇</span><span class="menu-tile-copy"><b>'+E(page.navLabel||page.title||'Custom page')+'</b><small>ConceptLab-এর অতিরিক্ত পেজ</small></span><span class="menu-tile-arrow" aria-hidden="true">↗</span>';nav.appendChild(a)});
  }
@@ -465,10 +493,10 @@ function secHero(){var words=String(S.heroWords||'').split(',').map(function(w){
  return'<div class="w hero"><div class="hero-copy"><span class="pill rv"><i></i>'+E(S.badge)+'</span><h1 class="rv">'+E(S.h1)+'</h1><p class="lead rv">'+E(S.lead)+'</p>'+(words.length?'<p class="typed rv">'+E(S.heroPre)+' <b data-type="'+E(words.join('|'))+'"></b><span class="caret"></span></p>':'')+'</div><div class="orb-wrap" aria-hidden="true">'+heroSvg()+'</div></div>'}
 function homeQuickAccess(){
  var features=[
-  ['#/chapters','📖','Explore Chapters','তিনটি বিষয়ের অধ্যায় ও কনসেপ্ট'],['#/play','🎮','Arcade','গেম খেলুন, স্কোর ও XP বাড়ান'],['#/lab','🔬','Simulations','চলক বদলে ফলাফল নিজে দেখুন'],['#/hub','🎓','Student Hub','পড়াশোনার দরকারি টুল এক জায়গায়'],['#/hub/calculator','🧮','fx-991ES PLUS Calculator','Casio-style scientific calculator'],['#/hub/tools','📐','Geometry Tools','Virtual compass, protractor, ruler and pencil'],['#/smart-practice','🧠','Smart Practice','ভুল প্রশ্ন আবার অনুশীলন করুন'],['#/study-space','🔖','Study Space','নোট, বুকমার্ক ও সূত্র গুছিয়ে রাখুন'],['#/daily','📅','Daily Missions','আজকের লক্ষ্য ও শেখার ধারাবাহিকতা'],['#/progress','📈','My Progress','অগ্রগতি, লেভেল ও ব্যাজ দেখুন']
+  ['#/chapters','📖','Explore Chapters','তিনটি বিষয়ের অধ্যায় ও কনসেপ্ট'],['#/play','🎮','Arcade','গেম খেলুন, স্কোর ও XP বাড়ান'],['#/lab','🔬','Simulations','চলক বদলে ফলাফল নিজে দেখুন'],['#/hub','🎓','Student Hub','পড়াশোনার দরকারি টুল এক জায়গায়'],['#/hub/tools','📐','Geometry Tools','Virtual compass, protractor, ruler and pencil'],['#/smart-practice','🧠','Smart Practice','ভুল প্রশ্ন আবার অনুশীলন করুন'],['#/study-space','🔖','Study Space','নোট, বুকমার্ক ও সূত্র গুছিয়ে রাখুন'],['#/daily','📅','Daily Missions','আজকের লক্ষ্য ও শেখার ধারাবাহিকতা'],['#/progress','📈','My Progress','অগ্রগতি, লেভেল ও ব্যাজ দেখুন']
  ];
  var subjectData=[['math','📐','Higher Mathematics','গণিতের ধারণা, সূত্র ও অনুশীলন'],['chem','🧪','Chemistry','বিক্রিয়া, বন্ধন ও রসায়নের ধারণা'],['phy','⚛','Physics','গতি, বল, শক্তি ও প্রকৃতির নিয়ম']];
- var tools=[['focus','⏱','Focus Timer'],['exam','📅','Exam Countdown'],['gpa','🎓','GPA Calculator'],['calculator','🧮','fx-991ES PLUS Calculator'],['tools','📐','Geometry Tools'],['plan','✅','Study Planner'],['cards','🧩','Flashcards'],['notes','📝','Quick Notes'],['revision','📚','Revision Tracker'],['syllabus','📖','Syllabus Tracker'],['form','📐','Formula Sheet'],['hab','🌱','Daily Habits']];
+ var tools=[['focus','⏱','Focus Timer'],['exam','📅','Exam Countdown'],['gpa','🎓','GPA Calculator'],['tools','📐','Geometry Tools'],['plan','✅','Study Planner'],['cards','🧩','Flashcards'],['notes','📝','Quick Notes'],['revision','📚','Revision Tracker'],['syllabus','📖','Syllabus Tracker'],['form','📐','Formula Sheet'],['hab','🌱','Daily Habits']];
  return'<section class="home-launchpad" aria-label="Quick access to ConceptLab features"><div class="w"><div class="launch-head"><span class="pill"><i></i> QUICK ACCESS</span><h2>এক জায়গায় শেখা, অনুশীলন ও পরিকল্পনা</h2><p>ConceptLab-এর প্রধান ফিচারগুলোতে সরাসরি যান—উচ্চতর গণিত, রসায়ন ও পদার্থবিজ্ঞান একসঙ্গে।</p></div><div class="launch-feature-grid">'+features.map(function(x,i){return'<a class="launch-feature-card" href="'+x[0]+'" style="--launch-delay:'+(i*.035)+'s"><span class="launch-feature-icon" aria-hidden="true">'+x[1]+'</span><span class="launch-feature-copy"><b>'+x[2]+'</b><small>'+x[3]+'</small></span><span class="launch-feature-arrow" aria-hidden="true">↗</span></a>'}).join('')+'</div><div class="launch-subject-head"><div><span class="launch-eyebrow">THREE SUBJECTS · ONE LAB</span><h3>বিষয় বেছে শুরু করুন</h3></div><a href="#/chapters">সব অধ্যায় <span aria-hidden="true">→</span></a></div><div class="launch-subject-grid">'+subjectData.map(function(x){var seen={};(L[x[0]]||[]).forEach(function(c){seen[String(c.chapterTitle||c.chapter||c.t||'Chapter').trim()]=1});return'<a class="launch-subject-card subject-'+x[0]+'" href="#/chapters" data-subject-go="'+x[0]+'"><span class="launch-subject-icon" aria-hidden="true">'+x[1]+'</span><span><b>'+x[2]+'</b><small>'+Object.keys(seen).length+' অধ্যায় · '+(L[x[0]]||[]).length+' কনসেপ্ট</small><em>'+x[3]+'</em></span><span class="launch-subject-arrow" aria-hidden="true">→</span></a>'}).join('')+'</div><div class="launch-tool-head"><div><span class="launch-eyebrow">STUDENT HUB TOOLKIT</span><h3>দৈনন্দিন পড়াশোনার টুল</h3></div><a href="#/hub">সব টুল দেখুন <span aria-hidden="true">→</span></a></div><div class="launch-tool-grid">'+tools.map(function(x){return'<a class="launch-tool" href="#/hub/'+x[0]+'"><span class="launch-tool-icon" aria-hidden="true">'+x[1]+'</span><span>'+x[2]+'</span><span class="launch-tool-arrow" aria-hidden="true">↗</span></a>'}).join('')+'</div></div></section>'
 }
 var MOTIVATION_QUOTES=[
@@ -638,16 +666,33 @@ function simInto(el,key,c,done){
  el.innerHTML='';try{f(el,done)}catch(e){console.error(e);el.innerHTML='<p class="bn">Simulation could not start.</p>'}
  if(el.id==='sim'&&window.matchMedia&&window.matchMedia('(max-width: 700px)').matches){
   var old=document.getElementById('mobileSimControlJump');if(old)old.remove();
-  var topControls=el.querySelector(':scope > .ctl, :scope > .lens-controls-host, :scope > .mirror-controls-host, :scope > .fl-controls');
-  var directCanvas=el.querySelector(':scope > canvas.cv2');
-  /* Direct-canvas labs now display their control panel first via CSS; retain a jump only for nested layouts. */
-  if(!(topControls&&directCanvas)){
-   var jump=document.createElement('button');jump.type='button';jump.id='mobileSimControlJump';jump.className='mobile-sim-control-jump';jump.textContent='কন্ট্রোলে যান ↓';jump.setAttribute('aria-label','সিমুলেশনের কন্ট্রোলে যান');
-   jump.addEventListener('click',function(){var root=document.getElementById('sim');if(!root)return;var target=root.querySelector('.ctl')||root.querySelector('.fl-controls')||root.querySelector('.lens-controls-host')||root.querySelector('.mirror-controls-host')||root.querySelector('.chips')||root.querySelector('input[type=range]')||root.querySelector('button')||root;target.scrollIntoView({behavior:'smooth',block:'center'});if(target.matches('input,button')){try{target.focus({preventScroll:true})}catch(e){target.focus()}}});
-   var firstControl=el.querySelector('.ctl, .fl-controls, .lens-controls-host, .mirror-controls-host, .chips, .ro, input[type=range], button');
-   if(firstControl)el.insertBefore(jump,firstControl);else el.appendChild(jump);
-  }
+  var schedule=window.requestAnimationFrame||function(fn){return setTimeout(fn,0)};
+  schedule(function(){
+   if(!el.isConnected||!window.matchMedia('(max-width: 700px)').matches)return;
+   var visual=el.querySelector('.polarity-visual, .cv2, .fl-visual, .lens-stage, .flame-svg, svg[role="img"], .sim-visual, canvas');if(!visual)return;
+   var selectors='.ctl, .fl-controls, .lens-controls-host, .mirror-controls-host, .addsim-select, .lens-kind, .chips, input[type="range"], input[type="number"], input[type="checkbox"], input[type="radio"], select';
+   var vBottom=visual.getBoundingClientRect().bottom;
+   var candidates=Array.prototype.slice.call(el.querySelectorAll(selectors)).filter(function(p){var r=p.getBoundingClientRect();return r.width>0&&r.height>0&&r.top>vBottom+24;});
+   if(!candidates.length)return;
+   var target=candidates[0];
+   /* Find the nearest layout container which contains both the actual visualization and the lower control. */
+   var layout=visual.parentElement;while(layout&&layout!==el&&!layout.contains(target))layout=layout.parentElement;
+   if(!layout||!layout.contains(target))layout=el;
+   function topChild(container,node){while(node&&node.parentElement!==container)node=node.parentElement;return node&&node.parentElement===container?node:null}
+   var visualBlock=topChild(layout,visual),targetBlock=topChild(layout,target);if(!visualBlock||!targetBlock||visualBlock===targetBlock)return;
+   if(targetBlock.getBoundingClientRect().top<=visualBlock.getBoundingClientRect().bottom+16)return;
+   var display=window.getComputedStyle(layout).display;
+   if(display!=='flex'&&display!=='inline-flex'&&display!=='grid'&&display!=='inline-grid'){
+    layout.style.display='grid';layout.style.gridTemplateColumns='minmax(0,1fr)';layout.style.gap='10px';
+   }
+   var order=parseFloat(window.getComputedStyle(visualBlock).order);if(!Number.isFinite(order))order=0;
+   var jump=document.createElement('button');jump.type='button';jump.id='mobileSimControlJump';jump.className='mobile-sim-control-jump';jump.textContent='কন্ট্রোলে যান ↓';jump.setAttribute('aria-label','সিমুলেশনের কন্ট্রোলে যান');jump.style.setProperty('order',String(order),'important');
+   jump.addEventListener('click',function(){if(!target.isConnected)return;target.scrollIntoView({behavior:'smooth',block:'center'});var focus=target.matches('input,select,button')?target:target.querySelector('input,select,button');if(focus){try{focus.focus({preventScroll:true})}catch(e){focus.focus()}}});
+   visualBlock.parentNode.insertBefore(jump,visualBlock.nextSibling);
+  });
  }
+
+
 }
 function refreshBar(id){var n=cnt(id),a=$('#pg'),b=$('#pb');if(a)a.textContent=X('ch_prog').replace('{n}',n);if(b)b.style.width=n*25+'%'}
 function stage(id,i){var c=C[id],h=$('#stg');if(!h)return;try{sessionStorage.setItem('st'+id,i)}catch(e){}

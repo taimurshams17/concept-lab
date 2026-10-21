@@ -1,0 +1,3 @@
+ConceptLab v9.0.5
+- Removed the scientific calculator option from Student Hub tabs and shortcut/navigation lists.
+- Retained GPA Calculator and other Student Hub tools.

@@ -1,0 +1,5 @@
+ConceptLab v9.0.4
+- Removed the visible Calculation History panel from the scientific calculator.
+- Tightened calculator spacing for mobile and desktop layouts.
+- Added a numerical one-variable equation solver supporting equations such as x+1/x=5, with configurable search range and scan resolution.
+- Synced updated CSS/JavaScript into dist.

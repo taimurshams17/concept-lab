@@ -1,0 +1,7 @@
+ConceptLab update — simulation layout and arcade deduplication
+
+- Reworked the mobile “Go to controls” cue so it appears only when a control panel is actually below its visualization, is inserted between the model and controls, and scrolls to the real control element.
+- Improved mobile layout for the interactive molecular-polarity and reaction-energy models.
+- Consolidated repeated arcade games into unified games while preserving their question/equation banks: Equation Balance, True or False, Odd One Out, Step Order, Formula & Molecule Memory, Stoichiometry Sprint, Physics Unit Rush, Chemistry Ion Challenge, Flame Detective, and Term Scramble.
+- Removed duplicate arcade cards for repeated variants of those game types.
+- Rebuilt the static `dist/` site from source.

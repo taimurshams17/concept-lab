@@ -1,0 +1,5 @@
+ConceptLab v9.0.3
+- Student Hub calculator: compact centered fx-991ES PLUS-inspired casing and more Casio-like 45-key order; dark grey buttons, light LCD, green DEL/AC keys, tighter five-column spacing across phones and desktops.
+- Calculator functions: added HYP mode with sinh/cosh/tanh and inverse hyperbolic functions, kept DEG/RAD/GRA and Norm/Fix/Sci setup, memory, factorial, nPr/nCr, root input, Ans, EXP, random, SHIFT and ALPHA behavior; retained the separate advanced calculator tabs.
+- Tiger & Deer simulation: replaced vector/cartoon animals with realistic transparent cutout images. The rendered gap is now calculated from animal body edges; at the catch time the tiger lunges and the deer reacts without the sprites occupying the same position.
+- Home page: increased the mobile-only ConceptLab headline size so it is more legible without changing the desktop layout.

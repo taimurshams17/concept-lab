@@ -1,0 +1,8 @@
+ConceptLab v9.0.2
+- Student Hub > fx-991ES PLUS calculator rebuilt in a Casio-style layout (assets/js/casio991.js):
+  SHIFT (yellow) and ALPHA (red) labels, x⁻¹ x² xʸ √ (−) log ln ( ) , sin cos tan a b/c %,
+  nPr / nCr, ∛, ʸ√, 10ˣ, eˣ, inverse trig, EXP, Ans, π, e, x!, M+ / M− / RCL / STO,
+  DEG / RAD / GRA and Norm / Fix / Sci setup from MODE, S⇔D fraction toggle, history,
+  keyboard input (Enter, Backspace, Esc, arrows). Other Student Hub calculator tools are unchanged.
+- Tiger & Deer simulation: emoji replaced by drawn tiger and deer artwork, larger stage,
+  bounding stride animation whose speed follows each animal's speed.
