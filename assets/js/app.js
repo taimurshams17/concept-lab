@@ -5,11 +5,170 @@ function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{
 function clone(o){return JSON.parse(JSON.stringify(o))}
 function ok(v){return v!==false&&v!=='0'&&v!=='false'&&v!==0}
 function safeLink(l){l=String(l||'').trim();return /^(#\/|https?:\/\/|\/)/.test(l)?l:'#/'}
-function labSubject(s){var v=String(s||'').trim().toLowerCase();if(['phy','physics','phys'].indexOf(v)>=0)return 'Physics';if(['chem','chemistry'].indexOf(v)>=0)return 'Chemistry';if(['math','maths','mathematics'].indexOf(v)>=0)return 'Mathematics';return s||'Other'}
+function labSubject(s){var v=String(s||'').trim().toLowerCase();if(['phy','physics','phys','পদার্থবিজ্ঞান'].indexOf(v)>=0)return 'পদার্থবিজ্ঞান';if(['chem','chemistry','রসায়ন'].indexOf(v)>=0)return 'রসায়ন';if(['math','maths','mathematics','উচ্চতর গণিত'].indexOf(v)>=0)return 'উচ্চতর গণিত';return s||'অন্যান্য'}
 var DEF=window.CL_DEF,DX={};(window.CL_TXT||[]).forEach(function(g){g[1].forEach(function(t){DX[t[0]]=t[2]})});
 DX.rs_done='Done';DX.rs_now='In progress';DX.rs_next='Coming next';DX.nav_leaderboard='Leaderboard';
 var D,S,SUB,C,L,CHL,HOME,GAMES,LABS,GAM,ST=[];
 function X(k){var v=((D&&D.texts)||{})[k];return v==null||v===''?DX[k]:v}
+var DROP_GAME_IDS={
+ 'formula-pair-cosmos':1,'edu-formula-pair-cosmos':1,'edu-flame-colour-detective':1,'edu-physics-unit-rush':1,
+ 'edu-physics-formula-sprint':1,'edu-chemistry-ion-challenge':1,'edu-math-concept-scramble':1,'edu-hsc-term-scramble':1,
+ 'edu-physics-odd-one':1,'edu-math-step-order':1,'edu-math-truth-arena':1,'edu-projectile-range-challenge':1,'edu-line-slope-challenge':1,
+ 'math-concept-scramble':1,'hsc-term-scramble':1
+};
+var GAME_ICON_BY_ID={
+ "blitz":"⚡",
+ "memory":"🧠",
+ "tf":"✅",
+ "scramble":"🔤",
+ "balance":"⚖️",
+ "cannon":"🎯",
+ "slope":"✏️",
+ "flame":"🔥",
+ "physics-formula-sprint":"📝",
+ "chemistry-ion-challenge":"🧪",
+ "math-concept-scramble":"🧮",
+ "physics-unit-rush":"🔢",
+ "chem-reaction-race":"💥",
+ "math-truth-arena":"📚",
+ "hsc-term-scramble":"📜",
+ "periodic-quest":"🧬",
+ "mass-atlas":"🏋️",
+ "element-sprint":"🏃",
+ "trend-duel":"⚔️",
+ "odd-one-phy":"🧲",
+ "odd-one-chem":"🥽",
+ "odd-one-math":"∑",
+ "step-order-phy":"🪜",
+ "step-order-chem":"🧤",
+ "step-order-math":"🧩",
+ "edu-chem-reaction-race":"🧯",
+ "edu-chem-lab-sequence":"🧰"
+};
+var GAME_TITLE_BN={
+ "blitz":"Quick Quiz Blitz",
+ "memory":"Formula Memory",
+ "tf":"True or False",
+ "scramble":"Term Scramble",
+ "balance":"Equation Balance",
+ "cannon":"Projectile Target",
+ "slope":"Slope Shot",
+ "flame":"Flame Test Detective",
+ "physics-formula-sprint":"Physics Formula Sprint",
+ "chemistry-ion-challenge":"Ion Detective",
+ "math-concept-scramble":"Math Concept Scramble",
+ "physics-unit-rush":"Physics Unit Rush",
+ "chem-reaction-race":"Chemical Reaction Race",
+ "math-truth-arena":"Math Truth Arena",
+ "hsc-term-scramble":"HSC Term Scramble",
+ "periodic-quest":"Periodic Table Quest",
+ "mass-atlas":"Mass Atlas",
+ "element-sprint":"Element Sprint",
+ "trend-duel":"Periodic Trends Duel",
+ "odd-one-phy":"Physics Odd One Out",
+ "odd-one-chem":"Chemistry Odd One Out",
+ "odd-one-math":"Math Odd One Out",
+ "step-order-phy":"Physics Step Order",
+ "step-order-chem":"Chemistry Step Order",
+ "step-order-math":"Math Step Order",
+ "edu-chem-reaction-race":"Reaction Race",
+ "edu-chem-lab-sequence":"Chemistry Lab Sequence",
+ "chem-organic-conversion-map":"Organic Conversion Map",
+ "chem-electron-configuration-challenge":"Electron Configuration Challenge",
+ "chem-stoichiometry-game":"Stoichiometry Challenge",
+ "virtual-lab-escape-room":"Virtual Lab Escape Room"
+};
+var GAME_ICON_FALLBACK=['🗝️','🪁','🛞','🪶','🪴','🪸','🪷','🦜','🦋','🦉','🪺','🪵','🪬','🪭','🪄','🪅','🪆','🪇','🪈','🪉','🪏','🪐','🫧','🫙','🫚','🫛','🫜','🫟','🧿','🪬','🪻','🪸','🦤','🦩','🦚','🦥','🦦','🦨','🦫','🦮','🪽','🪿','🪹','🪴','🪨'];
+function gameIcon(g){return g&&(GAME_ICON_BY_ID[g.id]||g.icon)||'🎮'}
+function gameTitle(g){return g&&(GAME_TITLE_BN[g.id]||g.t||g.title)||'গেম'}
+function iconHue(key){var h=0;String(key||'concept').split('').forEach(function(c){h=(h*31+c.charCodeAt(0))%360});return 22+(h%310)}
+var PHYSICS_UNIT_RUSH_MORE=[
+ {q:'বলের মাত্রা কোনটি?',o:['MLT⁻²','ML²T⁻²','ML⁻¹T⁻²','MLT⁻¹'],a:0,e:'F = ma; তাই মাত্রা MLT⁻²।'},
+ {q:'চাপের SI একক কী?',o:['নিউটন','পাস্কাল','জুল','ওয়াট'],a:1,e:'চাপ = বল/ক্ষেত্রফল; SI একক Pa বা N/m²।'},
+ {q:'ঘনত্বের SI একক কোনটি?',o:['kg/m³','kg·m/s','N/m²','J/s'],a:0,e:'ঘনত্ব = ভর/আয়তন, তাই kg/m³।'},
+ {q:'ঘাত (Impulse)-এর মাত্রা কোনটি?',o:['MLT⁻¹','MLT⁻²','ML²T⁻²','M⁰LT⁻¹'],a:0,e:'Impulse = বল × সময় = ভরবেগের পরিবর্তন।'},
+ {q:'টর্কের SI একক কোনটি?',o:['N·m','N/m','kg/m³','W/s'],a:0,e:'টর্ক = বল × লম্ব দূরত্ব; একক N·m।'},
+ {q:'স্প্রিংয়ে সঞ্চিত স্থিতিস্থাপক বিভবশক্তি কোনটি?',o:['kx','½kx²','mv','mgh²'],a:1,e:'স্প্রিং ধ্রুবক k এবং প্রসারণ x হলে U = ½kx²।'},
+ {q:'বৃত্তাকার গতিতে কেন্দ্রমুখী ত্বরণ কোনটি?',o:['vr','v²/r','r/v²','ω/r'],a:1,e:'কেন্দ্রমুখী ত্বরণ a = v²/r।'},
+ {q:'সমবেগে বৃত্তাকার গতিতে বেগ বদলায় কেন?',o:['শুধু মান বদলায়','দিক বদলায়','ভর বদলায়','সময় থেমে যায়'],a:1,e:'দ্রুতির মান ধ্রুব হলেও বেগের দিক ক্রমাগত পরিবর্তিত হয়।'},
+ {q:'বেগ-সময় গ্রাফের ঢাল কী?',o:['সরণ','ত্বরণ','ভরবেগ','কাজ'],a:1,e:'বেগের সময়-অনুসারে পরিবর্তনের হার হলো ত্বরণ।'},
+ {q:'সরণ-সময় গ্রাফের ঢাল কী নির্দেশ করে?',o:['বেগ','বল','ক্ষমতা','ভর'],a:0,e:'সরণ/সময়ের পরিবর্তনের হার বেগ।'},
+ {q:'সমবেগে ত্বরণ কত?',o:['শূন্য','g','v/t সবসময়','অসীম'],a:0,e:'বেগের মান ও দিক ধ্রুব থাকলে ত্বরণ শূন্য।'},
+ {q:'গতির তৃতীয় সমীকরণ কোনটি?',o:['v = u + at','s = vt','v² = u² + 2as','F = mv'],a:2,e:'ধ্রুব ত্বরণে v² = u² + 2as।'},
+ {q:'প্রক্ষেপণের সর্বাধিক পাল্লা (একই উচ্চতায় পতন) আদর্শভাবে কোন কোণে?',o:['৩০°','৪৫°','৬০°','৯০°'],a:1,e:'বায়ুর বাধা উপেক্ষা করে একই উচ্চতায় নামলে ৪৫°-এ পাল্লা সর্বাধিক।'},
+ {q:'সর্বোচ্চ বিন্দুতে প্রক্ষেপণের উল্লম্ব বেগ কত?',o:['শূন্য','সর্বাধিক','g','প্রাথমিক বেগের সমান'],a:0,e:'সর্বোচ্চ বিন্দুতে উল্লম্ব বেগের উপাংশ মুহূর্তের জন্য শূন্য।'},
+ {q:'ভরবেগ সংরক্ষিত থাকে কখন?',o:['বাহ্যিক লব্ধি বল শূন্য হলে','ঘর্ষণ সর্বদা থাকলে','বেগ শূন্য হলেই','ভর পরিবর্তিত হলে'],a:0,e:'বিচ্ছিন্ন সিস্টেমে মোট বাহ্যিক বল শূন্য হলে মোট ভরবেগ সংরক্ষিত থাকে।'},
+ {q:'নিউটনের তৃতীয় সূত্রে ক্রিয়া-প্রতিক্রিয়া বল—',o:['একই বস্তুর ওপর লাগে','ভিন্ন দুটি বস্তুর ওপর সমান ও বিপরীতভাবে লাগে','সবসময় বাতিল হয়','একটি বড় হয়'],a:1,e:'ক্রিয়া ও প্রতিক্রিয়া ভিন্ন বস্তুর ওপর কাজ করে।'},
+ {q:'কাজ শূন্য হতে পারে কোন ক্ষেত্রে?',o:['বল সরণের লম্ব হলে','বল ও সরণ একই দিকে হলে','সরণ বলের দিকে হলে','শক্তি থাকলেই'],a:0,e:'W = Fs cosθ; θ = 90° হলে কাজ শূন্য।'},
+ {q:'ঘর্ষণ সহগের একক কী?',o:['N','m/s','কোনো একক নেই','kg'],a:2,e:'ঘর্ষণ সহগ μ = ঘর্ষণ বল/লম্ব প্রতিক্রিয়া; দুটি বলের অনুপাত।'},
+ {q:'পৃষ্ঠটানের SI একক কোনটি?',o:['N/m','N·m','Pa','kg/m³'],a:0,e:'পৃষ্ঠটান = বল/দৈর্ঘ্য; একক N/m।'},
+ {q:'সান্দ্রতার গতিশীল সহগের SI একক কী?',o:['Pa·s','N/m','W','C'],a:0,e:'Dynamic viscosity-এর SI একক Pa·s।'},
+ {q:'তরঙ্গের বেগ, কম্পাঙ্ক ও তরঙ্গদৈর্ঘ্যের সম্পর্ক কোনটি?',o:['v = fλ','v = f/λ','v = λ/f','v = f + λ'],a:0,e:'তরঙ্গের বেগ v = fλ।'},
+ {q:'পর্যায়কাল T ও কম্পাঙ্ক f-এর সম্পর্ক কী?',o:['T = f','T = 1/f','T = f²','T = 2f'],a:1,e:'কম্পাঙ্ক f = 1/T, তাই T = 1/f।'},
+ {q:'শব্দ চলাচলের জন্য কী প্রয়োজন?',o:['একটি মাধ্যম','শুধু শূন্যস্থান','শুধু আলো','চৌম্বক ক্ষেত্র'],a:0,e:'শব্দ যান্ত্রিক তরঙ্গ; চলতে পদার্থগত মাধ্যম লাগে।'},
+ {q:'প্রতিসরাঙ্ক n-এর একটি সম্পর্ক কোনটি?',o:['n = c/v','n = v/c','n = cv','n = c + v'],a:0,e:'প্রতিসরাঙ্ক n = শূন্যস্থানে আলোর বেগ/মাধ্যমে আলোর বেগ।'},
+ {q:'বিদ্যুৎ ক্ষমতার সূত্র কোনটি?',o:['P = VI','P = V/I','P = IR','P = Q/t²'],a:0,e:'বৈদ্যুতিক ক্ষমতা P = VI; ওহমের সূত্রে P = I²R = V²/R।'},
+ {q:'সমান্তরাল সংযোগে প্রতিটি রোধের দুই প্রান্তে কী সমান থাকে?',o:['বিদ্যুৎ প্রবাহ','বিভব পার্থক্য','রোধ','ক্ষমতা'],a:1,e:'সমান্তরাল শাখাগুলো একই দুই নোডে যুক্ত, তাই ভোল্টেজ সমান।'},
+ {q:'শ্রেণি সংযোগে প্রতিটি রোধে কোনটি সমান?',o:['বিদ্যুৎ প্রবাহ','বিভব পার্থক্য','রোধ','ক্ষমতা'],a:0,e:'একটি পথ থাকায় শ্রেণি বর্তনীতে একই প্রবাহ যায়।'},
+ {q:'বৈদ্যুতিক আধানের SI একক কী?',o:['কুলম্ব','অ্যাম্পিয়ার','ভোল্ট','ফ্যারাড'],a:0,e:'আধানের একক কুলম্ব (C)।'},
+ {q:'ধারকের ধারকত্বের SI একক কী?',o:['ফ্যারাড','ওয়েবার','টেসলা','হেনরি'],a:0,e:'Capacitance-এর SI একক ফ্যারাড (F)।'},
+ {q:'চৌম্বক ফ্লাক্সের SI একক কোনটি?',o:['ওয়েবার','টেসলা','অ্যাম্পিয়ার','কুলম্ব'],a:0,e:'চৌম্বক ফ্লাক্সের একক ওয়েবার (Wb)।'},
+ {q:'তাপের পরিমাণের সরল সূত্র কোনটি?',o:['Q = mcΔT','Q = m/cT','Q = mv','Q = P/t'],a:0,e:'অবস্থার পরিবর্তন না হলে Q = mcΔT।'},
+ {q:'তাপগতীয় সমীকরণ PV = nRT-এ T কোন স্কেলে?',o:['সেলসিয়াস','কেলভিন','ফারেনহাইট','ডিগ্রি কোণ'],a:1,e:'আদর্শ গ্যাস সমীকরণে তাপমাত্রা পরম স্কেল কেলভিনে বসাতে হয়।'},
+ {q:'মহাকর্ষীয় বিভবশক্তির নিকট-পৃথিবী পৃষ্ঠের সূত্র কোনটি?',o:['mgh','½mv²','F/a','mv'],a:0,e:'পৃষ্ঠের কাছাকাছি উচ্চতা h হলে U = mgh।'},
+ {q:'যান্ত্রিক দক্ষতার সূত্র কোনটি?',o:['উপযোগী আউটপুট/ইনপুট × ১০০%','ইনপুট/আউটপুট','ভর × বেগ','বল/সময়'],a:0,e:'দক্ষতা = উপযোগী শক্তি-আউটপুট ÷ শক্তি-ইনপুট × ১০০%।'},
+ {q:'বস্তুর ঘূর্ণন জড়তার SI একক কী?',o:['kg·m²','kg/m²','N/m','J/s'],a:0,e:'ঘূর্ণন জড়তা I = Σmr², তাই একক kg·m²।'},
+ {q:'লেন্সের ক্ষমতার একক ডাইঅপ্টার হলে ফোকাল দৈর্ঘ্য কোন এককে নিতে হয়?',o:['মিটার','সেন্টিমিটার','কিলোমিটার','মিলিমিটার'],a:0,e:'P = 1/f; ফোকাল দৈর্ঘ্য মিটারে নিলে ক্ষমতা diopter-এ হয়।'},
+ {q:'গোলীয় দর্পণের বক্রতার ব্যাসার্ধ R ও ফোকাল দৈর্ঘ্য f-এর সম্পর্ক কী?',o:['f = R/2','f = 2R','f = R²','f = 1/R²'],a:0,e:'প্যারাক্সিয়াল রশ্মির জন্য গোলীয় দর্পণে f = R/2।'},
+ {q:'সমতাপীয় প্রক্রিয়ায় আদর্শ গ্যাসের কোন রাশি ধ্রুব?',o:['তাপমাত্রা','চাপ ও আয়তন দুটোই','ভরবেগ','তাপমাত্রা সবসময় বাড়ে'],a:0,e:'সমতাপীয় (isothermal) প্রক্রিয়ায় তাপমাত্রা ধ্রুব থাকে।'},
+ {q:'অর্ধায়ু বলতে কী বোঝায়?',o:['নমুনার অর্ধেক নিউক্লিয়াস ক্ষয় হতে প্রয়োজনীয় সময়','সম্পূর্ণ ক্ষয়ের সময়','বেগ অর্ধেক হওয়ার সময়','তাপমাত্রা দ্বিগুণের সময়'],a:0,e:'একটি তেজস্ক্রিয় নমুনার নিউক্লিয়াসের সংখ্যা অর্ধেক হতে যে সময় লাগে সেটি অর্ধায়ু।'},
+ {q:'ফোটনের শক্তির সম্পর্ক কোনটি?',o:['E = hf','E = h/f','E = mv','E = mc'],a:0,e:'ফোটনের শক্তি E = hf, যেখানে h প্ল্যাঙ্ক ধ্রুবক।'},
+ {q:'দুটি সমান ও বিপরীত সমান্তরাল বলের যুগল কী সৃষ্টি করে?',o:['টর্ক','শুধু সরলরৈখিক ত্বরণ','শূন্য ভর','তরঙ্গদৈর্ঘ্য'],a:0,e:'বল-যুগল লব্ধি বল শূন্য হলেও একটি টর্ক সৃষ্টি করে।'}
+];
+var ION_CHALLENGE_MORE=[
+ {q:'ধনায়ন (cation) কোন আধান বহন করে?',o:['ধনাত্মক','ঋণাত্মক','আধানহীন','পরিবর্তনশীল নিউট্রন আধান'],a:0,e:'ইলেকট্রন হারালে সাধারণত ধনাত্মক আয়ন তৈরি হয়।'},
+ {q:'সালফেট আয়নের সংকেত কোনটি?',o:['SO₄²⁻','SO₃²⁻','S²⁻','HSO₃⁻'],a:0,e:'সালফেট হলো SO₄²⁻।'},
+ {q:'অ্যামোনিয়াম আয়নের সংকেত কী?',o:['NH₄⁺','NO₃⁻','NH₂⁻','N³⁻'],a:0,e:'অ্যামোনিয়াম একটি বহুপারমাণবিক ধনায়ন: NH₄⁺।'},
+ {q:'ক্লোরিন সাধারণত কোন আয়ন গঠন করে?',o:['Cl⁻','Cl⁺','Cl²⁺','Cl²⁻ সবসময়'],a:0,e:'একটি ইলেকট্রন গ্রহণ করে ক্লোরাইড Cl⁻ তৈরি হয়।'},
+ {q:'আয়নের নিট আধান নির্ভর করে কোন পার্থক্যের ওপর?',o:['প্রোটন ও ইলেকট্রনের সংখ্যা','শুধু নিউট্রন সংখ্যা','শুধু ভর','শুধু নিউক্লিয়াসের ব্যাস'],a:0,e:'নিট আধান = প্রোটনের ধনাত্মক আধান ও ইলেকট্রনের ঋণাত্মক আধানের যোগফল।'},
+ {q:'গ্রুপ ১-এর মৌল সাধারণত কী ধরনের আয়ন গঠন করে?',o:['+1','−1','+2','−2'],a:0,e:'ক্ষার ধাতুরা সাধারণত একটি ইলেকট্রন হারিয়ে +1 আয়ন হয়।'},
+ {q:'গ্রুপ ১৭-এর হ্যালোজেন সাধারণত কী আয়ন গঠন করে?',o:['−1','+1','+2','−3'],a:0,e:'বহিঃস্ত স্তরে একটি ইলেকট্রন গ্রহণ করে সাধারণত −1 আয়ন গঠন করে।'},
+ {q:'অ্যালুমিনিয়াম আয়নের সংকেত কী?',o:['Al³⁺','Al⁺','Al²⁻','Al³⁻'],a:0,e:'অ্যালুমিনিয়াম সাধারণত তিনটি ইলেকট্রন হারিয়ে Al³⁺ হয়।'},
+ {q:'MgCl₂-এ ম্যাগনেসিয়াম আয়নের আধান কত?',o:['+2','+1','−1','−2'],a:0,e:'Mg²⁺-এর আধান +2; দুটি Cl⁻-এর মোট −2 আধান সেটিকে সাম্য করে।'},
+ {q:'অম্লে কার্বনেট যোগ করলে কোন গ্যাস নির্গত হয়?',o:['CO₂','O₂','H₂','NH₃'],a:0,e:'কার্বনেট ও অম্ল থেকে কার্বন ডাই-অক্সাইড তৈরি হয়।'},
+ {q:'ক্লোরাইড শনাক্তকরণে AgNO₃ যোগে সাধারণত কী দেখা যায়?',o:['সাদা AgCl অবক্ষেপ','নীল দ্রবণ','বেগুনি শিখা','হলুদ গ্যাস'],a:0,e:'অম্লায়িত নমুনায় Ag⁺ ক্লোরাইডের সঙ্গে সাদা AgCl অবক্ষেপ তৈরি করে।'},
+ {q:'সালফেট শনাক্তে অম্লীয় দ্রবণে BaCl₂ যোগে কোন অবক্ষেপ হয়?',o:['সাদা BaSO₄','নীল Cu(OH)₂','বাদামি Fe(OH)₃','AgCl কালো'],a:0,e:'Ba²⁺ ও SO₄²⁻ অদ্রবণীয় সাদা BaSO₄ দেয়।'},
+ {q:'Cu²⁺-এর সঙ্গে NaOH যোগে কোন অবক্ষেপ হয়?',o:['নীল Cu(OH)₂','সাদা AgCl','সবুজ গ্যাস','লাল Cu₂O সবসময়'],a:0,e:'কপার(II) হাইড্রোক্সাইড সাধারণত নীল অবক্ষেপ।'},
+ {q:'Fe³⁺-এর সঙ্গে NaOH যোগে সাধারণত কী হয়?',o:['লালচে-বাদামি অবক্ষেপ','নীল শিখা','অক্সিজেন গ্যাস','সাদা AgCl'],a:0,e:'Fe(OH)₃ লালচে-বাদামি অবক্ষেপ তৈরি করে।'},
+ {q:'pH = 3 হলে পানিভিত্তিক দ্রবণটি সাধারণত—',o:['অম্লীয়','নিরপেক্ষ','ক্ষারীয়','অবশ্যই pH 7'],a:0,e:'২৫°C-এ pH 7-এর কম হলে দ্রবণ অম্লীয়।'},
+ {q:'আয়নিক বন্ধন সাধারণত কীভাবে গঠিত হয়?',o:['ইলেকট্রন স্থানান্তর ও বিপরীত আয়নের আকর্ষণে','শুধু নিউট্রন ভাগে','শুধু তাপ দিয়ে','আধান মুছে দিয়ে'],a:0,e:'ইলেকট্রন স্থানান্তরের পর বিপরীত আধানযুক্ত আয়নের তড়িৎস্থির আকর্ষণে আয়নিক বন্ধন গঠিত হয়।'},
+ {q:'Na₂SO₄ সূত্রে মোট ধনাত্মক আধানের মান কত?',o:['+2','+1','−2','+4'],a:0,e:'দুটি Na⁺-এর মোট আধান +2; SO₄²⁻-এর −2 আধানের সঙ্গে সাম্য হয়।'},
+ {q:'হ্রাস (reduction) বলতে আধুনিক ইলেকট্রন ধারণায় কী বোঝায়?',o:['ইলেকট্রন গ্রহণ','ইলেকট্রন ত্যাগ','প্রোটন সবসময় হারানো','নিউট্রন নির্গমন'],a:0,e:'OIL RIG: Oxidation Is Loss, Reduction Is Gain of electrons।'},
+ {q:'কোনটি পলিআটমিক আয়ন?',o:['NH₄⁺','Na⁺','Cl⁻','Mg²⁺'],a:0,e:'NH₄⁺ একাধিক পরমাণু নিয়ে গঠিত একটি আয়ন।'}
+];
+var CANONICAL_SIM_ID_BY_KEY={
+ wave:'wave',projectile:'projectile',pendulum:'pendulum',spring:'spring',circuit:'circuit',gas:'gas',
+ force:'hsc-phy-newton',vectors:'vectors',unit:'unit',tangent:'tangent',matrix:'matrix',circle:'circle',line:'line',
+ flame:'flame',kinetics:'hsc-chem-kinetics',electrochem:'hsc-chem-electrochem'
+};
+function normalizeCatalog(){
+ var allGames=D.games||[],primaryScramble=allGames.filter(function(g){return g&&g.id==='scramble'})[0];
+ if(primaryScramble){primaryScramble.data=primaryScramble.data||{};var wordBank=Array.isArray(primaryScramble.data.words)?primaryScramble.data.words.slice():[],wordSeen=Object.create(null);wordBank.forEach(function(w){wordSeen[String(w.w||'').toUpperCase()]=1});
+  allGames.filter(function(g){return g&&['math-concept-scramble','hsc-term-scramble','edu-math-concept-scramble','edu-hsc-term-scramble'].indexOf(g.id)>=0}).forEach(function(g){((g.data||{}).words||[]).forEach(function(w){var k=String(w.w||'').toUpperCase();if(k&&!wordSeen[k]){wordSeen[k]=1;wordBank.push(w)}})});
+  primaryScramble.data.words=wordBank;
+ }
+ var kept=[],titles=Object.create(null),seenIcons=Object.create(null);
+ (D.games||[]).forEach(function(g){if(!g||!g.id||DROP_GAME_IDS[g.id])return;var raw=String(GAME_TITLE_BN[g.id]||g.t||g.title||g.id).toLowerCase().normalize('NFKD');var title=raw.replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,'');if(!title)title=String(g.id).toLowerCase();if(title==='flamecolourdetective'||title==='formulapaircosmos')return;if(titles[title])return;titles[title]=1;kept.push(g)});
+ (D.labs||[]).forEach(function(l,i){var ico=SIM_ICON_BY_ID[l.id]||l.icon||'🧩';if(seenIcons[ico]){var j=0;while(j<GAME_ICON_FALLBACK.length&&seenIcons[GAME_ICON_FALLBACK[j]])j++;ico=GAME_ICON_FALLBACK[j]||('🔹'+(i+1));if(!SIM_ICON_BY_ID[l.id])l.icon=ico;}seenIcons[ico]=1});
+ kept.forEach(function(g,i){var ico=GAME_ICON_BY_ID[g.id]||g.icon||GAME_ICON_FALLBACK[i%GAME_ICON_FALLBACK.length];if(seenIcons[ico]){var j=0;while(j<GAME_ICON_FALLBACK.length&&seenIcons[GAME_ICON_FALLBACK[j]])j++;ico=GAME_ICON_FALLBACK[j]||('🔹'+(i+1))}g.icon=ico;seenIcons[ico]=1});
+ kept.sort(function(a,b){return a.id==='chemistry-ion-challenge'?-1:b.id==='chemistry-ion-challenge'?1:0});D.games=kept;
+ var rawLabs=D.labs||[],seenSimRenderers=Object.create(null);
+ D.labs=rawLabs.filter(function(l){if(!l)return false;var canonical=CANONICAL_SIM_ID_BY_KEY[l.sim];if(canonical&&l.id!==canonical)return false;var renderer=String(l.sim||'').trim();if(renderer&&seenSimRenderers[renderer])return false;if(renderer)seenSimRenderers[renderer]=l.id||true;return true});
+ D.labs.forEach(function(l){if(l.id==='wave'||l.id==='projectile'||l.id==='flame')l.on=true});
+ var rush=kept.filter(function(g){return g.id==='physics-unit-rush'})[0];if(rush){rush.t='Physics Unit Rush';rush.d='HSC পদার্থবিজ্ঞানের SI একক, মাত্রা, সূত্র ও মৌলিক ধারণা নিয়ে দ্রুত MCQ চ্যালেঞ্জ। চারটি বিকল্প থেকে সঠিক উত্তর বেছে নিন; ভুল হলে ব্যাখ্যা দেখুন।';rush.data=rush.data||{};rush.data.time=Math.max(70,+rush.data.time||50);rush.data.useChapters='0';var qs=rush.data.q||[],have=Object.create(null);qs.forEach(function(q){have[String(q.q||'').trim().toLowerCase()]=1});PHYSICS_UNIT_RUSH_MORE.forEach(function(q){var k=q.q.trim().toLowerCase();if(!have[k]){qs.push(q);have[k]=1}});rush.data.q=qs}
+ var ion=kept.filter(function(g){return g.id==='chemistry-ion-challenge'})[0];if(ion){ion.type='ionDetective';ion.on=true;ion.icon='🛟';ion.t='Ion Detective: আয়ন শনাক্তকরণ';ion.d='ভার্চুয়াল ল্যাবে বিকারক যোগ, পর্যবেক্ষণ নোট, ধনায়ন-ঋণায়ন শনাক্তকরণ, শিখা ও অধঃক্ষেপ পরীক্ষা এবং ভর্তি-ধাঁচের চ্যালেঞ্জ।';ion.diff='Medium';ion.xp=Math.max(50,+ion.xp||50);ion.data=ion.data||{};ion.data.time=Math.max(60,+ion.data.time||60);ion.data.useChapters='0';var iq=ion.data.q||[],ih=Object.create(null);iq.forEach(function(q){ih[String(q.q||'').trim().toLowerCase()]=1});ION_CHALLENGE_MORE.forEach(function(q){var k=q.q.trim().toLowerCase();if(!ih[k]){iq.push(q);ih[k]=1}});ion.data.q=iq}
+ var priority=['river-boat','hsc-phy-projectile','projectile','hsc-phy-optics','mirror-optics','tiger-deer','bus-train-motion','inclined-plane-friction','force','hsc-phy-vectors','hsc-phy-newton','hsc-phy-work-energy','hsc-phy-gravity'];var pri=Object.create(null);priority.forEach(function(id,i){pri[id]=i});D.labs=(D.labs||[]).slice().sort(function(a,b){var ai=Object.prototype.hasOwnProperty.call(pri,a.id)?pri[a.id]:1000,bi=Object.prototype.hasOwnProperty.call(pri,b.id)?pri[b.id]:1000;return ai-bi});
+}
 
 /* ------------------------------------------------------------ content */
 function load(d){
@@ -47,12 +206,13 @@ function load(d){
     h.sections=sections;
     return h;
   })(),
-  games:(function(){var saved=Array.isArray(d.games)?d.games:null;if(!saved)return def.games;var ids={};saved.forEach(function(x){if(x&&x.id)ids[x.id]=1});var gone={};(d.deletedGames||[]).forEach(function(x){gone[x]=1});var fresh={'mass-atlas':1,'periodic-quest':1,'element-sprint':1,'trend-duel':1,'odd-one-phy':1,'odd-one-chem':1,'odd-one-math':1,'step-order-phy':1,'step-order-chem':1,'step-order-math':1};return saved.concat((def.games||[]).filter(function(x){return (fresh[x.id]||/^edu-/.test(x.id))&&!ids[x.id]&&!gone[x.id]}))})(),
+  games:(function(){var saved=Array.isArray(d.games)?d.games:null;if(!saved)return def.games;var ids={};saved.forEach(function(x){if(x&&x.id)ids[x.id]=1});var gone={};(d.deletedGames||[]).forEach(function(x){gone[x]=1});var fresh={'mass-atlas':1,'periodic-quest':1,'element-sprint':1,'trend-duel':1,'odd-one-phy':1,'odd-one-chem':1,'odd-one-math':1,'step-order-phy':1,'step-order-chem':1,'step-order-math':1,'chemistry-ion-challenge':1,'organic-pathway':1,'stoichiometry-sprint':1,'molecular-shape-challenge':1,'hsc-boss-battle':1};return saved.concat((def.games||[]).filter(function(x){return (fresh[x.id]||/^edu-/.test(x.id))&&!ids[x.id]&&(!gone[x.id]||x.id==='chemistry-ion-challenge')}))})(),
   navigation:(function(){var base=Array.isArray(def.navigation)?def.navigation:[],saved=Array.isArray(d.navigation)?d.navigation:[],byId={};saved.forEach(function(x){if(x&&x.id)byId[x.id]=x});var out=base.map(function(x){return Object.assign({},x,byId[x.id]||{})});saved.forEach(function(x){if(x&&x.id&&!base.some(function(y){return y.id===x.id}))out.push(x)});return out})(),
   customPages:Array.isArray(d.customPages)?d.customPages:[],
   labs:(function(){var defaults=Array.isArray(def.labs)?def.labs:[],saved=Array.isArray(d.labs)?d.labs:[],byId={};saved.forEach(function(x){if(x&&x.id)byId[x.id]=x});var merged=defaults.map(function(x){return byId[x.id]||x});saved.forEach(function(x){if(x&&x.id&&!defaults.some(function(y){return y.id===x.id}))merged.push(x)});return merged})(),
   gam:Object.assign({},def.gam,d.gam||{}),
   daily:Object.assign({},def.daily||{},d.daily||{}),missions:Array.isArray(d.missions)?d.missions:(def.missions||[]),practice:Object.assign({},def.practice||{},d.practice||{}),deletedGames:Array.isArray(d.deletedGames)?d.deletedGames:[]};
+ normalizeCatalog();
  if(!(d.home&&d.home.sections)&&d.settings){D.home.sections.forEach(function(s){if(s.type=='purpose'){if(d.settings.missionTitle)s.h=d.settings.missionTitle;if(d.settings.mission1)s.p=d.settings.mission1;if(d.settings.mission2)s.p2=d.settings.mission2}})}
  // Preserve administrator-authored footer/about text exactly; never rewrite creator names.
  D.settings.footer=String(D.settings.footer==null?'':D.settings.footer);D.settings.about=String(D.settings.about==null?'':D.settings.about);var oldAbout='ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।';if(D.settings.about===oldAbout)D.settings.about='ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।';
@@ -110,7 +270,7 @@ function STUDY(){var s={bookmarks:{},notes:{},savedSims:{},review:[],history:[],
 function saveStudy(s){try{localStorage.setItem('clstudy_v1',JSON.stringify(s))}catch(e){}cloudPush()}
 function studyMistake(id,qi,chosen){var s=STUDY(),key=id+':'+qi,x=s.review.find(function(a){return a.key===key}),first=PR().intervals[0]*DAY;if(x){x.wrongCount=(x.wrongCount||1)+1;x.stage=0;x.dueAt=Date.now()+first;x.lastWrongAt=Date.now();x.lastChoice=chosen}else s.review.push({key:key,conceptId:id,qIndex:qi,wrongCount:1,stage:0,createdAt:Date.now(),lastWrongAt:Date.now(),dueAt:Date.now()+first,lastChoice:chosen});saveStudy(s)}
 function studyRecord(id,got,total,elapsed){var s=STUDY(),c=C[id];s.history.push({id:id,subject:c?c.s:'',got:got,total:total,accuracy:total?Math.round(got/total*100):0,elapsed:Math.round(elapsed/1000),at:Date.now()});if(s.history.length>500)s.history=s.history.slice(-500);saveStudy(s)}
-function studySpace(){var s=STUDY(),ids=Object.keys(s.bookmarks).filter(function(id){return C[id]}),notes=Object.keys(s.notes).filter(function(id){return String(s.notes[id]||'').trim()}),sims=Object.keys(s.savedSims),opts=Object.keys(C).map(function(id){return'<option value="'+E(id)+'">'+E(C[id].t)+' · '+E(SUB[C[id].s]||'')+'</option>'}).join('');return '<div class="w pgw study-page"><span class="pill">PERSONAL STUDY SPACE</span><h1>My Study Space</h1><p class="lead">সূত্র, নোট, সিমুলেশন ও রিভিশন—এক জায়গায়। এই ব্রাউজারে স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে।</p><div class="study-stats"><div class="card"><b>'+ids.length+'</b><span>Bookmarks</span></div><div class="card"><b>'+notes.length+'</b><span>Notes</span></div><div class="card"><b>'+sims.length+'</b><span>Saved simulations</span></div><div class="card"><b>'+s.review.length+'</b><span>Review items</span></div></div><div class="study-grid"><section class="card study-panel"><h2>📝 অধ্যায়ভিত্তিক নোট</h2><form id="studyNoteForm"><label>Concept<select name="concept" required><option value="">কনসেপ্ট বেছে নিন</option>'+opts+'</select></label><label>আপনার নোট<textarea name="note" rows="4" maxlength="5000" required placeholder="সূত্র, ধারণা বা নিজের ব্যাখ্যা…"></textarea></label><p id="studyNoteStatus" role="status"></p><button class="btn pri">নোট সংরক্ষণ করুন</button></form><div class="study-list">'+(notes.length?notes.map(function(id){return'<article><div><b>'+E(C[id].t)+'</b><p>'+E(s.notes[id]).slice(0,240)+'</p><a href="#/chapter/'+E(id)+'">কনসেপ্ট খুলুন →</a></div><button class="btn mini" data-study-delete-note="'+E(id)+'">মুছুন</button></article>'}).join(''):'<p class="mutt">এখনো কোনো নোট নেই।</p>')+'</div></section><section class="card study-panel"><h2>🔖 Bookmarks & Formulae</h2><form id="formulaBookmarkForm"><input name="formula" maxlength="240" required placeholder="সূত্র, যেমন F = ma"><input name="label" maxlength="120" placeholder="সূত্রের নাম (ঐচ্ছিক)"><button class="btn pri">সূত্র Bookmark</button></form><div class="study-list">'+(ids.length?ids.map(function(id){return'<article><div><b>'+E(C[id].t)+'</b><p>'+E(SUB[C[id].s]||'')+' · '+E(C[id].chapterTitle||C[id].chapter||'')+'</p><a href="#/chapter/'+E(id)+'">আবার শিখুন →</a></div><button class="btn mini" data-study-unbookmark="'+E(id)+'">Remove</button></article>'}).join(''):'<p class="mutt">কনসেপ্ট পেজে Bookmark চাপলে এখানে আসবে।</p>')+(s.formulaBookmarks||[]).map(function(f,i){return'<article><div><b>'+E(f.label||'Saved formula')+'</b><p>'+E(f.formula)+'</p></div><button class="btn mini" data-study-delete-formula="'+i+'">মুছুন</button></article>'}).join('')+'</div></section><section class="card study-panel"><h2>⚛️ Saved Simulations</h2><div class="study-list">'+(sims.length?sims.map(function(id){var l=LABS.find(function(x){return x.id===id});return l?'<article><div><b>'+E(l.t)+'</b><p>'+E(labSubject(l.sub))+'</p><a href="#/lab/'+E(id)+'">সিমুলেশন চালান →</a></div><button class="btn mini" data-study-unsave-sim="'+E(id)+'">Remove</button></article>':''}).join(''):'<p class="mutt">সিমুলেশন পেজে Save simulation চাপুন।</p>')+'</div></section><section class="card study-panel"><h2>🔁 Revision List</h2><div class="study-list">'+(s.review.length?s.review.slice().sort(function(a,b){return a.dueAt-b.dueAt}).map(function(x){return'<article><div><b>'+E(C[x.conceptId]?C[x.conceptId].t:x.conceptId)+'</b><p>ভুল হয়েছে '+(x.wrongCount||1)+' বার · '+(x.dueAt<=Date.now()?'এখন রিভিশনের সময়':'পরবর্তী রিভিশন: '+new Date(x.dueAt).toLocaleDateString())+'</p></div><a class="btn mini" href="#/smart-practice">Practice</a></article>'}).join(''):'<p class="mutt">কুইজে ভুল উত্তর দিলে এখানে যোগ হবে।</p>')+'<a class="btn pri" href="#/smart-practice">Smart Practice →</a></div></section></div><p class="mutt">এই সংস্করণে Study Space ডেটা এই ব্রাউজার/ডিভাইসে থাকে; অ্যাকাউন্ট-ভিত্তিক cloud sync নয়।</p></div>'}
+function studySpace(){var s=STUDY(),ids=Object.keys(s.bookmarks).filter(function(id){return C[id]}),notes=Object.keys(s.notes).filter(function(id){return String(s.notes[id]||'').trim()}),sims=Object.keys(s.savedSims),opts=Object.keys(C).map(function(id){return'<option value="'+E(id)+'">'+E(C[id].t)+' · '+E(SUB[C[id].s]||'')+'</option>'}).join('');return '<div class="w pgw study-page"><span class="pill">PERSONAL STUDY SPACE</span><h1>My Study Space</h1><p class="lead">সূত্র, নোট, সিমুলেশন ও রিভিশন—এক জায়গায়। এই ব্রাউজারে স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে।</p><div class="study-stats"><div class="card"><b>'+ids.length+'</b><span>Bookmarks</span></div><div class="card"><b>'+notes.length+'</b><span>Notes</span></div><div class="card"><b>'+sims.length+'</b><span>Saved simulations</span></div><div class="card"><b>'+s.review.length+'</b><span>Review items</span></div></div><div class="study-grid"><section class="card study-panel"><h2>📝 অধ্যায়ভিত্তিক নোট</h2><form id="studyNoteForm"><label>Concept<select name="concept" required><option value="">কনসেপ্ট বেছে নিন</option>'+opts+'</select></label><label>আপনার নোট<textarea name="note" rows="4" maxlength="5000" required placeholder="সূত্র, ধারণা বা নিজের ব্যাখ্যা…"></textarea></label><p id="studyNoteStatus" role="status"></p><button class="btn pri">নোট সংরক্ষণ করুন</button></form><div class="study-list">'+(notes.length?notes.map(function(id){return'<article><div><b>'+E(C[id].t)+'</b><p>'+E(s.notes[id]).slice(0,240)+'</p><a href="#/chapter/'+E(id)+'">কনসেপ্ট খুলুন →</a></div><button class="btn mini" data-study-delete-note="'+E(id)+'">মুছুন</button></article>'}).join(''):'<p class="mutt">এখনো কোনো নোট নেই।</p>')+'</div></section><section class="card study-panel"><h2>🔖 Bookmarks & Formulae</h2><form id="formulaBookmarkForm"><input name="formula" maxlength="240" required placeholder="সূত্র, যেমন F = ma"><input name="label" maxlength="120" placeholder="সূত্রের নাম (ঐচ্ছিক)"><button class="btn pri">সূত্র Bookmark</button></form><div class="study-list">'+(ids.length?ids.map(function(id){return'<article><div><b>'+E(C[id].t)+'</b><p>'+E(SUB[C[id].s]||'')+' · '+E(C[id].chapterTitle||C[id].chapter||'')+'</p><a href="#/chapter/'+E(id)+'">আবার শিখুন →</a></div><button class="btn mini" data-study-unbookmark="'+E(id)+'">Remove</button></article>'}).join(''):'<p class="mutt">কনসেপ্ট পেজে Bookmark চাপলে এখানে আসবে।</p>')+(s.formulaBookmarks||[]).map(function(f,i){return'<article><div><b>'+E(f.label||'Saved formula')+'</b><p>'+E(f.formula)+'</p></div><button class="btn mini" data-study-delete-formula="'+i+'">মুছুন</button></article>'}).join('')+'</div></section><section class="card study-panel"><h2>⚛️ Saved Simulations</h2><div class="study-list">'+(sims.length?sims.map(function(id){var l=LABS.find(function(x){return x.id===id});return l?'<article><div><b>'+E(simTitle(l))+'</b><p>'+E(labSubject(l.sub))+'</p><a href="#/lab/'+E(id)+'">সিমুলেশন চালান →</a></div><button class="btn mini" data-study-unsave-sim="'+E(id)+'">Remove</button></article>':''}).join(''):'<p class="mutt">সিমুলেশন পেজে Save simulation চাপুন।</p>')+'</div></section><section class="card study-panel"><h2>🔁 Revision List</h2><div class="study-list">'+(s.review.length?s.review.slice().sort(function(a,b){return a.dueAt-b.dueAt}).map(function(x){return'<article><div><b>'+E(C[x.conceptId]?C[x.conceptId].t:x.conceptId)+'</b><p>ভুল হয়েছে '+(x.wrongCount||1)+' বার · '+(x.dueAt<=Date.now()?'এখন রিভিশনের সময়':'পরবর্তী রিভিশন: '+new Date(x.dueAt).toLocaleDateString())+'</p></div><a class="btn mini" href="#/smart-practice">Practice</a></article>'}).join(''):'<p class="mutt">কুইজে ভুল উত্তর দিলে এখানে যোগ হবে।</p>')+'<a class="btn pri" href="#/smart-practice">Smart Practice →</a></div></section></div><p class="mutt">এই সংস্করণে Study Space ডেটা এই ব্রাউজার/ডিভাইসে থাকে; অ্যাকাউন্ট-ভিত্তিক cloud sync নয়।</p></div>'}
 function studyAnalytics(){var s=STUDY(),h=s.history.slice().sort(function(a,b){return a.at-b.at}),avg=h.length?Math.round(h.reduce(function(a,x){return a+x.accuracy},0)/h.length):0,secs=h.length?Math.round(h.reduce(function(a,x){return a+x.elapsed},0)/h.length):0,subjects=[['phy','Physics'],['chem','Chemistry'],['math','Mathematics']];return '<div class="w pgw study-page"><span class="pill">PERFORMANCE ANALYTICS</span><h1>আপনার শেখার অগ্রগতি</h1><p class="lead">কুইজের স্কোর, সময় ও বিষয়ভিত্তিক দক্ষতার সারাংশ।</p><div class="study-stats"><div class="card"><b>'+avg+'%</b><span>গড় স্কোর</span></div><div class="card"><b>'+h.length+'</b><span>কুইজ Attempt</span></div><div class="card"><b>'+secs+'s</b><span>গড় সময়</span></div><div class="card"><b>'+s.review.length+'</b><span>Review items</span></div></div><h2>বিষয়ভিত্তিক mastery</h2><div class="study-subjects">'+subjects.map(function(pair){var a=h.filter(function(x){return x.subject===pair[0]}),total=a.reduce(function(n,x){return n+x.total},0),got=a.reduce(function(n,x){return n+x.got},0),pc=total?Math.round(got/total*100):0;return'<article class="card"><div><span>'+pair[1]+'</span><b>'+pc+'%</b></div><div class="study-track"><i style="width:'+pc+'%"></i></div><small>'+got+'/'+total+' সঠিক · '+a.length+' কুইজ</small></article>'}).join('')+'</div><section class="card study-panel"><h2>সাম্প্রতিক কুইজ</h2>'+(h.length?h.slice(-10).reverse().map(function(x){return'<article class="study-history"><span>'+E(C[x.id]?C[x.id].t:x.id)+'<small>'+new Date(x.at).toLocaleDateString()+' · '+x.elapsed+'s</small></span><b>'+x.accuracy+'%</b><div class="study-track"><i style="width:'+x.accuracy+'%"></i></div></article>'}).join(''):'<p class="mutt">কুইজ শেষ করলে এখানে স্কোরের ইতিহাস দেখা যাবে।</p>')+'</section><h2 style="margin-top:26px">গত ৭ দিনের কার্যক্রম</h2>'+weekBars()+'<div class="card cloudcard" style="margin-top:16px"><div id="cloudBadge">'+cloudHtml()+'</div></div><p class="mutt">Analytics এই ডিভাইসে রেকর্ড হওয়া কুইজের ওপর ভিত্তি করে; সাইন-ইন ও সিঙ্ক ব্যাকএন্ড থাকলে ডিভাইসের মধ্যে মিলিয়ে নেওয়া হয়।</p></div>'}
 function studentToken(){return localStorage.getItem('clstudentToken')||''}
 function student(){try{return JSON.parse(localStorage.getItem('clstudent')||'null')}catch(e){return null}}
@@ -136,9 +296,131 @@ function secHead(s,v){return((s.pill||s.h||s.p)?'<div class="c sh2">'+(s.pill?'<
 function BL(c){return(c.blocks||[]).map(function(b){var v=b.v||'';if(b.t=='image')return v?'<figure class="fg"><img src="'+E(v)+'" alt="">'+(b.c?'<figcaption>'+E(b.c)+'</figcaption>':'')+'</figure>':'';if(b.t=='video'){var m=v.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/);return m?'<div class="vd"><iframe src="https://www.youtube-nocookie.com/embed/'+m[1]+'" allowfullscreen loading="lazy"></iframe></div>':''}if(b.t=='pdf')return v?'<div class="pdf">'+(b.c?'<h3 class="bh">'+E(b.c)+'</h3>':'')+'<iframe src="'+E(v)+'" loading="lazy"></iframe><a class="btn" href="'+E(v)+'" target="_blank" rel="noopener">Open / download PDF</a></div>':'';if(b.t=='note')return'<div class="card bl">'+E(v)+'</div>';if(b.t=='head')return'<h3 class="bh">'+E(v)+'</h3>';return'<p class="bn bl">'+E(v)+'</p>'}).join('')}
 function chapterCount(){var seen={};CHL.forEach(function(c){var k=String(c.s)+'::'+String(c.chapterTitle||c.chapter||c.t||'Chapter').trim();seen[k]=1});return Object.keys(seen).length}
 function NT(){return chapterCount()}
-var SIM_ICON_BY_ID={pendulum:'⏱️',spring:'🪀',circuit:'🔌',gas:'🌡️',force:'🛒',vectors:'🧭',unit:'⭕',tangent:'📈',matrix:'🔲',circle:'🔵',line:'📏','river-boat':'🚤','ion-identification':'🧪','wet-test':'🧫','hsc-phy-vectors':'🧮','hsc-phy-projectile':'🏹','hsc-phy-newton':'🪨','hsc-phy-work-energy':'⚙️','hsc-phy-gravity':'🌍','hsc-phy-periodic':'🎼','hsc-phy-spring':'🎛️','hsc-phy-gas':'💨','hsc-phy-circuit':'💡','hsc-phy-magnetic':'🧲','hsc-phy-optics':'🔭','hsc-chem-periodic':'🧬','hsc-chem-bond':'🔗','hsc-chem-kinetics':'⚗️','hsc-chem-equilibrium':'⚖️','hsc-chem-ph':'🧴','hsc-chem-titration':'💧','hsc-chem-electrochem':'🔋','hsc-chem-gas':'🫧','hsc-chem-stoich':'🧾','hsc-chem-redox':'🔴','hsc-chem-thermo':'♨️','hsc-math-line':'📉','hsc-math-circle':'🟠','hsc-math-matrix':'🧊','hsc-math-vectors':'🛩️','hsc-math-trig':'📐','hsc-math-diff':'🧮','hsc-math-integration':'∫','hsc-math-functions':'ƒ','hsc-math-probability':'🎲','hsc-math-complex':'ℂ','hsc-math-conics':'🥏','hsc-math-trig-graph':'〽️'};
-function simIcon(l){return l&&SIM_ICON_BY_ID[l.id]||l&&l.icon||'⚛️'}
-function labIcon(key){var l=LABS.filter(function(x){return x.sim==key})[0];return l?simIcon(l):'⚛️'}
+var SIM_ICON_BY_ID={
+ "hsc-chem-rutherford":"☄️",
+ "hsc-chem-bohr":"⚛️",
+ "wave":"🌊",
+ "projectile":"🏹",
+ "pendulum":"⏱️",
+ "spring":"🪀",
+ "circuit":"🔌",
+ "gas":"🎈",
+ "force":"🛒",
+ "vectors":"↗️",
+ "unit":"⭕",
+ "tangent":"📈",
+ "matrix":"🔲",
+ "circle":"🔵",
+ "line":"📏",
+ "flame":"🕯️",
+ "river-boat":"🚤",
+ "mirror-optics":"🪞",
+ "tiger-deer":"🐅",
+ "bus-train-motion":"🚆",
+ "inclined-plane-friction":"🛝",
+ "ion-identification":"🔎",
+ "wet-test":"🧫",
+ "hsc-phy-vectors":"🧭",
+ "hsc-phy-projectile":"🪂",
+ "hsc-phy-newton":"🪨",
+ "hsc-phy-work-energy":"⚙️",
+ "hsc-phy-gravity":"🌍",
+ "hsc-phy-periodic":"🎼",
+ "hsc-phy-spring":"🎛️",
+ "hsc-phy-wave":"〰️",
+ "hsc-phy-gas":"💨",
+ "hsc-phy-circuit":"💡",
+ "hsc-phy-magnetic":"🌐",
+ "hsc-phy-optics":"🔭",
+ "hsc-chem-flame":"♨️",
+ "hsc-chem-periodic":"🧿",
+ "hsc-chem-bond":"🔗",
+ "hsc-chem-kinetics":"⚗️",
+ "hsc-chem-equilibrium":"♻️",
+ "hsc-chem-ph":"🧴",
+ "hsc-chem-titration":"💧",
+ "hsc-chem-electrochem":"🔋",
+ "hsc-chem-gas":"🫧",
+ "hsc-chem-stoich":"🧾",
+ "hsc-chem-redox":"🪫",
+ "hsc-chem-thermo":"🌡️",
+ "hsc-math-line":"📉",
+ "hsc-math-circle":"🟠",
+ "hsc-math-matrix":"🧊",
+ "hsc-math-vectors":"🛩️",
+ "hsc-math-trig":"📐",
+ "hsc-math-diff":"∂",
+ "hsc-math-integration":"∫",
+ "hsc-math-functions":"ƒ",
+ "hsc-math-probability":"🎲",
+ "hsc-math-complex":"ℂ",
+ "hsc-math-conics":"🥏",
+ "hsc-math-trig-graph":"〽️"
+};
+var SIM_TITLE_BN={
+ "hsc-chem-rutherford":"রাদারফোর্ডের আলফা কণা বিচ্ছুরণ",
+ "hsc-chem-bohr":"বোর পরমাণু ও ইলেকট্রন স্তর",
+ "wave":"তরঙ্গ যন্ত্র",
+ "projectile":"প্রক্ষেপণ গতির পরীক্ষাগার",
+ "pendulum":"সরল দোলক পরীক্ষণ",
+ "spring":"স্প্রিং ও ভর",
+ "circuit":"ওহমের সূত্রের বর্তনী",
+ "gas":"গ্যাস কণার গতি",
+ "force":"বল ও গতি",
+ "vectors":"ভেক্টর যোগ",
+ "unit":"একক বৃত্ত",
+ "tangent":"ঢাল ও অন্তরজ",
+ "matrix":"ম্যাট্রিক্স রূপান্তর",
+ "circle":"বৃত্তের অনুসন্ধান",
+ "line":"সরলরেখার স্টুডিও",
+ "flame":"শিখা পরীক্ষা",
+ "river-boat":"নৌকা ও নদীর স্রোত",
+ "mirror-optics":"সমতল ও গোলীয় দর্পণ",
+ "tiger-deer":"বাঘ–হরিণের ধাওয়া",
+ "bus-train-motion":"বাস–ট্রেনের আপেক্ষিক গতি",
+ "inclined-plane-friction":"ঘর্ষণসহ আনত তল",
+ "ion-identification":"আয়ন শনাক্তকরণ ল্যাব",
+ "wet-test":"সিক্ত পরীক্ষা",
+ "hsc-phy-vectors":"ভেক্টরের উপাংশ",
+ "hsc-phy-projectile":"প্রক্ষেপণের কোণ ও পাল্লা",
+ "hsc-phy-newton":"নিউটনের দ্বিতীয় সূত্র",
+ "hsc-phy-work-energy":"কাজ ও গতিশক্তি",
+ "hsc-phy-gravity":"মহাকর্ষ ও কক্ষীয় গতি",
+ "hsc-phy-periodic":"সরল ছন্দিত গতি",
+ "hsc-phy-spring":"স্প্রিং ধ্রুবক ও দোলন",
+ "hsc-phy-wave":"তরঙ্গ সমীকরণের অনুসন্ধান",
+ "hsc-phy-gas":"গ্যাসের গতিতত্ত্ব",
+ "hsc-phy-circuit":"তড়িৎ প্রবাহ ও ওহমের সূত্র",
+ "hsc-phy-magnetic":"বিদ্যুৎ প্রবাহের চৌম্বক ক্ষেত্র",
+ "hsc-phy-optics":"জ্যামিতিক আলোকবিজ্ঞান: পাতলা লেন্স",
+ "hsc-chem-flame":"গুণগত বিশ্লেষণ: শিখা পরীক্ষা",
+ "hsc-chem-periodic":"পর্যায়বৃত্ত ধর্মের অনুসন্ধান",
+ "hsc-chem-bond":"রাসায়নিক বন্ধন ও পোলারিটি",
+ "hsc-chem-kinetics":"বিক্রিয়ার হার ও তাপমাত্রা",
+ "hsc-chem-equilibrium":"রাসায়নিক সাম্য ও লা শাতেলিয়ে নীতি",
+ "hsc-chem-ph":"pH ও হাইড্রোজেন আয়নের ঘনমাত্রা",
+ "hsc-chem-titration":"অম্ল–ক্ষার টাইট্রেশন রেখা",
+ "hsc-chem-electrochem":"তড়িৎ-রাসায়নিক কোষ",
+ "hsc-chem-gas":"গ্যাসের সূত্র ও মোলার আয়তন",
+ "hsc-chem-stoich":"স্টয়কিওমেট্রি ও সীমাবদ্ধ বিকারক",
+ "hsc-chem-redox":"জারণ–বিজারণ ও ইলেকট্রন স্থানান্তর",
+ "hsc-chem-thermo":"তাপমাত্রা ও বিক্রিয়ার শক্তি",
+ "hsc-math-line":"সরলরেখার সমীকরণ",
+ "hsc-math-circle":"বৃত্তের সমীকরণ",
+ "hsc-math-matrix":"ম্যাট্রিক্স রূপান্তর ও নির্ণায়ক",
+ "hsc-math-vectors":"ভেক্টর যোগ ও উপাংশ",
+ "hsc-math-trig":"ত্রিকোণমিতি: একক বৃত্ত",
+ "hsc-math-diff":"অন্তরীকরণ: স্পর্শক ও ঢাল",
+ "hsc-math-integration":"সমাকলন ও ক্ষেত্রফল",
+ "hsc-math-functions":"ফাংশন ও লেখচিত্রের রূপান্তর",
+ "hsc-math-probability":"স্থানাঙ্ক ও সম্ভাব্যতার দৃশ্যায়ন",
+ "hsc-math-complex":"জটিল সমতলের রূপান্তর",
+ "hsc-math-conics":"কনিকের অনুসন্ধান",
+ "hsc-math-trig-graph":"ত্রিকোণমিতিক তরঙ্গের লেখচিত্র"
+};
+function simIcon(l){return l&&(SIM_ICON_BY_ID[l.id]||l.icon)||'🔬'}
+function simTitle(l){return l&&(SIM_TITLE_BN[l.id]||l.t||l.title)||'সিমুলেশন'}
+function labIcon(key){var l=LABS.filter(function(x){return x.sim==key})[0];return l?simIcon(l):'🔬'}
 
 /* ------------------------------------------------------------ home sections */
 function heroSvg(){var t=D.theme,p=t.p,s=t.s,a=t.a;return'<svg viewBox="0 0 400 400" style="width:100%;height:100%;overflow:visible"><defs><radialGradient id="gl"><stop offset="0" stop-color="'+p+'" stop-opacity=".24"/><stop offset="1" stop-color="'+p+'" stop-opacity="0"/></radialGradient><radialGradient id="core" cx="35%" cy="30%"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="'+s+'"/><stop offset="1" stop-color="'+p+'" stop-opacity=".25"/></radialGradient><linearGradient id="rk" x1="0" x2="1"><stop offset="0" stop-color="#b9c6d6"/><stop offset="1" stop-color="#fff"/></linearGradient></defs>'
@@ -233,8 +515,8 @@ var SEC={
  stages:function(s){return'<section class="sec-stages"><div class="w">'+secHead(s)+'<div class="gA g4 stg">'+(s.items||[]).map(function(it,i){return'<div class="card tilt rv" style="--d:'+(i*.1)+'s"><div class="ic">'+(i+1)+'</div><h3>'+E(it.t||ST[i]||'')+'</h3><p>'+E(it.p)+'</p></div>'}).join('')+'</div></div></section>'},
  ayatHadith:function(s){return window.CL_AH?window.CL_AH.render(s):''},
  motivation:function(s){var q=dailyMotivation();return '<section class="motivation-section" aria-labelledby="motivationTitle"><div class="w"><div class="motivation-card"><span class="motivation-pill">✦ '+E(s.pill||'DAILY INSPIRATION')+'</span><h2 id="motivationTitle">'+E(s.h||'আজকের অনুপ্রেরণা')+'</h2><blockquote>“'+E(q[0])+'”</blockquote><p class="motivation-author">— '+E(q[1])+'</p></div></div></section>'},
- lab:function(s){var ls=LABS.filter(function(x){return x.on!==false&&x.on!=='0'});return'<section class="home-lab"><div class="w"><div class="home-lab-head"><div class="lab-copy rv">'+(s.pill?'<span class="pill"><i></i> '+E(s.pill)+'</span>':'')+'<h2>'+hd(s.h)+'</h2><p>'+E(s.p)+'</p><div class="lab-tags">'+(s.items||[]).map(function(t){return'<span>'+E(t.t)+'</span>'}).join('')+'</div></div></div><div class="home-lab-carousel"><button class="btn home-lab-arrow" type="button" data-home-lab-shift="-1" aria-label="Previous simulation">←</button><div class="home-lab-track home-lab-grid" id="homeLabTrack">'+ls.map(function(l,i){return'<article class="card gm home-lab-card rv" style="--d:'+(i*.02)+'s" '+(i?'hidden':'')+'><div class="home-lab-card-top"><span class="gico">'+E(simIcon(l))+'</span><span class="home-lab-sub">'+E(labSubject(l.sub))+'</span><span class="home-lab-count">'+String(i+1).padStart(2,'0')+' / '+String(ls.length).padStart(2,'0')+'</span></div><h3>'+E(l.t)+'</h3>'+(l.chapter?'<small class="lab-topic">'+E(l.chapter)+(l.concept?' · '+E(l.concept):'')+'</small>':'')+'<p>'+E(l.d)+'</p><a class="btn pri home-sim-btn" href="#/lab/'+E(l.id)+'">⚛ Simulate →</a></article>'}).join('')+'</div><button class="btn home-lab-arrow" type="button" data-home-lab-shift="1" aria-label="Next simulation">→</button></div><div class="home-lab-footer"><a class="btn" href="#/lab">সব সিমুলেশন দেখুন →</a></div></div></section>'},
- arcade:function(s){var gs=GAMES.filter(function(g){return g.on!==false&&g.on!=='0'}),hues=[198,262,152,28,330,48];return'<section class="arcade-s home-games"><div class="w">'+secHead(s)+(gs.length?'<div class="gdeck" aria-roledescription="carousel" aria-label="Games"><div class="gdeck-track" id="homeGameTrack" tabindex="0">'+gs.map(function(g,i){return'<a class="gdeck-card'+(i===Math.floor(gs.length/2)?' on':'')+'" style="--h:'+hues[i%hues.length]+'" href="#/play/'+E(g.id)+'" data-gi="'+i+'" aria-label="'+E(g.t)+'"><span class="gdeck-ico" aria-hidden="true">'+E(g.icon)+'</span><span class="gdeck-diff">'+E(g.diff||'')+'</span><h3>'+E(g.t)+'</h3><p>'+E(g.d)+'</p><span class="gdeck-foot"><b>+'+(+g.xp||0)+' XP</b><span class="gdeck-play">'+E(X('btn_playnow'))+' ▶</span></span></a>'}).join('')+'</div><div class="gdeck-nav"><button class="gdeck-arrow" type="button" data-gdeck="-1" aria-label="Previous game">←</button><div class="gdeck-prog" aria-hidden="true"><i id="gdeckBar"></i></div><span class="gdeck-count" id="gdeckCount">01 / '+String(gs.length).padStart(2,'0')+'</span><button class="gdeck-arrow" type="button" data-gdeck="1" aria-label="Next game">→</button></div></div>':'')+(s.btn?'<div class="c" style="margin-top:20px"><a class="btn pri" href="'+E(safeLink(s.link))+'">'+E(s.btn)+'</a></div>':'')+'</div></section>'},
+ lab:function(s){var ls=LABS.filter(function(x){return x.on!==false&&x.on!=='0'});return'<section class="home-lab"><div class="w"><div class="home-lab-head"><div class="lab-copy rv">'+(s.pill?'<span class="pill"><i></i> '+E(s.pill)+'</span>':'')+'<h2>'+hd(s.h)+'</h2><p>'+E(s.p)+'</p><div class="lab-tags">'+(s.items||[]).map(function(t){return'<span>'+E(t.t)+'</span>'}).join('')+'</div></div></div><div class="home-lab-carousel"><button class="btn home-lab-arrow" type="button" data-home-lab-shift="-1" aria-label="Previous simulation">←</button><div class="home-lab-track home-lab-grid" id="homeLabTrack">'+ls.map(function(l,i){return'<article class="card gm home-lab-card rv" style="--d:'+(Math.min(i*.003,.08))+'s;--icon-hue:'+iconHue(l.id)+'" '+(i?'hidden':'')+'><div class="home-lab-card-top"><span class="gico">'+E(simIcon(l))+'</span><span class="home-lab-sub">'+E(labSubject(l.sub))+'</span><span class="home-lab-count">'+String(i+1).padStart(2,'0')+' / '+String(ls.length).padStart(2,'0')+'</span></div><h3>'+E(simTitle(l))+'</h3>'+(l.chapter?'<small class="lab-topic">'+E(l.chapter)+(l.concept?' · '+E(l.concept):'')+'</small>':'')+'<p>'+E(l.d)+'</p><a class="btn pri home-sim-btn" href="#/lab/'+E(l.id)+'">⚛ সিমুলেশন চালান →</a></article>'}).join('')+'</div><button class="btn home-lab-arrow" type="button" data-home-lab-shift="1" aria-label="Next simulation">→</button></div><div class="home-lab-footer"><a class="btn" href="#/lab">সব সিমুলেশন দেখুন →</a></div></div></section>'},
+ arcade:function(s){var gs=GAMES.filter(function(g){return g.on!==false&&g.on!=='0'}),hues=[198,262,152,28,330,48];return'<section class="arcade-s home-games"><div class="w">'+secHead(s)+(gs.length?'<div class="gdeck" aria-roledescription="carousel" aria-label="Games"><div class="gdeck-track" id="homeGameTrack" tabindex="0">'+gs.map(function(g,i){return'<a class="gdeck-card'+(i===Math.floor(gs.length/2)?' on':'')+'" style="--h:'+iconHue(g.id)+';--icon-hue:'+iconHue(g.id)+'" href="#/play/'+E(g.id)+'" data-gi="'+i+'" aria-label="'+E(gameTitle(g))+'"><span class="gdeck-ico" aria-hidden="true">'+E(gameIcon(g))+'</span><span class="gdeck-diff">'+E(g.diff||'')+'</span><h3>'+E(gameTitle(g))+'</h3><p>'+E(g.d)+'</p><span class="gdeck-foot"><b>+'+(+g.xp||0)+' XP</b><span class="gdeck-play">এখন খেলুন ▶</span></span></a>'}).join('')+'</div><div class="gdeck-nav"><button class="gdeck-arrow" type="button" data-gdeck="-1" aria-label="Previous game">←</button><div class="gdeck-prog" aria-hidden="true"><i id="gdeckBar"></i></div><span class="gdeck-count" id="gdeckCount">01 / '+String(gs.length).padStart(2,'0')+'</span><button class="gdeck-arrow" type="button" data-gdeck="1" aria-label="Next game">→</button></div></div>':'')+(s.btn?'<div class="c" style="margin-top:20px"><a class="btn pri" href="'+E(safeLink(s.link))+'">'+E(s.btn)+'</a></div>':'')+'</div></section>'},
  purpose:function(s){return'<section><div class="w split"><div class="rv">'+(s.pill?'<span class="pill"><i></i>'+E(s.pill)+'</span>':'')+'<h2 style="margin-top:20px">'+hd(s.h)+'</h2></div><div class="rv"><p class="bn" style="color:#fff;margin:0 0 14px">'+E(s.p)+'</p><p class="bn" style="color:var(--mut);margin:0">'+E(s.p2)+'</p><ul>'+(s.items||[]).map(function(i){return'<li>'+E(i.t)+'</li>'}).join('')+'</ul></div></div></section>'},
  features:function(s){return'<section class="tight sec-features"><div class="w">'+secHead(s)+'<div class="gA g3">'+(s.items||[]).map(function(it,i){return'<div class="card tilt rv" style="--d:'+(i*.07)+'s"><div class="ic">'+E(it.i)+'</div><h3>'+E(it.t)+'</h3><p>'+E(it.p)+'</p></div>'}).join('')+'</div></div></section>'},
  roadmap:function(s){var lab={done:X('rs_done'),now:X('rs_now'),next:X('rs_next')};return'<section><div class="w">'+secHead(s)+'<div class="road">'+(s.items||[]).map(function(it,i){var st=lab[it.s]?it.s:'next';return'<div class="rs '+st+' rv" style="--d:'+(i*.1)+'s"><div class="rd"><i></i></div><div class="card rc"><div class="rh"><span class="rlab">'+E(it.d)+'</span><span class="rst">'+E(lab[st])+'</span></div><h3>'+E(it.t)+'</h3><p>'+E(it.p)+'</p></div></div>'}).join('')+'</div></div></section>'},
@@ -282,7 +564,7 @@ function chGrid(){
  Object.keys(L).forEach(function(k){if(k!=='chem'&&k!=='phy'&&k!=='math')return;L[k].forEach(function(c){if(c.id==='qualitative-chemistry'&&CHL.some(function(x){return x.id==='qc-01'}))return;var title=chTitle(c),key=k+'::'+title;if(!groups[key])groups[key]={s:k,title:title,items:[]};groups[key].items.push(c)})});
  var mapped=[];specs.forEach(function(sp){var found=null;Object.keys(groups).some(function(key){var g=groups[key];if(g.s!==sp.s)return false;var low=g.title.toLowerCase();if(!sp.a.some(function(alias){return low===alias||low.indexOf(alias)>=0}))return false;found=g;return true});if(!found)found={s:sp.s,title:sp.a[0],displayName:sp.n,items:[]};else found=Object.assign({},found,{displayName:sp.n});if(!q||(sp.n+' '+found.title+' '+SUB[sp.s]).toLowerCase().indexOf(q)>=0||found.items.some(function(c){return String(c.t||'').toLowerCase().indexOf(q)>=0}))mapped.push(found)});
  if(chF!=='all')mapped=mapped.filter(function(g){return g.s===chF});
- var out=['chem','phy','math'].map(function(k){var arr=mapped.filter(function(g){return g.s===k});if(!arr.length)return '';return '<section class="chapter-subject-group" data-chapter-subject="'+E(k)+'"><header class="chapter-subject-heading"><span class="chapter-subject-dot"></span><div><h2>'+E(SUB[k]||k)+' — ১ম পত্র</h2><p>'+arr.length+'টি অধ্যায় · বিষয়ভিত্তিক তালিকা</p></div></header><div class="chapter-index-grid gA g3">'+arr.map(function(g,i){any=true;shown++;var st=chStat(g.items),href='#/chapter-list/'+encodeURIComponent(g.s+'|'+g.title),cta=st.av&&st.full===st.av?'আবার দেখুন →':(st.started&&st.next?'চালিয়ে যান →':'কনসেপ্টগুলো দেখুন →');return '<a class="card ch av chapter-index-card tilt rv" style="--d:'+(i*.025)+'s" href="'+E(href)+'"><span class="bd2">'+E(SUB[g.s])+'</span><h3>'+E(g.displayName||g.title)+'</h3><p>'+g.items.length+'টি কনসেপ্ট · '+st.av+'টি চালু'+(st.soon?' · '+st.soon+'টি শীঘ্রই':'')+'</p>'+(st.av?'<div class="bar chbar" title="'+st.pct+'%"><i style="width:'+st.pct+'%"></i></div><small class="mutt">'+st.full+'/'+st.av+' কনসেপ্ট সম্পন্ন · '+st.pct+'%</small>':'')+'<span class="go">'+cta+'</span></a>'}).join('')+'</div></section>'}).join('');
+ var out=['chem','phy','math'].map(function(k){var arr=mapped.filter(function(g){return g.s===k});if(!arr.length)return '';return '<section class="chapter-subject-group" data-chapter-subject="'+E(k)+'"><header class="chapter-subject-heading"><span class="chapter-subject-dot"></span><div><h2>'+E(SUB[k]||k)+' — ১ম পত্র</h2><p>'+arr.length+'টি অধ্যায় · বিষয়ভিত্তিক তালিকা</p></div></header><div class="chapter-index-grid gA g3">'+arr.map(function(g,i){any=true;shown++;var st=chStat(g.items),href='#/chapter-list/'+encodeURIComponent(g.s+'|'+g.title),cta=st.av&&st.full===st.av?'আবার দেখুন →':(st.started&&st.next?'চালিয়ে যান →':'কনসেপ্টগুলো দেখুন →');return '<a class="card ch av chapter-index-card tilt rv" style="--d:'+(Math.min(i*.006,.1))+'s" href="'+E(href)+'"><span class="bd2">'+E(SUB[g.s])+'</span><h3>'+E(g.displayName||g.title)+'</h3><p>'+g.items.length+'টি কনসেপ্ট · '+st.av+'টি চালু'+(st.soon?' · '+st.soon+'টি শীঘ্রই':'')+'</p>'+(st.av?'<div class="bar chbar" title="'+st.pct+'%"><i style="width:'+st.pct+'%"></i></div><small class="mutt">'+st.full+'/'+st.av+' কনসেপ্ট সম্পন্ন · '+st.pct+'%</small>':'')+'<span class="go">'+cta+'</span></a>'}).join('')+'</div></section>'}).join('');
  return '<p class="chcount mutt" role="status">'+shown+'টি অধ্যায় পাওয়া গেছে'+(q?' · “'+E(chQ.trim())+'”':'')+'</p>'+(any?'<div class="chapter-subject-groups">'+out+'</div>':'<div class="card chempty"><p class="lead c" style="margin:20px auto">কোনো অধ্যায় পাওয়া যায়নি।</p><p class="c"><button class="btn" data-ch-reset>ফিল্টার মুছুন</button></p></div>');
 }
 
@@ -297,9 +579,8 @@ var pages={
 
  '':function(){var visible=HOME.filter(function(s){return s.on!==false&&s.on!=='0'&&SEC[s.type]});var chapterCta=visible.filter(function(s){return s.id==='s-cta'});var other=visible.filter(function(s){return s.id!=='s-cta'});return secHero()+homeQuickAccess()+other.map(function(s){return SEC[s.type](s)}).join('')+homeScienceOutro()+homeDiscoveryMotion()+chapterCta.map(function(s){return SEC[s.type](s)}).join('')+homeFormulaTicker()},
  chapters:function(){var labels=[['all','All'],['math','Higher Mathematics'],['chem','Chemistry'],['phy','Physics']];return'<div class="w pgw chapters-page"><h1 class="rv">'+E(X('ch_h'))+'</h1><div class="filters rv chapter-filter-wrap"><div class="chips left chapter-filter-chips">'+labels.map(function(x){return'<button type="button" class="chipb chapter-filter-btn'+(chF==x[0]?' on':'')+'" data-chf="'+x[0]+'" aria-pressed="'+(chF==x[0]?'true':'false')+'">'+x[1]+'</button>'}).join('')+'</div><input id="chq" class="search" type="search" placeholder="'+E(X('ch_search'))+'" value="'+E(chQ)+'" aria-label="'+E(X('ch_search'))+'"></div><div id="chg">'+chGrid()+'</div></div>'},
- play:function(){var g=GS(),dg=dailyGame(),gs=GAMES.filter(function(x){return x.on!==false&&x.on!=='0'}),doneToday=g.daily==today();
-  return'<div class="w pgw arcade-page"><span class="pill rv"><i></i>🎮 ARCADE · '+gs.length+' GAMES</span><h1 class="rv">'+E(X('ar_h'))+'</h1><p class="lead rv">'+E(X('ar_lead'))+'</p>'+(dg?'<a class="card daily tilt rv" href="#/play/'+E(dg.id)+'"><span class="gico">'+E(dg.icon)+'</span><div><span class="dtag">🔥 '+E(X('ar_daily'))+' · ×2 XP</span><h3>'+E(dg.t)+'</h3><p>'+E(doneToday?X('ar_done'):X('ar_daily_p'))+'</p></div><span class="go">'+E(X('btn_playnow'))+' →</span></a>':'')+'<div class="gA g3" style="margin-top:28px">'+gs.map(function(x,i){var r=g.games[x.id]||{plays:0,best:0};return'<a class="card gm tilt rv" style="--d:'+(i*.05)+'s" href="#/play/'+E(x.id)+'"><span class="gico">'+E(GAME_CARD_ICONS[i%GAME_CARD_ICONS.length]||x.icon)+'</span><span class="diff d-'+E(String(x.diff||'').toLowerCase())+'">'+E(x.diff||'')+'</span><h3>'+E(x.t)+'</h3><p>'+E(x.d)+'</p><div class="gmeta"><span>+'+(+x.xp||0)+' XP</span>'+(r.plays?'<span>'+E(X('g_best'))+': '+r.best+'</span><span>'+r.plays+' '+E(X('g_plays'))+'</span>':'')+'</div><span class="go">'+E(X('btn_playnow'))+' →</span></a>'}).join('')+'</div></div>'},
- lab:function(){var g=GS(),ls=LABS.filter(function(x){return x.on!==false&&x.on!=='0'}),subs=[];ls.forEach(function(l){var label=labSubject(l.sub);if(label&&subs.indexOf(label)<0)subs.push(label)});var order=['Physics','Chemistry','Mathematics'];subs.sort(function(a,b){var ia=order.indexOf(a),ib=order.indexOf(b);return (ia<0?99:ia)-(ib<0?99:ib)||a.localeCompare(b)});function card(l,i){var sub=labSubject(l.sub);return'<a class="card gm tilt rv" style="--d:'+(i*.02)+'s" href="#/lab/'+E(l.id)+'"><span class="gico">'+E(simIcon(l))+'</span>'+(g.sims[l.id]||g.sims[l.sim]?'<span class="diff d-easy">✓ tried</span>':'<span class="diff">'+E(sub)+'</span>')+'<h3>'+E(l.t)+'</h3>'+(l.chapter?'<small class="lab-topic">'+E(l.chapter)+(l.concept?' · '+E(l.concept):'')+'</small>':'')+'<p>'+E(l.d)+'</p><span class="go">Open →</span></a>'}var grouped=subs.map(function(sub){var arr=ls.filter(function(l){return labSubject(l.sub)===sub});return'<section class="lab-subject-group" data-lab-group="'+E(sub)+'"><h2 class="subh">'+E(sub)+' <small>'+arr.length+' simulations</small></h2><div class="gA g3 lab-card-grid">'+arr.map(card).join('')+'</div></section>'}).join('');return'<div class="w pgw"><span class="pill rv"><i></i>LAB</span><h1 class="rv">'+E(X('lab_h'))+'</h1><p class="lead rv">'+E(X('lab_lead'))+'</p><div class="chips left rv" id="lbf">'+['all'].concat(subs).map(function(v){return'<button class="chipb'+(v=='all'?' on':'')+'" data-lf="'+E(v)+'">'+E(v=='all'?X('lab_all'):v)+'</button>'}).join('')+'</div><div id="lbg" style="margin-top:24px">'+grouped+'</div></div>'},
+ play:function(){var g=GS(),dg=dailyGame(),gs=GAMES.filter(function(x){return x.on!==false&&x.on!=='0'}),ion=gs.filter(function(x){return x.id==='chemistry-ion-challenge'})[0],rest=gs.filter(function(x){return x.id!=='chemistry-ion-challenge'}),doneToday=g.daily===today();function groupKey(x){var z=(x.t+' '+x.d+' '+x.id).toLowerCase();if(/chem|ion|flame|organic|molecul|stoich|periodic|electron|reaction|acid|ph |buffer|electrolys|lab|mystery|escape|formula.*chem/i.test(z))return 'রসায়ন';if(/math|vector|slope|matrix|calculus|probab|equation|geometry/i.test(z))return 'উচ্চতর গণিত';if(/physics|projectile|cannon|river|force|wave|motion|unit|pendulum/i.test(z))return 'পদার্থবিজ্ঞান';return 'মিশ্র চ্যালেঞ্জ'}var groups=['রসায়ন','পদার্থবিজ্ঞান','উচ্চতর গণিত','মিশ্র চ্যালেঞ্জ'];return'<div class="w pgw arcade-page"><span class="pill rv"><i></i>🎮 CONCEPTLAB ARCADE · '+gs.length+'টি গেম</span><h1 class="rv">Games — খেলতে খেলতে শেখো</h1><p class="lead rv">Physics, Chemistry ও Higher Math-এর ধারণা অনুশীলন করো। প্রতিটি গেমে লক্ষ্য হলো বুঝে উত্তর দেওয়া—শুধু দ্রুত ট্যাপ করা নয়।</p><div class="arcade-feature-grid"><a class="arcade-feature" href="#/lab"><span class="arcade-feature-symbol" aria-hidden="true">⚗</span><span><b>Simulation Lab</b><small>চলক বদলাও, ফলাফল পর্যবেক্ষণ করো</small></span><strong>খুলুন →</strong></a><a class="arcade-feature" href="#/smart-practice"><span class="arcade-feature-symbol" aria-hidden="true">⌁</span><span><b>Smart Practice</b><small>ভুল প্রশ্ন আবার অনুশীলন করো</small></span><strong>খুলুন →</strong></a></div>'+(dg&&dg.id!=='chemistry-ion-challenge'?'<a class="card daily tilt rv" href="#/play/'+E(dg.id)+'"><span class="gico" style="--icon-hue:'+iconHue(dg.id)+'">'+E(gameIcon(dg))+'</span><div><span class="dtag">আজকের চ্যালেঞ্জ</span><h3>'+E(gameTitle(dg))+'</h3><p>'+E(doneToday?X('ar_done'):X('ar_daily_p'))+'</p></div><span class="go">এখন খেলুন →</span></a>':'')+groups.map(function(gr){var arr=rest.filter(function(x){return groupKey(x)===gr});if(gr==='রসায়ন'&&ion)arr.unshift(ion);if(!arr.length)return '';return'<section class="arcade-subject-section"><div class="arcade-subject-heading"><div><span>CONCEPTLAB ARCADE</span><h2>'+gr+'</h2></div><small>'+arr.length+'টি গেম</small></div><div class="gA g3 arcade-game-grid">'+arr.map(function(x,i){var rec=g.games[x.id]||{plays:0,best:0};return'<a class="card gm arcade-game-card" style="--icon-hue:'+iconHue(x.id)+'" href="#/play/'+E(x.id)+'"><span class="gico" style="--icon-hue:'+iconHue(x.id)+'">'+E(gameIcon(x))+'</span><span class="diff d-'+E(String(x.diff||'').toLowerCase())+'">'+E(x.diff||'')+'</span><h3>'+E(gameTitle(x))+'</h3><p>'+E(x.d)+'</p><div class="gmeta"><span>+'+(+x.xp||0)+' XP</span>'+(rec.plays?'<span>'+E(X('g_best'))+': '+rec.best+'</span><span>'+rec.plays+' বার খেলা</span>':'')+'</div><span class="go">খেলা শুরু →</span></a>'}).join('')+'</div></section>'}).join('')+'</div>'},
+ lab:function(){var g=GS(),ls=LABS.filter(function(x){return x.on!==false&&x.on!=='0'}),subs=[];ls.forEach(function(l){var label=labSubject(l.sub);if(label&&subs.indexOf(label)<0)subs.push(label)});var order=['পদার্থবিজ্ঞান','রসায়ন','উচ্চতর গণিত'];subs.sort(function(a,b){var ia=order.indexOf(a),ib=order.indexOf(b);return (ia<0?99:ia)-(ib<0?99:ib)||a.localeCompare(b)});function card(l,i){var sub=labSubject(l.sub);return'<a class="card gm tilt rv" style="--d:'+(Math.min(i*.003,.08))+'s;--icon-hue:'+iconHue(l.id)+'" href="#/lab/'+E(l.id)+'"><span class="gico">'+E(simIcon(l))+'</span>'+(g.sims[l.id]||g.sims[l.sim]?'<span class="diff d-easy">✓ দেখা হয়েছে</span>':'<span class="diff">'+E(sub)+'</span>')+'<h3>'+E(simTitle(l))+'</h3>'+(l.chapter?'<small class="lab-topic">'+E(l.chapter)+(l.concept?' · '+E(l.concept):'')+'</small>':'')+'<p>'+E(l.d)+'</p><span class="go">খুলুন →</span></a>'}var grouped=subs.map(function(sub){var arr=ls.filter(function(l){return labSubject(l.sub)===sub});return'<section class="lab-subject-group" data-lab-group="'+E(sub)+'"><h2 class="subh">'+E(sub)+' <small>'+arr.length+'টি সিমুলেশন</small></h2><div class="gA g3 lab-card-grid">'+arr.map(card).join('')+'</div></section>'}).join('');return'<div class="w pgw lab-page"><span class="pill rv"><i></i>🧪 ইন্টারঅ্যাকটিভ বিজ্ঞান ও গণিত</span><h1 class="rv">সিমুলেশন ল্যাব</h1><p class="lead rv">নিয়ন্ত্রণ বদলে দেখুন—গতি, বল, আলো, রাসায়নিক বিক্রিয়া ও গণিতের মডেল কীভাবে বদলায়।</p><div class="chips left rv" id="lbf">'+['all'].concat(subs).map(function(v){return'<button class="chipb'+(v=='all'?' on':'')+'" data-lf="'+E(v)+'">'+E(v=='all'?'সব':v)+'</button>'}).join('')+'</div><div id="lbg" style="margin-top:12px">'+grouped+'</div></div>'},
  progress:function(){var g=GS(),l=lvl(g.xp),pc=Math.round(l.into/l.size*100),perf=metric('perfect',g);
   var rows=Object.keys(C).map(function(k){var n=cnt(k);return'<a class="card prow" href="#/chapter/'+E(k)+'"><div><b>'+E(C[k].t)+'</b> <span class="mutt">· '+E(SUB[C[k].s]||'')+'</span><div class="bar"><i style="width:'+n*25+'%"></i></div></div><small>'+E(X('ch_prog').replace('{n}',n))+'</small></a>'}).join('');
   return'<div class="w pgw" style="max-width:860px"><h1 class="rv">'+E(X('pr_h'))+'</h1><p class="lead rv">'+E(X('pr_lead'))+'</p><div class="card lvcard rv"><div class="lring" style="--pct:'+pc+'"><b>'+l.n+'</b><small>'+E(X('pr_level'))+'</small></div><div class="lvt"><h3>'+g.xp+' XP</h3><p>'+(l.size-l.into)+' XP → '+E(X('pr_level'))+' '+(l.n+1)+'</p><div class="bar"><i style="width:'+pc+'%"></i></div><p class="streak">🔥 '+g.streak+' '+E(X('pr_streak'))+'</p></div></div>'
@@ -307,7 +588,7 @@ var pages={
   +progressExtras()+'<h2 class="mt subh">'+E(X('pr_badges'))+'</h2><div class="badges">'+(GAM.badges||[]).map(function(b,i){var got=g.badges[b.id];return'<div class="card bdg tilt rv'+(got?' got':'')+'" style="--d:'+i*.04+'s"><span class="bi">'+E(b.i)+'</span><b>'+E(b.t)+'</b><small>'+E(b.d)+'</small><i>'+(got?'✓':'🔒')+'</i></div>'}).join('')+'</div>'
   +'<h2 class="mt subh">'+E(X('pr_chapters'))+'</h2>'+rows+'<p style="margin-top:34px"><button class="btn" data-reset>'+E(X('pr_reset'))+'</button></p></div>'},
  leaderboard:function(){var g=GS();return'<div class="w pgw leaderboard-page"><div class="leader-intro"><span class="pill"><i></i>STUDENT RANKINGS</span><h1>Leaderboard</h1><p class="lead">Celebrate progress, one concept at a time.</p></div><div class="leader-summary"><div><span class="stat-label">Your device XP</span><strong>'+Math.max(0,Number(g.xp)||0)+'</strong><span class="stat-label">XP earned here</span></div><div><span class="stat-label">Ranking status</span><strong id="leaderCount">—</strong><span class="stat-label">student accounts</span></div></div><div id="leaderboardData" class="leaderboard-data"><div class="leader-loading"><span class="loader-dot"></span> Loading student rankings…</div></div><p class="leader-note">Rankings are based on XP saved to ConceptLab accounts. Progress stored only on this device is shown separately.</p></div>'},
- about:function(){return'<div class="w pgw about-page" style="max-width:900px"><div class="about-hero rv"><span class="eyebrow">✦ CONCEPTLAB · ABOUT THE PROJECT</span><h1>'+E(X('ab_h'))+'</h1><p class="lead" style="max-width:none">'+E(S.about)+'</p>'+(S.aboutImg?'<img class="cv" src="'+E(S.aboutImg)+'" alt="ConceptLab project">':'')+'</div><div class="about-grid"><section class="card about-card rv"><span class="about-icon">🎯</span><h2>উদ্দেশ্য ও লক্ষ্যপাঠক</h2><p>ConceptLab-এর লক্ষ্য হলো সূত্র মুখস্থ করার বদলে ধারণা বোঝা—বাস্তব উদাহরণ, ধাপে ধাপে ব্যাখ্যা, কুইজ, গেম ও ইন্টারঅ্যাকটিভ সিমুলেশনের মাধ্যমে। এটি মূলত HSC পর্যায়ের Physics, Chemistry ও Higher Mathematics-এর শিক্ষার্থীদের জন্য তৈরি; কৌতূহলী অন্য শিক্ষার্থীরাও ব্যবহার করতে পারে।</p></section><section class="card about-card rv"><span class="about-icon">🔎</span><h2>কনটেন্ট তৈরি ও যাচাই</h2><p>শেখার উপকরণগুলো অধ্যায় ও কনসেপ্ট অনুযায়ী সাজানো হয়। প্রকাশের আগে সূত্র, একক, উদাহরণ ও কুইজের উত্তর মিলিয়ে দেখা উচিত; ইন্টারঅ্যাকটিভ মডেলগুলোকে ধারণা বোঝানোর সহায়ক হিসেবে ব্যবহার করুন, পরীক্ষাগারের বাস্তব পরিমাপের বিকল্প হিসেবে নয়। ভুল বা অস্পষ্ট কিছু চোখে পড়লে নিচের Feedback অংশ দিয়ে জানাতে পারেন।</p></section><section class="card about-card rv"><span class="about-icon">👨‍💻</span><h2>নির্মাতা</h2><p>ConceptLab তৈরি করেছেন Taimur Shams &amp; Moshiur Rahman Araf—একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রজেক্ট হিসেবে। উদ্দেশ্য হলো বাংলা ভাষায় সহজবোধ্য ও ধারণাভিত্তিক বিজ্ঞান ও গণিত শেখার অভিজ্ঞতা তৈরি করা।</p><p class="mutt">যোগাযোগের ইমেইল সাইটের মালিক/অ্যাডমিনের কাছ থেকে নিশ্চিত করে যোগ করা হবে; কোনো অযাচাইকৃত ঠিকানা দেখানো হচ্ছে না।</p></section><section class="card about-card rv" id="feedback"><span class="about-icon">💬</span><h2>Feedback / Report an Issue</h2><p>কোনো ভুল, কাজ না করা বাটন বা নতুন ফিচারের পরামর্শ থাকলে সরাসরি এখানে পাঠান। আপনার বার্তা ConceptLab-এর Admin Panel-এর Feedback বিভাগে জমা হবে।</p><form id="feedbackForm" class="feedback-form"><label class="feedback-label" for="feedbackName">আপনার নাম (ঐচ্ছিক)</label><input id="feedbackName" name="name" maxlength="80" autocomplete="name" placeholder="নাম লিখুন"><label class="feedback-label" for="feedbackEmail">ইমেইল (ঐচ্ছিক)</label><input id="feedbackEmail" name="email" type="email" maxlength="254" autocomplete="email" placeholder="প্রয়োজনে যোগাযোগের জন্য"><label class="feedback-label" for="feedbackText">আপনার বার্তা</label><textarea id="feedbackText" name="message" rows="4" minlength="5" maxlength="2000" required placeholder="পেজের নাম, কী সমস্যা হয়েছে এবং কী আশা করেছিলেন লিখুন…"></textarea><div class="feedback-honey" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div><p id="feedbackStatus" class="mutt" role="status" aria-live="polite"></p><button class="btn pri" type="submit" id="sendFeedback">বার্তা পাঠান ↗</button></form></section></div><section class="card about-legal rv"><h2>Privacy Policy — গোপনীয়তা</h2><p>ConceptLab অ্যাকাউন্ট ব্যবহার করলে নাম, ইমেইল, প্রতিষ্ঠান এবং শেখার XP/প্রগতি সংরক্ষিত হতে পারে। পাসওয়ার্ড সরাসরি প্রদর্শন করা হয় না। Leaderboard-এ নাম ও XP দেখানো হতে পারে। ব্যক্তিগত তথ্য শেয়ার করার আগে ভেবে নিন এবং প্রোফাইল/প্রাইভেসি নিয়ন্ত্রণের উপলভ্য বিকল্প ব্যবহার করুন।</p><h2>Terms of Use — ব্যবহারের শর্ত</h2><p>ConceptLab শিক্ষামূলক সহায়ক। সিমুলেশন ও কুইজ শেখার জন্য; পরীক্ষার আগে আপনার বোর্ড/প্রতিষ্ঠানের নির্ধারিত সিলেবাস ও নির্ভরযোগ্য পাঠ্যবইয়ের সঙ্গে মিলিয়ে নিন। সাইটের অপব্যবহার, অন্যের অ্যাকাউন্টে প্রবেশের চেষ্টা বা ভুল তথ্য ইচ্ছাকৃতভাবে ছড়ানো থেকে বিরত থাকুন। এই সারাংশ পূর্ণাঙ্গ আইনি পরামর্শ নয়।</p><p class="mutt">গোপনীয়তা বা ব্যবহারের শর্ত নিয়ে প্রশ্ন/সংশোধনের জন্য Feedback ব্যবহার করুন।</p></section></div>'}
+ about:function(){return'<div class="w pgw about-page" style="max-width:900px"><div class="about-hero rv"><span class="eyebrow">✦ CONCEPTLAB · ABOUT THE PROJECT</span><h1>'+E(X('ab_h'))+'</h1><p class="lead" style="max-width:none">'+E(S.about)+'</p>'+(S.aboutImg?'<img class="cv" src="'+E(S.aboutImg)+'" alt="ConceptLab project">':'')+'</div><div class="about-grid"><section class="card about-card rv"><span class="about-icon" aria-hidden="true">◎</span><h2>উদ্দেশ্য ও লক্ষ্যপাঠক</h2><p>ConceptLab-এর লক্ষ্য হলো সূত্র মুখস্থ করার বদলে ধারণা বোঝা—বাস্তব উদাহরণ, ধাপে ধাপে ব্যাখ্যা, কুইজ, গেম ও ইন্টারঅ্যাকটিভ সিমুলেশনের মাধ্যমে। এটি মূলত HSC পর্যায়ের Physics, Chemistry ও Higher Mathematics-এর শিক্ষার্থীদের জন্য তৈরি; কৌতূহলী অন্য শিক্ষার্থীরাও ব্যবহার করতে পারে।</p></section><section class="card about-card rv"><span class="about-icon" aria-hidden="true">☑</span><h2>কনটেন্ট তৈরি ও যাচাই</h2><p>শেখার উপকরণগুলো অধ্যায় ও কনসেপ্ট অনুযায়ী সাজানো হয়। প্রকাশের আগে সূত্র, একক, উদাহরণ ও কুইজের উত্তর মিলিয়ে দেখা উচিত; ইন্টারঅ্যাকটিভ মডেলগুলোকে ধারণা বোঝানোর সহায়ক হিসেবে ব্যবহার করুন, পরীক্ষাগারের বাস্তব পরিমাপের বিকল্প হিসেবে নয়। ভুল বা অস্পষ্ট কিছু চোখে পড়লে নিচের মতামত ফর্মে জানাতে পারেন।</p></section><section class="card about-card rv"><span class="about-icon about-icon-person" aria-hidden="true"><svg viewBox="0 0 24 24" role="img" focusable="false"><circle cx="12" cy="7" r="3.2"/><path d="M5 21v-2.2a7 7 0 0 1 14 0V21Z"/><path d="M8.7 4.9 9.5 3h5l.8 1.9"/></svg></span><h2>নির্মাতা</h2><p>ConceptLab তৈরি করেছেন Taimur Shams &amp; Moshiur Rahman Araf—একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রজেক্ট হিসেবে। উদ্দেশ্য হলো বাংলা ভাষায় সহজবোধ্য ও ধারণাভিত্তিক বিজ্ঞান ও গণিত শেখার অভিজ্ঞতা তৈরি করা।</p><p class="mutt">যোগাযোগের ইমেইল সাইটের মালিক/অ্যাডমিনের কাছ থেকে নিশ্চিত করে যোগ করা হবে; কোনো অযাচাইকৃত ঠিকানা দেখানো হচ্ছে না।</p></section><section class="card about-card rv" id="feedback"><span class="about-icon about-icon-feedback" aria-hidden="true"><svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-5 4v-4.8A2.5 2.5 0 0 1 4 13.5Z"/><path d="M8 8h8M8 11.5h5"/></svg></span><h2>মতামত ও সমস্যা জানান</h2><p>কোনো ভুল, কাজ না করা বাটন বা নতুন ফিচারের পরামর্শ থাকলে সরাসরি এখানে পাঠান। আপনার বার্তা ConceptLab-এর Admin Panel-এর Feedback বিভাগে জমা হবে।</p><form id="feedbackForm" class="feedback-form"><label class="feedback-label" for="feedbackName">আপনার নাম (ঐচ্ছিক)</label><input id="feedbackName" name="name" maxlength="80" autocomplete="name" placeholder="নাম লিখুন"><label class="feedback-label" for="feedbackEmail">ইমেইল (ঐচ্ছিক)</label><input id="feedbackEmail" name="email" type="email" maxlength="254" autocomplete="email" placeholder="প্রয়োজনে যোগাযোগের জন্য"><label class="feedback-label" for="feedbackText">আপনার বার্তা</label><textarea id="feedbackText" name="message" rows="4" minlength="5" maxlength="2000" required placeholder="পেজের নাম, কী সমস্যা হয়েছে এবং কী আশা করেছিলেন লিখুন…"></textarea><div class="feedback-honey" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div><p id="feedbackStatus" class="mutt" role="status" aria-live="polite"></p><button class="btn pri" type="submit" id="sendFeedback">বার্তা পাঠান ↗</button></form></section></div><section class="card about-legal rv"><h2>Privacy Policy — গোপনীয়তা</h2><p>ConceptLab অ্যাকাউন্ট ব্যবহার করলে নাম, ইমেইল, প্রতিষ্ঠান এবং শেখার XP/প্রগতি সংরক্ষিত হতে পারে। পাসওয়ার্ড সরাসরি প্রদর্শন করা হয় না। Leaderboard-এ নাম ও XP দেখানো হতে পারে। ব্যক্তিগত তথ্য শেয়ার করার আগে ভেবে নিন এবং প্রোফাইল/প্রাইভেসি নিয়ন্ত্রণের উপলভ্য বিকল্প ব্যবহার করুন।</p><h2>Terms of Use — ব্যবহারের শর্ত</h2><p>ConceptLab শিক্ষামূলক সহায়ক। সিমুলেশন ও কুইজ শেখার জন্য; পরীক্ষার আগে আপনার বোর্ড/প্রতিষ্ঠানের নির্ধারিত সিলেবাস ও নির্ভরযোগ্য পাঠ্যবইয়ের সঙ্গে মিলিয়ে নিন। সাইটের অপব্যবহার, অন্যের অ্যাকাউন্টে প্রবেশের চেষ্টা বা ভুল তথ্য ইচ্ছাকৃতভাবে ছড়ানো থেকে বিরত থাকুন। এই সারাংশ পূর্ণাঙ্গ আইনি পরামর্শ নয়।</p><p class="mutt">গোপনীয়তা বা ব্যবহারের শর্ত নিয়ে প্রশ্ন/সংশোধনের জন্য মতামত ফর্ম ব্যবহার করুন।</p></section></div>'}
 };
 function chapterListPage(encoded){var key='';try{key=decodeURIComponent(encoded||'')}catch(e){key=encoded||''}var bits=key.split('|'),sub=bits.shift()||'',title=bits.join('|'),items=chItems(sub,title);if(!items.length)return pages.chapters();
  var st=chStat(items),titles=[];(L[sub]||[]).forEach(function(c){var t=chTitle(c);if(!(c.id==='qualitative-chemistry'&&CHL.some(function(x){return x.id==='qc-01'}))&&titles.indexOf(t)<0)titles.push(t)});var ix=titles.indexOf(title),prev=ix>0?titles[ix-1]:null,next=ix>=0&&ix<titles.length-1?titles[ix+1]:null;
@@ -317,9 +598,9 @@ function chapterListPage(encoded){var key='';try{key=decodeURIComponent(encoded|
   +'<nav class="chapter-pn" aria-label="অধ্যায় নেভিগেশন">'+(prev?'<a class="btn" href="#/chapter-list/'+encodeURIComponent(sub+'|'+prev)+'">← '+E(prev)+'</a>':'<span></span>')+(next?'<a class="btn" href="#/chapter-list/'+encodeURIComponent(sub+'|'+next)+'">'+E(next)+' →</a>':'<span></span>')+'</nav></div>'}
 
 function chapter(id){var c=C[id];if(!c)return pages.chapters();var peers=CHL.filter(function(x){return x.s===c.s&&String(x.chapterTitle||x.chapter||x.t||'Chapter').trim()===String(c.chapterTitle||c.chapter||c.t||'Chapter').trim()&&!(x.id==='qualitative-chemistry'&&CHL.some(function(y){return y.id==='qc-01'}))});var pos=peers.findIndex(function(x){return x.id===id});return'<div class="w pgw concept-page" style="max-width:860px"><a class="bk" href="#/chapter-list/'+E(encodeURIComponent(c.s+'|'+String(c.chapterTitle||c.chapter||c.t||'Chapter').trim()))+'">← অধ্যায়ের কনসেপ্ট তালিকা</a><div class="mutt">'+E(SUB[c.s]||'')+' · '+E(c.chapterTitle||c.chapter||'Chapter')+'</div><div class="concept-position">CONCEPT '+(pos+1)+' OF '+peers.length+'</div><h1 class="ctitle">'+E(c.t)+'</h1><button type="button" class="btn study-bookmark-btn" data-study-bookmark-concept="'+E(id)+'">'+(STUDY().bookmarks[id]?'🔖 Bookmarked · Remove':'🔖 Bookmark this concept')+'</button>'+(c.cover?'<img class="cv" src="'+E(c.cover)+'" alt="">':'')+'<div class="mutt" id="pg"></div><div class="bar"><i id="pb"></i></div><div class="tabs" id="tabs"></div><div id="stg"></div><div id="conceptNav" class="concept-nav"></div></div>'}
-function gamePage(id){var g=GAMES.filter(function(x){return x.id==id&&x.on!==false&&x.on!=='0'})[0];if(!g)return pages.play();return'<div class="w pgw" style="max-width:860px"><a class="bk" href="#/play">'+E(X('btn_arcade'))+'</a><div class="gh2"><span class="gico big">'+E(g.icon)+'</span><div><h1 class="ctitle" style="margin:0">'+E(g.t)+'</h1><p class="mutt" style="margin:6px 0 0">'+E(g.d)+'</p></div></div><div id="gm"></div></div>'}
+function gamePage(id){var g=GAMES.filter(function(x){return x.id==id&&x.on!==false&&x.on!=='0'})[0];if(!g)return pages.play();var ion=g.id==='chemistry-ion-challenge',help='',outerNav=ion?'':'<a class="bk" href="#/play">'+E(X('btn_arcade'))+'</a>',outerTitle=ion?'':'<div class="gh2"><span class="gico big" style="--icon-hue:'+iconHue(g.id)+'">'+E(gameIcon(g))+'</span><div><h1 class="ctitle" style="margin:0">'+E(gameTitle(g))+'</h1><p class="mutt" style="margin:6px 0 0">'+E(g.d)+'</p></div></div>';return'<div class="w pgw play-detail-page game-type-'+E(g.type)+'" style="max-width:900px">'+outerNav+outerTitle+help+'<div id="gm"></div></div>'}
 function labPage(id){var l=LABS.filter(function(x){return x.id==id&&x.on!==false&&x.on!=='0'})[0];if(!l)return pages.lab();var rel=Object.keys(C).filter(function(k){return C[k].sim==l.sim});
- return'<div class="w pgw" style="max-width:900px"><a class="bk" href="#/lab">'+E(X('lab_back'))+'</a><div class="gh2"><span class="gico big">'+E(simIcon(l))+'</span><div><h1 class="ctitle" style="margin:0">'+E(l.t)+'</h1><p class="mutt" style="margin:6px 0 0">'+E(l.d)+'</p><button type="button" class="btn study-save-sim-btn" data-study-save-sim="'+E(l.id)+'">'+(STUDY().savedSims[l.id]?'⚛ Saved · Remove':'⚛ Save simulation')+'</button></div></div><div class="card simcard" id="sim"></div>'+(l.tip?'<div class="card tipc"><b>💡 '+E(X('lab_tip'))+':</b> '+E(l.tip)+'</div>':'')+(rel.length?'<p class="mutt" style="margin-top:22px">'+E(X('lab_rel'))+': '+rel.map(function(k){return'<a class="lnk" href="#/chapter/'+E(k)+'">'+E(C[k].t)+'</a>'}).join(', ')+'</p>':'')+'</div>'}
+ return'<div class="w pgw lab-detail-page" style="max-width:1000px"><a class="bk" href="#/lab">'+E(X('lab_back'))+'</a><div class="gh2"><span class="gico big" style="--icon-hue:'+iconHue(l.id)+'">'+E(simIcon(l))+'</span><div><h1 class="ctitle" style="margin:0">'+E(simTitle(l))+'</h1><p class="mutt" style="margin:6px 0 0">'+E(l.d)+'</p><button type="button" class="btn study-save-sim-btn" data-study-save-sim="'+E(l.id)+'">'+(STUDY().savedSims[l.id]?'✓ সংরক্ষিত · সরান':'＋ সিমুলেশন সংরক্ষণ')+'</button></div></div><div class="card simcard" id="sim"></div>'+(l.tip?'<div class="card tipc"><b>💡 '+E(X('lab_tip'))+':</b> '+E(l.tip)+'</div>':'')+(rel.length?'<p class="mutt" style="margin-top:22px">'+E(X('lab_rel'))+': '+rel.map(function(k){return'<a class="lnk" href="#/chapter/'+E(k)+'">'+E(C[k].t)+'</a>'}).join(', ')+'</p>':'')+'</div>'}
 
 /* ------------------------------------------------------------ chapter stages */
 function once(fn){var d=false;return function(){if(d)return;d=true;fn()}}
@@ -329,10 +610,15 @@ function simInto(el,key,c,done){
  el.innerHTML='';try{f(el,done)}catch(e){console.error(e);el.innerHTML='<p class="bn">Simulation could not start.</p>'}
  if(el.id==='sim'&&window.matchMedia&&window.matchMedia('(max-width: 700px)').matches){
   var old=document.getElementById('mobileSimControlJump');if(old)old.remove();
-  var jump=document.createElement('button');jump.type='button';jump.id='mobileSimControlJump';jump.className='mobile-sim-control-jump';jump.textContent='সিমুলেশন কন্ট্রোলে যান ↓';jump.setAttribute('aria-label','সিমুলেশনের কন্ট্রোলে যান');
-  jump.addEventListener('click',function(){var root=document.getElementById('sim');if(!root)return;var target=root.querySelector('.ctl')||root.querySelector('.fl-controls')||root.querySelector('.chips')||root.querySelector('input[type=range]')||root.querySelector('button')||root;target.scrollIntoView({behavior:'smooth',block:'center'});if(target.matches('input,button')){try{target.focus({preventScroll:true})}catch(e){target.focus()}}});
-  var firstControl=el.querySelector('.ctl, .fl-controls, .chips, .ro, input[type=range], button');
-  if(firstControl)el.insertBefore(jump,firstControl);else el.appendChild(jump);
+  var topControls=el.querySelector(':scope > .ctl, :scope > .lens-controls-host, :scope > .mirror-controls-host, :scope > .fl-controls');
+  var directCanvas=el.querySelector(':scope > canvas.cv2');
+  /* Direct-canvas labs now display their control panel first via CSS; retain a jump only for nested layouts. */
+  if(!(topControls&&directCanvas)){
+   var jump=document.createElement('button');jump.type='button';jump.id='mobileSimControlJump';jump.className='mobile-sim-control-jump';jump.textContent='কন্ট্রোলে যান ↓';jump.setAttribute('aria-label','সিমুলেশনের কন্ট্রোলে যান');
+   jump.addEventListener('click',function(){var root=document.getElementById('sim');if(!root)return;var target=root.querySelector('.ctl')||root.querySelector('.fl-controls')||root.querySelector('.lens-controls-host')||root.querySelector('.mirror-controls-host')||root.querySelector('.chips')||root.querySelector('input[type=range]')||root.querySelector('button')||root;target.scrollIntoView({behavior:'smooth',block:'center'});if(target.matches('input,button')){try{target.focus({preventScroll:true})}catch(e){target.focus()}}});
+   var firstControl=el.querySelector('.ctl, .fl-controls, .lens-controls-host, .mirror-controls-host, .chips, .ro, input[type=range], button');
+   if(firstControl)el.insertBefore(jump,firstControl);else el.appendChild(jump);
+  }
  }
 }
 function refreshBar(id){var n=cnt(id),a=$('#pg'),b=$('#pb');if(a)a.textContent=X('ch_prog').replace('{n}',n);if(b)b.style.width=n*25+'%'}
@@ -487,15 +773,17 @@ function mountImportantNotice(pg,root){
  wrap.querySelector('.cl-message-panel header h2').textContent='Message Centre';wrap.querySelector('article h3').textContent=msg?title:'কোনো নতুন নোটিশ নেই';wrap.querySelector('article p').textContent=msg?msg:'এখানে অ্যাডমিনের প্রকাশিত গুরুত্বপূর্ণ বার্তা দেখা যাবে।';
  var trigger=wrap.querySelector('.cl-message-trigger'),panel=wrap.querySelector('.cl-message-panel');
  function toggle(){var open=panel.hidden;panel.hidden=!open;if(open){var hd=document.querySelector('header');var bt=hd?Math.round(hd.getBoundingClientRect().bottom):64;panel.style.setProperty('top',(bt+8)+'px','important')}trigger.setAttribute('aria-expanded',String(open));if(open&&msg){try{localStorage.setItem(seenKey,version)}catch(e){}trigger.classList.remove('is-new');var count=trigger.querySelector('.cl-message-count');if(count)count.remove()}}
- trigger.addEventListener('click',toggle);wrap.querySelector('.cl-message-close').addEventListener('click',function(){panel.hidden=true;trigger.setAttribute('aria-expanded','false')});var headerActions=document.querySelector('header .hx');if(headerActions){headerActions.insertBefore(wrap,document.getElementById('burger'))}else{document.body.appendChild(wrap)}document.body.appendChild(panel);function closePanel(){panel.hidden=true;trigger.setAttribute('aria-expanded','false')}document.addEventListener('click',function(ev){if(!panel.hidden&&!panel.contains(ev.target)&&!trigger.contains(ev.target))closePanel()});document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!panel.hidden)closePanel()});
+ trigger.addEventListener('click',toggle);wrap.querySelector('.cl-message-close').addEventListener('click',function(){panel.hidden=true;trigger.setAttribute('aria-expanded','false')});var headerActions=document.querySelector('header .hx');if(headerActions){headerActions.insertBefore(wrap,document.getElementById('burger'))}else{document.body.appendChild(wrap)}document.body.appendChild(panel);function closePanel(){panel.hidden=true;trigger.setAttribute('aria-expanded','false')}if(!window.__clMessageGlobalBound){document.addEventListener('click',function(ev){var p=document.getElementById('clMessagePanel'),t=document.querySelector('#clMessageCentre .cl-message-trigger');if(p&&!p.hidden&&!p.contains(ev.target)&&t&&!t.contains(ev.target)){p.hidden=true;t.setAttribute('aria-expanded','false')}});document.addEventListener('keydown',function(ev){var p=document.getElementById('clMessagePanel'),t=document.querySelector('#clMessageCentre .cl-message-trigger');if(ev.key==='Escape'&&p&&!p.hidden){p.hidden=true;if(t)t.setAttribute('aria-expanded','false')}});window.__clMessageGlobalBound=true;}
 }
 
-function route(){var mobileJump=document.getElementById('mobileSimControlJump');if(mobileJump)mobileJump.remove();syncAccountHeader();var h=location.hash.replace(/^#\/?/,''),p=h.split('/'),pg=p[0],html;
+var routeScrollMemory=Object.create(null),lastRouteHash=location.hash;
+function instantScrollTo(y){var doc=document.documentElement,old=doc.style.scrollBehavior;doc.style.scrollBehavior='auto';window.scrollTo(0,Math.max(0,+y||0));doc.style.scrollBehavior=old}
+function route(){var previousHash=lastRouteHash,previousPath=String(previousHash||'').replace(/^#\/?/,'').split('/')[0],previousFull=String(previousHash||'').replace(/^#\/?/,''),nextFull=String(location.hash||'').replace(/^#\/?/,''),nextPath=nextFull.split('/')[0],restoreY=null;if((previousPath==='play'&&previousFull==='play')||(previousPath==='lab'&&previousFull==='lab'))routeScrollMemory[previousPath]=window.pageYOffset||document.documentElement.scrollTop||0;if((nextPath==='play'&&previousFull.indexOf('play/')===0)||(nextPath==='lab'&&previousFull.indexOf('lab/')===0)){var k=nextPath;if(typeof routeScrollMemory[k]==='number')restoreY=routeScrollMemory[k]}lastRouteHash=location.hash;var mobileJump=document.getElementById('mobileSimControlJump');if(mobileJump)mobileJump.remove();syncAccountHeader();var h=location.hash.replace(/^#\/?/,''),p=h.split('/'),pg=p[0],html;
  $$('header nav a').forEach(function(a){var t=a.getAttribute('href').replace('#/','').split('/')[0];a.classList.toggle('on',t==pg||(t==''&&pg=='')||(pg=='chapter'&&t=='chapters')||(pg=='chapter-list'&&t=='chapters'))});
  $$('.bottom-nav a').forEach(function(a){var t=a.getAttribute('href').replace('#/','').split('/')[0],active=t==pg||(t==''&&pg==='')||(pg==='chapter'&&t==='chapters')||(pg==='chapter-list'&&t==='chapters');a.classList.toggle('on',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
  try{html=pg=='chapter-list'&&p[1]?chapterListPage(p[1]):pg=='chapter'&&p[1]?chapter(p[1]):pg=='play'&&p[1]?gamePage(p[1]):pg=='lab'&&p[1]?labPage(p[1]):pg=='page'&&p[1]?customPage(decodeURIComponent(p[1])):(pages[pg]||(window.CL_HUB&&CL_HUB.pages[pg])||pages[''])()}
  catch(err){console.error('ConceptLab render error:',err);html='<section class="w pgw"><h1>Something went wrong</h1><p class="lead">Please refresh the page. If this keeps happening, tell the site admin.</p></section>'}
- app.innerHTML=html;mountImportantNotice(pg,app);setNavOpen(false,false);initScrollReveal(app);app.classList.remove('page-enter');void app.offsetWidth;app.classList.add('page-enter');app.dataset.page=pg||'home';if(window.FX&&typeof window.FX.scan==='function')window.FX.scan(app);scrollTo(0,0);if(window.CL_HUB)try{CL_HUB.mount(pg,app)}catch(hx){console.error(hx)}
+ app.innerHTML=html;mountImportantNotice(pg,app);setNavOpen(false,false);initScrollReveal(app);app.classList.remove('page-enter');void app.offsetWidth;app.classList.add('page-enter');app.dataset.page=pg||'home';document.body.classList.toggle('ion-game-active',pg==='play'&&p[1]==='chemistry-ion-challenge');if(restoreY!==null){requestAnimationFrame(function(){instantScrollTo(restoreY)});}else{instantScrollTo(0)}if(window.CL_HUB)try{CL_HUB.mount(pg,app)}catch(hx){console.error(hx)}
  if(pg==='leaderboard')loadLeaderboard();
  if(pg==='account'){var af=$('#studentAuth');if(af)af.addEventListener('submit',function(ev){ev.preventDefault();var fd=new FormData(af),mode=af.dataset.mode,btn=af.querySelector('.auth-submit'),msg=$('#authMessage');btn.disabled=true;msg.textContent='Please wait…';fetch('/api/student-'+(mode==='signup'?'signup':'login'),{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({name:String(fd.get('name')||'').trim(),email:String(fd.get('email')||'').trim().toLowerCase(),password:fd.get('password'),school:String(fd.get('school')||'').trim()})}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'Unable to continue');return j})}).then(function(j){if(j.token)localStorage.setItem('clstudentToken',j.token);try{localStorage.setItem('clHasAccount','1')}catch(x){}setStudent(j.user);if(j.token)fetch('/api/student-progress',{headers:{Authorization:'Bearer '+j.token},cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){if(d&&d.user){var g=GS();g.xp=Number(d.user.xp)||0;save(g);chip()}}).catch(function(){});msg.textContent='Signed in as '+j.user.name+'.';var back='';try{back=sessionStorage.getItem('clAuthReturn')||'';sessionStorage.removeItem('clAuthReturn')}catch(x){}location.hash=(back&&/^#\//.test(back))?back:'#/profile'}).catch(function(e){msg.textContent=e.message;}).finally(function(){btn.disabled=false})})}
 
@@ -530,7 +818,7 @@ app.addEventListener('submit',function(e){
 app.addEventListener('click',function(e){
  var sb=e.target.closest('[data-study-bookmark-concept]'),ss=e.target.closest('[data-study-save-sim]'),ub=e.target.closest('[data-study-unbookmark]'),us=e.target.closest('[data-study-unsave-sim]'),dn=e.target.closest('[data-study-delete-note]'),df=e.target.closest('[data-study-delete-formula]'),pa=e.target.closest('[data-practice-answer]');
  if(sb){var st=STUDY(),id=sb.dataset.studyBookmarkConcept;if(st.bookmarks[id])delete st.bookmarks[id];else st.bookmarks[id]={at:Date.now()};saveStudy(st);sb.textContent=st.bookmarks[id]?'🔖 Bookmarked · Remove':'🔖 Bookmark this concept';return}
- if(ss){var st=STUDY(),id=ss.dataset.studySaveSim;if(st.savedSims[id])delete st.savedSims[id];else st.savedSims[id]={at:Date.now()};saveStudy(st);ss.textContent=st.savedSims[id]?'⚛ Saved · Remove':'⚛ Save simulation';return}
+ if(ss){var st=STUDY(),id=ss.dataset.studySaveSim;if(st.savedSims[id])delete st.savedSims[id];else st.savedSims[id]={at:Date.now()};saveStudy(st);ss.textContent=st.savedSims[id]?'✓ সংরক্ষিত · সরান':'＋ সিমুলেশন সংরক্ষণ';return}
  if(ub){var st=STUDY();delete st.bookmarks[ub.dataset.studyUnbookmark];saveStudy(st);route();return}if(us){var st=STUDY();delete st.savedSims[us.dataset.studyUnsaveSim];saveStudy(st);route();return}if(dn){var st=STUDY();delete st.notes[dn.dataset.studyDeleteNote];saveStudy(st);route();return}if(df){var st=STUDY();st.formulaBookmarks.splice(Number(df.dataset.studyDeleteFormula),1);saveStudy(st);route();return}
  if(pa){practiceAnswer(pa);return}
 var t=e.target.closest('.tab'),n=e.target.closest('[data-n]'),cf=e.target.closest('[data-chf]'),lf=e.target.closest('[data-lf]'),rs=e.target.closest('[data-reset]'),pw=e.target.closest('[data-toggle-password]'),fg=e.target.closest('[data-forgot-password]'),authLink=e.target.closest('a[href^="#/account/"]'),m=location.hash.match(/^#\/chapter\/(.+)/);
@@ -550,7 +838,10 @@ function setNavOpen(open,returnFocus){
   if(nav&&nav.parentNode!==document.body){navHome=nav.parentNode;navPlaceholder=document.createComment('ConceptLab navigation home');nav.parentNode.insertBefore(navPlaceholder,nav);document.body.appendChild(nav);}
   if(nav){
    var r=b?b.getBoundingClientRect():{bottom:70,right:window.innerWidth-16};
-   var top=Math.max(8,Math.min(r.bottom+10,window.innerHeight-160));
+   var header=$('header'),hr=header?header.getBoundingClientRect():null;
+   var anchorBottom=hr&&hr.bottom>0?hr.bottom:r.bottom;
+   /* The navigation drawer is an overlay, not a continuation below the header. Keep it at the top of the web viewport to eliminate the large blank lead-in on mobile. */
+   var top=8;
    nav.classList.add('nav-portal');nav.style.position='fixed';nav.style.top=top+'px';nav.style.right=Math.max(12,window.innerWidth-r.right)+'px';nav.style.left='auto';nav.style.bottom='auto';nav.style.zIndex='10002';nav.style.maxHeight='calc(100dvh - '+(top+12)+'px - env(safe-area-inset-bottom))';nav.style.overflowY='auto';nav.style.overscrollBehavior='contain';nav.style.width='min(620px, calc(100vw - 24px))';nav.style.display='flex';nav.style.flexDirection='column';nav.style.alignItems='stretch';nav.style.justifyContent='flex-start';nav.style.gap='4px';nav.style.padding='12px';nav.style.border='1px solid rgba(56,189,248,.34)';nav.style.borderRadius='20px';nav.style.background='rgba(4,12,22,.985)';nav.style.boxShadow='0 24px 70px rgba(0,0,0,.72)';nav.style.backdropFilter='blur(24px)';nav.style.webkitBackdropFilter='blur(24px)';nav.style.animation='navDrop .22s ease-out both';nav.style.scrollbarWidth='thin';
   }
   document.body.classList.add('navopen');

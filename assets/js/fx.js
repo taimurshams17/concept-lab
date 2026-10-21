@@ -22,14 +22,14 @@ function size(){if(!cv)return;dpr=Math.min(2,window.devicePixelRatio||1);W=inner
 }
 function ember(init){return{x:Math.random()*W,y:init?H-Math.random()*H*.55:H+10,r:Math.random()*2.2+.6,v:12+Math.random()*34,w:Math.random()*6.28,a:.2+Math.random()*.6}}
 var last=performance.now();
-function frame(n){requestAnimationFrame(frame);if(!cx||!on||document.hidden){last=n;return}if(n-last<1000/45)return;
+function frame(n){requestAnimationFrame(frame);if(!cx||!on||document.hidden){last=n;return}if(n-last<1000/(innerWidth<700?24:36))return;
  var dt=Math.min(.05,(n-last)/1000);last=n;px+=(tx-px)*.05;py+=(ty-py)*.05;cx.clearRect(0,0,W,H);
  var c=rgb(colour),c2=rgb(colour2),t=n/1000;
  /* Several distant spiral galaxies: faint, slow-moving, and cheap to render. */
  var galaxies=[{x:W*.18,y:H*.29,s:1,a:-.22},{x:W*.70,y:H*.24,s:.56,a:.32},{x:W*.48,y:H*.72,s:.42,a:-.48}];
  for(var gi=0;gi<galaxies.length;gi++){var gal=galaxies[gi],gr=Math.min(W,H)*.105*gal.s;cx.save();cx.translate(gal.x,gal.y);cx.rotate(gal.a+Math.sin(t*.06+gi)*.018);
   var gg=cx.createRadialGradient(0,0,0,0,0,gr*1.25);gg.addColorStop(0,gi===1?'rgba(192,132,252,.075)':'rgba(125,211,252,.085)');gg.addColorStop(.38,'rgba(56,189,248,.035)');gg.addColorStop(1,'rgba(56,189,248,0)');cx.fillStyle=gg;cx.beginPath();cx.arc(0,0,gr*1.25,0,6.283);cx.fill();cx.globalAlpha=gi===0?.105:.075;
-  for(var arm=0;arm<2;arm++){cx.beginPath();for(var qg=0;qg<72;qg++){var ang=qg*.115+arm*Math.PI,rad=gr*(qg/72),xx=Math.cos(ang)*rad*1.45,yy=Math.sin(ang)*rad*.56;if(qg===0)cx.moveTo(xx,yy);else cx.lineTo(xx,yy)}cx.strokeStyle=gi===1?'rgba(196,181,253,.6)':'rgba(125,211,252,.6)';cx.lineWidth=1;cx.stroke()}cx.restore()
+  for(var arm=0;arm<2;arm++){cx.beginPath();var galaxySteps=W<700?36:72;for(var qg=0;qg<galaxySteps;qg++){var ang=qg*(.115*72/galaxySteps)+arm*Math.PI,rad=gr*(qg/galaxySteps),xx=Math.cos(ang)*rad*1.45,yy=Math.sin(ang)*rad*.56;if(qg===0)cx.moveTo(xx,yy);else cx.lineTo(xx,yy)}cx.strokeStyle=gi===1?'rgba(196,181,253,.6)':'rgba(125,211,252,.6)';cx.lineWidth=1;cx.stroke()}cx.restore()
  }
  /* Small planets with atmospheric rim and occasional rings. */
  for(var pi=0;pi<planets.length;pi++){var pl=planets[pi],drift=Math.sin(t*.18+pi*2)*4,pr=pl.r;

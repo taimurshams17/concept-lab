@@ -187,15 +187,18 @@
     const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('class','cl-mono-icon'); svg.setAttribute('aria-hidden','true');
     svg.setAttribute('focusable','false'); svg.setAttribute('fill','none'); svg.setAttribute('stroke','currentColor'); svg.setAttribute('stroke-width','1.7'); svg.setAttribute('stroke-linecap','round'); svg.setAttribute('stroke-linejoin','round');
+    /* Explicit dimensions prevent browsers from rendering an emoji replacement at the SVG default 300×150 size. */
+    svg.style.setProperty('display','inline-block','important'); svg.style.setProperty('width','1em','important'); svg.style.setProperty('height','1em','important'); svg.style.setProperty('min-width','1em','important'); svg.style.setProperty('max-width','1.25em','important'); svg.style.setProperty('max-height','1.25em','important'); svg.style.setProperty('vertical-align','middle','important'); svg.style.setProperty('flex','0 0 auto','important');
     svg.innerHTML = shapes[name] || shapes.generic; return svg;
   };
   const replaceText = node => {
-    if (!node || !node.nodeValue || !regex.test(node.nodeValue)) { regex.lastIndex = 0; return; }
+    if (!node || !node.nodeValue || node.parentElement?.closest('.gico,.gdeck-ico')) { regex.lastIndex = 0; return; }
+    if (!regex.test(node.nodeValue)) { regex.lastIndex = 0; return; }
     regex.lastIndex = 0;
     const text = node.nodeValue, frag = document.createDocumentFragment(); let last = 0, match;
     while ((match = regex.exec(text))) {
       if (match.index > last) frag.append(document.createTextNode(text.slice(last, match.index)));
-      const span = document.createElement('span'); span.className = 'cl-icon-wrap'; span.setAttribute('aria-hidden','true');
+      const span = document.createElement('span'); span.className = 'cl-icon-wrap'; span.setAttribute('aria-hidden','true'); span.style.setProperty('display','inline-flex','important'); span.style.setProperty('align-items','center','important'); span.style.setProperty('justify-content','center','important'); span.style.setProperty('width','1.1em','important'); span.style.setProperty('height','1.1em','important'); span.style.setProperty('max-width','1.25em','important'); span.style.setProperty('max-height','1.25em','important'); span.style.setProperty('vertical-align','-.14em','important'); span.style.setProperty('line-height','1','important');
       span.append(makeIcon(contextualIcon(node, match[0]))); frag.append(span); last = match.index + match[0].length;
     }
     if (last < text.length) frag.append(document.createTextNode(text.slice(last)));
@@ -205,8 +208,8 @@
     if (!root) return;
     if (root.nodeType === Node.TEXT_NODE) { replaceText(root); return; }
     if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE && root.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) return;
-    if (root.nodeType === Node.ELEMENT_NODE && (root.matches('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,[contenteditable="true"]'))) return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
+    if (root.nodeType === Node.ELEMENT_NODE && (root.matches('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico,.gdeck-ico,[contenteditable="true"]'))) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico,.gdeck-ico,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
     const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode); nodes.forEach(replaceText);
   };
   let pending = false;

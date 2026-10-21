@@ -233,6 +233,46 @@ S.valenceShell=function(root,done){var cv=canvas(root,680,330),x=cv.x;var ctl=co
 S.electroncloud=function(root,done){var cv=canvas(root,680,320),x=cv.x;var ctl=controls(root,[{label:'অরবিটাল: 0 = s, 1 = pₓ',min:0,max:1,value:0},{label:'মেঘের বিস্তার',min:30,max:100,value:65}],done);var samples=[];for(var i=0;i<2400;i++){var a=Math.random()*TAU,u=Math.max(.0001,Math.random()),r=Math.min(1.3,Math.sqrt(-Math.log(1-u))*.48);samples.push({a:a,r:r,keep:Math.random()});}frame(root,function(){var v=ctl.read(),p=v[0]===1,spread=v[1],cx=250,cy=155;bg(x,cv.w,cv.h);text(x,'আধুনিক পরমাণু মডেল: সম্ভাব্যতার মেঘ',18,24,17,'#e2e8f0',true);for(var i=0;i<samples.length;i++){var s=samples[i],angular=Math.cos(s.a)*Math.cos(s.a);if(p&&s.keep>angular)continue;var r=s.r*spread,xx=cx+r*Math.cos(s.a),yy=cy+r*Math.sin(s.a)*.7,alpha=Math.max(.06,.46*(1-s.r/1.45));x.fillStyle='rgba(56,189,248,'+alpha+')';x.beginPath();x.arc(xx,yy,1.45,0,TAU);x.fill();}dot(x,cx,cy,9,'#fb7185');if(p){line(x,cx,cy-105,cx,cy+105,'#fbbf24',1.5,[4,4]);text(x,'নোডাল সমতল',cx+8,cy+115,11,'#fbbf24');}text(x,p?'pₓ: নোডাল সমতলের দুই পাশে দুই লোব':'s: কেন্দ্রের কাছে বেশি ঘন গোলীয় মেঘ',405,100,14,'#38bdf8',true);text(x,'বিন্দুর ঘনত্ব সম্ভাবনার ধারণা দেয়; ইলেকট্রন কোনো আঁকা পথে ঘোরে না।',405,132,12);text(x,'2D স্কিম্যাটিক—পূর্ণ 3D wavefunction বা পরিমাপ নয়।',18,295,12,'#94a3b8');});};
 
 
+
+/* Additional ConceptLab Chemistry interactives: polarity, reaction energy and functional groups. */
+window.CL_SIMS.molecularPolarity=function(root){
+ var items={
+  H2O:{name:'পানি (H₂O)',shape:'বাঁকা',polar:true,angle:'প্রায় 104.5°',why:'O–H বন্ধন মেরু এবং বাঁকা আকৃতির কারণে দ্বিমেরু বাতিল হয় না।'},
+  CO2:{name:'কার্বন ডাই-অক্সাইড (CO₂)',shape:'সরলরৈখিক',polar:false,angle:'180°',why:'দুটি C=O বন্ধন মেরু হলেও সরলরৈখিক ও সমমিত গঠনে দ্বিমেরু বাতিল হয়।'},
+  NH3:{name:'অ্যামোনিয়া (NH₃)',shape:'ত্রিকোণীয় পিরামিডীয়',polar:true,angle:'প্রায় 107°',why:'নাইট্রোজেনের নিঃসঙ্গ ইলেকট্রন জোড় অণুর আকৃতি ও লব্ধি দ্বিমেরুতে প্রভাব ফেলে।'},
+  BF3:{name:'বোরন ট্রাইফ্লুরাইড (BF₃)',shape:'ত্রিকোণীয় সমতল',polar:false,angle:'120°',why:'সমমিত ত্রিকোণীয় সমতল গঠনে তিনটি B–F বন্ধনের দ্বিমেরু পরস্পর বাতিল হয়।'},
+  CH4:{name:'মিথেন (CH₄)',shape:'চতুস্তলকীয়',polar:false,angle:'প্রায় 109.5°',why:'সমমিত চতুস্তলকীয় গঠনে বন্ধনের দ্বিমেরু বাতিল হয়।'},
+  HCl:{name:'হাইড্রোজেন ক্লোরাইড (HCl)',shape:'দ্বিপরমাণুক',polar:true,angle:'প্রযোজ্য নয়',why:'Cl ও H-এর তড়িৎঋণাত্মকতার পার্থক্যে একটি লব্ধি বন্ধন-দ্বিমেরু থাকে।'}
+ };
+ root.innerHTML='<div class="card sim-card"><h3>অণুর মেরুতা অনুসন্ধান</h3><p>অণু নির্বাচন করো; বন্ধনের মেরুতা ও অণুর আকৃতি মিলিয়ে লব্ধি দ্বিমেরু নির্ণয় করো।</p><label>অণু <select id="pol-mol">'+Object.keys(items).map(function(k){return '<option value="'+k+'">'+items[k].name+'</option>'}).join('')+'</select></label><div id="pol-result" class="card"></div></div>';
+ var sel=root.querySelector('#pol-mol'),out=root.querySelector('#pol-result');
+ function draw(){var x=items[sel.value];out.innerHTML='<h4>'+x.name+'</h4><p><b>আকৃতি:</b> '+x.shape+'</p><p><b>বন্ধন কোণ:</b> '+x.angle+'</p><p><b>অণুর প্রকৃতি:</b> '+(x.polar?'মেরু':'অমেরু')+'</p><p>'+x.why+'</p><p class="muted">মনে রাখো: বন্ধন মেরু হলেই পুরো অণু মেরু হবে—এমন নয়; আকৃতি ও ভেক্টর যোগও গুরুত্বপূর্ণ।</p>'}
+ sel.addEventListener('change',draw);draw();
+};
+window.CL_SIMS.reactionEnergy=function(root){
+ root.innerHTML='<div class="card sim-card"><h3>বিক্রিয়া শক্তি ল্যাব</h3><p>এনথালপি পরিবর্তন ও অনুঘটকের প্রভাব আলাদা করে দেখো।</p><label>বিক্রিয়ার ধরন <select id="re-type"><option value="-80">তাপোৎপাদী (ΔH ঋণাত্মক)</option><option value="65">তাপগ্রাহী (ΔH ধনাত্মক)</option></select></label><label>অনুঘটক <select id="re-cat"><option value="0">নেই</option><option value="25">আছে</option></select></label><div id="re-chart" class="card"></div></div>';
+ var type=root.querySelector('#re-type'),cat=root.querySelector('#re-cat'),chart=root.querySelector('#re-chart');
+ function draw(){var dh=+type.value,ea=cat.value==='0'?110:85,prod=dh,scale=1.25,base=150,peak=base-ea*scale,end=base-dh*scale;
+ chart.innerHTML='<p><b>ΔH = '+dh+' kJ mol⁻¹</b></p><p><b>সক্রিয়ণ শক্তি (স্কিম্যাটিক) = '+ea+' kJ mol⁻¹</b></p><svg viewBox="0 0 320 190" role="img" aria-label="বিক্রিয়া শক্তির স্কিম্যাটিক গ্রাফ" style="width:100%;max-width:420px"><path d="M28 18V160H305" fill="none" stroke="currentColor" opacity=".65"/><path d="M30 '+base+' C80 '+base+' 90 '+peak+' 150 '+peak+' S220 '+end+' 300 '+end+'" fill="none" stroke="#38bdf8" stroke-width="3"/><path d="M30 '+base+'H70 M245 '+end+'H300" stroke="#a78bfa" stroke-width="2" stroke-dasharray="4 3"/><text x="35" y="178" fill="currentColor" font-size="10">বিক্রিয়ক</text><text x="245" y="'+Math.max(15,Math.min(145,end-7))+'" fill="currentColor" font-size="10">উৎপাদ</text><text x="95" y="'+Math.max(12,peak-7)+'" fill="currentColor" font-size="10">সক্রিয়ণ শক্তি</text></svg><p>'+ (cat.value==='0'?'অনুঘটক ছাড়া সক্রিয়ণ শক্তি তুলনামূলক বেশি।':'অনুঘটক বিকল্প পথ দেয় এবং সক্রিয়ণ শক্তি কমায়; ΔH বদলায় না।')+'</p><p>এটি ধারণাগত স্কিম্যাটিক—নির্দিষ্ট বিক্রিয়ার পরীক্ষামূলক শক্তি-প্রোফাইল নয়।</p>'}
+ type.addEventListener('change',draw);cat.addEventListener('change',draw);draw();
+};
+window.CL_SIMS.functionalGroup=function(root){
+ var groups=[
+  {f:'–OH',n:'অ্যালকোহল',ex:'CH₃CH₂OH',hint:'হাইড্রক্সিল মূলক'},
+  {f:'–CHO',n:'অ্যালডিহাইড',ex:'CH₃CHO',hint:'কার্বন শৃঙ্খলের প্রান্তে –CHO'},
+  {f:'>C=O',n:'কিটোন',ex:'CH₃COCH₃',hint:'কার্বন শৃঙ্খলের ভেতরে কার্বনিল মূলক'},
+  {f:'–COOH',n:'কার্বক্সিলিক অ্যাসিড',ex:'CH₃COOH',hint:'কার্বক্সিল মূলক'},
+  {f:'–COO–',n:'এস্টার',ex:'CH₃COOCH₃',hint:'এস্টার বন্ধন'},
+  {f:'–NH₂',n:'অ্যামিন',ex:'CH₃NH₂',hint:'অ্যামিনো মূলক'}
+ ];var idx=0,score=0;
+ root.innerHTML='<div class="card sim-card"><h3>Functional Group Detective</h3><p>গাঠনিক সূত্রের সংকেত দেখে কার্যকরী মূলক শনাক্ত করো।</p><div id="fg-q" class="card"></div><div id="fg-opts" class="sim-actions"></div><p id="fg-feedback" aria-live="polite"></p><button type="button" id="fg-next" class="btn" disabled>পরের প্রশ্ন</button><p id="fg-score">স্কোর: ০</p></div>';
+ var q=root.querySelector('#fg-q'),opts=root.querySelector('#fg-opts'),fb=root.querySelector('#fg-feedback'),next=root.querySelector('#fg-next'),scoreEl=root.querySelector('#fg-score'),answered=false,order=[];
+ function shuffle(){order=groups.map(function(_,i){return i}).sort(function(){return Math.random()-.5});idx=0;score=0;show()}
+ function show(){answered=false;fb.textContent='';next.disabled=true;var x=groups[order[idx%order.length]];q.innerHTML='<h4>কোন কার্যকরী মূলকটি দেখানো হয়েছে?</h4><p style="font-size:1.5rem"><b>'+x.f+'</b></p><p>উদাহরণ: '+x.ex+'</p>';var choices=groups.map(function(g){return g.n}).sort(function(){return Math.random()-.5});opts.innerHTML=choices.map(function(n){return '<button type="button" class="btn fg-choice">'+n+'</button>'}).join('');Array.from(opts.querySelectorAll('button')).forEach(function(b){b.addEventListener('click',function(){if(answered)return;answered=true;var ok=b.textContent===x.n;if(ok)score++;fb.textContent=(ok?'সঠিক! ':'সঠিক উত্তর: '+x.n+'। ')+x.hint;scoreEl.textContent='স্কোর: '+score+' / '+(idx+1);next.disabled=false;opts.querySelectorAll('button').forEach(function(z){z.disabled=true})})})}
+ next.addEventListener('click',function(){idx++;if(idx>=groups.length){fb.textContent+=' রাউন্ড শেষ। আবার খেলতে রিসেট করো।';next.disabled=true;opts.innerHTML='';return}show()});
+ var reset=document.createElement('button');reset.type='button';reset.className='btn';reset.textContent='আবার খেলো';reset.addEventListener('click',shuffle);root.querySelector('.sim-card').appendChild(reset);shuffle();
+};
+
 /* Keep the concept-stage names explicit and ensure every referenced handler exists. */
 if(window.CL_DEF&&window.CL_DEF.chapters){var map={'qc-01':'atomBasics'};window.CL_DEF.chapters.forEach(function(c){if(map[c.id])c.sim=map[c.id];});}
 })();

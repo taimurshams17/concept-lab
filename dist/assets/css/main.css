@@ -1454,7 +1454,7 @@ button,a,input,select,textarea{max-width:100%;touch-action:manipulation}
 #app{overflow-wrap:anywhere}
 .home-launchpad,.home-launchpad>.w,.launch-feature-grid,.launch-subject-grid,.launch-tool-grid{min-width:0;max-width:100%}
 .launch-feature-card,.launch-subject-card,.launch-tool{min-width:0;overflow-wrap:anywhere}
-#nav.nav-portal{overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box;left:auto!important;right:12px!important;top:calc(70px + env(safe-area-inset-top))!important;bottom:auto!important;margin:0!important}
+#nav.nav-portal{overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;box-sizing:border-box;left:auto!important;right:12px!important;top:8px!important;bottom:auto!important;margin:0!important}
 #nav.nav-portal a{min-width:0;max-width:100%;overflow:hidden}
 #nav.nav-portal .menu-tile-copy{overflow-wrap:anywhere;word-break:normal}
 .bottom-nav{box-sizing:border-box;max-width:calc(100vw - 16px);padding-bottom:max(5px,env(safe-area-inset-bottom));}
@@ -1900,3 +1900,505 @@ body.navopen #clMessagePanel{display:none!important}
 @media(max-width:600px){
   #clMessagePanel.cl-message-panel{top:calc(var(--header-height,64px) + 8px + env(safe-area-inset-top,0px))!important;left:10px!important;right:10px!important;width:auto!important;max-width:none!important}
 }
+
+/* ConceptLab v9.0.3: colorful catalog icons and compact responsive lab/game layouts. */
+.arcade-page .gm .gico,
+.home-lab-card .gico,
+.home-lab-grid .gico,
+.lab-card-grid .gm .gico{
+  color:#fff!important;
+  background:linear-gradient(145deg,hsl(var(--icon-hue,195) 82% 54% / .28),hsl(calc(var(--icon-hue,195) + 38) 80% 42% / .13))!important;
+  border:1px solid hsl(var(--icon-hue,195) 85% 72% / .45)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 5px 16px hsl(var(--icon-hue,195) 80% 35% / .12);
+}
+.arcade-page .gm .gico{font-size:27px;filter:none;text-shadow:0 2px 5px rgba(0,0,0,.2)}
+.arcade-page .gm{min-width:0}
+.arcade-page .gm h3,.arcade-page .gm p{overflow-wrap:anywhere}
+.play-detail-page,.lab-detail-page{width:min(100%,1000px);padding-top:clamp(18px,3vw,32px);padding-bottom:clamp(26px,4vw,48px)}
+.play-detail-page .bk,.lab-detail-page .bk{display:inline-flex;align-items:center;gap:7px;margin-bottom:12px}
+.play-detail-page .gh2,.lab-detail-page .gh2{gap:14px;margin:8px 0 18px;align-items:center}
+.play-detail-page .gh2 .gico.big,.lab-detail-page .gh2 .gico.big{display:grid;place-items:center;width:56px;height:56px;flex:0 0 56px;font-size:30px;filter:none;border-radius:16px;background:linear-gradient(145deg,hsl(var(--icon-hue,195) 80% 52% / .25),hsl(calc(var(--icon-hue,195) + 45) 80% 40% / .12));border:1px solid hsl(var(--icon-hue,195) 80% 70% / .4);box-shadow:0 8px 22px hsl(var(--icon-hue,195) 80% 35% / .12)}
+.play-detail-page .gh2 .ctitle,.lab-detail-page .gh2 .ctitle{font-size:clamp(23px,3.4vw,36px);line-height:1.2;overflow-wrap:anywhere}
+.play-detail-page .gh2 .mutt,.lab-detail-page .gh2 .mutt{font-size:13px;line-height:1.55}
+.game-instructions{margin:12px 0 18px;padding:12px 14px;border:1px solid rgba(45,212,191,.25);border-left:3px solid #2dd4bf;border-radius:12px;background:linear-gradient(120deg,rgba(13,148,136,.12),rgba(15,23,42,.24));color:#d8f7f2}
+.game-instructions b{display:block;margin-bottom:4px;font-size:14px;color:#99f6e4}
+.game-instructions p{margin:0;font-size:13px;line-height:1.7;color:#c7d9e3}
+/* Lab controls share a compact card rhythm on phones and desktop. */
+.simcard{min-width:0}
+.simcard .ctl,.simcard .ro,.simcard .chips{min-width:0}
+.simcard .ctl>div,.simcard .ro>div{min-width:0}
+.simcard .ctl label{line-height:1.4}
+.simcard .ctl output{font-variant-numeric:tabular-nums}
+.lens-kind,.mirror-kind,.motion-direction{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.lens-kind .btn,.mirror-kind .btn,.motion-direction .btn{min-height:40px;padding:8px 13px}
+.lens-controls-host,.mirror-controls-host{margin:0 0 14px}
+.lens-stage,.mirror-stage,.motion-stage{width:100%;min-width:0;margin:10px 0 14px;overflow:hidden;border:1px solid rgba(148,163,184,.3);border-radius:15px;background:#071827;box-shadow:0 10px 28px rgba(0,0,0,.14)}
+.lens-stage svg,.mirror-stage svg,.motion-stage svg{display:block;width:100%;height:auto;max-height:420px}
+.lens-results,.mirror-results,.motion-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.lens-results>* ,.mirror-results>* ,.motion-results>div{min-width:0;padding:10px 12px;border:1px solid rgba(125,211,252,.17);border-radius:11px;background:rgba(15,30,46,.75);font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+.lens-results b,.mirror-results b,.motion-results b{display:block;color:#9bdcfb;font-size:13px}
+.motion-results small{display:block;color:#9aafc2;font-size:11px;margin-bottom:5px}
+.motion-results p{grid-column:1/-1;margin:0;padding:10px 12px;border-radius:10px;background:rgba(15,23,42,.6);color:#cbd5e1;font-size:12px;line-height:1.65}
+.motion-results p.success{color:#a7f3d0;border:1px solid rgba(52,211,153,.26)}
+.motion-results p.warn{color:#fcd34d;border:1px solid rgba(251,191,36,.25)}
+.sim-intro{font-size:13px;line-height:1.7;margin:0 0 13px}
+.lens-note{margin:8px 0 0;padding:10px 12px;border-radius:10px;background:rgba(15,23,42,.55);font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+/* Guided wet-test workbench. */
+.wet-test-ui{display:grid;gap:14px;min-width:0}
+.wet-workbench{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.55fr);gap:12px;align-items:stretch}
+.wet-sample-panel,.wet-action-panel,.wet-inference{min-width:0;padding:clamp(12px,2.2vw,18px);border:1px solid rgba(125,211,252,.18);border-radius:15px;background:linear-gradient(145deg,rgba(15,35,51,.87),rgba(4,12,22,.88));box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.wet-sample-panel{display:flex;align-items:center;flex-direction:column;text-align:center;justify-content:flex-start}
+.wet-sample-label{align-self:flex-start;color:#7dd3fc;font-size:10px;font-weight:800;letter-spacing:.14em}
+.wet-sample-panel>strong{margin:9px 0 4px;font-size:16px;color:#e2f4ff}
+.wet-sample-panel p,.wet-inference p{margin:0;color:#9db3c5;font-size:12px;line-height:1.6}
+.wet-test-tube{position:relative;width:66px;height:115px;margin:16px auto 4px;border:3px solid rgba(186,230,253,.82);border-top:0;border-radius:0 0 22px 22px;overflow:hidden;background:linear-gradient(90deg,rgba(255,255,255,.2),transparent 35%,rgba(255,255,255,.1));box-shadow:inset 7px 0 12px rgba(255,255,255,.08),0 8px 22px rgba(0,0,0,.18)}
+.wet-tube-cap{position:absolute;z-index:2;top:0;left:-4px;right:-4px;height:10px;border-radius:5px;background:#64748b;border:1px solid rgba(255,255,255,.35)}
+.wet-liquid{position:absolute;inset:34px 2px 2px;border-radius:0 0 17px 17px;background:#64748b;opacity:.9;transition:background .25s}
+.wet-bubbles{position:absolute;inset:auto 0 9px;height:45px;opacity:0;transition:opacity .2s}
+.wet-bubbles i{position:absolute;bottom:0;width:6px;height:6px;border:1px solid rgba(255,255,255,.8);border-radius:50%;background:rgba(255,255,255,.22);animation:wetBubble 1.5s ease-in infinite}
+.wet-bubbles i:nth-child(1){left:17px;animation-delay:-.2s}.wet-bubbles i:nth-child(2){left:34px;animation-delay:-.8s}.wet-bubbles i:nth-child(3){left:25px;animation-delay:-1.1s}
+.wet-bubbles.active{opacity:1}
+@keyframes wetBubble{0%{transform:translateY(20px) scale(.6);opacity:.1}55%{opacity:1}100%{transform:translateY(-25px) scale(1);opacity:0}}
+.wet-action-panel h3,.wet-inference h3{margin:0 0 10px;color:#d9efff;font-size:15px;line-height:1.4}
+.wet-reagent-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.wet-reagent{display:flex;flex-direction:column;gap:4px;text-align:left;min-width:0;min-height:66px;padding:10px;border:1px solid rgba(148,163,184,.22);border-radius:11px;background:rgba(15,23,42,.72);color:#e2e8f0;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}
+.wet-reagent:hover,.wet-reagent.selected{border-color:rgba(45,212,191,.65);background:rgba(13,148,136,.14)}
+.wet-reagent:active{transform:scale(.99)}
+.wet-reagent b{font-size:12px;line-height:1.45}.wet-reagent small{font-size:10px;line-height:1.45;color:#9fb4c5}
+.wet-observation{margin-top:10px;padding:12px;border-radius:11px;border:1px solid rgba(125,211,252,.16);background:rgba(2,8,18,.5)}
+.wet-observation>b{display:block;color:#7dd3fc;font-size:12px;margin-bottom:5px}
+.wet-observation p{margin:0;color:#d6e5ef;font-size:12px;line-height:1.7}.wet-observation p.wet-positive{color:#a7f3d0}
+.wet-observation small{display:block;margin-top:7px;color:#9aafc2;font-size:11px;line-height:1.55}
+.wet-inference{display:grid;gap:11px}
+.wet-guess-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.wet-guess-row select{flex:1 1 210px;min-width:0;min-height:42px;padding:9px 11px;border:1px solid rgba(148,163,184,.35);border-radius:10px;background:#0b1724;color:#e2e8f0;font:inherit;font-size:13px}
+.wet-guess-row .btn{min-height:42px;padding:8px 12px}
+.wet-feedback{min-height:0;margin:0!important;padding:0;color:#fcd34d;font-size:12px;line-height:1.6}
+.wet-feedback.correct{padding:10px 12px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(52,211,153,.28);color:#a7f3d0}
+.wet-evidence{display:grid;gap:7px}
+.wet-evidence>div{display:flex;gap:10px;padding:9px 10px;border-radius:10px;background:rgba(2,8,18,.45);border:1px solid rgba(148,163,184,.12)}
+.wet-evidence>div>b{flex:0 0 26px;display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.13);color:#7dd3fc;font-size:10px}
+.wet-evidence span{min-width:0;display:grid;gap:3px}.wet-evidence strong{font-size:12px;color:#dbeafe}.wet-evidence small{font-size:11px;line-height:1.6;color:#9fb4c5;overflow-wrap:anywhere}
+.wet-safety{margin:0;padding:11px 12px;border:1px solid rgba(251,191,36,.2);border-radius:11px;background:rgba(120,70,12,.1);color:#d6c9a2;font-size:11px;line-height:1.7}
+@media(max-width:650px){
+ .play-detail-page,.lab-detail-page{padding:18px 12px calc(76px + env(safe-area-inset-bottom))!important}
+ .play-detail-page .gh2,.lab-detail-page .gh2{align-items:flex-start;gap:10px;margin:7px 0 14px}
+ .play-detail-page .gh2 .gico.big,.lab-detail-page .gh2 .gico.big{width:44px;height:44px;flex-basis:44px;font-size:24px;border-radius:12px}
+ .play-detail-page .gh2 .ctitle,.lab-detail-page .gh2 .ctitle{font-size:clamp(20px,5.8vw,29px)!important}
+ .play-detail-page .gh2 .mutt,.lab-detail-page .gh2 .mutt{font-size:12px;line-height:1.5}
+ .game-instructions{padding:10px 11px;margin:10px 0 14px}.game-instructions p{font-size:12px;line-height:1.6}
+ .wet-workbench{grid-template-columns:minmax(0,1fr)}
+ .wet-sample-panel{display:grid;grid-template-columns:68px minmax(0,1fr);grid-template-rows:auto auto 1fr;align-items:center;column-gap:12px;text-align:left;padding:12px}
+ .wet-sample-label{grid-column:1/-1}.wet-test-tube{grid-column:1;grid-row:2/4;width:52px;height:84px;margin:8px auto 0}
+ .wet-sample-panel>strong{grid-column:2;grid-row:2;margin:0;font-size:14px}.wet-sample-panel p{grid-column:2;grid-row:3;margin-top:3px}
+ .wet-reagent-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.wet-reagent{padding:9px;min-height:62px}.wet-reagent b{font-size:11px}.wet-reagent small{font-size:10px}
+ .wet-guess-row select{flex-basis:100%;width:100%}.wet-guess-row .btn{flex:1 1 auto}
+ .lens-kind .btn,.mirror-kind .btn,.motion-direction .btn{flex:1 1 auto;min-width:0;font-size:12px;padding:8px 9px}
+ .lens-stage svg,.mirror-stage svg,.motion-stage svg{min-height:0}
+ .lens-results,.mirror-results,.motion-results{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ .lens-results>* ,.mirror-results>* ,.motion-results>div{padding:9px;font-size:11px}
+ .lens-results b,.mirror-results b,.motion-results b{font-size:12px}
+ .motion-results p{font-size:11px;padding:9px}
+ .sim-intro{font-size:12px;line-height:1.65}
+}
+@media(max-width:360px){.wet-reagent-list{grid-template-columns:1fr}.wet-guess-row .btn{font-size:11px;padding:8px 9px}.lens-results,.mirror-results,.motion-results{grid-template-columns:1fr}}
+
+/* Flame Detective: keep the specimen and answer controls in view on short phone screens. */
+.game-type-flame #gm>.hud{margin-bottom:9px}
+.game-type-flame #gm .card{padding:clamp(10px,2vw,18px)!important;border-radius:15px}
+.game-type-flame #gm .flamebox{width:min(100%,190px);max-width:190px;margin:0 auto 5px}
+.game-type-flame #gm .flame-svg{max-height:220px}
+.game-type-flame #gm .chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:640px;margin:10px auto 4px}
+.game-type-flame #gm .opt2{min-width:0;min-height:44px;padding:10px 8px;white-space:normal;overflow-wrap:anywhere;line-height:1.35;font-size:clamp(11px,1.3vw,14px)}
+.game-type-flame #gm .ex{font-size:12px;line-height:1.6}
+@media(max-width:560px){.game-type-flame #gm .card{padding:10px!important}.game-type-flame #gm .flamebox{width:min(100%,150px);max-width:150px}.game-type-flame #gm .flame-svg{max-height:172px}.game-type-flame #gm .chips{gap:6px;margin:8px auto 3px}.game-type-flame #gm .opt2{min-height:42px;padding:8px 6px;font-size:11px}.game-type-flame #gm .hud{margin-bottom:7px}}
+
+/* Fast list scrolling: avoid dozens of unnecessary GPU layers on long catalog pages. */
+.arcade-page .gm.rv,.lab-card-grid .gm.rv,.chapter-index-grid .chapter-index-card.rv{will-change:auto!important}
+@media(max-width:760px){
+ .arcade-page .gm.scroll-reveal,.lab-card-grid .gm.scroll-reveal,.chapter-index-grid .chapter-index-card.scroll-reveal{will-change:auto!important;transition-duration:.28s!important;transition-delay:0s!important;animation-duration:.28s!important;animation-delay:0s!important}
+ .arcade-page .gm.rv,.lab-card-grid .gm.rv,.chapter-index-grid .chapter-index-card.rv{will-change:auto!important}
+}
+
+
+/* ConceptLab v9.0.4 — responsive typography, compact spacing, consistent colourful catalog icons. */
+#app{font-size:15px}
+#app h1{font-size:clamp(26px,3vw,39px)!important;line-height:1.2!important;letter-spacing:-.025em}
+#app h2{font-size:clamp(19px,2.15vw,28px);line-height:1.3}
+#app h3{font-size:clamp(14px,1.55vw,20px);line-height:1.35}
+#app .lead{font-size:clamp(13px,1.35vw,15px)!important;line-height:1.6!important;max-width:72ch}
+#app .pgw{padding-top:18px;padding-bottom:30px}
+#app .pgw>.pill:first-child{margin-top:3px!important;margin-bottom:8px!important}
+#app .pgw>h1{margin:5px 0 8px!important}
+#app .pgw>.lead{margin:6px 0 14px!important}
+#app .lab-subject-group{margin-top:18px!important}
+#app .lab-subject-group .subh{font-size:16px!important;margin:0 0 10px!important}
+#app .lab-subject-group .subh small{font-size:10px!important}
+#app #lbg{margin-top:12px!important}
+#app .arcade-page .daily{box-sizing:border-box;min-width:0}
+#app .arcade-page .daily .gico{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:13px!important}
+#app .arcade-page .daily h3{font-size:16px!important;line-height:1.35!important;margin:5px 0!important}
+#app .arcade-page .daily p{font-size:12px!important;line-height:1.5!important;margin:4px 0!important}
+#app .arcade-page .daily .dtag{font-size:12px!important;line-height:1.35!important}
+#app .arcade-page .gm h3,#app .lab-card-grid .gm h3{font-size:14px!important;line-height:1.35!important}
+#app .arcade-page .gm p,#app .lab-card-grid .gm p{font-size:11px!important;line-height:1.48!important}
+#app .arcade-page .gm .go,#app .lab-card-grid .gm .go{font-size:11px!important}
+#app .gico{box-sizing:border-box;display:grid;place-items:center;line-height:1!important;border-radius:12px!important;overflow:hidden;flex-shrink:0;filter:none!important;text-shadow:none!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 14px rgba(0,0,0,.14)}
+#app .arcade-page .gm .gico,#app .lab-card-grid .gm .gico,#app .home-lab-card .gico{width:40px;height:40px;min-width:40px;flex:0 0 40px;font-size:23px!important;border-radius:12px!important}
+#app .play-detail-page .gh2 .gico.big,#app .lab-detail-page .gh2 .gico.big{width:48px;height:48px;flex:0 0 48px;font-size:26px!important;border-radius:13px!important}
+#app .arcade-page .gm .gico,#app .home-lab-card .gico,#app .lab-card-grid .gm .gico{color:initial!important}
+#app .simcard{min-width:0;padding:12px!important;border-radius:14px!important;gap:10px}
+#app .simcard .sim-intro{font-size:12px;line-height:1.6;margin:0 0 8px}
+#app .simcard .ctl{margin:6px 0 8px;gap:8px 10px}
+#app .simcard .ro{margin:6px 0;gap:7px}
+#app .simcard>.cv2{border-radius:12px}
+#app .wet-test-ui{gap:10px}
+#app .wet-workbench{gap:9px}
+#app .wet-sample-panel,#app .wet-action-panel,#app .wet-inference{padding:12px;border-radius:13px}
+#app .lens-stage,#app .mirror-stage,#app .motion-stage{margin:8px 0 10px;border-radius:12px}
+#app .lens-stage svg,#app .mirror-stage svg,#app .motion-stage svg{max-height:320px}
+@keyframes opticsRayFlow{to{stroke-dashoffset:-26}}
+#app .lens-stage #lens-rays line,#app .lens-stage #lens-rays path,#app .mirror-stage #mirror-rays line,#app .mirror-stage #mirror-rays path{stroke-dasharray:8 6;animation:opticsRayFlow 1.4s linear infinite}
+@media(max-width:700px){
+  #app h1{font-size:clamp(24px,6vw,31px)!important;line-height:1.18!important}
+  #app h2{font-size:clamp(17px,4.4vw,22px)}
+  #app h3{font-size:clamp(13px,3.65vw,17px)}
+  #app .lead{font-size:13px!important;line-height:1.55!important}
+  #app .pgw{padding:8px 0 24px!important}
+  #app .pgw>.pill:first-child{margin-top:4px!important;margin-bottom:7px!important}
+  #app .pgw>h1{margin:4px 0 7px!important}
+  #app .pgw>.lead{margin:5px 0 12px!important}
+  #app .arcade-page>.gA.g3,#app .pgw>#lbg .gA.g3,#app .pgw .lab-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  #app .arcade-page .card.gm,#app .pgw .lab-card-grid>.card.gm{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:5px!important;padding:10px!important;margin:0!important;min-height:0!important;border-radius:13px!important}
+  #app .arcade-page .gm .gico,#app .lab-card-grid .gm .gico,#app .home-lab-card .gico{width:34px!important;height:34px!important;min-width:34px!important;flex-basis:34px!important;font-size:20px!important;margin:0 0 3px!important;border-radius:11px!important}
+  #app .arcade-page .gm h3,#app .lab-card-grid .gm h3{font-size:12px!important;line-height:1.33!important;margin:0 0 2px!important;overflow-wrap:anywhere}
+  #app .arcade-page .gm p,#app .lab-card-grid .gm p{font-size:10px!important;line-height:1.42!important;margin:0 0 4px!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  #app .arcade-page .gm .diff,#app .lab-card-grid .gm .diff,#app .arcade-page .gm .gmeta,#app .lab-card-grid .gm .lab-topic{font-size:9px!important;line-height:1.3!important}
+  #app .arcade-page .gm .go,#app .lab-card-grid .gm .go{font-size:10px!important;margin-top:auto!important;padding-top:4px!important}
+  #app .arcade-page>.card.daily{display:grid!important;grid-template-columns:36px minmax(0,1fr);align-items:start;gap:8px!important;padding:11px!important;margin:10px 0 14px!important;border-radius:14px!important}
+  #app .arcade-page>.card.daily>.gico{grid-column:1;grid-row:1 / span 3;width:34px!important;height:34px!important;min-width:34px!important;flex-basis:34px!important;font-size:20px!important;margin:1px 0 0!important}
+  #app .arcade-page>.card.daily>div{grid-column:2;min-width:0}
+  #app .arcade-page>.card.daily>.go{grid-column:2;font-size:12px!important;margin-top:4px!important;white-space:normal}
+  #app .arcade-page .daily h3{font-size:14px!important;margin:4px 0!important}
+  #app .arcade-page .daily p{font-size:11px!important;margin:2px 0!important}
+  #app .arcade-page .daily .dtag{font-size:10px!important}
+  #app .pgw .lab-subject-group{margin-top:14px!important}
+  #app .pgw .lab-subject-group .subh{font-size:15px!important;margin-bottom:8px!important}
+  #app .play-detail-page,#app .lab-detail-page{padding:12px 10px calc(76px + env(safe-area-inset-bottom))!important}
+  #app .play-detail-page .gh2,#app .lab-detail-page .gh2{gap:9px!important;margin:5px 0 10px!important;align-items:flex-start!important}
+  #app .play-detail-page .gh2 .gico.big,#app .lab-detail-page .gh2 .gico.big{width:42px!important;height:42px!important;min-width:42px!important;flex-basis:42px!important;font-size:23px!important;border-radius:12px!important}
+  #app .play-detail-page .gh2 .ctitle,#app .lab-detail-page .gh2 .ctitle{font-size:clamp(18px,5vw,23px)!important;line-height:1.25!important}
+  #app .play-detail-page .gh2 .mutt,#app .lab-detail-page .gh2 .mutt{font-size:11px!important;line-height:1.5!important}
+  #app .play-detail-page .bk,#app .lab-detail-page .bk{margin-bottom:8px!important;font-size:12px}
+  #app .simcard{display:flex!important;flex-direction:column!important;gap:8px!important;padding:10px!important;margin-top:8px!important}
+  #app .simcard>.ctl{order:1!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin:4px 0 6px!important;width:100%!important}
+  #app .simcard>.ctl>div{min-width:0;padding:7px!important;border-radius:9px!important}
+  #app .simcard>.ctl label{font-size:10px!important;line-height:1.3!important;gap:5px!important;flex-wrap:wrap}
+  #app .simcard>.ctl output{font-size:11px!important}
+  #app .simcard>.ctl input[type=range]{height:26px!important;min-height:26px!important}
+  #app .simcard>.cv2{order:2!important;width:100%!important;height:auto!important;max-height:clamp(165px,54vw,245px)!important;min-height:0!important;object-fit:contain}
+  #app .simcard>.chips{order:3!important;margin:4px 0!important;gap:6px!important}
+  #app .simcard>.ro{order:4!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;margin:4px 0 6px!important;width:100%!important}
+  #app .simcard>.ro>div{min-width:0;padding:7px 6px!important;border-radius:9px!important}
+  #app .simcard>.ro dt{font-size:10px!important;line-height:1.25!important;overflow-wrap:anywhere}
+  #app .simcard>.ro dd{font-size:clamp(12px,3.8vw,16px)!important;line-height:1.25!important;overflow-wrap:anywhere}
+  #app .simcard .lens-controls-host,#app .simcard .mirror-controls-host{order:1!important;margin:0 0 8px!important}
+  #app .simcard .lens-stage,#app .simcard .mirror-stage{order:2!important}
+  #app .simcard .lens-results,#app .simcard .mirror-results{order:3!important}
+  #app .simcard .lens-note{order:4!important}
+  #app .simcard .motion-stage{order:2!important}
+  #app .simcard .wet-test-ui{gap:8px!important}
+  #app .simcard .wet-workbench{grid-template-columns:minmax(0,1fr)!important;gap:8px!important}
+  #app .simcard .wet-sample-panel,#app .simcard .wet-action-panel,#app .simcard .wet-inference{padding:10px!important}
+  #app .simcard .wet-test-tube{width:46px!important;height:76px!important}
+  #app .lens-kind .btn,#app .mirror-kind .btn,#app .motion-direction .btn{flex:1 1 auto;min-width:0;min-height:36px!important;padding:7px 8px!important;font-size:11px!important}
+  #app .lens-results,#app .mirror-results,#app .motion-results{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;margin:6px 0!important}
+  #app .lens-results>*,#app .mirror-results>*,#app .motion-results>div{padding:8px!important;font-size:10px!important}
+  #app .lens-results b,#app .mirror-results b,#app .motion-results b{font-size:11px!important}
+  #app .sim-intro{font-size:11px!important;line-height:1.55!important;margin-bottom:7px!important}
+  #app .game-instructions{padding:9px 10px!important;margin:8px 0 10px!important}
+  #app .game-instructions b{font-size:12px!important}
+  #app .game-instructions p{font-size:11px!important;line-height:1.55!important}
+}
+@media(max-width:380px){
+  #app .arcade-page>.gA.g3,#app .pgw>#lbg .gA.g3,#app .pgw .lab-card-grid{gap:6px!important}
+  #app .arcade-page .card.gm,#app .pgw .lab-card-grid>.card.gm{padding:8px!important}
+  #app .arcade-page .gm h3,#app .lab-card-grid .gm h3{font-size:11px!important}
+  #app .simcard>.ctl{gap:6px!important}
+}
+@media(prefers-reduced-motion:reduce){#app .lens-stage #lens-rays line,#app .lens-stage #lens-rays path,#app .mirror-stage #mirror-rays line,#app .mirror-stage #mirror-rays path{animation:none!important}}
+
+/* ConceptLab v9.0.5 — compact spacing, aligned icon tiles, mobile-first simulation controls. */
+#app section{padding:clamp(34px,5vw,62px) 0}
+#app section.tight{padding:clamp(26px,3.4vw,40px) 0}
+#app .sh2{margin-bottom:10px}
+#app .gA{gap:clamp(10px,1.4vw,15px);margin-top:clamp(18px,2.8vw,30px)}
+#app .home-lab{padding-block:38px}
+#app .arcade-s{padding-block:38px}
+#app .gdeck{margin-top:18px}
+#app .gico{aspect-ratio:1/1;vertical-align:middle;line-height:1!important;text-align:center}
+#app .arcade-page .gm .gico,
+#app .lab-card-grid .gm .gico,
+#app .home-lab-card .gico,
+#app .play-detail-page .gh2 .gico.big,
+#app .lab-detail-page .gh2 .gico.big{
+  background:linear-gradient(145deg,hsl(var(--icon-hue,195) 85% 58% / .24),hsl(calc(var(--icon-hue,195) + 35) 78% 36% / .16))!important;
+  border:1px solid hsl(var(--icon-hue,195) 80% 70% / .42)!important;
+  border-radius:13px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 5px 16px hsl(var(--icon-hue,195) 80% 35% / .14)!important;
+  padding:0!important;
+}
+#app .arcade-page .gm .gico,#app .lab-card-grid .gm .gico,#app .home-lab-card .gico{overflow:hidden;flex-shrink:0}
+#app .lab-page .lab-subject-group{margin-top:16px}
+#app .lab-page .lab-subject-group .subh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+#app .lab-page .lab-card-grid .gm{min-width:0}
+#app .lab-page .lab-card-grid .gm .go{align-self:flex-start}
+#app .simcard{padding:clamp(9px,1.7vw,14px)!important;gap:8px!important}
+#app .simcard .ctl{margin:4px 0 6px!important;gap:7px 9px!important}
+#app .simcard .ctl>div{padding:7px!important;border-radius:10px!important}
+#app .simcard .chips{margin:4px 0!important}
+#app .simcard>.cv2{animation:simStageReveal .35s ease-out both}
+#app .lens-stage,#app .mirror-stage,#app .motion-stage{animation:simStageReveal .35s ease-out both}
+@keyframes simStageReveal{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+  #app section{padding:25px 0!important}
+  #app section.tight{padding:21px 0!important}
+  #app .w{padding-left:12px;padding-right:12px}
+  #app .gA{gap:8px!important;margin-top:17px!important}
+  #app .sh2{margin-bottom:7px!important}
+  #app .sh2 p{font-size:12px;line-height:1.5;margin-top:6px}
+  #app .home-lab{padding-block:22px!important}
+  #app .arcade-s{padding-block:22px!important}
+  #app .gdeck{margin-top:12px}
+  #app .hero{padding:28px 12px 18px!important;gap:10px!important}
+  #app .typed{font-size:15px!important;line-height:1.45;margin-bottom:12px!important}
+  #app .orb-wrap{max-width:300px}
+  #app .pgw{padding-left:0!important;padding-right:0!important}
+  #app .arcade-page>.gA.g3,#app .pgw>#lbg .gA.g3,#app .pgw .lab-card-grid{gap:8px!important}
+  #app .simcard>.ctl{order:1!important}
+  #app .simcard>.chips{order:2!important}
+  #app .simcard>.cv2{order:3!important;max-height:clamp(150px,47vw,220px)!important}
+  #app .simcard>.ro{order:4!important}
+  #app .simcard .lens-controls-host,#app .simcard .mirror-controls-host{order:1!important}
+  #app .simcard .lens-stage,#app .simcard .mirror-stage{order:2!important}
+  #app .simcard .lens-results,#app .simcard .mirror-results{order:3!important}
+  #app .simcard .lens-note{order:4!important}
+  #app .simcard .motion-stage{order:3!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #app .simcard>.cv2,#app .lens-stage,#app .mirror-stage,#app .motion-stage{animation:none!important}
+}
+
+
+/* v9.0.6 mobile repair: size every converted inline SVG icon to its text context. */
+.cl-icon-wrap{display:inline-flex;align-items:center;justify-content:center;vertical-align:-.14em;line-height:1;max-width:1.25em;max-height:1.25em;flex:0 0 auto}
+.cl-icon-wrap .cl-mono-icon,svg.cl-mono-icon{display:inline-block;width:1em!important;height:1em!important;min-width:1em!important;max-width:1.25em!important;max-height:1.25em!important;vertical-align:middle;flex:0 0 auto}
+.tipc .cl-icon-wrap,.about-icon .cl-icon-wrap{width:1.05em;height:1.05em;max-width:1.05em;max-height:1.05em;vertical-align:-.14em}
+
+/* v9.0.6 menu: keep the portal close to the site header and avoid a tall blank lead-in. */
+#nav.nav-portal{margin-top:0!important;transform-origin:top right;max-height:calc(100dvh - 96px - env(safe-area-inset-bottom))!important}
+#nav.nav-portal .menu-group-label{margin:5px 2px 4px!important;padding:5px 3px!important;font-size:10px!important;line-height:1.25!important}
+#nav.nav-portal a.menu-tile{min-height:62px;padding:9px 10px!important}
+
+/* v9.0.6 About: predictable padding, no text glued to card edges, and compact semantic icon tiles. */
+#app .about-page,#app .about-page *{box-sizing:border-box;min-width:0}
+#app .about-page{width:min(100%,900px)!important;padding-left:clamp(12px,3vw,24px)!important;padding-right:clamp(12px,3vw,24px)!important;padding-bottom:calc(30px + env(safe-area-inset-bottom))!important;overflow-wrap:anywhere}
+#app .about-hero{display:grid;gap:10px;padding:clamp(12px,3vw,25px) 0!important}
+#app .about-hero h1{font-size:clamp(25px,5vw,39px)!important;line-height:1.16!important;margin:2px 0 0!important;overflow-wrap:anywhere}
+#app .about-hero .lead{font-size:clamp(13px,1.6vw,15px)!important;line-height:1.65!important;margin:0!important;max-width:none!important}
+#app .about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:10px 0!important;align-items:stretch}
+#app .about-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:clamp(14px,2vw,21px)!important;min-width:0;overflow-wrap:anywhere}
+#app .about-card h2,#app .about-legal h2{font-size:clamp(15px,2vw,18px)!important;line-height:1.4!important;margin:0 0 3px!important;overflow-wrap:anywhere}
+#app .about-card p,#app .about-legal p{font-size:13px;line-height:1.7!important;margin:0 0 8px!important;overflow-wrap:anywhere}
+#app .about-icon{display:inline-flex!important;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;border-radius:12px!important;font-size:20px;line-height:1;padding:0;margin:0 0 2px}
+#app .about-legal{padding:clamp(14px,2.5vw,22px)!important;margin-top:12px!important;overflow-wrap:anywhere}
+#app .about-legal h2:not(:first-child){margin-top:18px!important}
+#app .feedback-form{display:grid;gap:6px;width:100%;min-width:0}
+#app .feedback-form label{margin-top:6px!important;line-height:1.4}
+#app .feedback-form input,#app .feedback-form textarea{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;border-radius:10px;padding:10px 11px;font-size:13px;line-height:1.5}
+@media(max-width:640px){#app .about-grid{grid-template-columns:minmax(0,1fr)!important;gap:9px!important}#app .about-card{padding:13px!important;gap:7px!important}#app .about-card p,#app .about-legal p{font-size:12.5px!important;line-height:1.65!important}#app .about-hero{padding-top:8px!important}#app .about-legal h2:not(:first-child){margin-top:15px!important}}
+
+/* Motion labs: concise live stage and gentle movement, while honoring reduced-motion preferences. */
+#app .motion-stage{position:relative;overflow:hidden;border-radius:13px;box-shadow:inset 0 0 0 1px rgba(125,211,252,.10)}
+#app .motion-stage svg{display:block;width:100%;height:auto;max-height:245px}
+#app .motion-stage #chase-actors g,#app .motion-stage #bus-train-actors g{will-change:transform}
+#app .motion-results{gap:7px;margin-top:8px}
+#app .ion-identification-ui #ion-run-test{width:100%;margin-top:8px;min-height:40px}
+#app .ion-identification-ui #ion-run-test:disabled{opacity:.45;cursor:not-allowed}
+#app .ion-identification-ui .ion-step-count{display:inline-flex;margin-top:8px;padding:4px 8px;border:1px solid rgba(125,211,252,.18);border-radius:999px;font-size:10px;color:#9fb7ca}
+@keyframes ionReveal{from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+#app .ion-identification-ui .wet-observation{animation:ionReveal .2s ease-out both}
+@media(prefers-reduced-motion:reduce){#app .ion-identification-ui .wet-observation{animation:none!important}}
+
+/* v9.0.6 final override: mobile menu starts at the top of the web viewport, no oversized empty gap. */
+#nav.nav-portal{top:8px!important;margin-top:0!important}
+@media(max-width:600px){#nav.nav-portal{top:8px!important;max-height:calc(100dvh - 16px - env(safe-area-inset-bottom))!important}}
+/* The tip glyph is inline content; never let its SVG expand to the browser default canvas size. */
+.tipc .cl-icon-wrap{display:inline-flex!important;width:1.05em!important;height:1.05em!important;max-width:1.05em!important;max-height:1.05em!important;vertical-align:-.14em!important}
+.tipc svg.cl-mono-icon{display:inline-block!important;width:1.05em!important;height:1.05em!important;min-width:1.05em!important;max-width:1.05em!important;max-height:1.05em!important}
+
+/* v9.0.6 mobile simulation order: make child order effective so controls precede large stages. */
+@media(max-width:700px){
+  #app .simcard{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
+  #app .simcard>*{min-width:0;max-width:100%;width:100%;box-sizing:border-box}
+  #app .simcard>.ctl{order:1!important}
+  #app .simcard>.chips{order:2!important}
+  #app .simcard>.cv2,#app .simcard>.motion-stage{order:3!important}
+  #app .simcard>.ro,#app .simcard>.motion-results{order:4!important}
+}
+
+/* Ion Detective — interactive qualitative-analysis lab, adaptive for phones */
+.ion-featured-game{display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;margin:20px 0 18px;padding:clamp(17px,3vw,27px);border:1px solid rgba(56,189,248,.34);border-radius:20px;text-decoration:none;color:#e8f7ff;background:radial-gradient(circle at 92% 10%,rgba(56,189,248,.19),transparent 37%),linear-gradient(125deg,#10283a,#08131f 72%);box-shadow:inset 0 1px rgba(255,255,255,.05),0 12px 28px rgba(0,0,0,.13)}
+.ion-featured-icon{display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border:1px solid rgba(125,211,252,.28);border-radius:17px;background:rgba(56,189,248,.1);font-size:34px}.ion-featured-copy{display:flex;min-width:0;flex:1;flex-direction:column;gap:5px}.ion-featured-copy small{color:#7dd3fc;font-size:10px;font-weight:850;letter-spacing:.12em}.ion-featured-copy strong{font-size:clamp(18px,2.4vw,25px);line-height:1.25}.ion-featured-copy>span{color:#b7cedd;font-size:13px;line-height:1.55}.ion-featured-copy em{font-size:12px;font-style:normal;font-weight:800;color:#a5f3fc}.ion-featured-arrow{font-size:26px;color:#7dd3fc;padding:0 5px;transition:transform .2s}.ion-featured-game:hover .ion-featured-arrow{transform:translateX(4px)}
+.ion-instructions{border-color:rgba(56,189,248,.25);background:rgba(56,189,248,.055)}.ion-instructions p{line-height:1.75}
+.ion-game-shell{--ion-ink:#eaf5ff;--ion-muted:#9ab4c7;--ion-line:rgba(142,190,219,.18);--ion-cyan:#7dd3fc;color:var(--ion-ink);display:grid;gap:16px;min-width:0}.ion-hero{display:flex;align-items:center;gap:16px;padding:clamp(17px,3vw,25px);border:1px solid rgba(56,189,248,.24);border-radius:20px;background:radial-gradient(circle at 92% 0%,rgba(56,189,248,.16),transparent 38%),linear-gradient(135deg,rgba(14,38,56,.98),rgba(5,14,25,.99))}.ion-hero-icon{display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border-radius:18px;background:rgba(56,189,248,.1);border:1px solid rgba(125,211,252,.2);font-size:34px}.ion-eyebrow{font-size:10px;color:#7dd3fc;font-weight:850;letter-spacing:.15em}.ion-hero h2{margin:4px 0 6px;font-size:clamp(21px,3.6vw,31px);line-height:1.2;letter-spacing:-.025em}.ion-hero h2 span{display:block;font-size:.62em;letter-spacing:0;color:#b4cee0;margin-top:5px}.ion-hero p{margin:0;color:#a8bfd0;line-height:1.6;font-size:13px}.ion-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ion-mode-card{display:flex;align-items:flex-start;gap:12px;min-width:0;min-height:110px;padding:15px;text-align:left;border-radius:15px;border:1px solid var(--ion-line);background:linear-gradient(145deg,rgba(14,31,45,.98),rgba(7,16,27,.98));color:var(--ion-ink);font:inherit;cursor:pointer;transition:border-color .2s,transform .2s,background .2s}.ion-mode-card:hover{border-color:rgba(56,189,248,.5);transform:translateY(-2px);background:linear-gradient(145deg,rgba(17,44,62,.98),rgba(7,16,27,.98))}.ion-mode-icon{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border:1px solid rgba(125,211,252,.15);border-radius:12px;background:rgba(56,189,248,.07);font-size:22px}.ion-mode-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px}.ion-mode-copy b{font-size:14px;line-height:1.35}.ion-mode-copy small{font-size:11px;line-height:1.55;color:#a6bdce}.ion-mode-copy em{font-size:10px;font-style:normal;color:#7dd3fc;font-weight:800;margin-top:auto}.ion-mode-go{font-size:20px;color:#7dd3fc;margin-left:auto}.ion-learning-strip{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border:1px solid rgba(167,139,250,.2);border-radius:14px;background:rgba(139,92,246,.055);font-size:12px;line-height:1.65}.ion-learning-strip b{white-space:nowrap;color:#c4b5fd}.ion-learning-strip span{color:#b8c8da}.ion-safety-note{font-size:10px;line-height:1.6;color:#8199ab;margin:0;padding:0 2px}.ion-topline{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.ion-topline .btn{min-height:38px;padding:7px 11px;font-size:12px}.ion-mode-pill,.ion-round,.ion-tag{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border:1px solid rgba(125,211,252,.2);border-radius:99px;background:rgba(56,189,248,.06);color:#9bdcf5;font-size:10px;font-weight:800}.ion-round{margin-left:auto;color:#b5c8d8}.ion-lab-hud,.ion-quiz-hud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.ion-lab-hud>div,.ion-quiz-hud>div{min-width:0;padding:12px 14px;border:1px solid var(--ion-line);border-radius:13px;background:rgba(10,23,35,.88);display:flex;flex-direction:column;gap:3px}.ion-lab-hud small,.ion-quiz-hud small{font-size:10px;color:#8eaabe}.ion-lab-hud b,.ion-quiz-hud b{font-size:19px;line-height:1.25;overflow-wrap:anywhere;color:#e6f7ff}.ion-sample{display:flex;align-items:center;gap:18px;padding:18px!important;border:1px solid rgba(125,211,252,.17);background:linear-gradient(135deg,rgba(10,30,45,.98),rgba(5,15,24,.98))!important}.ion-sample-art{display:flex;flex:0 0 112px;min-height:126px;flex-direction:column;align-items:center;justify-content:center;gap:9px;border:1px solid rgba(125,211,252,.12);border-radius:14px;background:rgba(56,189,248,.045);color:#7395aa;font-size:9px;font-weight:850;letter-spacing:.14em;text-align:center}.ion-tube{position:relative;overflow:hidden;width:42px;height:74px;border:2px solid rgba(179,215,237,.6);border-top:0;border-radius:0 0 19px 19px / 0 0 23px 23px;background:linear-gradient(90deg,rgba(255,255,255,.12),transparent 30%,rgba(255,255,255,.07));transform:rotate(0deg)}.ion-liquid{position:absolute;left:1px;right:1px;bottom:1px;height:55%;border-radius:0 0 16px 16px;background:rgba(221,241,250,.09)}.liquid-blue{height:67%;background:linear-gradient(90deg,#0c77c5,#43c0f4,#0f70bb);box-shadow:0 0 14px rgba(56,189,248,.32)}.liquid-green{height:54%;background:linear-gradient(90deg,#38744b,#9dc58c,#4a8557)}.liquid-amber{height:61%;background:linear-gradient(90deg,#87512a,#c78b3e,#7b4e2e)}.liquid-clear{height:32%;background:linear-gradient(90deg,rgba(172,221,246,.16),rgba(224,244,255,.37),rgba(172,221,246,.14))}.ion-sample-meta{min-width:0;flex:1}.ion-sample-meta h3{font-size:21px;margin:8px 0 5px}.ion-sample-meta p{margin:5px 0;font-size:13px;line-height:1.65;color:#b8cad8}.ion-sample-meta .mutt{font-size:11px;color:#8ea7b9}.ion-sample-meta .btn{min-height:36px;margin-top:7px}.ion-hint{padding:9px 11px!important;border-left:2px solid #a78bfa;border-radius:0 8px 8px 0;background:rgba(167,139,250,.07);color:#d2c5ff!important;font-size:11px!important}.ion-panel{min-width:0;padding:clamp(14px,2.4vw,20px);border:1px solid var(--ion-line);border-radius:17px;background:linear-gradient(145deg,rgba(10,24,36,.96),rgba(5,13,22,.98))}.ion-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.ion-panel-head h3{margin:4px 0 0;font-size:17px}.ion-step{font-size:9px;letter-spacing:.15em;font-weight:850;color:#7dd3fc}.ion-muted{font-size:10px;color:#819bad;text-align:right}.ion-test-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.ion-test-btn{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:119px;min-width:0;padding:12px;border-radius:13px;border:1px solid rgba(125,211,252,.15);background:rgba(16,37,53,.64);color:#e6f5ff;text-align:left;font:inherit;cursor:pointer}.ion-test-btn>span{font-size:21px}.ion-test-btn b{font-size:12px;line-height:1.4}.ion-test-btn small{font-size:10px;line-height:1.45;color:#91aabd;min-height:2.8em}.ion-test-btn em{font-size:10px;line-height:1.35;color:#7dd3fc;font-style:normal;font-weight:800;margin-top:auto}.ion-test-btn:hover:not(:disabled){border-color:rgba(56,189,248,.48)}.ion-test-btn.is-done{border-color:rgba(52,211,153,.28);background:rgba(16,75,58,.18)}.ion-test-btn.is-done em{color:#6ee7b7}.ion-test-btn:disabled{cursor:default;opacity:.9}.ion-observations{display:grid;gap:9px}.ion-observation{padding:12px 13px;border:1px solid rgba(125,211,252,.13);border-radius:12px;background:rgba(14,32,46,.65)}.ion-obs-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.ion-obs-top b{font-size:12px}.ion-obs-top span{flex:0 0 auto;font-size:9px;font-weight:800;padding:4px 8px;border-radius:99px;background:rgba(148,163,184,.1);color:#b7cada}.ion-observation p{font-size:12px;color:#c0d0dc;line-height:1.7;margin:9px 0}.ion-observation code,.ion-note-card code{display:block;white-space:normal;overflow-wrap:anywhere;color:#a5f3fc;background:rgba(56,189,248,.055);border-radius:8px;padding:8px 9px;font-size:11px;line-height:1.6}.ion-observation.tone-blue{border-color:rgba(56,189,248,.38)}.ion-observation.tone-green{border-color:rgba(74,222,128,.3)}.ion-observation.tone-brown{border-color:rgba(180,106,55,.4)}.ion-observation.tone-yellow{border-color:rgba(250,204,21,.3)}.ion-empty-note{padding:20px;text-align:center;color:#7893a7;border:1px dashed rgba(125,211,252,.17);border-radius:12px;font-size:12px}.ion-select-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ion-ion-pick{min-width:0;padding:12px;border:1px solid rgba(125,211,252,.12);border-radius:13px;background:rgba(9,22,34,.5)}.ion-ion-pick>b{font-size:13px}.ion-ion-pick>p{font-size:10px;color:#90aabc;margin:5px 0 10px}.ion-chip-grid{display:flex;flex-wrap:wrap;gap:6px}.ion-ion-chip{padding:8px 10px;min-width:54px;border-radius:9px;border:1px solid rgba(125,211,252,.18);background:#0d2232;color:#d9effc;font:700 13px/1.2 inherit;font-family:inherit;cursor:pointer}.ion-ion-chip.selected{border-color:#7dd3fc;background:#16425a;color:#eafaff;box-shadow:0 0 0 2px rgba(56,189,248,.11)}.ion-ion-chip:disabled{cursor:default}.ion-feedback{font-size:12px;line-height:1.85;color:#bed2e1;margin:10px 0;overflow-wrap:anywhere}.ion-actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:13px}.ion-actions .btn{min-height:43px;white-space:normal;line-height:1.4}.ion-quiz-hud{margin-bottom:12px}.ion-timer-track{height:6px;overflow:hidden;background:rgba(148,163,184,.16);border-radius:99px;margin:-2px 0 14px}.ion-timer-track i{display:block;height:100%;background:linear-gradient(90deg,#7dd3fc,#c4b5fd);transition:width .2s linear}.ion-question{padding:clamp(17px,3vw,25px)!important;border:1px solid var(--ion-line);background:linear-gradient(145deg,rgba(11,27,41,.98),rgba(5,14,24,.98))!important}.ion-question h3{font-size:clamp(18px,2.6vw,22px);line-height:1.6;margin:10px 0 18px}.ion-quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.ion-quiz-option{display:flex;align-items:center;gap:10px;min-width:0;min-height:56px;padding:12px;border-radius:12px;border:1px solid rgba(125,211,252,.15);background:rgba(15,35,50,.75);color:#e6f5ff;text-align:left;font:inherit;cursor:pointer}.ion-quiz-option>span{display:grid;place-items:center;flex:0 0 26px;width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.08);color:#7dd3fc;font-size:11px;font-weight:900}.ion-quiz-option b{font-size:12px;line-height:1.5;overflow-wrap:anywhere}.ion-quiz-option:hover:not(:disabled){border-color:rgba(56,189,248,.4)}.ion-quiz-option.correct{border-color:rgba(52,211,153,.5);background:rgba(16,88,61,.2)}.ion-quiz-option.incorrect{border-color:rgba(248,113,113,.48);background:rgba(127,29,29,.18)}.ion-quiz-option:disabled{cursor:default}.ion-feedback:empty{display:none}.ion-feedback span{display:block;margin-top:5px}.ion-good{color:#6ee7b7}.ion-bad{color:#fca5a5}.ion-notebook-hero{display:flex;align-items:center;gap:14px;padding:18px;border:1px solid var(--ion-line);border-radius:15px;background:linear-gradient(135deg,rgba(14,35,51,.95),rgba(6,15,25,.98))}.ion-notebook-hero>span{font-size:29px}.ion-notebook-hero h3{margin:0;font-size:21px}.ion-notebook-hero p{margin:5px 0 0;color:#91acbf;font-size:12px}.ion-notebook-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ion-note-card{min-width:0;padding:14px;border:1px solid var(--ion-line);border-radius:13px;background:rgba(10,24,36,.9)}.ion-note-card h4{font-size:13px;line-height:1.5;margin:7px 0 9px}.ion-note-card p{font-size:11px;line-height:1.65;color:#b3c8d7}.ion-note-card small{display:block;margin-top:9px;color:#8aa4b8;font-size:10px;line-height:1.6}
+@media(max-width:560px){.ion-featured-game{gap:11px;padding:14px;border-radius:15px}.ion-featured-icon{flex-basis:44px;width:44px;height:44px;font-size:25px;border-radius:12px}.ion-featured-copy small{font-size:8px;letter-spacing:.07em}.ion-featured-copy strong{font-size:16px}.ion-featured-copy>span{font-size:11px}.ion-featured-copy em{font-size:10px}.ion-featured-arrow{font-size:20px}.ion-hero{gap:12px;padding:15px;border-radius:16px}.ion-hero-icon{flex-basis:45px;width:45px;height:45px;font-size:25px;border-radius:13px}.ion-eyebrow{font-size:8px;letter-spacing:.09em}.ion-hero p{font-size:11px}.ion-mode-grid{grid-template-columns:1fr;gap:8px}.ion-mode-card{min-height:0;padding:12px;gap:10px;border-radius:13px}.ion-mode-icon{flex-basis:34px;width:34px;height:34px;font-size:19px}.ion-mode-copy b{font-size:13px}.ion-mode-copy small{font-size:10.5px}.ion-learning-strip{display:block;font-size:11px;padding:12px}.ion-learning-strip b{display:block;margin-bottom:3px}.ion-sample{align-items:flex-start;gap:12px;padding:12px!important}.ion-sample-art{flex-basis:84px;min-height:116px;font-size:8px}.ion-tube{transform:scale(.85)}.ion-sample-meta h3{font-size:18px}.ion-sample-meta p{font-size:11px}.ion-sample-meta .mutt{font-size:10px}.ion-panel{padding:12px;border-radius:14px}.ion-panel-head h3{font-size:15px}.ion-muted{font-size:9px}.ion-test-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ion-test-btn{min-height:115px;padding:10px;gap:6px}.ion-test-btn b{font-size:11px}.ion-test-btn small{font-size:9px}.ion-test-btn em{font-size:9px}.ion-select-columns{grid-template-columns:1fr;gap:9px}.ion-ion-pick{padding:10px}.ion-chip-grid{gap:5px}.ion-ion-chip{min-width:49px;padding:8px;font-size:12px}.ion-quiz-options{grid-template-columns:1fr}.ion-quiz-option{min-height:49px;padding:10px}.ion-quiz-option b{font-size:12px}.ion-notebook-grid{grid-template-columns:1fr}.ion-lab-hud>div,.ion-quiz-hud>div{padding:9px 7px}.ion-lab-hud small,.ion-quiz-hud small{font-size:9px}.ion-lab-hud b,.ion-quiz-hud b{font-size:16px}.ion-obs-top{align-items:flex-start}.ion-obs-top b{font-size:11px}.ion-observation p{font-size:11px}.ion-observation code,.ion-note-card code{font-size:10px}.ion-actions{display:grid;grid-template-columns:1fr}.ion-actions .btn{width:100%;justify-content:center}.ion-round{margin-left:auto}.ion-topline{gap:6px}.ion-topline .btn{font-size:10px;padding:6px 8px}}
+@media(prefers-reduced-motion:reduce){.ion-mode-card,.ion-featured-arrow{transition:none}}
+
+/* ConceptLab v9.2 — Ion Detective mobile-first interaction and lab-result clarity */
+.ion-game-root{display:grid;gap:12px;min-width:0;width:100%;overflow-anchor:none;scroll-margin-top:76px}
+.ion-game-root>*{min-width:0;overflow-anchor:none}
+.ion-game-root .ion-topline{position:sticky;top:66px;z-index:28;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 -2px;padding:8px 10px;border:1px solid rgba(125,211,252,.2);border-radius:13px;background:rgba(2,10,17,.94);box-shadow:0 8px 22px rgba(0,0,0,.24);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.ion-game-root .ion-topline .btn{flex:0 0 auto;min-height:37px}
+.ion-game-root .ion-topline .ion-mode-pill{max-width:100%;white-space:nowrap}
+.ion-game-root .ion-round{flex:0 0 auto}
+.ion-simulation-guide,.ion-live-result{min-width:0;border:1px solid rgba(125,211,252,.2);border-radius:15px;background:linear-gradient(140deg,rgba(11,31,46,.97),rgba(4,13,22,.98));color:#e7f6ff;padding:14px}
+.ion-simulation-guide>b{display:block;font-size:13px;color:#e6f7ff;margin-bottom:10px}
+.ion-simulation-guide>p{font-size:11px;line-height:1.75;color:#a9c0d1;margin:10px 0 0}
+.ion-guide-steps{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ion-guide-steps span{display:inline-flex;align-items:center;min-height:29px;padding:6px 9px;border-radius:9px;background:rgba(56,189,248,.08);border:1px solid rgba(125,211,252,.13);color:#c9eafa;font-size:10px;line-height:1.4;font-weight:750}
+.ion-guide-steps i{font-style:normal;color:#7dd3fc;font-size:13px}
+.ion-live-result{padding:0;overflow:hidden;border-color:rgba(56,189,248,.3);box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.ion-live-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:11px 13px;border-bottom:1px solid rgba(125,211,252,.13);background:rgba(56,189,248,.045)}
+.ion-live-head>b{font-size:12px;line-height:1.4}
+.ion-live-pulse{color:#6ee7b7;font-size:9px;animation:ionPulse 1.6s ease-in-out infinite}
+.ion-live-status{margin-left:auto;padding:4px 7px;border-radius:99px;background:rgba(52,211,153,.08);color:#86efac;font-size:9px;font-weight:800}
+.ion-live-body{display:grid;grid-template-columns:96px minmax(0,1fr);gap:13px;padding:13px;align-items:start}
+.ion-reaction-visual{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;min-height:124px;border:1px solid rgba(125,211,252,.13);border-radius:12px;background:rgba(56,189,248,.035);overflow:hidden}
+.ion-reaction-visual>small{font-size:9px;color:#99b3c6;text-align:center;padding:0 4px}
+.flame-scene>span{font-size:38px;filter:drop-shadow(0 0 13px rgba(251,146,60,.22));animation:ionFlame 1.1s ease-in-out infinite alternate}
+.gas-scene{justify-content:flex-end;padding-bottom:12px;background:linear-gradient(180deg,rgba(56,189,248,.015),rgba(56,189,248,.085))}
+.gas-bubble{position:absolute;bottom:32px;width:10px;height:10px;border:1px solid #7dd3fc;border-radius:50%;background:rgba(125,211,252,.18);animation:ionBubble 1.8s ease-in infinite}
+.gas-bubble.b1{left:25%;animation-delay:0s}.gas-bubble.b2{left:49%;width:7px;height:7px;animation-delay:.55s}.gas-bubble.b3{left:68%;width:13px;height:13px;animation-delay:1s}
+.ring-scene>span{display:grid;place-items:center;width:53px;height:53px;border-radius:50%;border:6px solid #9b5c31;color:#e6ad73;background:rgba(86,44,19,.35);font-size:20px;box-shadow:0 0 20px rgba(180,106,55,.15);animation:ionRing 2s ease-in-out infinite alternate}
+.mini-tube{position:relative;display:block;width:35px;height:67px;border:2px solid rgba(196,220,235,.65);border-top:0;border-radius:0 0 14px 14px;background:linear-gradient(90deg,rgba(255,255,255,.09),transparent 45%);overflow:hidden}
+.mini-tube i{position:absolute;bottom:0;left:0;right:0;height:33%;background:#dbe7ee;opacity:.94;border-radius:0 0 11px 11px;animation:ionSettle 1s ease-out}
+.precip-scene.tone-blue .mini-tube i{background:#278fe0}.precip-scene.tone-green .mini-tube i{background:#699f67}.precip-scene.tone-brown .mini-tube i{background:#9b572e}.precip-scene.tone-yellow .mini-tube i{background:#e9c52e}.precip-scene.tone-cream .mini-tube i{background:#d7c3a1}.precip-scene.tone-neutral .mini-tube i{height:15%;background:rgba(218,236,245,.38)}
+.ion-live-copy{min-width:0}.ion-live-copy>small{display:block;color:#7dd3fc;font-size:9px;font-weight:850;letter-spacing:.08em;margin:0 0 5px}.ion-live-copy>p{margin:0 0 9px;color:#d3e5ef;font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+.ion-live-copy code{display:block;white-space:normal;overflow-wrap:anywhere;padding:8px 9px;border:1px solid rgba(125,211,252,.1);border-radius:9px;background:rgba(56,189,248,.055);color:#a5f3fc;font:600 11px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+.ion-live-copy .ion-meaning-label{margin-top:10px;color:#c4b5fd;letter-spacing:0}
+.ion-live-copy .ion-meaning{margin-bottom:0;color:#b6cbd9;font-size:11px}
+.ion-live-sequence{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;padding:9px 12px;border-top:1px solid rgba(125,211,252,.11);background:rgba(0,0,0,.12)}
+.ion-live-sequence span{font-size:9px;color:#a8c1d2;font-weight:750}.ion-live-sequence i{font-size:12px;color:#7dd3fc;font-style:normal}
+.ion-notebook-guide{margin-top:2px}
+.ion-note-card .ion-equation-label{display:block;color:#7dd3fc;font-size:9px;font-weight:800;margin:8px 0 5px}
+.ion-note-card .ion-note-meaning{display:block;color:#b8cddd;font-size:11px;line-height:1.7;margin-top:9px}
+@keyframes ionPulse{50%{opacity:.35;transform:scale(.8)}}
+@keyframes ionFlame{to{transform:translateY(-3px) scale(1.06);filter:drop-shadow(0 0 18px rgba(251,146,60,.4))}}
+@keyframes ionBubble{0%{opacity:0;transform:translateY(10px) scale(.6)}25%{opacity:.9}100%{opacity:0;transform:translateY(-54px) scale(1.12)}}
+@keyframes ionRing{to{box-shadow:0 0 23px rgba(180,106,55,.3);transform:scale(1.04)}}
+@keyframes ionSettle{from{height:3%;opacity:.2}to{height:33%;opacity:.94}}
+@media(max-width:560px){
+ .ion-game-root{gap:10px}
+ .ion-game-root .ion-topline{top:66px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px;padding:7px;border-radius:11px;margin:0}
+ .ion-game-root .ion-topline .btn{min-height:35px;padding:6px 9px;font-size:10px;white-space:nowrap}
+ .ion-game-root .ion-topline .ion-mode-pill{justify-self:start;max-width:100%;overflow:hidden;text-overflow:ellipsis;font-size:9px;min-height:26px;padding:4px 8px}
+ .ion-game-root .ion-round{grid-column:2;justify-self:start;margin-left:0;min-height:24px;padding:4px 8px;font-size:9px}
+ .ion-simulation-guide,.ion-live-result{border-radius:12px}
+ .ion-simulation-guide,.ion-notebook-guide{padding:11px}
+ .ion-guide-steps{gap:5px}
+ .ion-guide-steps span{font-size:9px;min-height:27px;padding:5px 7px}
+ .ion-guide-steps i{font-size:11px}
+ .ion-live-head{padding:9px 10px;gap:6px}
+ .ion-live-head>b{font-size:11px;flex:1}
+ .ion-live-status{font-size:8px;margin-left:0}
+ .ion-live-body{grid-template-columns:65px minmax(0,1fr);gap:9px;padding:10px}
+ .ion-reaction-visual{min-height:96px;gap:6px}
+ .ion-reaction-visual>small{font-size:8px}
+ .flame-scene>span{font-size:29px}
+ .mini-tube{width:29px;height:55px}
+ .ring-scene>span{width:43px;height:43px;border-width:5px;font-size:16px}
+ .ion-live-copy>small{font-size:8px}
+ .ion-live-copy>p{font-size:11px;line-height:1.6;margin-bottom:7px}
+ .ion-live-copy code{font-size:10px;padding:7px}
+ .ion-live-copy .ion-meaning{font-size:10px}
+ .ion-live-sequence{gap:5px;padding:8px 7px}
+ .ion-live-sequence span{font-size:8px}
+ .ion-live-sequence i{font-size:10px}
+ .ion-sample{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px;padding:11px!important}
+ .ion-sample-art{min-height:96px;width:66px;flex:0 0 66px;font-size:7px;letter-spacing:.08em}
+ .ion-tube{transform:scale(.78)}
+ .ion-sample-meta h3{font-size:16px;margin:5px 0}
+ .ion-sample-meta p{font-size:10px;line-height:1.6}
+ .ion-sample-meta .mutt{font-size:9px}
+ .ion-sample-meta .btn{font-size:10px;min-height:33px;padding:6px 8px}
+ .ion-panel{padding:10px;border-radius:12px}
+ .ion-panel-head{gap:7px;margin-bottom:10px}
+ .ion-panel-head h3{font-size:14px}
+ .ion-muted{font-size:8px}
+ .ion-test-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .ion-test-btn{min-height:105px;padding:9px;gap:5px;border-radius:11px}
+ .ion-test-btn>span{font-size:18px}
+ .ion-test-btn b{font-size:10px}
+ .ion-test-btn small{font-size:9px;min-height:0;line-height:1.5}
+ .ion-test-btn em{font-size:9px}
+ .ion-lab-hud,.ion-quiz-hud{gap:6px}
+ .ion-lab-hud>div,.ion-quiz-hud>div{padding:8px 7px;border-radius:10px}
+ .ion-lab-hud small,.ion-quiz-hud small{font-size:8px;line-height:1.35}
+ .ion-lab-hud b,.ion-quiz-hud b{font-size:15px}
+ .ion-ion-pick{padding:9px}
+ .ion-ion-chip{min-width:0;padding:8px 9px;font-size:12px}
+ .ion-actions{gap:7px}
+ .ion-actions .btn{min-height:42px;font-size:12px;padding:10px}
+ .ion-notebook-hero{padding:12px;gap:10px}
+ .ion-notebook-hero h3{font-size:17px}
+ .ion-notebook-hero p{font-size:10px;line-height:1.5}
+ .ion-note-card{padding:12px}
+ .ion-note-card h4{font-size:12px}
+ .ion-note-card p,.ion-note-card .ion-note-meaning{font-size:10px;line-height:1.7}
+}
+@media(prefers-reduced-motion:reduce){.ion-live-pulse,.flame-scene>span,.gas-bubble,.ring-scene>span,.mini-tube i{animation:none!important}}
+@media(max-width:560px){.ion-game-root{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}}
+/* Give Ion Detective its own mobile viewport; the global bottom dock must not cover lab controls. */
+.ion-home-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;padding:0 2px}
+.ion-home-nav>span{font-size:9px;font-weight:850;letter-spacing:.1em;color:#7b9bb0;text-align:right}
+.ion-exit-link{display:inline-flex;align-items:center;min-height:31px;padding:6px 10px;border:1px solid rgba(125,211,252,.17);border-radius:99px;background:rgba(56,189,248,.04);font-size:10px;font-weight:800;color:#a8d7ee}
+.ion-exit-link:hover{border-color:rgba(56,189,252,.5);background:rgba(56,189,248,.1)}
+@media(max-width:700px){body.ion-game-active .bottom-nav{display:none!important}body.ion-game-active #app{padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}}
+
+/* ConceptLab v9.3 — clearer mobile navigation, step hierarchy and Bengali copy */
+.ion-step-hint{margin:-5px 0 13px;padding:10px 12px;border:1px solid rgba(125,211,252,.22);border-left:3px solid #38bdf8;border-radius:10px;background:rgba(56,189,248,.07);font-size:12px;line-height:1.75;color:#c8deec}.ion-step-hint b{color:#e7f7ff}
+.about-card .about-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;border:1px solid rgba(125,211,252,.2);background:rgba(56,189,248,.07);font-size:25px;line-height:1;margin-bottom:12px}.about-card:nth-child(2) .about-icon{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25)}.about-card:nth-child(3) .about-icon{background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.25)}.about-card:nth-child(4) .about-icon{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.25)}
+@media(max-width:560px){.ion-game-root .ion-topline{position:sticky;top:58px;display:flex;flex-wrap:wrap;gap:6px;padding:7px 8px;margin:0;border-radius:10px;align-items:center}.ion-game-root .ion-topline .btn{font-size:11px;min-height:34px;padding:6px 9px}.ion-game-root .ion-topline .ion-mode-pill{font-size:9px;min-height:27px;padding:5px 8px;white-space:normal;line-height:1.25}.ion-game-root .ion-topline .ion-round{font-size:9px;min-height:25px;margin-left:auto;padding:4px 7px}.ion-panel-head{align-items:flex-start;gap:7px}.ion-panel-head h3{font-size:15px;line-height:1.45}.ion-step-hint{font-size:11px;padding:9px 10px}.ion-test-btn em{font-size:9px}.about-card .about-icon{width:42px;height:42px;font-size:23px}}
+
+/* ConceptLab Arcade refresh: compact, single-row quiz HUD on every screen */
+#gm .hud{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 10px}
+#gm .hud>div{min-width:0;padding:6px 7px;border-radius:9px;text-align:center}
+#gm .hud small{font-size:9px;line-height:1.15;white-space:nowrap;letter-spacing:.01em}
+#gm .hud b{display:block;font-size:16px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gm .hud .hrt{font-size:12px}
+@media(max-width:560px){#gm .hud{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-bottom:8px}#gm .hud>div{padding:5px 3px;border-radius:8px}#gm .hud small{font-size:8px}#gm .hud b{font-size:14px}#gm .hud .hrt{font-size:10px}}
+.arcade-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.arcade-feature{display:flex;align-items:center;gap:12px;min-width:0;padding:14px;border:1px solid var(--line);border-radius:15px;background:var(--card);color:var(--txt);text-decoration:none}
+.arcade-feature-symbol{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:color-mix(in srgb,var(--p) 10%,transparent);font-size:24px}
+.arcade-feature>span:nth-child(2){display:grid;gap:4px;min-width:0;flex:1}.arcade-feature b{font-size:14px}.arcade-feature small{font-size:11px;line-height:1.5;color:var(--mut)}.arcade-feature strong{font-size:11px;white-space:nowrap;color:var(--p)}
+.arcade-subject-section{margin-top:28px}.arcade-subject-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line)}.arcade-subject-heading>div>span{font-size:9px;font-weight:800;letter-spacing:.13em;color:var(--mut)}.arcade-subject-heading h2{margin:3px 0 0;font-size:clamp(20px,3vw,25px)}.arcade-subject-heading>small{font-size:11px;color:var(--mut);white-space:nowrap}.arcade-game-card{height:100%;display:flex;flex-direction:column}.arcade-game-card>p{flex:1}.arcade-game-card .gmeta{display:flex;flex-wrap:wrap;gap:8px}.arcade-game-card .go{margin-top:12px}
+@media(max-width:560px){.arcade-feature-grid{grid-template-columns:1fr;gap:8px}.arcade-feature{padding:11px;gap:10px}.arcade-feature-symbol{flex-basis:36px;width:36px;height:36px;font-size:20px}.arcade-subject-section{margin-top:22px}.arcade-game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.arcade-game-card{padding:12px!important}.arcade-game-card h3{font-size:14px;line-height:1.4}.arcade-game-card p{font-size:11px;line-height:1.55}.arcade-game-card .gico{width:38px;height:38px;font-size:21px}.arcade-game-card .gmeta{font-size:10px;gap:5px}.arcade-game-card .go{font-size:11px}}
+
+/* Arcade cards: restore the classic compact two-card row layout on desktop and mobile. */
+.arcade-page .arcade-game-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+.arcade-page .arcade-game-card{min-width:0;padding:15px!important;border-radius:14px}
+.arcade-page .arcade-game-card h3{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.arcade-page .arcade-game-card p{font-size:12px;line-height:1.5}
+.arcade-page .arcade-game-card .gmeta{font-size:10px}
+.arcade-page .arcade-feature-grid{margin-bottom:22px}
+@media(max-width:560px){.arcade-page .arcade-game-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.arcade-page .arcade-game-card{padding:10px!important}.arcade-page .arcade-game-card h3{font-size:12px;line-height:1.35}.arcade-page .arcade-game-card p{font-size:10px;line-height:1.45}.arcade-page .arcade-game-card .gico{width:32px;height:32px;font-size:18px}.arcade-page .arcade-game-card .go{font-size:10px;margin-top:8px}.arcade-page .arcade-game-card .diff{font-size:9px}}
+/* About page: distinct, non-flask semantic glyphs for each section */
+#app .about-card:nth-child(1) .about-icon{color:#7dd3fc;font-family:Arial,sans-serif;font-weight:700}
+#app .about-card:nth-child(2) .about-icon{color:#c4b5fd;font-family:Arial,sans-serif;font-weight:700}
+#app .about-card:nth-child(3) .about-icon{color:#6ee7b7;font-family:Arial,sans-serif;font-weight:700}
+#app .about-card:nth-child(4) .about-icon{color:#fdba74;font-family:Arial,sans-serif;font-weight:700}
+/* About: use explicit inline SVGs so the icon replacement layer cannot turn them into flasks. */
+#app .about-card .about-icon-person svg,#app .about-card .about-icon-feedback svg{display:block;width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#app .about-card .about-icon-person{color:#6ee7b7}
+#app .about-card .about-icon-feedback{color:#fdba74}
