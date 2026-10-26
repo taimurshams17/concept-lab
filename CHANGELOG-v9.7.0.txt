@@ -1,0 +1,7 @@
+ConceptLab v9.7.0 — HSC Physics I Simulation & Graph Lab expansion
+
+- Reorganized the Simulation Lab into the 10 HSC Physics I chapter groups, while retaining non-Physics labs under their existing subject/chapter groupings.
+- Added 43 unique interactive Physics models for measurement uncertainty, dimensional analysis, unit conversion, vector equilibrium/components, motion graphs/free fall, free-body diagrams, pulleys, apparent weight, collisions, impulse, vertical circular motion, work/energy/power, gravitation/orbits/escape speed, elasticity, fluids, SHM energy/phase, wave superposition/resonance/beats/Doppler/sound intensity and gas kinetic/thermodynamic models.
+- Reused existing models for the previously available vector, river crossing, projectile, relative motion, Newton's law, inclined plane, circular motion, spring, pendulum, wave, standing-wave, gas, vernier calipers and screw gauge concepts rather than creating redundant cards.
+- Added a new Graphs navigation tab with 76 graph labs grouped by the 10 chapters. Every graph has a thumbnail, formula/relationship, interactive parameter control and detailed graph view.
+- Added dedicated icon metadata, responsive styling, graph filtering/search and updated offline-shell assets/service-worker version.

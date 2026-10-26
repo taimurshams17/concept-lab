@@ -1,0 +1,18 @@
+ConceptLab v9.5.0 — Homepage Refinement
+
+Requested changes
+1. Moved Brain Sprint off the top of the homepage. The challenge is retained and now appears immediately before the Interactive Playground section titled “Don’t just read it. Play with the idea.”
+2. Moved the configurable animated formula marquee to sit between the hero and Quick Access.
+3. Redesigned homepage statistics as one premium panel with aligned metric cards: 4 across on desktop and 2 × 2 on smaller screens.
+4. Kept statistics data-driven so counts update from the current chapter, active simulation, active game, and saved XP data when the site reloads/renders.
+5. Removed the separate hard-coded formula ticker at the bottom so the animated formula strip is not duplicated.
+
+Validation performed
+- Node syntax validation for all site JavaScript and admin JavaScript.
+- Static checks confirm Brain Sprint remains present, is not rendered in the top hero section, and is inserted before the Interactive Playground section.
+- Static checks confirm formula ticker rendering occurs before Quick Access in homepage composition.
+- Build run to recreate dist/ from source.
+- Source/deployment asset synchronization and ZIP integrity checks.
+
+Note
+The updated project is packaged but not deployed to the live site. Full cross-device visual verification still needs to be performed after publishing in the target hosting environment.

@@ -1,0 +1,16 @@
+ConceptLab Enhanced v9.3.0
+
+Highlights
+1. Spaced Review — rate how well you remember a flashcard. Review spacing adapts to the rating, while local due counts, reviews completed and 21+ day intervals provide an at-a-glance view. An 18-card science starter deck is available.
+2. Scientific Unit Converter — includes 18 categories and standard unit conversions for mechanics, heat, electricity, chemistry and measurements. Temperature conversions correctly handle Celsius, Fahrenheit and Kelvin.
+3. Backup & Restore — download a JSON backup of Student Hub data and import it later on the same or another browser. The site never sends the backup file to a server. Imported files are size-limited and schema-checked.
+4. Reliability repair — defined the conversion functions that the existing Geometry/Units tool already expected, preventing its conversion controls from failing.
+
+Files
+- Student-Hub-Enhanced-v9.3.0.zip: complete project, source files, admin panel and freshly rebuilt dist/ deployment copy.
+- RELEASE-NOTES-v9.3.0.txt: this release summary.
+
+Compatibility
+- Static site, no new external API or package dependency.
+- Student Hub backup restore requires a modern browser with FileReader and Blob support.
+- Live deployment/API behavior should still be verified after publishing.

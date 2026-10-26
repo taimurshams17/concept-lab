@@ -1,0 +1,7 @@
+ConceptLab v9.6.4 — Independent Bengali and English font controls
+
+- Added separate Bengali font and English font selectors in Settings.
+- Bengali font choice is used as the Bengali glyph fallback; English/Latin glyphs keep the selected English font.
+- Added web-hosted Bengali families: Anek Bangla, Atma, Baloo Da 2, Mina, Tiro Bangla and Galada.
+- Kept Kalpurush and SolaimanLipi as local-font options with sensible fallback stacks.
+- Settings preferences remain saved in the current browser.

@@ -1,0 +1,9 @@
+ConceptLab v9.7.3
+
+- Fixed Tiger & Deer animation: unique HTML actor IDs, URL-resolved animal assets, explicit image sizing/stacking and visible fallback characters.
+- Expanded the chapter-wise Shortcut Tricks catalogue from 123 items with 150 additional condition-aware tips across Physics, Chemistry and Higher Math.
+- Moved Graph Lab under EXPLORE & LEARN and Shortcut Tricks under YOUR LEARNING SPACE in the three-line menu.
+- Removed redundant Student Hub helper/privacy note and the extra Student Hub tool-page pill.
+- Highlighted the Shortcut Tricks tile in Student Hub.
+- Bumped service worker cache version to v9.7.3 for update refresh.
+- Removed redundant Student Hub explanatory text; omitted email/institute display from the local profile summary to reduce unnecessary personal-data exposure in the UI (stored account data is not deleted).

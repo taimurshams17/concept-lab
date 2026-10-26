@@ -1,0 +1,18 @@
+ConceptLab v9.3.0 — premium study tools and reliability fixes
+
+New features
+- Added Spaced Review for flashcards with Again / Hard / Good / Easy ratings and due dates stored locally.
+- Added an optional 18-card starter deck for Physics, Chemistry and Higher Mathematics. Existing cards are preserved; duplicate starter questions are skipped.
+- Added Student Hub Backup & Restore: export an editable JSON archive and restore it locally with schema checks, size limits, data sanitization and an explicit overwrite warning.
+- Added home finder entries and Student Hub shortcuts for Spaced Review, the expanded Unit Converter, and Backup & Restore.
+- Expanded the Unit Converter to include length, area, volume, mass, time, speed, acceleration, force, energy, power, pressure, temperature, frequency, current, charge, voltage, resistance and density.
+
+Bug fixes and quality
+- Implemented missing unit-option population and conversion routines called by the existing Geometry/Units page.
+- Added affine Celsius/Fahrenheit/Kelvin conversions and absolute-zero validation instead of treating temperature as a simple linear scale.
+- Added flashcard ID migration so review scheduling remains associated with specific cards.
+- Added responsive review/backup layouts, keyboard focus styling, accessible status messages, and reduced-motion-safe transitions.
+- Rebuilt dist/ from source.
+
+Data and privacy
+- Spaced-review ratings and Student Hub data remain local unless the student explicitly downloads or restores a backup. Restoring replaces the current Student Hub data on the device.

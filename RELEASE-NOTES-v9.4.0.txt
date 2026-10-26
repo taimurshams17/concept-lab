@@ -1,0 +1,13 @@
+ConceptLab Enhanced v9.4.0
+
+Homepage changes
+- Removed Universal Learning Finder, global Ctrl/Cmd+K finder shortcut, and all related home search controls/results.
+- Removed Daily Discovery date-based lab recommendation and homepage counts for concepts, labs, and games.
+- Added Brain Sprint, a fully interactive knowledge challenge with Physics, Chemistry, Higher Math, or mixed-subject selection. Each run contains five multiple-choice questions and a 60-second timer.
+- Answers reveal the correct option and a short explanation. Scores are shown at the end and the best score for each subject selection is saved locally in this browser.
+- Responsive styling and reduced-motion support included. Existing learning routes are preserved.
+
+Validation
+- JavaScript syntax validation and static build passed.
+- Targeted challenge data checks verify 15 unique questions (5 per subject), four answers per question, and valid correct-answer indexes.
+- Full live-host/browser verification remains a deployment-time check.

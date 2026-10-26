@@ -1,0 +1,19 @@
+ConceptLab v9.6.0 - Premium student layer + premium footer
+
+New pages
+- #/solver      Formula Solver: 41 formulas (Physics, Chemistry, Higher Math), solve for any variable, rearranged + substituted steps, history.
+- #/reference   Reference Shelf: constants, SI prefixes, Greek letters, common ions, maths identities; search + copy.
+- #/share-card  Progress Card: downloadable/shareable PNG built from level, XP, streak, sims, games, badges.
+- #/appearance  Appearance Studio: accent colour, background effects, calm mode, install-as-app.
+
+Extras
+- Scroll progress bar, floating quick-tools dock, home "Student power tools" strip, menu group "STUDENT POWER TOOLS".
+- PWA: manifest.webmanifest, sw.js (network-first, offline fallback), icons.
+- Footer redesigned (animated CTA banner, 3 link columns, subject pills, back-to-top). Existing admin footer fields still drive it.
+
+Admin
+- Website Settings: toggles for dock / progress bar / home strip.
+- Footer & Social Media: CTA banner headline (use | to split), text, button label, button link.
+
+Code touched: index.html, app.js (CL_API helpers only), admin.js, build-static.js, netlify.toml. New: premium.js, premium.css, sw.js, manifest.
+Note: (c) symbol is auto-converted to an icon by mono-icons.js, so the footer uses "ConceptLab - year".

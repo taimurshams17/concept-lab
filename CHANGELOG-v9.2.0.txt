@@ -1,0 +1,8 @@
+ConceptLab v9.2.0 — Learning desk and quality pass
+
+- Reordered the homepage discovery sequence so visual science previews lead naturally into the final lab call to action.
+- Switched English UI typography to Manrope and retained Hind Siliguri for Bengali text.
+- Added responsive layouts, clearer search states, visible keyboard focus, and reduced-motion handling for the new experience.
+- Rebuilt the deployment folder from the updated source during packaging.
+
+Verification: all JavaScript files passed syntax checks; homepage and major routes were smoke-tested in Chromium using inline assets, with no runtime console errors. Search queries, route navigation, duplicate homepage IDs, and mobile horizontal overflow were checked. Direct localhost/file URL navigation was blocked by the runner, so the live deployment and server-backed API flows were not tested.

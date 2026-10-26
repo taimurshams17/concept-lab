@@ -1,0 +1,11 @@
+ConceptLab v9.7.2 — Student Hub, Graph Lab & Simulation Repair
+
+- Replaced the Student Hub tool tabs on the landing view with one responsive tile box containing the 13 study tools, Shortcut Tricks, Formula Solver, Reference Shelf and Progress Card.
+- Removed Settings from the Student Hub tile box; Settings remain accessible through the main navigation.
+- Rebuilt Tiger & Deer drawing with HTML WebP images, emoji fallback and responsive overlay positioning so animal art is visible across mobile browsers; adjusted the chase spacing and movement.
+- Expanded each Graph Lab detail with X/Y axis bounds, model parameter, sample density, animation speed/play/pause, hover/touch readout, editable user data, model visibility, connect-points control, CSV export, PNG export and reset.
+- Added responsive graph controls and visible wrapping buttons for narrow mobile screens.
+- Added an explicit close (✕) button to the navigation drawer.
+- Bumped service worker cache to v9.7.2 and precached tiger/deer image assets.
+
+Validation: JavaScript syntax checks and static build passed. Browser screenshot checks are performed where possible; no claim is made for real-device testing.

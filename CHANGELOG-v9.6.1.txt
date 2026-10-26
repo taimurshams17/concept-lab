@@ -1,0 +1,13 @@
+ConceptLab v9.6.1 — Mobile-friendly premium update
+
+- Removed the large promotional call-to-action banner from the public footer.
+- Removed the floating plus/dock UI; added all new tool destinations to the admin-managed three-line menu.
+- Added compact links for Formula Solver, Reference Shelf, Progress Card, Appearance Studio and Settings to Student Hub, visible across hub tabs.
+- Tightened premium-tool panels, preference controls, menu tiles, and Student Hub cards for mobile screens.
+- Added a public Settings page that works without signing in by default. Visitors can choose accent colour, font, text scale, density, content width, corner style, background motion, calm mode and contrast. Preferences are saved locally in the browser.
+- Kept Appearance Studio as a standalone option and added links to it from Settings and signed-in profiles. Renamed the account editor route to Edit Profile to avoid colliding with public Settings.
+- Added admin controls for tool page headings/descriptions, navigation labels/descriptions/visibility/order, guest Settings, and default font/scale/layout/accent/motion/contrast.
+- Added a direct Website Settings & Appearance Defaults shortcut to the admin dashboard.
+- Bumped the service-worker cache version so browsers fetch the updated assets.
+
+Validation: static build completed and JavaScript syntax checks passed for app.js, hub.js, premium.js, defaults.js and admin.js.

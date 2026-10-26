@@ -1,0 +1,9 @@
+ConceptLab v9.5.0
+
+Homepage refinements
+- Moved Brain Sprint away from the top of the homepage and placed it immediately before the Interactive Playground section headed “Don’t just read it. Play with the idea.”
+- Moved the admin-configurable formula marquee to immediately after the hero and directly above Quick Access.
+- Removed the second hard-coded formula ticker at the bottom to prevent duplicate formula strips.
+- Rebuilt the homepage learning statistics as a compact panel with responsive side-by-side metrics.
+- Kept metric values data-driven: chapter count derives from chapter content, simulation and game totals derive from active catalogue entries, and XP derives from the student's saved progress.
+- Rebuilt dist/ from the updated source.

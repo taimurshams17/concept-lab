@@ -1,0 +1,9 @@
+ConceptLab v9.6.2 — Student Hub homepage integration
+
+- Added Formula Solver, Reference Shelf, Progress Card, Appearance Studio and Settings to the existing Student Hub Toolkit grid on the home page. They use direct, working destinations like the existing tool cards.
+- Added the same new options to the existing “STUDENT HUB · ALL TOOLS” group in the three-line menu, alongside all current Student Hub tools.
+- Completed hamburger-menu coverage for Spaced Review and Backup & Restore, which were already part of the Student Hub toolkit.
+- Kept the new links grouped together instead of leaving them only in a separate “new tools” strip.
+- Bumped the service-worker cache version so returning visitors can receive the update.
+
+Validation: static build and JavaScript syntax checks completed; homepage and menu link targets were checked against the current route structure.

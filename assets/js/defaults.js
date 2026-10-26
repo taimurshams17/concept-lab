@@ -1,6 +1,6 @@
 /* ConceptLab built-in content. Saved admin content overrides this.
    Everything here is editable from /admin/. */
-window.CL_SIMKEYS = ['bohr', 'rutherford', 'rutherfordModel', 'line', 'force', 'flame', 'wave', 'projectile', 'pendulum', 'spring', 'circuit', 'gas', 'vectors', 'unit', 'tangent', 'matrix', 'circle', 'kinetics', 'equilibrium', 'ph', 'titration', 'electrochem', 'optics', 'magnetic', 'periodic', 'bond', 'stoich', 'integration', 'probability', 'dalton', 'atomBasics', 'atomCounting', 'thomson', 'cathode', 'spectrum', 'emissionLines', 'planckQuantum', 'deBroglie', 'uncertainty', 'quantumNumbers', 'quantum', 'quantumSpin', 'spinOrbitalDiagram', 'orbitals', 'orbitalCapacity', 'aufbau', 'nplusl', 'pauli', 'isotope', 'isotopeCompare', 'atomicNotation', 'atomicNotation2', 'valence', 'hund', 'ionization', 'electroncloud', 'isotone', 'shellCapacity', 'orbitalCount', 'aufbauOrder', 'hundRule', 'electronConfig', 'valenceShell', 'mirrors', 'tigerDeer', 'busTrain', 'inclinedPlane', 'functionGraph', 'conicExplorer', 'vectorProducts', 'complexPlane', 'combinatorics', 'limitExplorer', 'trigGraph', 'isomerBuilder', 'intermolecularForces', 'solutionPrep', 'solubilityCurve', 'electrolysisLab', 'organicMechanism', 'circularMotion', 'standingWave', 'electricCapacitor', 'inductionLab', 'photoelectric', 'custom', 'none']
+window.CL_SIMKEYS = ['bohr', 'rutherford', 'rutherfordModel', 'line', 'force', 'flame', 'wave', 'projectile', 'pendulum', 'spring', 'circuit', 'gas', 'vectors', 'unit', 'tangent', 'matrix', 'circle', 'kinetics', 'equilibrium', 'ph', 'titration', 'electrochem', 'optics', 'magnetic', 'periodic', 'bond', 'stoich', 'integration', 'probability', 'dalton', 'atomBasics', 'atomCounting', 'thomson', 'cathode', 'spectrum', 'emissionLines', 'planckQuantum', 'deBroglie', 'uncertainty', 'quantumNumbers', 'quantum', 'quantumSpin', 'spinOrbitalDiagram', 'orbitals', 'orbitalCapacity', 'aufbau', 'nplusl', 'pauli', 'isotope', 'isotopeCompare', 'atomicNotation', 'atomicNotation2', 'valence', 'hund', 'ionization', 'electroncloud', 'isotone', 'shellCapacity', 'orbitalCount', 'aufbauOrder', 'hundRule', 'electronConfig', 'valenceShell', 'slideCalipers', 'screwGauge', 'youngDoubleSlit', 'rcTransient', 'mirrors', 'tigerDeer', 'busTrain', 'inclinedPlane', 'functionGraph', 'conicExplorer', 'vectorProducts', 'complexPlane', 'combinatorics', 'limitExplorer', 'trigGraph', 'isomerBuilder', 'intermolecularForces', 'solutionPrep', 'solubilityCurve', 'electrolysisLab', 'organicMechanism', 'circularMotion', 'standingWave', 'electricCapacitor', 'inductionLab', 'photoelectric', 'custom', 'none']
 
 window.CL_DEF = {
 settings: {
@@ -17,6 +17,27 @@ settings: {
   facebookUrl: 'https://www.facebook.com',
   facebookLabel: 'Join our Facebook Page',
   socialLinks: [],
+  premiumDock: 'off',
+  premiumProgress: 'on',
+  premiumHome: 'off',
+  allowGuestSettings: 'on',
+  defaultFont: 'hind',
+  defaultFontScale: '100',
+  defaultDensity: 'comfortable',
+  defaultCorners: 'rounded',
+  defaultContentWidth: 'standard',
+  defaultAccent: 'sky',
+  defaultFx: 'on',
+  defaultCalm: 'off',
+  defaultContrast: 'off',
+  solverTitle: 'Formula Solver — answers with steps',
+  solverIntro: 'Pick a formula, choose the unknown, type the rest. ConceptLab rearranges the equation, substitutes your numbers and shows every step — so you learn the method, not just the result.',
+  referenceTitle: 'Reference Shelf — everything at hand',
+  referenceIntro: 'Physical constants, SI prefixes, Greek letters, common ions and the maths identities you keep looking up. Tap the copy button to paste a value into your notes.',
+  progressCardTitle: 'Progress Card — show off your level',
+  progressCardIntro: 'A shareable card built from your real ConceptLab progress: level, XP, streak, simulations, games and badges. Download it or share it with friends.',
+  settingsTitle: 'Settings — your learning space',
+  settingsIntro: 'অ্যাকাউন্ট ছাড়াই ওয়েবসাইটের ফন্ট, টেক্সট সাইজ, রং, লেআউট ও অ্যানিমেশন বদলাতে পারবেন। পরিবর্তন এই ডিভাইসে সংরক্ষিত হবে।',
   about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।'
 },
 navigation: [
@@ -30,7 +51,12 @@ navigation: [
  {id:'smart-practice',href:'#/smart-practice',label:'Smart Practice',enabled:true},
  {id:'analytics',href:'#/analytics',label:'Analytics',enabled:true},
  {id:'leaderboard',href:'#/leaderboard',label:'Leaderboard',enabled:true},
- {id:'about',href:'#/about',label:'About',enabled:true}
+ {id:'about',href:'#/about',label:'About',enabled:true},
+ {id:'solver',href:'#/solver',label:'Formula Solver',description:'পদার্থ, রসায়ন ও গণিতের সূত্র ধাপে ধাপে সমাধান',enabled:true},
+ {id:'reference',href:'#/reference',label:'Reference Shelf',description:'ধ্রুবক, আয়ন, একক ও পরিচিতি',enabled:true},
+ {id:'share-card',href:'#/share-card',label:'Progress Card',description:'XP, লেভেল ও অর্জনের কার্ড তৈরি',enabled:true},
+ {id:'settings',href:'#/settings',label:'Settings',description:'সাইন-আপ ছাড়াই ব্যক্তিগত পছন্দ বদলান',enabled:true},
+ {id:'profile',href:'#/profile',label:'My Profile',description:'আপনার প্রোফাইল, XP ও শেখার অগ্রগতি',enabled:true}
 ],
 customPages: [],
 theme: { p: '#38bdf8', s: '#7dd3fc', a: '#fbbf24', bg: '#000000', glow: '#0ea5e9', fx: 'on' },
@@ -333,7 +359,11 @@ labs: [
  {id:'hsc-phy-standing-waves',sim:'standingWave',on:true,icon:'〰️',t:'Standing Waves & Resonance',sub:'Physics',d:'Change harmonic number, string length and wave speed to observe nodes, antinodes and resonant frequencies.',tip:'How many antinodes appear in the third harmonic of a string fixed at both ends?',chapter:'Waves',concept:'Standing Waves',hsc:true},
  {id:'hsc-phy-capacitor',sim:'electricCapacitor',on:true,icon:'⚡',t:'Electric Field & Capacitor',sub:'Physics',d:'Explore an ideal parallel-plate capacitor and calculate field strength, capacitance, charge and stored energy.',tip:'How does capacitance change when plate separation is doubled?',chapter:'Electrostatics',concept:'Capacitors',hsc:true},
  {id:'hsc-phy-induction',sim:'inductionLab',on:true,icon:'🧲',t:'Electromagnetic Induction Lab',sub:'Physics',d:'Vary coil turns, area, magnetic-flux change and time to calculate induced emf and apply Lenz’s law.',tip:'Why does a faster change in magnetic flux induce a larger emf?',chapter:'Electromagnetic Induction',concept:'Induction',hsc:true},
- {id:'hsc-phy-photoelectric',sim:'photoelectric',on:true,icon:'💡',t:'Photoelectric Effect',sub:'Physics',d:'Compare photon energy, metal work function, threshold frequency and maximum photoelectron kinetic energy.',tip:'Why can higher light intensity fail to eject electrons when frequency is below threshold?',chapter:'Modern Physics',concept:'Photoelectric Effect',hsc:true}
+ {id:'hsc-phy-photoelectric',sim:'photoelectric',on:true,icon:'💡',t:'Photoelectric Effect',sub:'Physics',d:'Compare photon energy, metal work function, threshold frequency and maximum photoelectron kinetic energy.',tip:'Why can higher light intensity fail to eject electrons when frequency is below threshold?',chapter:'Modern Physics',concept:'Photoelectric Effect',hsc:true},
+ {id:'lab-slide-calipers',sim:'slideCalipers',on:true,icon:'📏',t:'Slide Calipers Lab',sub:'Physics',d:'Read a vernier slide caliper, explore least count and zero error, and practise corrected measurements with guided and challenge modes.',tip:'Why is the zero correction subtracted from the observed reading?',chapter:'Physical World & Measurement',concept:'Vernier Calipers'},
+ {id:'lab-screw-gauge',sim:'screwGauge',on:true,icon:'🔩',t:'Screw Gauge Lab',sub:'Physics',d:'Measure wire diameter and sheet thickness with a micrometer screw gauge. Adjust pitch, circular divisions and zero error, then verify readings.',tip:'How does increasing the number of circular-scale divisions affect least count?',chapter:'Physical World & Measurement',concept:'Micrometer Screw Gauge'},
+ {id:'lab-young-double-slit',sim:'youngDoubleSlit',on:true,icon:'🌈',t:'Young’s Double-Slit Experiment',sub:'Physics',d:'Change wavelength, screen distance and slit separation to see interference fringes and the live intensity distribution.',tip:'What happens to fringe spacing when slit separation is doubled?',chapter:'Wave Optics',concept:'Interference'},
+ {id:'lab-rc-transient',sim:'rcTransient',on:true,icon:'🔋',t:'RC Circuit: Charging & Discharging',sub:'Physics',d:'Explore voltage, current and stored charge as an ideal capacitor charges or discharges through a resistor.',tip:'What fraction of the final charging voltage is reached after one time constant?',chapter:'Current Electricity',concept:'RC Transients'}
 
 ],
 
@@ -521,14 +551,25 @@ var EXTRA_GAMES=[
   {n:'Calcium (Ca²⁺)',c:'#d96c4a',l:'ইট-লাল শিখা'},
   {n:'Copper (Cu²⁺)',c:'#39c7a5',l:'নীলাভ-সবুজ শিখা'}]}},
  {id:'edu-projectile-range-challenge',type:'cannon',on:true,icon:'🩻',t:'Projectile Range Challenge',d:'কোণ ও প্রাথমিক বেগ বদলে লক্ষ্যবস্তুতে আঘাত করো; প্রক্ষেপণের ধারণা বোঝো।',diff:'Medium',xp:45,data:{}},
- {id:'edu-line-slope-challenge',type:'slope',on:true,icon:'🩺',t:'Line Slope Challenge',d:'গ্রাফের ঢাল ও y-intercept ঠিক করে বিন্দুগুলোর মধ্য দিয়ে রেখা চালাও।',diff:'Medium',xp:45,data:{}}
+ {id:'edu-line-slope-challenge',type:'slope',on:true,icon:'🩺',t:'Line Slope Challenge',d:'গ্রাফের ঢাল ও y-intercept ঠিক করে বিন্দুগুলোর মধ্য দিয়ে রেখা চালাও।',diff:'Medium',xp:45,data:{}},
+ {id:'precision-lab-mastery',type:'blitz',on:true,icon:'📐',t:'Precision Lab Mastery',d:'Measure like a scientist: solve instrument reading, least-count and zero-correction questions in a timed challenge.',diff:'Medium',xp:50,data:{useChapters:'0',time:75,q:[
+  {q:'A vernier caliper has 1 main-scale division = 1 mm and 10 vernier divisions = 9 mm. What is its least count?',o:['1 mm','0.9 mm','0.1 mm','0.01 mm'],a:2,e:'Least count = 1.0 − 0.9 = 0.1 mm.'},
+  {q:'An instrument has a positive zero error of +0.04 mm. What is the zero correction?',o:['+0.04 mm','−0.04 mm','0 mm','+0.4 mm'],a:1,e:'Zero correction is the negative of zero error, so subtract 0.04 mm.'},
+  {q:'A screw gauge pitch is 0.5 mm and its circular scale has 50 divisions. What is the least count?',o:['0.1 mm','0.05 mm','0.01 mm','0.001 mm'],a:2,e:'Least count = pitch ÷ divisions = 0.5 ÷ 50 = 0.01 mm.'},
+  {q:'Observed reading = 12.36 mm and zero error = −0.02 mm. What is the corrected reading?',o:['12.34 mm','12.36 mm','12.38 mm','12.40 mm'],a:2,e:'Corrected reading = observed − zero error = 12.36 − (−0.02) = 12.38 mm.'},
+  {q:'A screw gauge has least count 0.01 mm, sleeve reading 4.5 mm and circular reading 28 divisions. What is the observed reading?',o:['4.28 mm','4.50 mm','4.78 mm','7.30 mm'],a:2,e:'Circular contribution = 28 × 0.01 = 0.28 mm; total = 4.78 mm.'},
+  {q:'Which change decreases a screw gauge least count, if pitch stays constant?',o:['Fewer circular divisions','More circular divisions','Larger specimen','More zero error'],a:1,e:'Least count = pitch ÷ circular divisions; more divisions make each division smaller.'},
+  {q:'The 7th vernier division coincides and the least count is 0.02 mm. What is the vernier contribution?',o:['0.14 mm','0.35 mm','7.02 mm','0.07 mm'],a:0,e:'Vernier contribution = 7 × 0.02 = 0.14 mm.'}
+ ]}},
+ {id:'photon-fringe-detective',type:'stepOrder',on:true,icon:'🌈',t:'Photon Fringe Detective',d:'Put experimental steps and the fringe-spacing calculation in order to solve a wave-optics mission.',diff:'Medium',xp:45,data:{puzzles:[
+  {t:'Young’s double-slit experiment: setup to observation',steps:['Illuminate two narrow, closely spaced slits with coherent monochromatic light','Place a screen at distance D from the slits','Observe alternating bright and dark fringes on the screen','Measure the distance across several adjacent bright fringes and divide by their count'],why:'Coherent light passes through both slits; overlapping waves form an interference pattern. Measuring several fringes reduces reading uncertainty.'},
+  {t:'Calculate fringe spacing β = λD/d',steps:['Convert wavelength λ, screen distance D and slit spacing d into SI units','Multiply wavelength λ by screen distance D','Divide the product λD by the slit separation d','Convert β from metres to millimetres if required and check units'],why:'The fringe width formula is β = λD/d, with all three input quantities in compatible SI units.'}
+ ]}}
 ];
 EXTRA_GAMES.forEach(function(g){if(!D.games.some(function(x){return x.id===g.id}))D.games.push(g)});
 SC.game.oddOne={n:'Odd One Out',list:['data.sets','Sets (4 items, mark the odd one)',[['q','Question (optional)'],['i.0','Item 1'],['i.1','Item 2'],['i.2','Item 3'],['i.3','Item 4'],['odd','Which one is the odd one?','sel',{0:'Item 1',1:'Item 2',2:'Item 3',3:'Item 4'}],['why','Short explanation (shown when wrong)']],'g_odd']};
 SC.game.stepOrder={n:'Step Order',list:['data.puzzles','Puzzles (write steps in the CORRECT order)',[['t','Puzzle title'],['steps.0','Step 1'],['steps.1','Step 2'],['steps.2','Step 3'],['steps.3','Step 4'],['why','Short explanation']],'g_step']};
 SC.game.periodic={n:'Periodic Quest (auto)'};SC.game.massAtlas={n:'Mass Atlas (auto)'};SC.game.elementSprint={n:'Element Sprint (auto)'};SC.game.trendDuel={n:'Trend Duel (auto)'};
-var _duplicateGameIds={'edu-projectile-range-challenge':1,'edu-line-slope-challenge':1};
-/* These records are temporarily retained so the main app can merge their content before hiding duplicate game cards. */
-var _mergeSourceGameIds={'chem-reaction-race':1,'formula-pair-cosmos':1,'edu-formula-pair-cosmos':1,'edu-flame-colour-detective':1,'edu-physics-unit-rush':1,'edu-physics-formula-sprint':1,'edu-chemistry-ion-challenge':1,'edu-math-concept-scramble':1,'edu-hsc-term-scramble':1,'edu-physics-odd-one':1,'edu-math-step-order':1,'edu-math-truth-arena':1,'edu-chem-reaction-race':1};
-var _seenGameTitles={};D.games=D.games.filter(function(g){if(!g||_duplicateGameIds[g.id])return false;if(_mergeSourceGameIds[g.id])return true;var k=String(g.t||g.id).toLowerCase().replace(/[^a-z0-9]+/g,'');if(k==='formulapaircosmos'||k==='flamecolourdetective'||_seenGameTitles[k])return false;_seenGameTitles[k]=1;return true});
+var _duplicateGameIds={'formula-pair-cosmos':1,'edu-formula-pair-cosmos':1,'edu-flame-colour-detective':1,'edu-physics-unit-rush':1,'edu-physics-formula-sprint':1,'edu-chemistry-ion-challenge':1,'edu-math-concept-scramble':1,'edu-hsc-term-scramble':1,'edu-physics-odd-one':1,'edu-math-step-order':1,'edu-math-truth-arena':1,'edu-projectile-range-challenge':1,'edu-line-slope-challenge':1};
+var _seenGameTitles={};D.games=D.games.filter(function(g){if(!g||_duplicateGameIds[g.id])return false;var k=String(g.t||g.id).toLowerCase().replace(/[^a-z0-9]+/g,'');if(k==='formulapaircosmos'||k==='flamecolourdetective'||_seenGameTitles[k])return false;_seenGameTitles[k]=1;return true});
 })();

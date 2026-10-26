@@ -1,0 +1,10 @@
+ConceptLab v9.7.1 — Subject selection, chapter maps & shortcut tricks
+
+- Simulation page now starts with only three subject choices: Physics, Chemistry and Higher Mathematics.
+- Physics simulations are grouped into the supplied HSC 1st-paper ten chapters. Chemistry and Higher Mathematics are grouped into their provided 5- and 10-chapter lists.
+- Added catalog cards for the pre-existing Free Fall, dropped-vs-horizontal-projectile comparison, and gun-bullet recoil models. The existing renderer functions are reused rather than duplicated.
+- Updated vector addition card to explicitly advertise Triangle, Parallelogram, Polygon and Components modes.
+- Added the new Shortcut Tricks page with chapter-specific revision formulas for all 25 supplied chapters and searchable subject filtering.
+- Tiger-Deer chase now shows a small, non-graphic red impact flash and catch label; no gore or injury detail is displayed.
+- Added shortcuts.js to the app and service-worker shell cache; cache version bumped to v9.7.1.
+- Build: npm run build.

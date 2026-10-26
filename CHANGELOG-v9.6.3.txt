@@ -1,0 +1,9 @@
+ConceptLab v9.6.3 — Unified Settings
+
+- Removed the separate Appearance Studio option and merged all appearance controls into Settings.
+- Added Bengali font choices: Hind Siliguri, Noto Sans Bengali, Noto Serif Bengali, Kalpurush and SolaimanLipi (fallback stacks included).
+- Added English font choices: Manrope, Inter, Roboto, Poppins, Lora, classic serif and system default.
+- Added reading line spacing and interface language preference controls.
+- Kept text scale, accent colors, compact layout, content width, corner style, animation, calm mode, contrast, reset, and install-app guidance in Settings.
+- Removed Appearance Studio links from the main menu surfaces, Student Hub cards, profile shortcuts, and footer.
+- Preferences remain stored locally in this browser.

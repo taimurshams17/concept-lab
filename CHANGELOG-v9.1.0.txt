@@ -1,0 +1,16 @@
+ConceptLab v9.1.0 — Interactive Labs & Footer Refresh
+
+- Added Slide Calipers Lab with schematic instrument scales, live main/vernier readings, selectable least count, adjustable specimen, zero-error correction, sample presets, guided mode and measurement challenges.
+- Added Screw Gauge Lab with selectable screw pitch/circular divisions, live sleeve/circular-scale reading, zero-error correction, sample presets, guided mode and measurement challenges.
+- Added Young’s Double-Slit Experiment to explore wavelength, slit separation, screen distance, fringe spacing and idealized intensity patterns.
+- Added RC Circuit Charging & Discharging Lab with live time-constant, voltage, current and stored-charge values.
+- Added Precision Lab Mastery timed quiz and Photon Fringe Detective step-order game.
+- Rebuilt the footer around the existing ConceptLab logo, with Explore/Learning navigation, social links and a responsive copyright row.
+- Improved mobile behavior so nested metrology labs do not receive an out-of-position generic “go to controls” button.
+- Added both simulation and game definitions to the static build; retained saved-catalog compatibility for new games.
+
+Validation:
+- JavaScript syntax checks passed for the modified app, defaults and simulation scripts.
+- Built the deployable static site with `npm run build`.
+- Catalog checks confirmed all four new simulation handlers and both game entries are registered, with unique game IDs.
+- Static HTML/CSS checks confirmed unique element IDs, a valid logo asset path and no top-level CSS parse errors.

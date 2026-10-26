@@ -73,4 +73,160 @@ S.inductionLab=function(root,done){heading(root,'Electromagnetic Induction Lab',
 /* Physics: photoelectric effect. */
 S.photoelectric=function(root,done){heading(root,'Photoelectric Effect','Compare photon energy hf with a metal’s work function φ. Intensity changes photon flux; frequency determines each photon’s energy.');var cv=makeCanvas(root,680,245),x=cv.x,metal='Na';selectRow(root,'Metal surface',[['Cs','Cesium · φ = 2.14 eV'],['Na','Sodium · φ = 2.28 eV'],['Zn','Zinc · φ = 4.30 eV'],['Cu','Copper · φ = 4.70 eV']],function(v){metal=v;draw();done&&done();});var ctl=panel(root,[{key:'f',label:'Light frequency f',min:3,max:12,step:.1,value:7,unit:' ×10¹⁴ Hz'},{key:'i',label:'Light intensity',min:10,max:100,step:5,value:60,unit:' %'}],function(){draw();done&&done();}),out=results(root);var phi={Cs:2.14,Na:2.28,Zn:4.3,Cu:4.7};function draw(){var v=ctl.values(),f=v.f*1e14,E=4.135667696e-15*f,work=phi[metal],ke=E-work,th=work/4.135667696e-15/1e14,emit=ke>0;fit(x,cv.w,cv.h);x.fillStyle='#475569';x.fillRect(30,175,620,25);x.fillStyle='#fbbf24';for(var j=0;j<Math.round(v.i/7);j++){var px=50+j*16;x.beginPath();x.arc(px,120-(j%3)*14,4,0,TAU);x.fill();}x.strokeStyle='#38bdf8';x.lineWidth=2;x.beginPath();for(var px=40;px<640;px+=3){var py=75+14*Math.sin(px*.09);if(px===40)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();if(emit){for(var k=0;k<Math.min(12,Math.ceil(v.i/9));k++){var sx=100+k*39;x.strokeStyle='#34d399';x.beginPath();x.moveTo(sx,160);x.lineTo(sx+26,145-(k%3)*5);x.stroke();x.fillStyle='#34d399';x.beginPath();x.arc(sx+28,144-(k%3)*5,3,0,TAU);x.fill();}}x.fillStyle='#e2e8f0';x.font='bold 14px sans-serif';x.fillText(emit?'Electrons emitted':'No photoelectrons emitted',34,215);out([['Photon energy hf',fmt(E,3)+' eV'],['Work function φ',work.toFixed(2)+' eV'],['Threshold frequency',fmt(th,2)+' ×10¹⁴ Hz'],['Maximum kinetic energy',emit?fmt(ke,3)+' eV':'0 eV — below threshold'],['Stopping potential',emit?fmt(ke,3)+' V':'Not applicable']]);}draw();};
 
+
+/* Precision instruments: responsive, mathematically explicit virtual metrology. */
+function buildMetrologyLab(root, kind, done) {
+ var slide = kind === 'slide', mode = 'guided', trueSize = slide ? 24.37 : 4.37;
+ var lc = slide ? .1 : .01, pitch = .5, divisions = 50, zeroError = 0, challengeTarget = null;
+ var minSize = slide ? 5 : .2, maxSize = slide ? 60 : 15;
+ var samples = slide ? [{n:'Rectangular block',v:24.37},{n:'Plastic strip',v:13.26},{n:'Glass sheet',v:8.54},{n:'Metal plate',v:32.18}] : [{n:'Metal wire',v:.82},{n:'Ball bearing',v:4.35},{n:'Plastic sheet',v:1.62},{n:'Thin rod',v:7.48}];
+ function leastCount(){return slide ? lc : pitch/divisions;}
+ function nfmt(n,d){return Number(n).toFixed(d==null?2:d);}
+ function configZeroOptions(){
+  var sel=root.querySelector('[data-control="zero"]'); if(!sel)return;
+  var unit=leastCount(),old=zeroError,html='';
+  for(var i=-2;i<=2;i++){var v=i*unit;html+='<option value="'+v.toFixed(6)+'">'+(v>0?'+':'')+nfmt(v,Math.max(2,(String(unit).split('.')[1]||'').length))+' mm</option>';}
+  sel.innerHTML=html; zeroError=old; sel.value=Number(old).toFixed(6);
+  if(sel.selectedIndex<0){zeroError=0;sel.value='0.000000';}
+ }
+ root.innerHTML = '<div class="metrology-lab '+(slide?'metrology-slide':'metrology-screw')+'">' +
+  '<div class="metrology-intro"><span class="precision-chip">'+(slide?'VERNIER METROLOGY · 01':'MICROMETER METROLOGY · 02')+'</span><p>'+(slide?'Measure a specimen with a vernier scale. Change the least count and zero error, then read the main scale and the coincident vernier division.':'Measure a small diameter or thickness with a screw gauge. Compare the sleeve (main) scale with the circular thimble scale and apply zero correction.')+'</p></div>'+
+  '<div class="metrology-toolbar"><button type="button" class="btn pri" data-tool="guided" aria-pressed="true">Guided Lab</button><button type="button" class="btn" data-tool="challenge" aria-pressed="false">Measurement Challenge</button><button type="button" class="btn" data-tool="random">'+(slide?'Random specimen':'Random specimen')+'</button></div>'+
+  '<div class="metrology-stage"><svg data-instrument viewBox="0 0 820 '+(slide?'286':'300')+'" role="img" aria-label="'+(slide?'Illustration of a vernier slide caliper with main and vernier scales':'Illustration of a screw gauge micrometer with sleeve and circular scales')+'"></svg><div class="metrology-stage-caption">Illustration is schematic; scale readings and calculations are computed from the selected settings.</div></div>'+
+  '<div class="metrology-readings" aria-live="polite">' +
+   '<div><small>'+(slide?'Main scale reading':'Sleeve / main scale')+'</small><strong data-reading="main">— mm</strong><span data-reading-note="main"></span></div>'+
+   '<div><small>'+(slide?'Vernier scale contribution':'Circular scale contribution')+'</small><strong data-reading="fine">— mm</strong><span data-reading-note="fine"></span></div>'+
+   '<div><small>Zero correction</small><strong data-reading="correction">— mm</strong><span>Correction = − zero error</span></div>'+
+   '<div class="metrology-result"><small>Corrected measurement</small><strong data-reading="final">— mm</strong><span data-reading-note="final"></span></div>'+
+  '</div>'+
+  '<div class="metrology-controls">' +
+   '<label class="metrology-control" data-specimen-control><span>'+(slide?'Specimen length':'Specimen thickness')+' <output data-output="specimen">'+nfmt(trueSize)+' mm</output></span><input type="range" min="'+minSize+'" max="'+maxSize+'" step="0.01" value="'+trueSize+'" data-control="specimen" aria-label="'+(slide?'Specimen length':'Specimen thickness')+'"><small>Change the sample size; the instrument reading updates instantly.</small></label>'+
+   (slide ? '<label class="metrology-control"><span>Least count</span><select data-control="lc" aria-label="Vernier least count"><option value="0.1">0.10 mm · 10 divisions</option><option value="0.05">0.05 mm · 20 divisions</option><option value="0.02">0.02 mm · 50 divisions</option></select><small>Vernier least count = 1 main-scale division − 1 vernier division.</small></label>' : '<div class="metrology-control"><label><span>Screw pitch</span><select data-control="pitch" aria-label="Screw pitch"><option value="0.5">0.5 mm / rotation</option><option value="1">1.0 mm / rotation</option></select></label><label class="metrology-subcontrol"><span>Circular divisions</span><select data-control="divisions" aria-label="Circular scale divisions"><option value="50">50 divisions</option><option value="100">100 divisions</option></select></label><small>Least count = pitch ÷ number of circular-scale divisions.</small></div>')+
+   '<label class="metrology-control"><span>Instrument zero error</span><select data-control="zero" aria-label="Instrument zero error"><option value="0">0.00 mm</option></select><small>The correction applied to the observed reading is the negative of zero error.</small></label>'+
+  '</div>'+
+  '<div class="metrology-challenge" data-challenge-panel hidden><div><span class="precision-chip">PRACTICE MODE</span><h4>Read the instrument</h4><p>Enter the corrected measurement visible from the scale. The hidden specimen reference will not be shown until you check.</p></div><form data-challenge-form><label for="metrologyGuess">Your measurement (mm)</label><input id="metrologyGuess" name="guess" type="number" inputmode="decimal" step="0.001" min="0" required placeholder="e.g. 12.34"><button class="btn pri" type="submit">Check answer</button><button class="btn" type="button" data-tool="new-challenge">New sample ↻</button></form><p class="metrology-feedback" data-feedback role="status" aria-live="polite"></p></div>'+
+  '<div class="metrology-formula"><b>Reading method</b><p>'+(slide?'Observed reading = main-scale reading + (coinciding vernier division × least count). Corrected reading = observed reading − zero error.':'Observed reading = sleeve/main-scale reading + (circular-scale division × least count). Least count = pitch ÷ circular divisions. Corrected reading = observed reading − zero error.')+'</p><p data-reference-note>Guided mode shows the specimen reference for checking your measurement.</p></div>'+
+ '</div>';
+ var stage=root.querySelector('[data-instrument]'),specimen=root.querySelector('[data-control="specimen"]'),lcSel=root.querySelector('[data-control="lc"]'),pitchSel=root.querySelector('[data-control="pitch"]'),divSel=root.querySelector('[data-control="divisions"]'),zeroSel=root.querySelector('[data-control="zero"]'),challengePanel=root.querySelector('[data-challenge-panel]'),feedback=root.querySelector('[data-feedback]'),guess=root.querySelector('[name="guess"]');
+ function value(){return slide?lc:pitch/divisions;}
+ function calc(){
+  var step=value(), observed=Math.round((trueSize+zeroError)/step)*step;
+  var mainStep=slide?1:pitch, main=Math.floor((observed+1e-8)/mainStep)*mainStep;
+  var fine=Math.round((observed-main)/step);
+  if(fine>=Math.round(mainStep/step)){main+=mainStep;fine=0;}
+  if(fine<0)fine=0;
+  var total=main+fine*step, corrected=total-zeroError;
+  return {step:step,observed:observed,main:main,fine:fine,mainValue:main,fineValue:fine*step,total:total,corrected:corrected,divisions:Math.round(mainStep/step),mainStep:mainStep};
+ }
+ function drawSlide(c){
+  var w=820,h=286,x0=90,px=6,mx=x0+c.observed*px,lcNow=c.step,vernierDivs=Math.round(1/lcNow),coinc=c.fine;
+  var s='<defs><linearGradient id="caliperMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7e7ee"/><stop offset=".42" stop-color="#69869a"/><stop offset=".7" stop-color="#c3d9e4"/><stop offset="1" stop-color="#496579"/></linearGradient><linearGradient id="caliperObject" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#60d6fa"/><stop offset="1" stop-color="#167aa8"/></linearGradient></defs><rect x="8" y="10" width="804" height="264" rx="18" fill="#061522" stroke="#1c384b"/><text x="28" y="36" fill="#8aa6bc" font-size="12" font-weight="700" letter-spacing="2">VERNIER CALIPER</text><path d="M75 70 V164 H96 V133 H590 V163 H611 V151 H'+(mx+4)+' V68 H'+(mx+27)+' V178 H'+(mx+6)+' V163" fill="url(#caliperMetal)" stroke="#9bb9ca" stroke-width="1.5" opacity=".98"/><rect x="'+(x0+10)+'" y="81" width="'+Math.max(8,mx-x0-18)+'" height="38" rx="4" fill="url(#caliperObject)" stroke="#7de3ff" stroke-width="1.5"/><path d="M'+(x0+11)+' 81 V118 M'+(mx-8)+' 81 V118" stroke="#e1faff" stroke-width="2"/><rect x="72" y="124" width="520" height="24" rx="3" fill="url(#caliperMetal)" stroke="#95b3c6"/><path d="M78 136 H585" stroke="#304b5d" stroke-width="1.2"/>';
+  for(var i=0;i<=80;i++){var xx=x0+i*px,len=i%10===0?26:i%5===0?19:10;s+='<path d="M'+xx+' 124 v-'+len+'" stroke="#102837" stroke-width="'+(i%5===0?1.5:1)+'"/>' ; if(i%10===0)s+='<text x="'+xx+'" y="91" fill="#d6e5ee" font-size="12" text-anchor="middle">'+i+'</text>';}
+  s+='<text x="590" y="111" fill="#91a9bb" font-size="11">mm</text><rect x="'+(mx-10)+'" y="150" width="30" height="81" rx="5" fill="url(#caliperMetal)" stroke="#c7d9e1"/><path d="M'+(mx+5)+' 154 V225" stroke="#203d50" stroke-width="2"/><path d="M'+(mx-10)+' 181 H'+(mx+26)+'" stroke="#415f73" stroke-width="2"/><path d="M'+(mx+10)+' 228 H'+(mx+30)+'" stroke="#74d7fa" stroke-width="2"/><text x="'+(mx+2)+'" y="246" text-anchor="middle" fill="#7dd3fc" font-size="11">VERNIER</text><path d="M'+x0+' 184 H'+(x0+14)+'" stroke="#d6e5ee" stroke-width="2"/>';
+  var vBase=219,stepPx=px*(1-lcNow);for(var k=0;k<=vernierDivs;k++){var vx=mx+k*stepPx;var major=(k%Math.max(1,Math.round(5/(1-lcNow)))===0);var isCoin=k===coinc;s+='<path d="M'+vx+' '+(vBase-(major?25:14))+' V'+vBase+'" stroke="'+(isCoin?'#fbbf24':'#203b4d')+'" stroke-width="'+(isCoin?3:1)+'"/>' ; if(isCoin)s+='<circle cx="'+vx+'" cy="'+(vBase-30)+'" r="4" fill="#fbbf24"/>' ;}
+  s+='<path d="M'+(x0-8)+' 235 H'+Math.min(798,mx+vernierDivs*stepPx+10)+'" stroke="#27465a" stroke-width="1"/><text x="28" y="257" fill="#8ba5b8" font-size="11">Main scale: 1 mm/division</text><text x="590" y="257" fill="#8ba5b8" font-size="11">LC '+nfmt(lcNow,2)+' mm</text>';
+  stage.innerHTML=s;
+ }
+ function drawScrew(c){
+  var w=820,x0=116,px=11.2,face=x0+c.observed*px,tx=face+8,cx=tx+25,cy=166,rx=19,ry=42,N=divisions,idx=c.fine;
+  var s='<defs><linearGradient id="microMetal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d9e7ee"/><stop offset=".45" stop-color="#7896a8"/><stop offset="1" stop-color="#3e5b6d"/></linearGradient><linearGradient id="microBarrel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5edf2"/><stop offset=".5" stop-color="#607c8f"/><stop offset="1" stop-color="#304b5e"/></linearGradient><linearGradient id="microObject" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#7fe5c8"/><stop offset="1" stop-color="#128c73"/></linearGradient></defs><rect x="8" y="10" width="804" height="280" rx="18" fill="#061522" stroke="#1c384b"/><text x="28" y="36" fill="#8aa6bc" font-size="12" font-weight="700" letter-spacing="2">SCREW GAUGE · MICROMETER</text><path d="M570 67 C635 67 656 112 656 166 C656 223 631 260 570 260 H508 V229 H550 C572 229 588 209 588 166 C588 124 572 99 550 99 H510 V67 Z" fill="url(#microMetal)" stroke="#abc6d4" stroke-width="2"/><path d="M88 99 H120 V141 H'+(face-4)+' V194 H120 V228 H88 Z" fill="url(#microMetal)" stroke="#abc6d4" stroke-width="1.5"/><rect x="100" y="115" width="'+Math.max(8,face-109)+'" height="36" rx="5" fill="url(#microObject)" stroke="#9af5dc"/><path d="M'+(face-7)+' 107 V159 H'+(face+5)+' V107" fill="url(#microMetal)" stroke="#aac6d4" stroke-width="1.5"/><rect x="'+(x0-2)+'" y="145" width="365" height="48" rx="5" fill="url(#microMetal)" stroke="#a8c0cf"/><path d="M'+x0+' 170 H'+(x0+318)+'" stroke="#203d50" stroke-width="1.5"/>';
+  for(var j=0;j<=25;j+=c.mainStep){var xx=x0+j*px,ln=(Math.abs(j/5-Math.round(j/5))<1e-6)?27:15;s+='<path d="M'+xx+' 145 v-'+ln+'" stroke="#152f40" stroke-width="1.25"/>';if(j%5===0)s+='<text x="'+xx+'" y="111" fill="#d6e5ee" font-size="12" text-anchor="middle">'+j+'</text>';}
+  s+='<text x="'+(x0+280)+'" y="132" fill="#9bb5c6" font-size="10">SLEEVE SCALE · mm</text><rect x="'+tx+'" y="123" width="138" height="89" rx="8" fill="url(#microBarrel)" stroke="#b0c9d6" stroke-width="1.5"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="#254357" stroke="#d5e4eb" stroke-width="2"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(rx-5)+'" ry="'+(ry-6)+'" fill="#0c2130" stroke="#7490a2" stroke-width="1"/>';
+  for(var k=0;k<N;k++){var ang=(-Math.PI/2)+k*2*Math.PI/N,major=k%(N/5)===0,xx1=cx+(major?rx-10:rx-5)*Math.cos(ang),yy1=cy+(major?ry-10:ry-5)*Math.sin(ang),xx2=cx+(rx-2)*Math.cos(ang),yy2=cy+(ry-2)*Math.sin(ang),sel=k===idx;s+='<path d="M'+xx1+' '+yy1+' L'+xx2+' '+yy2+'" stroke="'+(sel?'#fbbf24':'#c7d8e1')+'" stroke-width="'+(sel?2.8:major?1.6:.8)+'"/>';if(major){var lx=cx+(rx+5)*Math.cos(ang),ly=cy+(ry+5)*Math.sin(ang);s+='<text x="'+lx+'" y="'+(ly+3)+'" fill="#b7cbd7" font-size="8" text-anchor="middle">'+k+'</text>';}}
+  s+='<circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fbbf24"/><path d="M'+(face-2)+' 143 V195" stroke="#fbbf24" stroke-width="2"/><text x="'+(cx+44)+'" y="'+(cy+4)+'" fill="#fbbf24" font-size="11">'+idx+'</text><text x="'+(tx+68)+'" y="235" fill="#9bb5c6" font-size="11" text-anchor="middle">CIRCULAR SCALE</text><text x="28" y="270" fill="#8ba5b8" font-size="11">Pitch '+nfmt(pitch,1)+' mm / rotation</text><text x="590" y="270" fill="#8ba5b8" font-size="11">LC '+nfmt(c.step,3)+' mm</text>';
+  stage.innerHTML=s;
+ }
+ function update(){
+  var c=calc(),step=c.step;
+  root.querySelector('[data-output="specimen"]').textContent= mode==='challenge'?'Unknown specimen':nfmt(trueSize,2)+' mm';
+  specimen.disabled=mode==='challenge';
+  var mainText=nfmt(c.mainValue,slide?0:Math.max(1,(String(pitch).split('.')[1]||'').length))+' mm';
+  root.querySelector('[data-reading="main"]').textContent=mainText;
+  root.querySelector('[data-reading-note="main"]').textContent=slide?'Main scale division immediately before vernier zero':'Sleeve reading just before the thimble edge';
+  root.querySelector('[data-reading="fine"]').textContent=nfmt(c.fineValue,3)+' mm';
+  root.querySelector('[data-reading-note="fine"]').textContent=(slide?'Coinciding vernier division: ':'Circular scale division: ')+c.fine+' × '+nfmt(step,3)+' mm';
+  root.querySelector('[data-reading="correction"]').textContent=nfmt(-zeroError,3)+' mm';
+  root.querySelector('[data-reading="final"]').textContent=mode==='challenge'?'Hidden':nfmt(c.corrected,3)+' mm';
+  root.querySelector('[data-reading-note="final"]').textContent=mode==='challenge'?'Submit a guess in the challenge panel':'Reference specimen: '+nfmt(trueSize,2)+' mm';
+  root.querySelector('[data-reference-note]').textContent=mode==='challenge'?'Challenge mode: the true specimen size and corrected result are hidden until you check your answer.':'Reference value is shown for guided practice; use Challenge mode to test your reading without the reference.';
+  if(slide)drawSlide(c);else drawScrew(c);
+ }
+ function newChallenge(){
+  mode='challenge';var step=value(),raw=minSize+Math.random()*(maxSize-minSize);trueSize=Math.round(raw*100)/100;
+  var zeroSteps=Math.floor(Math.random()*5)-2;zeroError=zeroSteps*step;
+  challengeTarget=calc().corrected;feedback.textContent='';feedback.className='metrology-feedback';guess.value='';challengePanel.hidden=false;root.querySelectorAll('[data-tool="guided"],[data-tool="challenge"]').forEach(function(b){var on=(b.dataset.tool==='challenge')===(mode==='challenge');b.classList.toggle('pri',on);b.setAttribute('aria-pressed',String(on));});
+  zeroSel.value=Number(zeroError).toFixed(6);update();
+ }
+ function guided(){mode='guided';challengeTarget=null;challengePanel.hidden=true;feedback.textContent='';feedback.className='metrology-feedback';specimen.disabled=false;root.querySelectorAll('[data-tool="guided"],[data-tool="challenge"]').forEach(function(b){var on=(b.dataset.tool==='guided');b.classList.toggle('pri',on);b.setAttribute('aria-pressed',String(on));});update();}
+ root.addEventListener('input',function(e){var t=e.target;if(!t.matches('[data-control]'))return;
+  var key=t.dataset.control;
+  if(key==='specimen'){trueSize=+t.value;}
+  else if(key==='lc'){lc=+t.value;zeroError=0;configZeroOptions();}
+  else if(key==='pitch'){pitch=+t.value;zeroError=0;configZeroOptions();}
+  else if(key==='divisions'){divisions=+t.value;zeroError=0;configZeroOptions();}
+  else if(key==='zero'){zeroError=+t.value;}
+  if(mode==='challenge')challengeTarget=calc().corrected;update();if(done)done();
+ });
+ root.addEventListener('change',function(e){if(e.target.matches('[data-control="lc"],[data-control="pitch"],[data-control="divisions"]')){configZeroOptions();update();}});
+ root.addEventListener('click',function(e){var b=e.target.closest('[data-tool],[data-sample]');if(!b)return;
+  if(b.dataset.tool==='guided'){guided();}
+  else if(b.dataset.tool==='challenge'||b.dataset.tool==='new-challenge'){newChallenge();}
+  else if(b.dataset.tool==='random'){trueSize=Math.round((minSize+Math.random()*(maxSize-minSize))*100)/100;mode='guided';guided();specimen.value=trueSize;update();}
+  else if(b.dataset.sample){var sample=samples.filter(function(s){return s.n===b.dataset.sample;})[0];if(sample){trueSize=sample.v;mode='guided';guided();specimen.value=trueSize;update();}}
+  if(done)done();
+ });
+ root.addEventListener('submit',function(e){if(e.target!==root.querySelector('[data-challenge-form]'))return;e.preventDefault();var guessValue=Number(guess.value),target=calc().corrected,tolerance=Math.max(value()/2+.0005,.002);challengeTarget=target;
+  if(!Number.isFinite(guessValue)){feedback.textContent='Enter a numeric measurement first.';return;}
+  if(Math.abs(guessValue-target)<=tolerance){feedback.textContent='Correct. The corrected instrument reading is '+nfmt(target,3)+' mm. Zero correction was '+nfmt(-zeroError,3)+' mm.';feedback.className='metrology-feedback good';}
+  else{feedback.textContent='Not quite. Recheck the last main-scale division, the coincident division and the zero correction, then try again.';feedback.className='metrology-feedback';}
+ });
+ // Sample shortcuts sit just below the graphic so touch targets remain comfortable on mobile.
+ var samplesRow=document.createElement('div');samplesRow.className='metrology-samples';samplesRow.innerHTML='<span>Quick samples</span>'+samples.map(function(s){return'<button type="button" class="btn" data-sample="'+s.n+'">'+s.n+'</button>';}).join('');root.querySelector('.metrology-toolbar').insertAdjacentElement('afterend',samplesRow);
+ if(lcSel)lcSel.value='0.1';if(pitchSel)pitchSel.value='0.5';if(divSel)divSel.value='50';configZeroOptions();update();
+}
+S.slideCalipers=function(root,done){buildMetrologyLab(root,'slide',done);};
+S.screwGauge=function(root,done){buildMetrologyLab(root,'screw',done);};
+
+/* Young's double-slit experiment: live fringe spacing and intensity model. */
+S.youngDoubleSlit=function(root,done){
+ root.classList.add('responsive-physics-lab');
+ heading(root,'Young’s Double-Slit Experiment','Explore interference for coherent monochromatic light. This ideal model uses β = λD/d and I/I₀ = cos²(πy/β); slit width and finite-source effects are ignored.');
+ var cv=makeCanvas(root,720,320),x=cv.x;
+ var ctl=panel(root,[{key:'lambda',label:'Wavelength λ',min:400,max:700,step:10,value:550,unit:' nm'},{key:'distance',label:'Screen distance D',min:.5,max:3,step:.1,value:1.5,unit:' m'},{key:'separation',label:'Slit separation d',min:10,max:100,step:5,value:50,unit:' μm'},{key:'screen',label:'Screen window',min:10,max:80,step:5,value:40,unit:' mm'}],function(){draw();done&&done();});
+ var out=results(root);
+ function draw(){var v=ctl.values(),lam=v.lambda*1e-9,D=v.distance,d=v.separation*1e-6,beta=lam*D/d*1000,span=v.screen,fontFactor=window.innerWidth<560?1.5:1;fit(x,cv.w,cv.h);
+  // Double slit and projected rays.
+  x.fillStyle='#9ab2c3';x.fillRect(42,89,9,140);x.fillStyle='#071421';x.fillRect(38,126,17,8);x.fillRect(38,183,17,8);x.fillStyle='#7dd3fc';x.fillRect(42,123,9,14);x.fillRect(42,180,9,14);
+  x.strokeStyle='#38bdf8';x.lineWidth=1.4;x.globalAlpha=.65;x.beginPath();x.moveTo(51,130);x.lineTo(270,70);x.moveTo(51,130);x.lineTo(270,245);x.moveTo(51,187);x.lineTo(270,70);x.moveTo(51,187);x.lineTo(270,245);x.stroke();x.globalAlpha=1;
+  x.fillStyle='#c8d8e2';x.font=(12*fontFactor)+'px sans-serif';x.fillText('double slit',24,69);
+  var scX=285,top=62,bottom=258,visible=span*2,stripCount=100;
+  x.fillStyle='#091a28';x.fillRect(scX-8,top-8,30,bottom-top+16);for(var i=0;i<stripCount;i++){var py=top+i*(bottom-top)/stripCount,ym=(.5-i/stripCount)*visible,I=Math.pow(Math.cos(Math.PI*ym/beta),2),a=Math.round(30+225*I);x.fillStyle='rgb(56,189,248)';x.globalAlpha=a/255;x.fillRect(scX,py,14,(bottom-top)/stripCount+1);}x.globalAlpha=1;x.strokeStyle='#8ca9bc';x.strokeRect(scX-8,top-8,30,bottom-top+16);x.fillStyle='#8ca9bc';x.font=(12*fontFactor)+'px sans-serif';x.fillText('screen',scX-4,top-17);
+  // Intensity profile.
+  var left=365,right=699,gy0=238,gy1=70;x.strokeStyle='rgba(132,174,205,.2)';x.lineWidth=1;x.beginPath();for(var gy=0;gy<=4;gy++){var yy=gy0-(gy/4)*(gy0-gy1);x.moveTo(left,yy);x.lineTo(right,yy);}for(var gx=0;gx<=4;gx++){var xx=left+gx*(right-left)/4;x.moveTo(xx,gy1);x.lineTo(xx,gy0);}x.stroke();x.strokeStyle='#7dd3fc';x.lineWidth=2.6;x.beginPath();for(var j=0;j<=500;j++){var u=j/500,ym2=(u-.5)*visible,I2=Math.pow(Math.cos(Math.PI*ym2/beta),2),py2=gy0-I2*(gy0-gy1),px2=left+u*(right-left);if(j===0)x.moveTo(px2,py2);else x.lineTo(px2,py2);}x.stroke();x.strokeStyle='#647d90';x.beginPath();x.moveTo(left,gy0);x.lineTo(right,gy0);x.stroke();x.fillStyle='#cbd9e3';x.font=(11*fontFactor)+'px sans-serif';x.fillText('Relative intensity',left,52);x.fillText('−'+span+' mm',left,gy0+18);x.fillText('0',left+(right-left)/2-3,gy0+18);x.fillText('+'+span+' mm',right-40,gy0+18);
+  out([['Fringe spacing β',beta.toFixed(3)+' mm'],['First dark fringe', (beta/2).toFixed(3)+' mm from centre'],['Wavelength λ',v.lambda+' nm'],['Slit separation d',v.separation+' μm'],['Screen distance D',v.distance.toFixed(1)+' m']]);
+ }
+ draw();
+};
+
+/* RC transient lab: exponential charging and discharging in an ideal RC circuit. */
+S.rcTransient=function(root,done){
+ root.classList.add('responsive-physics-lab');
+ heading(root,'RC Circuit: Charging & Discharging','Explore the time constant τ = RC. Ideal model: a resistor and capacitor with a constant source during charging; leakage and source resistance are neglected.');
+ var cv=makeCanvas(root,720,310),x=cv.x,mode='charge';
+ selectRow(root,'Operating mode',[['charge','Charging'],['discharge','Discharging']],function(v){mode=v;draw();done&&done();});
+ var ctl=panel(root,[{key:'r',label:'Resistance R',min:1,max:100,step:1,value:20,unit:' kΩ'},{key:'c',label:'Capacitance C',min:10,max:1000,step:10,value:220,unit:' μF'},{key:'v',label:'Supply / initial voltage',min:1,max:12,step:.5,value:9,unit:' V'},{key:'t',label:'Elapsed time',min:0,max:5,step:.1,value:1,unit:' τ'}],function(){draw();done&&done();});
+ var out=results(root);
+ function draw(){var v=ctl.values(),tau=v.r*1000*v.c*1e-6,t=v.t*tau,exp=Math.exp(-v.t),vc=mode==='charge'?v.v*(1-exp):v.v*exp,i=(v.v/(v.r*1000))*exp*1000,q=v.c*1e-6*vc*1e6,fontFactor=window.innerWidth<560?1.45:1;fit(x,cv.w,cv.h);
+  // Minimal animated-looking circuit, static state reflects the selected time.
+  x.strokeStyle='#7b9db2';x.lineWidth=5;x.lineJoin='round';x.beginPath();x.moveTo(55,95);x.lineTo(190,95);x.lineTo(190,60);x.lineTo(258,60);x.lineTo(258,95);x.lineTo(345,95);x.lineTo(345,220);x.lineTo(55,220);x.lineTo(55,95);x.stroke();
+  x.fillStyle='#172f40';x.fillRect(36,118,38,72);x.fillStyle='#cbdce5';x.fillRect(49,131,12,46);x.fillStyle='#fbbf24';x.font='bold '+(13*fontFactor)+'px sans-serif';x.fillText(v.v.toFixed(1)+' V',28,208);x.fillStyle='#0a1a27';x.fillRect(161,40,126,40);x.strokeStyle='#fbbf24';x.lineWidth=3;x.strokeRect(161,40,126,40);for(var r=0;r<7;r++)x.fillRect(170+r*15,57+(r%2?9:0),8,7);x.fillStyle='#fce7a6';x.font=(12*fontFactor)+'px sans-serif';x.fillText('R',218,32);
+  x.fillStyle='#19384a';x.fillRect(310,143,70,30);x.fillRect(329,121,8,74);x.fillRect(348,121,8,74);x.fillStyle='#7dd3fc';x.fillRect(321,126,14,Math.max(4,Math.min(64,vc/v.v*64)));x.fillStyle='#e2eef4';x.font=(12*fontFactor)+'px sans-serif';x.fillText('C',338,111);
+  x.fillStyle='#a8c2d3';x.font=(12*fontFactor)+'px sans-serif';x.fillText(mode==='charge'?'Capacitor voltage rises':'Capacitor voltage falls',420,50);x.fillText('τ = '+tau.toFixed(3)+' s',420,75);x.fillText('t = '+t.toFixed(3)+' s',420,95);
+  var left=420,right=690,top=125,bottom=245;x.strokeStyle='rgba(132,174,205,.2)';x.lineWidth=1;x.beginPath();for(var yy=0;yy<=4;yy++){var py=bottom-yy*(bottom-top)/4;x.moveTo(left,py);x.lineTo(right,py);}for(var xx=0;xx<=5;xx++){var px=left+xx*(right-left)/5;x.moveTo(px,top);x.lineTo(px,bottom);}x.stroke();x.strokeStyle='#7dd3fc';x.lineWidth=2.5;x.beginPath();for(var n=0;n<=180;n++){var z=n/180*5,val=mode==='charge'?1-Math.exp(-z):Math.exp(-z),px2=left+n/180*(right-left),py2=bottom-val*(bottom-top);if(!n)x.moveTo(px2,py2);else x.lineTo(px2,py2);}x.stroke();var currX=left+v.t/5*(right-left),currY=bottom-(vc/v.v)*(bottom-top);x.fillStyle='#fbbf24';x.beginPath();x.arc(currX,currY,5,0,Math.PI*2);x.fill();x.fillStyle='#cbd9e3';x.font=(10*fontFactor)+'px sans-serif';x.fillText('0',left,bottom+14);x.fillText('5τ',right-10,bottom+14);x.fillText('Vc / V',left,top-8);
+  out([['Time constant τ',tau.toFixed(3)+' s'],['Capacitor voltage Vc',vc.toFixed(3)+' V'],['Current magnitude |I|',i.toFixed(3)+' mA'],['Stored charge Q',q.toFixed(2)+' μC'],['Elapsed time t',t.toFixed(3)+' s']]);
+ }
+ draw();
+};
+
+
 })();

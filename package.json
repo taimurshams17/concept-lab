@@ -1,6 +1,6 @@
 {
   "name": "concept-lab",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "description": "ConceptLab: concept-first HSC lessons in Bengali, with an admin panel",
   "scripts": {

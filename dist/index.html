@@ -10,9 +10,13 @@
 <meta name="description" content="Concept-first lessons in Higher Math, Chemistry and Physics, explained in Bengali. Simulations, games and quizzes.">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Lora:wght@400;500;600&family=Sora:wght@500;600;700&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Anek+Bangla:wght@400;500;600;700&family=Atma:wght@400;500;600;700&family=Baloo+Da+2:wght@400;500;600;700&family=Mina:wght@400;700&family=Tiro+Bangla:ital@0;1&family=Galada&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Lora:wght@400;500;600&family=Amiri:wght@400;700&display=swap">
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/mono-icons.css">
+<link rel="stylesheet" href="assets/css/premium.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/images/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ConceptLab"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 <canvas id="stars" aria-hidden="true"></canvas>
@@ -20,16 +24,32 @@
 <button id="navBackdrop" class="nav-backdrop" type="button" aria-label="Close navigation menu" aria-hidden="true" tabindex="-1"></button>
 
 <header><div class="w hr"><a class="brand" href="#/"><img class="logo" src="assets/images/conceptlab-main-logo.webp" alt="" width="38" height="38"><span id="bn">ConceptLab</span></a>
-<nav aria-label="Primary" id="nav"><a href="#/">Home</a><a href="#/chapters">Explore Chapters</a><a href="#/play">Games</a><a href="#/lab">Simulations</a><a href="#/leaderboard">Leaderboard</a><a href="#/progress">My Progress</a><a href="#/study-space">Study Space</a><a href="#/hub">Student Hub</a><a href="#/daily">Daily &amp; Missions</a><a href="#/smart-practice">Smart Practice</a><a href="#/analytics">Analytics</a><a href="#/about">About</a></nav>
+<nav aria-label="Primary" id="nav"><a href="#/">Home</a><a href="#/chapters">Explore Chapters</a><a href="#/play">Games</a><a href="#/lab">Simulations</a><a href="#/graphs">গ্রাফ</a><a href="#/leaderboard">Leaderboard</a><a href="#/progress">My Progress</a><a href="#/study-space">Study Space</a><a href="#/hub">Student Hub</a><a href="#/daily">Daily &amp; Missions</a><a href="#/smart-practice">Smart Practice</a><a href="#/analytics">Analytics</a><a href="#/about">About</a></nav>
 <div class="hx"><div id="accountActions"><a class="account-link account-primary" href="#/account/signup">Sign up</a></div><a id="profileLink" class="profile-link" href="#/profile" aria-label="Open profile" hidden></a><button id="burger" aria-label="সব পেজ ও মেনু দেখুন" aria-controls="nav" aria-expanded="false" type="button"><i></i><i></i><i></i></button></div></div></header>
 <main id="app"></main>
-<footer><svg class="waves" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true"><path class="w1" d="M0 80C240 20 480 140 720 80S1200 20 1440 80V160H0Z"/><path class="w2" d="M0 100C240 150 480 50 720 100S1200 150 1440 100V160H0Z"/><path class="w3" d="M0 120C240 90 480 150 720 120S1200 90 1440 120V160H0Z"/></svg>
-<div class="w footer-pro"><div class="footer-brand"><b id="fb">ConceptLab</b><p id="footerTagline">Learn with curiosity. Build with understanding.</p><p id="ft">Created by Taimur Shams &amp; Moshiur Rahman Araf</p></div><div class="footer-connect"><span class="footer-label">CONNECT</span><div id="footerSocials"><a class="footer-social facebook" id="footerFacebook" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.7 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6H17V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.5v3.2h2.8V21z"/></svg><span id="footerFacebookLabel">Join our Facebook Page</span></a></div></div><a href="#/" id="ftop">Back to top ↑</a></div></footer>
+<footer class="site-footer pf">
+<div class="pf-aurora" aria-hidden="true"></div><div class="pf-grain" aria-hidden="true"></div>
+<div class="w">
+ <div class="pf-grid">
+  <div class="pf-brand">
+   <a class="pf-brand-lock" href="#/" aria-label="ConceptLab home"><img src="assets/images/conceptlab-main-logo.webp" alt="" width="54" height="54"><span><b id="fb">ConceptLab</b><small>Explore · Experiment · Understand</small></span></a>
+   <p id="footerTagline">Learn with curiosity. Build with understanding.</p>
+   <p class="pf-credit"><span id="ft">Created by Taimur Shams &amp; Moshiur Rahman Araf</span></p>
+   <div class="pf-subjects" aria-label="Subjects"><a href="#/chapters"><i class="sd" style="--c:#38bdf8"></i>Physics</a><a href="#/chapters"><i class="sd" style="--c:#34d399"></i>Chemistry</a><a href="#/chapters"><i class="sd" style="--c:#fbbf24"></i>Higher Math</a></div>
+   <div id="footerSocials"><a class="footer-social facebook" id="footerFacebook" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.7 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6H17V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.5v3.2h2.8V21z"/></svg><span id="footerFacebookLabel">Join our Facebook Page</span></a></div>
+  </div>
+  <div class="pf-col"><h4>Learn</h4><div class="pf-links" role="group" aria-label="Learn"><a href="#/chapters">Explore Chapters</a><a href="#/lab">Interactive Simulations</a><a href="#/graphs">Graph Lab</a><a href="#/play">Arcade &amp; Games</a><a href="#/smart-practice">Smart Practice</a><a href="#/daily">Daily Challenges</a></div></div>
+  <div class="pf-col"><h4>Student tools</h4><div class="pf-links" role="group" aria-label="Student tools"><a href="#/hub">Student Hub</a><a href="#/solver">Formula Solver <span class="nw">NEW</span></a><a href="#/reference">Reference Shelf <span class="nw">NEW</span></a><a href="#/study-space">Study Space</a><a href="#/share-card">Progress Card <span class="nw">NEW</span></a></div></div>
+  <div class="pf-col"><h4>Your space</h4><div class="pf-links" role="group" aria-label="Your space"><a href="#/progress">My Progress</a><a href="#/analytics">Analytics</a><a href="#/leaderboard">Leaderboard</a><a href="#/settings">Settings</a><a href="#/about">About ConceptLab</a><span id="pfInstallLi" hidden><a href="#/settings" id="pfInstall">Install as app</a></span></div></div>
+ </div>
+ <div class="pf-bottom"><div class="pf-legal"><span>ConceptLab · <span id="footerYear">2026</span></span><i class="dot" aria-hidden="true"></i><span>Learn by doing.</span><i class="dot" aria-hidden="true"></i><a href="#/about">Feedback &amp; contact</a></div><button type="button" class="pf-top" id="ftop">Back to top</button></div>
+</div></footer>
 <nav class="bottom-nav" aria-label="Quick navigation">
 <a href="#/" data-bottom="home"><span class="bottom-nav-icon" aria-hidden="true">🏠</span><span>Home</span></a>
 <a href="#/chapters" data-bottom="chapters"><span class="bottom-nav-icon" aria-hidden="true">📖</span><span>Chapters</span></a>
 <a href="#/play" data-bottom="play"><span class="bottom-nav-icon" aria-hidden="true">🎮</span><span>Arcade</span></a>
 <a href="#/lab" data-bottom="lab"><span class="bottom-nav-icon" aria-hidden="true">🔬</span><span>Simulations</span></a>
+<a href="#/graphs" data-bottom="graphs"><span class="bottom-nav-icon" aria-hidden="true">📊</span><span>গ্রাফ</span></a>
 <a href="#/hub" data-bottom="hub"><span class="bottom-nav-icon" aria-hidden="true">🎓</span><span>Student Hub</span></a>
 <a href="#/about" data-bottom="about"><span class="bottom-nav-icon" aria-hidden="true">✦</span><span>About</span></a>
 </nav>
@@ -41,10 +61,14 @@
 <script src="assets/js/sims.js"></script>
 <script src="assets/js/topic-sims.js"></script>
 <script src="assets/js/additional-sims.js"></script>
+<script src="assets/js/physics-labs.js"></script>
+<script src="assets/js/graphs.js"></script>
+<script src="assets/js/shortcuts.js"></script>
 <script src="assets/js/games.js"></script>
 <script src="assets/js/ayat-hadith.js"></script>
 <script src="assets/js/casio991.js"></script>
 <script src="assets/js/hub.js"></script>
+<script src="assets/js/premium.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/mono-icons.js"></script>
 </body>

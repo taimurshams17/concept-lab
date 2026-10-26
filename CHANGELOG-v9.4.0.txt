@@ -1,0 +1,8 @@
+ConceptLab v9.4.0 — Brain Sprint home experience
+
+- Removed the homepage Universal Learning Finder and its Ctrl/Cmd+K, Enter, and Escape behavior.
+- Removed the Daily Discovery rotation and homepage live resource counters.
+- Replaced the old learning desk with Brain Sprint: an interactive five-question, 60-second quiz for Physics, Chemistry, Higher Mathematics, or mixed subjects.
+- Added immediate answer feedback, short worked explanations, per-session score and progress, a countdown, and a locally saved personal best for each subject selection.
+- Added responsive and reduced-motion styles for the new challenge arena.
+- Preserved existing chapter, simulation, game, and Student Hub routes.

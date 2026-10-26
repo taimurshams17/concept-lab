@@ -1,0 +1,6 @@
+ConceptLab v9.6.5 — Font settings fix
+
+- Fixed the built/distribution copy so deployed builds show the separate font controls.
+- Settings now provide independent Bengali and English font selectors.
+- Bengali font selection uses Bengali-specific glyph fallback; English font selection is independent.
+- Expanded web font choices for Bengali and English.
