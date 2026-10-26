@@ -7,7 +7,7 @@ function rgb(h){h=(h||'#38bdf8').replace('#','');return[parseInt(h.substr(0,2),1
 var cv=document.getElementById('stars'),cx=cv&&cv.getContext('2d'),W=0,H=0,stars=[],embers=[],shoots=[],planets=[],px=0,py=0,tx=0,ty=0,dpr=1,nextShoot=2;
 function size(){if(!cv)return;dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
  var n=Math.min(170,Math.round(W*H/11500));stars=[];for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,z:.2+Math.random()*.8,r:Math.random()*1.3+.2,t:Math.random()*6.28,s:.4+Math.random()*1.6});
- var m=Math.round(Math.min(W<700?6:11,W/(W<700?105:95)));embers=[];for(var j=0;j<m;j++)embers.push(ember(true));
+ var m=0; /* v9.8.0: rising bottom bubbles/embers removed */embers=[];for(var j=0;j<m;j++)embers.push(ember(true));
  /* Sparse, low-opacity celestial objects: fixed in the sky so they feel like distant scenery. */
  planets=[
   {x:W*.82,y:H*.22,r:Math.min(15,W*.022),c:'#38bdf8',ring:true},

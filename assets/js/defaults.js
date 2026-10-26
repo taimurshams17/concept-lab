@@ -5,10 +5,10 @@ window.CL_SIMKEYS = ['bohr', 'rutherford', 'rutherfordModel', 'line', 'force', '
 window.CL_DEF = {
 settings: {
   badge: 'বাংলায় ধারণা-ভিত্তিক পাঠ',
-  h1: 'ConceptLab: মুখস্থ নয়, ধারণা বুঝুন।',
-  lead: 'Higher Math, Chemistry ও Physics-এর প্রতিটি চ্যাপ্টার চারটি ধাপে শেখানো হয়। বাস্তব উদাহরণ, ইন্টারেক্টিভ সিমুলেশন, মজার গেম ও কুইজসহ।',
+  h1: 'ConceptLab: মুখস্থ নয়, কনসেপ্ট বুঝুন',
+  lead: 'Physics, Chemistry ও Higher Math -এর প্রতিটি চ্যাপ্টার চারটি ধাপে শেখানো হয়েছে।',
   heroPre: 'Play with',
-  heroWords: 'Waves, Atoms, Vectors, Forces, Equations, Graphs',
+  heroWords: 'Atoms, Waves, Vectors, Forces, Equations, Graphs',
   siteName: 'ConceptLab',
   footer: 'Created by Taimur Shams — an independent student-led educational project.',
   credit: 'Created by Taimur Shams & Moshiur Rahman Araf',
@@ -150,7 +150,7 @@ chapters: [
 
 home: { sections: [
  {id:'s-ticker',type:'marquee',on:true,items:[{t:'F = ma'},{t:'H₂O'},{t:'y = mx + c'},{t:'sin²θ + cos²θ = 1'},{t:'PV = nRT'},{t:'T = 2π√(L/g)'},{t:'d/dx xⁿ = nxⁿ⁻¹'},{t:'NaCl'},{t:'det A = ad − bc'},{t:'(x−h)² + (y−k)² = r²'},{t:'v = u + at'}]},
- {id:'s-stats',type:'stats',on:true,items:[{t:'Chapters planned',k:'chapters',v:''},{t:'Live simulations',k:'labs',v:''},{t:'Mini games',k:'games',v:''},{t:'XP you earned',k:'xp',v:''}]},
+ {id:'s-stats',type:'stats',on:true,items:[{t:'Chapters planned',k:'chapters',v:'25'},{t:'Live simulations',k:'labs',v:''},{t:'Mini games',k:'games',v:''},{t:'XP you earned',k:'xp',v:''}]},
  {id:'s-goals',type:'goals',on:true,pill:'আমাদের লক্ষ্য · OUR MISSION',h:'What we want|to do',p:'চারটি বড় লক্ষ্য, যা প্রতিটি পাতায় আমাদের পথ দেখায়।',items:[
    {i:'🧠',t:'ধারণা আগে, সূত্র পরে',p:'প্রতিটি সূত্রের আগে একটি প্রশ্ন: এটি কেন কাজ করে? আগে ধারণাটি বুঝলে সূত্র নিজেই মনে থাকে।'},
    {i:'🎮',t:'প্রতিটি চ্যাপ্টার খেলার মতো',p:'সিমুলেশন, মিনি-গেম, কুইজ ও ব্যাজ—শেখাকে করে তুলি আনন্দের অভিজ্ঞতা, যেন বারবার ফিরে আসতে ইচ্ছে করে।'},
@@ -161,9 +161,9 @@ home: { sections: [
  {id:'s-lab',type:'lab',on:true,pill:'INTERACTIVE PLAYGROUND',h:'Don’t just read it.|Play with the idea.',p:'Change the settings and watch the wave respond in real time. A tiny experiment, right on the home page.',btn:'Explore all simulations ↗',link:'#/lab',items:[{t:'Physics'},{t:'Live graph'},{t:'Try it yourself'}]},
  {id:'s-arcade',type:'arcade',on:true,pill:'ARCADE',h:'Study that feels|like a game',p:'Beat the clock, build combos, balance equations and fire cannons. Every round teaches a real concept, and earns you XP.',btn:'Open the arcade',link:'#/play'},
  {id:'s-purpose',type:'purpose',on:true,pill:'আমাদের উদ্দেশ্য',h:'প্রতিটি কনসেপ্ট, পরিষ্কারভাবে আয়ত্ত করা।',
-  p:'ConceptLab-এর প্রধান উদ্দেশ্য হলো শিক্ষার্থীরা যেন প্রত্যেকটি কনসেপ্ট আরও ভালোভাবে আয়ত্ত করতে পারে।',
-  p2:'অনেক সময় সূত্র মুখস্থ করে পরীক্ষা দেওয়া যায়, কিন্তু সূত্রটি কেন কাজ করে তা বোঝা হয় না। এই ওয়েবসাইট সেই ফাঁকটুকু পূরণ করতে চায়: বাস্তব উদাহরণ, নিজে হাতে বদলে দেখার সিমুলেশন ও কুইজের মাধ্যমে।',
-  items:[{t:'সূত্রের আগে ধারণা, মুখস্থের আগে বোঝা'},{t:'আগে দেখুন, নিজে করুন, তারপর যাচাই করুন'},{t:'সহজ বাংলা ভাষায় ব্যাখ্যা'}]},
+  p:'শিক্ষার্থীরা যেন প্রতিটি কনসেপ্ট ভালোভাবে বুঝে আয়ত্ত করতে পারে।',
+  p2:'সূত্র মুখস্থ না করে কেন কাজ করে, তা বোঝাই আমাদের লক্ষ্য।',
+  items:[{t:'সূত্রের আগে ধারণা'},{t:'আগে দেখুন, নিজে করুন, যাচাই করুন'},{t:'সহজ বাংলায় ব্যাখ্যা'}]},
  {id:'s-why',type:'features',on:true,pill:'কেন ConceptLab?',h:'কেন এই ওয়েবসাইট তৈরি হচ্ছে?',p:'পড়াশোনা যেন ভয়ের নয়, কৌতূহলের হয়ে ওঠে।',items:[
    {i:'💡',t:'মুখস্থ নয়, বোঝা',p:'প্রতিটি সূত্রের পেছনের কারণ আগে, সূত্র পরে।'},
    {i:'🧪',t:'নিজে করে দেখুন',p:'স্লাইডার ও বোতাম বদলে ফলাফল সঙ্গে সঙ্গে দেখুন।'},

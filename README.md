@@ -25,7 +25,6 @@ Saved admin content overrides the built-in content. See SETUP-GUIDE.md to deploy
 - Added a homepage Quick Access launchpad for the core features, all three subjects, and the Student Hub tools.
 - Added a card-based three-line menu with monochrome icons, short descriptions, and direct links to all 11 Student Hub tools.
 - Added a persistent bottom navigation: Home, Chapters, Arcade, Simulations, Student Hub, and About.
-- See `UPDATE-CONCEPTLAB-V8.9-PHYSICSVERSE-INSPIRED-BN.md` for the full update summary.
 
 
 ## ConceptLab v9.4 update
@@ -33,4 +32,4 @@ Saved admin content overrides the built-in content. See SETUP-GUIDE.md to deploy
 - Replaced the previous home learning desk with Brain Sprint: a timed five-question quiz for Physics, Chemistry, Higher Mathematics, or mixed subjects.
 - Added answer explanations, a visible timer/progress indicator, and personal-best records saved locally per selected subject.
 - Preserved the existing Student Hub, chapter, simulation, and game routes.
-- See `CHANGELOG-v9.4.0.txt` and `RELEASE-NOTES-v9.4.0.txt` for details.
+- See `CHANGELOG.md` for details.

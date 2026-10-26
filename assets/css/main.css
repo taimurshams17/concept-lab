@@ -3231,3 +3231,52 @@ body.navopen #clMessagePanel{display:none!important}
 .shortcut-condition{margin:0;color:var(--mut);font-size:10px;line-height:1.65}
 .shortcut-disclaimer{padding:12px 14px;border:1px solid rgba(251,191,36,.13);border-radius:11px;color:var(--mut);font-size:10px;line-height:1.75}
 @media(max-width:680px){.lab-page .subject-chooser{grid-template-columns:1fr;gap:7px;margin:14px 0 18px}.lab-page .subject-choice{min-height:56px;padding:9px 11px}.lab-page .subject-choice>small{font-size:9px}.shortcut-toolbar{grid-template-columns:1fr}.shortcut-tip-list{grid-template-columns:1fr;padding:8px}.shortcut-chapter>summary{padding:11px 12px}.shortcut-chapter-copy b{font-size:12px}.shortcut-tip{padding:11px}}
+
+
+/* ConceptLab mobile typography refinement — v9.8.2
+   Keep desktop sizing unchanged; reduce oversized headings and supporting text on phones. */
+@media (max-width: 600px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { font-size: 14px; line-height: 1.55; }
+  h1 { font-size: clamp(1.45rem, 6vw, 1.8rem) !important; line-height: 1.22 !important; letter-spacing: -.025em; }
+  h2 { font-size: clamp(1.2rem, 5vw, 1.45rem) !important; line-height: 1.28 !important; letter-spacing: -.018em; }
+  h3 { font-size: clamp(1.02rem, 4.2vw, 1.2rem) !important; line-height: 1.32 !important; }
+  h4 { font-size: 1rem !important; line-height: 1.35 !important; }
+  p, li, label, small, .muted, .subtitle, .description, .eyebrow,
+  .section-description, .section-subtitle, .card-description {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+  button, .btn, input, select, textarea { font-size: 0.875rem; }
+  .w { padding-left: 14px; padding-right: 14px; }
+}
+@media (max-width: 380px) {
+  body { font-size: 13.5px; }
+  h1 { font-size: 1.38rem !important; }
+  h2 { font-size: 1.15rem !important; }
+  h3 { font-size: 1rem !important; }
+  p, li, label, small, .muted, .subtitle, .description,
+  .section-description, .section-subtitle, .card-description {
+    font-size: 0.83rem;
+  }
+}
+
+
+/* v9.8.2: tighter mobile typography for hero and purpose section */
+@media (max-width: 600px) {
+  .home-page .hero h1, .hero-copy h1 { font-size: clamp(23px, 6.2vw, 29px) !important; line-height: 1.22 !important; letter-spacing: -0.025em; }
+  .home-page .hero .lead, .hero-copy .lead, .home-page .hero p { font-size: 12px !important; line-height: 1.65 !important; }
+  .home-page .hero .eyebrow { font-size: 10px !important; }
+  .home-page section .split { gap: 14px !important; }
+  .home-page section .split > div:first-child { text-align: center !important; }
+  .home-page section .split > div:first-child h2 { font-size: clamp(19px, 5.2vw, 24px) !important; line-height: 1.3 !important; margin-top: 12px !important; text-align: center !important; }
+  .home-page section .split > div:first-child .pill { font-size: 10px !important; }
+  .home-page section .split p.bn { font-size: 12px !important; line-height: 1.75 !important; }
+  .home-page section .split ul { font-size: 11.5px !important; line-height: 1.65 !important; padding-left: 18px !important; }
+}
+@media (max-width: 380px) {
+  .home-page .hero h1, .hero-copy h1 { font-size: 22px !important; }
+  .home-page .hero .lead, .hero-copy .lead, .home-page .hero p { font-size: 11.5px !important; }
+  .home-page section .split > div:first-child h2 { font-size: 19px !important; }
+  .home-page section .split p.bn { font-size: 11.5px !important; }
+}
