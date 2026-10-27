@@ -2,6 +2,21 @@
 
 ---
 
+## CHANGELOG-v9.9.3
+
+ConceptLab v9.9.3 — Simulation controls and mechanics fixes
+
+- Simulation catalog no longer adds empty chapter placeholders; spacing between available chapters is tighter and content is visible immediately without scrolling to trigger reveal effects.
+- Added a “সব সিমুলেশন একসাথে দেখুন” button and labeled Physics, Chemistry and Higher Mathematics as ১ম পত্র beside each subject.
+- Added editable numeric inputs paired with simulation sliders; values stay synchronized with the live model.
+- Increased the available boat-speed, river-current and river-width ranges, with direct numeric entry.
+- The boat model now explains when the current cannot be cancelled because the stream is at least as fast as the boat; preset-driven slider values keep numeric fields synchronized.
+- Reworked Free-Body Diagram, Connected Bodies & Pulley, and Elevator & Apparent Weight as live physics diagrams with calculated readouts and clear sign conventions.
+- Corrected “পড়ন্ত বনাম নিক্ষিপ্ত বস্তু” to compare free fall from a height with a vertical throw launched from the ground.
+- Added zoom/mobile responsive rules for the simulation catalog and controls; bumped the service-worker cache to v9.9.3.
+
+---
+
 ## CHANGELOG-v9.9.2
 
 ConceptLab v9.9.2
@@ -405,3 +420,26 @@ ConceptLab v9.0.1 hotfix
 - Fixes the actual #nav.nav-portal mobile drawer width and text wrapping, not just notification-like selectors.
 - Narrows simulation icon matching to each card title to reduce accidental matches against nearby card content.
 - Browser visual verification is still required after deployment.
+
+## v9.9.4 — mobile layout, motion clarity, circuit puzzle
+- Forced the simulation catalogue cards and subject groups to remain visible without scroll-triggered reveal delays.
+- Tightened small-screen Student Hub spacing and made cards, labels, fields and actions fit inside the viewport.
+- Rebuilt Inclined Plane with Friction drawing so the block moves down the incline when the force balance predicts sliding; added R = mg cosθ, mg sinθ, mg cosθ, adjustable g and direct force results.
+- Bus/train simulation now starts in a readable stationary state and explains same-direction versus opposite-direction relative speed before the user starts motion.
+- Added Circuit Logic Scramble, an original seven-gate logic puzzle with binary switches, live output LED, target matching, hints, truth tables and ten progressive missions, inspired by the general educational puzzle format of Circuit Scramble without copying its assets or levels.
+- Cache name updated to v9.9.4.
+
+## v9.9.5 — Simulation direction and compact mobile controls
+- Fixed Inclined Plane with Friction animation direction: the block now starts near the top of the slope and moves down the incline when sliding; animation stops at the lower end.
+- Reduced mobile spacing, control-panel padding, range-control height, result-card gaps, and button sizing without removing controls.
+- Mobile control-jump label now uses ↑ when the controls are above the visualization and ↓ when they are below; no jump control is added when no actual controls are present.
+- Vertically centered subject selector labels and slightly increased the chapter-group spacing compared with the previous compressed layout.
+
+## 2026-10-27 — Game Academy chapter and level overhaul
+
+- Rebuilt the Games page around subject → paper → chapter → game navigation.
+- Added the Game Academy catalogue and 45 chapter-mapped practice games, bringing the default merged catalogue to 83 playable games while preserving existing games.
+- Added Concept, Board Challenge, Admission Challenge, Boss Level, and Mistake Review navigation to standard quiz games.
+- Added local mistake storage/review and staged quiz pools, timers, and round counts.
+- Added responsive Game Academy styling and bumped the service-worker cache version.
+- See `GAME-ACADEMY-UPDATE.md` for deployment and validation details.

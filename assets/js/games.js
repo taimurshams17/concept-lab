@@ -13,31 +13,51 @@ function hearts(n,max){var s='';for(var i=0;i<(max||3);i++)s+=i<n?'<span class="
 function keyhandler(r,fn){function h(e){if(!r.isConnected){document.removeEventListener('keydown',h);return}fn(e)}document.addEventListener('keydown',h)}
 function flameSvg(c){return'<svg viewBox="0 0 200 240" class="flame-svg"><defs><radialGradient id="fgg" cx="50%" cy="85%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="'+c+'"/><stop offset="1" stop-color="'+c+'" stop-opacity="0"/></radialGradient></defs><ellipse cx="100" cy="140" rx="90" ry="104" fill="url(#fgg)" opacity=".55"/><path class="fl1" d="M100 24C132 70 150 100 144 140C140 176 120 190 100 190C80 190 60 176 56 140C50 100 68 70 100 24Z" fill="'+c+'" opacity=".92"/><path class="fl2" d="M100 70C122 100 130 120 126 146C123 170 112 182 100 182C88 182 77 170 74 146C70 120 78 100 100 70Z" fill="#fff" opacity=".6"/><rect x="86" y="188" width="28" height="36" rx="4" fill="#475569"/><rect x="72" y="222" width="56" height="10" rx="4" fill="#334155"/></svg>'}
 
+/* ================= Circuit Logic Scramble ================= */
+G.logicCircuit=function(r,g,A){var E=A.E,levels=[
+ {gate:'AND',a:1,b:1,y:1,why:'AND-এ দুটো ইনপুটই 1 হলে আউটপুট 1।'},
+ {gate:'OR',a:0,b:1,y:1,why:'OR-এ অন্তত একটি ইনপুট 1 হলেই আউটপুট 1।'},
+ {gate:'XOR',a:1,b:0,y:1,why:'XOR-এ ইনপুট দুটো আলাদা হলে আউটপুট 1।'},
+ {gate:'NAND',a:1,b:1,y:0,why:'NAND হলো AND-এর বিপরীত আউটপুট।'},
+ {gate:'NOR',a:0,b:0,y:1,why:'NOR হলো OR-এর বিপরীত আউটপুট।'},
+ {gate:'NOT',a:0,b:1,y:1,why:'NOT এক ইনপুটকে উল্টে দেয়: 0→1, 1→0।'},
+ {gate:'XNOR',a:1,b:1,y:1,why:'XNOR-এ ইনপুট দুটো একই হলে আউটপুট 1।'},
+ {gate:'AND',a:1,b:0,y:0,why:'AND-এ একটি ইনপুট 0 থাকলেও আউটপুট 0।'},
+ {gate:'OR',a:0,b:0,y:0,why:'OR-এ দুটো ইনপুটই 0 হলে আউটপুট 0।'},
+ {gate:'XOR',a:1,b:1,y:0,why:'XOR-এ ইনপুট একই হলে আউটপুট 0।'}
+ ];levels=levels.slice(0,(g.challengeLevel===1?3:g.challengeLevel===2?5:g.challengeLevel===3?7:levels.length));var idx=0,score=0,correct=0,tries=0,solved=[],cur=null,gate='AND',a=0,b=0,locked=false;
+ function out(){if(gate==='NOT')return a?0:1;if(gate==='AND')return a&b;if(gate==='OR')return a|b;if(gate==='XOR')return a^b;if(gate==='NAND')return 1-(a&b);if(gate==='NOR')return 1-(a|b);return 1-(a^b)}
+ function render(){cur=levels[idx];gate=cur.gate;a=cur.a;b=cur.b;var opts=['AND','OR','XOR','NAND','NOR','NOT','XNOR'];r.innerHTML='<div class="circuit-hud"><div><small>LEVEL</small><b>'+(idx+1)+' / '+levels.length+'</b></div><div><small>LOGIC POINTS</small><b>'+score+'</b></div><div><small>PERFECT</small><b>'+correct+'</b></div></div><div class="circuit-board"><div class="circuit-level-head"><span>MISSION '+String(idx+1).padStart(2,'0')+'</span><b>টার্গেট LED জ্বালাও</b></div><p class="bn">টার্গেট আউটপুট <b>'+cur.y+'</b>। গেট ও ইনপুট সুইচ বদলে আউটপুটের মান টার্গেটের সঙ্গে মেলাও।</p><div class="circuit-controls"><div class="circuit-input"><small>INPUT A</small><button type="button" class="circuit-switch" data-in="a" aria-pressed="'+a+'">'+a+'</button></div><div class="circuit-wire"></div><div class="circuit-gate"><small>LOGIC GATE</small><div class="gate-glyph" id="circuitGlyph">'+gate+'</div><select id="circuitGate" aria-label="লজিক গেট বেছে নিন">'+opts.map(function(x){return'<option'+(x===gate?' selected':'')+'>'+x+'</option>'}).join('')+'</select></div><div class="circuit-wire"></div><div class="circuit-input"><small>INPUT B</small><button type="button" class="circuit-switch" data-in="b" aria-pressed="'+b+'" '+(gate==='NOT'?'disabled':'')+'>'+b+'</button></div></div><div class="circuit-output-row"><span class="circuit-output-wire"></span><div class="circuit-led '+(out()?'lit':'')+'" id="circuitLed"><i></i><b>OUTPUT Y = '+out()+'</b><small>'+(out()?'HIGH · ON':'LOW · OFF')+'</small></div></div><div class="circuit-target '+(out()===cur.y?'target-match':'')+'">'+(out()===cur.y?'✓ টার্গেট মিলে গেছে!':'টার্গেট: '+cur.y+' · বর্তমান: '+out())+'</div><div class="circuit-actions"><button type="button" class="btn pri" id="circuitCheck">উত্তর যাচাই করুন</button><button type="button" class="btn" id="circuitHint">💡 ইঙ্গিত</button><button type="button" class="btn" id="circuitTruth">Truth table</button></div><div id="circuitFeedback" aria-live="polite"></div><div id="circuitTruthBox" hidden></div></div><p class="mutt">আসল সার্কিট ডিজাইনের মতো এখানে প্রতিটি ইনপুট 0 (LOW) বা 1 (HIGH)। সঠিক গেট নির্বাচন এবং সুইচের অবস্থা মিলিয়ে আউটপুট তৈরি হয়।</p>';bind();}
+ function bind(){r.querySelectorAll('[data-in]').forEach(function(btn){btn.addEventListener('click',function(){if(locked)return;if(btn.dataset.in==='a')a=1-a;else b=1-b;refresh()})});r.querySelector('#circuitGate').addEventListener('change',function(){if(!locked){gate=this.value;refresh()}});r.querySelector('#circuitCheck').addEventListener('click',check);r.querySelector('#circuitHint').addEventListener('click',function(){var f=r.querySelector('#circuitFeedback');f.innerHTML='<div class="circuit-feedback">💡 '+E(cur.why)+'</div>'});r.querySelector('#circuitTruth').addEventListener('click',function(){var box=r.querySelector('#circuitTruthBox');box.hidden=!box.hidden;if(!box.hidden){var rows=(gate==='NOT'?[[0,'—',1],[1,'—',0]]:[[0,0],[0,1],[1,0],[1,1]]).map(function(q){var olda=a,oldb=b;a=q[0];b=q[1];var y=out();a=olda;b=oldb;return'<tr><td>'+q[0]+'</td><td>'+q[1]+'</td><td>'+y+'</td></tr>'}).join('');box.innerHTML='<table class="circuit-truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody>'+rows+'</tbody></table>'}})}
+ function refresh(){var y=out(),led=r.querySelector('#circuitLed');r.querySelector('#circuitGlyph').textContent=gate;led.classList.toggle('lit',!!y);led.querySelector('b').textContent='OUTPUT Y = '+y;led.querySelector('small').textContent=y?'HIGH · ON':'LOW · OFF';r.querySelector('[data-in="a"]').textContent=a;r.querySelector('[data-in="a"]').setAttribute('aria-pressed',String(a));r.querySelector('[data-in="b"]').textContent=b;r.querySelector('[data-in="b"]').setAttribute('aria-pressed',String(b));r.querySelector('[data-in="b"]').disabled=gate==='NOT';r.querySelector('.circuit-target').classList.toggle('target-match',y===cur.y);r.querySelector('.circuit-target').textContent=y===cur.y?'✓ টার্গেট মিলে গেছে!':'টার্গেট: '+cur.y+' · বর্তমান: '+y}
+ function check(){if(locked)return;tries++;if(gate===cur.gate&&out()===cur.y){locked=true;correct++;score+=100;r.querySelector('#circuitFeedback').innerHTML='<div class="circuit-feedback good">✓ সঠিক সার্কিট! '+E(cur.why)+' <button class="btn pri" id="circuitNext">পরের লেভেল →</button></div>';r.querySelector('#circuitNext').addEventListener('click',function(){idx++;if(idx>=levels.length){A.done({score:score,pct:correct/levels.length,detail:correct+' / '+levels.length+' levels solved'});return}locked=false;render()})}else{r.querySelector('#circuitFeedback').innerHTML='<div class="circuit-feedback bad">এখনও মেলেনি। গেটের ধরন ও ইনপুট দুটোই দেখুন; প্রয়োজনে ইঙ্গিত নিন।</div>'}}
+ render();};
+
 /* ================= Quiz Blitz ================= */
 G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
  if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
  if(pool.length<2)return empty(r,'Add some questions in the admin panel to play this game.');
- var T=+d.time||60,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[];
+ var T=+d.time||60,targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}
- function nxt(){if(!order.length)order=sh(pool.slice());cur=order.pop();var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');lock=false}
+ function nxt(){if(over)return;if(targetRounds&&asked>=targetRounds)return end();if(!order.length)order=sh(pool.slice());cur=order.pop();asked++;var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');lock=false}
  qa(r,'#qa').onclick=function(e){var b=e.target.closest('.opt');if(!b||lock||over)return;lock=true;var ok=b.dataset.ok=='1';
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<12)missed.push({q:cur.q,a:cur.o[cur.a],e:cur.e});if(cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}}
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<12)missed.push({q:cur.q,a:cur.o[cur.a],yourAnswer:b.textContent,e:cur.e});if(cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}}
   h();if(lives<=0)return setTimeout(end,cur.e&&!ok?1800:800);setTimeout(nxt,ok?320:(cur.e?1900:950))};
  A.every(r,150,function(){var left=T-(performance.now()-t0)/1000;qa(r,'#tm').textContent=Math.max(0,Math.ceil(left));qa(r,'#tb').style.width=Math.max(0,left/T*100)+'%';if(left<=0)end()});
- function end(){if(over)return;over=true;A.done({score:score,pct:Math.min(1,score/200),detail:correct+' correct',review:missed})}
+ function end(){if(over)return;over=true;A.done({score:score,pct:targetRounds?Math.min(1,correct/targetRounds):Math.min(1,score/200),detail:correct+' correct'+(targetRounds?' / '+targetRounds+' questions':''),review:missed})}
  h();nxt()};
 
 /* ================= Formula Memory ================= */
 G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(function(p){return p&&p.a&&p.b});if(pairs.length<2)return empty(r,'Add at least 2 pairs in the admin panel.');
  var chosen=sh(pairs.slice()).slice(0,6),n=chosen.length,cards=[];chosen.forEach(function(p,i){cards.push({id:i,t:p.a});cards.push({id:i,t:p.b})});sh(cards);
- var first=-1,lock=false,moves=0,matched=0,t0=performance.now(),over=false,cols=cards.length>=12?4:cards.length>=8?4:3;
+ var first=-1,lock=false,moves=0,matched=0,t0=performance.now(),over=false,missed=[],cols=cards.length>=12?4:cards.length>=8?4:3;
  r.innerHTML=hud([[X('g_moves'),'mv',0],['Pairs','pr','0 / '+n],[X('g_time'),'tm','0s']])+'<div class="mgrid" style="--cols:'+cols+'">'+cards.map(function(c,i){return'<button class="mc" data-i="'+i+'"><span class="mf">?</span><span class="mb">'+E(c.t)+'</span></button>'}).join('')+'</div>';
  A.every(r,500,function(){if(!over)qa(r,'#tm').textContent=Math.round((performance.now()-t0)/1000)+'s'});
  r.onclick=function(e){var b=e.target.closest('.mc');if(!b||lock||over||b.classList.contains('on')||b.classList.contains('ok'))return;var i=+b.dataset.i;b.classList.add('on');
   if(first<0){first=i;return}moves++;qa(r,'#mv').textContent=moves;var a=qq(r,'.mc')[first];
-  if(cards[first].id==cards[i].id){a.classList.add('ok');b.classList.add('ok');matched++;first=-1;qa(r,'#pr').textContent=matched+' / '+n;if(matched==n){over=true;var secs=Math.round((performance.now()-t0)/1000);setTimeout(function(){A.done({score:Math.max(100,Math.round(1000-moves*25-secs*4)),pct:Math.max(.35,Math.min(1,n*1.5/moves)),detail:moves+' moves, '+secs+'s'})},700)}}
-  else{lock=true;setTimeout(function(){a.classList.remove('on');b.classList.remove('on');first=-1;lock=false},850)}}};
+  if(cards[first].id==cards[i].id){a.classList.add('ok');b.classList.add('ok');matched++;first=-1;qa(r,'#pr').textContent=matched+' / '+n;if(matched==n){over=true;var secs=Math.round((performance.now()-t0)/1000);setTimeout(function(){A.done({score:Math.max(100,Math.round(1000-moves*25-secs*4)),pct:Math.max(.35,Math.min(1,n*1.5/moves)),detail:moves+' moves, '+secs+'s',review:missed})},700)}}
+  else{if(missed.length<12){var ca=cards[first],cb=cards[i],mate=cards.find(function(c){return c.id===ca.id&&c!==ca});missed.push({q:'মিল খুঁজুন: '+ca.t+' ↔ '+cb.t,a:ca.t+' ↔ '+(mate?mate.t:ca.t),yourAnswer:ca.t+' ↔ '+cb.t,e:'দুটি কার্ড একই ধারণা/সূত্রের জোড়া নয়। ধারণা ও সংজ্ঞা মিলিয়ে আবার চেষ্টা করো।'})}lock=true;setTimeout(function(){a.classList.remove('on');b.classList.remove('on');first=-1;lock=false},850)}}};
 
 /* ================= True or False ================= */
 G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});if(items.length<2)return empty(r,'Add statements in the admin panel.');
@@ -47,7 +67,7 @@ G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(funct
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives);qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length}
  function show(){lock=false;qa(r,'#tc').innerHTML='<p class="bn qt">'+E(list[i].s)+'</p><div class="tfrow"><button class="tfb t" data-v="1">✔ '+E(X('g_true'))+' <small>←</small></button><button class="tfb f" data-v="0">✘ '+E(X('g_false'))+' <small>→</small></button></div><p class="ex" id="ex"></p><div id="nx"></div>';h()}
  function ans(v){if(lock||over)return;lock=true;var it=list[i],ok=(v==isT(it));qq(r,'.tfb').forEach(function(b){var bv=b.dataset.v=='1';b.classList.add(bv==isT(it)?'ok':(bv==v?'no':'dim'))});
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--;if(missed.length<12)missed.push({q:it.s,a:isT(it)?'সত্য':'মিথ্যা',e:it.e||''})}qa(r,'#ex').innerHTML=(ok?'✔ ':'✘ ')+E(it.e||'');h();
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--;if(missed.length<12)missed.push({q:it.s,a:isT(it)?'সত্য':'মিথ্যা',yourAnswer:isT(it)?'মিথ্যা':'সত্য',e:it.e||''})}qa(r,'#ex').innerHTML=(ok?'✔ ':'✘ ')+E(it.e||'');h();
   if(lives<=0||i>=list.length-1){setTimeout(end,1400)}else{qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+E(X('g_next'))+'</button>';qa(r,'#nb').onclick=nx}}
  function nx(){i++;show()}
  function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct',review:missed})}
@@ -56,7 +76,7 @@ G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(funct
 
 /* ================= Word Scramble ================= */
 G.scramble=function(r,g,A){var X=A.X,E=A.E,words=((g.data||{}).words||[]).filter(function(w){return w&&w.w&&w.w.trim().length>=3});if(!words.length)return empty(r,'Add words in the admin panel.');
- var list=sh(words.slice()).slice(0,5),i=0,score=0,solved=0,cur,target,bank,ans,hints,t0,lock=false,over=false;
+ var list=sh(words.slice()).slice(0,5),i=0,score=0,solved=0,cur,target,bank,ans,hints,t0,lock=false,over=false,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],['Word','pg',''],['Hints used','ht',0]])+'<div class="card" id="sb"></div>';
  function setup(){cur=list[i];target=Array.from(cur.w.trim().toUpperCase().replace(/\s+/g,''));bank=target.map(function(c,k){return{c:c,k:k}});var tries=0;do{sh(bank);tries++}while(tries<20&&bank.map(function(b){return b.c}).join('')==target.join(''));ans=[];hints=0;t0=performance.now();lock=false;draw()}
  function draw(){qa(r,'#pg').textContent=(i+1)+' / '+list.length;qa(r,'#sc').textContent=score;qa(r,'#ht').textContent=hints;
@@ -64,12 +84,12 @@ G.scramble=function(r,g,A){var X=A.X,E=A.E,words=((g.data||{}).words||[]).filter
  function back(k){var t=ans.splice(k,1)[0];if(t)bank.push(t)}
  function check(){lock=true;var ok=ans.map(function(a){return a.c}).join('')==target.join('');var sl=qq(r,'.slot');
   if(ok){sl.forEach(function(s){s.classList.add('ok')});var secs=(performance.now()-t0)/1000,pts=Math.max(20,100-hints*30)+Math.max(0,Math.round(40-secs));score+=pts;solved+=hints?.6:1;qa(r,'#sc').textContent=score;setTimeout(next,900)}
-  else{sl.forEach(function(s){s.classList.add('no')});setTimeout(function(){while(ans.length)back(0);lock=false;draw()},650)}}
- function next(){i++;if(i>=list.length){over=true;return A.done({score:score,pct:Math.min(1,solved/list.length),detail:Math.round(solved)+' / '+list.length+' solved'})}setup()}
+  else{if(missed.length<12)missed.push({q:'ইঙ্গিত: '+(cur.h||'শব্দটি সঠিকভাবে সাজাও'),a:target.join(''),yourAnswer:ans.map(function(a){return a.c}).join(''),e:'অক্ষরগুলো সঠিক ক্রমে সাজাও; শব্দটির সংকেত ও বানান মিলিয়ে দেখো।'});sl.forEach(function(s){s.classList.add('no')});setTimeout(function(){while(ans.length)back(0);lock=false;draw()},650)}}
+ function next(){i++;if(i>=list.length){over=true;return A.done({score:score,pct:Math.min(1,solved/list.length),detail:Math.round(solved)+' / '+list.length+' solved',review:missed})}setup()}
  r.onclick=function(e){if(lock||over)return;var b=e.target.closest('[data-b]'),a=e.target.closest('[data-a]'),x=e.target.closest('[data-x]');
   if(b){ans.push(bank.splice(+b.dataset.b,1)[0]);draw();if(ans.length==target.length)check()}
   else if(a){if(ans[+a.dataset.a]){back(+a.dataset.a);draw()}}
-  else if(x){var k=x.dataset.x;if(k=='shuf'){sh(bank);draw()}else if(k=='clear'){while(ans.length)back(0);draw()}else if(k=='skip'){next()}
+  else if(x){var k=x.dataset.x;if(k=='shuf'){sh(bank);draw()}else if(k=='clear'){while(ans.length)back(0);draw()}else if(k=='skip'){if(missed.length<12)missed.push({q:'ইঙ্গিত: '+(cur.h||'শব্দটি সঠিকভাবে সাজাও'),a:target.join(''),yourAnswer:'এড়িয়ে গেছে',e:'ইঙ্গিত ও অক্ষর দেখে শব্দটি তৈরি করার চেষ্টা করো।'});next()}
    else if(k=='hint'){var p=0;while(p<ans.length&&ans[p].c==target[p])p++;while(ans.length>p)back(p);var bi=-1;bank.forEach(function(t,q){if(bi<0&&t.c==target[ans.length])bi=q});if(bi>=0){ans.push(bank.splice(bi,1)[0]);hints++}draw();if(ans.length==target.length)check()}}};
  setup()};
 
@@ -98,7 +118,7 @@ G.balance=function(r,g,A){var X=A.X,E=A.E,eqs=((g.data||{}).eqs||[]).map(parseEq
  r.onclick=function(e){var b=e.target.closest('[data-t]');if(!b||done||over)return;var k=+b.dataset.t,v=co[k]+ +b.dataset.d;if(v<1||v>12)return;co[k]=v;clicks++;draw()};setup()};
 
 /* ================= Projectile Cannon ================= */
-G.cannon=function(r,g,A){var X=A.X,E=A.E,W=800,H=340,GY=300,OX=46,SC=3.6,GR=9.8,rounds=5,round=0,shots=3,score=0,hits=0,tgt,shot=null,ghosts=[],msg='',busy=false,over=false,ang=45,pow=25,boom=0;
+G.cannon=function(r,g,A){var X=A.X,E=A.E,W=800,H=340,GY=300,OX=46,SC=3.6,GR=9.8,rounds=(g.challengeLevel===1?3:g.challengeLevel===2?4:g.challengeLevel===3?5:7),round=0,shots=3,score=0,hits=0,tgt,shot=null,ghosts=[],msg='',busy=false,over=false,ang=45,pow=25,boom=0;
  r.innerHTML=hud([[X('g_score'),'sc',0],['Target','rd',''],['Shots left','sl','']])+'<div class="card" style="padding:12px"><canvas id="cn" class="cv2" width="'+W+'" height="'+H+'" style="aspect-ratio:'+W+'/'+H+'"></canvas></div><div class="ctl"><div><label><span>Angle</span><output id="ao"></output></label><input id="an" type="range" min="5" max="85" value="45"></div><div><label><span>Power</span><output id="po"></output></label><input id="pw" type="range" min="10" max="40" value="25"></div></div><div class="chips"><button class="btn pri" id="fire">🔥 Fire!</button></div><p class="ex" id="cm" style="text-align:center">Range R = v² · sin 2θ ÷ g. Choose the angle and power so that R equals the distance to the target.</p>';
  var c=qa(r,'#cn'),x=c.getContext('2d'),P=col('--p','#38bdf8'),S2=col('--s','#7dd3fc'),Am=col('--a','#fbbf24'),dpr=1;
  function upd(){ang=+qa(r,'#an').value;pow=+qa(r,'#pw').value;qa(r,'#ao').textContent=ang+'°';qa(r,'#po').textContent=pow+' m/s'}
@@ -123,7 +143,7 @@ G.cannon=function(r,g,A){var X=A.X,E=A.E,W=800,H=340,GY=300,OX=46,SC=3.6,GR=9.8,
  newT()};
 
 /* ================= Slope Sniper ================= */
-G.slope=function(r,g,A){var X=A.X,E=A.E,W=600,H=400,SC=30,rounds=5,round=0,score=0,solved=0,m0,c0,pts,t0,hint=0,lock=false,over=false;
+G.slope=function(r,g,A){var X=A.X,E=A.E,W=600,H=400,SC=30,rounds=(g.challengeLevel===1?3:g.challengeLevel===2?4:g.challengeLevel===3?5:7),round=0,score=0,solved=0,m0,c0,pts,t0,hint=0,lock=false,over=false;
  r.innerHTML=hud([[X('g_score'),'sc',0],['Round','rd',''],['Points on line','ph','0 / 3']])+'<div class="card" style="padding:12px"><canvas id="sg" class="cv2" width="'+W+'" height="'+H+'" style="aspect-ratio:'+W+'/'+H+'"></canvas></div><div class="ctl"><div><label><span>Slope m</span><output id="mo"></output></label><input id="ms" type="range" min="-4" max="4" step=".5" value="0"></div><div><label><span>y-intercept c</span><output id="co"></output></label><input id="cs" type="range" min="-6" max="6" step="1" value="0"></div></div><p class="bn" id="eq" style="text-align:center;margin:0 0 8px"></p><div class="chips"><button class="btn" id="hn">Hint (−30)</button><button class="btn" id="sk">Skip →</button></div><p class="ex" id="hm" style="text-align:center"></p>';
  var cv=qa(r,'#sg'),x=cv.getContext('2d'),P=col('--p','#38bdf8'),Am=col('--a','#fbbf24'),m=0,c=0;
  function upd(){m=+qa(r,'#ms').value;c=+qa(r,'#cs').value;qa(r,'#mo').textContent=m;qa(r,'#co').textContent=c;qa(r,'#eq').textContent='y = '+m+'x '+(c<0?'− ':'+ ')+Math.abs(c)}
@@ -143,13 +163,13 @@ G.slope=function(r,g,A){var X=A.X,E=A.E,W=600,H=400,SC=30,rounds=5,round=0,score
 
 /* ================= Flame Detective ================= */
 G.flame=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.n&&i.c});if(items.length<3)return empty(r,'Add at least 3 ions in the admin panel.');
- var rounds=8,i=0,score=0,combo=0,right=0,lock=false,tgt;
+ var rounds=(g.challengeLevel===1?4:g.challengeLevel===2?6:g.challengeLevel===3?8:10),i=0,score=0,combo=0,right=0,lock=false,tgt,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],['Round','rd','']])+'<div class="card" style="text-align:center"><div class="flamebox" id="fb"></div><p class="bn" style="margin:6px 0 14px">এই শিখার রং কোন আয়নের?</p><div id="fo"></div><p class="ex" id="fe"></p><div id="fn"></div></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#rd').textContent=Math.min(i+1,rounds)+' / '+rounds}
  function show(){lock=false;tgt=items[Math.floor(Math.random()*items.length)];var others=sh(items.filter(function(t){return t!==tgt})).slice(0,3),opts=sh([tgt].concat(others));qa(r,'#fb').innerHTML=flameSvg(tgt.c);qa(r,'#fo').innerHTML='<div class="chips">'+opts.map(function(o){return'<button class="btn opt2" data-n="'+E(o.n)+'">'+E(o.n)+'</button>'}).join('')+'</div>';qa(r,'#fe').textContent='';qa(r,'#fn').innerHTML='';h()}
  r.onclick=function(e){var b=e.target.closest('.opt2');if(!b||lock)return;lock=true;var ok=b.dataset.n==tgt.n;qq(r,'.opt2').forEach(function(o){o.classList.add(o.dataset.n==tgt.n?'okb':(o===b?'nob':'dim'))});
   if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else combo=0;qa(r,'#fe').textContent=(ok?'✔ ':'✘ ')+tgt.n+': '+(tgt.l||'')+' শিখা';h();
-  setTimeout(function(){i++;if(i>=rounds)A.done({score:score,pct:right/rounds,detail:right+' / '+rounds+' correct'});else show()},1300)};show()};
+  setTimeout(function(){i++;if(i>=rounds)A.done({score:score,pct:right/rounds,detail:right+' / '+rounds+' correct',review:missed});else show()},1300)};show()};
 
 /* ================= Periodic Quest ================= */
 G.periodic=function(r,g,A){
@@ -268,7 +288,7 @@ G.elementSprint=function(r,g,A){var E=A.E,items=[['H','Hydrogen',1],['He','Heliu
 /* ================= Element Sprint =================
    Dedicated registry entry used by the Arcade config. */
 G.elementSprint=function(r,g,A){
- var E=A.E,score=0,right=0,round=0,finished=false;
+ var E=A.E,score=0,right=0,round=0,finished=false,missed=[];
  var elements=[
   {n:1,s:'H',name:'Hydrogen'},{n:2,s:'He',name:'Helium'},{n:3,s:'Li',name:'Lithium'},
   {n:6,s:'C',name:'Carbon'},{n:7,s:'N',name:'Nitrogen'},{n:8,s:'O',name:'Oxygen'},
@@ -279,16 +299,16 @@ G.elementSprint=function(r,g,A){
   {n:53,s:'I',name:'Iodine'},{n:79,s:'Au',name:'Gold'}
  ];
  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
- var questions=shuffle(elements.slice()).slice(0,10).map(function(el,i){
+ var questions=shuffle(elements.slice()).slice(0,(g.challengeLevel===1?5:g.challengeLevel===2?8:g.challengeLevel===3?12:16)).map(function(el,i){
   var mode=i%3,correct=mode===0?el.s:mode===1?el.name:String(el.n);
   var others=shuffle(elements.filter(function(x){return x.n!==el.n}).slice()).slice(0,3).map(function(x){return mode===0?x.s:mode===1?x.name:String(x.n)});
   return {el:el,mode:mode,correct:correct,opts:shuffle(others.concat([correct]))};
  });
  function show(){
-  if(round>=questions.length){finished=true;A.done({score:score,pct:right/questions.length,detail:right+' / '+questions.length+' সঠিক উত্তর'});return}
+  if(round>=questions.length){finished=true;A.done({score:score,pct:right/questions.length,detail:right+' / '+questions.length+' সঠিক উত্তর',review:missed});return}
   var q=questions[round],prompt=q.mode===0?'পারমাণবিক সংখ্যা '+q.el.n+' কোন মৌলের?':q.mode===1?q.el.s+' কোন মৌলের প্রতীক?':q.el.name+'-এর পারমাণবিক সংখ্যা কত?';
   r.innerHTML='<div class="hud"><div><small>স্কোর</small><b>'+score+'</b></div><div><small>সঠিক</small><b>'+right+' / '+questions.length+'</b></div><div><small>প্রশ্ন</small><b>'+(round+1)+' / '+questions.length+'</b></div></div><div class="card"><h2 class="bn">⚡ Element Sprint</h2><p class="bn">'+E(prompt)+'</p><div class="gA g2" style="margin-top:14px">'+q.opts.map(function(o){return '<button class="btn" data-answer="'+E(o)+'">'+E(o)+'</button>'}).join('')+'</div><p class="ex" id="es-feedback" aria-live="polite"></p><button class="btn" data-next hidden>পরের প্রশ্ন →</button><p class="mutt">প্রতীক, নাম ও পারমাণবিক সংখ্যা মিলিয়ে দ্রুত অনুশীলন করো।</p></div>';
-  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-answer')){if(r.dataset.answered==='1')return;r.dataset.answered='1';var good=b.dataset.answer===q.correct; if(good){right++;score+=10;A.confetti&&A.confetti()}Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(x){x.disabled=true;if(x.dataset.answer===q.correct)x.classList.add('pri')});var fb=r.querySelector('#es-feedback');if(fb)fb.textContent=good?'✔ সঠিক! '+q.el.name+' ('+q.el.s+') — পারমাণবিক সংখ্যা '+q.el.n+'.':'সঠিক উত্তর: '+q.correct+'. '+q.el.name+'-এর পারমাণবিক সংখ্যা '+q.el.n+'.';var nx=r.querySelector('[data-next]');if(nx)nx.hidden=false}else if(b.hasAttribute('data-next')){round++;delete r.dataset.answered;show()}};
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-answer')){if(r.dataset.answered==='1')return;r.dataset.answered='1';var good=b.dataset.answer===q.correct; if(good){right++;score+=10;A.confetti&&A.confetti()}else if(missed.length<12)missed.push({q:prompt,a:q.correct,yourAnswer:b.dataset.answer,e:q.el.name+' ('+q.el.s+')-এর পারমাণবিক সংখ্যা '+q.el.n+'.'});Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(x){x.disabled=true;if(x.dataset.answer===q.correct)x.classList.add('pri')});var fb=r.querySelector('#es-feedback');if(fb)fb.textContent=good?'✔ সঠিক! '+q.el.name+' ('+q.el.s+') — পারমাণবিক সংখ্যা '+q.el.n+'.':'সঠিক উত্তর: '+q.correct+'. '+q.el.name+'-এর পারমাণবিক সংখ্যা '+q.el.n+'.';var nx=r.querySelector('[data-next]');if(nx)nx.hidden=false}else if(b.hasAttribute('data-next')){round++;delete r.dataset.answered;show()}};
  }
  show();
 };
@@ -305,12 +325,12 @@ G.trendDuel=function(r,g,A){
  {q:'গলনাঙ্কের জন্য কোন বক্তব্যটি ঠিক?',o:['সব মৌলে ডানদিকে বাড়ে','সব মৌলে নিচে বাড়ে','বন্ধন ও গঠনের ওপর নির্ভর করে','সব মৌলে সমান'],a:2,e:'গলনাঙ্কের একটিমাত্র সর্বজনীন প্রবণতা নেই; গঠন ও বন্ধনের ধরন গুরুত্বপূর্ণ।'},
  {q:'একটি পরমাণু ইলেকট্রন হারালে কী তৈরি হয়?',o:['ধনায়ন','ঋণায়ন','নিউট্রন','সমস্থানিক'],a:0,e:'ইলেকট্রন হারালে প্রোটনের সংখ্যা ইলেকট্রনের চেয়ে বেশি হয়, ফলে ধনায়ন তৈরি হয়।'}
  ];
- function shuffle(a){return sh(a)} qs=shuffle(qs.slice());var i=0,score=0,right=0,answered=false,locked=false;
+ function shuffle(a){return sh(a)} qs=shuffle(qs.slice()).slice(0,(g.challengeLevel===1?4:g.challengeLevel===2?6:g.challengeLevel===3?7:qs.length));var i=0,score=0,right=0,answered=false,locked=false,missed=[];
  function show(){
-  if(i>=qs.length){A.done({score:score,pct:right/qs.length,detail:right+' / '+qs.length+' সঠিক উত্তর'});return}
+  if(i>=qs.length){A.done({score:score,pct:right/qs.length,detail:right+' / '+qs.length+' সঠিক উত্তর',review:missed});return}
   var q=qs[i],opts=shuffle(q.o.map(function(t,j){return{t:t,ok:j===q.a}}));answered=false;locked=false;
   r.innerHTML=hud([['স্কোর','td-score',score],['ডুয়েল','td-round',(i+1)+' / '+qs.length],['সঠিক','td-right',right]])+'<div class="card trend-duel-card"><div class="td-kicker">PERIODIC TRENDS · ROUND '+(i+1)+'</div><p class="bn qt">⚔️ '+E(q.q)+'</p><div class="pq-options">'+opts.map(function(o,j){return'<button type="button" class="btn td-option" data-answer="'+(o.ok?'1':'0')+'"><span class="td-letter">'+String.fromCharCode(65+j)+'</span><span>'+E(o.t)+'</span></button>'}).join('')+'</div><p class="ex" id="td-ex" aria-live="polite"></p><div class="td-actions"><button type="button" class="btn pri td-next" data-next disabled>আগে উত্তর নির্বাচন করুন</button><a class="btn" href="#/play">← ব্যাক মেনু</a></div><p class="mutt td-tip">উত্তর বেছে নাও; ব্যাখ্যাটি পড়ে পরের ডুয়েলে যাও।</p></div>';
-  Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(b){b.addEventListener('click',function(){if(locked)return;locked=true;answered=true;var ok=b.dataset.answer==='1';if(ok){score+=10;right++}Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(x){x.disabled=true;if(x.dataset.answer==='1')x.classList.add('okb');else if(x===b)x.classList.add('nob');else x.classList.add('dim')});var ex=r.querySelector('#td-ex');if(ex)ex.textContent=(ok?'✔ সঠিক উত্তর! ':'✘ সঠিক উত্তর: '+q.o[q.a]+'। ')+q.e;var nx=r.querySelector('[data-next]');if(nx){nx.disabled=false;nx.textContent=i===qs.length-1?'ফলাফল দেখুন →':'পরের ডুয়েল →';nx.addEventListener('click',function(){if(!answered)return;i++;show()},{once:true})}})});
+  Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(b){b.addEventListener('click',function(){if(locked)return;locked=true;answered=true;var ok=b.dataset.answer==='1';if(ok){score+=10;right++}else if(missed.length<12)missed.push({q:q.q,a:q.o[q.a],yourAnswer:b.textContent,e:q.e});Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(x){x.disabled=true;if(x.dataset.answer==='1')x.classList.add('okb');else if(x===b)x.classList.add('nob');else x.classList.add('dim')});var ex=r.querySelector('#td-ex');if(ex)ex.textContent=(ok?'✔ সঠিক উত্তর! ':'✘ সঠিক উত্তর: '+q.o[q.a]+'। ')+q.e;var nx=r.querySelector('[data-next]');if(nx){nx.disabled=false;nx.textContent=i===qs.length-1?'ফলাফল দেখুন →':'পরের ডুয়েল →';nx.addEventListener('click',function(){if(!answered)return;i++;show()},{once:true})}})});
  }
  show();
 };
@@ -325,7 +345,7 @@ G.oddOne=function(r,g,A){var X=A.X,E=A.E,sets=((g.data||{}).sets||[]).filter(fun
   qa(r,'#oc').innerHTML='<p class="bn qt">'+E(s.q||'কোনটি অন্যগুলোর মতো নয়?')+'</p><div class="odd-grid">'+opts.map(function(o){return'<button class="opt" data-k="'+o.k+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div>';h()}
  function pick(b){if(lock||over)return;lock=true;var s=list[i],k=+b.dataset.k,odd=+s.odd,ok=k===odd;
   qq(r,'.opt').forEach(function(o){if(+o.dataset.k===odd)o.classList.add('ok');else if(o===b)o.classList.add('no');else o.classList.add('dim')});
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/2));right++}else{combo=0;if(missed.length<12)missed.push({q:(s.q||'অন্যরকমটি কোনটি?')+' ('+s.i.filter(Boolean).join(', ')+')',a:s.i[odd],e:s.why||''})}
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/2));right++}else{combo=0;if(missed.length<12)missed.push({q:(s.q||'অন্যরকমটি কোনটি?')+' ('+s.i.filter(Boolean).join(', ')+')',a:s.i[odd],yourAnswer:s.i[k],e:s.why||''})}
   qa(r,'#ex').textContent=(ok?'✔ ':'✘ সঠিক উত্তর: '+s.i[odd]+'। ')+(s.why||'');h();
   var last=i>=list.length-1;qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+(last?'ফলাফল দেখুন →':E(X('g_next')))+'</button>';
   qa(r,'#nb').onclick=function(){if(last)return end();i++;show()}}

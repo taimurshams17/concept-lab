@@ -128,3 +128,23 @@ button,input,select,textarea{font-family:inherit}
 @media(min-width:861px){.sb{overflow-y:auto;scrollbar-width:thin;scrollbar-color:#18384b transparent}.mn{min-width:0}.act .b2,.act .b1{padding:9px 13px;font-size:12px}}
 @media(max-width:860px){.app{grid-template-columns:1fr}.sb{position:relative;height:auto;max-height:220px;overflow:hidden;padding:12px}.sb nav{padding-bottom:4px}.sb nav button{padding:9px 12px}.mn{padding:18px 14px}.tp{position:relative;top:auto;background:transparent;backdrop-filter:none;margin:0 0 20px}.act{gap:7px}.act .b2,.act .b1{padding:8px 11px;font-size:12px}}
 @media(max-width:520px){.tp h1{font-size:23px}.tp{align-items:flex-start}.act{width:100%}.act #dot{align-self:center}.card2{padding:16px}.dash{grid-template-columns:1fr 1fr;gap:9px}.dc{padding:14px;min-height:100px}.dc b{font-size:13px}.dc span{font-size:11px}.sb nav{margin:0 -3px}}
+
+
+/* ConceptLab v9.8.1 — matching premium glass admin workspace */
+:root{--bg:#05080d;--pn:rgba(13,21,31,.78);--ln:rgba(190,220,241,.14);--tx:#f0f7fc;--mu:#9bafc0;--p:#8edcff}
+html,body{background:radial-gradient(70% 40% at 50% 0%,rgba(25,82,120,.2),transparent 72%),#05080d!important}
+.sb{background:linear-gradient(180deg,rgba(11,21,31,.91),rgba(4,9,15,.92))!important;border-right-color:var(--ln)!important;backdrop-filter:blur(22px) saturate(1.3)}
+.tp{background:rgba(5,10,16,.78)!important;border-bottom-color:var(--ln)!important;backdrop-filter:blur(22px) saturate(1.35)!important}
+.card2,.dc,.it,.qc,.concept-chapter,.pages-intro,.pages-stats>div,.page-manager-row,.custom-page-editor,.student-admin-summary,.student-admin-table,.feedback-admin-item,.feedback-admin-message{
+  background:linear-gradient(150deg,rgba(18,29,41,.8),rgba(6,12,19,.82))!important;border-color:var(--ln)!important;box-shadow:0 22px 48px -38px rgba(0,0,0,.88),inset 0 1px 0 rgba(255,255,255,.055)!important;backdrop-filter:blur(18px) saturate(1.25)}
+.dc{border-radius:17px!important;transition:transform .22s,border-color .22s,box-shadow .22s}
+.dc:hover{transform:translateY(-2px);border-color:rgba(142,220,255,.3)!important;box-shadow:0 22px 48px -36px rgba(38,145,202,.3)!important}
+.b1,.b2,.dg,.it button,.qh button,.so,.row2 select,#newsec,#newg,.srch,.f input,.f textarea,.f select,.si,.student-search input{
+  border-radius:12px!important;border-color:rgba(190,220,241,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+.b1{background:linear-gradient(130deg,#d6f1ff,#8edcff 55%,#5eb8e7)!important;color:#061522!important;border-color:rgba(235,249,255,.55)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 12px 28px -18px rgba(64,174,230,.55)!important}
+.b2,.so,.it button,.row2 select,#newsec,#newg,.srch,.f input,.f textarea,.f select,.si,.student-search input{background:rgba(5,12,20,.76)!important;color:var(--tx)!important}
+.b2:hover,.so:hover,.it button:hover{border-color:rgba(142,220,255,.4)!important;background:rgba(20,43,60,.82)!important}
+.f input:focus,.f textarea:focus,.f select:focus,.srch:focus,.si:focus{border-color:rgba(142,220,255,.5)!important;box-shadow:0 0 0 3px rgba(56,189,248,.09)!important;outline:0}
+.sb nav button{border-radius:12px!important;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.sb nav button.on{background:linear-gradient(145deg,rgba(142,220,255,.17),rgba(56,189,248,.055))!important;border-color:rgba(142,220,255,.28)!important;box-shadow:inset 2px 0 0 var(--p)!important}
+@media(max-width:860px){.sb{border:1px solid var(--ln);border-radius:0 0 18px 18px}.tp{background:transparent!important;backdrop-filter:none!important}}
