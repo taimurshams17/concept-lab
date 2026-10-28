@@ -151,6 +151,7 @@ chapters: [
 home: { sections: [
  {id:'s-ticker',type:'marquee',on:true,items:[{t:'F = ma'},{t:'H₂O'},{t:'y = mx + c'},{t:'sin²θ + cos²θ = 1'},{t:'PV = nRT'},{t:'T = 2π√(L/g)'},{t:'d/dx xⁿ = nxⁿ⁻¹'},{t:'NaCl'},{t:'det A = ad − bc'},{t:'(x−h)² + (y−k)² = r²'},{t:'v = u + at'}]},
  {id:'s-stats',type:'stats',on:true,items:[{t:'Chapters planned',k:'chapters',v:'25'},{t:'Live simulations',k:'labs',v:''},{t:'Mini games',k:'games',v:''},{t:'XP you earned',k:'xp',v:''}]},
+ {id:'s-subjects',type:'subjects',on:true,pill:'বিষয়সমূহ',h:'বিষয় বেছে শুরু করুন',p:'Physics, Chemistry ও Higher Mathematics—অধ্যায় ধরে শিখুন, পরীক্ষা করুন, দক্ষতা বাড়ান।'},
  {id:'s-goals',type:'goals',on:true,pill:'আমাদের লক্ষ্য · OUR MISSION',h:'What we want|to do',p:'চারটি বড় লক্ষ্য, যা প্রতিটি পাতায় আমাদের পথ দেখায়।',items:[
    {i:'🧠',t:'ধারণা আগে, সূত্র পরে',p:'প্রতিটি সূত্রের আগে একটি প্রশ্ন: এটি কেন কাজ করে? আগে ধারণাটি বুঝলে সূত্র নিজেই মনে থাকে।'},
    {i:'🎮',t:'প্রতিটি চ্যাপ্টার খেলার মতো',p:'সিমুলেশন, মিনি-গেম, কুইজ ও ব্যাজ—শেখাকে করে তুলি আনন্দের অভিজ্ঞতা, যেন বারবার ফিরে আসতে ইচ্ছে করে।'},
@@ -171,14 +172,13 @@ home: { sections: [
    {i:'📈',t:'অগ্রগতি দেখুন',p:'ধাপ শেষ করলে My Progress পেজে অগ্রগতি জমা হয়।'},
    {i:'🏆',t:'XP, লেভেল ও ব্যাজ',p:'পড়ে, খেলে ও কুইজ দিয়ে XP জমান, লেভেল বাড়ান, ব্যাজ জিতুন।'},
    {i:'🔥',t:'প্রতিদিনের চ্যালেঞ্জ',p:'প্রতিদিন একটি বিশেষ গেম—খেললে দ্বিগুণ XP।'}]},
- {id:'s-ayat-hadith',type:'ayatHadith',on:true,pill:'DAILY REFLECTION',h:'আয়াত/হাদিস',p:'জ্ঞান, ইলম, অধ্যবসায়, নৈতিকতা ও সমাজজীবন নিয়ে কুরআনের আয়াত এবং প্রসিদ্ধ হাদিস।'},
+ {id:'s-ayat-hadith',type:'ayatHadith',on:true,pill:'DAILY REFLECTION',h:'আয়াত/হাদিস',p:'কুরআন ও হাদিস থেকে জ্ঞান, অধ্যবসায় ও নৈতিকতার অনুপ্রেরণা।'},
  {id:'s-motivation',type:'motivation',on:true,pill:'DAILY INSPIRATION',h:'আজকের অনুপ্রেরণা'},
- {id:'s-road',type:'roadmap',on:true,pill:'ROADMAP',h:'Where we are,|where we are going',p:'আমরা ধাপে ধাপে এগোচ্ছি। এখানে দেখুন কী শেষ, কী চলছে, আর কী আসছে।',items:[
-   {d:'Phase 1',t:'Foundations',p:'ওয়েবসাইট, অ্যাডমিন প্যানেল ও প্রথম চ্যাপ্টারগুলো।',s:'done'},
-   {d:'Phase 2',t:'Play & Simulate',p:'নতুন সিমুলেশন, মিনি-গেম, XP ও ব্যাজ দিয়ে শিক্ষার্থীদের আরও যুক্ত করা।',s:'done'},
-   {d:'Phase 3',t:'Cover the syllabus',p:'বাকি সব চ্যাপ্টারে হুক, সিমুলেশন ও কুইজ যোগ করা।',s:'next'},
-   {d:'Phase 4',t:'Practice & compete',p:'অনুশীলন টেস্ট, সাপ্তাহিক চ্যালেঞ্জ ও লিডারবোর্ড।',s:'next'}]},
- {id:'s-subjects',type:'subjects',on:true,pill:'বিষয়সমূহ',h:'বিষয় {s}টি, চ্যাপ্টার {n}টি',p:''},
+ {id:'s-road',type:'roadmap',on:true,pill:'THE CONCEPTLAB LEARNING FLOW',h:'From curiosity|to confidence',p:'একটি প্রশ্ন দিয়ে শুরু করুন, ধারণাটি বুঝুন, সিমুলেশনে পরীক্ষা করুন, তারপর অনুশীলনে নিজের দক্ষতা যাচাই করুন।',items:[
+   {t:'Discover',p:'একটি বাস্তব প্রশ্ন বা কৌতূহল দিয়ে নতুন ধারণার দরজা খুলুন।'},
+   {t:'Understand',p:'সহজ ব্যাখ্যা, চিত্র ও সূত্রের অর্থ মিলিয়ে মূল ধারণাটি বুঝুন।'},
+   {t:'Experiment',p:'সিমুলেশনে মান বদলান, ফলাফল দেখুন এবং নিজের অনুমান পরীক্ষা করুন।'},
+   {t:'Master',p:'কুইজ ও গেমে অনুশীলন করুন; ভুল থেকে শিখে আরও আত্মবিশ্বাসী হন।'}]},
  {id:'s-faq',type:'faq',on:true,pill:'FAQ',h:'Questions,|answered',p:'',items:[
    {q:'ConceptLab কি বিনামূল্যে?',a:'হ্যাঁ, সম্পূর্ণ বিনামূল্যে। কোনো লগইন বা পেমেন্ট ছাড়াই সব চ্যাপ্টার, সিমুলেশন ও গেম ব্যবহার করা যায়।'},
    {q:'আমার অগ্রগতি কোথায় জমা থাকে?',a:'এই ডিভাইসের ব্রাউজারে। ব্রাউজারের ডেটা মুছে ফেললে অগ্রগতিও মুছে যাবে।'},

@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Physics, Chemistry and Higher Math, explained in Bengali through concept-first lessons, interactive simulations, games and quizzes.">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(){var d=document.documentElement;d.classList.add('js');if('scrollRestoration' in history)history.scrollRestoration='manual';try{window.scrollTo(0,0)}catch(e){}window.addEventListener('pageshow',function(){if(!location.hash||location.hash==='#/'||location.hash==='#'){try{window.scrollTo(0,0)}catch(e){}}});})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Anek+Bangla:wght@400;500;600;700&family=Atma:wght@400;500;600;700&family=Baloo+Da+2:wght@400;500;600;700&family=Mina:wght@400;700&family=Tiro+Bangla:ital@0;1&family=Galada&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Lora:wght@400;500;600&family=Amiri:wght@400;700&display=swap">
 <link rel="stylesheet" href="assets/css/main.css">
@@ -27,6 +27,12 @@
 <nav aria-label="Primary" id="nav"><a href="#/">Home</a><a href="#/chapters">Explore Chapters</a><a href="#/play">Games</a><a href="#/lab">Simulations</a><a href="#/graphs">গ্রাফ</a><a href="#/leaderboard">Leaderboard</a><a href="#/progress">My Progress</a><a href="#/study-space">Study Space</a><a href="#/hub">Student Hub</a><a href="#/daily">Daily &amp; Missions</a><a href="#/smart-practice">Smart Practice</a><a href="#/analytics">Analytics</a><a href="#/about">About</a></nav>
 <div class="hx"><div id="accountActions"><a class="account-link account-primary" href="#/account/signup">Sign up</a></div><a id="profileLink" class="profile-link" href="#/profile" aria-label="Open profile" hidden></a><button id="burger" aria-label="সব পেজ ও মেনু দেখুন" aria-controls="nav" aria-expanded="false" type="button"><i></i><i></i><i></i></button></div></div></header>
 <main id="app"></main>
+<section class="footer-formula-motion" aria-hidden="true">
+ <div class="footer-formula-grid"></div>
+ <svg class="footer-formula-orbits" viewBox="0 0 1000 180" preserveAspectRatio="none"><path d="M-20 110 C120 20 210 160 350 90 S600 10 735 95 S900 155 1020 48"/><path d="M-20 145 C110 70 220 180 360 116 S600 40 740 120 S900 180 1020 82"/><ellipse cx="500" cy="88" rx="118" ry="43"/><ellipse cx="500" cy="88" rx="118" ry="43" transform="rotate(58 500 88)"/><ellipse cx="500" cy="88" rx="118" ry="43" transform="rotate(-58 500 88)"/><circle cx="500" cy="88" r="5"/></svg>
+ <div class="footer-formula-track"><span>F = ma</span><i>✦</i><span>E = mc²</span><i>✦</i><span>PV = nRT</span><i>✦</i><span>sin²θ + cos²θ = 1</span><i>✦</i><span>A = πr²</span><i>✦</i><span>v = u + at</span></div>
+ <div class="footer-formula-caption"><span class="footer-formula-dot"></span> LEARN · EXPERIMENT · UNDERSTAND</div>
+</section>
 <footer class="site-footer pf">
 <div class="pf-aurora" aria-hidden="true"></div><div class="pf-grain" aria-hidden="true"></div>
 <div class="w">
@@ -39,7 +45,7 @@
    <div id="footerSocials"><a class="footer-social facebook" id="footerFacebook" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.7 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6H17V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.5v3.2h2.8V21z"/></svg><span id="footerFacebookLabel">Join our Facebook Page</span></a></div>
   </div>
   <div class="pf-col"><h4>Learn</h4><div class="pf-links" role="group" aria-label="Learn"><a href="#/chapters">Explore Chapters</a><a href="#/lab">Interactive Simulations</a><a href="#/graphs">Graph Lab</a><a href="#/play">Arcade &amp; Games</a><a href="#/smart-practice">Smart Practice</a><a href="#/daily">Daily Challenges</a></div></div>
-  <div class="pf-col"><h4>Student tools</h4><div class="pf-links" role="group" aria-label="Student tools"><a href="#/hub">Student Hub</a><a href="#/solver">Formula Solver <span class="nw">NEW</span></a><a href="#/reference">Reference Shelf <span class="nw">NEW</span></a><a href="#/study-space">Study Space</a><a href="#/share-card">Progress Card <span class="nw">NEW</span></a></div></div>
+  <div class="pf-col"><h4>Student tools</h4><div class="pf-links" role="group" aria-label="Student tools"><a href="#/hub">Student Hub</a><a href="#/solver">Formula Solver</a><a href="#/reference">Reference Shelf</a><a href="#/study-space">Study Space</a><a href="#/share-card">Progress Card</a></div></div>
   <div class="pf-col"><h4>Your space</h4><div class="pf-links" role="group" aria-label="Your space"><a href="#/progress">My Progress</a><a href="#/analytics">Analytics</a><a href="#/leaderboard">Leaderboard</a><a href="#/settings">Settings</a><a href="#/about">About ConceptLab</a><span id="pfInstallLi" hidden><a href="#/settings" id="pfInstall">Install as app</a></span></div></div>
  </div>
  <div class="pf-bottom"><div class="pf-legal"><span>ConceptLab · <span id="footerYear">2026</span></span><i class="dot" aria-hidden="true"></i><span>Learn by doing.</span><i class="dot" aria-hidden="true"></i><a href="#/about">Feedback &amp; contact</a></div><button type="button" class="pf-top" id="ftop">Back to top</button></div>

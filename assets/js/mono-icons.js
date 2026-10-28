@@ -156,6 +156,29 @@
     [/periodic table|element/i, 'chart'],
     [/density|buoyancy|fluid|archimedes/i, 'scale'],
     [/heat|thermal|temperature|thermodynamic/i, 'thermometer'],
+    [/দোলক|পেন্ডুলাম|কম্পন|দোলন|তরঙ্গ|শব্দ|কম্পাঙ্ক/, 'waves'],
+    [/স্প্রিং|স্থিতিস্থাপক|হারমোনিক/, 'magnet'],
+    [/বর্তনী|সার্কিট|রোধ|ভোল্টেজ|কারেন্ট|ওহম/, 'plug'],
+    [/গ্যাস|চাপ|তাপমাত্রা|তাপগতিবিদ্যা|তাপীয়/, 'thermometer'],
+    [/প্রক্ষেপ|গতিপথ|প্রক্ষেপণ|ক্ষেপণ/, 'rocket'],
+    [/নিউটন|বল|গতি|জড়তা|ত্বরণ|বেগ/, 'target'],
+    [/মহাকর্ষ|অভিকর্ষ|কক্ষপথ|গ্রহ/, 'planet'],
+    [/লেন্স|দর্পণ|প্রতিসরণ|প্রতিফলন|আলোকবিজ্ঞান|অপটিক্স/, 'telescope'],
+    [/চৌম্বক|চুম্বক/, 'magnet'],
+    [/বিদ্যুৎ|আধান|কুলম্ব|তড়িৎ|তড়িৎ/, 'bolt'],
+    [/রাদারফোর্ড|বোর মডেল|পরমাণু|ইলেকট্রন|প্রোটন|নিউট্রন|নিউক্লিয়াস|নিউক্লিয়াস/, 'atom2'],
+    [/অণু|রাসায়নিক বন্ধন|রাসায়নিক বন্ধন|বিক্রিয়া|বিক্রিয়া|স্টয়কিওমেট্রি|স্টইকিওমেট্রি/, 'beaker'],
+    [/অম্ল|ক্ষার|পিএইচ|সূচক|টাইট্রেশন/, 'flask'],
+    [/পর্যায় সারণি|পর্যায় সারণি|মৌল|পর্যায়বৃত্ত|পর্যায়বৃত্ত/, 'chart'],
+    [/ঘনত্ব|প্লবতা|তরল|আর্কিমিডিস|ভাসমান/, 'scale'],
+    [/তাপ|উষ্ণতা|তাপধারণ|তাপীয়/, 'thermometer'],
+    [/সম্ভাবনা|পরিসংখ্যান|বণ্টন|সমাবেশ|বিন্যাস/, 'chart'],
+    [/জ্যামিতি|ত্রিভুজ|বৃত্ত|কোণ|শঙ্কু/, 'compass'],
+    [/ফাংশন|সমীকরণ|বীজগণিত|ক্যালকুলাস|লেখচিত্র|গ্রাফ|অন্তরীকরণ|যোগজীকরণ/, 'chart'],
+    [/ম্যাট্রিক্স|নির্ণায়ক|নির্ণায়ক/, 'calculator'],
+    [/ভেক্টর|উপাংশ|ডট গুণফল|ক্রস গুণফল/, 'compass'],
+    [/mass atlas|mass distribution|atomic mass|ভরবেগ|পারমাণবিক ভর|ভর/, 'scale'],
+    [/periodic quest|periodic table|periodic trend|element explorer|পর্যায় সারণি|পর্যায় সারণি|পর্যায়বৃত্ত|পর্যায়বৃত্ত|মৌল/, 'atom2'],
     [/pendulum|simple harmonic/i, 'waves'],
     [/probability|statistics|distribution/i, 'chart'],
     [/geometry|triangle|circle|polygon/i, 'compass'],
@@ -172,11 +195,11 @@
   ];
   function contextualIcon(node, emoji) {
     const host = node && (node.parentElement || node.parentNode);
-    const card = host && (host.closest('a,button,article,li,[class*=card],[class*=tile],[class*=item],[class*=game],[class*=sim]') || host.parentElement || host);
+    const card = host && (host.closest('a,button,article,li,[class*=card],[class*=tile],[class*=item],[class*=game],[class*=sim],[class*=lab-detail]') || host.parentElement || host);
     const context = ((card && card.textContent) || (host && host.textContent) || '').slice(0, 700);
-    const titleNode = card && (card.querySelector('h2,h3,h4,.title,.card-title,[class*=title]'));
+    const titleNode = card && (card.querySelector('h1,h2,h3,h4,.title,.card-title,[class*=title]'));
     const titleContext = titleNode ? titleNode.textContent.trim() : context;
-    const isSimulationCard = !!(card && card.matches('[class*=sim], [class*=simulation], article, a'));
+    const isSimulationCard = !!(card && card.matches('[class*=sim], [class*=simulation], [class*=lab-detail], article, a'));
     if (isSimulationCard) {
       for (const rule of simulationTitleRules) if (rule[0].test(titleContext)) return rule[1];
     }
@@ -192,7 +215,7 @@
     svg.innerHTML = shapes[name] || shapes.generic; return svg;
   };
   const replaceText = node => {
-    if (!node || !node.nodeValue || node.parentElement?.closest('.gico,.gdeck-ico')) { regex.lastIndex = 0; return; }
+    if (!node || !node.nodeValue || node.parentElement?.closest('.gdeck-ico') || (node.parentElement?.closest('.gico') && !node.parentElement.closest('.gico').matches('.lab-sim-icon,.lab-detail-icon'))) { regex.lastIndex = 0; return; }
     if (!regex.test(node.nodeValue)) { regex.lastIndex = 0; return; }
     regex.lastIndex = 0;
     const text = node.nodeValue, frag = document.createDocumentFragment(); let last = 0, match;
@@ -208,8 +231,8 @@
     if (!root) return;
     if (root.nodeType === Node.TEXT_NODE) { replaceText(root); return; }
     if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE && root.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) return;
-    if (root.nodeType === Node.ELEMENT_NODE && (root.matches('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico,.gdeck-ico,[contenteditable="true"]'))) return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico,.gdeck-ico,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
+    if (root.nodeType === Node.ELEMENT_NODE && (root.matches('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,[contenteditable="true"]'))) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
     const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode); nodes.forEach(replaceText);
   };
   let pending = false;

@@ -3411,3 +3411,86 @@ body.navopen #clMessagePanel{display:none!important}
 #app .ga-play-detail{padding-bottom:100px}#app .ga-play-banner{margin-bottom:16px}#app .ga-play-banner .ga-game-icon{width:54px;height:54px;flex-basis:54px;font-size:30px}
 @media(max-width:900px){#app .ga-level-rail{grid-template-columns:repeat(3,minmax(0,1fr))}#app .ga-game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#app .ga-howto-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){#app .game-academy-page{padding-left:12px!important;padding-right:12px!important}#app .ga-hero{grid-template-columns:minmax(0,1fr);padding:20px;border-radius:20px}#app .ga-hero-art{min-height:106px;max-width:220px;width:100%;justify-self:center}#app .ga-hero-art>span{width:72px;height:72px;border-radius:22px;font-size:38px}#app .ga-orbit-one{width:145px;height:75px}#app .ga-orbit-two{width:105px;height:130px}#app .ga-hero-art small{font-size:8px}#app .ga-level-rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}#app .ga-level-rail-item{padding:9px;gap:7px}#app .ga-level-rail-item>span{font-size:18px}#app .ga-level-rail-item b{font-size:10px}#app .ga-level-rail-item small{font-size:9px}#app .ga-toolbar{align-items:stretch;flex-direction:column}#app .ga-search{width:auto}#app .ga-catalog-count{align-self:flex-end}#app .ga-subject-head{padding:13px;gap:9px}#app .ga-subject-icon{width:39px;height:39px;flex-basis:39px;font-size:21px}#app .ga-subject-head h2{font-size:19px}#app .ga-subject-head p{font-size:10px}#app .ga-subject-head>b{font-size:10px}#app .ga-paper{margin:8px}#app .ga-paper>summary{padding:12px;font-size:13px}#app .ga-paper>summary small{font-size:9px}#app .ga-chapter-list{padding:0 6px 7px}#app .ga-chapter>summary{gap:7px;padding:9px}#app .ga-chapter-name{font-size:12px}#app .ga-chapter-count{font-size:9px}#app .ga-game-grid{grid-template-columns:minmax(0,1fr);gap:8px;padding:8px}#app .ga-game-card{padding:12px}#app .ga-game-card>p{margin-bottom:8px}#app .ga-game-actions .btn{flex:1 1 130px;justify-content:center}#app .ga-howto-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#app .ga-howto-grid article:last-child{grid-column:1/-1}#app .ga-level-picker{padding:8px 12px 130px}#app .ga-level-grid{grid-template-columns:minmax(0,1fr)}#app .ga-level-card{min-height:150px;padding:15px}#app .ga-level-game-head,#app .ga-play-banner,#app .ga-review-head{padding:14px;gap:10px;align-items:flex-start}#app .ga-level-game-head .ga-game-icon,#app .ga-play-banner .ga-game-icon{width:43px;height:43px;flex-basis:43px;font-size:23px}#app .ga-play-banner{flex-wrap:wrap}#app .ga-play-banner .ga-review-link{margin-left:0}#app .ga-review-head{flex-wrap:wrap}#app .ga-review-head .btn{width:100%;justify-content:center}#app .ga-review-item{padding:12px;gap:9px}#app .ga-review-item h3{font-size:12px}#app .ga-level-footer{display:grid;grid-template-columns:minmax(0,1fr)}#app .ga-level-footer .btn{justify-content:center}}
+
+
+/* Graph Lab v2: subject filters, editable parameter values and responsive controls. */
+.graph-subject-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0 19px}
+.graph-subject-btn{display:flex;align-items:flex-start;gap:8px;flex-direction:column;min-width:0;min-height:92px;padding:14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#071722,#03080e);color:var(--tx);text-align:left;cursor:pointer;font:inherit;transition:border-color .18s ease,background .18s ease,transform .18s ease}
+.graph-subject-btn>span{font-size:20px;line-height:1.1}
+.graph-subject-btn>b{font-size:13px;line-height:1.5}
+.graph-subject-btn>small{font-size:11px;color:var(--mut)}
+.graph-subject-btn:hover{border-color:color-mix(in srgb,var(--p) 55%,var(--line));transform:translateY(-1px)}
+.graph-subject-btn.on{border-color:var(--p);background:linear-gradient(145deg,color-mix(in srgb,var(--p) 16%,#071722),#03080e);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--p) 18%,transparent)}
+.graph-subject-btn.on>b{color:var(--s)}
+.graph-chapter-group>.subh>span{overflow-wrap:anywhere}
+.graph-control-param-number input{width:100%;min-width:0;box-sizing:border-box;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#03080d;color:var(--tx);font:inherit}
+.graph-control-param-number input:focus{outline:2px solid var(--p);outline-offset:1px}
+.graph-control-param-number{grid-template-columns:minmax(135px,1fr) minmax(120px,2.5fr) 55px}
+@media(max-width:760px){.graph-subject-buttons{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.graph-subject-btn{min-height:82px;padding:11px}.graph-subject-btn>b{font-size:12px}.graph-control-param-number{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}}
+@media(max-width:420px){.graph-subject-btn{min-height:75px;padding:9px}.graph-subject-btn>span{font-size:18px}.graph-subject-btn>b{font-size:11px}.graph-subject-btn>small{font-size:10px}}
+
+
+/* ConceptLab interactive non-quiz simulations */
+#app .ga-game-card.ga-simulation-card .ga-mode-label{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid rgba(45,180,190,.28);background:rgba(45,180,190,.08);border-radius:999px;font-size:10px;font-weight:800;color:var(--txt)}
+#app .ga-simulation-card .ga-game-actions{align-items:center}
+#app .ga-direct-simulation{max-width:1040px!important}
+#app .sim-explorer{display:grid;gap:16px;margin-top:18px;color:var(--txt)}
+#app .sim-explorer-intro,#app .sim-explorer-controls,#app .sim-explorer-main,#app .sim-observation-panel{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:18px;min-width:0}
+#app .sim-explorer-label{font-size:9px;letter-spacing:.13em;font-weight:900;color:var(--p)}
+#app .sim-explorer-intro h2{font-size:clamp(21px,3vw,30px);line-height:1.25;margin:7px 0}
+#app .sim-explorer-intro>p{font-size:13px;line-height:1.75;color:var(--mut);margin:0}
+#app .sim-explorer-mission{display:grid;gap:5px;margin-top:14px;padding:12px 14px;border:1px solid rgba(45,180,190,.25);border-radius:12px;background:rgba(45,180,190,.07)}
+#app .sim-explorer-mission b{font-size:12px}#app .sim-explorer-mission span{font-size:12px;line-height:1.7;color:var(--mut)}
+#app .sim-explorer-layout{display:grid;grid-template-columns:minmax(250px,.82fr) minmax(0,1.4fr);gap:14px;align-items:start}
+#app .sim-explorer-section-title{display:flex;align-items:center;gap:9px;margin-bottom:15px}
+#app .sim-explorer-section-title>span{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:9px;background:rgba(124,124,255,.12);color:var(--p);font-size:10px;font-weight:900}
+#app .sim-explorer-section-title h3{font-size:15px;margin:0}
+#app .sim-param{display:grid;gap:8px;padding:11px 0;border-bottom:1px solid var(--line)}
+#app .sim-param>span:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px}
+#app .sim-param>span:first-child small{font-size:10px;color:var(--mut)}
+#app .sim-param input[type=range]{width:100%;accent-color:var(--p);cursor:pointer}
+#app .sim-param-numeric{display:flex;align-items:center;gap:8px}
+#app .sim-param-numeric input{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--txt);padding:7px 9px;font:inherit;font-size:12px}
+#app .sim-param-numeric small{flex:0 0 auto;font-size:10px;color:var(--mut)}
+#app #simReset{margin-top:13px;width:100%;justify-content:center}
+#app .sim-explorer-visual{padding:9px;border:1px solid var(--line);border-radius:13px;background:var(--bg);overflow:hidden}
+#app .sim-explorer-svg{display:block;width:100%;height:auto;max-height:300px;color:var(--txt)}
+#app .sim-explorer-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+#app .sim-metric{display:grid;align-content:start;gap:5px;padding:11px 10px;background:var(--bg);border:1px solid var(--line);border-radius:11px;min-width:0}
+#app .sim-metric small{color:var(--mut);font-size:10px;line-height:1.5}
+#app .sim-metric b{font-size:clamp(12px,1.5vw,17px);line-height:1.45;overflow-wrap:anywhere}
+#app .sim-explorer-formula{margin-top:11px;padding:13px;border-radius:12px;background:rgba(124,124,255,.08);border:1px solid rgba(124,124,255,.2)}
+#app .sim-explorer-formula small{display:block;font-size:10px;color:var(--mut);margin-bottom:6px}
+#app .sim-explorer-formula b{font-size:14px;line-height:1.7;overflow-wrap:anywhere}
+#app .sim-explorer-formula p{font-size:11px;color:var(--mut);line-height:1.65;margin:7px 0 0}
+#app .sim-observation-panel{display:grid;gap:12px}
+#app .sim-observation-head{display:flex;align-items:center;gap:12px;justify-content:space-between}
+#app .sim-observation-head>div>span{font-size:9px;letter-spacing:.12em;color:var(--p);font-weight:900}
+#app .sim-observation-head h3{font-size:17px;margin:5px 0}
+#app .sim-observation-head p{font-size:11px;color:var(--mut);margin:0;line-height:1.65}
+#app .sim-observation-count{flex:0 0 auto;border-radius:12px;padding:8px 11px;background:rgba(45,180,190,.1);font-size:12px;font-weight:900}
+#app .sim-observation-actions{display:flex;gap:8px;flex-wrap:wrap}
+#app .sim-observation-actions button{flex:1 1 180px;justify-content:center}
+#app #simFinish:disabled{opacity:.45;cursor:not-allowed}
+#app .sim-observation-log{display:grid;gap:8px}
+#app .sim-observation-log>p{font-size:11px;margin:0}
+#app .sim-observation{display:grid;grid-template-columns:25px minmax(0,1fr);gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+#app .sim-observation>span{font-size:11px;color:var(--p);font-weight:900}
+#app .sim-observation b{display:block;font-size:11px;line-height:1.7;overflow-wrap:anywhere}
+#app .sim-observation small{display:block;font-size:10px;color:var(--mut);line-height:1.6;margin-top:3px;overflow-wrap:anywhere}
+#app .sim-explorer-footnote{font-size:10px;line-height:1.7;color:var(--mut);margin:0 2px}
+@media(max-width:760px){#app .sim-explorer-layout{grid-template-columns:minmax(0,1fr)}#app .sim-explorer-controls{order:2}#app .sim-explorer-main{order:1}#app .sim-explorer-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}#app .sim-explorer-intro,#app .sim-explorer-controls,#app .sim-explorer-main,#app .sim-observation-panel{padding:13px}#app .sim-observation-head{align-items:flex-start}}
+
+
+/* ConceptLab UI polish: compact mode labels and monochrome Simulation Lab icons. */
+#app .ga-game-card .ga-level-mini{align-items:center;flex-wrap:wrap;min-width:0;gap:6px}
+#app .ga-game-card .ga-level-mini .ga-mode-label{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:flex-start;gap:7px;width:auto!important;min-width:0;max-width:100%;height:auto!important;min-height:26px;padding:6px 9px;border-radius:9px;white-space:normal;overflow-wrap:anywhere;word-break:normal;line-height:1.35;font-size:10px;font-weight:800;flex:0 1 auto}
+#app .ga-game-card.ga-simulation-card .ga-mode-label{border-color:var(--line);background:var(--bg);color:var(--txt)}
+@media(max-width:620px){
+ #app .ga-game-card .ga-level-mini .ga-mode-label{font-size:10px;padding:6px 8px;max-width:100%;min-height:28px}
+}
+
+/* Group Graph Lab chapters under one subject heading instead of repeating the subject on every chapter. */
+.graph-subject-section-heading{display:flex;align-items:center;margin:25px 0 9px;padding:0 0 8px;border-bottom:1px solid var(--line);min-width:0}
+.graph-subject-section-heading h2{margin:0;font-size:clamp(17px,2vw,22px);line-height:1.4;font-weight:850;overflow-wrap:anywhere}
+.graph-subject-section-heading:first-child{margin-top:14px}

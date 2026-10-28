@@ -1,10 +1,10 @@
 /* ConceptLab service worker — network-first so updates always win; cache is only an offline fallback.
    Never touches /api/, /admin or Netlify function calls. */
-const VERSION = 'conceptlab-v10.0.0-game-academy';
+const VERSION = 'conceptlab-v10.2.7-premium-compact-stages-features';
 const SHELL = ['./', 'index.html', 'assets/css/main.css', 'assets/css/mono-icons.css', 'assets/css/premium.css',
   'assets/js/texts.js', 'assets/js/defaults.js', 'assets/js/fx.js', 'assets/js/sims.js', 'assets/js/topic-sims.js', 'assets/js/additional-sims.js', 'assets/js/physics-labs.js', 'assets/js/graphs.js', 'assets/js/shortcuts.js',
   'assets/js/games.js', 'assets/js/game-academy.js', 'assets/js/ayat-hadith.js', 'assets/js/casio991.js', 'assets/js/hub.js', 'assets/js/premium.js', 'assets/js/app.js', 'assets/js/mono-icons.js',
-  'assets/images/conceptlab-main-logo.webp', 'assets/images/tiger-real.webp', 'assets/images/deer-real.webp', 'manifest.webmanifest'];
+  'assets/images/conceptlab-main-logo.webp', 'assets/images/tiger-real.webp', 'assets/images/deer-real.webp', 'assets/images/creator-taimur.webp', 'assets/images/creator-moshiur.webp', 'manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => Promise.all(SHELL.map((u) => c.add(u).catch(() => null)))).then(() => self.skipWaiting()));
