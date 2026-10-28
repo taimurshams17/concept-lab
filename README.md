@@ -1,3 +1,9 @@
+## Recommended deployment: Cloudflare Pages
+
+This archive includes a Cloudflare Pages Functions API route and D1/R2 bindings for the `/admin/` content editor. Setup guide: [`CLOUDFLARE-SETUP.md`](./CLOUDFLARE-SETUP.md). Before the first deployment, create D1 and R2 resources, replace the D1 database ID in `wrangler.jsonc`, and apply `cloudflare/migrations/0001_initial.sql`. Do not deploy only `dist` if you need Admin login and content/image saving.
+
+The Cloudflare runtime adapter is `cloudflare/api.mjs` + `cloudflare/storage.mjs`; Pages routes `/api/*` through `functions/api/[[path]].js`. The older Netlify implementation is retained in `netlify/functions/api.mjs` for reference/legacy use.
+
 # ConceptLab
 
 Concept-first lessons in Higher Math, Chemistry and Physics, explained in Bengali.

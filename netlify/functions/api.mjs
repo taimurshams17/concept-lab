@@ -66,7 +66,7 @@ function validateExtra(b) {
   if (b.home != null) {
     if (!b.home || !Array.isArray(b.home.sections) || b.home.sections.length > 60) throw new Error("Invalid home sections");
     for (const s of b.home.sections) {
-      if (!s || !SEC_TYPES.includes(s.type) || !isId(s.id, 60)) throw new Error("Invalid home section");
+      if (!s || !(SEC_TYPES.includes(s.type) || (typeof s.type === "string" && /^[A-Za-z][A-Za-z0-9_-]{0,39}$/.test(s.type))) || !isId(s.id, 60)) throw new Error("Invalid home section");
       if (s.items != null && (!Array.isArray(s.items) || s.items.length > 60)) throw new Error("Invalid section items");
     }
   }

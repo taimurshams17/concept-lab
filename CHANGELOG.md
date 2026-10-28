@@ -443,3 +443,12 @@ ConceptLab v9.0.1 hotfix
 - Added local mistake storage/review and staged quiz pools, timers, and round counts.
 - Added responsive Game Academy styling and bumped the service-worker cache version.
 - See `GAME-ACADEMY-UPDATE.md` for deployment and validation details.
+
+
+## 2026-10-28 — Bottom-nav, creator photo, and mobile stage fixes
+
+- Forced bottom navigation icons to render monochrome white from first paint, including emoji fallbacks and injected SVG icons.
+- Preloaded both creator portraits and removed reveal/entrance delay from the creator section; kept photos and names side-by-side on small mobile screens.
+- Removed the decorative sparkle from the four-stage cards and the right-side ornament from the ConceptLab purpose cards.
+- Prevented the `UNDERSTAND · বুঝুন` eyebrow from breaking inside a word on narrow mobile screens.
+- Bumped the service-worker cache version so the updated assets replace older cached bundles.
