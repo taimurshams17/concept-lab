@@ -1,7 +1,9 @@
-# ConceptLab deployment and Admin Panel setup
+# ConceptLab setup guide
 
-**Recommended: Cloudflare Pages.** Use [`CLOUDFLARE-SETUP.md`](./CLOUDFLARE-SETUP.md) for a step-by-step guide to connect GitHub, create D1/R2 bindings and deploy the website plus its API. This build is configured for Pages Functions; do not upload only the `dist` folder if you need the Admin Panel to save content.
+For the recommended GitHub + Netlify workflow, use [`NETLIFY-DEPLOY.md`](./NETLIFY-DEPLOY.md).
 
-The Admin Panel is part of ConceptLab. After deployment, open `https://YOUR-PROJECT.pages.dev/admin/`. It lets you edit the content types available in the existing editor. Supported content and image edits are persisted to D1/R2 and do not require a code deployment; new application logic still needs a code update.
+The live admin panel is served at `/admin/`. It lets authorized administrators edit website content, chapters, simulations, games, home-page sections, text, theme, settings, media, student-related views, and other supported content. Saved content is stored in Netlify Blobs and is available across production deploys.
 
-The legacy Netlify implementation remains in `netlify/functions/api.mjs`. The Cloudflare implementation is in `cloudflare/api.mjs`, routed by `functions/api/[[path]].js`.
+First-time admin setup is protected by the `CONCEPTLAB_ADMIN_SETUP_KEY` environment variable. Set a long random secret in Netlify's runtime environment variables, deploy, then open `/admin/` and use the same secret in the one-time setup form. The first admin account is created only once; subsequent access uses its username and password.
+
+Do not store secrets in source files or commit `.env` files to GitHub.

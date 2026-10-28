@@ -107,15 +107,18 @@
   }
 
   /* ---------- auth / boot ---------- */
-  function auth(mode) {
+  function auth(mode, setupReady) {
     var setup = mode === 'setup';
-    root.innerHTML = '<div class="auth"><div class="card2"><h1>' + (setup ? 'Create admin account' : 'Admin sign in') + '</h1><p>' + (setup ? 'First time here. Create the first account now. You can add your friend afterwards.' : 'ConceptLab admin panel') + '</p><label class="f"><span>Username</span><input id="au" autocomplete="username"></label><label class="f"><span>Password' + (setup ? ' (8+ characters)' : '') + '</span><input id="ap" type="password" autocomplete="' + (setup ? 'new-password' : 'current-password') + '"></label><button class="b1" id="ab">' + (setup ? 'Create account' : 'Sign in') + '</button></div></div>';
-    function go() { api('POST', setup ? '/setup' : '/login', { username: $('#au').value, password: $('#ap').value }).then(function (r) { T = r.token; ME = r.user; localStorage.setItem('clt', T); localStorage.setItem('clu', ME); boot(); }).catch(function (e) { toast(e.message, 1); }); }
-    $('#ab').onclick = go; $('#ap').onkeydown = function (e) { if (e.key === 'Enter') go(); };
+    var setupKeyField = setup ? '<label class="f"><span>One-time setup key</span><input id="ask" type="password" autocomplete="off" spellcheck="false" aria-describedby="setupKeyHelp"></label><p class="hint" id="setupKeyHelp">Enter the same value configured as CONCEPTLAB_ADMIN_SETUP_KEY in Netlify. This key is only used to create the first admin account.</p>' : '';
+    var setupLocked = setup && !setupReady;
+    var setupLockNotice = setupLocked ? '<p class="hint" role="alert">Admin setup is locked. Add CONCEPTLAB_ADMIN_SETUP_KEY (at least 24 characters) in your Netlify site environment variables and redeploy this site.</p>' : '';
+    root.innerHTML = '<div class="auth"><div class="card2"><h1>' + (setup ? 'Create admin account' : 'Admin sign in') + '</h1><p>' + (setup ? 'Create the first administrator account. You can add other admins later from Team & Password.' : 'ConceptLab admin panel') + '</p>' + setupKeyField + '<label class="f"><span>Username</span><input id="au" autocomplete="username"></label><label class="f"><span>Password' + (setup ? ' (8+ characters)' : '') + '</span><input id="ap" type="password" autocomplete="' + (setup ? 'new-password' : 'current-password') + '"></label>' + setupLockNotice + '<button class="b1" id="ab"' + (setupLocked ? ' disabled' : '') + '>' + (setup ? 'Create account' : 'Sign in') + '</button></div></div>';
+    function go() { if (setup && !setupReady) return; api('POST', setup ? '/setup' : '/login', { username: $('#au').value, password: $('#ap').value, setupKey: setup ? $('#ask').value : undefined }).then(function (r) { T = r.token; ME = r.user; localStorage.setItem('clt', T); localStorage.setItem('clu', ME); boot(); }).catch(function (e) { toast(e.message, 1); }); }
+    $('#ab').onclick = go; $('#ap').onkeydown = function (e) { if (e.key === 'Enter') go(); }; if (setup) $('#ask').onkeydown = function (e) { if (e.key === 'Enter') go(); };
   }
   function boot() {
     api('GET', '/status').then(function (s) {
-      if (s.setup) return auth('setup');
+      if (s.setup) return auth('setup', !!s.setupReady);
       if (!T) return auth('login');
       return api('GET', '/me').then(function () { return api('GET', '/content'); }).then(function (d) { norm(d); dirty = false; shell(); });
     }).catch(function (e) { if (T) return; root.innerHTML = '<div class="auth"><div class="card2"><h1>Cannot reach the server</h1><p>The admin panel works only on the deployed Netlify site (deployed from GitHub). ' + E(e.message) + '</p></div></div>'; });

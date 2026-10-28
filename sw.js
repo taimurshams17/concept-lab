@@ -1,7 +1,7 @@
 /* ConceptLab service worker — network-first so updates always win; cache is only an offline fallback.
    Never caches /api/ or /admin/ routes (including API responses). */
-const VERSION = 'conceptlab-20261028-ui8-about-sparkle-sync';
-const SHELL = ['./', 'index.html', 'assets/css/main.css', 'assets/css/mono-icons.css', 'assets/css/premium.css',
+const VERSION = 'conceptlab-20261029-desktop-compact-3';
+const SHELL = ['./', 'index.html', 'assets/css/main.css?v=20261029-desktop-compact-3', 'assets/css/mono-icons.css?v=20261029-desktop-compact-3', 'assets/css/premium.css?v=20261029-desktop-compact-3',
   'assets/js/texts.js', 'assets/js/defaults.js', 'assets/js/fx.js', 'assets/js/sims.js', 'assets/js/topic-sims.js', 'assets/js/additional-sims.js', 'assets/js/physics-labs.js', 'assets/js/graphs.js', 'assets/js/shortcuts.js',
   'assets/js/games.js', 'assets/js/game-academy.js', 'assets/js/ayat-hadith.js', 'assets/js/casio991.js', 'assets/js/hub.js', 'assets/js/premium.js', 'assets/js/app.js', 'assets/js/mono-icons.js',
   'assets/images/conceptlab-main-logo.webp', 'assets/images/tiger-real.webp', 'assets/images/deer-real.webp', 'assets/images/creator-taimur.webp', 'assets/images/creator-moshiur.webp', 'manifest.webmanifest'];

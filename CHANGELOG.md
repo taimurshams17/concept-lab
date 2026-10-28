@@ -2,6 +2,15 @@
 
 ---
 
+## UI update — 2026-10-28 — Desktop spacing and Study Planner editing
+
+- Reduced excessive desktop section spacing and moved the animated formula ribbon closer to the footer.
+- Added inline Edit, Save and Cancel controls for Study Planner tasks; edits are saved to the existing local Study Hub storage.
+- Kept the task editor responsive on smaller screens and added Enter-to-save keyboard support.
+- Bumped the service-worker cache version so the updated assets are refreshed on returning visits.
+
+---
+
 ## CHANGELOG-v9.9.3
 
 ConceptLab v9.9.3 — Simulation controls and mechanics fixes
@@ -452,3 +461,11 @@ ConceptLab v9.0.1 hotfix
 - Removed the decorative sparkle from the four-stage cards and the right-side ornament from the ConceptLab purpose cards.
 - Prevented the `UNDERSTAND · বুঝুন` eyebrow from breaking inside a word on narrow mobile screens.
 - Bumped the service-worker cache version so the updated assets replace older cached bundles.
+
+
+## 2026-10-29 — Desktop section spacing and formula ribbon gap
+
+- Reduced generic desktop section padding to prevent content groups from appearing vertically stretched. Components with their own spacing rules retain their intended layout.
+- Added a large desktop gap above the lower formula-animation ribbon, while keeping a smaller gap on mobile.
+- Kept the formula ribbon visually close to the footer.
+- Bumped the service-worker cache version so deployed browsers can pick up the updated CSS.

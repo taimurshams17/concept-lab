@@ -1809,3 +1809,77 @@ body > nav.bottom-nav .bottom-nav-icon * {
   color: inherit !important;
   -webkit-text-fill-color: currentColor !important;
 }
+
+/* Desktop layout correction: compact generic sections and create a deliberate breathing space above the formula ribbon. */
+@media (min-width: 761px) {
+  /* A site-wide 54–92px section rule was adding excessive vertical height to many content groups.
+     Components with their own spacing rules keep those; only generic sections use this compact baseline. */
+  section { padding-block: clamp(22px, 2.2vw, 32px); }
+  #app .pgw { padding-bottom: 12px !important; }
+  #app .hub .hub-plan-row {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px !important;
+  }
+  #app .hub .hub-plan-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    width: 100%;
+  }
+  #app .hub .hub-plan-edit { flex: 1 1 220px; width: 100%; min-width: 0; }
+  #app .hub .hub-plan-actions { display: flex; align-items: center; flex: 0 0 auto; gap: 6px; margin-left: auto; }
+  #app .hub .hub-plan-actions .btn { min-height: 32px; padding: 5px 9px; white-space: nowrap; }
+
+  /* The formula ribbon intentionally sits well below the page content on desktop. */
+  .footer-formula-motion {
+    min-height: 100px;
+    gap: 8px;
+    margin-top: clamp(100px, 8vw, 140px) !important;
+    padding: 18px 16px 14px;
+  }
+  /* Keep the footer visually attached to the formula strip. */
+  footer.site-footer.pf { margin-top: 18px !important; padding-top: 34px !important; }
+}
+@media (max-width: 760px) {
+  #app .hub .hub-plan-row {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    padding: 8px !important;
+  }
+  #app .hub .hub-plan-content { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; min-width: 0; }
+  #app .hub .hub-plan-edit { width: 100%; min-width: 0; }
+  #app .hub .hub-plan-actions { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+  #app .hub .hub-plan-actions .btn { flex: 1 1 auto; min-height: 32px; padding: 5px 9px; }
+  .footer-formula-motion { margin-top: 38px !important; }
+}
+
+
+/* v10.2.8 — enforce compact desktop section rhythm and force the formula ribbon gap.
+   The earlier generic `section` selector lost to `#app section` in main.css, so target
+   the app's sections directly and mark the layout overrides important. */
+@media (min-width: 761px) {
+  #app[data-page] section {
+    padding-top: clamp(12px, 1vw, 18px) !important;
+    padding-bottom: clamp(12px, 1vw, 18px) !important;
+  }
+
+  /* Large intentional separation between the page content and the formula animation. */
+  body > .footer-formula-motion {
+    margin-top: clamp(160px, 12vw, 210px) !important;
+    min-height: 102px !important;
+    padding: 18px 16px 14px !important;
+    gap: 8px !important;
+  }
+
+  /* Keep the footer close to the formula strip instead of creating another large gap. */
+  body > footer.site-footer.pf {
+    margin-top: 18px !important;
+    padding-top: 34px !important;
+  }
+}

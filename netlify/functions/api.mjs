@@ -21,6 +21,18 @@ async function snapshot(content, by) {
 const ms = () => getStore("media");
 const J = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 const H = (p, s) => scryptSync(p, s, 32).toString("hex");
+const setupKeyMatches = (candidate, configured) => {
+  const a = createHash("sha256").update(String(candidate || "")).digest();
+  const b = createHash("sha256").update(String(configured || "")).digest();
+  return timingSafeEqual(a, b);
+};
+const configuredSetupKey = () => {
+  try {
+    const runtimeValue = globalThis.Netlify?.env?.get?.("CONCEPTLAB_ADMIN_SETUP_KEY");
+    if (runtimeValue != null) return String(runtimeValue);
+  } catch {}
+  return String(process.env.CONCEPTLAB_ADMIN_SETUP_KEY || "");
+};
 const users = async () => (await st().get("users", { type: "json" })) || {};
 const students = async () => (await st().get("students", { type: "json" })) || {};
 const saveU = (u) => st().setJSON("users", u);
@@ -150,7 +162,10 @@ export default async (req) => {
     }
     if (p === "/content" && m === "GET") return J((await st().get("content", { type: "json" })) || {}, 200, { "cache-control": "no-store, no-cache, must-revalidate, max-age=0" });
     if (p === "/student-leaderboard" && m === "GET") { const all = await students(); const rows = Object.values(all).map((u) => ({ name: String(u.name || "Student"), avatar: String(u.avatar || ""), xp: Math.max(0, Number(u.xp) || 0) })).sort((a, b) => b.xp - a.xp || a.name.localeCompare(b.name)); return J({ count: rows.length, students: rows }); }
-    if (p === "/status" && m === "GET") return J({ setup: !Object.keys(await users()).length });
+    if (p === "/status" && m === "GET") {
+      const setup = !Object.keys(await users()).length;
+      return J({ setup, setupReady: !setup || configuredSetupKey().length >= 24 });
+    }
     const body = m === "GET" ? {} : await req.json().catch(() => ({}));
     if (p === "/feedback" && m === "POST") {
       if (String(body.website || "").trim()) return J({ received: true });
@@ -191,6 +206,9 @@ export default async (req) => {
     if (p === "/setup" && m === "POST") {
       const us = await users();
       if (Object.keys(us).length) return J({ error: "Already set up" }, 403);
+      const expected = configuredSetupKey();
+      if (expected.length < 24) return J({ error: "Admin setup is locked. Set CONCEPTLAB_ADMIN_SETUP_KEY to a secret of at least 24 characters in Netlify environment variables, then redeploy." }, 503);
+      if (!setupKeyMatches(body.setupKey, expected)) return J({ error: "The initial setup key is incorrect" }, 403);
       const u = mk(us, body); await saveU(us); return J({ token: await sign(u), user: u });
     }
     if (p === "/login" && m === "POST") {

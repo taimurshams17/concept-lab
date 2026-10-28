@@ -1,41 +1,43 @@
-## Recommended deployment: Cloudflare Pages
-
-This archive includes a Cloudflare Pages Functions API route and D1/R2 bindings for the `/admin/` content editor. Setup guide: [`CLOUDFLARE-SETUP.md`](./CLOUDFLARE-SETUP.md). Before the first deployment, create D1 and R2 resources, replace the D1 database ID in `wrangler.jsonc`, and apply `cloudflare/migrations/0001_initial.sql`. Do not deploy only `dist` if you need Admin login and content/image saving.
-
-The Cloudflare runtime adapter is `cloudflare/api.mjs` + `cloudflare/storage.mjs`; Pages routes `/api/*` through `functions/api/[[path]].js`. The older Netlify implementation is retained in `netlify/functions/api.mjs` for reference/legacy use.
-
 # ConceptLab
 
-Concept-first lessons in Higher Math, Chemistry and Physics, explained in Bengali.
-Black theme with a sky-blue glow, animations, 8 mini-games, 14 simulations, XP / levels / badges, and an admin panel at `/admin/`.
+Concept-first lessons in Higher Mathematics, Chemistry and Physics, with interactive simulations, mini-games, student accounts, learning progress, and a content-management admin panel.
 
-- `index.html`, `assets/` public site (vanilla JS, hash routing)
-  - `assets/js/defaults.js` built-in content (home sections, chapters, games, simulations, badges)
-  - `assets/js/sims.js` simulations, `assets/js/games.js` mini-games, `assets/js/fx.js` effects
-- `admin/` admin panel: Home sections, Chapters, Games, Simulations, XP & Badges, Subjects, All Texts, Media, Theme, Settings, Team
-- `netlify/functions/api.mjs` API (auth + content storage in Netlify Blobs)
-- `scripts/build-static.js` copies the site into `dist/`
+## Recommended hosting: GitHub + Netlify
 
-Saved admin content overrides the built-in content. See SETUP-GUIDE.md to deploy.
+This project is prepared for Git-based deployment on **Netlify**. The site is built from the source files, and the admin API uses Netlify Functions with Netlify Blobs for persistent content, admin accounts, student accounts, uploads, and revision history.
 
+- Public site: `/`
+- Admin panel: `/admin/`
+- API: `/api/*`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Functions directory: `netlify/functions`
 
-## HSC concept simulation pack
-- The built-in content now includes 36 additional HSC topic-labelled simulation entries across Physics, Chemistry and Higher Mathematics.
-- In Admin > Simulations (Lab), choose **Add missing HSC simulation pack**, then review entries and press **Save changes**. Existing IDs are skipped, so it is safe to run again.
-- The home-page simulation carousel cycles through visible entries (not only unique engine types), so topic-specific entries appear in the left/right showcase.
-- Admin > Chapters > edit a concept lets you choose an interactive simulation engine for Stage 3.
-- New interactive engines include qualitative models for reaction kinetics, equilibrium, pH, titration, electrochemistry, thin-lens optics, magnetic field, periodic trends, bond polarity and stoichiometry. These are learning models, not substitutes for lab measurements or a verified official syllabus checklist.
+Follow [`NETLIFY-DEPLOY.md`](./NETLIFY-DEPLOY.md) before the first production deploy. In particular, set the `CONCEPTLAB_ADMIN_SETUP_KEY` environment variable before creating the first admin account. Do not commit environment files or secrets to GitHub.
 
+## Main source files
 
-## ConceptLab v8.9 update
-- Added a homepage Quick Access launchpad for the core features, all three subjects, and the Student Hub tools.
-- Added a card-based three-line menu with monochrome icons, short descriptions, and direct links to all 11 Student Hub tools.
-- Added a persistent bottom navigation: Home, Chapters, Arcade, Simulations, Student Hub, and About.
+- `index.html` and `assets/`: public website
+- `assets/js/defaults.js`: built-in lesson, game, simulation, and home-page content
+- `assets/js/app.js`, `assets/js/sims.js`, `assets/js/games.js`: main app, simulations, and games
+- `admin/`: browser-based admin panel
+- `netlify/functions/api.mjs`: authenticated API and persistent storage access
+- `scripts/build-static.js`: creates the deployment-ready `dist/` folder
 
+## Local checks
 
-## ConceptLab v9.4 update
-- Removed the homepage Universal Learning Finder, its Ctrl/Cmd+K shortcut, the Daily Discovery lab rotation, and resource counters.
-- Replaced the previous home learning desk with Brain Sprint: a timed five-question quiz for Physics, Chemistry, Higher Mathematics, or mixed subjects.
-- Added answer explanations, a visible timer/progress indicator, and personal-best records saved locally per selected subject.
-- Preserved the existing Student Hub, chapter, simulation, and game routes.
-- See `CHANGELOG.md` for details.
+```bash
+npm install
+npm run check
+npm run build
+```
+
+To test the full API locally, install the Netlify CLI and run `npm run dev`. Netlify Blobs production persistence is provided by Netlify; use the production site for the final admin setup.
+
+## Deployment notes
+
+`dist/` is generated at build time and is intentionally ignored by Git. Push source files to GitHub and let Netlify run the build. Netlify's site-wide Blobs stores persist across production deploys, so content saved in the admin panel is not lost when the code is redeployed. Avoid editing content from deploy-preview environments because Netlify Blobs stores are site-wide for the project.
+
+The admin panel edits published content; application code, styles, and new functionality still require a Git commit and a new deployment.
+
+See `CHANGELOG.md` for feature history and other update notes for recent content changes.
