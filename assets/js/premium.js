@@ -237,7 +237,7 @@
   function solverPage() {
     var hp = (location.hash.replace(/^#\/?/, '').split('/')[1] || '').split('?')[0];
     if (hp && fById(hp)) { solverState.id = hp; solverState.target = null; }
-    return '<section class="px-page"><span class="px-tag">STUDENT POWER TOOL</span><h1>' + E(settingText('solverTitle', 'Formula Solver — answers with steps')) + '</h1>' +
+    return '<section class="px-page"><div class="student-tool-backnav"><a class="btn ghost" href="#/hub">← সব টুল</a></div><span class="px-tag">STUDENT POWER TOOL</span><h1>' + E(settingText('solverTitle', 'Formula Solver — answers with steps')) + '</h1>' +
       '<p class="lead">' + E(settingText('solverIntro', 'Pick a formula, choose the unknown, type the rest. ConceptLab rearranges the equation, substitutes your numbers and shows every step — so you learn the method, not just the result.')) + '</p>' +
       '<div class="px-solver"><aside class="px-panel px-side"><input class="px-in" id="pxSearch" type="search" placeholder="Search formulas (e.g. force, pH, quadratic)" value="' + E(solverState.q) + '" aria-label="Search formulas">' +
       '<div class="px-chips" id="pxSubj" role="group" aria-label="Subject filter">' + [['all', 'All'], ['phy', 'Physics'], ['chem', 'Chemistry'], ['math', 'Math']].map(function (s) { return '<button type="button" class="px-chip" data-pxs="' + s[0] + '" aria-pressed="' + (solverState.s === s[0]) + '">' + s[1] + '</button>'; }).join('') + '</div>' +
@@ -334,7 +334,7 @@
     return '<div class="px-refgrid">' + items.map(function (it, i) { return '<div class="px-ref"><small>' + E(q ? it.g + ' · ' : '') + E(it.r[2] || '') + '</small><b>' + E(it.r[0]) + '</b><code>' + E(it.r[1]) + '</code><button type="button" class="cp" data-pxcp="' + E(it.r[1]) + '" aria-label="Copy ' + E(it.r[0]) + '">⧉</button></div>'; }).join('') + '</div>';
   }
   function referencePage() {
-    return '<section class="px-page"><span class="px-tag">STUDENT POWER TOOL</span><h1>' + E(settingText('referenceTitle', 'Reference Shelf — everything at hand')) + '</h1>' +
+    return '<section class="px-page"><div class="student-tool-backnav"><a class="btn ghost" href="#/hub">← সব টুল</a></div><span class="px-tag">STUDENT POWER TOOL</span><h1>' + E(settingText('referenceTitle', 'Reference Shelf — everything at hand')) + '</h1>' +
       '<p class="lead">' + E(settingText('referenceIntro', 'Physical constants, SI prefixes, Greek letters, common ions and the maths identities you keep looking up. Tap the copy button to paste a value into your notes.')) + '</p>' +
       '<div class="px-panel" style="margin-top:22px"><input class="px-in" id="pxRefQ" type="search" placeholder="Search everything (e.g. planck, sulfate, sin 2A)" value="' + E(refState.q) + '" aria-label="Search reference shelf">' +
       '<div class="px-tabs" id="pxRefTabs" role="tablist">' + Object.keys(REF).map(function (k) { return '<button type="button" class="px-chip" role="tab" data-pxtab="' + k + '" aria-pressed="' + (!refState.q && refState.tab === k) + '">' + REF[k][0] + '</button>'; }).join('') + '</div>' +
@@ -391,7 +391,7 @@
     c.fillStyle = '#6f8da5'; c.font = '600 22px ' + FF; c.fillText(location.host + ' · ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }), cx, 1304);
   }
   function cardPage() {
-    return '<section class="px-page"><span class="px-tag">STUDENT POWER TOOL</span><h1>' + E(settingText('progressCardTitle', 'Progress Card — show off your level')) + '</h1>' +
+    return '<section class="px-page"><div class="student-tool-backnav"><a class="btn ghost" href="#/hub">← সব টুল</a></div><span class="px-tag">STUDENT POWER TOOL</span><h1>' + E(settingText('progressCardTitle', 'Progress Card — show off your level')) + '</h1>' +
       '<p class="lead">' + E(settingText('progressCardIntro', 'A shareable card built from your real ConceptLab progress: level, XP, streak, simulations, games and badges. Download it or share it with friends.')) + '</p>' +
       '<div class="px-cardwrap"><div><canvas id="pxCardCv" width="1080" height="1350" role="img" aria-label="Your ConceptLab progress card"></canvas></div>' +
       '<div class="px-panel px-cardctl"><div class="px-field"><label for="pxCardName"><span>Name on the card</span></label><input class="px-in" id="pxCardName" maxlength="32" placeholder="Your name" value="' + E(jget('clpx_name', '') || studentName()) + '"></div>' +
