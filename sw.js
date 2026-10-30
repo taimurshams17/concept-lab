@@ -1,7 +1,7 @@
 /* ConceptLab service worker — network-first so updates always win; cache is only an offline fallback.
    Never caches /api/ or /admin/ routes (including API responses). */
-const VERSION = 'conceptlab-20261030-scroll-performance-1';
-const SHELL = ['./', 'index.html', 'assets/css/main.css?v=20261030-scroll-performance-1', 'assets/css/mono-icons.css?v=20261030-mobile-control-fix-1', 'assets/css/premium.css?v=20261030-about-polish-1',
+const VERSION = 'conceptlab-20261030-review-layout-1';
+const SHELL = ['./', 'index.html', 'assets/css/intro.css?v=20261030-intro-3', 'assets/js/intro.js?v=20261030-intro-3', 'assets/css/main.css?v=20261030-scroll-performance-1', 'assets/css/mono-icons.css?v=20261030-mobile-control-fix-1', 'assets/css/premium.css?v=20261030-review-layout-1',
   'assets/js/texts.js', 'assets/js/defaults.js', 'assets/js/fx.js?v=20261030-scroll-performance-1', 'assets/js/sims.js', 'assets/js/topic-sims.js', 'assets/js/additional-sims.js', 'assets/js/physics-labs.js', 'assets/js/graphs.js', 'assets/js/shortcuts.js',
   'assets/js/games.js', 'assets/js/game-academy.js', 'assets/js/ayat-hadith.js', 'assets/js/casio991.js', 'assets/js/hub.js?v=20261030-mobile-control-fix-2', 'assets/js/premium.js', 'assets/js/studio.js?v=20261030-studio-2', 'assets/css/studio.css?v=20261030-studio-3', 'assets/js/app.js?v=20261030-about-polish-1', 'assets/js/mono-icons.js',
   'assets/images/conceptlab-main-logo.webp', 'assets/images/tiger-real.webp', 'assets/images/deer-real.webp', 'assets/images/creator-taimur.webp', 'assets/images/creator-moshiur.webp', 'manifest.webmanifest'];
