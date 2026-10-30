@@ -236,3 +236,59 @@ body>nav.bottom-nav .bottom-nav-icon.graph-nav-icon>svg.graph-nav-svg{display:bl
  #app .hub-syllabus-summary{padding:12px 13px;gap:7px;}
  #app .hub-syllabus-count{font-size:10px;}
 }
+
+
+/* v11.4: verified desktop sizing. The prior additions reused their old URL
+   version, so browsers could keep serving the previous cached stylesheet. */
+@media (min-width: 900px) {
+  /* Account tabs should read as a compact two-choice switch, not a full-width bar. */
+  #app .auth-wrap {
+    width: min(100%, 620px) !important;
+    max-width: 620px !important;
+    margin-inline: auto !important;
+  }
+  #app .auth-wrap .stgin > .tabs {
+    display: grid !important;
+    box-sizing: border-box !important;
+    width: min(100%, 420px) !important;
+    max-width: 420px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+    margin: 0 auto 24px !important;
+  }
+  #app .auth-wrap .stgin > .tabs > .tab {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    padding: 10px 12px !important;
+    text-align: center !important;
+  }
+
+  /* Keep each Student Hub tool page in a comfortable reading column. */
+  #app > .hub.hub-dashboard {
+    box-sizing: border-box !important;
+    width: min(100%, 940px) !important;
+    max-width: 940px !important;
+    margin-inline: auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  #app > .hub.hub-tool-page {
+    box-sizing: border-box !important;
+    width: min(100%, 840px) !important;
+    max-width: 840px !important;
+    margin-inline: auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  #app > .hub.hub-tool-page #hubBody,
+  #app > .hub.hub-tool-page #hubBody > * {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
