@@ -3498,3 +3498,56 @@ body.navopen #clMessagePanel{display:none!important}
 /* About bottom navigation icon: use a stable inline SVG so icon replacement cannot hide it. */
 body > nav.bottom-nav .bottom-nav-icon.about-nav-icon svg{display:block!important;width:20px!important;height:20px!important;min-width:20px!important;stroke:currentColor!important;fill:none!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important;visibility:visible!important;opacity:1!important}
 @media(max-width:600px){body > nav.bottom-nav .bottom-nav-icon.about-nav-icon svg{width:17px!important;height:17px!important;min-width:17px!important}}
+
+
+/* ConceptLab performance polish — keep Simulation subject labels vertically centered. */
+#app .lab-page .subject-choice{align-items:center!important;}
+#app .lab-page .subject-choice>span,
+#app .lab-page .subject-choice>b,
+#app .lab-page .subject-choice>small{align-self:center!important;}
+@media(max-width:760px){
+  #app .lab-page .subject-choice{
+    display:flex!important;align-items:center!important;justify-content:flex-start;
+    flex-wrap:nowrap;min-height:68px!important;gap:10px!important;
+    text-align:left;padding:11px 13px!important;
+  }
+  #app .lab-page .subject-choice>span{
+    display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;
+    align-self:center!important;grid-row:auto!important;
+  }
+  #app .lab-page .subject-choice>b{
+    display:block;flex:1 1 auto;min-width:0;align-self:center!important;
+    line-height:1.45!important;margin:0;
+  }
+  #app .lab-page .subject-choice>small{
+    flex:0 1 76px;max-width:76px;min-width:0;margin:0 0 0 auto!important;
+    align-self:center!important;grid-column:auto!important;white-space:normal!important;
+    text-align:right;line-height:1.35;overflow-wrap:anywhere;
+  }
+}
+
+/* Smooth scrolling on lower-powered phones: pause decorative motion and expensive blur only while moving. */
+html.cl-scrolling #stars{opacity:.12!important;}
+html.cl-scrolling .horizon,
+html.cl-scrolling .horizon *,
+html.cl-scrolling .home-lab::before,
+html.cl-scrolling .home-lab::after,
+html.cl-scrolling .home-games::before,
+html.cl-scrolling .home-games::after,
+html.cl-scrolling .sec-stages::before,
+html.cl-scrolling .sec-features::before,
+html.cl-scrolling .sec-subjects::before,
+html.cl-scrolling .goals::before,
+html.cl-scrolling .pgw::before,
+html.cl-scrolling .pgw::after,
+html.cl-scrolling .btn.pri::after,
+html.cl-scrolling .pill i{
+  animation-play-state:paused!important;
+}
+html.cl-scrolling .rv{transition-duration:0s!important;will-change:auto!important;}
+html.cl-scrolling header,
+html.cl-scrolling .bottom-nav,
+html.cl-scrolling .cl-message-panel{
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html.cl-scrolling .bottom-nav{background:rgba(5,13,22,.97)!important;}

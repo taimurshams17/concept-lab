@@ -4,9 +4,9 @@ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').mat
 var on=true,colour='#38bdf8',colour2='#7dd3fc';
 function rgb(h){h=(h||'#38bdf8').replace('#','');return[parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]}
 /* ---------- background canvas ---------- */
-var cv=document.getElementById('stars'),cx=cv&&cv.getContext('2d'),W=0,H=0,stars=[],embers=[],shoots=[],planets=[],px=0,py=0,tx=0,ty=0,dpr=1,nextShoot=2;
-function size(){if(!cv)return;dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
- var n=Math.min(170,Math.round(W*H/11500));stars=[];for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,z:.2+Math.random()*.8,r:Math.random()*1.3+.2,t:Math.random()*6.28,s:.4+Math.random()*1.6});
+var cv=document.getElementById('stars'),cx=cv&&cv.getContext('2d'),W=0,H=0,stars=[],embers=[],shoots=[],planets=[],px=0,py=0,tx=0,ty=0,dpr=1,nextShoot=2,scrolling=false,scrollResumeTimer=0;
+function size(){if(!cv)return;dpr=Math.min(innerWidth<700?1.15:1.4,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cx.setTransform(dpr,0,0,dpr,0,0);
+ var n=Math.min(innerWidth<700?72:130,Math.round(W*H/(innerWidth<700?14500:12500)));stars=[];for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,z:.2+Math.random()*.8,r:Math.random()*1.3+.2,t:Math.random()*6.28,s:.4+Math.random()*1.6});
  var m=0; /* v9.8.0: rising bottom bubbles/embers removed */embers=[];for(var j=0;j<m;j++)embers.push(ember(true));
  /* Sparse, low-opacity celestial objects: fixed in the sky so they feel like distant scenery. */
  planets=[
@@ -22,7 +22,7 @@ function size(){if(!cv)return;dpr=Math.min(2,window.devicePixelRatio||1);W=inner
 }
 function ember(init){return{x:Math.random()*W,y:init?H-Math.random()*H*.55:H+10,r:Math.random()*2.2+.6,v:12+Math.random()*34,w:Math.random()*6.28,a:.2+Math.random()*.6}}
 var last=performance.now();
-function frame(n){requestAnimationFrame(frame);if(!cx||!on||document.hidden){last=n;return}if(n-last<1000/(innerWidth<700?24:36))return;
+function frame(n){requestAnimationFrame(frame);if(!cx||!on||document.hidden||scrolling){last=n;return}if(n-last<1000/(innerWidth<700?18:24))return;
  var dt=Math.min(.05,(n-last)/1000);last=n;px+=(tx-px)*.05;py+=(ty-py)*.05;cx.clearRect(0,0,W,H);
  var c=rgb(colour),c2=rgb(colour2),t=n/1000;
  /* Several distant spiral galaxies: faint, slow-moving, and cheap to render. */
@@ -55,7 +55,10 @@ function frame(n){requestAnimationFrame(frame);if(!cx||!on||document.hidden){las
  for(var q=shoots.length-1;q>=0;q--){var sh=shoots[q];sh.l+=dt;sh.x+=sh.vx*dt;sh.y+=sh.vy*dt;var al=Math.max(0,1-sh.l/1.1);if(al<=0){shoots.splice(q,1);continue}
   var gr=cx.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*.12,sh.y-sh.vy*.12);gr.addColorStop(0,'rgba(255,255,255,'+al+')');gr.addColorStop(1,'rgba(255,255,255,0)');cx.globalAlpha=1;cx.strokeStyle=gr;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(sh.x,sh.y);cx.lineTo(sh.x-sh.vx*.12,sh.y-sh.vy*.12);cx.stroke()}
  cx.globalAlpha=1}
-if(cv){size();addEventListener('resize',size);requestAnimationFrame(frame)}
+if(cv){size();addEventListener('resize',size);requestAnimationFrame(frame);
+ /* Freeze the decorative full-screen starfield while the user scrolls. It is a fixed canvas, so redrawing it during page movement wastes mobile GPU time. */
+ addEventListener('scroll',function(){scrolling=true;document.documentElement.classList.add('cl-scrolling');if(scrollResumeTimer)clearTimeout(scrollResumeTimer);scrollResumeTimer=setTimeout(function(){scrolling=false;document.documentElement.classList.remove('cl-scrolling');last=performance.now();},180)},{passive:true});
+}
 addEventListener('pointermove',function(e){tx=(e.clientX/innerWidth-.5)*2;ty=(e.clientY/innerHeight-.5)*2},{passive:true});
 /* Custom cursor removed: use the browser-native cursor. */
 /* ---------- reveal + counters ---------- */

@@ -36,7 +36,7 @@ G.logicCircuit=function(r,g,A){var E=A.E,levels=[
 /* ================= Quiz Blitz ================= */
 G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
  if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
- if(pool.length<2)return empty(r,'Add some questions in the admin panel to play this game.');
+ if(pool.length<2)return empty(r,'এই গেমের প্রশ্ন এখনো প্রস্তুত নয়। অন্য একটি গেম বেছে নিন।');
  var T=+d.time||60,targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}
@@ -49,7 +49,7 @@ G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(funct
  h();nxt()};
 
 /* ================= Formula Memory ================= */
-G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(function(p){return p&&p.a&&p.b});if(pairs.length<2)return empty(r,'Add at least 2 pairs in the admin panel.');
+G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(function(p){return p&&p.a&&p.b});if(pairs.length<2)return empty(r,'এই গেমটি খেলতে অন্তত ২টি মিলের জুটি প্রয়োজন।');
  var chosen=sh(pairs.slice()).slice(0,6),n=chosen.length,cards=[];chosen.forEach(function(p,i){cards.push({id:i,t:p.a});cards.push({id:i,t:p.b})});sh(cards);
  var first=-1,lock=false,moves=0,matched=0,t0=performance.now(),over=false,missed=[],cols=cards.length>=12?4:cards.length>=8?4:3;
  r.innerHTML=hud([[X('g_moves'),'mv',0],['Pairs','pr','0 / '+n],[X('g_time'),'tm','0s']])+'<div class="mgrid" style="--cols:'+cols+'">'+cards.map(function(c,i){return'<button class="mc" data-i="'+i+'"><span class="mf">?</span><span class="mb">'+E(c.t)+'</span></button>'}).join('')+'</div>';
@@ -60,7 +60,7 @@ G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(f
   else{if(missed.length<12){var ca=cards[first],cb=cards[i],mate=cards.find(function(c){return c.id===ca.id&&c!==ca});missed.push({q:'মিল খুঁজুন: '+ca.t+' ↔ '+cb.t,a:ca.t+' ↔ '+(mate?mate.t:ca.t),yourAnswer:ca.t+' ↔ '+cb.t,e:'দুটি কার্ড একই ধারণা/সূত্রের জোড়া নয়। ধারণা ও সংজ্ঞা মিলিয়ে আবার চেষ্টা করো।'})}lock=true;setTimeout(function(){a.classList.remove('on');b.classList.remove('on');first=-1;lock=false},850)}}};
 
 /* ================= True or False ================= */
-G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});if(items.length<2)return empty(r,'Add statements in the admin panel.');
+G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});if(items.length<2)return empty(r,'এই গেমে এখনো কোনো বিবৃতি যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
  var list=sh(items.slice()).slice(0,10),i=0,lives=3,score=0,combo=0,right=0,lock=false,over=false,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],['Card','pg','']])+'<div class="card tfc" id="tc"></div>';
  function isT(it){return it.t===true||String(it.t)==='true'||String(it.t)==='1'}
@@ -75,7 +75,7 @@ G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(funct
  keyhandler(r,function(e){if(e.key=='ArrowLeft')ans(true);else if(e.key=='ArrowRight')ans(false);else if((e.key=='Enter'||e.key==' ')&&lock){var nb=qa(r,'#nb');if(nb){e.preventDefault();nb.click()}}});show()};
 
 /* ================= Word Scramble ================= */
-G.scramble=function(r,g,A){var X=A.X,E=A.E,words=((g.data||{}).words||[]).filter(function(w){return w&&w.w&&w.w.trim().length>=3});if(!words.length)return empty(r,'Add words in the admin panel.');
+G.scramble=function(r,g,A){var X=A.X,E=A.E,words=((g.data||{}).words||[]).filter(function(w){return w&&w.w&&w.w.trim().length>=3});if(!words.length)return empty(r,'এই গেমে এখনো কোনো শব্দ যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
  var list=sh(words.slice()).slice(0,5),i=0,score=0,solved=0,cur,target,bank,ans,hints,t0,lock=false,over=false,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],['Word','pg',''],['Hints used','ht',0]])+'<div class="card" id="sb"></div>';
  function setup(){cur=list[i];target=Array.from(cur.w.trim().toUpperCase().replace(/\s+/g,''));bank=target.map(function(c,k){return{c:c,k:k}});var tries=0;do{sh(bank);tries++}while(tries<20&&bank.map(function(b){return b.c}).join('')==target.join(''));ans=[];hints=0;t0=performance.now();lock=false;draw()}
@@ -102,7 +102,7 @@ function parseEq(line){var parts=String(line||'').replace(/->|=>|→|⟶|=/,'→
  function side(s){return s.split('+').map(function(t){return t.trim().replace(/^\d+\s*/,'')}).filter(Boolean).map(function(f){return{f:f,a:atoms(f)}})}
  var L=side(parts[0]),R=side(parts[1]);return L.length&&R.length?{L:L,R:R}:null}
 function gcd(a,b){return b?gcd(b,a%b):a}
-G.balance=function(r,g,A){var X=A.X,E=A.E,eqs=((g.data||{}).eqs||[]).map(parseEq).filter(Boolean);if(!eqs.length)return empty(r,'Add equations in the admin panel.');
+G.balance=function(r,g,A){var X=A.X,E=A.E,eqs=((g.data||{}).eqs||[]).map(parseEq).filter(Boolean);if(!eqs.length)return empty(r,'এই গেমে এখনো কোনো সমীকরণ যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
  var list=sh(eqs.slice()).slice(0,5),i=0,score=0,solved=0,eq,co,clicks,over=false,done=false;
  r.innerHTML=hud([[X('g_score'),'sc',0],['Equation','pg','']])+'<div class="card" id="bb"></div>';
  function terms(){return eq.L.concat(eq.R)}
@@ -162,7 +162,7 @@ G.slope=function(r,g,A){var X=A.X,E=A.E,W=600,H=400,SC=30,rounds=(g.challengeLev
   requestAnimationFrame(frame)})();newR()};
 
 /* ================= Flame Detective ================= */
-G.flame=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.n&&i.c});if(items.length<3)return empty(r,'Add at least 3 ions in the admin panel.');
+G.flame=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.n&&i.c});if(items.length<3)return empty(r,'এই গেমটি খেলতে অন্তত ৩টি আয়ন প্রয়োজন।');
  var rounds=(g.challengeLevel===1?4:g.challengeLevel===2?6:g.challengeLevel===3?8:10),i=0,score=0,combo=0,right=0,lock=false,tgt,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],['Round','rd','']])+'<div class="card" style="text-align:center"><div class="flamebox" id="fb"></div><p class="bn" style="margin:6px 0 14px">এই শিখার রং কোন আয়নের?</p><div id="fo"></div><p class="ex" id="fe"></p><div id="fn"></div></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#rd').textContent=Math.min(i+1,rounds)+' / '+rounds}
@@ -337,7 +337,7 @@ G.trendDuel=function(r,g,A){
 
 /* ================= Odd One Out ================= */
 G.oddOne=function(r,g,A){var X=A.X,E=A.E,sets=((g.data||{}).sets||[]).filter(function(s){return s&&Array.isArray(s.i)&&s.i.filter(Boolean).length>=3&&s.i[+s.odd]!=null&&String(s.i[+s.odd]).trim()!==''});
- if(sets.length<2)return empty(r,'Add at least 2 sets in the admin panel.');
+ if(sets.length<2)return empty(r,'এই গেমটি খেলতে অন্তত ২টি সেট প্রয়োজন।');
  var list=sh(sets.slice()).slice(0,8),i=0,score=0,combo=0,right=0,lock=false,over=false,missed=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],['Round','pg','']])+'<div class="card" id="oc"></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/2));qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length}
@@ -354,7 +354,7 @@ G.oddOne=function(r,g,A){var X=A.X,E=A.E,sets=((g.data||{}).sets||[]).filter(fun
 
 /* ================= Step Order ================= */
 G.stepOrder=function(r,g,A){var X=A.X,E=A.E,puz=((g.data||{}).puzzles||[]).filter(function(p){return p&&Array.isArray(p.steps)&&p.steps.filter(function(s){return s&&String(s).trim()}).length>=3}).map(function(p){return{t:p.t||'ধাপগুলো সাজান',steps:p.steps.filter(function(s){return s&&String(s).trim()}),why:p.why||''}});
- if(puz.length<1)return empty(r,'Add at least 1 puzzle in the admin panel.');
+ if(puz.length<1)return empty(r,'এই গেমে এখনো কোনো ধাঁধা যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
  var list=sh(puz.slice()).slice(0,5),i=0,score=0,total=0,over=false,missed=[],mist=0,placed=0,order=[];
  r.innerHTML=hud([[X('g_score'),'sc',0],['Puzzle','pg',''],['ভুল চাল','ms',0]])+'<div class="card" id="sc2"></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length;qa(r,'#ms').textContent=mist}

@@ -1,3 +1,32 @@
+# v10.6.1 — Mobile control sizing and flexible monthly tasks (2026-10-30)
+
+- Fixed oversized Study Planner, Goals & Milestones, Score Tracker, and Monthly Planner form controls on mobile by overriding the generic flex basis with explicit compact input/select heights.
+- Monthly Planner now includes category dropdowns for personal goals, book reading, personal work, and other tasks in addition to school subjects and chapter lists.
+- Added ready-made targets such as reading 1, 3, 5, or 10 books, plus a custom task/goal title field so students can plan any activity for the month.
+- Updated app asset and service-worker cache versions so mobile browsers can pick up the fixes.
+
+# v10.6.0 — Monthly Planner and compact Student Hub cards (2026-10-30)
+
+- Added Monthly Planner with month navigation, subject-specific chapter drop-downs, custom topics/notes, completion tracking, subject grouping, CSV export, and local-device persistence.
+- Kept monthly planning subject-based instead of displaying a day-by-day calendar; included responsive mobile and desktop layouts with restrained color and reduced-motion support.
+- Removed Due date and Estimated time (minutes) from Study Planner task creation and editing; simplified summary metrics.
+- Kept Study Planner edit/delete icons in the top-right of each task on narrow screens.
+- Reduced padding and oversized stats/cards for Study Planner, Goals & Milestones, and Score Tracker on mobile.
+- Included monthly-plan data in Student Hub backup/restore and bumped cache versions for the changed CSS and JavaScript.
+
+---
+
+# v10.5.0 — Weekly Planner compact fix and access consistency (2026-10-29)
+
+- Removed Time and Minutes controls, task metadata, weekly time totals, and CSV fields from Weekly Planner.
+- Added fixed, compact 38–40px controls to prevent oversized input/select boxes on mobile and desktop.
+- Added Weekly Planner, Goals & Milestones, Score Tracker, Geometry Tools, and Shortcut Tricks to the Home Page Student Hub Toolkit as needed; added the missing weekly/goal/score tools to the hamburger menu.
+- Reduced corner curvature on Home Page toolkit cards, Student Hub tiles, and hamburger menu option cards.
+- Migrated older saved weekly tasks to discard obsolete `time` and `mins` properties.
+- Bumped asset and service-worker versions to avoid stale styles/scripts remaining in cache.
+
+---
+
 # ConceptLab changelog
 
 ---
@@ -469,3 +498,38 @@ ConceptLab v9.0.1 hotfix
 - Added a large desktop gap above the lower formula-animation ribbon, while keeping a smaller gap on mobile.
 - Kept the formula ribbon visually close to the footer.
 - Bumped the service-worker cache version so deployed browsers can pick up the updated CSS.
+
+
+## 2026-10-30 — Student Hub clarity, rain ambience and mobile navigation
+- Reworked the Chapters subject filters into a single-row weighted layout so Higher Math fits on narrow screens; reordered both filters and subject groups to Physics, Chemistry, Higher Math.
+- Replaced the bottom Graphs emoji with a dedicated plotted-curve SVG icon.
+- Rebuilt Focus Sounds rain as a softer stereo rain bed with filtered pink-noise ambience and irregular droplet/splash details; lowered its starting volume.
+- Preserved the Student Hub dashboard scroll position when opening and returning from a Hub tool.
+- Added Bengali step-by-step usage guidance and examples to Molar Mass, Quadratic Solver and Significant Figures tools.
+- Changed the Molar Mass formula field to a text keyboard on mobile so chemical symbols can be entered.
+
+
+## 2026-10-30 · About Student Reviews
+
+- Added a premium animated 1–5 star review form below About → “মতামত ও সমস্যা জানান”.
+- Reviews are stored separately from issue reports and remain private to signed-in admins.
+- Signed-in students are identified by their verified account name; guests may submit with an optional display name.
+- Added an Admin Panel → Reviews inbox with average rating, new-review count, search, star filters, reviewed/unread status, and delete controls.
+- Added server-side rating/content validation and a honeypot field; bumped static asset and service-worker cache versions.
+
+
+## 2026-10-30 · About page visual polish
+
+- Removed the review privacy explanatory sentence from the student-facing review form.
+- Reduced the size of the “CONCEPTLAB · ABOUT THE PROJECT” kicker.
+- Increased spacing between the About sections on desktop and mobile.
+- Added restrained section-specific accent colours, soft gradient surfaces, hover feedback and gentle accent motion.
+- Updated app/CSS asset and service-worker cache versions.
+
+
+## 2026-10-30 — Simulation alignment and scroll performance
+- Vertically centered Physics, Chemistry and Higher Math subject selector content on desktop and mobile, with a more balanced single-row mobile layout.
+- Paused the decorative fixed starfield canvas while the page is actively scrolling, then resumed after scrolling settles.
+- Reduced starfield canvas resolution and frame rate to lower GPU work, especially on mobile devices.
+- Temporarily paused non-essential ambient CSS animations and disabled costly backdrop blur while scrolling; restored visual effects when scrolling stops.
+- Bumped stylesheet, script and service-worker cache versions so deployed devices can receive the update.

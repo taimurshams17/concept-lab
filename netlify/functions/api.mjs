@@ -185,6 +185,37 @@ export default async (req) => {
       await st().setJSON("feedback", feedback.slice(0, 1000));
       return J({ sent: true, id: item.id }, 201);
     }
+    if (p === "/reviews" && m === "POST") {
+      if (String(body.website || "").trim()) return J({ received: true });
+      const message = String(body.message || "").trim();
+      const suppliedName = String(body.name || "").trim().slice(0, 80);
+      const rating = Number(body.rating);
+      const page = String(body.page || "#/about").slice(0, 180);
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) return J({ error: "Choose a rating from 1 to 5 stars" }, 400);
+      if (message.length < 10 || message.length > 1200) return J({ error: "Review must be 10–1200 characters" }, 400);
+      const reviews = (await st().get("reviews", { type: "json" })) || [];
+      if (!Array.isArray(reviews)) return J({ error: "Review storage is unavailable" }, 500);
+      const now = Date.now();
+      const recent = reviews.filter((x) => x && now - Date.parse(x.createdAt || 0) < 10 * 60 * 1000);
+      if (recent.length >= 120) return J({ error: "Reviews are temporarily busy. Please try again later." }, 429);
+      const studentEmail = await whoStudent(req);
+      const studentRecord = studentEmail ? (await students())[studentEmail] : null;
+      const verifiedStudent = !!studentRecord;
+      const studentName = verifiedStudent ? String(studentRecord.name || "Student").slice(0, 80) : (suppliedName || "Anonymous");
+      const item = {
+        id: randomBytes(8).toString("hex"),
+        name: studentName,
+        reviewerType: verifiedStudent ? "student" : "guest",
+        rating,
+        message,
+        page,
+        createdAt: new Date().toISOString(),
+        read: false
+      };
+      reviews.unshift(item);
+      await st().setJSON("reviews", reviews.slice(0, 1500));
+      return J({ sent: true, id: item.id }, 201);
+    }
     if (p === "/student-signup" && m === "POST") {
       const name = String(body.name || "").trim(), school = String(body.school || "").trim(), email = String(body.email || "").trim().toLowerCase(), password = String(body.password || "");
       if (name.length < 2 || name.length > 80) return J({ error: "Name must be 2–80 characters" }, 400);
@@ -272,6 +303,36 @@ export default async (req) => {
     if (p === "/feedback" && m === "GET") {
       const feedback = (await st().get("feedback", { type: "json" })) || [];
       return J({ count: feedback.length, unread: feedback.filter((x) => !x.read).length, feedback: feedback.slice().sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || ""))) });
+    }
+    if (p === "/reviews" && m === "GET") {
+      const reviews = (await st().get("reviews", { type: "json" })) || [];
+      const list = Array.isArray(reviews) ? reviews : [];
+      const ratingTotal = list.reduce((sum, item) => sum + Math.max(0, Math.min(5, Number(item.rating) || 0)), 0);
+      return J({
+        count: list.length,
+        unread: list.filter((x) => !x.read).length,
+        average: list.length ? Math.round((ratingTotal / list.length) * 10) / 10 : 0,
+        reviews: list.slice().sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")))
+      });
+    }
+    if (p === "/reviews" && m === "PUT") {
+      const id = String(body.id || "");
+      if (!/^[a-f0-9]{16}$/.test(id)) return J({ error: "Invalid review ID" }, 400);
+      const reviews = (await st().get("reviews", { type: "json" })) || [];
+      const item = reviews.find((x) => x.id === id);
+      if (!item) return J({ error: "Review not found" }, 404);
+      item.read = !!body.read;
+      await st().setJSON("reviews", reviews);
+      return J({ updated: true });
+    }
+    if (p === "/reviews" && m === "DELETE") {
+      const id = String(body.id || "");
+      if (!/^[a-f0-9]{16}$/.test(id)) return J({ error: "Invalid review ID" }, 400);
+      const reviews = (await st().get("reviews", { type: "json" })) || [];
+      const next = reviews.filter((x) => x.id !== id);
+      if (next.length === reviews.length) return J({ error: "Review not found" }, 404);
+      await st().setJSON("reviews", next);
+      return J({ removed: true });
     }
     if (p === "/feedback" && m === "PUT") {
       const id = String(body.id || "");

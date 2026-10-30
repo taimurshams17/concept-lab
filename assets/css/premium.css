@@ -2032,3 +2032,871 @@ body > nav.bottom-nav .bottom-nav-icon * {
 @media(max-width:360px){
   #app #sim .physics-lab-guide-actions{grid-template-columns:minmax(0,1fr)}
 }
+
+/* v10.3 — Student Hub weekly planning, goal tracking and score tracking. */
+#app .hub-week-planner,#app .hub-plan-dashboard,#app .hub-goals,#app .hub-score-tracker{display:grid;gap:16px;min-width:0;width:100%;}
+#app .hub-week-hero,#app .hub-plan-hero,#app .hub-goals-hero,#app .hub-score-hero{position:relative;isolation:isolate;overflow:hidden;box-sizing:border-box;min-width:0;padding:clamp(18px,3vw,28px);border:1px solid rgba(125,211,252,.2);border-radius:24px;background:radial-gradient(95% 130% at 100% 0,rgba(139,92,246,.2),transparent 56%),radial-gradient(65% 100% at 0 100%,rgba(45,212,191,.13),transparent 65%),linear-gradient(145deg,rgba(9,25,42,.98),rgba(4,10,20,.98));box-shadow:inset 0 1px rgba(255,255,255,.075),0 22px 50px -36px rgba(0,0,0,.95);}
+#app .hub-week-hero:after,#app .hub-plan-hero:after,#app .hub-goals-hero:after,#app .hub-score-hero:after{content:"";position:absolute;z-index:-1;right:-40px;top:-65px;width:190px;height:190px;border:1px solid rgba(125,211,252,.13);border-radius:50%;box-shadow:0 0 0 18px rgba(125,211,252,.025),0 0 0 38px rgba(167,139,250,.025);pointer-events:none;}
+#app .hub-week-hero-top,#app .hub-week-title-row,#app .hub-plan-heading,#app .hub-week-section-heading,#app .hub-week-calendar-head,#app .hub-plan-list-head,#app .hub-score-history-head{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0;}
+#app .hub-tool-eyebrow{display:inline-block;margin-bottom:7px;color:#80d9f5;font:800 9px/1.5 Manrope,system-ui,sans-serif;letter-spacing:.16em;}
+#app .hub-week-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid rgba(45,212,191,.2);border-radius:999px;background:rgba(45,212,191,.07);color:#a5f3e7;font:800 9px/1.2 Manrope,sans-serif;letter-spacing:.1em;white-space:nowrap;}
+#app .hub-week-badge i{width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 12px rgba(52,211,153,.7);}
+#app .hub-week-title-row{align-items:flex-start;margin:10px 0 18px;}
+#app .hub-week-title-row h2,#app .hub-plan-heading h2,#app .hub-goals-hero h2,#app .hub-score-hero h2{margin:0 0 7px;font-size:clamp(25px,3.2vw,36px);line-height:1.16;letter-spacing:-.04em;color:#f3f8ff;}
+#app .hub-week-title-row p,#app .hub-plan-heading p,#app .hub-goals-hero>p,#app .hub-score-hero>p{max-width:650px;margin:0;color:#a9bfd1;font-size:13px;line-height:1.7;}
+#app .hub-week-hero-symbol,#app .hub-plan-hero-icon{display:grid;place-items:center;flex:0 0 56px;width:56px;height:56px;border:1px solid rgba(125,211,252,.24);border-radius:18px;background:linear-gradient(145deg,rgba(56,189,248,.17),rgba(167,139,250,.1));color:#a5e8ff;font-size:30px;box-shadow:inset 0 1px rgba(255,255,255,.09),0 12px 32px -20px rgba(56,189,248,.7);animation:hubPlannerFloat 4.5s ease-in-out infinite;}
+#app .hub-week-nav{display:flex;align-items:center;gap:9px;min-width:0;padding:10px;border:1px solid rgba(148,180,210,.12);border-radius:16px;background:rgba(1,8,16,.42);}
+#app .hub-week-nav-btn{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border:1px solid rgba(125,211,252,.18);border-radius:12px;background:rgba(125,211,252,.07);color:#d9f3ff;font-size:27px;line-height:1;cursor:pointer;transition:background .2s,transform .2s;}
+#app .hub-week-nav-btn:hover{transform:translateY(-2px);background:rgba(125,211,252,.14)}
+#app .hub-week-range{display:flex;flex:1;flex-direction:column;gap:3px;min-width:0;text-align:center;}
+#app .hub-week-range b{color:#eff8ff;font-size:13px;line-height:1.4;overflow-wrap:anywhere;}
+#app .hub-week-range small{color:#7e9ab0;font-size:10px;line-height:1.4;}
+#app .hub-week-today{flex:0 0 auto;min-height:36px;padding:7px 11px!important;font-size:11px!important;}
+#app .hub-week-stats,#app .hub-plan-summary,#app .hub-score-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:14px;}
+#app .hub-week-stats>div,#app .hub-plan-summary>div,#app .hub-score-stats>div{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;column-gap:7px;row-gap:3px;min-width:0;padding:12px;border:1px solid rgba(148,180,210,.13);border-radius:14px;background:rgba(2,9,17,.47);}
+#app .hub-week-stats>div>span{grid-row:1 / span 2;display:grid;place-items:center;width:23px;height:23px;border-radius:8px;background:rgba(125,211,252,.09);color:#96e5fc;font-size:14px;}
+#app .hub-week-stats small,#app .hub-plan-summary small,#app .hub-score-stats small{min-width:0;color:#819db3;font-size:10px;line-height:1.35;overflow-wrap:anywhere;}
+#app .hub-week-stats b,#app .hub-plan-summary b,#app .hub-score-stats b{color:#edf8ff;font:800 17px/1.2 Manrope,"Hind Siliguri",sans-serif;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+#app .hub-week-settings{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding-top:13px;border-top:1px solid rgba(148,180,210,.12);}
+#app .hub-week-settings label{display:flex;align-items:center;gap:10px;min-width:0;color:#b9ccdb;font-size:11px;font-weight:750;}
+#app .hub-week-settings select{width:auto;min-width:145px;max-width:100%;min-height:38px;}
+#app .hub-week-settings p{margin:0;color:#7994aa;font-size:10px;line-height:1.5;text-align:right;}
+#app .hubc.hub-week-add-panel,#app .hubc.hub-plan-form,#app .hubc.hub-plan-list,#app .hubc.hub-goal-form,#app .hubc.hub-score-form,#app .hubc.hub-score-history{box-sizing:border-box;min-width:0;padding:clamp(15px,2.4vw,22px)!important;border:1px solid rgba(125,190,230,.15);border-radius:20px;background:linear-gradient(145deg,rgba(11,23,37,.91),rgba(3,9,16,.9));box-shadow:inset 0 1px rgba(255,255,255,.045),0 16px 36px -30px rgba(0,0,0,.9);}
+#app .hub-week-section-heading{margin-bottom:13px;}
+#app .hub-week-section-heading h3,#app .hub-plan-form h3,#app .hub-plan-list-head h3,#app .hub-goal-form h3,#app .hub-score-form h3,#app .hub-score-history h3{margin:0;color:#edf6ff;font-size:16px;line-height:1.4;}
+#app .hub-week-add-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:rgba(167,139,250,.11);border:1px solid rgba(167,139,250,.2);color:#d7c8ff;font-size:20px;}
+#app .hub-week-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;align-items:end;}
+#app .hub-week-form-grid label,#app .hub-plan-form-grid label,#app .hub-goal-form-row label,#app .hub-score-form-grid label{display:flex;flex-direction:column;gap:6px;min-width:0;color:#91aabe;font-size:11px;font-weight:700;line-height:1.45;}
+#app .hub-week-form-grid .hub-week-task-name,#app .hub-plan-form-grid .hub-field-wide{grid-column:span 2;}
+#app .hub-week-form-grid .hub-in,#app .hub-plan-form-grid .hub-in,#app .hub-week-edit-grid .hub-in,#app .hub-plan-edit-grid .hub-in,#app .hub-goal-form-row .hub-in,#app .hub-score-form-grid .hub-in{box-sizing:border-box;min-width:0;width:100%;max-width:100%;min-height:42px;padding:10px 11px;border-radius:11px;border:1px solid rgba(125,180,215,.18);background:rgba(1,7,14,.72);color:#e9f6ff;font:500 12px/1.4 "Hind Siliguri",Inter,sans-serif;}
+#app .hub-week-form-grid .hub-in:focus,#app .hub-plan-form-grid .hub-in:focus,#app .hub-week-edit-grid .hub-in:focus,#app .hub-plan-edit-grid .hub-in:focus{outline:2px solid rgba(56,189,248,.48);outline-offset:1px;border-color:rgba(125,211,252,.4);}
+#app .hub-week-create,#app .hub-plan-add{display:flex;align-items:center;justify-content:center;gap:9px;min-height:42px;max-width:100%;white-space:normal;}
+#app .hub-week-calendar-head{margin:8px 0 0;align-items:flex-end;}
+#app .hub-week-calendar-head h3{margin:0;color:#eef6ff;font-size:clamp(19px,2.6vw,26px);letter-spacing:-.03em;}
+#app .hub-week-calendar-tools{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;}
+#app .hub-week-calendar-tools .btn{min-height:35px;padding:7px 10px!important;font-size:10px!important;}
+#app .hub-week-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px;align-items:stretch;}
+#app .hub-week-day{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:11px;border:1px solid rgba(125,180,215,.14);border-radius:17px;background:linear-gradient(180deg,rgba(10,23,37,.9),rgba(4,11,19,.92));box-shadow:inset 0 1px rgba(255,255,255,.035);animation:hubDayEnter .45s both;animation-delay:calc(var(--day-index,0)*22ms);}
+#app .hub-week-day:nth-child(6n+1){border-top-color:rgba(45,212,191,.4)}
+#app .hub-week-day-head{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:7px;min-width:0;padding-bottom:10px;border-bottom:1px solid rgba(148,180,210,.12);}
+#app .hub-week-day-icon{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:rgba(125,211,252,.09);color:#a9e9ff;font-size:15px;}
+#app .hub-week-day-head>div{display:flex;flex-direction:column;gap:2px;min-width:0;}
+#app .hub-week-day-head b{color:#e8f5ff;font-size:11px;line-height:1.35;overflow-wrap:anywhere;}
+#app .hub-week-day-head small{color:#7f9ab0;font-size:9px;line-height:1.3;}
+#app .hub-week-day-count{grid-column:2;color:#72d9c7;font:700 9px/1 Manrope,sans-serif;}
+#app .hub-week-day-list{display:flex;flex:1;flex-direction:column;gap:7px;min-width:0;padding-top:9px;}
+#app .hub-week-empty{padding:15px 4px;color:#657e92;text-align:center;font-size:10px;line-height:1.5;}
+#app .hub-week-add-day{margin-top:9px;padding:8px 5px;border:1px dashed rgba(125,190,230,.2);border-radius:9px;background:rgba(125,211,252,.035);color:#8fcfe9;font-size:9px;line-height:1.4;cursor:pointer;}
+#app .hub-week-add-day:hover{border-color:rgba(125,211,252,.5);background:rgba(125,211,252,.09)}
+#app .hub-week-task{display:grid;grid-template-columns:18px minmax(0,1fr);gap:7px;align-items:start;min-width:0;padding:8px;border:1px solid rgba(125,180,215,.13);border-radius:11px;background:rgba(8,17,28,.85);}
+#app .hub-week-task.done{opacity:.67;border-color:rgba(52,211,153,.2);}
+#app .hub-week-task.done .hub-week-task-copy>b{text-decoration:line-through;text-decoration-color:rgba(52,211,153,.6);}
+#app .hub-week-task .hub-check{width:18px;height:18px;min-width:18px;padding:0;border:1px solid rgba(125,211,252,.32);border-radius:6px;background:rgba(125,211,252,.06);color:#9bf3d7;font-size:11px;line-height:1;cursor:pointer;}
+#app .hub-week-task-copy{display:flex;flex-direction:column;gap:4px;min-width:0;}
+#app .hub-week-task-time{color:#8bcde9;font:700 9px/1.35 Manrope,sans-serif;overflow-wrap:anywhere;}
+#app .hub-week-task-time span{color:#6f899e;font-weight:500;}
+#app .hub-week-task-copy>b{color:#e7f1fb;font-size:10px;line-height:1.5;overflow-wrap:anywhere;word-break:normal;}
+#app .hub-week-task-meta{display:flex;align-items:center;gap:4px;flex-wrap:wrap;color:#7d97ac;font-size:8px;line-height:1.4;}
+#app .hub-week-task-actions{grid-column:2;display:flex;gap:4px;justify-content:flex-end;}
+#app .hub-icon-btn,#app .hub-goal-step{display:inline-grid;place-items:center;min-width:28px;width:28px;height:28px;padding:0;border:1px solid rgba(125,180,215,.15);border-radius:8px;background:rgba(125,211,252,.045);color:#a8dff1;font-size:13px;cursor:pointer;transition:transform .15s,background .15s;}
+#app .hub-icon-btn:hover,#app .hub-goal-step:hover{transform:translateY(-1px);background:rgba(125,211,252,.13);}
+#app .hub-icon-btn.danger{color:#f7a5a5;border-color:rgba(248,113,113,.16);}
+#app .hub-priority{display:inline-flex;align-items:center;padding:2px 5px;border-radius:5px;background:rgba(148,163,184,.09);color:#a7bdcf;font-size:8px;font-weight:700;}
+#app .hub-priority.high{background:rgba(251,113,133,.1);color:#fda4af;}
+#app .hub-priority.low{background:rgba(52,211,153,.09);color:#8fe2bd;}
+#app .hub-week-edit-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;min-width:0;}
+#app .hub-week-edit-grid .hub-plan-actions{grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap;}
+#app .hub-week-footnote{margin:0;color:#7792a7;font-size:11px;line-height:1.6;}
+#app .hub-plan-summary{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:18px;}
+#app .hub-plan-summary>div{grid-template-columns:minmax(0,1fr);gap:5px;}
+#app .hub-plan-summary b{font-size:21px;}
+#app .hub-plan-progress-track,#app .hub-goal-progress{height:6px;overflow:hidden;border-radius:999px;background:rgba(125,180,215,.12);}
+#app .hub-plan-progress-track{margin-top:14px;}
+#app .hub-plan-progress-track i,#app .hub-goal-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2dd4bf,#38bdf8,#a78bfa);box-shadow:0 0 16px rgba(56,189,248,.24);transition:width .35s ease;}
+#app .hub-plan-progress-caption{margin:6px 0 0;color:#86a0b5;font-size:10px;}
+#app .hub-plan-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;align-items:end;margin-top:14px;}
+#app .hub-plan-form-grid .hub-field-wide{grid-column:span 2;}
+#app .hub-plan-list-head{align-items:flex-start;margin-bottom:12px;}
+#app .hub-plan-list-head p{margin:4px 0 0;color:#7e99ad;font-size:11px;line-height:1.55;}
+#app .hub-plan-filters{display:flex;gap:4px;padding:3px;border:1px solid rgba(125,180,215,.12);border-radius:10px;background:rgba(0,5,11,.45);}
+#app .hub-plan-filters button{padding:7px 10px;border:0;border-radius:7px;background:transparent;color:#8ba3b7;font-size:10px;cursor:pointer;}
+#app .hub-plan-filters button.active{background:rgba(56,189,248,.15);color:#c7f0ff;box-shadow:inset 0 0 0 1px rgba(125,211,252,.12);}
+#app .hub-plan-row{display:flex;align-items:flex-start;gap:10px;margin-top:8px;padding:12px;border:1px solid rgba(125,180,215,.12);border-radius:13px;background:rgba(5,13,22,.65);}
+#app .hub-plan-row .hub-check{flex:0 0 26px;width:26px;height:26px;min-width:26px;border:1px solid rgba(125,211,252,.23);border-radius:9px;background:rgba(125,211,252,.06);color:#9bf3d7;cursor:pointer;}
+#app .hub-plan-row.done{opacity:.7;}
+#app .hub-plan-row.done .hub-t{text-decoration:line-through;text-decoration-color:rgba(52,211,153,.6);}
+#app .hub-plan-content-main{flex:1;min-width:0;}
+#app .hub-plan-content-main .hub-t{display:block;color:#edf5fc;font-size:13px;font-weight:700;line-height:1.55;overflow-wrap:anywhere;}
+#app .hub-plan-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;color:#7e98ad;font-size:10px;}
+#app .hub-plan-actions{display:flex;flex-wrap:wrap;gap:6px;min-width:0;}
+#app .hub-plan-actions .btn{min-height:30px;padding:6px 9px!important;font-size:10px!important;white-space:normal;}
+#app .hub-plan-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;flex:1;min-width:0;}
+#app .hub-plan-edit-grid .hub-plan-actions{grid-column:1/-1;}
+#app .hub-plan-list-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px;padding-top:12px;border-top:1px solid rgba(125,180,215,.1);color:#85a0b5;font-size:11px;}
+#app .hub-plan-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:26px 14px;border:1px dashed rgba(125,180,215,.17);border-radius:14px;text-align:center;}
+#app .hub-plan-empty>span{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:rgba(125,211,252,.08);color:#a5e7ff;font-size:20px;}
+#app .hub-plan-empty>b{color:#dbeaf5;font-size:13px;}
+#app .hub-plan-empty>p{max-width:380px;margin:0;color:#819aaf;font-size:11px;line-height:1.7;}
+#app .hub-goals-hero,#app .hub-score-hero{padding:24px;}
+#app .hub-goal-mini-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px;}
+#app .hub-goal-mini-stats>span{display:flex;flex-direction:column;gap:3px;min-width:82px;padding:10px 13px;border:1px solid rgba(148,180,210,.13);border-radius:12px;background:rgba(2,9,17,.4);}
+#app .hub-goal-mini-stats b{color:#f0f9ff;font:800 19px/1.2 Manrope,sans-serif;}
+#app .hub-goal-mini-stats small{color:#809ab0;font-size:10px;}
+#app .hub-goal-form-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;align-items:end;gap:10px;margin-top:12px;}
+#app .hub-goal-form-row .btn{min-height:42px;white-space:normal;}
+#app .hub-goal-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+#app .hub-goal-card{display:grid;grid-template-columns:35px minmax(0,1fr);gap:11px;min-width:0;padding:16px;border:1px solid rgba(125,180,215,.15);border-radius:17px;background:linear-gradient(145deg,rgba(10,23,37,.9),rgba(3,10,17,.92));box-shadow:inset 0 1px rgba(255,255,255,.035);}
+#app .hub-goal-card.complete{border-color:rgba(52,211,153,.22);}
+#app .hub-goal-icon{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(167,139,250,.22);border-radius:11px;background:rgba(167,139,250,.09);color:#d6c5ff;font-size:18px;}
+#app .hub-goal-card.complete .hub-goal-icon{border-color:rgba(52,211,153,.25);background:rgba(52,211,153,.1);color:#8de8b8;}
+#app .hub-goal-main{min-width:0;}
+#app .hub-goal-main h3{margin:0 0 4px;color:#edf5ff;font-size:14px;line-height:1.45;overflow-wrap:anywhere;}
+#app .hub-goal-main>small{display:block;margin-bottom:11px;color:#7f9ab0;font-size:10px;}
+#app .hub-goal-progress{margin-top:10px;}
+#app .hub-goal-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;}
+#app .hub-goal-footer>b{color:#9bcce0;font:700 10px/1.4 Manrope,sans-serif;}
+#app .hub-goal-footer>div{display:flex;gap:4px;}
+#app .hub-goal-step{font-size:17px;}
+#app .hub-score-stats{grid-template-columns:repeat(3,minmax(0,1fr));}
+#app .hub-score-stats>div{grid-template-columns:minmax(0,1fr);gap:5px;}
+#app .hub-score-stats b{font-size:22px;}
+#app .hub-score-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;align-items:end;margin-top:13px;}
+#app .hub-score-form-grid .btn{min-height:42px;white-space:normal;}
+#app .hub-score-form>p{margin:9px 0 0;color:#7994aa;font-size:10px;}
+#app .hub-score-history-head{margin-bottom:12px;}
+#app .hub-score-history-head>span{color:#8bdcff;font:800 11px/1.4 Manrope,sans-serif;}
+#app .hub-score-row{display:grid;grid-template-columns:36px minmax(0,1fr) auto 28px;align-items:center;gap:10px;padding:12px 0;border-top:1px solid rgba(125,180,215,.1);}
+#app .hub-score-subject{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:rgba(56,189,248,.09);border:1px solid rgba(56,189,248,.17);color:#a6e6ff;font:800 10px/1 Manrope,sans-serif;}
+#app .hub-score-row-copy{display:flex;flex-direction:column;gap:4px;min-width:0;}
+#app .hub-score-row-copy>b,#app .hub-score-row-copy>strong{color:#ebf5fd;font-size:12px;line-height:1.45;overflow-wrap:anywhere;}
+#app .hub-score-row-copy>small{color:#7f9ab0;font-size:10px;line-height:1.5;overflow-wrap:anywhere;}
+#app .hub-score-row-copy .hub-goal-progress{height:4px;margin-top:3px;}
+#app .hub-score-pct{color:#94e5ca;font:800 14px/1.2 Manrope,sans-serif;}
+@keyframes hubPlannerFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes hubDayEnter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1100px){#app .hub-week-grid{grid-template-columns:repeat(4,minmax(0,1fr));}#app .hub-week-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:760px){
+ #app .hub-week-hero,#app .hub-plan-hero,#app .hub-goals-hero,#app .hub-score-hero{padding:16px;border-radius:18px;}
+ #app .hub-week-title-row h2,#app .hub-plan-heading h2,#app .hub-goals-hero h2,#app .hub-score-hero h2{font-size:25px;}
+ #app .hub-week-title-row p,#app .hub-plan-heading p,#app .hub-goals-hero>p,#app .hub-score-hero>p{font-size:12px;line-height:1.65;}
+ #app .hub-week-hero-symbol,#app .hub-plan-hero-icon{flex-basis:42px;width:42px;height:42px;border-radius:13px;font-size:23px;}
+ #app .hub-week-nav{gap:6px;padding:7px;flex-wrap:wrap;}
+ #app .hub-week-nav-btn{flex-basis:32px;width:32px;height:34px;border-radius:10px;}
+ #app .hub-week-range{flex-basis:calc(100% - 90px);}
+ #app .hub-week-today{margin-left:auto;}
+ #app .hub-week-stats,#app .hub-plan-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
+ #app .hub-week-stats>div{padding:9px;}
+ #app .hub-week-stats b{font-size:15px;}
+ #app .hub-week-settings{align-items:flex-start;flex-direction:column;gap:7px;}
+ #app .hub-week-settings p{text-align:left;}
+ #app .hub-week-form-grid,#app .hub-plan-form-grid,#app .hub-score-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+ #app .hub-week-form-grid .hub-week-task-name,#app .hub-plan-form-grid .hub-field-wide{grid-column:1/-1;}
+ #app .hub-week-form-grid label,#app .hub-plan-form-grid label,#app .hub-score-form-grid label{font-size:10px;}
+ #app .hub-week-calendar-head,#app .hub-plan-list-head{align-items:flex-start;flex-direction:column;}
+ #app .hub-week-calendar-tools{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+ #app .hub-week-calendar-tools .btn{width:100%;}
+ #app .hub-week-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+ #app .hub-week-day{padding:9px;border-radius:14px;}
+ #app .hub-week-day-head{grid-template-columns:25px minmax(0,1fr);gap:6px;}
+ #app .hub-week-day-head b{font-size:11px;}
+ #app .hub-week-day-icon{width:24px;height:24px;}
+ #app .hub-week-task{gap:6px;padding:7px;}
+ #app .hub-week-task-copy>b{font-size:10px;}
+ #app .hub-week-section-heading{align-items:flex-start;}
+ #app .hub-plan-list-head{gap:10px;}
+ #app .hub-plan-filters{width:100%;}
+ #app .hub-plan-filters button{flex:1;}
+ #app .hub-plan-row{flex-wrap:wrap;padding:10px;}
+ #app .hub-plan-content-main{flex:1 1 calc(100% - 40px);}
+ #app .hub-plan-actions{margin-left:36px;}
+ #app .hub-plan-edit-grid{flex:1 1 calc(100% - 40px);}
+ #app .hub-goal-form-row{grid-template-columns:minmax(0,1fr);}
+ #app .hub-goal-list{grid-template-columns:1fr;}
+ #app .hub-goal-card{padding:13px;}
+ #app .hub-score-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
+ #app .hub-score-stats>div{padding:9px;}
+ #app .hub-score-stats b{font-size:18px;}
+ #app .hub-score-row{grid-template-columns:30px minmax(0,1fr) auto 26px;gap:7px;}
+ #app .hub-score-subject{width:29px;height:29px;font-size:9px;}
+}
+@media(max-width:430px){
+ #app .hub-week-grid{grid-template-columns:minmax(0,1fr);}
+ #app .hub-week-day{padding:11px;}
+ #app .hub-week-task{grid-template-columns:21px minmax(0,1fr);}
+ #app .hub-week-task .hub-check{width:21px;height:21px;min-width:21px;}
+ #app .hub-week-task-copy>b{font-size:12px;}
+ #app .hub-week-task-time{font-size:10px;}
+ #app .hub-week-form-grid,#app .hub-plan-form-grid,#app .hub-score-form-grid{grid-template-columns:minmax(0,1fr);}
+ #app .hub-week-form-grid .hub-week-task-name,#app .hub-plan-form-grid .hub-field-wide{grid-column:auto;}
+ #app .hub-week-create,#app .hub-plan-add,#app .hub-score-form-grid .btn{width:100%;}
+ #app .hub-week-hero-top{align-items:flex-start;}
+ #app .hub-week-badge{font-size:8px;padding:5px 7px;}
+ #app .hub-week-range b{font-size:11px;}
+ #app .hub-week-range small{font-size:9px;}
+ #app .hub-plan-summary>div{padding:10px;}
+ #app .hub-plan-summary b{font-size:18px;}
+ #app .hub-score-stats{grid-template-columns:1fr;}
+ #app .hub-score-row{grid-template-columns:30px minmax(0,1fr) auto;}
+ #app .hub-score-row>.hub-icon-btn{grid-column:3;grid-row:2;}
+ #app .hub-score-pct{align-self:start;}
+ #app .hub-plan-list-foot{align-items:flex-start;flex-direction:column;}
+}
+@media(prefers-reduced-motion:reduce){#app .hub-week-hero-symbol,#app .hub-plan-hero-icon,#app .hub-week-day{animation:none!important;transition:none!important;}}
+
+/* Mobile-wide layout safety net: give all pages consistent inner gutters and prevent controls touching the viewport edge. */
+#app,main#app{min-width:0;max-width:100%;}
+#app .w,#app .pgw,#app .px-page,#app .card,#app .panel,#app section,#app article,#app form,#app fieldset{box-sizing:border-box;min-width:0;}
+#app input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),#app select,#app textarea{max-width:100%;min-width:0;box-sizing:border-box;}
+@media(max-width:760px){
+ #app .pgw{padding-left:clamp(14px,4vw,18px)!important;padding-right:clamp(14px,4vw,18px)!important;}
+ #app .px-page{width:100%;padding-left:clamp(15px,4vw,18px)!important;padding-right:clamp(15px,4vw,18px)!important;}
+ #app .px-settings-page{padding-top:20px!important;padding-bottom:calc(74px + env(safe-area-inset-bottom))!important;}
+ #app .px-settings-page .px-panel{padding:13px!important;border-radius:15px;}
+ #app .px-settings-page .px-pref-grid{grid-template-columns:minmax(0,1fr)!important;gap:10px!important;}
+ #app .px-settings-page .px-pref-section{min-width:0;padding:12px!important;}
+ #app .px-settings-page .px-pref-label,#app .px-settings-page .px-switch{min-width:0;overflow-wrap:anywhere;}
+ #app .px-settings-page .px-in,#app .px-settings-page select,#app .px-settings-page input{width:100%;max-width:100%;min-width:0;}
+ #app .px-page>*{min-width:0;max-width:100%;}
+ #app .hub-row,#app .row,#app .profile-actions,#app .profile-shortcuts{flex-wrap:wrap;min-width:0;}
+ #app .hub-row>*{min-width:0;max-width:100%;}
+ #app .pgw>.card:not(.profile-head),#app .about-grid>.card,#app .about-legal,#app .custom-page-content>.card{padding:clamp(13px,4vw,17px)!important;}
+ #app .auth-form,#app .feedback-form,#app .form-grid,#app .settings-grid,#app .profile-main{min-width:0;max-width:100%;}
+ #app table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+ #app pre,#app code,#app p,#app label,#app button,#app a{overflow-wrap:anywhere;}
+}
+@media(max-width:380px){
+ #app .pgw{padding-left:13px!important;padding-right:13px!important;}
+ #app .px-page{padding-left:13px!important;padding-right:13px!important;}
+ #app .px-settings-page .px-panel{padding:11px!important;}
+ #app .px-settings-page .px-pref-section{padding:10px!important;}
+ #app .hub-row .btn{flex:1 1 100%;}
+}
+
+/* Compact, composed mobile footer: retain navigation while removing oversized decorative height. */
+footer.site-footer.pf{margin-top:clamp(24px,4vw,46px)!important;padding-top:clamp(23px,3.5vw,38px)!important;}
+@media(max-width:600px){
+ .footer-formula-motion{min-height:48px!important;padding:10px 10px 9px!important;gap:0!important;}
+ .footer-formula-orbits,.footer-formula-grid,.footer-formula-caption{display:none!important;}
+ .footer-formula-track{gap:6px 11px!important;font-size:9px!important;line-height:1.3!important;}
+ .footer-formula-track i{font-size:6px!important;}
+ footer.site-footer.pf{margin-top:22px!important;padding-top:17px!important;padding-bottom:calc(76px + env(safe-area-inset-bottom))!important;}
+ footer.site-footer.pf .w{padding-left:14px!important;padding-right:14px!important;}
+ footer.site-footer.pf .pf-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;row-gap:9px!important;}
+ footer.site-footer.pf .pf-brand{grid-column:1/-1;padding:13px!important;border-radius:15px!important;}
+ footer.site-footer.pf .pf-brand-lock img{width:38px!important;height:38px!important;}
+ footer.site-footer.pf .pf-brand-lock b{font-size:17px!important;}
+ footer.site-footer.pf .pf-brand-lock small{font-size:9px!important;}
+ footer.site-footer.pf .pf-brand p#footerTagline{font-size:11px!important;line-height:1.5!important;margin:9px 0 4px!important;}
+ footer.site-footer.pf .pf-credit{font-size:10px!important;margin:4px 0!important;}
+ footer.site-footer.pf .pf-subjects{gap:5px!important;margin-top:9px!important;}
+ footer.site-footer.pf .pf-subjects a{padding:5px 7px!important;font-size:9px!important;}
+ footer.site-footer.pf #footerSocials{margin-top:9px!important;}
+ footer.site-footer.pf .pf-col{padding:11px 10px!important;border-radius:13px!important;}
+ footer.site-footer.pf .pf-col h4{margin-bottom:7px!important;font-size:9px!important;}
+ footer.site-footer.pf .pf-links{gap:2px!important;}
+ footer.site-footer.pf .pf-col a{font-size:10px!important;padding:3px 0!important;line-height:1.4!important;}
+ footer.site-footer.pf .pf-bottom{margin-top:12px!important;padding-top:11px!important;gap:8px!important;}
+ footer.site-footer.pf .pf-legal{display:flex;gap:5px;flex-wrap:wrap;line-height:1.45!important;font-size:9px!important;}
+ footer.site-footer.pf .pf-top{min-height:30px!important;padding:6px 10px!important;font-size:10px!important;}
+}
+
+/* v10.4 — compact, edge-safe Student Hub layout and restrained menu active state. */
+#app .hub-tool-page{
+  box-sizing:border-box!important;width:100%!important;max-width:1160px!important;min-width:0!important;
+  margin-inline:auto!important;padding:16px clamp(18px,2.5vw,28px) 28px!important;
+}
+#app .hub-tool-page>h1{margin:3px 0 14px!important;font-size:clamp(25px,2.6vw,32px)!important;line-height:1.22!important;letter-spacing:-.025em;overflow-wrap:anywhere}
+#app .hub-tool-page .hub-tool-page-nav{margin:0 0 10px!important}
+#app .hub-tool-page #hubBody,#app .hub-tool-page #hubBody>*{box-sizing:border-box!important;width:100%;max-width:100%;min-width:0}
+#app .hub-week-planner,#app .hub-plan-dashboard,#app .hub-goals,#app .hub-score-tracker{gap:12px!important}
+#app .hub-week-hero,#app .hub-plan-hero,#app .hub-goals-hero,#app .hub-score-hero{
+  padding:17px!important;border-radius:17px!important;box-shadow:inset 0 1px rgba(255,255,255,.045),0 10px 25px -24px rgba(0,0,0,.8)!important;
+}
+#app .hub-week-hero:after,#app .hub-plan-hero:after,#app .hub-goals-hero:after,#app .hub-score-hero:after{display:none!important}
+#app .hub-week-hero-top{display:none!important}
+#app .hub-week-hero-symbol,#app .hub-plan-hero-icon{display:none!important;animation:none!important}
+#app .hub-week-title-row{margin:0 0 12px!important;align-items:flex-start!important}
+#app .hub-week-title-row h2,#app .hub-plan-heading h2,#app .hub-goals-hero h2,#app .hub-score-hero h2{font-size:clamp(23px,2.4vw,29px)!important;line-height:1.22!important;letter-spacing:-.025em!important;margin:0 0 5px!important}
+#app .hub-week-title-row p,#app .hub-plan-heading p,#app .hub-goals-hero>p,#app .hub-score-hero>p{font-size:12px!important;line-height:1.6!important;max-width:68ch!important}
+#app .hub-plan-heading .hub-tool-eyebrow,#app .hub-goals-hero>.hub-tool-eyebrow,#app .hub-score-hero>.hub-tool-eyebrow{display:none!important}
+#app .hub-week-nav{gap:7px!important;padding:7px!important;border-radius:12px!important}
+#app .hub-week-nav-btn{width:32px!important;height:32px!important;flex-basis:32px!important;border-radius:9px!important;font-size:22px!important}
+#app .hub-week-today{min-height:32px!important;padding:6px 9px!important}
+#app .hub-week-range b{font-size:12px!important}
+#app .hub-week-range small{font-size:9px!important}
+#app .hub-week-stats,#app .hub-plan-summary,#app .hub-score-stats{gap:7px!important;margin-top:11px!important}
+#app .hub-week-stats>div,#app .hub-plan-summary>div,#app .hub-score-stats>div{padding:9px!important;border-radius:11px!important;column-gap:6px!important}
+#app .hub-week-stats>div>span{width:20px!important;height:20px!important;font-size:12px!important}
+#app .hub-week-stats small,#app .hub-plan-summary small,#app .hub-score-stats small{font-size:9px!important;line-height:1.3!important}
+#app .hub-week-stats b,#app .hub-plan-summary b,#app .hub-score-stats b{font-size:16px!important;line-height:1.2!important}
+#app .hub-week-settings{margin-top:10px!important;padding-top:10px!important;gap:9px!important}
+#app .hub-week-settings label{gap:8px!important;flex-wrap:wrap;font-size:11px!important}
+#app .hub-week-settings select{min-width:125px!important;min-height:34px!important}
+#app .hub-week-settings p{font-size:10px!important}
+#app .hubc.hub-week-add-panel,#app .hubc.hub-plan-form,#app .hubc.hub-plan-list,#app .hubc.hub-goal-form,#app .hubc.hub-score-form,#app .hubc.hub-score-history{padding:15px!important;border-radius:16px!important;box-shadow:inset 0 1px rgba(255,255,255,.035)!important}
+#app .hub-week-section-heading{margin-bottom:10px!important}
+#app .hub-week-section-heading h3,#app .hub-plan-form h3,#app .hub-plan-list-head h3,#app .hub-goal-form h3,#app .hub-score-form h3,#app .hub-score-history h3{font-size:15px!important;line-height:1.35!important}
+#app .hub-week-add-mark{display:none!important}
+#app .hub-week-form-grid,#app .hub-plan-form-grid,#app .hub-score-form-grid{gap:9px!important;margin-top:10px!important}
+#app .hub-week-form-grid label,#app .hub-plan-form-grid label,#app .hub-goal-form-row label,#app .hub-score-form-grid label{font-size:11px!important;line-height:1.4!important;gap:5px!important}
+#app .hub-week-form-grid .hub-in,#app .hub-plan-form-grid .hub-in,#app .hub-week-edit-grid .hub-in,#app .hub-plan-edit-grid .hub-in,#app .hub-goal-form-row .hub-in,#app .hub-score-form-grid .hub-in{min-height:38px!important;padding:8px 10px!important;border-radius:9px!important;font-size:12px!important}
+#app .hub-week-create,#app .hub-plan-add,#app .hub-goal-form-row .btn,#app .hub-score-form-grid .btn{min-height:38px!important;padding:8px 11px!important;font-size:12px!important}
+#app .hub-week-calendar-head{margin:3px 0 0!important}
+#app .hub-week-calendar-head h3{font-size:clamp(18px,2vw,22px)!important}
+#app .hub-week-calendar-tools .btn{min-height:32px!important;padding:6px 9px!important;font-size:10px!important}
+#app .hub-week-grid{gap:8px!important}
+#app .hub-week-day{padding:9px!important;border-radius:13px!important;box-shadow:none!important;animation:none!important}
+#app .hub-week-day-head{grid-template-columns:24px minmax(0,1fr)!important;gap:6px!important;padding-bottom:7px!important}
+#app .hub-week-day-icon{width:23px!important;height:23px!important;border-radius:7px!important;font-size:12px!important}
+#app .hub-week-day-head b{font-size:11px!important;line-height:1.3!important}
+#app .hub-week-day-head small{font-size:9px!important}
+#app .hub-week-day-list{gap:6px!important;padding-top:7px!important}
+#app .hub-week-empty{padding:10px 3px!important;font-size:10px!important}
+#app .hub-week-task{gap:6px!important;padding:7px!important;border-radius:9px!important}
+#app .hub-week-task-copy>b{font-size:11px!important;line-height:1.4!important}
+#app .hub-week-task-time{font-size:9px!important}
+#app .hub-week-task-meta{font-size:9px!important}
+#app .hub-week-footnote{font-size:10px!important;line-height:1.5!important}
+#app .hub-plan-summary{margin-top:12px!important}
+#app .hub-plan-progress-track{margin-top:10px!important}
+#app .hub-plan-progress-caption{font-size:10px!important;margin-top:5px!important}
+#app .hub-plan-list-head{gap:8px!important;margin-bottom:9px!important}
+#app .hub-plan-list-head p{font-size:10px!important}
+#app .hub-plan-row{padding:10px!important;border-radius:11px!important}
+#app .hub-plan-content-main .hub-t{font-size:12px!important;line-height:1.45!important}
+#app .hub-plan-meta{font-size:9px!important;margin-top:4px!important}
+#app .hub-plan-empty{padding:18px 12px!important;gap:5px!important}
+#app .hub-plan-empty>span{width:30px!important;height:30px!important;border-radius:9px!important;font-size:16px!important}
+#app .hub-plan-empty>b{font-size:12px!important}
+#app .hub-plan-empty>p{font-size:10px!important;line-height:1.55!important}
+#app .hub-goal-mini-stats{gap:7px!important;margin-top:12px!important}
+#app .hub-goal-mini-stats>span{min-width:74px!important;padding:8px 10px!important;border-radius:10px!important}
+#app .hub-goal-mini-stats b{font-size:16px!important}
+#app .hub-goal-mini-stats small{font-size:9px!important}
+#app .hub-goal-form-row{gap:8px!important}
+#app .hub-goal-list{gap:8px!important}
+#app .hub-goal-card{grid-template-columns:29px minmax(0,1fr)!important;gap:9px!important;padding:12px!important;border-radius:13px!important;box-shadow:none!important}
+#app .hub-goal-icon{width:29px!important;height:29px!important;border-radius:9px!important;font-size:15px!important}
+#app .hub-goal-main h3{font-size:13px!important}
+#app .hub-goal-main>small{margin-bottom:7px!important;font-size:9px!important}
+#app .hub-goal-progress{margin-top:7px!important}
+#app .hub-score-row{grid-template-columns:30px minmax(0,1fr) auto 26px!important;gap:7px!important;padding:9px 0!important}
+#app .hub-score-subject{width:28px!important;height:28px!important;border-radius:8px!important}
+#app .hub-score-row-copy>b,#app .hub-score-row-copy>strong{font-size:11px!important}
+#app .hub-score-row-copy>small{font-size:9px!important}
+#app .hub-score-pct{font-size:12px!important}
+#app .hub-icon-btn,#app .hub-goal-step{width:26px!important;height:26px!important;min-width:26px!important;border-radius:7px!important}
+#app .hub-plan-filters button{padding:6px 8px!important}
+#app .hub-plan-list-foot{font-size:10px!important}
+
+/* The drawer should highlight only the current destination, not every Student Hub link. */
+#nav.nav-portal a.menu-tile.on{border-color:rgba(164,197,220,.24)!important;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(7,17,29,.78) 72%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.075)!important}
+#nav.nav-portal a.menu-tile.hub-tool.on{border-color:rgba(125,211,252,.34)!important;background:linear-gradient(145deg,rgba(56,189,248,.09),rgba(7,17,29,.8) 72%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)!important}
+#nav.nav-portal a.menu-tile.on::before{opacity:.65!important}
+
+@media(max-width:760px){
+  #app .hub-tool-page{padding:12px 16px 22px!important}
+  #app .hub-tool-page>h1{margin:2px 0 11px!important;font-size:25px!important}
+  #app .hub-week-hero,#app .hub-plan-hero,#app .hub-goals-hero,#app .hub-score-hero{padding:13px!important;border-radius:14px!important}
+  #app .hub-week-title-row{margin-bottom:10px!important}
+  #app .hub-week-title-row h2,#app .hub-plan-heading h2,#app .hub-goals-hero h2,#app .hub-score-hero h2{font-size:23px!important}
+  #app .hub-week-title-row p,#app .hub-plan-heading p,#app .hub-goals-hero>p,#app .hub-score-hero>p{font-size:11px!important;line-height:1.55!important}
+  #app .hub-week-stats,#app .hub-plan-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  #app .hub-score-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+  #app .hub-score-stats>div{padding:8px 7px!important}
+  #app .hub-score-stats b{font-size:15px!important}
+  #app .hub-week-settings{align-items:flex-start!important;flex-direction:column!important}
+  #app .hub-week-settings p{text-align:left!important}
+  #app .hub-week-form-grid,#app .hub-plan-form-grid,#app .hub-score-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #app .hub-week-form-grid .hub-week-task-name,#app .hub-plan-form-grid .hub-field-wide{grid-column:1/-1!important}
+  #app .hub-goal-form-row{grid-template-columns:minmax(0,1fr)!important}
+  #app .hub-week-calendar-head,#app .hub-plan-list-head{align-items:flex-start!important;flex-direction:column!important}
+  #app .hub-week-calendar-tools{display:flex!important;width:100%;flex-wrap:wrap}
+  #app .hub-week-calendar-tools .btn{flex:1 1 120px;width:auto!important}
+  #app .hub-week-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  #app .hub-week-day{padding:8px!important;border-radius:11px!important}
+  #app .hub-week-task{grid-template-columns:18px minmax(0,1fr)!important}
+  #app .hub-week-task .hub-check{width:18px!important;height:18px!important;min-width:18px!important}
+  #app .hub-week-task-copy>b{font-size:10px!important}
+  #app .hub-plan-row{gap:8px!important;padding:9px!important}
+  #app .hub-plan-content-main{flex:1 1 calc(100% - 36px)!important}
+  #app .hub-plan-actions{margin-left:34px!important}
+  #app .hub-plan-edit-grid{flex:1 1 calc(100% - 36px)!important}
+  #app .hub-goal-list{grid-template-columns:minmax(0,1fr)!important}
+  #app .hub-goal-card{padding:11px!important}
+  #app .hub-score-row{grid-template-columns:28px minmax(0,1fr) auto 26px!important}
+}
+@media(max-width:380px){
+  #app .hub-tool-page{padding-left:13px!important;padding-right:13px!important}
+  #app .hub-week-form-grid,#app .hub-plan-form-grid,#app .hub-score-form-grid{grid-template-columns:minmax(0,1fr)!important}
+  #app .hub-week-form-grid .hub-week-task-name,#app .hub-plan-form-grid .hub-field-wide{grid-column:auto!important}
+  #app .hub-week-grid{grid-template-columns:minmax(0,1fr)!important}
+  #app .hub-score-stats{grid-template-columns:minmax(0,1fr)!important}
+  #app .hub-score-row{grid-template-columns:28px minmax(0,1fr) auto!important}
+  #app .hub-score-row>.hub-icon-btn{grid-column:3;grid-row:2}
+  #nav.nav-portal{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(prefers-reduced-motion:reduce){#app .hub-week-day,#nav.nav-portal a.menu-tile{animation:none!important;transition:none!important}}
+
+/* Final density pass for Student Hub launch tiles: less chrome, more usable content per screen. */
+#app .hub-dashboard .hub-tool-box{margin-top:12px!important;padding:18px!important;border-radius:18px!important;box-shadow:inset 0 1px rgba(255,255,255,.035)!important}
+#app .hub-dashboard .hub-tool-box-head{margin-bottom:12px!important;gap:10px!important}
+#app .hub-dashboard .hub-tool-box-head h2{font-size:20px!important;line-height:1.25!important}
+#app .hub-dashboard .hub-tool-count{padding:5px 8px!important;font-size:10px!important}
+#app .hub-dashboard .hub-tool-launch-grid{gap:9px!important}
+#app .hub-dashboard .hub-launch-tile{min-height:70px!important;padding:11px!important;gap:9px!important;border-radius:13px!important;box-shadow:none!important;animation:none!important}
+#app .hub-dashboard .hub-launch-icon{width:32px!important;height:32px!important;flex:0 0 32px!important;border-radius:9px!important;font-size:17px!important}
+#app .hub-dashboard .hub-launch-copy b{font-size:12px!important;line-height:1.3!important}
+#app .hub-dashboard .hub-launch-copy small{font-size:10px!important;line-height:1.4!important;margin-top:4px!important}
+#app .hub-dashboard .hub-launch-arrow{font-size:11px!important;opacity:.7}
+@media(max-width:760px){
+ #app .hub-dashboard,#app .hub-tool-page{padding-left:15px!important;padding-right:15px!important}
+ #app .hub-dashboard .hub-tool-box{padding:13px!important;border-radius:15px!important}
+ #app .hub-dashboard .hub-tool-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ #app .hub-dashboard .hub-launch-tile{min-height:68px!important;padding:9px!important;gap:7px!important;border-radius:11px!important;align-items:flex-start!important}
+ #app .hub-dashboard .hub-launch-icon{width:29px!important;height:29px!important;flex-basis:29px!important;font-size:15px!important}
+ #app .hub-dashboard .hub-launch-copy{min-width:0;flex:1 1 auto}
+ #app .hub-dashboard .hub-launch-copy b{font-size:11px!important;line-height:1.3!important}
+ #app .hub-dashboard .hub-launch-copy small{font-size:9.5px!important;line-height:1.35!important}
+ #app .hub-dashboard .hub-launch-arrow{position:absolute!important;right:7px!important;top:7px!important;margin:0!important;font-size:10px!important}
+}
+@media(min-width:341px) and (max-width:390px){
+ #app .hub-dashboard .hub-tool-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #app .hub-dashboard .hub-launch-tile{min-height:68px!important;padding:8px!important}
+ #app .hub-week-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #app .hub-score-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:340px){
+ #app .hub-dashboard .hub-tool-launch-grid{grid-template-columns:minmax(0,1fr)!important}
+ #app .hub-dashboard .hub-launch-tile{min-height:62px!important;align-items:center!important}
+ #app .hub-week-grid{grid-template-columns:minmax(0,1fr)!important}
+ #app .hub-score-stats{grid-template-columns:minmax(0,1fr)!important}
+}
+
+
+/* v10.5 — compact Weekly Planner controls, complete Student Hub entry points,
+   and slightly squarer navigation/tool cards. */
+#app .hub-week-form-grid input.hub-in,
+#app .hub-week-form-grid select.hub-in,
+#app .hub-week-form-grid textarea.hub-in,
+#app .hub-week-edit-grid input.hub-in,
+#app .hub-week-edit-grid select.hub-in,
+#app .hub-week-edit-grid textarea.hub-in{
+  display:block!important;box-sizing:border-box!important;flex:none!important;align-self:stretch!important;
+  width:100%!important;height:40px!important;min-height:40px!important;max-height:40px!important;
+  padding:7px 10px!important;line-height:1.25!important;resize:none!important;overflow:hidden!important;
+}
+#app .hub-week-form-grid label,#app .hub-week-edit-grid label{min-width:0!important;max-width:100%!important;}
+#app .hub-week-form-grid .hub-week-task-name{grid-column:span 2!important;}
+#app .hub-week-form-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;}
+#app .hub-week-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
+#app .hub-week-stats>div{padding:9px!important;border-radius:10px!important;}
+#app .hub-week-nav,#app .hub-week-add-panel,#app .hub-week-day{border-radius:12px!important;}
+#app .hub-week-day{padding:9px!important;}
+#app .hub-week-day .hub-week-task{border-radius:8px!important;}
+#app .hub-week-task-actions{grid-column:2;}
+#app .hub-week-task-copy>b{overflow-wrap:anywhere!important;}
+#app .hub-dashboard .hub-tool-box{border-radius:15px!important;}
+#app .hub-dashboard .hub-launch-tile{border-radius:11px!important;}
+#app .home-launchpad .launch-tool{border-radius:12px!important;}
+#app .home-launchpad .launch-tool .launch-tool-icon{border-radius:9px!important;}
+#nav.nav-portal a.menu-tile,#nav.nav-portal a.menu-tile.hub-tool{border-radius:11px!important;}
+#nav.nav-portal a.menu-tile .menu-tile-icon{border-radius:8px!important;}
+@media(max-width:760px){
+  #app .hub-week-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;}
+  #app .hub-week-form-grid .hub-week-task-name{grid-column:1/-1!important;}
+  #app .hub-week-form-grid .hub-week-create{grid-column:1/-1!important;width:100%!important;}
+  #app .hub-week-form-grid input.hub-in,#app .hub-week-form-grid select.hub-in,
+  #app .hub-week-edit-grid input.hub-in,#app .hub-week-edit-grid select.hub-in{height:38px!important;min-height:38px!important;max-height:38px!important;padding:7px 9px!important;}
+  #app .hub-week-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;}
+  #app .hub-week-stats>div{padding:8px!important;}
+  #app .home-launchpad .launch-tool{border-radius:10px!important;}
+  #nav.nav-portal a.menu-tile,#nav.nav-portal a.menu-tile.hub-tool{border-radius:10px!important;}
+}
+@media(max-width:380px){
+  #app .hub-week-form-grid{grid-template-columns:minmax(0,1fr)!important;}
+  #app .hub-week-form-grid .hub-week-task-name{grid-column:auto!important;}
+  #app .hub-week-form-grid .hub-week-create{grid-column:auto!important;}
+}
+
+/* v10.6 — compact Student Hub cards and a month-level subject/chapter planner. */
+#app .hub-plan-dashboard,
+#app .hub-goals,
+#app .hub-score-tracker,
+#app .hub-monthly-planner{display:grid!important;gap:11px!important;min-width:0!important;}
+#app .hub-plan-hero,
+#app .hub-goals-hero,
+#app .hub-score-hero{padding:16px!important;border-radius:15px!important;box-shadow:inset 0 1px rgba(255,255,255,.045),0 12px 28px -24px rgba(0,0,0,.9)!important;}
+#app .hub-plan-hero:after,
+#app .hub-goals-hero:after,
+#app .hub-score-hero:after{width:120px!important;height:120px!important;right:-48px!important;top:-48px!important;opacity:.45!important;}
+#app .hub-plan-summary{gap:7px!important;margin-top:11px!important;}
+#app .hub-plan-summary>div{padding:9px 10px!important;border-radius:10px!important;background:rgba(1,8,15,.38)!important;}
+#app .hub-plan-summary small{font-size:9px!important;}
+#app .hub-plan-summary b{font-size:17px!important;}
+#app .hub-plan-progress-track{margin-top:9px!important;}
+#app .hub-goal-mini-stats{gap:7px!important;margin-top:11px!important;}
+#app .hub-goal-mini-stats>span{min-width:70px!important;padding:8px 10px!important;border-radius:10px!important;}
+#app .hub-goal-mini-stats b{font-size:16px!important;}
+#app .hub-score-stats{gap:7px!important;margin-top:12px!important;}
+#app .hub-score-stats>div{padding:9px!important;border-radius:10px!important;background:rgba(1,8,15,.38)!important;}
+#app .hub-score-stats small{font-size:9px!important;}
+#app .hub-score-stats b{font-size:18px!important;}
+#app .hubc.hub-plan-form,
+#app .hubc.hub-plan-list,
+#app .hubc.hub-goal-form,
+#app .hubc.hub-score-form,
+#app .hubc.hub-score-history{padding:13px!important;border-radius:13px!important;}
+#app .hub-plan-form h3,
+#app .hub-goal-form h3,
+#app .hub-score-form h3,
+#app .hub-score-history h3{font-size:14px!important;margin-bottom:5px!important;}
+#app .hub-plan-form-grid,#app .hub-score-form-grid{gap:9px!important;margin-top:9px!important;}
+#app .hub-goal-form-row{gap:8px!important;margin-top:9px!important;}
+#app .hub-goal-card{padding:12px!important;border-radius:13px!important;}
+#app .hub-plan-row{display:grid!important;grid-template-columns:23px minmax(0,1fr) auto!important;align-items:start!important;gap:8px!important;padding:9px!important;border-radius:11px!important;}
+#app .hub-plan-row>.hub-check{grid-column:1!important;grid-row:1!important;width:22px!important;height:22px!important;min-width:22px!important;flex:none!important;border-radius:7px!important;}
+#app .hub-plan-row>.hub-plan-content-main{grid-column:2!important;grid-row:1!important;min-width:0!important;}
+#app .hub-plan-row>.hub-plan-actions{grid-column:3!important;grid-row:1!important;display:flex!important;justify-content:flex-end!important;align-items:flex-start!important;gap:4px!important;margin:0!important;min-width:0!important;align-self:start!important;}
+#app .hub-plan-row>.hub-plan-edit-grid{grid-column:2/-1!important;grid-row:1!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;min-width:0!important;width:100%!important;flex:none!important;margin:0!important;}
+#app .hub-plan-row .hub-plan-actions .hub-icon-btn{width:27px!important;height:27px!important;min-width:27px!important;padding:0!important;border-radius:7px!important;}
+#app .hub-plan-edit-grid .hub-plan-actions{grid-column:1/-1!important;display:flex!important;gap:6px!important;}
+#app .hub-plan-content-main .hub-t{font-size:12px!important;line-height:1.45!important;}
+#app .hub-plan-meta{gap:5px!important;margin-top:5px!important;font-size:9px!important;}
+#app .hub-plan-filters button{padding:6px 8px!important;}
+
+#app .hub-month-hero{position:relative;isolation:isolate;overflow:hidden;min-width:0;padding:18px;border:1px solid rgba(125,211,252,.2);border-radius:17px;background:linear-gradient(145deg,rgba(9,24,40,.98),rgba(4,11,19,.98));box-shadow:inset 0 1px rgba(255,255,255,.05),0 16px 34px -28px rgba(0,0,0,.95);animation:hubMonthEnter .42s ease both;}
+#app .hub-month-hero:after{content:"";position:absolute;z-index:-1;right:-54px;top:-72px;width:180px;height:180px;border:1px solid rgba(125,211,252,.12);border-radius:50%;box-shadow:0 0 0 18px rgba(125,211,252,.025),0 0 0 38px rgba(167,139,250,.018);pointer-events:none;}
+#app .hub-month-hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;}
+#app .hub-month-live{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid rgba(125,211,252,.16);border-radius:999px;background:rgba(125,211,252,.05);color:#9dcbdc;font:700 9px/1 Manrope,sans-serif;letter-spacing:.08em;white-space:nowrap;}
+#app .hub-month-live i{width:5px;height:5px;border-radius:50%;background:#67d8bf;box-shadow:0 0 8px rgba(103,216,191,.4);}
+#app .hub-month-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-width:0;margin-bottom:12px;}
+#app .hub-month-title-row>div{min-width:0;}
+#app .hub-month-title-row h2{margin:0 0 5px;color:#eff8ff;font-size:clamp(22px,2.6vw,29px);line-height:1.2;letter-spacing:-.03em;}
+#app .hub-month-title-row p{max-width:650px;margin:0;color:#a4bbcd;font-size:11px;line-height:1.65;}
+#app .hub-month-hero-symbol{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border:1px solid rgba(125,211,252,.17);border-radius:11px;background:rgba(125,211,252,.07);color:#9edff0;font-size:23px;animation:hubMonthFloat 4s ease-in-out infinite;}
+#app .hub-month-toolbar{display:grid;grid-template-columns:34px minmax(0,1fr) 34px auto;align-items:end;gap:7px;min-width:0;padding:8px;border:1px solid rgba(125,180,215,.11);border-radius:12px;background:rgba(0,7,13,.4);}
+#app .hub-month-input-wrap{display:flex;flex-direction:column;gap:4px;min-width:0;color:#87a6ba;font-size:9px;font-weight:700;}
+#app .hub-month-input-wrap .hub-in{width:100%;min-width:0;min-height:35px;height:35px;padding:6px 9px;border:1px solid rgba(125,180,215,.17);border-radius:8px;background:rgba(2,9,16,.78);color:#e5f3fd;font-size:12px;box-sizing:border-box;}
+#app .hub-month-nav-btn{display:grid;place-items:center;width:34px;height:35px;padding:0;border:1px solid rgba(125,180,215,.17);border-radius:9px;background:rgba(125,211,252,.055);color:#c0e6f3;font-size:21px;cursor:pointer;transition:background .18s,border-color .18s,transform .18s;}
+#app .hub-month-nav-btn:hover{transform:translateY(-1px);background:rgba(125,211,252,.12);border-color:rgba(125,211,252,.32);}
+#app .hub-month-current{min-height:35px!important;padding:7px 10px!important;font-size:10px!important;white-space:nowrap;}
+#app .hub-month-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:10px;}
+#app .hub-month-stats>div{display:flex;flex-direction:column;gap:4px;min-width:0;padding:8px 9px;border:1px solid rgba(125,180,215,.11);border-radius:10px;background:rgba(1,8,15,.42);}
+#app .hub-month-stats small{color:#849eb2;font-size:9px;line-height:1.35;}
+#app .hub-month-stats b{color:#e9f8ff;font:800 16px/1.2 Manrope,sans-serif;overflow-wrap:anywhere;}
+#app .hub-month-progress{height:5px;margin-top:10px;overflow:hidden;border-radius:99px;background:rgba(125,180,215,.11);}
+#app .hub-month-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#62d3c3,#65bde6);box-shadow:0 0 12px rgba(98,211,195,.2);transition:width .3s ease;}
+#app .hub-month-caption{margin:6px 0 0;color:#839caf;font-size:9px;line-height:1.4;}
+#app .hubc.hub-month-form{padding:14px!important;border-radius:14px!important;}
+#app .hub-month-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+#app .hub-month-section-head h3{margin:2px 0 0;color:#edf7ff;font-size:15px;line-height:1.35;}
+#app .hub-month-add-mark{display:grid;place-items:center;flex:0 0 31px;width:31px;height:31px;border:1px solid rgba(125,211,252,.15);border-radius:9px;background:rgba(125,211,252,.05);color:#9fdae9;font-size:17px;}
+#app .hub-month-form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;align-items:end;margin-top:12px;}
+#app .hub-month-form-grid label{display:flex;flex-direction:column;gap:5px;min-width:0;color:#94adbf;font-size:10px;font-weight:700;line-height:1.4;}
+#app .hub-month-form-grid .hub-in{box-sizing:border-box;width:100%;min-width:0;max-width:100%;min-height:38px;padding:8px 9px;border:1px solid rgba(125,180,215,.17);border-radius:9px;background:rgba(1,7,14,.72);color:#e8f5fd;font:500 12px/1.4 "Hind Siliguri",Inter,sans-serif;}
+#app .hub-month-form-grid .hub-in:focus{outline:2px solid rgba(56,189,248,.38);outline-offset:1px;border-color:rgba(125,211,252,.35);}
+#app .hub-month-form-grid .hub-month-note-field{grid-column:span 2;}
+#app .hub-month-form-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;}
+#app .hub-month-form-actions .btn{min-height:38px;padding:8px 11px!important;font-size:10px!important;white-space:normal;}
+#app .hub-month-form-note{margin:8px 0 0;color:#7894a9;font-size:10px;line-height:1.6;}
+#app .hub-month-list-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;min-width:0;margin-top:1px;}
+#app .hub-month-list-heading h3{margin:2px 0 0;color:#eaf6ff;font-size:17px;line-height:1.3;}
+#app .hub-month-list-heading p{margin:4px 0 0;color:#7f99ad;font-size:10px;line-height:1.5;}
+#app .hub-month-list-actions{display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap;}
+#app .hub-month-list-actions .btn{min-height:32px;padding:6px 9px!important;font-size:9px!important;white-space:nowrap;}
+#app .hub-month-subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;min-width:0;}
+#app .hub-month-subject{min-width:0;padding:11px;border:1px solid rgba(125,180,215,.14);border-radius:12px;background:linear-gradient(145deg,rgba(8,20,33,.88),rgba(3,10,17,.93));animation:hubMonthEnter .4s ease both;animation-delay:calc(var(--month-subject-index,0)*35ms);}
+#app .hub-month-subject-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;padding-bottom:8px;border-bottom:1px solid rgba(125,180,215,.1);}
+#app .hub-month-subject-head>div{display:flex;align-items:center;gap:8px;min-width:0;}
+#app .hub-month-subject-mark{display:grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border:1px solid rgba(125,211,252,.14);border-radius:8px;background:rgba(125,211,252,.05);color:#93cbdc;font:700 9px/1 Manrope,sans-serif;}
+#app .hub-month-subject-head h3{min-width:0;margin:0;color:#e6f2fc;font-size:12px;line-height:1.4;overflow-wrap:anywhere;}
+#app .hub-month-subject-count{color:#8fbcbd;font:700 9px/1.3 Manrope,sans-serif;white-space:nowrap;}
+#app .hub-month-item-list{display:grid;gap:6px;padding-top:8px;}
+#app .hub-month-item{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:start;gap:7px;min-width:0;padding:8px;border:1px solid rgba(125,180,215,.09);border-radius:9px;background:rgba(1,8,14,.4);transition:border-color .18s,background .18s;}
+#app .hub-month-item.done{border-color:rgba(83,190,156,.19);background:rgba(25,70,59,.12);}
+#app .hub-month-check{display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;min-width:22px;padding:0;border:1px solid rgba(125,211,252,.23);border-radius:7px;background:rgba(125,211,252,.045);color:#92e0c6;font-size:11px;cursor:pointer;}
+#app .hub-month-item-copy{display:flex;align-items:flex-start;flex-wrap:wrap;gap:4px 6px;min-width:0;}
+#app .hub-month-item-copy>b{color:#dfeefa;font-size:11px;line-height:1.5;overflow-wrap:anywhere;}
+#app .hub-month-item.done .hub-month-item-copy>b{text-decoration:line-through;text-decoration-color:rgba(98,211,166,.5);color:#92a99f;}
+#app .hub-month-item-copy>p{flex-basis:100%;margin:1px 0 0;color:#8098aa;font-size:10px;line-height:1.5;overflow-wrap:anywhere;}
+#app .hub-month-custom-badge{display:inline-flex;align-items:center;padding:2px 5px;border:1px solid rgba(125,211,252,.12);border-radius:5px;color:#8fbccb;font-size:8px;line-height:1.3;}
+#app .hub-month-item-actions{display:flex;align-items:flex-start;justify-content:flex-end;gap:4px;}
+#app .hub-month-item-actions .hub-icon-btn{width:25px!important;height:25px!important;min-width:25px!important;border-radius:7px!important;font-size:12px!important;}
+#app .hub-month-empty{grid-column:1/-1;}
+@keyframes hubMonthEnter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hubMonthFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(max-width:760px){
+ #app .hub-plan-dashboard,#app .hub-goals,#app .hub-score-tracker,#app .hub-monthly-planner{gap:8px!important;}
+ #app .hub-plan-hero,#app .hub-goals-hero,#app .hub-score-hero{padding:11px!important;border-radius:12px!important;}
+ #app .hub-plan-hero:after,#app .hub-goals-hero:after,#app .hub-score-hero:after{display:none!important;}
+ #app .hub-plan-heading h2,#app .hub-goals-hero h2,#app .hub-score-hero h2{font-size:20px!important;margin-bottom:4px!important;}
+ #app .hub-plan-heading p,#app .hub-goals-hero>p,#app .hub-score-hero>p{font-size:10px!important;line-height:1.5!important;}
+ #app .hub-plan-summary{gap:6px!important;margin-top:8px!important;}
+ #app .hub-plan-summary>div{padding:7px 8px!important;gap:3px!important;}
+ #app .hub-plan-summary b{font-size:15px!important;}
+ #app .hub-goal-mini-stats{gap:5px!important;margin-top:8px!important;}
+ #app .hub-goal-mini-stats>span{min-width:0!important;flex:1 1 0!important;padding:6px 7px!important;}
+ #app .hub-goal-mini-stats b{font-size:15px!important;}
+ #app .hub-score-stats{gap:5px!important;margin-top:8px!important;}
+ #app .hub-score-stats>div{padding:7px 6px!important;gap:3px!important;}
+ #app .hub-score-stats b{font-size:15px!important;}
+ #app .hubc.hub-plan-form,#app .hubc.hub-plan-list,#app .hubc.hub-goal-form,#app .hubc.hub-score-form,#app .hubc.hub-score-history,#app .hubc.hub-month-form{padding:10px!important;border-radius:11px!important;}
+ #app .hub-plan-form h3,#app .hub-goal-form h3,#app .hub-score-form h3,#app .hub-score-history h3{font-size:13px!important;}
+ #app .hub-plan-row{grid-template-columns:22px minmax(0,1fr) auto!important;gap:6px!important;padding:8px!important;}
+ #app .hub-plan-row>.hub-check{width:21px!important;height:21px!important;min-width:21px!important;}
+ #app .hub-plan-row>.hub-plan-actions{grid-column:3!important;grid-row:1!important;justify-self:end!important;margin:0!important;}
+ #app .hub-plan-row>.hub-plan-edit-grid{grid-column:2/-1!important;grid-row:1!important;}
+ #app .hub-plan-row .hub-plan-actions .hub-icon-btn{width:25px!important;height:25px!important;min-width:25px!important;}
+ #app .hub-month-hero{padding:12px!important;border-radius:13px!important;}
+ #app .hub-month-hero:after{width:105px!important;height:105px!important;right:-48px!important;top:-48px!important;}
+ #app .hub-month-title-row{margin-bottom:9px!important;gap:8px!important;}
+ #app .hub-month-title-row h2{font-size:21px!important;}
+ #app .hub-month-title-row p{font-size:10px!important;line-height:1.5!important;}
+ #app .hub-month-hero-symbol{width:31px!important;height:31px!important;flex-basis:31px!important;border-radius:9px!important;font-size:18px!important;}
+ #app .hub-month-toolbar{grid-template-columns:30px minmax(0,1fr) 30px!important;gap:6px!important;padding:7px!important;}
+ #app .hub-month-nav-btn{width:30px!important;height:33px!important;}
+ #app .hub-month-input-wrap .hub-in{min-height:33px!important;height:33px!important;font-size:11px!important;}
+ #app .hub-month-current{grid-column:1/-1!important;min-height:30px!important;width:100%!important;}
+ #app .hub-month-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;margin-top:8px!important;}
+ #app .hub-month-stats>div{padding:7px 8px!important;}
+ #app .hub-month-stats b{font-size:15px!important;}
+ #app .hub-month-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin-top:9px!important;}
+ #app .hub-month-form-grid label{font-size:10px!important;}
+ #app .hub-month-form-grid .hub-in{min-height:36px!important;padding:7px 8px!important;font-size:11px!important;}
+ #app .hub-month-form-grid .hub-month-note-field{grid-column:1/-1!important;}
+ #app .hub-month-form-actions{grid-column:1/-1!important;}
+ #app .hub-month-form-actions .btn{min-height:34px!important;padding:7px 9px!important;}
+ #app .hub-month-form-note{font-size:9px!important;}
+ #app .hub-month-list-heading{align-items:flex-start!important;flex-direction:column!important;gap:8px!important;}
+ #app .hub-month-list-heading h3{font-size:15px!important;}
+ #app .hub-month-list-actions{width:100%!important;justify-content:flex-start!important;}
+ #app .hub-month-list-actions .btn{flex:0 1 auto!important;}
+ #app .hub-month-subjects{grid-template-columns:minmax(0,1fr)!important;gap:7px!important;}
+ #app .hub-month-subject{padding:9px!important;border-radius:10px!important;}
+ #app .hub-month-item{grid-template-columns:21px minmax(0,1fr) auto!important;gap:6px!important;padding:7px!important;}
+ #app .hub-month-item-actions{gap:3px!important;}
+ #app .hub-month-item-actions .hub-icon-btn{width:24px!important;height:24px!important;min-width:24px!important;}
+}
+@media(max-width:380px){
+ #app .hub-plan-form-grid,#app .hub-score-form-grid{grid-template-columns:minmax(0,1fr)!important;}
+ #app .hub-plan-form-grid .hub-field-wide{grid-column:auto!important;}
+ #app .hub-plan-row>.hub-plan-edit-grid{grid-template-columns:minmax(0,1fr)!important;}
+ #app .hub-month-form-grid{grid-template-columns:minmax(0,1fr)!important;}
+ #app .hub-month-form-grid .hub-month-note-field{grid-column:auto!important;}
+ #app .hub-month-form-actions{grid-column:auto!important;}
+ #app .hub-month-title-row h2{font-size:19px!important;}
+ #app .hub-month-stats small{font-size:8px!important;}
+ #app .hub-month-item-copy>b{font-size:10px!important;}
+}
+@media(prefers-reduced-motion:reduce){#app .hub-month-hero,#app .hub-month-subject,#app .hub-month-hero-symbol{animation:none!important;}#app .hub-month-progress i,#app .hub-month-nav-btn{transition:none!important;}}
+
+/* The three requested launch options use a deliberately shorter tile size. */
+#app .hub-dashboard .hub-launch-tile[href="#/hub/plan"],
+#app .hub-dashboard .hub-launch-tile[href="#/hub/goals"],
+#app .hub-dashboard .hub-launch-tile[href="#/hub/scores"]{min-height:56px!important;padding:8px 9px!important;gap:7px!important;border-radius:10px!important;}
+#app .hub-dashboard .hub-launch-tile[href="#/hub/plan"] .hub-launch-icon,
+#app .hub-dashboard .hub-launch-tile[href="#/hub/goals"] .hub-launch-icon,
+#app .hub-dashboard .hub-launch-tile[href="#/hub/scores"] .hub-launch-icon{width:27px!important;height:27px!important;flex-basis:27px!important;font-size:14px!important;}
+#app .hub-dashboard .hub-launch-tile[href="#/hub/plan"] .hub-launch-copy b,
+#app .hub-dashboard .hub-launch-tile[href="#/hub/goals"] .hub-launch-copy b,
+#app .hub-dashboard .hub-launch-tile[href="#/hub/scores"] .hub-launch-copy b{font-size:11px!important;}
+#app .hub-dashboard .hub-launch-tile[href="#/hub/plan"] .hub-launch-copy small,
+#app .hub-dashboard .hub-launch-tile[href="#/hub/goals"] .hub-launch-copy small,
+#app .hub-dashboard .hub-launch-tile[href="#/hub/scores"] .hub-launch-copy small{font-size:9px!important;margin-top:2px!important;}
+@media(max-width:760px){
+ #app .hub-dashboard .hub-launch-tile[href="#/hub/plan"],
+ #app .hub-dashboard .hub-launch-tile[href="#/hub/goals"],
+ #app .hub-dashboard .hub-launch-tile[href="#/hub/scores"]{min-height:54px!important;padding:7px!important;gap:6px!important;}
+ #app .hub-dashboard .hub-launch-tile[href="#/hub/plan"] .hub-launch-icon,
+ #app .hub-dashboard .hub-launch-tile[href="#/hub/goals"] .hub-launch-icon,
+ #app .hub-dashboard .hub-launch-tile[href="#/hub/scores"] .hub-launch-icon{width:25px!important;height:25px!important;flex-basis:25px!important;font-size:13px!important;}
+}
+
+/* v10.6.1 — hard cap Student Hub control heights on phone and desktop.
+   The generic .hub-in flex-basis is useful in horizontal rows, but made
+   inputs/selects inside vertical labels grow to enormous heights. */
+#app .hub-plan-form-grid input.hub-in,
+#app .hub-plan-form-grid select.hub-in,
+#app .hub-plan-edit-grid input.hub-in,
+#app .hub-plan-edit-grid select.hub-in,
+#app .hub-goal-form-row input.hub-in,
+#app .hub-goal-form-row select.hub-in,
+#app .hub-goal-main > input.hub-in,
+#app .hub-score-form-grid input.hub-in,
+#app .hub-score-form-grid select.hub-in,
+#app .hub-month-form-grid input.hub-in,
+#app .hub-month-form-grid select.hub-in {
+  display:block!important;
+  box-sizing:border-box!important;
+  flex:0 0 auto!important;
+  align-self:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:40px!important;
+  min-height:40px!important;
+  max-height:40px!important;
+  padding:7px 10px!important;
+  line-height:1.25!important;
+}
+#app .hub-month-toolbar .hub-in,
+#app .hub-month-input-wrap .hub-in {
+  flex:0 0 auto!important;
+  height:35px!important;
+  min-height:35px!important;
+  max-height:35px!important;
+}
+#app .hub-plan-form-grid textarea.hub-in,
+#app .hub-plan-edit-grid textarea.hub-in,
+#app .hub-goal-form-row textarea.hub-in,
+#app .hub-score-form-grid textarea.hub-in,
+#app .hub-month-form-grid textarea.hub-in {
+  height:84px!important;
+  min-height:84px!important;
+  max-height:180px!important;
+  flex:0 1 auto!important;
+  resize:vertical!important;
+  overflow:auto!important;
+  white-space:pre-wrap!important;
+}
+@media(max-width:760px){
+  #app .hub-plan-form-grid input.hub-in,
+  #app .hub-plan-form-grid select.hub-in,
+  #app .hub-plan-edit-grid input.hub-in,
+  #app .hub-plan-edit-grid select.hub-in,
+  #app .hub-goal-form-row input.hub-in,
+  #app .hub-goal-form-row select.hub-in,
+  #app .hub-goal-main > input.hub-in,
+  #app .hub-score-form-grid input.hub-in,
+  #app .hub-score-form-grid select.hub-in,
+  #app .hub-month-form-grid input.hub-in,
+  #app .hub-month-form-grid select.hub-in {
+    height:38px!important;
+    min-height:38px!important;
+    max-height:38px!important;
+    padding:6px 9px!important;
+    font-size:13px!important;
+  }
+  #app .hub-month-toolbar .hub-in,
+  #app .hub-month-input-wrap .hub-in {
+    height:34px!important;
+    min-height:34px!important;
+    max-height:34px!important;
+  }
+  #app .hub-plan-summary>div,
+  #app .hub-goal-mini-stats>span,
+  #app .hub-score-stats>div,
+  #app .hub-month-stats>div { min-height:0!important; }
+}
+
+/* Premium About-page student reviews: soft colour, tactile stars and calm motion. */
+#app .about-grid>.student-review-card{grid-column:1/-1;position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding:clamp(17px,3vw,28px)!important;border:1px solid rgba(167,139,250,.23)!important;background:radial-gradient(70% 130% at 100% 0%,rgba(167,139,250,.15),transparent 68%),radial-gradient(55% 100% at 0% 100%,rgba(56,189,248,.11),transparent 70%),linear-gradient(145deg,rgba(13,20,37,.96),rgba(4,9,18,.98))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 55px -38px rgba(125,100,255,.46)!important;animation:studentReviewEnter .65s cubic-bezier(.2,.75,.25,1) both}
+#app .student-review-card:after{content:"";position:absolute;z-index:-1;right:-75px;top:-95px;width:210px;height:210px;border:1px solid rgba(196,181,253,.12);border-radius:50%;box-shadow:0 0 0 20px rgba(196,181,253,.025),0 0 0 42px rgba(56,189,248,.025);pointer-events:none}
+#app .student-review-icon{color:#fbbf24!important;border-color:rgba(251,191,36,.22)!important;background:linear-gradient(145deg,rgba(251,191,36,.15),rgba(167,139,250,.12))!important;box-shadow:0 8px 25px -16px rgba(251,191,36,.7)}
+#app .student-review-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;width:100%}
+#app .student-review-heading>div{min-width:0}
+#app .student-review-kicker{display:block;color:#c4b5fd;font:800 9px/1.4 Inter,sans-serif;letter-spacing:.2em;margin:0 0 6px}
+#app .student-review-heading h2{margin:0 0 5px!important;font-size:clamp(19px,2.7vw,24px)!important;letter-spacing:-.035em;color:#f6f4ff}
+#app .student-review-heading p{max-width:680px;margin:0!important;color:#aeb8d0!important;font-size:13px!important;line-height:1.75!important}
+#app .student-review-orbit{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border:1px solid rgba(196,181,253,.22);border-radius:15px;color:#ddd6fe;background:linear-gradient(145deg,rgba(167,139,250,.16),rgba(56,189,248,.1));font-size:22px;animation:reviewOrbitFloat 4s ease-in-out infinite}
+#app .review-rating-block{display:grid;justify-items:start;gap:5px;margin-top:2px;padding:14px 15px;border:1px solid rgba(196,181,253,.14);border-radius:15px;background:linear-gradient(110deg,rgba(167,139,250,.08),rgba(56,189,248,.045))}
+#app .review-field-title{font-size:12px;font-weight:750;color:#dbe5fa}
+#app .review-star-picker{display:flex;align-items:center;gap:4px;margin:1px 0}
+#app .review-star-picker button{display:grid;place-items:center;width:clamp(38px,7vw,48px);height:42px;padding:0;border:1px solid transparent;border-radius:12px;background:transparent;color:#64748b;font-size:clamp(25px,5.5vw,32px);line-height:1;cursor:pointer;transition:transform .18s ease,color .18s ease,background .18s ease,border-color .18s ease,filter .18s ease}
+#app .review-star-picker button:hover{transform:translateY(-3px) scale(1.08);color:#fbbf24;background:rgba(251,191,36,.08)}
+#app .review-star-picker button.selected{color:#fbbf24;filter:drop-shadow(0 0 7px rgba(251,191,36,.27));animation:reviewStarPop .28s cubic-bezier(.2,.8,.2,1)}
+#app .review-star-picker button:focus-visible{outline:2px solid #c4b5fd;outline-offset:2px}
+#app .review-rating-caption{margin:0!important;color:#b8a9ee!important;font-size:11px!important;line-height:1.5!important;min-height:17px}
+#app .student-review-form{display:grid;gap:7px;width:100%;max-width:100%}
+#app .student-review-form label{margin-top:4px;color:#d5ddef;font-size:12px;font-weight:700;line-height:1.5}
+#app .student-review-form label span{font-weight:400;color:#8091aa}
+#app .student-review-form input:not([type=hidden]),#app .student-review-form textarea{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;padding:12px 13px;border:1px solid rgba(148,163,184,.2);border-radius:12px;background:rgba(2,8,17,.78);color:#edf4ff;font:inherit;font-size:13px;line-height:1.65;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+#app .student-review-form input:focus,#app .student-review-form textarea:focus{border-color:rgba(196,181,253,.58);background:rgba(4,11,23,.95);box-shadow:0 0 0 3px rgba(167,139,250,.1)}
+#app .student-review-form textarea{min-height:112px;resize:vertical}
+#app .student-review-status{min-height:0;margin:0!important;color:#a5f3fc!important;font-size:12px!important;line-height:1.6!important}
+#app .student-review-status:empty{display:none}
+#app .student-review-submit{justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:11px 18px!important;border:1px solid rgba(221,214,254,.28)!important;border-radius:12px!important;background:linear-gradient(115deg,#8b5cf6,#6366f1 58%,#0ea5e9)!important;color:#fff!important;box-shadow:0 10px 26px -15px rgba(129,106,255,.8),inset 0 1px rgba(255,255,255,.24)!important;transition:transform .18s,filter .18s,box-shadow .18s!important}
+#app .student-review-submit:hover{transform:translateY(-2px);filter:saturate(1.12) brightness(1.08);box-shadow:0 14px 30px -15px rgba(129,106,255,.9),inset 0 1px rgba(255,255,255,.28)!important}
+#app .student-review-submit:disabled{opacity:.65;cursor:wait;transform:none}
+@keyframes studentReviewEnter{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@keyframes reviewOrbitFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-5px) rotate(5deg)}}
+@keyframes reviewStarPop{0%{transform:scale(.72)}70%{transform:scale(1.17)}100%{transform:scale(1)}}
+@media(max-width:640px){#app .about-grid>.student-review-card{padding:15px!important;gap:11px!important}#app .student-review-heading{gap:9px}#app .student-review-orbit{width:36px;height:36px;flex-basis:36px;border-radius:12px;font-size:18px}#app .student-review-heading p{font-size:12px!important}#app .review-rating-block{width:100%;padding:12px}#app .review-star-picker{gap:2px}#app .review-star-picker button{width:42px;height:40px;font-size:28px}#app .student-review-submit{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){#app .student-review-card,#app .student-review-orbit,#app .review-star-picker button.selected{animation:none!important}#app .student-review-submit,#app .review-star-picker button{transition:none!important}}
+
+
+/* 2026-10-30 About page polish: clearer section rhythm, gentle colour and motion. */
+#app .about-project-kicker{
+  justify-self:start;
+  width:max-content;
+  max-width:100%;
+  padding:4px 9px!important;
+  border-radius:999px!important;
+  border-color:rgba(125,211,252,.17)!important;
+  background:linear-gradient(100deg,rgba(56,189,248,.075),rgba(167,139,250,.055))!important;
+  color:#9ddcf7!important;
+  font-size:8px!important;
+  line-height:1.35!important;
+  letter-spacing:.105em!important;
+  box-shadow:0 5px 18px -13px rgba(56,189,248,.55),inset 0 1px rgba(255,255,255,.05);
+}
+#app .about-grid{gap:16px!important;margin:17px 0 0!important}
+#app .about-grid>.about-card:not(.student-review-card){
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border-color:color-mix(in srgb,var(--about-accent,#7dd3fc) 23%,rgba(198,222,240,.13))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 18px 46px -38px color-mix(in srgb,var(--about-accent,#7dd3fc) 26%,transparent)!important;
+  transition:transform .28s cubic-bezier(.2,.75,.25,1),border-color .28s ease,box-shadow .28s ease,filter .28s ease!important;
+}
+#app .about-grid>.about-card:nth-child(1){--about-accent:#7dd3fc;background:radial-gradient(80% 90% at 100% 0,rgba(56,189,248,.085),transparent 72%),linear-gradient(150deg,rgba(16,30,43,.84),rgba(6,12,20,.88))!important}
+#app .about-grid>.about-card:nth-child(2){--about-accent:#c4b5fd;background:radial-gradient(80% 90% at 100% 0,rgba(167,139,250,.09),transparent 72%),linear-gradient(150deg,rgba(22,20,42,.78),rgba(7,12,22,.9))!important}
+#app .about-grid>.about-card:nth-child(3){--about-accent:#6ee7b7}
+#app .about-grid>.about-card:nth-child(4){--about-accent:#fdba74;background:radial-gradient(80% 90% at 100% 0,rgba(251,146,60,.085),transparent 72%),linear-gradient(150deg,rgba(37,25,19,.62),rgba(7,12,20,.9))!important}
+#app .about-grid>.about-card:not(.student-review-card)::before{
+  content:"";position:absolute;z-index:2;top:0;left:clamp(16px,3vw,24px);right:clamp(16px,3vw,24px);height:2px;border-radius:0 0 99px 99px;
+  background:linear-gradient(90deg,transparent,var(--about-accent,#7dd3fc),transparent);opacity:.72;
+  background-size:220% 100%;animation:aboutAccentFlow 7s ease-in-out infinite;pointer-events:none
+}
+#app .about-grid>.about-card:not(.student-review-card):hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb,var(--about-accent,#7dd3fc) 48%,rgba(198,222,240,.13))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 24px 50px -36px color-mix(in srgb,var(--about-accent,#7dd3fc) 38%,transparent)!important;
+  filter:saturate(1.06)
+}
+#app .about-grid>.about-card:not(.student-review-card) .about-icon{
+  color:var(--about-accent,#7dd3fc)!important;
+  border-color:color-mix(in srgb,var(--about-accent,#7dd3fc) 30%,transparent)!important;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--about-accent,#7dd3fc) 15%,transparent),rgba(255,255,255,.025))!important;
+  box-shadow:0 9px 24px -18px var(--about-accent,#7dd3fc),inset 0 1px rgba(255,255,255,.075)!important;
+  transition:transform .28s ease,filter .28s ease!important
+}
+#app .about-grid>.about-card:not(.student-review-card):hover .about-icon{transform:translateY(-2px) rotate(-3deg);filter:brightness(1.14)}
+#app .about-grid>.about-card:not(.student-review-card) h2{color:#edf6ff!important;letter-spacing:-.018em}
+#app .about-grid>.about-card:not(.student-review-card) p{color:#aebdce!important}
+#app .about-grid>.creator-team-section{background:radial-gradient(ellipse at 2% 0,rgba(52,211,153,.105),transparent 48%),linear-gradient(145deg,rgba(8,25,27,.94),rgba(2,10,16,.94))!important}
+#app .about-grid>.creator-team-section .about-icon{color:#6ee7b7!important}
+#app .about-grid>.student-review-card{margin-top:0!important}
+#app .about-legal{
+  margin-top:20px!important;
+  border-color:rgba(125,211,252,.19)!important;
+  background:radial-gradient(80% 110% at 100% 0,rgba(56,189,248,.075),transparent 72%),radial-gradient(65% 100% at 0 100%,rgba(167,139,250,.06),transparent 70%),linear-gradient(145deg,rgba(13,23,36,.93),rgba(5,10,18,.95))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 18px 45px -38px rgba(56,189,248,.34)!important;
+  transition:border-color .25s ease,box-shadow .25s ease!important
+}
+#app .about-legal:hover{border-color:rgba(125,211,252,.31)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 22px 48px -36px rgba(56,189,248,.42)!important}
+#app .about-legal h2:first-child{color:#bfeaff!important}
+#app .about-legal h2:not(:first-child){color:#d4c8ff!important}
+#app .about-legal p{color:#aebdce!important}
+@keyframes aboutAccentFlow{0%,100%{background-position:100% 0;opacity:.48}50%{background-position:0 0;opacity:.9}}
+@media(max-width:640px){
+  #app .about-grid{gap:14px!important;margin-top:14px!important}
+  #app .about-grid>.about-card:not(.student-review-card){border-radius:17px!important}
+  #app .about-legal{margin-top:17px!important}
+  #app .about-project-kicker{font-size:7.5px!important;letter-spacing:.09em!important;padding:4px 8px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #app .about-grid>.about-card:not(.student-review-card)::before{animation:none!important}
+  #app .about-grid>.about-card:not(.student-review-card),#app .about-grid>.about-card .about-icon,#app .about-legal{transition:none!important}
+}
