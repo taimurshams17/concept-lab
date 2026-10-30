@@ -1,0 +1,94 @@
+/* ConceptLab — atmospheric premium intro, with lightweight blurred science details. */
+html.intro-seen #intro,html:not(.js) #intro{display:none!important}
+html.intro-on,html.intro-on body{overflow:hidden!important;height:100%}
+#intro{
+ --sky:#55c7ff;--sky2:#a8e5ff;--amb:#f5bd68;--teal:#77e4d2;
+ --logo:clamp(126px,min(32vw,22vh),200px);
+ position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;
+ overflow:hidden;color:#f4f8ff;background:radial-gradient(ellipse at 50% 42%,#102238 0%,#081321 37%,#040912 72%,#02050a 100%);
+ font-family:Manrope,Inter,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;
+ opacity:1;transition:opacity .9s cubic-bezier(.4,0,.2,1);animation:inFailsafe 0s linear 10s forwards
+}
+#intro.out{opacity:0;pointer-events:none}
+@keyframes inFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
+#intro *{box-sizing:border-box}
+
+/* Soft blurred colour fields restore the atmospheric depth of the earlier intro. */
+.in-bg,.in-tools{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.in-glow{position:absolute;left:50%;top:44%;width:min(120vw,900px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+ background:radial-gradient(circle,rgba(39,160,227,.25) 0%,rgba(31,113,168,.13) 29%,rgba(38,91,130,.06) 48%,transparent 69%);
+ filter:blur(16px);opacity:0;animation:inGlow 2.2s ease-out .1s forwards,inBreath 7.5s ease-in-out 2.3s infinite}
+.in-glow-two{left:16%;top:75%;width:min(66vw,520px);background:radial-gradient(circle,rgba(28,158,166,.12),transparent 68%);filter:blur(30px);animation:inGlow 2.8s ease-out .35s forwards,inBreath 9s ease-in-out 2.8s infinite reverse}
+@keyframes inGlow{to{opacity:1}}
+@keyframes inBreath{50%{opacity:.62;transform:translate(-50%,-50%) scale(1.055)}}
+.in-dust{position:absolute;inset:0;opacity:0;animation:inFade 2.2s ease .35s forwards;background-image:
+ radial-gradient(1px 1px at 12% 20%,#d9f3ffb0,transparent),radial-gradient(1px 1px at 82% 17%,#d9f3ff99,transparent),
+ radial-gradient(1.3px 1.3px at 24% 72%,#ffffff80,transparent),radial-gradient(1px 1px at 91% 65%,#a8e5ff99,transparent),
+ radial-gradient(1px 1px at 62% 84%,#ffffff70,transparent),radial-gradient(1px 1px at 7% 53%,#a8e5ff80,transparent),
+ radial-gradient(1px 1px at 47% 10%,#ffffff80,transparent),radial-gradient(1px 1px at 72% 45%,#ffffff66,transparent)}
+@keyframes inFade{to{opacity:.62}}
+.in-grid{position:absolute;inset:0;opacity:.12;background-image:linear-gradient(rgba(151,196,225,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(151,196,225,.11) 1px,transparent 1px);background-size:58px 58px;mask-image:radial-gradient(ellipse at center,black 0%,transparent 73%);-webkit-mask-image:radial-gradient(ellipse at center,black 0%,transparent 73%)}
+.in-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 28%,rgba(0,0,0,.3) 100%)}
+
+/* Small science equipment in three softly focused depth planes. */
+.layer{position:absolute;inset:0;pointer-events:none}
+.l1{filter:blur(5px);opacity:.28}.l2{filter:blur(3px);opacity:.38}.l3{filter:blur(1.7px);opacity:.47}
+.t{position:absolute;width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);color:var(--sky2);animation:inFloat var(--du) ease-in-out var(--de) infinite alternate;will-change:transform}
+.t.c-a{color:#e8bd79}.t.c-t{color:#7cdccf}
+.t svg{width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:scale(.72);animation:inToolIn 1.55s cubic-bezier(.2,.8,.2,1) calc(.5s + var(--de)) forwards;filter:drop-shadow(0 0 7px currentColor)}
+@keyframes inFloat{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(var(--dx),var(--dy),0) rotate(var(--r))}}
+@keyframes inToolIn{to{opacity:1;transform:scale(1)}}
+
+/* Centre stage */
+.in-content{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;padding:0 22px;text-align:center;transform:translateY(-8px);transition:transform .9s cubic-bezier(.4,0,.2,1),opacity .8s ease}
+#intro.out .in-content{transform:translateY(-2px) scale(1.045);opacity:0}
+.in-logo{position:relative;width:var(--logo);height:var(--logo);display:grid;place-items:center}
+.in-mark{position:relative;z-index:1;display:block;width:100%;height:100%;opacity:0;transform:translateY(13px) scale(.84);filter:drop-shadow(0 12px 30px rgba(0,0,0,.42));animation:inLogoIn 1.25s cubic-bezier(.2,.8,.2,1) .28s forwards,inLogoFloat 7s ease-in-out 2s infinite}
+.in-mark img{display:block;width:100%;height:100%;object-fit:contain;background:none;user-select:none;-webkit-user-drag:none}
+@keyframes inLogoIn{0%{opacity:0;filter:blur(12px) drop-shadow(0 0 0 transparent)}65%{opacity:1}100%{opacity:1;transform:none;filter:drop-shadow(0 12px 30px rgba(0,0,0,.42))}}
+@keyframes inLogoFloat{50%{transform:translateY(-5px) scale(1.01)}}
+.shine{position:absolute;inset:0;pointer-events:none;-webkit-mask:url(../images/conceptlab-main-logo.webp) center/contain no-repeat;mask:url(../images/conceptlab-main-logo.webp) center/contain no-repeat;background:linear-gradient(108deg,transparent 38%,rgba(255,255,255,.68) 50%,transparent 62%) 130% 0/260% 100% no-repeat;mix-blend-mode:screen;animation:inShine 2.7s ease-in-out 1.7s both}
+@keyframes inShine{0%{background-position:130% 0}100%{background-position:-30% 0}}
+
+/* Restrained orbital details */
+.rw{position:absolute;left:50%;top:50%;border-radius:50%;translate:-50% -50%;opacity:0;transform:scale(.72);pointer-events:none;animation:inRingIn 1.35s cubic-bezier(.2,.8,.2,1) forwards}
+.r1{width:calc(var(--logo)*1.42);height:calc(var(--logo)*1.42);animation-delay:.48s;--sp:32s;--dir:normal}
+.r2{width:calc(var(--logo)*1.88);height:calc(var(--logo)*1.88);animation-delay:.7s;--sp:46s;--dir:reverse}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(108,194,238,.19);animation:inSpin var(--sp) linear infinite var(--dir)}
+.r2 .ring{border-color:rgba(245,189,104,.13)}
+.arc{position:absolute;inset:-1px;border-radius:50%;border:1px solid transparent;border-top-color:rgba(168,229,255,.78);border-right-color:rgba(85,199,255,.2);transform:rotate(-25deg)}
+.r2 .arc{border-top-color:rgba(245,189,104,.7);border-right-color:rgba(245,189,104,.16)}
+.dot{position:absolute;left:50%;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--sky2);box-shadow:0 0 12px 2px rgba(85,199,255,.62)}
+.dot.a{left:83%;top:15%;background:var(--amb);box-shadow:0 0 12px 2px rgba(245,189,104,.55)}
+@keyframes inRingIn{to{opacity:1;transform:scale(1)}}
+@keyframes inSpin{to{transform:rotate(360deg)}}
+
+/* Wordmark and requested slogan */
+.in-word{margin:clamp(22px,4vh,32px) 0 0;font:800 clamp(32px,8.5vw,48px)/1.04 Manrope,Inter,system-ui,sans-serif;letter-spacing:-.055em;color:#f6fbff;opacity:0;transform:translateY(12px);filter:blur(5px);animation:inUp 1.05s cubic-bezier(.2,.8,.2,1) 1.05s forwards}
+.in-word span{background:linear-gradient(180deg,#c9f0ff 0%,#66cafa 62%,#2998dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.in-tag{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.4vw,15px);margin:16px 0 0;padding:0 4px;max-width:100%;font:600 clamp(10.5px,3vw,13px)/1.4 Manrope,Inter,system-ui,sans-serif;letter-spacing:.075em;color:#b2c7d8;white-space:nowrap;opacity:0;transform:translateY(10px);filter:blur(4px);animation:inUp 1.05s cubic-bezier(.2,.8,.2,1) 1.75s forwards}
+.in-tag i{display:block;width:4px;height:4px;flex:0 0 4px;border-radius:50%;background:var(--amb);box-shadow:0 0 9px rgba(245,189,104,.65)}
+@keyframes inUp{to{opacity:1;transform:none;filter:blur(0)}}
+
+/* Three subjects only */
+.in-prog{width:min(76vw,330px);margin-top:clamp(31px,5vh,42px);position:relative;padding-bottom:26px;opacity:0;transform:translateY(9px);animation:inUp 1s ease 2.35s forwards}
+.in-track{position:relative;height:1.5px;border-radius:2px;background:rgba(161,190,213,.2);overflow:visible}
+.in-fill{position:absolute;inset:0;border-radius:2px;background:linear-gradient(90deg,#2998dc,#8cdbf5,#f0b969);transform-origin:left center;transform:scaleX(0);box-shadow:0 0 10px rgba(85,199,255,.48)}
+.in-prog ol{list-style:none;margin:0;padding:0;position:absolute;left:0;right:0;top:1px;display:flex;justify-content:space-between}
+.in-prog li{position:relative;width:0;height:0}
+.in-prog li b{position:absolute;left:0;top:0;width:9px;height:9px;margin:-4px 0 0 -4.5px;border-radius:50%;background:#26374a;border:1px solid #07111d;box-shadow:0 0 0 1px rgba(168,199,221,.22);transition:background .4s,box-shadow .4s,transform .4s}
+.in-prog li span{position:absolute;left:0;top:14px;transform:translateX(-50%);font:700 9px/1 Manrope,Inter,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:#71879b;transition:color .4s}
+.in-prog li:first-child span{transform:translateX(0)}.in-prog li:last-child span{transform:translateX(-100%)}
+.in-prog li.on b{background:var(--sky2);box-shadow:0 0 0 1px rgba(168,229,255,.38),0 0 13px 2px rgba(85,199,255,.62);transform:scale(1.12)}
+.in-prog li.on:last-child b{background:var(--amb);box-shadow:0 0 0 1px rgba(245,189,104,.42),0 0 13px 2px rgba(245,189,104,.58)}
+.in-prog li.on span{color:#d5e8f6}
+.in-skip{position:absolute;z-index:3;right:max(18px,env(safe-area-inset-right));bottom:max(19px,env(safe-area-inset-bottom));appearance:none;background:rgba(220,240,255,.045);border:1px solid rgba(168,199,221,.2);color:#9bb0c1;font:700 10px/1 Manrope,Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:10px 14px;border-radius:99px;cursor:pointer;opacity:0;animation:inUp .8s ease 1.25s forwards;transition:color .2s,border-color .2s,background .2s}
+.in-skip:hover,.in-skip:focus-visible{color:#fff;border-color:var(--sky);background:rgba(85,199,255,.09);outline:0}
+
+@media(max-width:600px){.t:nth-child(n+5){display:none}.in-glow{top:44%}.l1{filter:blur(4.5px)}.l2{filter:blur(2.8px)}.l3{filter:blur(1.5px)}}
+@media(max-width:380px){.in-tag{gap:7px;letter-spacing:.035em}.in-prog{width:78vw}.in-prog li span{font-size:8.5px}}
+@media(max-height:600px){#intro{--logo:clamp(108px,19vh,150px)}.in-word{margin-top:16px}.in-tag{margin-top:10px}.in-prog{margin-top:22px}.t{opacity:.8}}
+@media(prefers-reduced-motion:reduce){
+ #intro *{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.15s!important}
+ .in-mark,.in-word,.in-tag,.in-prog,.in-skip,.rw,.t svg{opacity:1;transform:none;filter:none}.shine{display:none}
+}

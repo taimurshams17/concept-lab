@@ -184,3 +184,55 @@ main#app{min-width:0}
 /* A dedicated plotted-curve glyph for the Graphs item in the bottom navigation. */
 body>nav.bottom-nav .bottom-nav-icon.graph-nav-icon>svg.graph-nav-svg{display:block!important;width:20px!important;height:20px!important;min-width:20px!important;max-width:20px!important;max-height:20px!important;overflow:visible!important;stroke:currentColor!important;fill:none!important}
 @media(max-width:600px){body>nav.bottom-nav .bottom-nav-icon.graph-nav-icon>svg.graph-nav-svg{width:18px!important;height:18px!important;min-width:18px!important;max-width:18px!important;max-height:18px!important}}
+
+
+/* ===== Desktop layout refinement: compact account switcher and Student Hub ===== */
+@media (min-width: 900px) {
+  /* Keep the sign-in / sign-up switch visually balanced instead of full-card wide. */
+  #app .auth-wrap .stgin > .tabs {
+    width: min(100%, 390px) !important;
+    margin-inline: auto !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  #app .auth-wrap .stgin > .tabs .tab {
+    min-height: 40px;
+    padding: 10px 14px !important;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* A calmer reading width for the Student Hub dashboard and every tool page. */
+  #app .hub.hub-dashboard,
+  #app .hub.hub-tool-page {
+    width: min(100%, 1000px) !important;
+    max-width: 1000px !important;
+    margin-inline: auto !important;
+  }
+}
+
+
+/* v11.3: scientific notation, mobile guide inset and timer customization */
+#app .tk-row sup{font-size:.7em;line-height:0;position:relative;vertical-align:super;}
+#app .tk-guide{box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere;}
+#app .tk-guide ol,#app .tk-guide li,#app .tk-guide-example{min-width:0;overflow-wrap:anywhere;word-break:normal;}
+#app .hub-focus-custom{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid rgba(148,197,255,.12);}
+#app .hub-focus-custom label{display:grid;gap:6px;min-width:0;color:var(--muted,#9eb4c6);font-size:12px;font-weight:650;}
+#app .hub-focus-custom .hub-in{box-sizing:border-box;width:100%;min-width:0;min-height:42px;padding:9px 11px;border:1px solid rgba(125,180,215,.2);border-radius:10px;background:rgba(1,7,14,.72);color:#e9f6ff;font:500 14px/1.4 "Hind Siliguri",Inter,sans-serif;}
+#app .hub-syllabus-subject{padding:0!important;overflow:hidden;}
+#app .hub-syllabus-summary{display:flex;align-items:center;gap:10px;min-width:0;padding:14px 16px;cursor:pointer;list-style:none;color:#dff3ff;font-weight:700;}
+#app .hub-syllabus-summary::-webkit-details-marker{display:none;}
+#app .hub-syllabus-summary>span{flex:1;min-width:0;overflow-wrap:anywhere;}
+#app .hub-syllabus-count{flex:0 0 auto;color:#8ecde7;font-size:11px;font-weight:600;}
+#app .hub-syllabus-summary>b{flex:0 0 auto;color:#7dd3fc;transition:transform .18s;}
+#app .hub-syllabus-subject[open] .hub-syllabus-summary>b{transform:rotate(180deg);}
+#app .hub-syllabus-chapters{padding:0 12px 10px;}
+#app .hub-syllabus-chapters .hub-syllabus-row:last-child{border-bottom:0;}
+@media(max-width:560px){
+ #app .tk-guide{padding:13px 14px!important;margin-inline:0!important;border-radius:13px!important;}
+ #app .tk-guide ol{padding-left:20px!important;}
+ #app .hub-focus-custom{grid-template-columns:minmax(0,1fr);}
+ #app .hub-focus-custom .btn{width:100%;}
+ #app .hub-syllabus-summary{padding:12px 13px;gap:7px;}
+ #app .hub-syllabus-count{font-size:10px;}
+}

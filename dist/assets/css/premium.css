@@ -2900,3 +2900,98 @@ footer.site-footer.pf{margin-top:clamp(24px,4vw,46px)!important;padding-top:clam
   #app .about-grid>.about-card:not(.student-review-card)::before{animation:none!important}
   #app .about-grid>.about-card:not(.student-review-card),#app .about-grid>.about-card .about-icon,#app .about-legal{transition:none!important}
 }
+
+/* Desktop About page: pair the feedback and review forms instead of letting
+   the review card span the entire content column. Keep smaller screens stacked. */
+@media (min-width: 900px) {
+  #app .about-grid > .creator-team-section {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+    max-width: 820px;
+  }
+
+  #app .about-grid > #feedback {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  #app .about-grid > .student-review-card {
+    grid-column: 2;
+    grid-row: auto;
+    align-content: start;
+    gap: 10px !important;
+    padding: 17px !important;
+  }
+
+  #app .student-review-card > .student-review-icon {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+    font-size: 18px;
+  }
+
+  #app .student-review-heading {
+    gap: 9px;
+  }
+
+  #app .student-review-heading h2 {
+    font-size: 20px !important;
+  }
+
+  #app .student-review-heading p {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  #app .student-review-orbit {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    border-radius: 12px;
+    font-size: 18px;
+  }
+
+  #app .review-rating-block {
+    gap: 3px;
+    padding: 9px 11px;
+  }
+
+  #app .review-star-picker {
+    gap: 2px;
+  }
+
+  #app .review-star-picker button {
+    width: 34px;
+    height: 34px;
+    font-size: 25px;
+  }
+
+  #app .student-review-form {
+    gap: 5px;
+  }
+
+  #app .student-review-form input:not([type="hidden"]),
+  #app .student-review-form textarea {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  #app .student-review-form textarea {
+    min-height: 82px;
+  }
+
+  #app .student-review-submit {
+    min-height: 39px;
+    padding: 9px 14px !important;
+    font-size: 12px;
+  }
+}
+
+
+/* v11.3: clear superscript typography and the expanded subject/chapter planner form */
+#app .hub-launch-icon sup,.launch-tool-icon sup{font-size:.58em;line-height:0;vertical-align:super;position:relative;}
+@media(min-width:700px){#app .hub-plan-form-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}}
+#app .hub-plan-form-grid .hub-field-wide{grid-column:span 2;}
+@media(max-width:699px){#app .hub-plan-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}#app .hub-plan-form-grid .hub-field-wide{grid-column:1/-1!important;}}
+@media(max-width:380px){#app .hub-plan-form-grid{grid-template-columns:minmax(0,1fr)!important;}#app .hub-plan-form-grid .hub-field-wide{grid-column:auto!important;}}

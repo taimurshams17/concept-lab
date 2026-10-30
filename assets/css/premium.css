@@ -2987,3 +2987,11 @@ footer.site-footer.pf{margin-top:clamp(24px,4vw,46px)!important;padding-top:clam
     font-size: 12px;
   }
 }
+
+
+/* v11.3: clear superscript typography and the expanded subject/chapter planner form */
+#app .hub-launch-icon sup,.launch-tool-icon sup{font-size:.58em;line-height:0;vertical-align:super;position:relative;}
+@media(min-width:700px){#app .hub-plan-form-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}}
+#app .hub-plan-form-grid .hub-field-wide{grid-column:span 2;}
+@media(max-width:699px){#app .hub-plan-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}#app .hub-plan-form-grid .hub-field-wide{grid-column:1/-1!important;}}
+@media(max-width:380px){#app .hub-plan-form-grid{grid-template-columns:minmax(0,1fr)!important;}#app .hub-plan-form-grid .hub-field-wide{grid-column:auto!important;}}
