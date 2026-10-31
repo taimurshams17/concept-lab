@@ -2995,3 +2995,133 @@ footer.site-footer.pf{margin-top:clamp(24px,4vw,46px)!important;padding-top:clam
 #app .hub-plan-form-grid .hub-field-wide{grid-column:span 2;}
 @media(max-width:699px){#app .hub-plan-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}#app .hub-plan-form-grid .hub-field-wide{grid-column:1/-1!important;}}
 @media(max-width:380px){#app .hub-plan-form-grid{grid-template-columns:minmax(0,1fr)!important;}#app .hub-plan-form-grid .hub-field-wide{grid-column:auto!important;}}
+
+/* v11.7 — readable desktop Student Hub planners, clearer Home section rhythm. */
+@media (min-width: 761px) {
+  #app .hub-week-grid { grid-template-columns:repeat(4,minmax(0,1fr))!important; gap:12px!important; }
+  #app .hub-week-day { padding:15px!important; border-radius:15px!important; min-height:190px; }
+  #app .hub-week-day-head { grid-template-columns:30px minmax(0,1fr)!important; gap:9px!important; padding-bottom:10px!important; }
+  #app .hub-week-day-icon { width:29px!important; height:29px!important; font-size:15px!important; }
+  #app .hub-week-day-head b { font-size:14px!important; line-height:1.4!important; }
+  #app .hub-week-day-head small { font-size:11px!important; }
+  #app .hub-week-day-count { font-size:11px!important; }
+  #app .hub-week-day-list { gap:9px!important; padding-top:10px!important; }
+  #app .hub-week-empty { padding:18px 6px!important; font-size:12px!important; }
+  #app .hub-week-task { grid-template-columns:21px minmax(0,1fr)!important; gap:9px!important; padding:10px!important; border-radius:11px!important; }
+  #app .hub-week-task .hub-check { width:21px!important; height:21px!important; min-width:21px!important; font-size:13px!important; }
+  #app .hub-week-task-copy>b { font-size:13px!important; line-height:1.5!important; }
+  #app .hub-week-task-meta { font-size:10px!important; gap:6px!important; }
+  #app .hub-week-task-actions { gap:6px!important; }
+  #app .hub-week-add-day { margin-top:10px!important; padding:9px 7px!important; font-size:11px!important; }
+  #app .hub-week-footnote { font-size:12px!important; }
+  #app .hub-week-title-row h2,#app .hub-plan-heading h2 { font-size:32px!important; }
+  #app .hub-week-title-row p,#app .hub-plan-heading p { font-size:15px!important; line-height:1.7!important; }
+  #app .hub-week-stats small,#app .hub-plan-summary small { font-size:12px!important; }
+  #app .hub-week-stats b,#app .hub-plan-summary b { font-size:22px!important; }
+  #app .hub-week-settings label { font-size:13px!important; }
+  #app .hub-week-settings p { font-size:12px!important; }
+  #app .hub-week-form-grid label,#app .hub-plan-form-grid label { font-size:13px!important; gap:7px!important; }
+  #app .hub-week-form-grid .hub-in,#app .hub-plan-form-grid .hub-in { height:48px!important; min-height:48px!important; max-height:48px!important; padding:10px 12px!important; font-size:14px!important; }
+  #app .hub-week-create,#app .hub-plan-add { min-height:48px!important; font-size:14px!important; }
+  #app .hub-plan-form h3,#app .hub-plan-list-head h3 { font-size:19px!important; }
+  #app .hub-plan-list-head p { font-size:13px!important; }
+  #app .hub-plan-row { padding:15px!important; gap:12px!important; }
+  #app .hub-plan-row>.hub-check { width:28px!important; height:28px!important; min-width:28px!important; }
+  #app .hub-plan-content-main .hub-t { font-size:15px!important; line-height:1.55!important; }
+  #app .hub-plan-meta { font-size:12px!important; gap:8px!important; }
+  #app .hub-plan-actions .btn { min-height:36px!important; padding:8px 11px!important; font-size:12px!important; }
+  #app .hub-plan-filters button { padding:8px 12px!important; font-size:12px!important; }
+  #app .hub-plan-empty>b { font-size:15px!important; }
+  #app .hub-plan-empty>p { font-size:13px!important; }
+  #app .hub-week-calendar-head h3 { font-size:25px!important; }
+}
+
+@media (max-width: 760px) {
+  #app .hub-week-title-row h2,#app .hub-plan-heading h2 { font-size:25px!important; }
+  #app .hub-week-title-row p,#app .hub-plan-heading p { font-size:13px!important; line-height:1.65!important; }
+  #app .hub-week-stats small,#app .hub-plan-summary small { font-size:11px!important; }
+  #app .hub-week-stats b,#app .hub-plan-summary b { font-size:19px!important; }
+  #app .hub-week-day { padding:12px!important; }
+  #app .hub-week-day-head b { font-size:13px!important; }
+  #app .hub-week-day-head small { font-size:11px!important; }
+  #app .hub-week-day-count { font-size:10px!important; }
+  #app .hub-week-task { grid-template-columns:20px minmax(0,1fr)!important; gap:8px!important; padding:9px!important; }
+  #app .hub-week-task .hub-check { width:20px!important; height:20px!important; min-width:20px!important; }
+  #app .hub-week-task-copy>b { font-size:13px!important; line-height:1.5!important; }
+  #app .hub-week-task-meta { font-size:10px!important; }
+  #app .hub-week-add-day { font-size:11px!important; padding:9px 6px!important; }
+  #app .hub-week-empty { font-size:11px!important; }
+  #app .hub-week-form-grid label,#app .hub-plan-form-grid label { font-size:12px!important; }
+  #app .hub-week-form-grid .hub-in,#app .hub-plan-form-grid .hub-in { height:44px!important; min-height:44px!important; max-height:44px!important; font-size:14px!important; padding:9px 10px!important; }
+  #app .hub-week-create,#app .hub-plan-add { min-height:44px!important; font-size:13px!important; }
+  #app .hub-plan-form h3,#app .hub-plan-list-head h3 { font-size:17px!important; }
+  #app .hub-plan-list-head p { font-size:12px!important; }
+  #app .hub-plan-content-main .hub-t { font-size:14px!important; line-height:1.5!important; }
+  #app .hub-plan-meta { font-size:11px!important; }
+  #app .hub-plan-row { padding:11px!important; }
+  #app .hub-plan-empty>b { font-size:14px!important; }
+  #app .hub-plan-empty>p { font-size:12px!important; }
+}
+@media (max-width: 430px) {
+  #app .hub-week-grid { grid-template-columns:minmax(0,1fr)!important; gap:10px!important; }
+  #app .hub-week-day { min-height:0!important; padding:13px!important; }
+  #app .hub-week-task-copy>b { font-size:14px!important; }
+  #app .hub-week-task-meta { font-size:11px!important; }
+  #app .hub-plan-form-grid { grid-template-columns:minmax(0,1fr)!important; }
+  #app .hub-plan-form-grid .hub-field-wide { grid-column:auto!important; }
+}
+
+/* Restore the missing Goals and Score views with legible editing controls. */
+#app .hub-goal-form h3,#app .hub-score-form h3,#app .hub-score-history h3 { font-size:19px!important; }
+#app .hub-goals-hero h2,#app .hub-score-hero h2 { font-size:clamp(27px,2.8vw,34px)!important; }
+#app .hub-goals-hero>p,#app .hub-score-hero>p { font-size:14px!important; line-height:1.7!important; }
+#app .hub-goal-mini-stats small { font-size:11px!important; }
+#app .hub-goal-mini-stats b { font-size:21px!important; }
+#app .hub-goal-form-row label,#app .hub-score-form-grid label { font-size:13px!important; }
+#app .hub-goal-form-row .hub-in,#app .hub-score-form-grid .hub-in { height:46px!important; min-height:46px!important; max-height:46px!important; font-size:14px!important; padding:9px 12px!important; }
+#app .hub-goal-form-row .btn,#app .hub-score-form-grid .btn { min-height:46px!important; font-size:13px!important; }
+#app .hub-goal-card { padding:16px!important; }
+#app .hub-goal-main h3 { font-size:15px!important; }
+#app .hub-goal-main>small { font-size:11px!important; }
+#app .hub-goal-footer>b { font-size:12px!important; }
+#app .hub-score-stats small { font-size:11px!important; }
+#app .hub-score-stats b { font-size:22px!important; }
+#app .hub-score-row-copy>b { font-size:14px!important; }
+#app .hub-score-row-copy>small { font-size:11px!important; }
+#app .hub-score-pct { font-size:15px!important; }
+#app .hub-goal-edit-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:0; }
+#app .hub-goal-edit-grid label { display:flex;flex-direction:column;gap:5px;color:#91aabe;font-size:12px;font-weight:700;min-width:0; }
+#app .hub-goal-edit-grid .hub-in { box-sizing:border-box;width:100%;min-width:0;height:42px;min-height:42px;padding:8px 10px;border:1px solid rgba(125,180,215,.18);border-radius:9px;background:rgba(1,7,14,.72);color:#e9f6ff;font-size:13px; }
+#app .hub-goal-edit-actions { grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap; }
+#app .hub-goal-progress-actions { align-items:center;flex-wrap:wrap; }
+#app .hub-score-form-grid { grid-template-columns:repeat(3,minmax(0,1fr))!important; }
+#app .hub-score-history-head { align-items:center; }
+#app .hub-score-history-head h3 { margin:0!important; }
+#app .hub-score-row-copy .hub-goal-progress { width:100%; }
+@media(max-width:760px) {
+  #app .hub-goals-hero h2,#app .hub-score-hero h2 { font-size:24px!important; }
+  #app .hub-goals-hero>p,#app .hub-score-hero>p { font-size:13px!important; }
+  #app .hub-goal-mini-stats small,#app .hub-score-stats small { font-size:10px!important; }
+  #app .hub-goal-form-row { grid-template-columns:minmax(0,1fr)!important; }
+  #app .hub-score-form-grid { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+  #app .hub-score-row-copy>b { font-size:13px!important; }
+  #app .hub-score-row-copy>small { font-size:10px!important; }
+  #app .hub-goal-card { padding:13px!important; }
+  #app .hub-goal-edit-grid { grid-template-columns:minmax(0,1fr)!important; }
+}
+@media(max-width:380px) {
+  #app .hub-score-form-grid { grid-template-columns:minmax(0,1fr)!important; }
+  #app .hub-score-stats { grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+  #app .hub-score-row { grid-template-columns:29px minmax(0,1fr) auto!important; }
+  #app .hub-score-row>.hub-icon-btn { grid-column:3;grid-row:2; }
+}
+
+/* A little more air between the requested Home sections on wider screens. */
+@media (min-width: 900px) {
+  #app[data-page="home"] .home-lab,
+  #app[data-page="home"] .arcade-s { margin-top:clamp(38px,4vw,54px)!important; margin-bottom:clamp(38px,4vw,54px)!important; }
+  #app[data-page="home"] .pm-mid,
+  #app[data-page="home"] .feature-premium-section { margin-block:12px!important; }
+  #app[data-page="home"] > section.goals { margin-bottom:24px!important; }
+  #app[data-page="home"] .stage-premium-section { margin-top:10px!important; }
+}

@@ -195,36 +195,47 @@
   var ac = null, node = null, gainNode = null, playing = '';
   function stopSound() { try { if (node) { node.stop(); node.disconnect(); } if (ac) ac.close(); } catch (e) { } ac = node = gainNode = null; playing = ''; var b = document.querySelectorAll('[data-snd]'); Array.prototype.forEach.call(b, function (x) { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); }); }
   function makeRainBuffer(context) {
-    /* A soft pink-noise rain bed with many tiny, irregular water-drop transients. */
-    var seconds = 10, rate = context.sampleRate, len = rate * seconds, buffer = context.createBuffer(2, len, rate);
+    /* Soft, continuous rainfall with non-tonal, irregular droplets. */
+    var seconds = 14, rate = context.sampleRate, len = rate * seconds, buffer = context.createBuffer(2, len, rate);
     for (var channel = 0; channel < 2; channel++) {
       var data = buffer.getChannelData(channel), b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      var phase = Math.random() * Math.PI * 2, pan = channel === 0 ? 0.96 : 1.04;
       for (var i = 0; i < len; i++) {
         var white = Math.random() * 2 - 1;
         b0 = .99886 * b0 + white * .0555179; b1 = .99332 * b1 + white * .0750759; b2 = .969 * b2 + white * .153852;
         b3 = .8665 * b3 + white * .3104856; b4 = .55 * b4 + white * .5329522; b5 = -.7616 * b5 - white * .016898;
         var pink = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * .5362) * .11; b6 = white * .115926;
-        data[i] = pink + white * .012;
+        var time = i / rate;
+        var wash = .88 + .07 * Math.sin(2 * Math.PI * time / 9.5 + phase) + .035 * Math.sin(2 * Math.PI * time / 4.3 + phase * .7);
+        data[i] = (pink * .42 + white * .009) * wash * pan;
       }
-      /* Frequent light droplets create a natural, soft patter rather than a harsh hiss. */
-      var drops = 520;
+      /* Random short noise bursts give a light patter without the artificial pitched chirps. */
+      var drops = 610;
       for (var drop = 0; drop < drops; drop++) {
-        var start = Math.floor(Math.random() * (len - rate * .09)), duration = .018 + Math.random() * .065;
-        var count = Math.min(Math.floor(duration * rate), len - start), frequency = 850 + Math.random() * 3300;
-        var amplitude = .018 + Math.random() * .045, phase = Math.random() * Math.PI * 2, panBias = channel === 0 ? .93 : 1.07;
-        for (var j = 0; j < count; j++) {
-          var t = j / count, envelope = Math.pow(1 - t, 2.8) * Math.sin(Math.PI * Math.min(1, t * 1.7));
-          var shimmer = Math.sin(2 * Math.PI * frequency * j / rate + phase + Math.sin(t * 8) * .35);
-          data[start + j] += shimmer * amplitude * envelope * panBias;
+        var at = Math.floor(Math.random() * (len - rate * .045));
+        var span = Math.max(8, Math.floor((.004 + Math.random() * .025) * rate));
+        var level = (.018 + Math.random() * .045) * (Math.random() < .09 ? 1.7 : 1);
+        for (var j = 0; j < span && at + j < len; j++) {
+          var u = j / span, envelope = Math.pow(1 - u, 3.2) * Math.sin(Math.PI * Math.min(1, u * 1.35));
+          data[at + j] += (Math.random() * 2 - 1) * level * envelope * pan;
         }
       }
-      /* A few deeper, softer splashes add distance and variation. */
-      for (var splash = 0; splash < 24; splash++) {
-        var at = Math.floor(Math.random() * (len - rate * .16)), span = Math.floor((.055 + Math.random() * .09) * rate), hz = 420 + Math.random() * 1050, level = .025 + Math.random() * .035, ph = Math.random() * 6.28;
-        for (var k = 0; k < span && at + k < len; k++) {
-          var u = k / span, env = Math.pow(1 - u, 2) * Math.sin(Math.PI * u);
-          data[at + k] += Math.sin(2 * Math.PI * hz * k / rate + ph) * level * env;
+      /* A few wider, very quiet splashes add depth to the background. */
+      for (var splash = 0; splash < 32; splash++) {
+        var splashAt = Math.floor(Math.random() * (len - rate * .11));
+        var splashSpan = Math.floor((.035 + Math.random() * .07) * rate);
+        var splashLevel = .012 + Math.random() * .022;
+        for (var k = 0; k < splashSpan && splashAt + k < len; k++) {
+          var q = k / splashSpan, splashEnv = Math.pow(1 - q, 2.4) * Math.sin(Math.PI * q);
+          data[splashAt + k] += (Math.random() * 2 - 1) * splashLevel * splashEnv * pan;
         }
+      }
+      /* A brief edge fade avoids an abrupt click when the ambience loops. */
+      var edge = Math.floor(rate * .045);
+      for (var e = 0; e < edge; e++) {
+        var fade = e / edge;
+        data[e] *= fade;
+        data[len - 1 - e] *= fade;
       }
     }
     return buffer;
@@ -246,10 +257,11 @@
     }
     node = ac.createBufferSource(); node.buffer = buf; node.loop = true;
     var last2 = node;
-    if (kind === 'rain') { var hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 330; hp.Q.value = .55; var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 6100; lp.Q.value = .55; last2.connect(hp); hp.connect(lp); last2 = lp; }
-    gainNode = ac.createGain(); gainNode.gain.value = (parseFloat((document.getElementById('tk-vol') || {}).value) || 32) / 100 * .6;
+    if (kind === 'rain') { var hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 155; hp.Q.value = .38; var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4650; lp.Q.value = .42; last2.connect(hp); hp.connect(lp); last2 = lp; }
+    if (kind === 'ocean') { var ohp = ac.createBiquadFilter(); ohp.type = 'highpass'; ohp.frequency.value = 45; ohp.Q.value = .45; var olp = ac.createBiquadFilter(); olp.type = 'lowpass'; olp.frequency.value = 1050; olp.Q.value = .55; last2.connect(ohp); ohp.connect(olp); last2 = olp; }
+    gainNode = ac.createGain(); gainNode.gain.value = (parseFloat((document.getElementById('tk-vol') || {}).value) || 32) / 100 * .52;
     last2.connect(gainNode); gainNode.connect(ac.destination);
-    if (kind === 'ocean') { var lfo = ac.createOscillator(), lg = ac.createGain(); lfo.frequency.value = .09; lg.gain.value = .25; lfo.connect(lg); lg.connect(gainNode.gain); lfo.start(); }
+    if (kind === 'ocean') { var lfo = ac.createOscillator(), lg = ac.createGain(); lfo.frequency.value = .075; lg.gain.value = .075; lfo.connect(lg); lg.connect(gainNode.gain); lfo.start(); }
     node.start(); if (ac.state === 'suspended') ac.resume(); playing = kind; return true;
   }
   function soundForm() {
