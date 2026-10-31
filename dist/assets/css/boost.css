@@ -246,3 +246,75 @@ body.px-calm .cl-rip { display: none; }
   #app .play-detail-page #gm .physics-sprint-game .ps-answer-row>.ps-answer-button{width:100%!important;flex-basis:auto!important}
   #app .play-detail-page #gm .physics-sprint-game .ps-answer-row kbd{display:grid!important}
 }
+
+
+/* ============ v19: intro soundtrack in Settings + clean mobile sound controls ============ */
+#app .px-settings-page .sfx-vol{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(120px,220px)!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-width:0!important;
+}
+#app .px-settings-page .sfx-vol .sfx-vol-copy{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  min-width:0!important;
+  padding:0!important;
+}
+#app .px-settings-page .sfx-vol .sfx-vol-copy b{
+  display:block!important;
+  flex:0 1 auto!important;
+  min-width:0!important;
+  white-space:nowrap!important;
+  line-height:1.4!important;
+}
+#app .px-settings-page .sfx-vol .sfx-vol-copy small{
+  display:block!important;
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+  margin:0!important;
+  line-height:1.4!important;
+}
+#app .px-settings-page .sfx-vol input[type="range"]{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  accent-color:var(--p,#38bdf8)!important;
+}
+#app .px-settings-page .sfx-intro-switch{margin-top:2px!important;}
+#app .px-settings-page .sfx-intro-preview{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:9px 12px!important;
+  min-width:0!important;
+  padding:11px 13px!important;
+  border:1px solid rgba(125,211,252,.14)!important;
+  border-radius:13px!important;
+  background:rgba(4,12,20,.52)!important;
+}
+#app .px-settings-page .sfx-intro-preview .sfx-prev-btn{min-height:36px!important;height:auto!important;padding:8px 13px!important;}
+#app .px-settings-page .sfx-intro-preview small{display:block!important;min-width:0!important;color:#89a7bc!important;font-size:11px!important;line-height:1.4!important;overflow-wrap:anywhere!important;}
+#app .px-settings-page .sfx-prev-row{align-items:flex-start!important;}
+#app .px-settings-page .sfx-prev-row>div{flex:1 1 100%!important;min-width:0!important;}
+#app .px-settings-page .sfx-prev-btn{min-height:32px!important;height:auto!important;padding:7px 11px!important;line-height:1.2!important;}
+@media(max-width:560px){
+  #app .px-settings-page .sfx-vol{grid-template-columns:minmax(0,1fr)!important;gap:8px!important;padding:12px 13px!important;}
+  #app .px-settings-page .sfx-vol .sfx-vol-copy{width:100%!important;justify-content:space-between!important;gap:12px!important;}
+  #app .px-settings-page .sfx-vol input[type="range"]{grid-column:1;width:100%!important;max-width:none!important;}
+  #app .px-settings-page .sfx-intro-preview{align-items:flex-start!important;flex-direction:column!important;}
+  #app .px-settings-page .sfx-intro-preview .sfx-prev-btn{width:100%!important;justify-content:center!important;}
+  #app .px-settings-page .sfx-prev-row>div{gap:7px!important;}
+}
+@media(max-width:360px){
+  #app .px-settings-page .sfx-vol .sfx-vol-copy b{font-size:12px!important;}
+  #app .px-settings-page .sfx-vol .sfx-vol-copy small{font-size:11px!important;}
+  #app .px-settings-page .sfx-prev-btn{font-size:11px!important;padding:7px 9px!important;}
+}

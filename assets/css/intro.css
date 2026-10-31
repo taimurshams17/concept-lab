@@ -94,12 +94,3 @@ html.intro-on,html.intro-on body{overflow:hidden!important;height:100%}
 }
 
 
-/* First-use audio unlock: browsers may block background autoplay until a user gesture. */
-.in-sound{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;margin-top:13px;padding:8px 14px;border:1px solid rgba(125,211,252,.3);border-radius:999px;background:rgba(9,28,43,.68);color:#b9e8ff;font:700 10px/1.3 Manrope,Inter,system-ui,sans-serif;letter-spacing:.045em;cursor:pointer;opacity:0;transform:translateY(7px);animation:inUp .85s ease 2.65s forwards;transition:background .18s,border-color .18s,color .18s,transform .18s;}
-.in-sound svg{flex:0 0 16px;}
-.in-sound:hover,.in-sound:focus-visible{background:rgba(32,102,143,.4);border-color:rgba(125,211,252,.65);color:#fff;outline:2px solid rgba(125,211,252,.32);outline-offset:3px;}
-.in-sound:active{transform:scale(.97);}
-.in-sound.is-on{border-color:rgba(112,231,199,.4);color:#a8f3df;background:rgba(15,65,60,.38);}
-.in-sound:disabled{opacity:.72;cursor:default;}
-@media(max-height:600px){.in-sound{margin-top:8px;min-height:34px;padding:6px 12px;}}
-@media(prefers-reduced-motion:reduce){.in-sound{opacity:1;transform:none;animation:none;}}
