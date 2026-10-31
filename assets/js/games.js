@@ -37,14 +37,14 @@ G.logicCircuit=function(r,g,A){var E=A.E,levels=[
 G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
  if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
  if(pool.length<2)return empty(r,'এই গেমের প্রশ্ন এখনো প্রস্তুত নয়। অন্য একটি গেম বেছে নিন।');
- var T=+d.time||60,targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[];
+ var T=+d.time||60,targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[],lastCountdown=-1;
  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';
  function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}
  function nxt(){if(over)return;if(targetRounds&&asked>=targetRounds)return end();if(!order.length)order=sh(pool.slice());cur=order.pop();asked++;var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');lock=false}
  qa(r,'#qa').onclick=function(e){var b=e.target.closest('.opt');if(!b||lock||over)return;lock=true;var ok=b.dataset.ok=='1';
   if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<12)missed.push({q:cur.q,a:cur.o[cur.a],yourAnswer:b.textContent,e:cur.e});if(cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}}
   h();if(lives<=0)return setTimeout(end,cur.e&&!ok?1800:800);setTimeout(nxt,ok?320:(cur.e?1900:950))};
- A.every(r,150,function(){var left=T-(performance.now()-t0)/1000;qa(r,'#tm').textContent=Math.max(0,Math.ceil(left));qa(r,'#tb').style.width=Math.max(0,left/T*100)+'%';if(left<=0)end()});
+ A.every(r,150,function(){var left=T-(performance.now()-t0)/1000,seconds=Math.max(0,Math.ceil(left));qa(r,'#tm').textContent=seconds;qa(r,'#tb').style.width=Math.max(0,left/T*100)+'%';if(seconds<=5&&seconds>0&&seconds!==lastCountdown){lastCountdown=seconds;if(window.SFX)window.SFX.play('countdown',seconds)}if(left<=0)end()});
  function end(){if(over)return;over=true;A.done({score:score,pct:targetRounds?Math.min(1,correct/targetRounds):Math.min(1,score/200),detail:correct+' correct'+(targetRounds?' / '+targetRounds+' questions':''),review:missed})}
  h();nxt()};
 
@@ -60,19 +60,64 @@ G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(f
   else{if(missed.length<12){var ca=cards[first],cb=cards[i],mate=cards.find(function(c){return c.id===ca.id&&c!==ca});missed.push({q:'মিল খুঁজুন: '+ca.t+' ↔ '+cb.t,a:ca.t+' ↔ '+(mate?mate.t:ca.t),yourAnswer:ca.t+' ↔ '+cb.t,e:'দুটি কার্ড একই ধারণা/সূত্রের জোড়া নয়। ধারণা ও সংজ্ঞা মিলিয়ে আবার চেষ্টা করো।'})}lock=true;setTimeout(function(){a.classList.remove('on');b.classList.remove('on');first=-1;lock=false},850)}}};
 
 /* ================= True or False ================= */
-G.tf=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});if(items.length<2)return empty(r,'এই গেমে এখনো কোনো বিবৃতি যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
+G.tf=function(r,g,A){
+ var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});
+ if(items.length<2)return empty(r,'এই গেমে এখনো কোনো বিবৃতি যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
+ var sprint=String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint';
  var list=sh(items.slice()).slice(0,10),i=0,lives=3,score=0,combo=0,right=0,lock=false,over=false,missed=[];
- r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],['Card','pg','']])+'<div class="card tfc" id="tc"></div>';
+ if(sprint){
+  r.classList.add('physics-sprint-game');
+  r.innerHTML='<div class="ps-sprint-shell">'+
+   '<div class="ps-sprint-hud">'+
+    '<div class="ps-stat ps-score"><small>SCORE</small><b id="sc">0</b><span>points</span></div>'+
+    '<div class="ps-stat"><small>COMBO</small><b id="cb">×1</b><span>streak multiplier</span></div>'+
+    '<div class="ps-stat"><small>LIVES</small><b id="lv"></b><span>keep your focus</span></div>'+
+    '<div class="ps-stat"><small>CARDS</small><b id="pg">1 / '+list.length+'</b><span>concept check</span></div>'+
+   '</div>'+
+   '<div class="ps-progress-wrap"><div class="ps-progress-copy"><span>YOUR PROGRESS</span><b id="psProgressLabel">01 / '+String(list.length).padStart(2,'0')+'</b></div><div class="ps-progress-track"><i id="psProgressFill"></i></div></div>'+
+   '<section class="ps-challenge-card" id="tc"></section>'+
+   '<p class="ps-footer-note"><span aria-hidden="true">✦</span> Take a breath, read carefully, and trust your understanding.</p>'+
+  '</div>';
+ }else{
+  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],['Card','pg','']])+'<div class="card tfc" id="tc"></div>';
+ }
  function isT(it){return it.t===true||String(it.t)==='true'||String(it.t)==='1'}
- function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives);qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length}
- function show(){lock=false;qa(r,'#tc').innerHTML='<p class="bn qt">'+E(list[i].s)+'</p><div class="tfrow"><button class="tfb t" data-v="1">✔ '+E(X('g_true'))+' <small>←</small></button><button class="tfb f" data-v="0">✘ '+E(X('g_false'))+' <small>→</small></button></div><p class="ex" id="ex"></p><div id="nx"></div>';h()}
- function ans(v){if(lock||over)return;lock=true;var it=list[i],ok=(v==isT(it));qq(r,'.tfb').forEach(function(b){var bv=b.dataset.v=='1';b.classList.add(bv==isT(it)?'ok':(bv==v?'no':'dim'))});
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--;if(missed.length<12)missed.push({q:it.s,a:isT(it)?'সত্য':'মিথ্যা',yourAnswer:isT(it)?'মিথ্যা':'সত্য',e:it.e||''})}qa(r,'#ex').innerHTML=(ok?'✔ ':'✘ ')+E(it.e||'');h();
-  if(lives<=0||i>=list.length-1){setTimeout(end,1400)}else{qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+E(X('g_next'))+'</button>';qa(r,'#nb').onclick=nx}}
+ function h(){
+  qa(r,'#sc').textContent=score;qa(r,'#cb').textContent=sprint?'×'+Math.min(4,1+Math.floor(combo/3)):'x'+Math.min(4,1+Math.floor(combo/3));
+  qa(r,'#lv').innerHTML=hearts(lives);qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length;
+  if(sprint){var pct=Math.round(((i+1)/list.length)*100),fill=qa(r,'#psProgressFill'),label=qa(r,'#psProgressLabel');if(fill)fill.style.width=pct+'%';if(label)label.textContent=String(i+1).padStart(2,'0')+' / '+String(list.length).padStart(2,'0')}
+ }
+ function show(){
+  lock=false;
+  if(sprint){
+   qa(r,'#tc').innerHTML='<div class="ps-card-top"><span class="ps-kicker"><i></i> PHYSICS · CONCEPT CHECK</span><span class="ps-card-number">CARD '+String(i+1).padStart(2,'0')+'</span></div>'+
+    '<div class="ps-question-area"><span class="ps-question-mark" aria-hidden="true">“</span><p class="bn qt ps-question">'+E(list[i].s)+'</p></div>'+
+    '<p class="ps-answer-prompt">Choose the correct statement</p>'+
+    '<div class="ps-answer-row" role="group" aria-label="Choose true or false">'+
+    '<button type="button" class="tfb t ps-answer-button ps-answer-true" data-v="1" aria-label="True"><span class="ps-answer-mark" aria-hidden="true">✓</span><span class="ps-answer-label">'+E(X('g_true')||'True')+'</span><kbd aria-hidden="true">A</kbd></button>'+
+    '<button type="button" class="tfb f ps-answer-button ps-answer-false" data-v="0" aria-label="False"><span class="ps-answer-mark" aria-hidden="true">×</span><span class="ps-answer-label">'+E(X('g_false')||'False')+'</span><kbd aria-hidden="true">B</kbd></button>'+
+    '</div>'+
+    '<div class="ps-feedback-wrap"><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div></div>';
+  }else{
+   qa(r,'#tc').innerHTML='<p class="bn qt">'+E(list[i].s)+'</p><div class="tfrow"><button class="tfb t" data-v="1">✔ '+E(X('g_true'))+' <small>←</small></button><button class="tfb f" data-v="0">✘ '+E(X('g_false'))+' <small>→</small></button></div><p class="ex" id="ex"></p><div id="nx"></div>';
+  }
+  h();
+ }
+ function ans(v){
+  if(lock||over)return;lock=true;var it=list[i],ok=(v==isT(it));
+  qq(r,'.tfb').forEach(function(b){var bv=b.dataset.v=='1';b.classList.add(bv==isT(it)?'ok':(bv==v?'no':'dim'));b.disabled=true});
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--;if(missed.length<12)missed.push({q:it.s,a:isT(it)?'সত্য':'মিথ্যা',yourAnswer:isT(it)?'মিথ্যা':'সত্য',e:it.e||''})}
+  qa(r,'#ex').innerHTML='<span class="ps-result-tag '+(ok?'is-good':'is-bad')+'">'+(ok?'✓ Correct':'↗ Review')+'</span> '+E(it.e||'');h();
+  if(lives<=0||i>=list.length-1){setTimeout(end,1400)}else{
+   qa(r,'#nx').innerHTML='<button type="button" class="btn pri ps-next-btn" id="nb">'+E(X('g_next'))+' <span aria-hidden="true">→</span></button>';qa(r,'#nb').onclick=nx;
+  }
+ }
  function nx(){i++;show()}
  function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct',review:missed})}
  r.onclick=function(e){var b=e.target.closest('.tfb');if(b)ans(b.dataset.v=='1')};
- keyhandler(r,function(e){if(e.key=='ArrowLeft')ans(true);else if(e.key=='ArrowRight')ans(false);else if((e.key=='Enter'||e.key==' ')&&lock){var nb=qa(r,'#nb');if(nb){e.preventDefault();nb.click()}}});show()};
+ keyhandler(r,function(e){if(e.key==='ArrowLeft'||(sprint&&(e.key==='a'||e.key==='A')))ans(true);else if(e.key==='ArrowRight'||(sprint&&(e.key==='b'||e.key==='B')))ans(false);else if((e.key==='Enter'||e.key===' ')&&lock){var nb=qa(r,'#nb');if(nb){e.preventDefault();nb.click()}}});
+ show();
+};
 
 /* ================= Word Scramble ================= */
 G.scramble=function(r,g,A){var X=A.X,E=A.E,words=((g.data||{}).words||[]).filter(function(w){return w&&w.w&&w.w.trim().length>=3});if(!words.length)return empty(r,'এই গেমে এখনো কোনো শব্দ যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');

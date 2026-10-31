@@ -1,9 +1,9 @@
 /* ConceptLab service worker — network-first so updates always win; cache is only an offline fallback.
    Never caches /api/ or /admin/ routes (including API responses). */
-const VERSION = 'conceptlab-20261031-v11-7-fixed';
-const SHELL = ['./', 'index.html', 'assets/css/intro.css?v=20261030-intro-3', 'assets/js/intro.js?v=20261030-intro-3', 'assets/css/main.css?v=20261030-scroll-performance-1', 'assets/css/mono-icons.css?v=20261030-mobile-control-fix-1', 'assets/css/premium.css?v=20261031-v11-7-fixed',
+const VERSION = 'conceptlab-20261101-v17-sprint-false-visible';
+const SHELL = ['./', 'index.html', 'assets/css/intro.css?v=20261031-v15-audio-control', 'assets/js/intro.js?v=20261031-v15-audio-fix', 'assets/audio/intro-cinematic.mp3', 'assets/css/main.css?v=20261030-scroll-performance-1', 'assets/css/mono-icons.css?v=20261030-mobile-control-fix-1', 'assets/css/premium.css?v=20261031-v11-7-fixed',
   'assets/js/texts.js', 'assets/js/defaults.js', 'assets/js/fx.js?v=20261030-scroll-performance-1', 'assets/js/sims.js', 'assets/js/topic-sims.js', 'assets/js/additional-sims.js', 'assets/js/physics-labs.js', 'assets/js/graphs.js', 'assets/js/shortcuts.js',
-  'assets/js/games.js', 'assets/js/game-academy.js', 'assets/js/ayat-hadith.js', 'assets/js/casio991.js', 'assets/js/hub.js?v=20261031-v11-7-fixed', 'assets/js/premium.js', 'assets/js/studio.js?v=20261031-v11-7-fixed', 'assets/css/studio.css?v=20261031-v11-6-layout', 'assets/js/app.js?v=20261031-v11-6-layout', 'assets/js/mono-icons.js',
+  'assets/js/games.js?v=20261101-v17-sprint-answer-controls', 'assets/js/game-academy.js', 'assets/js/ayat-hadith.js', 'assets/js/casio991.js', 'assets/js/hub.js?v=20261031-v14-student-hub', 'assets/js/premium.js?v=20261031-v13-premium-arcade', 'assets/js/studio.js?v=20261031-v11-7-fixed', 'assets/css/studio.css?v=20261031-v11-6-layout', 'assets/css/boost.css?v=20261101-v17-sprint-desktop-false-visible', 'assets/js/app.js?v=20261031-v13-premium-arcade', 'assets/js/sfx.js?v=20261031-v16-soft-bell-audio', 'assets/js/mono-icons.js',
   'assets/images/conceptlab-main-logo.webp', 'assets/images/tiger-real.webp', 'assets/images/deer-real.webp', 'assets/images/creator-taimur.webp', 'assets/images/creator-moshiur.webp', 'manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {

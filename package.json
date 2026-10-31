@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build-static.js",
     "check": "node scripts/check-syntax.js",
-    "dev": "npx netlify-cli dev"
+    "dev": "npx netlify-cli dev",
+    "check:games": "node scripts/check-games.js"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0"

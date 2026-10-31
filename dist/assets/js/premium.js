@@ -483,6 +483,7 @@
       '<div class="px-switch"><div><b>Animated background</b><small>Stars and horizon glow</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="fx" aria-checked="' + (!!p.fx) + '" aria-label="Animated background"></button></div>' +
       '<div class="px-switch"><div><b>Calm mode</b><small>Reduces animation and transitions</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="calm" aria-checked="' + (!!p.calm) + '" aria-label="Calm mode"></button></div>' +
       '<div class="px-switch"><div><b>Higher contrast</b><small>Stronger text and control borders</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="contrast" aria-checked="' + (!!p.contrast) + '" aria-label="Higher contrast"></button></div></section>' +
+      (window.SFX && SFX.settingsHtml ? SFX.settingsHtml() : '') +
       '</div>';
   }
   function settingsPage() {
