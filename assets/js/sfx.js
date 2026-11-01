@@ -4,9 +4,30 @@
 window.SFX = (function () {
   'use strict';
   var KEY = 'cl_sfx_v1';
-  var st = { on: true, vol: 0.68, haptics: true };
-  try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && typeof saved === 'object') { if (typeof saved.on === 'boolean') st.on = saved.on; if (typeof saved.haptics === 'boolean') st.haptics = saved.haptics; if (isFinite(saved.vol)) st.vol = Math.max(0, Math.min(1, +saved.vol)); } } catch (e) { }
+  var VOLUME_CEILING = 0.50;
+  var PREVIOUS_DEFAULT_VOLUME = 0.32;
+  var st = { on: true, vol: VOLUME_CEILING, haptics: true };
+  var volumeWasAdjusted = false;
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved && typeof saved === 'object') {
+      if (typeof saved.on === 'boolean') st.on = saved.on;
+      if (typeof saved.haptics === 'boolean') st.haptics = saved.haptics;
+      if (isFinite(saved.vol)) {
+        var previousVolume = +saved.vol;
+        // Upgrade the former 32% default to the newly requested 50% level.
+        if (Math.abs(previousVolume - PREVIOUS_DEFAULT_VOLUME) < 0.001) {
+          st.vol = VOLUME_CEILING;
+          volumeWasAdjusted = true;
+        } else {
+          st.vol = Math.max(0, Math.min(VOLUME_CEILING, previousVolume));
+          volumeWasAdjusted = previousVolume > VOLUME_CEILING;
+        }
+      }
+    }
+  } catch (e) { }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+  if (volumeWasAdjusted) save();
 
   var INTRO_KEY = 'cl_intro_music_v1';
   var introPref = { on: true, vol: 0.28 };
@@ -61,7 +82,7 @@ window.SFX = (function () {
     if (!ctx) {
       try {
         ctx = new AC();
-        master = ctx.createGain(); master.gain.value = st.vol * 1.04;
+        master = ctx.createGain(); master.gain.value = st.vol * 0.85;
         var comp = ctx.createDynamicsCompressor();
         comp.threshold.value = -16; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.2;
         master.connect(comp); comp.connect(ctx.destination);
@@ -162,7 +183,7 @@ window.SFX = (function () {
     st.on = !!v; save(); syncUi();
     if (st.on) { ensure(); setTimeout(function () { play('on'); }, 30); }
   }
-  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = st.vol * 1.04; }
+  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = st.vol * 0.85; }
   function setHaptics(v) { st.haptics = !!v; save(); syncUi(); }
 
   /* ---------- wrap FX helpers (toast / confetti) so XP, badges, level-ups and results get their own sounds ---------- */
