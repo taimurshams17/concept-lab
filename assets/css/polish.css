@@ -171,3 +171,392 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .chapter-tip b{color:var(--cl-gold);font-weight:700}
 
 .chapter-index-card:focus-visible,.hub-launch-tile:focus-visible{outline:2px solid var(--cl-ice);outline-offset:3px}
+
+/* ConceptLab premium refresh · 2026-11 */
+:root{--cl-gold:#e8c477;--cl-gold-bright:#f5d99a;--cl-gold-soft:rgba(232,196,119,.11);--cl-gold-border:rgba(232,196,119,.28);--cl-gold-glow:rgba(232,196,119,.13)}
+body{background-color:#06090f}
+#app .pgw{max-width:1180px}
+#app .card,#app .hubc,#app .tk-card{border-color:rgba(232,196,119,.14);box-shadow:0 14px 38px -28px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.035)}
+#app .btn.pri{background:linear-gradient(135deg,#f4d99d,#c79b4e)!important;color:#17130b!important;border:1px solid rgba(255,235,185,.48)!important;box-shadow:0 8px 24px -14px rgba(232,196,119,.72),inset 0 1px rgba(255,255,255,.4)!important}
+#app .btn.pri:hover{filter:brightness(1.06);box-shadow:0 12px 30px -12px rgba(232,196,119,.4)!important}
+#app :is(.hub-launch-tile,.hub-extra-tools a,.launch-tool,.launch-feature-card,.tk-card,.hub-tool-box){border-color:var(--cl-gold-border)}
+#app .hub-launch-tile{background:linear-gradient(145deg,rgba(232,196,119,.085),rgba(12,16,23,.86) 62%)!important}
+#app .hub-launch-tile:hover,#app .hub-extra-tools a:hover{border-color:rgba(245,217,154,.6)!important;box-shadow:0 20px 44px -24px rgba(232,196,119,.28)!important}
+#app .hub-launch-tile-shortcuts{background:linear-gradient(145deg,rgba(232,196,119,.15),rgba(12,16,23,.9) 68%)!important}
+/* Refined menu links; preserve the existing hamburger dimensions. */
+#nav a{border-radius:10px;transition:background .2s ease,color .2s ease,border-color .2s ease}
+#nav a:hover,#nav a:focus-visible{background:linear-gradient(100deg,rgba(232,196,119,.13),rgba(232,196,119,.035));color:#f5d99a;border-color:rgba(232,196,119,.22)}
+#nav a[aria-current="page"],#nav a.active{color:#f5d99a;background:rgba(232,196,119,.1);box-shadow:inset 2px 0 #e8c477}
+#burger{border-color:rgba(232,196,119,.3);background:linear-gradient(145deg,rgba(232,196,119,.1),rgba(255,255,255,.025));box-shadow:inset 0 1px rgba(255,255,255,.06)}
+#burger i{background:linear-gradient(90deg,#f5d99a,#d7ad60)}
+.nav-backdrop{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+/* Compact subject-wise My Progress chapter list. */
+.progress-subject-group{margin:16px 0 22px;padding:14px 16px 10px;border:1px solid rgba(232,196,119,.17);border-radius:17px;background:linear-gradient(135deg,rgba(232,196,119,.055),rgba(11,15,22,.64) 58%)}
+.progress-subject-group>h3{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 9px;color:#f3d79a;font-size:1rem;letter-spacing:.01em}
+.progress-subject-group>h3 span{font-size:.72rem;font-weight:600;color:#aeb6c3;white-space:nowrap}
+.progress-chapter-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 18px}
+.progress-chapter-row{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(52px,86px) 28px;align-items:center;gap:10px;padding:9px 3px;border-bottom:1px solid rgba(255,255,255,.055);color:#e7eaf0;text-decoration:none;transition:color .18s ease,background .18s ease}
+.progress-chapter-row:hover{color:#f5d99a}
+.progress-chapter-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.88rem;font-weight:550}
+.progress-chapter-meter{height:4px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.09)}
+.progress-chapter-meter i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#b58b42,#f5d99a)}
+.progress-chapter-row small{font-size:.72rem;color:#aeb6c3;text-align:right;font-variant-numeric:tabular-nums}
+/* Base Converter: clear hierarchy, instructions, useful actions. */
+#app .base-select-grid{margin-top:12px}
+#app .base-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px}
+#app .base-presets{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+#app .base-presets>span{font-size:.78rem;color:#b8c0cb;margin-right:3px}
+#app .tk-chip{border:1px solid rgba(232,196,119,.28);background:rgba(232,196,119,.07);color:#f1d79d;border-radius:999px;padding:7px 11px;font-size:.78rem;cursor:pointer;transition:background .2s,border-color .2s}
+#app .tk-chip:hover,#app .tk-chip.on{background:rgba(232,196,119,.16);border-color:rgba(245,217,154,.55)}
+#app .base-result-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 0 10px;color:#e8c477;font-size:.72rem;font-weight:800;letter-spacing:.13em}
+#app .base-main-value{color:#f7dfa6;font-size:1.2em;overflow-wrap:anywhere}
+#app .base-steps{margin-top:12px;padding:12px 14px;border:1px solid rgba(232,196,119,.16);border-radius:12px;background:rgba(232,196,119,.035)}
+#app .base-steps summary{cursor:pointer;color:#f0d79d;font-weight:650}
+#app .base-steps p{line-height:1.65;color:#c2cad4;font-size:.88rem}
+#app .base-steps code{display:block;white-space:normal;overflow-wrap:anywhere;color:#f6e2b4;font-size:.84rem}
+#app .tk-guide{border-color:rgba(232,196,119,.2)}
+#app .tk-guide-title{color:#f0d79d}
+@media(max-width:680px){
+ #app .progress-subject-group{padding:11px 12px 8px;margin:13px 0 17px;border-radius:14px}
+ #app .progress-chapter-list{grid-template-columns:minmax(0,1fr);gap:0}
+ #app .progress-chapter-row{grid-template-columns:minmax(0,1fr) 48px 26px;gap:8px;padding:10px 1px}
+ #app .progress-chapter-name{font-size:.84rem}
+ #app .base-actions{align-items:stretch;flex-direction:column}
+ #app .base-actions>.btn{align-self:flex-start}
+ #app .base-presets{gap:6px}
+ #app .base-presets>span{flex-basis:100%}
+ #app .base-result-head{align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){#nav a,#burger,#app .progress-chapter-row,#app .tk-chip{transition:none!important}}
+
+/* v31 — syllabus-specific progress, gold-filled Student Hub tiles, original homepage accents. */
+/* Keep the three-line drawer clean: no decorative plus/arrow suffixes on its options. */
+#nav.nav-portal .menu-tile-arrow{display:none!important}
+#nav.nav-portal summary::after{content:none!important;display:none!important}
+
+/* My Progress: exact syllabus chapter names, compact subject groups and low-height rows. */
+#app .progress-subject-group{margin:12px 0 15px;padding:11px 13px 7px;border-radius:15px}
+#app .progress-subject-group>h3{margin:0 0 5px;font-size:.94rem;line-height:1.4}
+#app .progress-subject-group>h3 span{display:none!important}
+#app .progress-chapter-list{gap:0 15px}
+#app .progress-chapter-row{grid-template-columns:minmax(0,1fr) 54px 34px;gap:8px;padding:7px 2px}
+#app .progress-chapter-name{font-size:.82rem;line-height:1.35}
+#app .progress-chapter-meter{height:3px}
+#app .progress-chapter-row small{font-size:.68rem}
+@media(max-width:680px){
+ #app .progress-subject-group{margin:10px 0 13px;padding:10px 11px 6px}
+ #app .progress-chapter-list{grid-template-columns:minmax(0,1fr);gap:0}
+ #app .progress-chapter-row{grid-template-columns:minmax(0,1fr) 48px 32px;gap:7px;padding:7px 1px}
+ #app .progress-chapter-name{font-size:.8rem}
+}
+
+/* Student Hub: restore the original cool outer panel and borders; put the gold on each tool face. */
+#app .hub-dashboard .hub-tool-box.card{border-color:var(--line)!important;background:linear-gradient(145deg,rgba(9,24,39,.92),rgba(4,11,20,.96))!important}
+#app .hub-dashboard .hub-launch-tile{
+ border-color:rgba(125,211,252,.16)!important;
+ background:linear-gradient(145deg,rgba(232,196,119,.24),rgba(232,196,119,.13) 55%,rgba(255,255,255,.035))!important;
+ box-shadow:inset 0 1px 0 rgba(255,245,218,.10),0 8px 20px -18px rgba(0,0,0,.9)!important;
+}
+#app .hub-dashboard .hub-launch-tile:hover,#app .hub-dashboard .hub-launch-tile:focus-visible{
+ border-color:rgba(125,211,252,.42)!important;
+ background:linear-gradient(145deg,rgba(232,196,119,.3),rgba(232,196,119,.17) 58%,rgba(255,255,255,.045))!important;
+ box-shadow:inset 0 1px 0 rgba(255,245,218,.14),0 12px 25px -18px rgba(232,196,119,.4)!important;
+}
+#app .hub-dashboard .hub-launch-icon{border-color:rgba(232,196,119,.46)!important;background:linear-gradient(145deg,rgba(245,217,154,.34),rgba(181,139,66,.2))!important;color:#fff2cf!important}
+#app .hub-dashboard .hub-launch-copy b{color:#fff5df!important}
+#app .hub-dashboard .hub-launch-arrow{color:#f1d18c!important}
+#app .hub-dashboard .hub-launch-tile-shortcuts{border-color:rgba(125,211,252,.16)!important;background:linear-gradient(145deg,rgba(232,196,119,.28),rgba(232,196,119,.15) 55%,rgba(255,255,255,.04))!important}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-icon{background:linear-gradient(145deg,rgba(245,217,154,.4),rgba(181,139,66,.24))!important;border-color:rgba(232,196,119,.52)!important}
+#app .hub-tool-page .hub-extra-tools{border-color:var(--line)!important}
+#app .hub-tool-page .hub-extra-grid a{border-color:rgba(125,211,252,.14)!important;background:linear-gradient(145deg,rgba(232,196,119,.2),rgba(232,196,119,.09) 65%,rgba(5,15,25,.8))!important}
+#app .hub-tool-page .hub-extra-grid a>span{background:rgba(232,196,119,.2)!important;color:#fff0c8!important}
+
+/* Homepage: restore the original blue/neutral borders and primary-button treatment. */
+#app[data-page="home"] .home-launchpad .launch-feature-card{border-color:rgba(125,211,252,.14)!important;background:linear-gradient(145deg,rgba(8,24,38,.92),rgba(2,8,14,.9))!important}
+#app[data-page="home"] .home-launchpad .launch-subject-card{border-color:rgba(125,211,252,.14)!important;background:linear-gradient(135deg,rgba(11,24,37,.9),rgba(2,8,13,.94))!important}
+#app[data-page="home"] .home-launchpad .launch-tool{border-color:rgba(125,211,252,.11)!important;background:rgba(255,255,255,.025)!important}
+#app[data-page="home"] .home-launchpad .launch-feature-card:hover{border-color:rgba(125,211,252,.42)!important}
+#app[data-page="home"] .home-launchpad .launch-subject-card:hover{border-color:rgba(125,211,252,.4)!important}
+#app[data-page="home"] .home-launchpad .launch-tool:hover{border-color:rgba(125,211,252,.37)!important;background:rgba(56,189,248,.07)!important}
+#app[data-page="home"] .btn:not(.pri){border-color:color-mix(in srgb,var(--p) 30%,transparent)!important}
+#app[data-page="home"] .btn.pri{background:linear-gradient(130deg,#d5efff 0%,#8edcff 48%,#5eb8e7 100%)!important;border-color:rgba(235,249,255,.66)!important;color:#061522!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.78),0 12px 30px -18px rgba(64,174,230,.55)!important}
+
+/* v32 — refined Student Hub, compact progress, and calmer chapter learning UI. */
+
+/* Student Hub: keep the familiar cool outer tile; use gold as an inset detail, not a gold button face. */
+#app .hub-dashboard .hub-launch-tile,
+#app .hub-tool-page .hub-extra-grid a{
+  position:relative;isolation:isolate;overflow:hidden;
+  border:1px solid rgba(125,211,252,.17)!important;
+  background:linear-gradient(145deg,rgba(13,34,52,.96),rgba(4,12,21,.97) 72%)!important;
+  color:#eaf6ff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 10px 28px -24px rgba(0,0,0,.9)!important;
+}
+#app .hub-dashboard .hub-launch-tile::before,
+#app .hub-tool-page .hub-extra-grid a::before{
+  content:"";position:absolute;z-index:-1;inset:0 14px auto;height:2px;border-radius:0 0 3px 3px;
+  background:linear-gradient(90deg,transparent,rgba(232,196,119,.9),transparent);opacity:.72;
+}
+#app .hub-dashboard .hub-launch-tile:hover,
+#app .hub-dashboard .hub-launch-tile:focus-visible,
+#app .hub-tool-page .hub-extra-grid a:hover{
+  border-color:rgba(125,211,252,.4)!important;
+  background:linear-gradient(145deg,rgba(17,43,65,.98),rgba(5,15,25,.98) 72%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 15px 32px -24px rgba(56,189,248,.46)!important;
+}
+#app .hub-dashboard .hub-launch-icon,
+#app .hub-tool-page .hub-extra-grid a>span{
+  border:1px solid rgba(232,196,119,.38)!important;
+  background:linear-gradient(145deg,rgba(232,196,119,.2),rgba(181,139,66,.12))!important;
+  color:#f5d99a!important;
+  box-shadow:inset 0 1px 0 rgba(255,245,218,.12),0 6px 18px -14px rgba(232,196,119,.45);
+}
+#app .hub-dashboard .hub-launch-copy b{color:#f3e7c9!important}
+#app .hub-dashboard .hub-launch-copy small{color:#a9bfd0!important}
+#app .hub-dashboard .hub-launch-arrow{color:#e8c477!important}
+/* Shortcut Tricks remains the signature tile, but its gold stays restrained and inside the tile. */
+#app .hub-dashboard .hub-launch-tile-shortcuts{
+  border-color:rgba(232,196,119,.32)!important;
+  background:linear-gradient(145deg,rgba(232,196,119,.12),rgba(13,34,52,.95) 66%)!important;
+}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-icon{
+  background:linear-gradient(145deg,rgba(245,217,154,.3),rgba(181,139,66,.16))!important;
+  border-color:rgba(232,196,119,.5)!important;
+}
+#app .hub-tool-page .hub-extra-grid a b{color:#f3e7c9!important}
+#app .hub-tool-page .hub-extra-grid a small{color:#a9bfd0!important}
+
+/* My Progress: reduce vertical bulk and give chapter text a safe inset from each panel edge. */
+#app[data-page="progress"] .lvcard{padding:14px 16px!important;gap:14px}
+#app[data-page="progress"] .lvcard .lring{transform:scale(.88);transform-origin:center}
+#app[data-page="progress"] .stats4{gap:8px!important;margin-top:12px}
+#app[data-page="progress"] .stats4>.card{padding:10px 9px!important;min-height:68px;gap:3px}
+#app[data-page="progress"] .stats4>.card>b{font-size:1.18rem;line-height:1.2}
+#app[data-page="progress"] .stats4>.card>span{font-size:.7rem;line-height:1.35}
+#app[data-page="progress"] .cloudcard{padding:10px 13px!important}
+#app[data-page="progress"] .subh{font-size:1.25rem;margin-top:24px}
+#app[data-page="progress"] .badges{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px;margin-top:12px}
+#app[data-page="progress"] .badges .bdg{min-width:0;padding:11px 9px!important;gap:4px;border-radius:13px}
+#app[data-page="progress"] .badges .bdg .bi{font-size:25px;line-height:1.15}
+#app[data-page="progress"] .badges .bdg>b{font-size:.78rem;line-height:1.3;overflow-wrap:anywhere}
+#app[data-page="progress"] .badges .bdg>small{font-size:.66rem;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#app[data-page="progress"] .badges .bdg>i{font-size:10px}
+#app[data-page="progress"] .progress-subject-group{padding:13px 16px 9px;margin:10px 0 13px}
+#app[data-page="progress"] .progress-subject-group>h3{padding:0 3px 3px}
+#app[data-page="progress"] .progress-chapter-row{padding:8px 9px;gap:9px;border-radius:8px}
+#app[data-page="progress"] .progress-chapter-row:hover{background:rgba(232,196,119,.055)}
+#app[data-page="progress"] .progress-chapter-name{padding-left:1px;overflow-wrap:anywhere}
+#app[data-page="progress"] button[data-reset]{min-height:36px;padding:8px 13px;font-size:.8rem;border-radius:10px}
+@media(max-width:680px){
+  #app[data-page="progress"] .lvcard{padding:12px!important;gap:9px}
+  #app[data-page="progress"] .stats4>.card{padding:9px 8px!important;min-height:62px}
+  #app[data-page="progress"] .badges{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #app[data-page="progress"] .progress-subject-group{padding:12px 13px 8px;margin:9px 0 12px}
+  #app[data-page="progress"] .progress-chapter-row{grid-template-columns:minmax(0,1fr) 46px 29px;gap:7px;padding:8px 8px}
+  #app[data-page="progress"] .progress-chapter-name{font-size:.8rem;white-space:normal;line-height:1.35}
+}
+
+/* Chapter/concept pages: remove circular counters and use compact, uncluttered content blocks. */
+#app[data-page="chapter-list"] .concept-index-num{display:none!important}
+#app[data-page="chapter-list"] .concept-index-row{gap:10px;padding:13px 15px;border-radius:13px}
+#app[data-page="chapter-list"] .concept-index-row h3{font-size:.94rem;line-height:1.4}
+#app[data-page="chapter-list"] .concept-index-row p{font-size:.78rem;line-height:1.4}
+#app[data-page="chapter-list"] .concept-index-row .bar{margin:6px 0 0;height:3px}
+#app[data-page="chapter-list"] .concept-index-row .go{font-size:.78rem}
+#app[data-page="chapter-list"] .chapter-progress{padding:12px 14px!important;display:block}
+#app[data-page="chapter-list"] .chapter-progress .bar{margin:7px 0 0;height:4px}
+#app[data-page="chapter-list"] .chapter-continue-action{display:flex;justify-content:flex-start;margin:14px 0 4px}
+#app[data-page="chapter-list"] .chapter-continue-action .btn{min-height:38px;padding:9px 14px;font-size:.82rem;border-radius:11px;white-space:normal}
+#app[data-page="chapter-list"] .chapter-pn{margin-top:18px;align-items:center}
+#app[data-page="chapter-list"] .chapter-pn .btn{min-height:36px;padding:8px 12px;font-size:.78rem;border-radius:10px;white-space:normal}
+
+/* Four learning stages: premium segmented controls, with numbers as plain micro-labels (not circles). */
+#app[data-page="chapter"] .tabs{gap:7px;margin:17px 0 15px}
+#app[data-page="chapter"] .tabs .tab{
+  min-width:0;min-height:58px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;
+  padding:9px 12px;border:1px solid rgba(125,211,252,.16);border-radius:12px;
+  background:linear-gradient(145deg,rgba(10,27,42,.94),rgba(4,12,20,.98));
+  color:#c9d6e1;font-size:.82rem;font-weight:650;line-height:1.3;text-align:left;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);transition:background .2s,border-color .2s,color .2s,box-shadow .2s;
+}
+#app[data-page="chapter"] .tabs .tab small{
+  display:block;padding:0;margin:0;border:0;border-radius:0;background:none!important;
+  color:#d9b970;font-size:.59rem;font-weight:800;letter-spacing:.16em;line-height:1;text-transform:uppercase;
+}
+#app[data-page="chapter"] .tabs .tab:hover{border-color:rgba(232,196,119,.46);color:#f5e5bf;transform:translateY(-1px)}
+#app[data-page="chapter"] .tabs .tab.on{
+  border-color:rgba(232,196,119,.52);background:linear-gradient(145deg,rgba(232,196,119,.16),rgba(11,25,37,.98) 78%);
+  color:#fff0c8;box-shadow:inset 3px 0 #e8c477,0 9px 22px -18px rgba(232,196,119,.42);
+}
+#app[data-page="chapter"] .tabs .tab.on small{color:#f5d99a}
+#app[data-page="chapter"] .tabs .tab.dn small::after{content:"  ✓";color:#9bd7b5}
+
+/* Make each concept panel denser without shrinking controls below usable touch size. */
+#app[data-page="chapter"] .concept-position{display:none!important}
+#app[data-page="chapter"] .study-bookmark-btn{min-height:34px;padding:7px 11px;font-size:.76rem;border-radius:10px}
+#app[data-page="chapter"] .concept-page .bar{height:4px;margin:9px 0}
+#app[data-page="chapter"] .stgin{padding:clamp(14px,2.3vw,24px)!important;border-radius:17px;box-shadow:0 14px 38px -26px rgba(0,0,0,.85)}
+#app[data-page="chapter"] .stgh{font-size:1.25rem;line-height:1.35;margin:0 0 12px}
+#app[data-page="chapter"] .concept-reading-label{margin-bottom:8px;padding:5px 8px;font-size:.72rem;border-radius:7px}
+#app[data-page="chapter"] .concept-explanation .bn.bl{font-size:.92rem;line-height:1.78;margin:8px 0 12px}
+#app[data-page="chapter"] .stgin .card{padding:12px!important;border-radius:12px}
+#app[data-page="chapter"] .stgin .qcard{margin-bottom:9px}
+#app[data-page="chapter"] .stgin .qt{font-size:.92rem!important;line-height:1.55;margin-bottom:6px!important}
+#app[data-page="chapter"] .stgin .opt{margin:6px 0;padding:9px 12px;font-size:.85rem;line-height:1.5;border-radius:10px}
+#app[data-page="chapter"] .stgin .ex{font-size:.78rem;line-height:1.55}
+#app[data-page="chapter"] .stgin .fg{margin:12px 0}
+#app[data-page="chapter"] .stgin .fg figcaption{font-size:.72rem}
+#app[data-page="chapter"] .stgin .vd{margin:12px 0}
+#app[data-page="chapter"] .stgin .pdf iframe{height:420px}
+#app[data-page="chapter"] .stgin .simcard{padding:12px!important;border-radius:13px}
+#app[data-page="chapter"] .stage-next-wrap{margin-top:12px;padding-top:11px;gap:9px}
+#app[data-page="chapter"] .stage-next-wrap .mutt{font-size:.76rem;line-height:1.45}
+#app[data-page="chapter"] .stage-next-wrap .btn,
+#app[data-page="chapter"] .stgin>.btn{min-height:38px;padding:9px 13px;font-size:.8rem;border-radius:10px}
+#app[data-page="chapter"] .concept-nav{position:static;clear:both;margin:16px 0 0;padding:12px;border-radius:13px;background:linear-gradient(145deg,rgba(9,22,35,.96),rgba(3,9,16,.98));border-color:rgba(232,196,119,.17)}
+#app[data-page="chapter"] .concept-nav-count{font-size:.72rem;margin:0 0 9px}
+#app[data-page="chapter"] .concept-nav-buttons{position:static;display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
+#app[data-page="chapter"] .concept-nav-buttons .btn{position:static;min-height:36px;padding:8px 12px;font-size:.76rem;border-radius:10px;white-space:normal;line-height:1.35}
+#app[data-page="chapter"] .concept-nav-buttons .btn:not(.pri){background:rgba(125,211,252,.045);border:1px solid rgba(125,211,252,.18);color:#c6d8e5}
+#app[data-page="chapter"] .concept-nav-buttons .btn.pri{background:linear-gradient(135deg,#ead097,#c7a15b)!important;color:#18140c!important;border:1px solid rgba(255,235,185,.44)!important;box-shadow:0 8px 20px -14px rgba(232,196,119,.6)!important}
+@media(max-width:600px){
+  #app[data-page="chapter"] .tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:14px 0 12px}
+  #app[data-page="chapter"] .tabs .tab{min-height:54px;padding:8px 10px;font-size:.77rem}
+  #app[data-page="chapter"] .stgin{padding:13px!important;border-radius:14px}
+  #app[data-page="chapter"] .stgin .card{padding:10px!important}
+  #app[data-page="chapter"] .stgin .simcard{padding:9px!important}
+  #app[data-page="chapter"] .concept-nav-buttons{display:grid;grid-template-columns:1fr 1fr}
+  #app[data-page="chapter"] .concept-nav-buttons .btn{text-align:center}
+  #app[data-page="chapter-list"] .concept-index-row{padding:11px 12px}
+  #app[data-page="chapter-list"] .chapter-continue-action .btn{width:100%;justify-content:center}
+  #app[data-page="chapter-list"] .chapter-pn{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #app[data-page="chapter-list"] .chapter-pn .btn{text-align:center}
+}
+
+
+/* ConceptLab v33 · restrained blue chapter UI, compact home cards, quieter Hub tile. */
+/* Chapter list navigation is a true footer after all chapter content. */
+#app[data-page="chapter-list"] .chapter-navigation-footer{
+  display:block!important;position:relative!important;inset:auto!important;clear:both!important;
+  width:100%;margin:28px 0 12px!important;padding:16px 0 0!important;
+  border-top:1px solid rgba(125,211,252,.12);z-index:auto!important;transform:none!important;
+}
+#app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom{
+  display:grid!important;position:static!important;inset:auto!important;transform:none!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:10px;
+  width:100%;margin:0!important;padding:0!important;clear:both!important;
+}
+#app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom>*{min-width:0}
+#app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom .btn{
+  display:flex;align-items:center;justify-content:center;min-height:42px;padding:9px 12px;
+  border:1px solid rgba(125,211,252,.2)!important;border-radius:12px;
+  background:linear-gradient(145deg,rgba(17,39,56,.94),rgba(7,16,26,.98))!important;
+  color:#d5e7f4!important;font-size:.8rem;font-weight:650;line-height:1.35;text-align:center;
+  box-shadow:inset 0 1px rgba(255,255,255,.045),0 8px 20px -17px rgba(56,189,248,.45)!important;
+}
+#app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom .btn:hover{border-color:rgba(125,211,252,.42)!important;color:#fff!important}
+@media(max-width:520px){
+  #app[data-page="chapter-list"] .chapter-navigation-footer{margin-top:22px!important;padding-top:13px!important}
+  #app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom{gap:8px}
+  #app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom .btn{min-height:40px;padding:8px 8px;font-size:.73rem}
+}
+
+/* Chapter learning stages: compact, premium blue/slate step controls (no gold). */
+#app[data-page="chapter"] .tabs{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px!important;
+  margin:16px 0 14px!important;padding:0!important;
+}
+#app[data-page="chapter"] .tabs .tab{
+  display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;
+  min-width:0;min-height:68px;padding:11px 12px!important;border:1px solid rgba(125,211,252,.15)!important;
+  border-radius:13px!important;background:linear-gradient(145deg,rgba(14,30,45,.96),rgba(5,13,22,.98))!important;
+  color:#c5d6e4!important;font-size:.82rem;font-weight:650;line-height:1.35;text-align:left;
+  box-shadow:inset 0 1px rgba(255,255,255,.04),0 8px 24px -22px rgba(0,0,0,.9)!important;
+  transition:background .2s,border-color .2s,color .2s,transform .2s,box-shadow .2s;
+}
+#app[data-page="chapter"] .tabs .tab:hover{border-color:rgba(125,211,252,.4)!important;color:#eff9ff!important;transform:translateY(-1px)}
+#app[data-page="chapter"] .tabs .tab .tab-step-number{
+  display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:19px;padding:0 7px;
+  border:1px solid rgba(125,211,252,.16);border-radius:6px;background:rgba(56,189,248,.07)!important;
+  color:#83c9ec!important;font:800 9px/1 Manrope,system-ui,sans-serif;letter-spacing:.12em;
+}
+#app[data-page="chapter"] .tabs .tab .tab-title{display:block;min-width:0;overflow-wrap:anywhere}
+#app[data-page="chapter"] .tabs .tab.on{
+  border-color:rgba(56,189,248,.56)!important;
+  background:linear-gradient(145deg,rgba(24,75,104,.48),rgba(7,22,34,.99) 78%)!important;
+  color:#f0faff!important;box-shadow:inset 3px 0 #58bde9,0 10px 24px -20px rgba(56,189,248,.65)!important;
+}
+#app[data-page="chapter"] .tabs .tab.on .tab-step-number{background:rgba(56,189,248,.16)!important;border-color:rgba(125,211,252,.36);color:#c6edff!important}
+#app[data-page="chapter"] .tabs .tab.dn .tab-step-number::after{content:" ✓";color:#8ed9b2}
+#app[data-page="chapter"] .concept-page .btn.pri,
+#app[data-page="chapter"] .concept-nav .btn.pri,
+#app[data-page="chapter-list"] .chapter-continue-action .btn.pri{
+  border:1px solid rgba(157,222,250,.48)!important;
+  background:linear-gradient(135deg,#58bde8,#247da9)!important;color:#041722!important;
+  box-shadow:0 8px 20px -14px rgba(56,189,248,.72),inset 0 1px rgba(255,255,255,.38)!important;
+}
+#app[data-page="chapter"] .concept-nav{border-color:rgba(125,211,252,.15)!important;background:linear-gradient(145deg,rgba(10,25,38,.96),rgba(3,10,17,.98))!important}
+#app[data-page="chapter"] .concept-nav .btn:not(.pri){border:1px solid rgba(125,211,252,.18)!important;background:rgba(56,189,248,.045)!important;color:#c9deed!important}
+@media(max-width:680px){
+  #app[data-page="chapter"] .tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important;margin:13px 0 12px!important}
+  #app[data-page="chapter"] .tabs .tab{min-height:62px;padding:9px 10px!important;font-size:.77rem}
+  #app[data-page="chapter"] .tabs .tab .tab-step-number{height:18px;min-width:26px}
+}
+
+/* Home: shorten the feature list visually with compact, quieter cards. */
+#app[data-page="home"] .feature-premium-section .sh2 p{
+  max-width:680px;margin:9px auto 0;color:#aebfce;font-size:clamp(12px,1.15vw,14px);line-height:1.62;
+}
+#app[data-page="home"] .feature-premium-section .sh2{margin-bottom:clamp(16px,2vw,23px)}
+#app[data-page="home"] .feature-premium-list{gap:9px;max-width:840px}
+#app[data-page="home"] .feature-premium-card{
+  grid-template-columns:42px minmax(0,1fr);gap:12px;min-height:78px;padding:10px 15px;
+  border:1px solid rgba(137,177,205,.15)!important;border-radius:15px;
+  background:linear-gradient(112deg,rgba(12,25,38,.97),rgba(5,12,20,.98))!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.045),0 12px 28px -25px rgba(0,0,0,.92)!important;
+}
+#app[data-page="home"] .feature-premium-card::before{top:12px;bottom:12px;width:2px;opacity:.42;box-shadow:none}
+#app[data-page="home"] .feature-premium-card::after{display:none!important;animation:none!important}
+#app[data-page="home"] .feature-premium-card:hover{transform:translateY(-1px);border-color:rgba(125,211,252,.3)!important;box-shadow:inset 0 1px rgba(255,255,255,.06),0 16px 30px -25px rgba(0,0,0,.94)!important}
+#app[data-page="home"] .feature-icon-shell{width:40px;height:40px;border-radius:12px;border-color:rgba(125,211,252,.2)!important;background:linear-gradient(145deg,rgba(56,189,248,.09),rgba(7,15,24,.97))!important;box-shadow:inset 0 1px rgba(255,255,255,.05)!important}
+#app[data-page="home"] .feature-icon-shell::before{display:none!important}
+#app[data-page="home"] .feature-premium-card .premium-home-icon{width:21px;height:21px;filter:none!important;animation:none!important}
+#app[data-page="home"] .feature-icon-image{width:28px;height:28px;border-radius:8px}
+#app[data-page="home"] .feature-card-copy{padding:0 14px 0 0}
+#app[data-page="home"] .feature-card-tag{margin-bottom:3px;color:#8faabe!important;font-size:7px;letter-spacing:.1em;line-height:1.2}
+#app[data-page="home"] .feature-card-copy h3{margin:0 0 2px;font-size:14px;line-height:1.3}
+#app[data-page="home"] .feature-card-copy p{font-size:12px;line-height:1.45;color:#aebdca}
+#app[data-page="home"] .feature-card-number{top:7px;right:9px;color:#7891a5!important;font-size:7px}
+@media(max-width:620px){
+  #app[data-page="home"] .feature-premium-list{gap:7px}
+  #app[data-page="home"] .feature-premium-card{grid-template-columns:36px minmax(0,1fr);gap:9px;min-height:0;padding:9px 10px;border-radius:12px}
+  #app[data-page="home"] .feature-icon-shell{width:34px;height:34px;border-radius:10px}
+  #app[data-page="home"] .feature-premium-card .premium-home-icon{width:19px;height:19px}
+  #app[data-page="home"] .feature-icon-image{width:25px;height:25px;border-radius:7px}
+  #app[data-page="home"] .feature-card-copy{padding-right:9px}
+  #app[data-page="home"] .feature-card-tag{font-size:6.5px;letter-spacing:.08em}
+  #app[data-page="home"] .feature-card-copy h3{font-size:12.5px;line-height:1.3}
+  #app[data-page="home"] .feature-card-copy p{font-size:11px;line-height:1.42}
+  #app[data-page="home"] .feature-card-number{top:5px;right:6px;font-size:6px}
+}
+
+/* Shortcut Tricks is intentionally not a brighter tile: same outside treatment as its peers. */
+#app .hub-dashboard .hub-launch-tile-shortcuts{
+  border-color:rgba(125,211,252,.17)!important;
+  background:linear-gradient(145deg,rgba(13,34,52,.96),rgba(4,12,21,.97) 72%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 10px 28px -24px rgba(0,0,0,.9)!important;
+}
+#app .hub-dashboard .hub-launch-tile-shortcuts:hover,
+#app .hub-dashboard .hub-launch-tile-shortcuts:focus-visible{
+  border-color:rgba(125,211,252,.4)!important;
+  background:linear-gradient(145deg,rgba(17,43,65,.98),rgba(5,15,25,.98) 72%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 15px 32px -24px rgba(56,189,248,.46)!important;
+}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-icon{
+  background:linear-gradient(145deg,rgba(232,196,119,.2),rgba(181,139,66,.12))!important;
+  border-color:rgba(232,196,119,.38)!important;color:#f5d99a!important;
+  box-shadow:inset 0 1px 0 rgba(255,245,218,.12),0 6px 18px -14px rgba(232,196,119,.45)!important;
+}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy b{color:#f3e7c9!important}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy small{color:#a9bfd0!important}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-arrow{color:#e8c477!important}

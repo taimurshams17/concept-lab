@@ -318,3 +318,149 @@ body.px-calm .cl-rip { display: none; }
   #app .px-settings-page .sfx-vol .sfx-vol-copy small{font-size:11px!important;}
   #app .px-settings-page .sfx-prev-btn{font-size:11px!important;padding:7px 9px!important;}
 }
+
+
+/* Keep the new card header consistent on desktop and mobile. */
+#app .ga-game-card .ga-game-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  margin-bottom: 10px;
+}
+#app .ga-game-card .ga-game-card-head h4 {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 !important;
+  overflow-wrap: anywhere;
+}
+
+/* ============ v20: Arcade mobile layout recovery ============
+   Use a real card grid rather than wrapping a column-direction flex container.
+   The previous flex-wrap-only override caused card content to flow into columns,
+   pushing descriptions and game actions off-screen on phones. */
+@media (max-width: 620px) {
+  #app .game-academy-page,
+  #app .ga-subject-block,
+  #app .ga-chapter-group,
+  #app .ga-game-grid,
+  #app .ga-game-card { min-width: 0; max-width: 100%; box-sizing: border-box; }
+
+  #app .ga-game-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+
+  #app .ga-game-card {
+    display: grid !important;
+    transform: none !important;
+    box-shadow: none !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "head head"
+      "desc desc"
+      "stats actions" !important;
+    align-content: start !important;
+    align-items: center !important;
+    gap: 8px 10px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 12px !important;
+    overflow: hidden;
+  }
+
+  #app .ga-game-card .ga-game-card-head {
+    grid-area: head;
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    width: 100%;
+    min-width: 0;
+  }
+  #app .ga-game-card .ga-game-card-head .ga-game-icon {
+    width: 38px !important;
+    height: 38px !important;
+    flex: 0 0 38px !important;
+    border-radius: 11px;
+    font-size: 20px !important;
+  }
+  #app .ga-game-card .ga-game-card-head h4 {
+    order: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere;
+  }
+  #app .ga-game-card .ga-game-card-head .ga-xp {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+  #app .ga-game-card > p {
+    grid-area: desc;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.55 !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+  #app .ga-game-card .ga-game-stats {
+    grid-area: stats;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start !important;
+    flex-wrap: wrap;
+    min-width: 0;
+    gap: 3px 9px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-size: 10px !important;
+  }
+  #app .ga-game-card .ga-level-mini { display: none !important; }
+  #app .ga-game-card .ga-game-actions {
+    grid-area: actions;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap !important;
+    min-width: 0;
+    gap: 7px !important;
+    margin: 0 !important;
+  }
+  #app .ga-game-card .ga-game-actions > a {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px !important;
+    padding: 8px 11px !important;
+    font-size: 11px !important;
+    line-height: 1.25;
+    white-space: nowrap;
+    touch-action: manipulation;
+    cursor: pointer;
+  }
+  #app .ga-game-card .ga-review-link { font-size: 10px !important; }
+  #app .ga-subject-tabs,
+  #app .ga-subject-tab { min-width: 0; }
+  #app .ga-subject-tab { touch-action: manipulation; cursor: pointer; }
+}
+
+@media (max-width: 380px) {
+  #app .ga-game-card { grid-template-columns: minmax(0, 1fr) !important; grid-template-areas: "head" "desc" "stats" "actions" !important; }
+  #app .ga-game-card .ga-game-actions { justify-content: flex-start; }
+}

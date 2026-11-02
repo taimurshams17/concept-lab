@@ -4,9 +4,30 @@
 window.SFX = (function () {
   'use strict';
   var KEY = 'cl_sfx_v1';
-  var st = { on: true, vol: 0.68, haptics: true };
-  try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && typeof saved === 'object') { if (typeof saved.on === 'boolean') st.on = saved.on; if (typeof saved.haptics === 'boolean') st.haptics = saved.haptics; if (isFinite(saved.vol)) st.vol = Math.max(0, Math.min(1, +saved.vol)); } } catch (e) { }
+  var VOLUME_CEILING = 0.50;
+  var PREVIOUS_DEFAULT_VOLUME = 0.32;
+  var st = { on: true, vol: VOLUME_CEILING, haptics: true };
+  var volumeWasAdjusted = false;
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved && typeof saved === 'object') {
+      if (typeof saved.on === 'boolean') st.on = saved.on;
+      if (typeof saved.haptics === 'boolean') st.haptics = saved.haptics;
+      if (isFinite(saved.vol)) {
+        var previousVolume = +saved.vol;
+        // Upgrade the former 32% default to the newly requested 50% level.
+        if (Math.abs(previousVolume - PREVIOUS_DEFAULT_VOLUME) < 0.001) {
+          st.vol = VOLUME_CEILING;
+          volumeWasAdjusted = true;
+        } else {
+          st.vol = Math.max(0, Math.min(VOLUME_CEILING, previousVolume));
+          volumeWasAdjusted = previousVolume > VOLUME_CEILING;
+        }
+      }
+    }
+  } catch (e) { }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+  if (volumeWasAdjusted) save();
 
   var INTRO_KEY = 'cl_intro_music_v1';
   var introPref = { on: true, vol: 0.28 };
@@ -61,7 +82,7 @@ window.SFX = (function () {
     if (!ctx) {
       try {
         ctx = new AC();
-        master = ctx.createGain(); master.gain.value = st.vol * 1.04;
+        master = ctx.createGain(); master.gain.value = st.vol * 0.85;
         var comp = ctx.createDynamicsCompressor();
         comp.threshold.value = -16; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.2;
         master.connect(comp); comp.connect(ctx.destination);
@@ -100,9 +121,9 @@ window.SFX = (function () {
 
   /* Each recipe receives the audio clock time `t`. Kept short and soft so repeated use is never tiring. */
   var R = {
-    tap: function (t) { /* fuller, brighter glass-bell click with a gentle rounded tail */ tone(659.25, t, 0.2, 'sine', 0.16, 587.33); tone(987.77, t + 0.022, 0.23, 'sine', 0.082, 880); tone(1318.51, t + 0.045, 0.27, 'sine', 0.046, 1174.66); tone(523.25, t + 0.018, 0.16, 'triangle', 0.025, 587.33); },
+    tap: function (t) { /* quiet, polished soft-touch click: one warm note and a short rounded overtone */ tone(520, t, 0.105, 'sine', 0.105, 465); tone(780, t + 0.018, 0.12, 'sine', 0.027, 700); },
     soft: function (t) { tone(587.33, t, 0.17, 'sine', 0.075, 523.25); tone(880, t + 0.035, 0.2, 'sine', 0.038, 784); },
-    nav: function (t) { tone(523.25, t, 0.18, 'sine', 0.11, 587.33); tone(783.99, t + 0.075, 0.24, 'sine', 0.07, 880); },
+    nav: function (t) { tone(440, t, 0.11, 'sine', 0.075, 494); tone(659.25, t + 0.055, 0.14, 'sine', 0.038, 698.46); },
     open: function (t) { tone(380, t, 0.15, 'sine', 0.12, 720); noise(t, 0.12, 0.03, 700, 2600); },
     close: function (t) { tone(720, t, 0.14, 'sine', 0.1, 380); },
     on: function (t) { tone(587, t, 0.09, 'sine', 0.12); tone(880, t + 0.07, 0.13, 'sine', 0.12); },
@@ -162,7 +183,7 @@ window.SFX = (function () {
     st.on = !!v; save(); syncUi();
     if (st.on) { ensure(); setTimeout(function () { play('on'); }, 30); }
   }
-  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = st.vol * 1.04; }
+  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = st.vol * 0.85; }
   function setHaptics(v) { st.haptics = !!v; save(); syncUi(); }
 
   /* ---------- wrap FX helpers (toast / confetti) so XP, badges, level-ups and results get their own sounds ---------- */

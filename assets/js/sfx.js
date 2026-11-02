@@ -121,9 +121,9 @@ window.SFX = (function () {
 
   /* Each recipe receives the audio clock time `t`. Kept short and soft so repeated use is never tiring. */
   var R = {
-    tap: function (t) { /* fuller, brighter glass-bell click with a gentle rounded tail */ tone(659.25, t, 0.2, 'sine', 0.16, 587.33); tone(987.77, t + 0.022, 0.23, 'sine', 0.082, 880); tone(1318.51, t + 0.045, 0.27, 'sine', 0.046, 1174.66); tone(523.25, t + 0.018, 0.16, 'triangle', 0.025, 587.33); },
+    tap: function (t) { /* quiet, polished soft-touch click: one warm note and a short rounded overtone */ tone(520, t, 0.105, 'sine', 0.105, 465); tone(780, t + 0.018, 0.12, 'sine', 0.027, 700); },
     soft: function (t) { tone(587.33, t, 0.17, 'sine', 0.075, 523.25); tone(880, t + 0.035, 0.2, 'sine', 0.038, 784); },
-    nav: function (t) { tone(523.25, t, 0.18, 'sine', 0.11, 587.33); tone(783.99, t + 0.075, 0.24, 'sine', 0.07, 880); },
+    nav: function (t) { tone(440, t, 0.11, 'sine', 0.075, 494); tone(659.25, t + 0.055, 0.14, 'sine', 0.038, 698.46); },
     open: function (t) { tone(380, t, 0.15, 'sine', 0.12, 720); noise(t, 0.12, 0.03, 700, 2600); },
     close: function (t) { tone(720, t, 0.14, 'sine', 0.1, 380); },
     on: function (t) { tone(587, t, 0.09, 'sine', 0.12); tone(880, t + 0.07, 0.13, 'sine', 0.12); },

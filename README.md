@@ -41,3 +41,27 @@ To test the full API locally, install the Netlify CLI and run `npm run dev`. Net
 The admin panel edits published content; application code, styles, and new functionality still require a Git commit and a new deployment.
 
 See `CHANGELOG.md` for feature history and other update notes for recent content changes.
+
+## Premium refresh (2026-11)
+
+### What changed
+- Refined the shared visual layer with a restrained gold/champagne accent, calmer surfaces, more deliberate hover/focus states, and responsive layouts.
+- Restyled the three-line navigation menu without changing the hamburger's intended dimensions.
+- Replaced the default button-tap and navigation tones with shorter, softer synthesized sounds. Sound settings and the sound toggle still work as before.
+- Rebuilt **My Progress → Chapters** as compact subject-wise lists. Each row shows only the chapter name, progress bar, and completed stage count; concept names are not shown.
+- Upgraded **Student Hub → Base Converter** with source/target base selection (2–36), negative integer support, swap controls, quick examples, copy-result action, common-base outputs, 4-bit binary grouping, bit length, and a short conversion-method explanation.
+
+### How to use Base Converter
+1. Open **Student Hub** from the main menu or bottom navigation.
+2. Open **Base Converter**.
+3. Enter an integer. Use `0–9` and `A–Z` as valid for the selected source base (`FF` is valid in base 16).
+4. Choose **From base** and **To base**. Results update automatically.
+5. Use **Swap bases** to reverse the conversion, **Quick examples** to load a sample, and **Copy result** to copy the main converted value.
+6. Expand **How was it converted?** for the method summary.
+
+**Current limitation:** Base Converter handles integers only; fractional values are not supported yet. The layout is responsive and includes mobile-specific spacing rules.
+
+### Verification
+- `npm run check` — JavaScript syntax checks.
+- `npm run check:games` — arcade registry integrity.
+- `npm run build` — static build.
