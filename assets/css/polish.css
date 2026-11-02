@@ -1,0 +1,173 @@
+/* ConceptLab · v26 premium polish layer
+   Loaded last. Purely additive: refined tokens, interaction, typography and surfaces.
+   Nothing here changes layout structure or behaviour. */
+:root{
+  --cl-gold:#f3c76a;
+  --cl-gold-line:rgba(243,199,106,.26);
+  --cl-ice:#7dd3fc;
+  --cl-edge:rgba(125,211,252,.16);
+  --cl-edge-hi:rgba(125,211,252,.42);
+  --cl-ease:cubic-bezier(.22,.61,.36,1);
+  --cl-lift:0 22px 48px -22px rgba(14,165,233,.42),0 2px 0 rgba(255,255,255,.03) inset;
+}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-tap-highlight-color:transparent}
+body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"kern","liga"}
+::selection{background:rgba(56,189,248,.34);color:#fff}
+
+/* scrollbars */
+*{scrollbar-width:thin;scrollbar-color:rgba(125,211,252,.28) transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(125,211,252,.22);border:3px solid transparent;border-radius:999px;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(125,211,252,.4);background-clip:content-box;border:3px solid transparent}
+
+/* focus */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--cl-ice);outline-offset:3px;border-radius:10px}
+:where(input,textarea,select):focus{border-color:rgba(56,189,248,.62)!important;box-shadow:0 0 0 4px rgba(56,189,248,.13)}
+
+/* headline polish */
+#app .pgw>h1,#app .pgw>.hub-tool-box h1,#app .pgw h1:first-of-type{
+  background:linear-gradient(180deg,#fff 18%,#b9e6ff 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-.022em;text-wrap:balance;
+}
+#app h2,#app h3{text-wrap:balance}
+#app .lead,#app .pgw>p{text-wrap:pretty}
+
+/* header + bottom navigation: refined glass */
+body>header{background:linear-gradient(180deg,rgba(2,9,16,.9),rgba(2,9,16,.68))!important;-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);box-shadow:0 1px 0 rgba(125,211,252,.08),0 14px 34px -26px rgba(0,0,0,.9)}
+.bottom-nav{-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);box-shadow:0 22px 54px -20px rgba(0,0,0,.85),0 0 0 1px rgba(125,211,252,.1) inset,0 1px 0 rgba(255,255,255,.06) inset}
+.bottom-nav a{position:relative;transition:color .25s var(--cl-ease),background .25s var(--cl-ease),transform .25s var(--cl-ease)}
+.bottom-nav a:active{transform:scale(.94)}
+
+/* buttons */
+.btn{transition:transform .22s var(--cl-ease),box-shadow .25s var(--cl-ease),border-color .25s,background .25s,filter .25s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.pri{box-shadow:0 10px 26px -12px rgba(56,189,248,.7),0 1px 0 rgba(255,255,255,.4) inset}
+.btn.pri:hover{filter:brightness(1.07);box-shadow:0 14px 32px -12px rgba(56,189,248,.85),0 1px 0 rgba(255,255,255,.45) inset}
+
+/* pills */
+.pill{letter-spacing:.04em;box-shadow:0 0 0 1px rgba(125,211,252,.08) inset}
+
+/* card family: one calm, premium hover language */
+:where(a.card.ch,a.lab-sim-card,a.graph-card,a.hub-launch-tile,.ga-game-card,a.gdeck-card,a.launch-tool,a.launch-feature-card,.feature-premium-card,.stage-premium-card,a.prow,.about-card,.creator-profile,.scx-ch,.scx-tip){
+  transition:transform .3s var(--cl-ease),border-color .3s var(--cl-ease),box-shadow .3s var(--cl-ease),background .3s var(--cl-ease);
+}
+:where(a.card.ch,a.lab-sim-card,a.graph-card,a.hub-launch-tile,.ga-game-card,a.gdeck-card,a.launch-tool,a.launch-feature-card,.feature-premium-card,.stage-premium-card,a.prow):hover{
+  border-color:var(--cl-edge-hi);box-shadow:var(--cl-lift);
+}
+:where(a.hub-launch-tile,.ga-game-card,a.gdeck-card,a.launch-tool,a.launch-feature-card,a.graph-card,a.prow):not(.tilt):hover{transform:translateY(-3px)}
+.hub-launch-tile-shortcuts{border-color:var(--cl-gold-line)!important;background:linear-gradient(135deg,rgba(243,199,106,.1),rgba(243,199,106,.02) 60%)!important}
+.hub-launch-tile-shortcuts:hover{border-color:rgba(243,199,106,.5)!important;box-shadow:0 22px 48px -22px rgba(243,199,106,.35)!important}
+
+/* chapter index cards */
+a.chapter-index-card{position:relative;overflow:hidden}
+a.chapter-index-card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,var(--cl-gold),transparent);opacity:0;transition:opacity .35s var(--cl-ease)}
+a.chapter-index-card:hover::before{opacity:.9}
+
+/* inputs */
+:where(input[type=search],input[type=text],input[type=email],input[type=password],textarea,select){transition:border-color .25s,box-shadow .25s,background .25s}
+
+/* footer */
+.site-footer{border-top:1px solid transparent;border-image:linear-gradient(90deg,transparent,rgba(125,211,252,.28),rgba(243,199,106,.3),transparent) 1}
+
+/* Shortcut Tricks: sticky control bar + richer cards */
+@media(min-width:900px){
+  #app .scx-controls{position:sticky;top:74px;z-index:6;padding:10px 12px;margin-left:-12px;margin-right:-12px;border-radius:22px;background:linear-gradient(180deg,rgba(3,9,15,.92),rgba(3,9,15,.78));-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 18px 40px -28px rgba(0,0,0,.9),0 0 0 1px rgba(125,211,252,.09) inset}
+}
+#app .scx-tip:hover{border-color:rgba(243,199,106,.36);box-shadow:0 18px 40px -26px rgba(243,199,106,.3)}
+#app .scx-ch:hover{border-color:rgba(125,211,252,.3)}
+#app .scx-fx{text-shadow:0 0 22px rgba(243,199,106,.14)}
+#app .scx-hero{box-shadow:0 30px 80px -40px rgba(14,165,233,.45),0 0 0 1px rgba(243,199,106,.1) inset}
+
+/* touch + safe areas */
+@media(max-width:700px){
+  .bottom-nav{margin-bottom:max(8px,env(safe-area-inset-bottom))}
+  #app .pgw>h1{text-wrap:balance}
+}
+@media(hover:none){
+  :where(a.hub-launch-tile,.ga-game-card,a.gdeck-card,a.launch-tool,a.graph-card,a.prow):hover{transform:none}
+}
+
+/* page content entrance (opacity only after paint; no lingering transform) */
+@keyframes clRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#app.page-enter>.w>*:not(script){animation:clRise .55s var(--cl-ease) backwards}
+#app.page-enter>.w>*:nth-child(2){animation-delay:.05s}
+#app.page-enter>.w>*:nth-child(3){animation-delay:.1s}
+#app.page-enter>.w>*:nth-child(4){animation-delay:.15s}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+}
+
+/* ambient colour: a whisper of gold and indigo behind the starfield */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(46% 38% at 88% 2%,rgba(243,199,106,.055),transparent 70%),radial-gradient(44% 40% at 4% 98%,rgba(99,102,241,.06),transparent 72%)}
+
+/* quiet gold accent under page titles */
+#app .pgw>h1::after{content:"";display:block;width:46px;height:3px;margin-top:14px;border-radius:3px;background:linear-gradient(90deg,var(--cl-gold),rgba(243,199,106,0));-webkit-text-fill-color:initial}
+#app .pgw.shortcut-page>h1::after,#app .pgw .scx-hero h1::after{display:none}
+
+/* surfaces: a hairline of light on the top edge of every card */
+:where(.card,.ga-game-card,.hub-launch-tile,.graph-card,.lab-sim-card){box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
+
+/* section dividers read as engraved gold */
+#app .pgw hr{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--cl-gold-line),transparent)}
+
+/* ───────────────────────────────────────────────────────────
+   v27 · Student-first home pass
+   - Subjects summary chip is centred on phones (it was pushed to the left).
+   - Stats grid holds six boxes as a clean 3 × 2 grid.
+   - Subtle premium hover on the new Student Hub / Graph Lab / Solver cards.
+   Additive only: no structural changes to the page.
+   ─────────────────────────────────────────────────────────── */
+#app[data-page="home"] .subjects-premium-head{justify-items:center}
+#app[data-page="home"] .subjects-total-chip{
+  justify-self:center;align-self:center;margin-inline:auto;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:6px 14px;width:auto;max-width:100%;text-align:center
+}
+#app[data-page="home"] .subjects-total-chip>span{flex:0 0 100%;text-align:center}
+#app[data-page="home"] .subjects-total-chip>b{display:inline-flex;align-items:baseline;gap:4px}
+#app[data-page="home"] .subjects-total-chip i{display:block;width:1px;height:21px;background:rgba(125,211,252,.2);margin:0 2px}
+@media(max-width:560px){
+  #app[data-page="home"] .subjects-total-chip{padding:12px 18px;min-width:min(100%,260px)}
+}
+
+#app[data-page="home"] .home-stats-grid.stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:760px){
+  #app[data-page="home"] .home-stats-grid.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+#app[data-page="home"] .feature-premium-card{transition:border-color .45s var(--cl-ease),box-shadow .45s var(--cl-ease),background .45s var(--cl-ease)}
+#app[data-page="home"] .feature-premium-card:hover{
+  border-color:var(--feature-accent,var(--cl-edge-hi));
+  box-shadow:0 18px 40px -26px var(--feature-accent,#38bdf8),0 0 0 1px rgba(255,255,255,.02) inset
+}
+
+/* ───────────────────────────────────────────────────────────
+   v28 · Student Hub, Chapters and Games polish
+   Additive: intro/tip text, tile hover states, larger tap targets.
+   ─────────────────────────────────────────────────────────── */
+.hub-intro{max-width:640px;margin:12px 0 4px;color:#a9bfd0;font-size:14.5px;line-height:1.8}
+.hub-intro b{color:#e8f7ff;font-weight:700}
+
+.hub-launch-tile{transition:border-color .4s var(--cl-ease),box-shadow .4s var(--cl-ease),background .4s var(--cl-ease)}
+.hub-launch-tile:hover,.hub-launch-tile:focus-visible{
+  border-color:rgba(125,211,252,.42);
+  box-shadow:0 16px 34px -24px rgba(56,189,248,.55);
+  background:linear-gradient(150deg,rgba(13,36,56,.94),rgba(4,12,20,.9))
+}
+.hub-launch-tile:hover .hub-launch-arrow{transform:translate(2px,-2px);color:var(--cl-ice)}
+.hub-launch-arrow{transition:transform .3s var(--cl-ease),color .3s var(--cl-ease)}
+@media(max-width:600px){
+  .hub-launch-tile{min-height:64px}
+  .hub-intro{font-size:13.5px}
+}
+
+.chapter-tip{margin:14px 0 4px;padding:11px 15px;border-radius:14px;border:1px solid rgba(125,211,252,.16);
+  background:linear-gradient(135deg,rgba(14,32,48,.7),rgba(5,12,20,.8));color:#a9bfd0;font-size:13.5px;line-height:1.7}
+.chapter-tip b{color:var(--cl-gold);font-weight:700}
+
+.chapter-index-card:focus-visible,.hub-launch-tile:focus-visible{outline:2px solid var(--cl-ice);outline-offset:3px}

@@ -1,8 +1,8 @@
 /* ConceptLab service worker — network-first so updates always win; cache is only an offline fallback.
    Never caches /api/ or /admin/ routes (including API responses). */
-const VERSION = 'conceptlab-20261101-v20-arcade-mobile';
-const SHELL = ['./', 'index.html', 'assets/css/intro.css?v=20261101-v19-settings-audio', 'assets/js/intro.js?v=20261101-v19-settings-audio', 'assets/audio/intro-cinematic.mp3', 'assets/css/main.css?v=20261030-scroll-performance-1', 'assets/css/mono-icons.css?v=20261030-mobile-control-fix-1', 'assets/css/premium.css?v=20261031-v15-settings-spacing',
-  'assets/js/texts.js', 'assets/js/defaults.js', 'assets/js/fx.js?v=20261030-scroll-performance-1', 'assets/js/sims.js', 'assets/js/topic-sims.js', 'assets/js/additional-sims.js', 'assets/js/physics-labs.js', 'assets/js/graphs.js', 'assets/js/shortcuts.js',
+const VERSION = 'conceptlab-20261102-v29-hubcount';
+const SHELL = ['./', 'index.html', 'assets/css/intro.css?v=20261101-v19-settings-audio', 'assets/js/intro.js?v=20261101-v19-settings-audio', 'assets/audio/intro-cinematic.mp3', 'assets/css/main.css?v=20261101-v26-premium', 'assets/css/polish.css?v=20261102-v28-student', 'assets/css/mono-icons.css?v=20261030-mobile-control-fix-1', 'assets/css/premium.css?v=20261031-v15-settings-spacing',
+  'assets/js/texts.js', 'assets/js/defaults.js?v=20261102-v29-hubcount', 'assets/js/fx.js?v=20261030-scroll-performance-1', 'assets/js/sims.js', 'assets/js/topic-sims.js', 'assets/js/additional-sims.js', 'assets/js/physics-labs.js', 'assets/js/graphs.js', 'assets/js/shortcuts.js?v=20261101-v26-premium',
   'assets/js/games.js?v=20261101-v17-sprint-answer-controls', 'assets/js/game-academy.js', 'assets/js/ayat-hadith.js', 'assets/js/casio991.js', 'assets/js/hub.js?v=20261031-v14-student-hub', 'assets/js/premium.js?v=20261031-v13-premium-arcade', 'assets/js/studio.js?v=20261031-v11-7-fixed', 'assets/css/studio.css?v=20261031-v11-6-layout', 'assets/css/boost.css?v=20261101-v20-arcade-mobile', 'assets/js/app.js?v=20261101-v20-arcade-mobile', 'assets/js/sfx.js?v=20261101-v20-lower-sfx-volume', 'assets/js/mono-icons.js',
   'assets/images/conceptlab-main-logo.webp', 'assets/images/tiger-real.webp', 'assets/images/deer-real.webp', 'assets/images/creator-taimur.webp', 'assets/images/creator-moshiur.webp', 'manifest.webmanifest'];
 

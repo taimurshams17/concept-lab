@@ -3207,30 +3207,7 @@ body.navopen #clMessagePanel{display:none!important}
 .lab-page .lab-extra-link,.shortcut-page .lab-extra-link{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}
 .lab-page .lab-extra-link .btn,.shortcut-page .lab-extra-link .btn{min-height:40px;font-size:12px}
 .shortcut-page{max-width:1040px}
-.shortcut-page>.lead{max-width:790px}
-.shortcut-toolbar{display:grid;grid-template-columns:minmax(150px,.4fr) minmax(0,1fr);gap:12px;margin:18px 0 15px}
-.shortcut-toolbar label{display:grid;gap:6px;color:var(--mut);font-size:11px;font-weight:700}
-.shortcut-toolbar select,.shortcut-toolbar input{box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;border:1px solid rgba(125,211,252,.18);border-radius:11px;background:rgba(4,15,25,.9);color:var(--tx);font:inherit}
-.shortcut-chapter{padding:0!important;margin:9px 0;border:1px solid rgba(125,211,252,.13);border-radius:14px;overflow:hidden}
-.shortcut-chapter>summary{display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer;list-style:none;background:rgba(7,22,35,.5)}
-.shortcut-chapter>summary::-webkit-details-marker{display:none}
-.shortcut-chapter>summary:hover{background:rgba(56,189,248,.055)}
-.shortcut-chapter-number{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(56,189,248,.18);border-radius:10px;background:rgba(56,189,248,.08);color:#8edcff;font-size:11px;font-weight:800}
-.shortcut-chapter-copy{display:grid;gap:3px;flex:1;min-width:0}
-.shortcut-chapter-copy b{font-size:14px;line-height:1.5;color:var(--tx)}
-.shortcut-chapter-copy small{font-size:10px;color:var(--mut)}
-.shortcut-chevron{color:var(--p);font-size:21px;line-height:1}
-.shortcut-chapter[open] .shortcut-chevron{transform:rotate(45deg)}
-.shortcut-tip-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:11px}
-.shortcut-tip{display:flex;gap:10px;min-width:0;padding:12px;border:1px solid rgba(125,211,252,.11);border-radius:11px;background:rgba(2,10,18,.46)}
-.shortcut-tip-number{display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border-radius:8px;background:rgba(52,211,153,.08);color:#76dfc0;font-size:10px;font-weight:800}
-.shortcut-tip>div{min-width:0}
-.shortcut-tip h3{margin:0 0 6px;color:#d9f3ff;font-size:12px;line-height:1.45}
-.shortcut-tip p{overflow-wrap:anywhere}
-.shortcut-formula{margin:0 0 5px;color:#98defb;font-size:12px;line-height:1.65;font-weight:650}
-.shortcut-condition{margin:0;color:var(--mut);font-size:10px;line-height:1.65}
-.shortcut-disclaimer{padding:12px 14px;border:1px solid rgba(251,191,36,.13);border-radius:11px;color:var(--mut);font-size:10px;line-height:1.75}
-@media(max-width:680px){.lab-page .subject-chooser{grid-template-columns:1fr;gap:7px;margin:14px 0 18px}.lab-page .subject-choice{min-height:56px;padding:9px 11px}.lab-page .subject-choice>small{font-size:9px}.shortcut-toolbar{grid-template-columns:1fr}.shortcut-tip-list{grid-template-columns:1fr;padding:8px}.shortcut-chapter>summary{padding:11px 12px}.shortcut-chapter-copy b{font-size:12px}.shortcut-tip{padding:11px}}
+@media(max-width:680px){.lab-page .subject-chooser{grid-template-columns:1fr;gap:7px;margin:14px 0 18px}.lab-page .subject-choice{min-height:56px;padding:9px 11px}.lab-page .subject-choice>small{font-size:9px}}
 
 
 /* ConceptLab mobile typography refinement — v9.8.2
@@ -3551,3 +3528,132 @@ html.cl-scrolling .cl-message-panel{
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
 html.cl-scrolling .bottom-nav{background:rgba(5,13,22,.97)!important;}
+
+/* ============================================================
+   Shortcut Tricks — subject / paper / chapter catalogue (v10)
+   ============================================================ */
+#app .scx{--scx-gold:#f1dfb2;--scx-gold-line:rgba(251,191,36,.2);--scx-cy:#8edcff;--scx-edge:rgba(125,211,252,.14);max-width:1040px}
+#app .scx *{box-sizing:border-box}
+#app .scx [hidden]{display:none!important}
+#app .scx-hero{position:relative;margin:4px 0 0;padding:28px 30px 26px;border:1px solid var(--scx-gold-line);border-radius:22px;background:radial-gradient(ellipse 60% 120% at 0% 0%,rgba(251,191,36,.12),transparent 60%),radial-gradient(ellipse 50% 100% at 100% 100%,rgba(56,189,248,.10),transparent 60%),linear-gradient(150deg,rgba(10,26,40,.9),rgba(2,8,14,.94));box-shadow:0 30px 60px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden}
+#app .scx-hero::after{content:"";position:absolute;left:30px;right:30px;top:0;height:1px;background:linear-gradient(90deg,transparent,#d9a63a,transparent);opacity:.7}
+#app .scx-hero h1{background:linear-gradient(120deg,#ffffff 30%,#f1dfb2 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin:12px 0 8px;font-size:clamp(30px,5.4vw,48px);line-height:1.12;letter-spacing:-.025em;font-weight:800}
+#app .scx-hero .lead{max-width:620px;margin:0;font-size:15px;line-height:1.85;color:var(--mut)}
+#app .scx-stats{display:flex;gap:0;margin:24px 0 0;padding:16px 0 0;border:0;border-top:1px solid rgba(251,191,36,.16);background:none;width:100%}
+#app .scx-stats>div{flex:0 0 auto;padding:0 30px;border-left:1px solid rgba(251,191,36,.16)}
+#app .scx-stats>div:first-child{border-left:0;padding-left:0}
+#app .scx-stats dt{margin:0 0 2px;font-size:11px;color:var(--mut)}
+#app .scx-stats dd{margin:0;font-family:Manrope,"Hind Siliguri",sans-serif;font-size:28px;line-height:1.2;font-weight:800;color:var(--scx-gold)}
+
+#app .scx-controls{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;margin:22px 0 4px}
+#app .scx-tabs{display:grid;grid-template-columns:repeat(4,auto);gap:4px;padding:4px;border:1px solid var(--scx-edge);border-radius:999px;background:rgba(3,10,17,.9)}
+#app .scx-tabs::-webkit-scrollbar{display:none}
+#app .scx-tab{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 15px;border:1px solid transparent;border-radius:999px;background:transparent;color:var(--mut);font:600 13px/1 "Hind Siliguri",Manrope,sans-serif;white-space:nowrap;cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+#app .scx-tab em{font:700 11px/1 Manrope,sans-serif;font-style:normal;color:var(--mut);opacity:.8}
+#app .scx-tab:hover{color:var(--tx)}
+#app .scx-tab.on{background:linear-gradient(135deg,#0d405c,#082a3e);border-color:rgba(56,189,248,.42);color:#fff;box-shadow:0 0 0 1px rgba(56,189,248,.06),0 6px 18px -10px rgba(14,165,233,.7)}
+#app .scx-tab.on em{color:var(--scx-gold);opacity:1}
+#app .scx-search{position:relative;display:block;min-width:0}
+#app .scx-search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--mut);pointer-events:none}
+#app .scx-search input{width:100%;min-width:0;min-height:48px;padding:0 16px 0 41px;border:1px solid var(--scx-edge);border-radius:999px;background:rgba(3,10,17,.9);color:var(--tx);font:inherit;font-size:14px}
+#app .scx-search input::placeholder{color:var(--mut);opacity:.75}
+#app .scx-search input:focus{outline:none;border-color:rgba(56,189,248,.5)}
+#app .scx :is(.scx-tab,.scx-toggle,.scx-jump select,.scx-search input,.scx-ch>summary):focus-visible{outline:2px solid var(--p);outline-offset:2px}
+
+
+
+#app .scx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#app .scx-find{display:flex;gap:8px;align-items:center;min-width:0}
+#app .scx-find .scx-search{flex:1 1 220px}
+#app .scx-jump{position:relative;flex:0 1 210px;min-width:0}
+#app .scx-jump::after{content:"";position:absolute;right:16px;top:50%;width:7px;height:7px;margin-top:-6px;border-right:2px solid var(--scx-cy);border-bottom:2px solid var(--scx-cy);transform:rotate(45deg);pointer-events:none}
+#app .scx-jump select{width:100%;min-height:48px;padding:0 38px 0 16px;border:1px solid var(--scx-edge);border-radius:999px;background:rgba(3,10,17,.9);color:var(--tx);font:500 13px/1 "Hind Siliguri",Manrope,sans-serif;appearance:none;-webkit-appearance:none;text-overflow:ellipsis;cursor:pointer}
+#app .scx-jump select option{background:#06121c;color:#eaf6ff}
+#app .scx-toggle{flex:0 0 auto;min-height:48px;padding:0 18px;border:1px solid var(--scx-gold-line);border-radius:999px;background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(251,191,36,.03));color:var(--scx-gold);font:600 13px/1 "Hind Siliguri",Manrope,sans-serif;white-space:nowrap;cursor:pointer;transition:background .18s,border-color .18s}
+#app .scx-toggle:hover{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.14)}
+#app .scx-subject{margin:26px 0 0}
+#app .scx-subject-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 4px;padding:0 0 12px;border-bottom:1px solid var(--scx-gold-line)}
+#app .scx-subject-head h2{display:flex;align-items:center;gap:12px;margin:0;font-size:clamp(21px,3.4vw,27px);line-height:1.3;letter-spacing:-.01em}
+#app .scx-emb{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid var(--scx-gold-line);border-radius:12px;background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(251,191,36,.03));color:var(--scx-gold);font:normal 20px/1 Manrope,sans-serif}
+#app .scx-subject-head span{font-size:12px;color:var(--mut)}
+#app .scx-paper-label{margin:20px 2px 8px;font:700 12px/1.4 "Hind Siliguri",Manrope,sans-serif;color:var(--scx-gold);letter-spacing:.02em}
+
+#app .scx-ch{margin:0 0 10px;padding:0;border:1px solid var(--scx-edge);border-radius:16px;overflow:hidden;background:linear-gradient(160deg,rgba(7,19,30,.92),rgba(2,8,13,.96));transition:border-color .2s,box-shadow .2s;scroll-margin-top:84px}
+#app .scx-ch[open]{border-color:rgba(56,189,248,.3);box-shadow:inset 3px 0 0 #d9a63a}
+#app .scx-ch>summary{display:flex;align-items:center;justify-content:flex-start;gap:14px;padding:15px 18px;font-size:inherit;font-weight:inherit;cursor:pointer;list-style:none}
+#app .scx-ch>summary::after{content:none!important}
+#app .scx-ch>summary::-webkit-details-marker{display:none}
+#app .scx-ch>summary:hover{background:rgba(56,189,248,.045)}
+#app .scx-ch-n{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border:1px solid var(--scx-gold-line);border-radius:50%;background:rgba(251,191,36,.05);font:800 15px/1 Manrope,"Hind Siliguri",sans-serif;color:var(--scx-gold)}
+#app .scx-ch-t{display:grid;gap:3px;flex:1;min-width:0}
+#app .scx-ch-t b{font-size:16px;line-height:1.45;font-weight:700;color:var(--tx)}
+#app .scx-ch-t small{font-size:12px;color:var(--mut)}
+#app .scx-empty-ch{display:flex;align-items:center;gap:14px;padding:13px 18px;opacity:.6;border-style:dashed}
+#app .scx-empty-ch .scx-ch-n{filter:saturate(.5)}
+#app .scx-chev{flex:0 0 auto;width:9px;height:9px;margin-right:4px;border-right:2px solid var(--scx-cy);border-bottom:2px solid var(--scx-cy);transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s}
+#app .scx-ch[open] .scx-chev{transform:rotate(-135deg) translate(-2px,-2px)}
+#app .scx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:4px 14px 16px}
+
+#app .scx-tip{min-width:0;padding:15px 16px 14px;border:1px solid rgba(125,211,252,.1);border-top-color:rgba(251,191,36,.28);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008))}
+#app .scx-tip h3{display:flex;align-items:flex-start;gap:9px;margin:0 0 10px;font:700 14px/1.55 "Hind Siliguri",Manrope,sans-serif;color:#e4f5ff}
+#app .scx-tip h3 span{flex:0 0 auto;min-width:22px;padding-top:1px;font:700 12px/1.9 Manrope,sans-serif;color:var(--scx-cy);opacity:.8}
+#app .scx-f{display:grid;gap:7px;padding:11px 13px;border:1px solid var(--scx-gold-line);border-radius:10px;background:linear-gradient(135deg,rgba(251,191,36,.07),rgba(251,191,36,.02));overflow-x:auto;scrollbar-width:thin}
+#app .scx-fx{font-family:"STIX Two Text","Cambria Math",Lora,"Times New Roman",serif;font-size:17px;line-height:1.9;color:var(--scx-gold);white-space:nowrap;width:max-content;min-width:100%}
+#app .scx-fx i{font-style:italic}
+#app .scx-fx .mx-t{font-family:"Hind Siliguri","Noto Sans Bengali",sans-serif;font-size:.8em;color:#ead9ab;white-space:nowrap}
+#app .scx-fx sub .mx-t,#app .scx-fx sup .mx-t{font-size:1.15em}
+#app .scx-fx .mx-ss sup,#app .scx-fx .mx-ss sub{font-size:.7em;line-height:1.15}
+#app .scx-fx .mx-op{font-style:normal;margin-right:.08em}
+#app .scx-fx .mx-sy{font-style:normal}
+#app .scx-fx .mx-vc{display:inline-block;position:relative;padding-top:.02em}
+#app .scx-fx .mx-vc::before{content:"→";position:absolute;left:.1em;right:0;top:-.42em;font-size:.62em;line-height:1;text-align:center;font-style:normal}
+#app .scx-fx .mx-dl{display:inline-block;font-size:1.9em;line-height:0;vertical-align:-.13em;font-weight:200}
+#app .scx-fx sup,#app .scx-fx sub{font-size:.66em;line-height:0}
+#app .scx-fx .mx-ss{display:inline-grid;vertical-align:middle;line-height:1;margin:0 .04em}
+#app .scx-fx .mx-ss sup,#app .scx-fx .mx-ss sub{display:block;vertical-align:baseline;position:static}
+#app .scx-fx .mx-fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .14em;line-height:1.25;text-align:center}
+#app .scx-fx .mx-fr .mx-n{padding:0 .2em .06em;border-bottom:1.3px solid currentColor}
+#app .scx-fx .mx-fr .mx-d{padding:.06em .2em 0}
+#app .scx-fx .mx-sq{display:inline-flex;align-items:stretch}
+#app .scx-fx .mx-sq .mx-rd{font-size:1.1em;line-height:1.2}
+#app .scx-fx .mx-sq .mx-ov{border-top:1.3px solid currentColor;padding:0 .12em;margin-top:.12em}
+#app .scx-fx .mx-sq .mx-ix{align-self:flex-start;margin:0 -.28em 0 .1em;font-size:.6em;line-height:1}
+#app .scx-fx .mx-bar{display:inline-block;border-top:1.3px solid currentColor;line-height:1.15;padding:0 .08em}
+#app .scx-fx .mx-xr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .3em;line-height:1.05}
+#app .scx-fx .mx-xl{font-size:.62em;padding:0 .2em}
+#app .scx-fx .mx-xa{line-height:.7}
+#app .scx-fx .mx-ht{display:inline-block;position:relative}
+#app .scx-fx .mx-ht::before{content:"^";position:absolute;left:0;right:0;top:-.38em;text-align:center;font-size:.8em;line-height:1;font-style:normal}
+#app .scx-fx .mx-sp1{display:inline-block;width:.17em}#app .scx-fx .mx-sp2{display:inline-block;width:.3em}#app .scx-fx .mx-sp3{display:inline-block;width:1em}#app .scx-fx .mx-sp4{display:inline-block;width:2em}
+#app .scx-pl{font-size:14px;line-height:1.8;color:var(--scx-gold);font-weight:600;overflow-wrap:anywhere}
+#app .scx-note{margin:10px 0 0;font-size:12.5px;line-height:1.75;color:var(--mut);font-family:"Hind Siliguri",Manrope,sans-serif}
+
+#app .scx-empty{margin:26px 0;padding:22px;border:1px dashed var(--scx-edge);border-radius:14px;text-align:center;color:var(--mut);font-size:14px}
+#app .scx-disclaimer{margin:26px 0 0;padding:12px 16px;border:1px solid rgba(251,191,36,.14);border-radius:12px;color:var(--mut);font-size:12px;line-height:1.8}
+
+@media(max-width:720px){
+  #app .scx-hero{padding:22px 18px 20px;border-radius:18px}
+  #app .scx-hero::after{left:18px;right:18px}
+  #app .scx-controls{grid-template-columns:minmax(0,1fr);gap:10px;margin-top:18px}
+  #app .scx-tabs{grid-template-columns:repeat(2,minmax(0,1fr));border-radius:20px}
+  #app .scx-tab{min-height:36px;padding:0 10px;font-size:12.5px}
+  #app .scx-find{flex-wrap:wrap;gap:8px}
+  #app .scx-find .scx-search{flex:1 1 100%}
+  #app .scx-jump{flex:1 1 0}
+  #app .scx-jump select,#app .scx-toggle,#app .scx-search input{min-height:44px}
+  #app .scx-toggle{padding:0 14px;font-size:12.5px}
+  #app .scx-emb{flex-basis:34px;width:34px;height:34px;border-radius:10px;font-size:17px}
+  #app .scx-subject-head{flex-direction:row;align-items:center;flex-wrap:wrap}
+  #app .scx-subject-head span{font-size:11px}
+  #app .scx-stats>div{flex:1;padding:0 12px}
+  #app .scx-stats>div:first-child{padding-left:0}
+  #app .scx-stats dd{font-size:23px}
+    #app .scx-subject-head h2{gap:10px}
+  #app .scx-grid{grid-template-columns:minmax(0,1fr);padding:2px 10px 12px}
+  #app .scx-ch>summary{padding:13px 13px;gap:11px}
+  #app .scx-ch-t b{font-size:14.5px}
+  #app .scx-fx{font-size:16px}
+  #app .scx-tip{padding:12px}
+  #app .scx-subject-head{align-items:flex-start;flex-direction:column;gap:4px}
+}
+@media(prefers-reduced-motion:reduce){#app .scx *{transition:none!important}}

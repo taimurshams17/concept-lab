@@ -4,16 +4,16 @@ window.CL_SIMKEYS = ['bohr', 'rutherford', 'rutherfordModel', 'line', 'force', '
 
 window.CL_DEF = {
 settings: {
-  badge: 'বাংলায় ধারণা-ভিত্তিক পাঠ',
+  badge: 'বাংলায় ধারণা · খেলা · সিমুলেশন · স্টুডেন্ট হাব',
   h1: 'ConceptLab: মুখস্থ নয়, কনসেপ্ট বুঝুন',
-  lead: 'Physics, Chemistry ও Higher Math -এর প্রতিটি চ্যাপ্টার চারটি ধাপে শেখানো হয়েছে।',
+  lead: 'Physics, Chemistry ও Higher Math-এর প্রতিটি অধ্যায় ধারণা থেকে শুরু। তারপর গেম খেলুন, সিমুলেশনে পরীক্ষা করুন, গ্রাফ আঁকুন—আর স্টুডেন্ট হাবের {{HUB_TOOLS}}টি টুলে পড়াশোনা গুছিয়ে নিন।',
   heroPre: 'Play with',
   heroWords: 'Atoms, Waves, Vectors, Forces, Equations, Graphs',
   siteName: 'ConceptLab',
   footer: 'Created by Taimur Shams — an independent student-led educational project.',
   credit: 'Created by Taimur Shams & Moshiur Rahman Araf',
-  footerTitle: 'Learn with curiosity. Build with understanding.',
-  footerText: 'ConceptLab helps students explore science and mathematics through interactive learning.',
+  footerTitle: 'কৌতূহল দিয়ে শিখুন। বোঝা দিয়ে গড়ে তুলুন।',
+  footerText: 'ConceptLab শিক্ষার্থীদের বিজ্ঞান ও গণিতের ধারণা বোঝা, অনুশীলন, গেম, সিমুলেশন, গ্রাফ এবং স্টুডেন্ট হাবের পড়াশোনার টুল—সবকিছু এক জায়গায় দেয়।',
   facebookUrl: 'https://www.facebook.com',
   facebookLabel: 'Join our Facebook Page',
   socialLinks: [],
@@ -38,7 +38,7 @@ settings: {
   progressCardIntro: 'A shareable card built from your real ConceptLab progress: level, XP, streak, simulations, games and badges. Download it or share it with friends.',
   settingsTitle: 'Settings — your learning space',
   settingsIntro: 'অ্যাকাউন্ট ছাড়াই ওয়েবসাইটের ফন্ট, টেক্সট সাইজ, রং, লেআউট ও অ্যানিমেশন বদলাতে পারবেন। পরিবর্তন এই ডিভাইসে সংরক্ষিত হবে।',
-  about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো।'
+  about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো, এবং ধারণা, গেম, সিমুলেশন, গ্রাফ ও স্টুডেন্ট হাবের টুল দিয়ে পড়াশোনাকে আনন্দময় ও গোছানো করা।'
 },
 navigation: [
  {id:'home',href:'#/',label:'Home',enabled:true},
@@ -150,8 +150,8 @@ chapters: [
 
 home: { sections: [
  {id:'s-ticker',type:'marquee',on:true,items:[{t:'F = ma'},{t:'H₂O'},{t:'y = mx + c'},{t:'sin²θ + cos²θ = 1'},{t:'PV = nRT'},{t:'T = 2π√(L/g)'},{t:'d/dx xⁿ = nxⁿ⁻¹'},{t:'NaCl'},{t:'det A = ad − bc'},{t:'(x−h)² + (y−k)² = r²'},{t:'v = u + at'}]},
- {id:'s-stats',type:'stats',on:true,items:[{t:'Chapters planned',k:'chapters',v:'25'},{t:'Live simulations',k:'labs',v:''},{t:'Mini games',k:'games',v:''},{t:'XP you earned',k:'xp',v:''}]},
- {id:'s-subjects',type:'subjects',on:true,pill:'বিষয়সমূহ',h:'বিষয় বেছে শুরু করুন',p:'Physics, Chemistry ও Higher Mathematics—অধ্যায় ধরে শিখুন, পরীক্ষা করুন, দক্ষতা বাড়ান।'},
+ {id:'s-stats',type:'stats',on:true,items:[{t:'Chapters planned',k:'chapters',v:'25'},{t:'Live simulations',k:'labs',v:''},{t:'Mini games',k:'games',v:''},{t:'XP you earned',k:'xp',v:''},{t:'Graph labs',k:'graphlabs',v:''},{t:'Student Hub tools',k:'hubtools',v:''}]},
+ {id:'s-subjects',type:'subjects',on:true,pill:'বিষয়সমূহ',h:'বিষয় বেছে শুরু করুন',p:'Physics, Chemistry ও Higher Mathematics—অধ্যায় ধরে ধারণা বুঝুন, গেমে অনুশীলন করুন, সিমুলেশনে পরীক্ষা করুন এবং স্টুডেন্ট হাবের টুলে পড়ার পরিকল্পনা সাজান।'},
  {id:'s-goals',type:'goals',on:true,pill:'আমাদের লক্ষ্য · OUR MISSION',h:'What we want|to do',p:'চারটি বড় লক্ষ্য, যা প্রতিটি পাতায় আমাদের পথ দেখায়।',items:[
    {i:'🧠',t:'ধারণা আগে, সূত্র পরে',p:'প্রতিটি সূত্রের আগে একটি প্রশ্ন: এটি কেন কাজ করে? আগে ধারণাটি বুঝলে সূত্র নিজেই মনে থাকে।'},
    {i:'🎮',t:'প্রতিটি চ্যাপ্টার খেলার মতো',p:'সিমুলেশন, মিনি-গেম, কুইজ ও ব্যাজ—শেখাকে করে তুলি আনন্দের অভিজ্ঞতা, যেন বারবার ফিরে আসতে ইচ্ছে করে।'},
@@ -165,16 +165,19 @@ home: { sections: [
  {id:'s-lab',type:'lab',on:true,pill:'INTERACTIVE PLAYGROUND',h:'Don’t just read it.|Play with the idea.',p:'Change the settings and watch the wave respond in real time. A tiny experiment, right on the home page.',btn:'Explore all simulations ↗',link:'#/lab',items:[{t:'Physics'},{t:'Live graph'},{t:'Try it yourself'}]},
  {id:'s-arcade',type:'arcade',on:true,pill:'ARCADE',h:'Study that feels|like a game',p:'Beat the clock, build combos, balance equations and fire cannons. Every round teaches a real concept, and earns you XP.',btn:'Open the arcade',link:'#/play'},
  {id:'s-purpose',type:'purpose',on:true,pill:'আমাদের উদ্দেশ্য',h:'প্রতিটি কনসেপ্ট, পরিষ্কারভাবে আয়ত্ত করা।',
-  p:'শিক্ষার্থীরা যেন প্রতিটি কনসেপ্ট ভালোভাবে বুঝে আয়ত্ত করতে পারে।',
-  p2:'সূত্র মুখস্থ না করে কেন কাজ করে, তা বোঝাই আমাদের লক্ষ্য।',
-  items:[{t:'সূত্রের আগে ধারণা'},{t:'আগে দেখুন, নিজে করুন, যাচাই করুন'},{t:'সহজ বাংলায় ব্যাখ্যা'}]},
- {id:'s-why',type:'features',on:true,pill:'কেন ConceptLab?',h:'কেন এই ওয়েবসাইট তৈরি হচ্ছে?',p:'পড়াশোনা যেন ভয়ের নয়, কৌতূহলের হয়ে ওঠে।',animation:'float',items:[
+  p:'শিক্ষার্থীরা যেন প্রতিটি কনসেপ্ট ভালোভাবে বুঝে আয়ত্ত করতে পারে, এবং পড়াশোনার প্রতিটি ধাপে হাতের কাছে সাহায্য পায়।',
+  p2:'সূত্র মুখস্থ না করে কেন কাজ করে, তা বোঝাই আমাদের লক্ষ্য। আর বোঝার পর গেম, গ্রাফ, সিমুলেশন ও স্টুডেন্ট হাবের টুল দিয়ে অনুশীলন ও পরিকল্পনা—সবই এক জায়গায়।',
+  items:[{t:'সূত্রের আগে ধারণা'},{t:'আগে দেখুন, নিজে করুন, যাচাই করুন'},{t:'সহজ বাংলায় ব্যাখ্যা'},{t:'খেলতে খেলতে শেখা'},{t:'স্টুডেন্ট হাবে সব টুল'}]},
+ {id:'s-why',type:'features',on:true,pill:'কেন ConceptLab?',h:'শুধু ধারণা নয়—পুরো পড়াশোনার সঙ্গী',p:'পড়াশোনা যেন ভয়ের নয়, কৌতূহলের হয়ে ওঠে। ConceptLab-এ ধারণা বোঝা থেকে শুরু করে পরীক্ষার প্রস্তুতি পর্যন্ত সব সাহায্য পাবেন।',animation:'float',items:[
    {i:'lightbulb',color:'#fbbf24',image:'',tag:'UNDERSTAND',t:'মুখস্থ নয়, বোঝা',p:'প্রতিটি সূত্রের পেছনের কারণ আগে, সূত্র পরে। প্রতিটি ধারণা এমনভাবে ব্যাখ্যা করা হয়, যাতে শুধু উত্তর নয়—উত্তরের যুক্তিটিও বোঝা যায়।'},
    {i:'flask',color:'#34d399',image:'',tag:'EXPERIMENT',t:'নিজে করে দেখুন',p:'স্লাইডার ও বোতাম বদলে ফলাফল সঙ্গে সঙ্গে দেখুন। পরীক্ষা, পর্যবেক্ষণ ও তুলনার মাধ্যমে নিজের ধারণা যাচাই করুন।'},
    {i:'bookopen',color:'#38bdf8',image:'',tag:'LEARN IN BANGLA',t:'বাংলায় ব্যাখ্যা',p:'জটিল বিষয়ও সহজ বাংলায় ধাপে ধাপে বোঝানো হয়—যাতে কঠিন পরিভাষার আড়ালে মূল ধারণাটি হারিয়ে না যায়।'},
    {i:'chart',color:'#a78bfa',image:'',tag:'TRACK PROGRESS',t:'অগ্রগতি দেখুন',p:'কনসেপ্টের ধাপ, কুইজ ও শেখার কাজ সম্পন্ন হলে My Progress পেজে নিজের অগ্রগতি ফিরে দেখুন।'},
    {i:'trophy',color:'#fb7185',image:'',tag:'GROW & EARN',t:'XP, লেভেল ও ব্যাজ',p:'শেখা, গেম ও কুইজের মাধ্যমে XP সংগ্রহ করুন, নতুন লেভেলে উঠুন এবং অর্জনের জন্য ব্যাজ আনলক করুন।'},
-   {i:'flame',color:'#fb923c',image:'',tag:'DAILY PRACTICE',t:'প্রতিদিনের চ্যালেঞ্জ',p:'প্রতিদিনের বিশেষ গেমে অংশ নিয়ে জ্ঞান ঝালিয়ে নিন এবং নির্ধারিত চ্যালেঞ্জ সম্পন্ন করে অতিরিক্ত XP অর্জন করুন।'}]},
+   {i:'flame',color:'#fb923c',image:'',tag:'DAILY PRACTICE',t:'প্রতিদিনের চ্যালেঞ্জ',p:'প্রতিদিনের বিশেষ গেমে অংশ নিয়ে জ্ঞান ঝালিয়ে নিন এবং নির্ধারিত চ্যালেঞ্জ সম্পন্ন করে অতিরিক্ত XP অর্জন করুন।'},
+   {i:'graduation',color:'#38bdf8',image:'',tag:'STUDENT HUB · {{HUB_TOOLS}} টুল',t:'স্টুডেন্ট হাব',p:'স্টাডি প্ল্যানার, সপ্তাহ ও মাসিক পরিকল্পনা, সিলেবাস ট্র্যাকার, ফোকাস টাইমার, এক্সাম কাউন্টডাউন, ফ্ল্যাশকার্ড, রিভিশন ট্র্যাকার, GPA ক্যালকুলেটর আর ফর্মুলা শিট—সবই একটি জায়গায়।'},
+   {i:'chart',color:'#a78bfa',image:'',tag:'GRAPH LAB · {{GRAPH_LABS}} গ্রাফ',t:'গ্রাফ এঁকে বিশ্লেষণ করুন',p:'প্রতিটি অধ্যায়ের জন্য আলাদা গ্রাফ ল্যাব ({{GRAPH_LABS}}টি)। ফাংশন, সরলরেখা, বৃত্ত ও ভেক্টরের আকৃতি নিজে বদলে দেখুন—সূত্রের সঙ্গে ছবিটি মিলিয়ে নিন।'},
+   {i:'calculator',color:'#34d399',image:'',tag:'SOLVE · CALCULATE',t:'ধাপে ধাপে সমাধান ও ক্যালকুলেটর',p:'Formula Solver সূত্র বদলে অজানা রাশি বের করে প্রতিটি ধাপ দেখায়। পাশে আছে Casio fx-991ES ধাঁচের বৈজ্ঞানিক ক্যালকুলেটর।'}]},
  {id:'s-ayat-hadith',type:'ayatHadith',on:true,pill:'DAILY REFLECTION',h:'আয়াত/হাদিস',p:'কুরআন ও হাদিস থেকে জ্ঞান, অধ্যবসায় ও নৈতিকতার অনুপ্রেরণা।'},
  {id:'s-motivation',type:'motivation',on:true,pill:'DAILY INSPIRATION',h:'আজকের অনুপ্রেরণা'},
  {id:'s-road',type:'roadmap',on:true,pill:'THE CONCEPTLAB LEARNING FLOW',h:'From curiosity|to confidence',p:'একটি প্রশ্ন দিয়ে শুরু করুন, ধারণাটি বুঝুন, সিমুলেশনে পরীক্ষা করুন, তারপর অনুশীলনে নিজের দক্ষতা যাচাই করুন।',items:[
@@ -186,8 +189,9 @@ home: { sections: [
    {q:'ConceptLab কি বিনামূল্যে?',a:'হ্যাঁ, সম্পূর্ণ বিনামূল্যে। কোনো লগইন বা পেমেন্ট ছাড়াই সব চ্যাপ্টার, সিমুলেশন ও গেম ব্যবহার করা যায়।'},
    {q:'আমার অগ্রগতি কোথায় জমা থাকে?',a:'এই ডিভাইসের ব্রাউজারে। ব্রাউজারের ডেটা মুছে ফেললে অগ্রগতিও মুছে যাবে।'},
    {q:'XP ও ব্যাজ কীভাবে পাব?',a:'ধাপ শেষ করলে, কুইজে সঠিক উত্তর দিলে, সিমুলেশন চালালে এবং গেম খেললে XP পাবেন। নির্দিষ্ট লক্ষ্য ছুঁলে ব্যাজ আনলক হয়।'},
+   {q:'স্টুডেন্ট হাবে কী কী পাওয়া যায়?',a:'স্টাডি প্ল্যানার, সিলেবাস ট্র্যাকার, ফোকাস টাইমার, ফ্ল্যাশকার্ড, রিভিশন ও স্কোর ট্র্যাকার, GPA ক্যালকুলেটর, ফর্মুলা শিট এবং ক্যালকুলেটর। Navigation থেকে Student Hub খুলুন।'},
    {q:'কনটেন্ট কি NCTB সিলেবাসের সাথে মেলানো?',a:'এখনও যাচাই চলছে। যাচাই না হওয়া পর্যন্ত সিলেবাস-মিল “যাচাই প্রয়োজন” হিসেবে ধরে নিন।'}]},
- {id:'s-cta',type:'cta',on:true,h:'প্রথম চ্যাপ্টার শুরু করুন',p:'',btn:'Explore Chapters',link:'#/chapters'}
+ {id:'s-cta',type:'cta',on:true,h:'প্রথম চ্যাপ্টার শুরু করুন',p:'ধারণা দিয়ে শুরু করুন, তারপর গেম ও সিমুলেশনে অনুশীলন করুন এবং স্টুডেন্ট হাবে আপনার পড়ার পরিকল্পনা সাজান।',btn:'Explore Chapters',link:'#/chapters'}
 ]},
 
 games: [
