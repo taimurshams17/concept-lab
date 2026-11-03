@@ -1581,11 +1581,11 @@ footer.site-footer.pf .pf-bottom button.pf-top{border-color:rgba(125,211,252,.3)
   background: linear-gradient(145deg, rgba(18,31,44,.98), rgba(7,14,23,.99) 76%) !important;
   box-shadow: inset 0 1px rgba(255,255,255,.045), 0 14px 34px -27px rgba(0,0,0,.9) !important;
   backdrop-filter: none !important;
-  animation: none !important;
+  /* retain the original card entrance and ambient motion */
 }
 #app[data-page="home"] .stage-premium-card::before {
   background: linear-gradient(135deg, rgba(255,255,255,.025), transparent 48%) !important;
-  animation: none !important;
+  /* keep the decorative sheen animated */
 }
 #app[data-page="home"] .stage-premium-card::after { display: none !important; }
 #app[data-page="home"] .stage-premium-card:hover {
@@ -1598,9 +1598,6 @@ footer.site-footer.pf .pf-bottom button.pf-top{border-color:rgba(125,211,252,.3)
   background: linear-gradient(145deg, rgba(100,144,174,.13), rgba(15,29,42,.84)) !important;
   box-shadow: inset 0 1px rgba(255,255,255,.06) !important;
 }
-#app[data-page="home"] .stage-icon-orbit::before,
-#app[data-page="home"] .stage-premium-card .premium-home-icon,
-#app[data-page="home"] .stage-card-glint { animation: none !important; }
 #app[data-page="home"] .stage-card-glint { opacity: .35 !important; }
 #app[data-page="home"] .stage-step-meta > b { color: #90a8bb !important; }
 #app[data-page="home"] .stage-card-footer { border-top-color: rgba(148,163,184,.15) !important; }
@@ -1611,10 +1608,10 @@ footer.site-footer.pf .pf-bottom button.pf-top{border-color:rgba(125,211,252,.3)
   border-color: rgba(148,170,190,.19) !important;
   background: linear-gradient(110deg, rgba(16,29,42,.97), rgba(7,14,22,.98)) !important;
   box-shadow: inset 0 1px rgba(255,255,255,.045), 0 12px 28px -25px rgba(0,0,0,.9) !important;
-  animation: none !important;
+  /* retain the original feature-card entrance motion */
 }
 #app[data-page="home"] .feature-premium-card::before { opacity: .5 !important; }
-#app[data-page="home"] .feature-premium-card::after { animation: none !important; background: none !important; }
+#app[data-page="home"] .feature-premium-card::after { }
 #app[data-page="home"] .feature-premium-card:hover {
   transform: translateY(-2px) !important;
   border-color: rgba(148,190,216,.4) !important;
@@ -1625,9 +1622,7 @@ footer.site-footer.pf .pf-bottom button.pf-top{border-color:rgba(125,211,252,.3)
   background: linear-gradient(145deg, rgba(100,144,174,.12), rgba(7,15,24,.95)) !important;
   box-shadow: inset 0 1px rgba(255,255,255,.06) !important;
 }
-#app[data-page="home"] .feature-icon-shell::before,
-#app[data-page="home"] .feature-premium-card .premium-home-icon { animation: none !important; }
-#app[data-page="home"] .feature-icon-shell::before { display: none !important; }
+#app[data-page="home"] .feature-icon-shell::before { }
 #app[data-page="home"] .feature-card-tag,
 #app[data-page="home"] .feature-card-number { color: #8ea8bc !important; }
 #app[data-page="home"] .feature-card-orbit {
@@ -3125,3 +3120,38 @@ footer.site-footer.pf{margin-top:clamp(24px,4vw,46px)!important;padding-top:clam
   #app[data-page="home"] > section.goals { margin-bottom:24px!important; }
   #app[data-page="home"] .stage-premium-section { margin-top:10px!important; }
 }
+
+/* ---------- Theme switch (Settings → Theme) ---------- */
+.px-theme-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px}
+.px-theme-btn{display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:64px;border-radius:16px;border:1.5px solid rgba(190,226,250,.2);background:rgba(255,255,255,.04);color:inherit;font:inherit;text-align:left;cursor:pointer;transition:border-color .2s,background .2s,transform .2s,box-shadow .2s}
+.px-theme-btn:hover{border-color:rgba(125,211,252,.5);transform:translateY(-1px)}
+.px-theme-btn:focus-visible{outline:2px solid #7dd3fc;outline-offset:3px}
+.px-theme-btn[aria-pressed="true"]{border-color:#7dd3fc;background:linear-gradient(160deg,rgba(125,211,252,.16),rgba(125,211,252,.05));box-shadow:0 10px 26px -14px rgba(14,165,233,.7)}
+.px-theme-ic{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:rgba(125,211,252,.12);color:#bae6fd}
+.px-theme-btn[aria-pressed="true"] .px-theme-ic{background:linear-gradient(135deg,#38bdf8,#0ea5e9);color:#00131d}
+.px-theme-tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.px-theme-tx b{font-size:15px;font-weight:700}
+.px-theme-tx small{font-size:12px;color:#8aa4b8}
+.px-accent-lock{display:none}
+@media(max-width:420px){.px-theme-btn{padding:10px;gap:9px}.px-theme-ic{flex-basis:38px;width:38px;height:38px}}
+
+
+/* Creator initials are a resilient portrait fallback in both themes. */
+#app .creator-avatar-ring{position:relative}
+#app .creator-avatar-fallback{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;font:800 25px Manrope,sans-serif;letter-spacing:.04em;color:#eaf7ff;background:linear-gradient(135deg,#176d91,#6757a8)}
+#app .creator-avatar-ring img{position:relative;z-index:1}
+#app .creator-avatar-ring.image-missing img{display:none}
+
+
+/* v5: centered, concise theme selectors; refined moon/sun controls */
+.px-theme-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.px-theme-btn{min-height:76px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:12px!important;text-align:center!important}
+.px-theme-tx{align-items:center!important;justify-content:center!important}
+.px-theme-tx b{font-size:15px!important;line-height:1.2!important}
+.px-theme-tx small{display:none!important}
+.px-theme-ic{width:40px!important;height:40px!important;flex-basis:40px!important;border-radius:50%!important}
+html[data-theme="light"] .px-theme-btn[aria-pressed="true"]{border-color:rgba(96,113,205,.55)!important;background:linear-gradient(145deg,rgba(99,180,218,.16),rgba(148,126,214,.13),rgba(83,190,157,.12))!important;box-shadow:0 10px 25px -16px rgba(75,115,174,.42)!important}
+html[data-theme="light"] .px-theme-btn[aria-pressed="true"] .px-theme-ic{background:linear-gradient(135deg,#55b5d0,#8175c8,#55b99a)!important;color:#fff!important}
+
+#app .creator-avatar-ring img{z-index:2!important}
+#app .creator-avatar-ring.image-loaded .creator-avatar-fallback{display:none!important}

@@ -560,3 +560,229 @@ body{background-color:#06090f}
 #app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy b{color:#f3e7c9!important}
 #app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy small{color:#a9bfd0!important}
 #app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-arrow{color:#e8c477!important}
+
+/* 2026-11-03 — Moment of Inertia Explorer + refined Simulation catalogue controls */
+#app .mi-lab{display:grid;gap:14px;min-width:0;color:#e6f1f8}
+#app .mi-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid rgba(107,190,225,.2);border-radius:18px;background:linear-gradient(135deg,rgba(12,37,54,.96),rgba(5,16,27,.98));box-shadow:inset 0 1px rgba(255,255,255,.035)}
+#app .mi-kicker{display:block;color:#72c8e9;font:800 9px/1.4 Manrope,sans-serif;letter-spacing:.17em}
+#app .mi-head h2{margin:5px 0 4px;font-size:clamp(20px,3vw,27px);line-height:1.2;color:#f2f8fc}
+#app .mi-head p{margin:0;color:#a9bdcc;font-size:13px;line-height:1.6}
+#app .mi-head-mark{display:grid;place-items:center;width:56px;height:56px;flex:0 0 56px;border-radius:16px;border:1px solid rgba(105,199,235,.34);background:linear-gradient(145deg,rgba(44,137,177,.24),rgba(10,38,56,.55));color:#8cddf5;font:italic 700 30px Georgia,serif;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+#app .mi-mode-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 13px;border:1px solid rgba(107,190,225,.16);border-radius:13px;background:rgba(7,20,32,.86)}
+#app .mi-mode-row>label{color:#c5d7e3;font-size:12px;font-weight:750;white-space:nowrap}
+#app .mi-mode-select{width:100%;min-width:0;min-height:42px;padding:8px 38px 8px 12px;border:1px solid rgba(112,192,225,.3);border-radius:10px;background:#0b2233;color:#edf7fc;font:600 13px "Hind Siliguri",sans-serif;outline:none}
+#app .mi-mode-select:focus{border-color:#60c8ed;box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+#app .mi-mode-count{padding:6px 9px;border-radius:999px;border:1px solid rgba(108,191,222,.18);color:#91b4c8;font-size:10px;white-space:nowrap}
+#app .mi-main-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(245px,.8fr);gap:12px;min-width:0}
+#app .mi-visual-panel,#app .mi-result-panel,#app .mi-adjust-panel,#app .mi-learning-panel,#app .mi-compare-panel{min-width:0;border:1px solid rgba(112,188,218,.18);border-radius:16px;background:linear-gradient(145deg,rgba(10,27,41,.96),rgba(5,15,25,.96));box-shadow:inset 0 1px rgba(255,255,255,.025)}
+#app .mi-visual-panel{overflow:hidden}
+#app .mi-visual-head{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid rgba(112,188,218,.13);color:#86a9bd;font:800 9px Manrope,sans-serif;letter-spacing:.13em}
+#app .mi-live-dot{color:#8ed6aa;letter-spacing:.08em}
+#app .mi-canvas{display:block;width:100%;height:auto;aspect-ratio:1200/525;background:#071522}
+#app .mi-motion-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid rgba(112,188,218,.13)}
+#app .mi-motion-bar>span{margin-left:auto;color:#8fa8b9;font-size:10px}
+#app .mi-control-btn,#app .mi-reset-values{min-height:34px;padding:7px 11px;border:1px solid rgba(107,190,225,.24);border-radius:9px;background:linear-gradient(180deg,rgba(20,52,71,.95),rgba(9,29,44,.98));color:#d8edf7;font-size:11px;font-weight:750;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+#app .mi-control-btn:hover,#app .mi-reset-values:hover{border-color:rgba(105,205,239,.55);background:linear-gradient(180deg,rgba(25,72,96,.95),rgba(9,36,53,.98));transform:translateY(-1px)}
+#app .mi-result-panel{display:flex;flex-direction:column;justify-content:center;padding:20px 18px}
+#app .mi-result-label{color:#7fbad1;font:800 9px Manrope,sans-serif;letter-spacing:.16em}
+#app .mi-result-value{margin-top:9px;color:#f3f8fc;font:800 clamp(27px,4vw,42px)/1.15 Manrope,sans-serif;letter-spacing:-.045em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+#app .mi-result-unit{margin-top:2px;color:#8fa9ba;font-size:12px}
+#app .mi-formula-box{margin-top:20px;padding:13px;border:1px solid rgba(105,196,229,.2);border-radius:12px;background:linear-gradient(135deg,rgba(16,50,69,.7),rgba(7,25,39,.8))}
+#app .mi-formula-box small{display:block;color:#8fb4c7;font-size:10px}
+#app .mi-formula-box strong{display:block;margin-top:5px;color:#9ce3fb;font:700 clamp(20px,3vw,27px) Georgia,serif;letter-spacing:.01em}
+#app .mi-parts{display:grid;gap:7px;margin-top:12px}
+#app .mi-parts>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 9px;border-radius:8px;background:rgba(111,176,206,.07);font-size:10px;color:#a7c0cf}
+#app .mi-parts b{color:#e1f3fb;font:700 11px Manrope,sans-serif;white-space:nowrap}
+#app .mi-insight{margin:15px 0 0;padding-left:10px;border-left:2px solid #5dbfe4;color:#b0c6d3;font-size:12px;line-height:1.65}
+#app .mi-adjust-panel,#app .mi-learning-panel,#app .mi-compare-panel{padding:15px 16px}
+#app .mi-section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+#app .mi-section-title>div>span{color:#74b7d2;font:800 9px Manrope,sans-serif;letter-spacing:.15em}
+#app .mi-section-title h3,#app .mi-compare-panel h3{margin:3px 0 0;color:#edf6fb;font-size:16px}
+#app .mi-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px}
+#app .mi-field{display:block;min-width:0;padding:11px;border:1px solid rgba(112,188,218,.15);border-radius:11px;background:rgba(5,18,29,.72)}
+#app .mi-field>label{display:block;color:#c5d8e4;font-size:11px;font-weight:700}
+#app .mi-field-value{margin-top:5px;color:#90d6ee;font:700 13px Manrope,sans-serif;font-variant-numeric:tabular-nums}
+#app .mi-field input[type=range]{display:block;width:100%;margin:10px 0 0;accent-color:#54bfe8}
+#app .mi-field .sim-value-editor{margin-top:8px;padding-top:7px}
+#app .mi-learning-panel>p{margin:0;color:#b5c9d6;font-size:13px;line-height:1.8}
+#app .mi-observe{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;margin-top:12px;padding:11px 12px;border-left:3px solid #55bfe8;border-radius:0 9px 9px 0;background:rgba(48,135,172,.1);font-size:11px;line-height:1.65}
+#app .mi-observe b{color:#83d4f1;white-space:nowrap}
+#app .mi-observe span{color:#c0d3de}
+#app .mi-how{margin-top:12px;border-top:1px solid rgba(112,188,218,.13);padding-top:10px;color:#c0d3de;font-size:12px}
+#app .mi-how summary{cursor:pointer;color:#8ed3eb;font-weight:750}
+#app .mi-how ol{padding-left:20px;line-height:1.8}
+#app .mi-compare-panel h3{margin:0 0 11px}
+#app .mi-compare-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#app .mi-compare-grid>div{display:grid;gap:5px;min-width:0;padding:10px;border:1px solid rgba(112,188,218,.15);border-radius:10px;background:rgba(5,18,29,.72)}
+#app .mi-compare-grid b{color:#a9c2d0;font-size:10px;line-height:1.5}
+#app .mi-compare-grid strong{color:#9ce3fb;font:700 18px Georgia,serif}
+#app .mi-compare-panel>p{margin:10px 0 0;color:#819aaa;font-size:10px}
+
+/* Give the Simulation subject selectors a more deliberate, premium control treatment. */
+#app .lab-page .subject-choice{position:relative;overflow:hidden;border-color:rgba(112,188,218,.22);border-radius:15px;background:linear-gradient(145deg,rgba(12,34,51,.98),rgba(5,17,29,.98));box-shadow:inset 0 1px rgba(255,255,255,.035),0 7px 18px rgba(0,0,0,.13);transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
+#app .lab-page .subject-choice:hover{transform:translateY(-2px);border-color:rgba(95,198,232,.48);box-shadow:inset 0 1px rgba(255,255,255,.045),0 10px 23px rgba(0,0,0,.2)}
+#app .lab-page .subject-choice.on{border-color:rgba(89,199,236,.66);background:linear-gradient(145deg,rgba(17,57,78,.98),rgba(7,26,41,.98));box-shadow:inset 0 0 0 1px rgba(91,199,233,.12),0 9px 22px rgba(0,0,0,.18)}
+#app .lab-page .subject-choice>span{border:1px solid rgba(103,192,224,.2);background:linear-gradient(145deg,rgba(59,157,195,.16),rgba(19,62,85,.13));color:#bdeafa}
+#app .lab-page .subject-choice>small{padding:4px 7px;border:1px solid rgba(112,188,218,.14);border-radius:999px;background:rgba(4,17,28,.5)}
+#app .lab-page .lab-catalog-actions .btn{border:1px solid rgba(91,191,226,.36);border-radius:11px;background:linear-gradient(145deg,#123d56,#0a2639);color:#e1f5fc;font-weight:750;box-shadow:inset 0 1px rgba(255,255,255,.05),0 6px 15px rgba(0,0,0,.13)}
+#app .lab-page .lab-catalog-actions .btn:hover{border-color:rgba(106,211,242,.65);background:linear-gradient(145deg,#18516e,#0c3048)}
+@media(max-width:760px){
+ #app .mi-head{padding:14px;border-radius:14px}
+ #app .mi-head-mark{width:44px;height:44px;flex-basis:44px;font-size:25px}
+ #app .mi-main-grid{grid-template-columns:minmax(0,1fr)}
+ #app .mi-result-panel{padding:15px}
+ #app .mi-result-value{font-size:32px}
+ #app .mi-formula-box{margin-top:12px}
+ #app .mi-mode-row{grid-template-columns:minmax(0,1fr) auto}
+ #app .mi-mode-row>label{grid-column:1/-1}
+ #app .mi-mode-select{grid-column:1}
+ #app .mi-mode-count{grid-column:2}
+ #app .mi-compare-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:420px){
+ #app .mi-head{align-items:flex-start}
+ #app .mi-head p{font-size:12px}
+ #app .mi-mode-row{grid-template-columns:minmax(0,1fr)}
+ #app .mi-mode-select,#app .mi-mode-count{grid-column:1}
+ #app .mi-mode-count{justify-self:start}
+ #app .mi-motion-bar>span{width:100%;margin-left:0}
+ #app .mi-fields{grid-template-columns:minmax(0,1fr)}
+ #app .mi-section-title{align-items:flex-start}
+ #app .mi-compare-grid{gap:6px}
+ #app .mi-compare-grid>div{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){#app .lab-page .subject-choice,#app .lab-page .lab-catalog-actions .btn,#app .mi-control-btn,#app .mi-reset-values{transition:none!important}}
+
+/* 2026-11-03 — Simulation guide and catalogue spacing refinement (mobile-first). */
+#app #sim .physics-lab-guide,
+#app #sim .physics-lab-guide *{
+  box-sizing:border-box;
+}
+#app #sim .physics-lab-guide{
+  width:100%;max-width:100%;min-width:0;
+  padding:clamp(14px,2.4vw,18px);
+  overflow:hidden;
+}
+#app #sim .physics-lab-guide-head{
+  display:grid;grid-template-columns:minmax(0,1fr);justify-items:start;
+  align-items:start;gap:7px;width:100%;min-width:0;
+}
+#app #sim .physics-lab-guide-kicker{
+  display:block;width:fit-content;max-width:100%;min-width:0;
+  padding:5px 9px;white-space:normal;overflow-wrap:anywhere;
+  line-height:1.45;letter-spacing:.055em;
+}
+#app #sim .physics-lab-guide-head strong{
+  display:block;width:100%;max-width:100%;min-width:0;
+  margin:0;line-height:1.55;overflow-wrap:anywhere;
+}
+#app #sim .physics-lab-guide-steps,
+#app #sim .physics-lab-guide-status,
+#app #sim .physics-lab-mission,
+#app #sim .physics-lab-mission p{
+  max-width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal;
+}
+#app #sim .physics-lab-mission{padding:12px 14px;}
+#app #sim .physics-lab-guide-actions{min-width:0;}
+#app #sim .physics-lab-guide-actions .btn{box-sizing:border-box;max-width:100%;overflow-wrap:anywhere;}
+
+/* Keep Simulation catalogue labels and cards comfortably inset from their borders. */
+#app .lab-page,
+#app .lab-page *{box-sizing:border-box;}
+#app .lab-page .subject-choice{
+  padding:14px 16px!important;min-width:0;max-width:100%;
+}
+#app .lab-page .subject-choice>b,
+#app .lab-page .subject-choice>small{
+  min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;line-height:1.5;
+}
+#app .lab-page .lab-sim-card{
+  padding:18px!important;min-width:0;max-width:100%;
+}
+#app .lab-page .lab-sim-card .gico,
+#app .lab-page .lab-sim-card .diff,
+#app .lab-page .lab-sim-card h3,
+#app .lab-page .lab-sim-card .lab-topic,
+#app .lab-page .lab-sim-card p,
+#app .lab-page .lab-sim-card .go{
+  min-width:0;max-width:100%;overflow-wrap:anywhere;
+}
+#app .lab-page .lab-sim-card h3{margin-top:10px;line-height:1.45;}
+#app .lab-page .lab-sim-card p{line-height:1.65;}
+#app .lab-page .lab-catalog-actions .btn,
+#app .lab-page .lab-extra-link .btn{
+  box-sizing:border-box;max-width:100%;padding:10px 14px;overflow-wrap:anywhere;
+}
+#app .lab-page .lab-footnote{box-sizing:border-box;max-width:100%;padding:13px 15px;overflow-wrap:anywhere;}
+@media(max-width:760px){
+  #app #sim .physics-lab-guide{padding:14px!important;}
+  #app #sim .physics-lab-guide-head{gap:7px;}
+  #app #sim .physics-lab-guide-kicker{font-size:9px;padding:5px 8px;}
+  #app #sim .physics-lab-guide-head strong{font-size:14px;line-height:1.55;}
+  #app #sim .physics-lab-mission{padding:12px!important;}
+  #app .lab-page .subject-choice{padding:13px 14px!important;}
+  #app .lab-page .lab-sim-card{padding:15px!important;}
+  #app .lab-page .lab-catalog-actions .btn,
+  #app .lab-page .lab-extra-link .btn{padding:11px 13px;line-height:1.45;}
+}
+@media(max-width:390px){
+  #app #sim .physics-lab-guide{padding:12px!important;}
+  #app #sim .physics-lab-mission{padding:11px!important;}
+  #app .lab-page .subject-choice{padding:12px!important;}
+  #app .lab-page .lab-sim-card{padding:14px!important;}
+}
+
+/* ConceptLab v34 · mobile-safe simulation cards, stable graph entry, compact navigation. */
+#app .mi-lab,
+#app .mi-lab *{box-sizing:border-box;min-width:0}
+#app .mi-visual-panel,#app .mi-result-panel,#app .mi-adjust-panel,#app .mi-learning-panel,#app .mi-compare-panel{padding:clamp(12px,2.4vw,18px);overflow-wrap:anywhere}
+#app .mi-visual-panel{padding:0!important}
+#app .mi-visual-head{padding:12px 15px!important}
+#app .mi-motion-bar{padding:10px 12px!important}
+#app .mi-fields{gap:12px!important}
+#app .mi-field{padding:12px!important;overflow:hidden}
+#app .mi-field input,#app .mi-field .sim-value-editor input{max-width:100%;box-sizing:border-box}
+#app .mi-observe{padding:12px!important;gap:9px!important;overflow-wrap:anywhere}
+#app .mi-compare-grid>div{padding:12px!important;overflow-wrap:anywhere}
+#app .mi-formula-box{padding:14px!important;overflow-wrap:anywhere}
+#app .graph-detail-page{animation:none!important;transform:none!important;translate:none!important;scroll-margin-top:16px}
+#app .graph-detail-page>*{animation:none!important;transform:none!important;translate:none!important}
+#app .graph-detail-page .graph-interactive-card{margin-top:14px;scroll-margin-top:16px}
+#app .graph-prev-next{display:flex!important;justify-content:space-between;align-items:center;gap:8px;margin:20px 0 14px!important;padding-top:14px;border-top:1px solid rgba(125,211,252,.13)}
+#app .graph-prev-next .btn{flex:0 1 180px!important;width:auto;min-width:0!important;min-height:36px!important;padding:8px 12px!important;border-radius:10px!important;font-size:12px!important;line-height:1.25!important;white-space:normal!important;justify-content:center;text-align:center}
+#app .graph-prev-next .graph-prev-btn{margin-right:auto}
+#app .graph-prev-next .graph-next-btn{margin-left:auto}
+#app[data-page="chapter"] .concept-page>.mutt:not(#pg){display:none!important}
+#app[data-page="chapter-list"] .chapter-navigation-footer{margin-top:34px!important;padding-top:18px!important;margin-bottom:18px!important}
+#app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom .btn{min-height:38px!important;padding:7px 10px!important;font-size:.74rem!important}
+@media(max-width:600px){
+ #app .mi-head{gap:10px!important;align-items:flex-start!important}
+ #app .mi-main-grid{gap:10px!important}
+ #app .mi-adjust-panel,#app .mi-learning-panel,#app .mi-compare-panel,#app .mi-result-panel{padding:12px!important}
+ #app .mi-field{padding:11px!important}
+ #app .mi-observe{grid-template-columns:minmax(0,1fr)!important}
+ #app .mi-observe b{white-space:normal!important}
+ #app .mi-compare-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #app .graph-prev-next{position:static!important;transform:none!important;display:flex!important;gap:8px!important;margin:18px 0 12px!important;padding-top:12px!important}
+ #app .graph-prev-next .btn{flex:1 1 0!important;min-height:35px!important;padding:7px 6px!important;font-size:11px!important}
+ #app[data-page="chapter-list"] .chapter-navigation-footer{margin-top:28px!important;padding-top:15px!important}
+ #app[data-page="chapter-list"] .chapter-pn.chapter-pn-bottom .btn{min-height:36px!important;padding:7px 6px!important;font-size:.7rem!important}
+}
+
+
+/* ConceptLab v35 · keep graph navigation on one row and separate chapter navigation from concepts. */
+#app .graph-prev-next{
+  display:flex!important;flex-flow:row nowrap!important;justify-content:space-between!important;align-items:stretch!important;gap:10px!important;
+}
+#app .graph-prev-next>.btn{
+  display:flex!important;flex:1 1 0!important;width:calc(50% - 5px)!important;max-width:calc(50% - 5px)!important;min-width:0!important;
+  margin:0!important;white-space:normal!important;overflow-wrap:anywhere;
+}
+#app[data-page="chapter-list"] .chapter-navigation-footer{
+  margin-top:54px!important;padding-top:20px!important;margin-bottom:20px!important;
+}
+@media(max-width:600px){
+  #app .graph-prev-next{flex-flow:row nowrap!important;gap:8px!important;margin:18px 0 12px!important;padding-top:12px!important}
+  #app .graph-prev-next>.btn{flex:1 1 0!important;width:calc(50% - 4px)!important;max-width:calc(50% - 4px)!important;min-width:0!important;padding:7px 4px!important;font-size:clamp(10px,2.8vw,11px)!important;line-height:1.3!important}
+  #app[data-page="chapter-list"] .chapter-navigation-footer{margin-top:44px!important;padding-top:17px!important;margin-bottom:18px!important}
+}

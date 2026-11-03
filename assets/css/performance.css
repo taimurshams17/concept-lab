@@ -1,0 +1,22 @@
+/* Lightweight profile: trim only costly ambient decoration; preserve learning illustrations and core motion. */
+html.cl-low-power .pf::before,
+html.cl-low-power .pf-grain,
+html.cl-low-power .pf-aurora,
+html.cl-low-power .launch-card::before {
+  animation: none !important;
+}
+html.cl-low-power #app .creator-profile {
+  opacity: 1 !important;
+  animation: none !important;
+}
+html.cl-low-power .card.tilt,
+html.cl-low-power .card.tilt:hover {
+  transform: none !important;
+}
+html.cl-low-power .card,
+html.cl-low-power .btn,
+html.cl-low-power a,
+html.cl-low-power button {
+  transition-duration: .12s !important;
+}
+html.cl-low-power #stars { opacity: .68; }

@@ -1,0 +1,506 @@
+/* ConceptLab UI fixes · 2026-11-03
+   Layout breathing room, lighter toolkit surfaces, reliable creator portraits,
+   and a motion-free daylight background. */
+
+/* My Study Space: keep its heading, stats and panels comfortably inside the page edge. */
+#app .study-page {
+  box-sizing: border-box !important;
+  padding: clamp(28px, 4vw, 44px) clamp(16px, 3vw, 30px) clamp(78px, 8vw, 96px) !important;
+}
+#app .study-page > h1,
+#app .study-page > .pill,
+#app .study-page > .lead,
+#app .study-page > .study-stats,
+#app .study-page > .study-grid,
+#app .study-page > .mutt {
+  min-width: 0;
+  max-width: 100%;
+}
+#app .study-page .study-stats,
+#app .study-page .study-grid {
+  width: 100%;
+}
+#app .study-page .study-panel {
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  #app .study-page {
+    padding: 28px 16px calc(86px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* Light theme: remove full-viewport nebula/orbit animation and the starfield canvas. */
+html[data-theme="light"] body::before,
+html[data-theme="light"] body::after {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+html[data-theme="light"] #stars {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+
+/* Make the Student Hub Toolkit actions feel like real buttons, not transparent text chips. */
+html[data-theme="light"] #app[data-page="home"] .home-launchpad .launch-tool {
+  border: 1px solid rgba(54, 119, 160, .34) !important;
+  background: linear-gradient(145deg, #e7f3fa 0%, #eeedfa 58%, #e5f3ef 100%) !important;
+  color: #244f70 !important;
+  box-shadow: 0 7px 18px -14px rgba(44, 93, 132, .42), inset 0 1px 0 rgba(255, 255, 255, .92) !important;
+}
+html[data-theme="light"] #app[data-page="home"] .home-launchpad .launch-tool:hover,
+html[data-theme="light"] #app[data-page="home"] .home-launchpad .launch-tool:focus-visible {
+  border-color: rgba(49, 119, 164, .58) !important;
+  background: linear-gradient(145deg, #d9edf8 0%, #e5e2f7 58%, #d8eee7 100%) !important;
+  color: #183f5e !important;
+  box-shadow: 0 10px 22px -14px rgba(44, 93, 132, .48), inset 0 1px 0 rgba(255, 255, 255, .96) !important;
+}
+
+/* Creator photos: ensure the actual image fills the avatar above its initials fallback. */
+#app .creator-avatar-ring {
+  position: relative !important;
+}
+#app .creator-avatar-ring img {
+  position: absolute !important;
+  inset: 4px !important;
+  display: block !important;
+  width: calc(100% - 8px) !important;
+  height: calc(100% - 8px) !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center 35% !important;
+  border-radius: 50% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2 !important;
+}
+#app .creator-avatar-ring.image-loaded .creator-avatar-fallback {
+  display: none !important;
+}
+#app .creator-avatar-ring.image-missing .creator-avatar-fallback {
+  z-index: 3;
+}
+
+
+/* Light Theme performance pass: remove fixed full-screen paint layers and glass blur.
+   Keep the calm daylight gradient, but let it scroll with the document. */
+html[data-theme="light"] body {
+  background-color: #f4f8fc !important;
+  background-image: linear-gradient(135deg, #f7faff 0%, #f5f5fc 48%, #f0f8f7 100%) !important;
+  background-attachment: scroll !important;
+}
+html[data-theme="light"] .horizon {
+  display: none !important;
+  animation: none !important;
+}
+html[data-theme="light"] body > header,
+html[data-theme="light"] header {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background-image: linear-gradient(110deg, #fbfdff, #f5f7fc 58%, #f5fbf9) !important;
+}
+html[data-theme="light"] body > .bottom-nav,
+html[data-theme="light"] .bottom-nav {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: rgba(248, 251, 255, .98) !important;
+}
+html[data-theme="light"] #app .card,
+html[data-theme="light"] #app .home-stat-card,
+html[data-theme="light"] #app .launch-tool,
+html[data-theme="light"] #app .chapter-card,
+html[data-theme="light"] #app .chapter-tile,
+html[data-theme="light"] #app .sim-card,
+html[data-theme="light"] #app .game-card {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html[data-theme="light"] .cl-message-panel {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* During scroll, reduce paint-heavy effects only; preserve CSS animations and reveal transitions. */
+html[data-theme="light"].cl-scrolling #app *,
+html[data-theme="light"].cl-scrolling body > header,
+html[data-theme="light"].cl-scrolling body > .bottom-nav,
+html[data-theme="light"].cl-scrolling .cl-message-panel {
+  will-change: auto !important;
+}
+html[data-theme="light"].cl-scrolling #app .card,
+html[data-theme="light"].cl-scrolling #app .home-stat-card,
+html[data-theme="light"].cl-scrolling #app .launch-tool,
+html[data-theme="light"].cl-scrolling #app .chapter-card,
+html[data-theme="light"].cl-scrolling #app .chapter-tile,
+html[data-theme="light"].cl-scrolling #app .sim-card,
+html[data-theme="light"].cl-scrolling #app .game-card {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+
+/* ConceptLab v11 — compact game controls, motion-safe daylight reveals and Settings navigation. */
+html[data-theme="dark"] #app .ga-level-card {
+  min-height:158px!important;
+  padding:14px 15px!important;
+}
+html[data-theme="dark"] #app .ga-level-icon {font-size:21px!important;margin-bottom:6px!important;line-height:1.2!important}
+html[data-theme="dark"] #app .ga-level-kicker {font-size:8px!important;margin-bottom:4px!important}
+html[data-theme="dark"] #app .ga-level-card h3 {font-size:14px!important;margin:0 0 5px!important}
+html[data-theme="dark"] #app .ga-level-card p {font-size:11px!important;line-height:1.5!important;margin:0 0 9px!important}
+html[data-theme="dark"] #app .ga-level-go {font-size:11px!important;line-height:1.3!important}
+@media(max-width:620px){
+  #app .ga-launch-card {padding:12px!important;gap:8px!important}
+  #app .ga-launch-card h2 {font-size:14px!important}
+  html[data-theme="dark"] #app .ga-level-card {min-height:136px!important;padding:12px 13px!important}
+  html[data-theme="dark"] #app .ga-level-icon {font-size:19px!important;margin-bottom:5px!important}
+  html[data-theme="dark"] #app .ga-level-card h3 {font-size:13px!important}
+  html[data-theme="dark"] #app .ga-level-card p {font-size:10.5px!important;margin-bottom:7px!important}
+}
+/* Daily Mystery and Resume cards are intentionally compact in both themes. */
+#app .ga-launch-card {
+  padding:14px!important;
+  gap:10px!important;
+  border-radius:15px!important;
+}
+#app .ga-launch-card h2 {font-size:15px!important;line-height:1.3!important;margin:5px 0 4px!important}
+#app .ga-launch-card p {font-size:11.5px!important;line-height:1.45!important}
+#app .ga-launch-card>a.btn {
+  min-height:30px!important;
+  padding:6px 10px!important;
+  font-size:10.5px!important;
+  line-height:1.25!important;
+  border-radius:9px!important;
+}
+.px-settings-back {
+  display:inline-flex!important;align-items:center;gap:7px;
+  min-height:34px;padding:7px 12px;margin:0 0 16px;
+  border:1px solid rgba(125,211,252,.26);border-radius:10px;
+  color:var(--p,#7dd3fc);background:rgba(125,211,252,.07);
+  font-size:12px;font-weight:750;text-decoration:none;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+.px-settings-back:hover {background:rgba(125,211,252,.13);border-color:rgba(125,211,252,.48);transform:translateX(-2px)}
+.px-theme-tip {
+  display:flex;align-items:center;gap:8px;max-width:max-content;
+  margin:12px 0 0!important;padding:8px 11px;
+  border:1px solid rgba(56,189,248,.26);border-radius:10px;
+  color:#c5eaff!important;background:linear-gradient(105deg,rgba(56,189,248,.13),rgba(139,92,246,.12));
+  font-size:11px!important;font-weight:800;letter-spacing:.015em;
+}
+.px-theme-tip>span {color:#7dd3fc;font-size:15px;line-height:1}
+html[data-theme="light"] .px-settings-back {color:#246b91;background:linear-gradient(110deg,#e8f5fb,#f1edfc);border-color:rgba(49,119,164,.30)}
+html[data-theme="light"] .px-theme-tip {color:#245774!important;border-color:rgba(49,119,164,.25);background:linear-gradient(105deg,rgba(80,170,204,.14),rgba(133,118,199,.12))}
+html[data-theme="light"] .px-theme-tip>span {color:#347fa7}
+/* Keep essential science motion alive while scrolling; only the ambient background is reduced. */
+html[data-theme="light"].cl-scrolling #app .orb-wrap svg,
+html[data-theme="light"].cl-scrolling #app .hero-float,
+html[data-theme="light"].cl-scrolling #app .hero-visual-card .hero-visual-stage *,
+html[data-theme="light"].cl-scrolling #app .stage-icon-orbit,
+html[data-theme="light"].cl-scrolling #app .feature-icon-shell,
+html[data-theme="light"].cl-scrolling #app .premium-home-icon,
+html[data-theme="light"].cl-scrolling #app .science-formula-track,
+html[data-theme="light"].cl-scrolling #app .science-outro-art .so-path,
+html[data-theme="light"].cl-scrolling #app .science-outro-art .so-atom,
+html[data-theme="light"].cl-scrolling #app .science-outro-art .so-flask,
+html[data-theme="light"].cl-scrolling #app .science-outro-art .so-wave,
+html[data-theme="light"].cl-scrolling #app .dm-wave-line,
+html[data-theme="light"].cl-scrolling #app .dm-wave-dot,
+html[data-theme="light"].cl-scrolling #app .dm-orbit-group,
+html[data-theme="light"].cl-scrolling #app .dm-field,
+html[data-theme="light"].cl-scrolling #app .dm-particle,
+html[data-theme="light"].cl-scrolling #app .home-lab:before,
+html[data-theme="light"].cl-scrolling #app .home-lab:after,
+html[data-theme="light"].cl-scrolling #app .home-games:before,
+html[data-theme="light"].cl-scrolling #app .home-games:after,
+html[data-theme="light"].cl-scrolling #app .sec-stages:before,
+html[data-theme="light"].cl-scrolling #app .sec-stages:after,
+html[data-theme="light"].cl-scrolling #app .sec-features:before,
+html[data-theme="light"].cl-scrolling #app .sec-features:after,
+html[data-theme="light"].cl-scrolling #app .sec-subjects:before,
+html[data-theme="light"].cl-scrolling #app .sec-subjects:after,
+html[data-theme="light"].cl-scrolling #app .goals:before,
+html[data-theme="light"].cl-scrolling #app .goals:after {
+  animation-play-state:running!important;
+}
+html[data-theme="light"].cl-scrolling #app .rv,
+html[data-theme="light"].cl-scrolling #app .scroll-reveal {
+  transition-duration:.46s!important;
+  transition-delay:0s!important;
+  will-change:auto!important;
+}
+/* Section reveal: short, compositor-friendly transitions rather than instant visibility. */
+html[data-theme="light"] #app .scroll-reveal {
+  transition:opacity .48s cubic-bezier(.2,.7,.2,1),transform .48s cubic-bezier(.2,.7,.2,1)!important;
+  transition-delay:var(--reveal-delay,0s)!important;
+  will-change:opacity,transform;
+}
+html[data-theme="light"] #app .scroll-reveal.is-visible {opacity:1!important;transform:translate3d(0,0,0) scale(1)!important}
+html[data-theme="light"] #app .rv {
+  transition-duration:.48s!important;
+  transition-timing-function:cubic-bezier(.2,.7,.2,1)!important;
+  transition-delay:var(--d,0s)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .px-settings-back,.px-theme-tip {transition:none!important}
+  html[data-theme="light"] #app .scroll-reveal,
+  html[data-theme="light"] #app .rv {transition:none!important;animation:none!important}
+}
+
+
+/* ConceptLab v12 — Study Space spacing, continuous science motion, and a static daylight canvas. */
+#app .study-page {
+  width: min(100%, 1120px) !important;
+  max-width: 1120px !important;
+  margin-inline: auto !important;
+  padding: clamp(24px, 4vw, 40px) clamp(20px, 4vw, 34px) calc(92px + env(safe-area-inset-bottom)) !important;
+}
+#app .study-page > .study-stats,
+#app .study-page > .study-grid {
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: clamp(10px, 1.5vw, 16px) !important;
+}
+#app .study-page .study-stats > .card {
+  min-width: 0 !important;
+  padding: 16px !important;
+  border-radius: 14px !important;
+}
+#app .study-page .study-panel {
+  min-width: 0 !important;
+  padding: clamp(18px, 2.4vw, 27px) !important;
+  border-radius: 18px !important;
+}
+#app .study-page .study-panel h2 {
+  margin: 0 0 17px !important;
+  line-height: 1.45 !important;
+  overflow-wrap: anywhere;
+}
+#app .study-page .study-panel form,
+#app .study-page .study-list {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin-inline: 0 !important;
+}
+#app .study-page .study-panel input,
+#app .study-page .study-panel select,
+#app .study-page .study-panel textarea {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 44px;
+  padding: 12px 14px !important;
+  border-radius: 11px !important;
+}
+#app .study-page .study-list article {
+  min-width: 0 !important;
+  padding: 14px !important;
+  gap: 12px !important;
+  border-radius: 13px !important;
+}
+#app .study-page .study-list article > div { min-width: 0 !important; }
+#app .study-page .study-list article p {
+  margin: 6px 0 8px !important;
+  line-height: 1.6 !important;
+}
+#app .study-page .study-list article .btn,
+#app .study-page .study-list article a { flex-shrink: 0; }
+@media (max-width: 600px) {
+  #app .study-page {
+    padding: 24px 18px calc(94px + env(safe-area-inset-bottom)) !important;
+  }
+  #app .study-page .study-panel { padding: 18px !important; }
+  #app .study-page .study-stats > .card { padding: 13px !important; }
+  #app .study-page .study-list article { padding: 12px !important; }
+}
+
+/* Light Theme: add calm, static colour depth and a faint science grid without motion. */
+html[data-theme="light"] body {
+  background-color: #f4f8fd !important;
+  background-image:
+    radial-gradient(ellipse 48% 27% at 2% 2%, rgba(71, 166, 207, .15), transparent 72%),
+    radial-gradient(ellipse 40% 28% at 98% 27%, rgba(135, 117, 199, .12), transparent 72%),
+    radial-gradient(ellipse 46% 30% at 54% 100%, rgba(63, 165, 142, .095), transparent 72%),
+    linear-gradient(rgba(73, 130, 172, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(73, 130, 172, .035) 1px, transparent 1px),
+    linear-gradient(180deg, #f8fbff 0%, #f2f7fc 52%, #f8fbfd 100%) !important;
+  background-size: auto, auto, auto, 42px 42px, 42px 42px, auto !important;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, no-repeat !important;
+  background-attachment: scroll !important;
+}
+html[data-theme="light"] #app {
+  background: transparent !important;
+}
+html[data-theme="light"] #app .study-page .study-panel input,
+html[data-theme="light"] #app .study-page .study-panel select,
+html[data-theme="light"] #app .study-page .study-panel textarea {
+  background: rgba(255, 255, 255, .92) !important;
+  color: #1d3447 !important;
+  border-color: rgba(70, 129, 167, .28) !important;
+  box-shadow: inset 0 1px 2px rgba(41, 84, 112, .045) !important;
+}
+html[data-theme="light"] #app .study-page .study-panel input::placeholder,
+html[data-theme="light"] #app .study-page .study-panel textarea::placeholder {
+  color: #71879a !important;
+}
+/* Light mode deliberately leaves cl-scrolling unused; this is a defensive
+   guard in case a stale class survives from another theme or older script. */
+html[data-theme="light"].cl-scrolling #app,
+html[data-theme="light"].cl-scrolling #app *,
+html[data-theme="light"].cl-scrolling #app *::before,
+html[data-theme="light"].cl-scrolling #app *::after {
+  animation-play-state: running !important;
+}
+html[data-theme="light"].cl-scrolling #app .rv,
+html[data-theme="light"].cl-scrolling #app .scroll-reveal {
+  transition-duration: .48s !important;
+}
+
+
+/* ConceptLab v13 — premium gold inspiration typography + continuous light-theme science motion. */
+#app[data-page="home"] .motivation-card blockquote {
+  display: block;
+  max-width: 720px;
+  margin-inline: auto !important;
+  font-family: "Cormorant Garamond", "STIX Two Text", "Hind Siliguri", Georgia, serif !important;
+  font-size: clamp(23px, 2.75vw, 31px) !important;
+  font-style: italic !important;
+  font-weight: 600 !important;
+  line-height: 1.58 !important;
+  letter-spacing: -.018em !important;
+  color: #d5a33c !important;
+  background-image: linear-gradient(108deg, #f4dfa0 0%, #d6a640 42%, #f7e8b6 70%, #bf8c2d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 18px rgba(206, 160, 61, .16) !important;
+  text-wrap: pretty;
+}
+#app[data-page="home"] .motivation-card blockquote::before,
+#app[data-page="home"] .motivation-card blockquote::after {
+  color: #d6aa50 !important;
+  -webkit-text-fill-color: #d6aa50 !important;
+}
+#app[data-page="home"] .motivation-card .motivation-author {
+  color: #c99b3d !important;
+  font-family: "Cormorant Garamond", "Hind Siliguri", Georgia, serif !important;
+  font-weight: 600 !important;
+}
+html[data-theme="light"] #app[data-page="home"] .motivation-card blockquote {
+  color: #b78322 !important;
+  text-shadow: 0 2px 15px rgba(177, 126, 31, .12) !important;
+}
+html[data-theme="light"] #app[data-page="home"] .motivation-card .motivation-author {
+  color: #9d701d !important;
+}
+
+/* The rocket used SVG SMIL motion in earlier builds. Use a compositor-friendly
+   CSS transform path instead, so its movement remains reliable during scrolling. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Keep the rocket's path animation in both themes after replacing SVG SMIL. */
+  #app[data-page="home"] .hero-visual-stage .hero-rocket-flight {
+    transform-box: view-box;
+    transform-origin: 0 0;
+    animation: clHeroRocketFlight 7.5s linear infinite !important;
+    will-change: transform;
+    animation-play-state: running !important;
+  }
+  #app[data-page="home"] .hero-visual-stage .hero-rocket-flame {
+    transform-box: fill-box;
+    transform-origin: right center;
+    animation: clHeroRocketFlame .28s ease-in-out infinite alternate !important;
+  }
+  html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .orb-wrap > svg {
+    animation: clHeroIllustrationFloat 9s ease-in-out infinite !important;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+  html[data-theme="light"] #app[data-page="home"] .orb-wrap .rot,
+  html[data-theme="light"] #app[data-page="home"] .orb-wrap .pulse,
+  html[data-theme="light"] #app[data-page="home"] .orb-wrap .tw,
+  html[data-theme="light"] #app[data-page="home"] .orb-wrap .bb,
+  html[data-theme="light"] #app[data-page="home"] .orb-wrap .ob,
+  html[data-theme="light"] #app[data-page="home"] .orb-wrap .fl,
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-path,
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-atom,
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-flask,
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-wave,
+  html[data-theme="light"] #app[data-page="home"] .science-formula-track {
+    animation-play-state: running !important;
+  }
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-atom,
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-flask,
+  html[data-theme="light"] #app[data-page="home"] .science-outro-art .so-wave {
+    will-change: transform;
+  }
+}
+@keyframes clHeroIllustrationFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes clHeroRocketFlight {
+  0% { transform: translate(30px, 350px) rotate(-51deg); }
+  25% { transform: translate(115px, 192.5px) rotate(-32deg); }
+  50% { transform: translate(200px, 140px) rotate(0deg); }
+  75% { transform: translate(285px, 192.5px) rotate(32deg); }
+  100% { transform: translate(370px, 350px) rotate(51deg); }
+}
+@keyframes clHeroRocketFlame {
+  from { transform: scaleX(.72); opacity: .68; }
+  to { transform: scaleX(1.18); opacity: 1; }
+}
+
+
+/* ConceptLab v14 — single-card mobile Arcade, faster smooth section entrances. */
+@media (max-width: 600px) {
+  #app[data-page="home"] .gdeck-track {
+    --cw: calc(100% - 4px) !important;
+    gap: 10px !important;
+    padding-inline: 2px !important;
+    scroll-padding-inline: 2px !important;
+  }
+  #app[data-page="home"] .gdeck-card {
+    flex-basis: var(--cw) !important;
+    width: var(--cw) !important;
+  }
+}
+
+/* Prewarmed observer + short compositor-friendly motion: no late pop-in or long waiting. */
+html[data-theme="light"] #app .scroll-reveal {
+  transition-property: opacity, transform !important;
+  transition-duration: .34s !important;
+  transition-timing-function: cubic-bezier(.2,.72,.22,1) !important;
+  transition-delay: 0s !important;
+  will-change: opacity, transform;
+}
+html[data-theme="light"] #app .scroll-reveal:not(.is-visible) {
+  transform: translate3d(0, 14px, 0) scale(.997) !important;
+}
+html[data-theme="light"] #app .scroll-reveal.is-visible {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+}
+html[data-theme="light"] #app .rv {
+  transition-property: opacity, transform !important;
+  transition-duration: .34s !important;
+  transition-timing-function: cubic-bezier(.2,.72,.22,1) !important;
+  transition-delay: 0s !important;
+  will-change: opacity, transform;
+}
+html[data-theme="light"] #app .home-launchpad.scroll-reveal {
+  transition-duration: .36s !important;
+}
+html[data-theme="light"] #app .home-launchpad .launch-feature-card {
+  animation-duration: .34s !important;
+  animation-delay: 0s !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] #app .scroll-reveal,
+  html[data-theme="light"] #app .rv,
+  html[data-theme="light"] #app .home-launchpad .launch-feature-card {
+    transition: none !important;
+    animation: none !important;
+  }
+}

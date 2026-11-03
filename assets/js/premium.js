@@ -414,18 +414,28 @@
   function prefs() {
     var s = settings();
     return Object.assign({
-      accent: s.defaultAccent || 'sky', fx: flagOn(s.defaultFx), calm: flagOn(s.defaultCalm), contrast: flagOn(s.defaultContrast),
+      theme: 'dark', accent: s.defaultAccent || 'sky', fx: flagOn(s.defaultFx), calm: flagOn(s.defaultCalm), contrast: flagOn(s.defaultContrast),
       bnFont: s.defaultBanglaFont || 'hind', enFont: s.defaultEnglishFont || 'inter', scale: String(s.defaultFontScale || '100'),
       density: s.defaultDensity || 'comfortable', corners: s.defaultCorners || 'rounded',
       content: s.defaultContentWidth || 'standard'
     }, jget('clpx_prefs', {}));
   }
+  /* Theme: dark (default) or light. The attribute on <html> drives assets/css/theme-light.css. */
+  function applyTheme(t) {
+    var light = t === 'light', root = document.documentElement;
+    root.setAttribute('data-theme', light ? 'light' : 'dark');
+    root.style.colorScheme = light ? 'light' : 'dark';
+    var lc = document.getElementById('clLightCss'); if (lc) lc.media = light ? 'all' : 'not all';
+    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', light ? '#f2f7fd' : '#000000');
+    try { window.dispatchEvent(new CustomEvent('cl-theme', { detail: { theme: light ? 'light' : 'dark' } })); } catch (e) { }
+  }
   function applyPrefs() {
     var p = prefs(), st = $('#clpxTheme');
     if (!st) { st = document.createElement('style'); st.id = 'clpxTheme'; document.head.appendChild(st); }
     var a = ACCENTS.filter(function (x) { return x[0] === p.accent; })[0], css = '';
-    if (a && a[4]) css += ':root{--p:' + a[4][0] + '!important;--s:' + a[4][1] + '!important;--glow:' + a[4][2] + '!important}';
-    if (!p.fx) css += '#stars,.horizon{display:none!important}';
+    applyTheme(p.theme);
+    if (a && a[4] && p.theme !== 'light') css += ':root{--p:' + a[4][0] + '!important;--s:' + a[4][1] + '!important;--glow:' + a[4][2] + '!important}';
+    if (!p.fx) css += '#stars,.horizon{display:none!important}html[data-theme=\"light\"] body:before,html[data-theme=\"light\"] body:after{animation:none!important}';
     var banglaFonts = {
       hind: '"Hind Siliguri",sans-serif', noto: '"Noto Sans Bengali",sans-serif',
       notoserif: '"Noto Serif Bengali",serif', anek: '"Anek Bangla","Noto Sans Bengali",sans-serif',
@@ -468,7 +478,11 @@
   function prefOptions() {
     var p = prefs();
     return '<div class="px-pref-grid">' +
-      '<section class="px-pref-section"><h3>Accent colour</h3><p>Button, highlight and glow colours.</p><div class="px-swatches" role="group" aria-label="Accent colour">' + ACCENTS.map(function (a) { return '<button type="button" class="px-swatch" data-pxacc="' + a[0] + '" aria-pressed="' + (p.accent === a[0]) + '" aria-label="' + a[1] + '" style="--c1:' + a[2] + ';--c2:' + a[3] + '"><span>' + a[1] + '</span></button>'; }).join('') + '</div></section>' +
+      '<section class="px-pref-section px-theme-section"><h3>Theme</h3><p>Choose how ConceptLab looks. Dark is the default.</p><div class="px-theme-choice" role="group" aria-label="Theme">' +
+      '<button type="button" class="px-theme-btn" data-pxtheme="light" aria-pressed="' + (p.theme === 'light') + '"><span class="px-theme-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42m0-14.14-1.42 1.42m-11.3 11.3-1.42 1.42"/><path d="m18.4 3.7.45 1.25 1.25.45-1.25.45-.45 1.25-.45-1.25-1.25-.45 1.25-.45z" fill="currentColor" stroke="none"/></svg></span><span class="px-theme-tx"><b>Light</b></span></button>' +
+      '<button type="button" class="px-theme-btn" data-pxtheme="dark" aria-pressed="' + (p.theme !== 'light') + '"><span class="px-theme-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.7 14.1A8.9 8.9 0 0 1 9.9 3.3 9.2 9.2 0 1 0 20.7 14.1Z"/><path d="m17.7 3 .45 1.25L19.4 4.7l-1.25.45L17.7 6.4l-.45-1.25L16 4.7l1.25-.45z" fill="currentColor" stroke="none"/><path d="m21 8 .3.8.8.3-.8.3-.3.8-.3-.8-.8-.3.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="px-theme-tx"><b>Dark</b></span></button>' +
+      '</div><p class="px-theme-tip"><span aria-hidden="true">✦</span> Use Dark Theme for better Experience</p></section>' +
+      '<section class="px-pref-section px-accent-section"><h3>Accent colour</h3><p>Button, highlight and glow colours. <span class="px-accent-lock">Light theme uses its Daylight Cosmos palette; accent colours apply to the Dark theme.</span></p><div class="px-swatches" role="group" aria-label="Accent colour">' + ACCENTS.map(function (a) { return '<button type="button" class="px-swatch" data-pxacc="' + a[0] + '" aria-pressed="' + (p.accent === a[0]) + '" aria-label="' + a[1] + '" style="--c1:' + a[2] + ';--c2:' + a[3] + '"><span>' + a[1] + '</span></button>'; }).join('') + '</div></section>' +
       '<section class="px-pref-section"><h3>Fonts · ফন্ট</h3><p>বাংলা ও English ফন্ট আলাদাভাবে বেছে নিন। একটি বদলালে অন্যটি বদলাবে না।</p>' +
       '<label class="px-pref-label">বাংলা ফন্ট (শুধু বাংলা অক্ষর)<select class="px-in" data-pxpref="bnFont">' +
       [['hind','Hind Siliguri · পরিষ্কার ও আধুনিক'],['noto','Noto Sans Bengali · সহজপাঠ্য'],['notoserif','Noto Serif Bengali · Serif'],['anek','Anek Bangla · Contemporary'],['atma','Atma · Rounded'],['baloo','Baloo Da 2 · Friendly'],['mina','Mina · Bengali text'],['tiro','Tiro Bangla · Serif'],['galada','Galada · Decorative'],['mukti','Mukti · Classic'],['kalpurush','Kalpurush · যদি ডিভাইসে থাকে'],['solaiman','SolaimanLipi · যদি ডিভাইসে থাকে'],['system','System Bengali fallback']].map(function (f) { return '<option value="' + f[0] + '" ' + (p.bnFont === f[0] ? 'selected' : '') + '>' + E(f[1]) + '</option>'; }).join('') +
@@ -488,8 +502,11 @@
   }
   function settingsPage() {
     var s = api().student ? api().student() : null;
-    if (!flagOn(settings().allowGuestSettings) && !s) return '<section class="px-page"><span class="px-tag">CONCEPTLAB SETTINGS</span><h1>Settings</h1><p class="lead">ব্যক্তিগত Settings ব্যবহার করতে সাইন ইন করুন।</p><a class="px-btn pri" href="#/account/signin">Sign in</a></section>';
-    return '<section class="px-page px-settings-page"><span class="px-tag">CONCEPTLAB SETTINGS</span><h1>' + E(settingText('settingsTitle', 'Settings — your learning space')) + '</h1>' +
+    var back = String(window.__clSettingsReturn || '#/');
+    if (!/^#\/(?!settings(?:\/|$))/.test(back)) back = '#/';
+    var backLink = '<a class="px-settings-back" href="' + E(back) + '">← ফিরে যান</a>';
+    if (!flagOn(settings().allowGuestSettings) && !s) return '<section class="px-page px-settings-page">' + backLink + '<h1>Settings</h1><p class="lead">ব্যক্তিগত Settings ব্যবহার করতে সাইন ইন করুন।</p><a class="px-btn pri" href="#/account/signin">Sign in</a></section>';
+    return '<section class="px-page px-settings-page">' + backLink + '<h1>' + E(settingText('settingsTitle', 'Settings — your learning space')) + '</h1>' +
       '<p class="lead">' + E(settingText('settingsIntro', 'অ্যাকাউন্ট ছাড়াই ওয়েবসাইটের ফন্ট, টেক্সট সাইজ, রং, লেআউট ও অ্যানিমেশন বদলাতে পারবেন। পরিবর্তন এই ডিভাইসে সংরক্ষিত হবে।')) + '</p>' +
       '<div class="px-panel px-set">' + prefOptions() + '<div class="px-settings-actions">' + (s ? '<a class="px-btn" href="#/profile">My profile</a><a class="px-btn" href="#/edit-profile">Edit profile</a>' : '<a class="px-btn" href="#/account/signup">Create an account (optional)</a>') + '</div><section><button type="button" class="px-btn" data-pxreset>Reset preferences</button></section></div>' +
       '<p class="px-note" style="margin-top:14px">প্রাইভেসি নোট: এই পছন্দগুলো লোকাল ব্রাউজার স্টোরেজে থাকে; পাসওয়ার্ড বা ব্যক্তিগত তথ্য এখানে চাওয়া হয় না।</p></section>';
@@ -499,9 +516,12 @@
     if (app._prefBound) return;
     app._prefBound = true;
     app.addEventListener('click', function (e) {
-      var a = e.target.closest('[data-pxacc]'), t = e.target.closest('[data-pxtog]'), r = e.target.closest('[data-pxreset]'), i = e.target.closest('#pxInstallBtn');
+      var th = e.target.closest('[data-pxtheme]'), a = e.target.closest('[data-pxacc]'), t = e.target.closest('[data-pxtog]'), r = e.target.closest('[data-pxreset]'), i = e.target.closest('#pxInstallBtn');
       var p = prefs();
-      if (a) {
+      if (th) {
+        p.theme = th.getAttribute('data-pxtheme') === 'light' ? 'light' : 'dark'; jset('clpx_prefs', p); applyPrefs();
+        $$('.px-theme-btn', app).forEach(function (b) { b.setAttribute('aria-pressed', b === th); }); toast(p.theme === 'light' ? 'Light theme on' : 'Dark theme on');
+      } else if (a) {
         p.accent = a.getAttribute('data-pxacc'); jset('clpx_prefs', p); applyPrefs();
         $$('.px-swatch', app).forEach(function (b) { b.setAttribute('aria-pressed', b === a); }); toast('Accent colour saved');
       } else if (t) {

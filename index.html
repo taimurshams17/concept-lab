@@ -1,26 +1,28 @@
 <!doctype html>
-<html lang="bn">
+<html lang="bn" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ConceptLab: Unlocking core concepts</title>
 <link rel="icon" type="image/webp" href="assets/images/conceptlab-main-logo.webp">
 <link rel="preload" as="image" href="assets/images/conceptlab-main-logo.webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/images/creator-taimur.webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/images/creator-moshiur.webp" fetchpriority="high">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Physics, Chemistry and Higher Math, explained in Bengali through concept-first lessons, interactive simulations, games and quizzes.">
 <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('cl-intro-seen')==='1')d.classList.add('intro-seen');else d.classList.add('intro-on')}catch(e){d.classList.add('intro-on')}if('scrollRestoration' in history)history.scrollRestoration='manual';try{window.scrollTo(0,0)}catch(e){}window.addEventListener('pageshow',function(){if(!location.hash||location.hash==='#/'||location.hash==='#'){try{window.scrollTo(0,0)}catch(e){}}});})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Anek+Bangla:wght@400;500;600;700&family=Atma:wght@400;500;600;700&family=Baloo+Da+2:wght@400;500;600;700&family=Mina:wght@400;700&family=Tiro+Bangla:ital@0;1&family=Galada&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Lora:wght@400;500;600&family=Amiri:wght@400;700&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Lora:wght@400;500;600&family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap">
 <link rel="stylesheet" href="assets/css/intro.css?v=20261101-v19-settings-audio">
 <link rel="stylesheet" href="assets/css/main.css?v=20261101-v26-premium">
 <link rel="stylesheet" href="assets/css/mono-icons.css?v=20261030-mobile-control-fix-1">
-<link rel="stylesheet" href="assets/css/premium.css?v=20261031-v15-settings-spacing">
+<link rel="stylesheet" href="assets/css/premium.css?v=20261103-v17-theme-selector-creator-layer">
 <link rel="stylesheet" href="assets/css/studio.css?v=20261031-v11-6-layout">
 <link rel="stylesheet" href="assets/css/boost.css?v=20261101-v20-arcade-mobile">
-<link rel="stylesheet" href="assets/css/polish.css?v=20261102-v33-stage-tabs-chapter-footer">
+<link rel="stylesheet" href="assets/css/polish.css?v=20261103-v35-simulation-mobile-spacing">
+<link rel="stylesheet" href="assets/css/performance.css?v=20261103-v2-motion-restored">
+<link rel="stylesheet" id="clLightCss" href="assets/css/theme-light.css?v=20261103-v8-light-reveal-restored" media="not all">
+<link rel="stylesheet" href="assets/css/ux-fixes.css?v=20261103-v7-fast-smooth-home-reveals">
+<script>(function(){try{var p=JSON.parse(localStorage.getItem('clpx_prefs')||'{}'),l=!!(p&&p.theme==='light'),r=document.documentElement;r.setAttribute('data-theme',l?'light':'dark');r.style.colorScheme=l?'light':'dark';var css=document.getElementById('clLightCss');if(css)css.media=l?'all':'not all';var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',l?'#f2f7fd':'#000000')}catch(e){document.documentElement.setAttribute('data-theme','dark')}})();</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/images/icon-192.png">
 <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ConceptLab"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -67,7 +69,7 @@
  </div>
  <button type="button" class="in-skip" id="introSkip">Skip <span aria-hidden="true">›</span></button>
 </div>
-<script src="assets/js/intro.js?v=20261101-v19-settings-audio"></script>
+<script defer src="assets/js/intro.js?v=20261101-v19-settings-audio"></script>
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="horizon" aria-hidden="true"><i class="hb1"></i><i class="hb2"></i><i class="hb3"></i><i class="hl"></i></div>
 <button id="navBackdrop" class="nav-backdrop" type="button" aria-label="Close navigation menu" aria-hidden="true" tabindex="-1"></button>
@@ -110,24 +112,25 @@
 </nav>
 <div id="toasts" aria-live="polite"></div>
 <canvas id="conf" aria-hidden="true"></canvas>
-<script src="assets/js/texts.js"></script>
-<script src="assets/js/defaults.js?v=20261102-v30-why-copy-compact"></script>
-<script src="assets/js/fx.js?v=20261030-scroll-performance-1"></script>
-<script src="assets/js/sfx.js?v=20261102-v21-soft-premium-click"></script>
-<script src="assets/js/sims.js"></script>
-<script src="assets/js/topic-sims.js"></script>
-<script src="assets/js/additional-sims.js"></script>
-<script src="assets/js/physics-labs.js"></script>
-<script src="assets/js/graphs.js"></script>
-<script src="assets/js/shortcuts.js?v=20261101-v26-premium"></script>
-<script src="assets/js/games.js?v=20261101-v17-sprint-answer-controls"></script>
-<script src="assets/js/game-academy.js"></script>
-<script src="assets/js/ayat-hadith.js"></script>
-<script src="assets/js/casio991.js"></script>
-<script src="assets/js/hub.js?v=20261102-v29-hubcount"></script>
-<script src="assets/js/premium.js?v=20261031-v13-premium-arcade"></script>
-<script src="assets/js/studio.js?v=20261102-v12-base-converter-plus"></script>
-<script src="assets/js/app.js?v=20261102-v31-chapter-footer-stage-tabs"></script>
-<script src="assets/js/mono-icons.js"></script>
+<script defer src="assets/js/texts.js"></script>
+<script defer src="assets/js/defaults.js?v=20261102-v30-why-copy-compact"></script>
+<script defer src="assets/js/fx.js?v=20261103-v7-prewarm-reveals"></script>
+<script defer src="assets/js/sfx.js?v=20261102-v21-soft-premium-click"></script>
+<script defer src="assets/js/sims.js"></script>
+<script defer src="assets/js/topic-sims.js"></script>
+<script defer src="assets/js/additional-sims.js"></script>
+<script defer src="assets/js/physics-labs.js"></script>
+<script defer src="assets/js/moment-inertia-lab.js?v=20261103-v1-14-mode-moment-inertia"></script>
+<script defer src="assets/js/graphs.js?v=20261103-v2-remove-subject-chapter-label"></script>
+<script defer src="assets/js/shortcuts.js?v=20261101-v26-premium"></script>
+<script defer src="assets/js/games.js?v=20261101-v17-sprint-answer-controls"></script>
+<script defer src="assets/js/game-academy.js"></script>
+<script defer src="assets/js/ayat-hadith.js"></script>
+<script defer src="assets/js/casio991.js"></script>
+<script defer src="assets/js/hub.js?v=20261102-v29-hubcount"></script>
+<script defer src="assets/js/premium.js?v=20261103-v18-settings-kicker-removed"></script>
+<script defer src="assets/js/studio.js?v=20261102-v12-base-converter-plus"></script>
+<script defer src="assets/js/app.js?v=20261103-v10-mobile-arcade-home-top-fast-reveals"></script>
+<script defer src="assets/js/mono-icons.js"></script>
 </body>
 </html>
