@@ -1,0 +1,192 @@
+/* ConceptLab · smooth.css (v16) — loaded LAST.
+   Performance, readability, True/False fix, welcome pop-up, quick search, resume strip.
+   Nothing here changes content; it only removes paint-heavy effects and adds the new UI. */
+
+/* =========================================================== 1. SCROLL PERFORMANCE */
+/* backdrop-filter re-blurs everything under a layer on every scroll frame. It was on every card,
+   pill, header and the bottom bar. Solid (slightly more opaque) fills look the same and cost nothing. */
+*,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+
+html:not([data-theme="light"]) body>header,
+html:not([data-theme="light"]) header{background:rgba(3,9,15,.96)!important}
+html:not([data-theme="light"]) .bottom-nav{background:rgba(6,15,25,.97)!important}
+html:not([data-theme="light"]) #app .card{background:linear-gradient(150deg,rgba(14,24,36,.94),rgba(6,12,20,.94))!important}
+html:not([data-theme="light"]) .nav-backdrop{background:rgba(0,0,0,.74)!important}
+html:not([data-theme="light"]) .cl-notice-overlay{background:rgba(2,6,23,.86)!important}
+
+/* Big blurred, animated blobs behind the page were repainted continuously. A static glow looks the same. */
+.horizon i{display:none!important}
+.horizon{background:
+  radial-gradient(60% 70% at 12% 120%,color-mix(in srgb,var(--glow) 22%,transparent),transparent 70%),
+  radial-gradient(55% 65% at 88% 125%,color-mix(in srgb,var(--p) 18%,transparent),transparent 70%),
+  radial-gradient(95% 75% at 50% 135%,color-mix(in srgb,var(--glow) 24%,transparent),transparent 72%)!important}
+.horizon .hl{animation:none!important}
+
+/* While the page is moving, decorative infinite loops are paused by enhance.js. This is the CSS safety net. */
+
+/* Let the browser skip layout/paint for heavy blocks that are far below the fold. */
+@supports (content-visibility:auto){
+  #app>section:not(.hero):not(.home-launchpad),
+  .footer-formula-motion,.site-footer{content-visibility:auto;contain-intrinsic-size:auto 560px}
+}
+/* hit-testing + transitions cost on big grids */
+#app .card{transition-property:transform,border-color,background-color,box-shadow,opacity}
+
+/* =========================================================== 2. TRUE / FALSE BUTTONS */
+/* Root cause: intro.css had a global ".t" rule (position:absolute + float animation) that also hit
+   <button class="tfb t">. It is now scoped to #intro; these lines make the buttons bullet-proof. */
+#app .tfrow{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;width:100%;align-items:stretch}
+#app .tfrow .tfb{position:relative!important;inset:auto!important;margin:0!important;animation:none!important;will-change:auto!important;
+  display:flex!important;align-items:center;justify-content:center;gap:9px;min-height:62px;width:100%;min-width:0;text-align:center;line-height:1.3;overflow-wrap:anywhere}
+#app .tfrow .tfb small{opacity:.6}
+@media(max-width:560px){#app .tfrow{grid-template-columns:1fr!important;gap:10px!important}#app .tfrow .tfb{min-height:54px}}
+#app .physics-sprint-game .tfrow{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+@media(max-width:420px){#app .physics-sprint-game .tfrow{grid-template-columns:1fr!important}}
+
+/* =========================================================== 3. DARK THEME READABILITY */
+html:not([data-theme="light"]){--mut:#bccfdf;--muted:#bccfdf;--cl-muted:#c3d3e0;--tx:#f5fbff}
+html:not([data-theme="light"]) body{color:#f1f8ff}
+html:not([data-theme="light"]) #app p,
+html:not([data-theme="light"]) #app li{color:#d6e5f1}
+html:not([data-theme="light"]) #app h1,
+html:not([data-theme="light"]) #app h2,
+html:not([data-theme="light"]) #app h3,
+html:not([data-theme="light"]) #app h4{color:#fff}
+html:not([data-theme="light"]) #app small,
+html:not([data-theme="light"]) #app .mut,
+html:not([data-theme="light"]) #app .sub{color:#b3c7d8}
+html:not([data-theme="light"]) nav a{color:#d9e8f4}
+html:not([data-theme="light"]) nav a.on,html:not([data-theme="light"]) nav a:hover{color:#fff}
+html:not([data-theme="light"]) #app{-webkit-font-smoothing:antialiased}
+/* Bengali text breathes a little better with slightly more leading */
+#app p,#app li{line-height:1.75}
+
+/* =========================================================== 4. SMALL-SCREEN SAFETY */
+html,body{max-width:100%;overflow-x:clip}
+#app img,#app svg,#app canvas,#app video{max-width:100%}
+#app table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#app pre{max-width:100%;overflow-x:auto}
+#app .card,#app .pgw,#app section{min-width:0}
+@media(max-width:600px){
+  .w{padding-left:14px;padding-right:14px}
+  #app h1{overflow-wrap:anywhere}
+  html{scroll-padding-top:72px}
+}
+/* extra room above the floating bottom bar so the last card / footer is never hidden */
+@media(max-width:900px){body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
+
+/* =========================================================== 5. HEADER SEARCH BUTTON */
+.header-search-btn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;padding:0;border-radius:12px;
+  border:1px solid rgba(186,230,253,.26);color:#e8f6ff;background:linear-gradient(160deg,rgba(125,211,252,.16),rgba(14,165,233,.05));cursor:pointer;
+  transition:transform .2s,border-color .2s,filter .2s}
+.header-search-btn:hover,.header-search-btn:focus-visible{filter:brightness(1.15);transform:translateY(-1px);border-color:rgba(186,230,253,.5)}
+@media(max-width:640px){.header-search-btn{display:none}}
+.cl-nav-search{display:none!important}
+@media(max-width:640px){.cl-nav-search{display:flex!important;align-items:center;justify-content:space-between;gap:8px;font-weight:700}.cl-nav-search small{opacity:.6;font-weight:500}}
+
+/* =========================================================== 6. MODALS (welcome + search) */
+html.cl-modal-open{overflow:hidden}
+.cl-welcome,.cl-search{position:fixed;inset:0;z-index:100500;display:flex;justify-content:center;padding:16px;background:rgba(2,6,16,.72);opacity:0;transition:opacity .22s ease}
+.cl-welcome{align-items:center}
+.cl-search{align-items:flex-start;padding-top:min(14vh,110px)}
+.cl-welcome.on,.cl-search.on{opacity:1}
+.cl-wel-card{position:relative;width:min(100%,460px);max-height:calc(100dvh - 32px);overflow:auto;border-radius:24px;padding:24px 22px 20px;
+  background:linear-gradient(160deg,#0f1c2c,#08111d);border:1px solid rgba(125,211,252,.28);color:#eaf6ff;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.03) inset;transform:translateY(14px) scale(.97);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.cl-welcome.on .cl-wel-card{transform:none}
+.cl-wel-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.07);color:inherit;font-size:22px;line-height:1;cursor:pointer}
+.cl-wel-x:hover{background:rgba(255,255,255,.14)}
+.cl-wel-head{text-align:center;padding:0 12px 6px}
+.cl-wel-badge{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:16px;color:#7dd3fc;margin-bottom:8px;background:linear-gradient(145deg,rgba(56,189,248,.22),rgba(167,139,250,.2));border:1px solid rgba(125,211,252,.3)}
+.cl-wel-head h2{background:none!important;margin:0 0 4px;font:800 24px/1.25 Manrope,"Hind Siliguri",sans-serif;color:#fff;-webkit-text-fill-color:#fff;background:none}
+.cl-wel-head h2 span{background:linear-gradient(90deg,#7dd3fc,#c4b5fd);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cl-wel-head p{margin:0;color:#b9cddd;font-size:14px;line-height:1.6}
+.cl-wel-list{list-style:none;margin:14px 0 16px;padding:0;display:grid;gap:7px}
+.cl-wel-list li{display:flex;gap:11px;align-items:flex-start;padding:9px 11px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.cl-wel-list i{font-style:normal;display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:10px;color:#7dd3fc;background:rgba(56,189,248,.12)}
+.cl-wel-list b{display:block;color:#fff;font-size:13.5px;line-height:1.4}
+.cl-wel-list span{display:block;color:#bdd0df;font-size:12.5px;line-height:1.55}
+.cl-wel-list em{font-style:normal;font-weight:700;color:#7dd3fc}
+.cl-wel-actions{display:flex;gap:9px}
+.cl-wel-actions .btn{flex:1;min-height:44px;justify-content:center}
+@media(max-width:420px){.cl-wel-card{padding:20px 14px 16px;border-radius:20px}.cl-wel-head h2{font-size:21px}.cl-wel-list li{padding:8px 9px}.cl-wel-actions{flex-direction:column-reverse}}
+
+.cl-search-card{width:min(100%,620px);border-radius:20px;overflow:hidden;background:#0b1624;border:1px solid rgba(125,211,252,.28);color:#eaf6ff;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.75);transform:translateY(-8px);transition:transform .22s ease}
+.cl-search.on .cl-search-card{transform:none}
+.cl-search-bar{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.08);color:#7dd3fc}
+.cl-search-bar input{flex:1;min-width:0;background:none;border:0;outline:0;color:#fff;font:500 16px "Hind Siliguri",Manrope,sans-serif;padding:6px 0}
+.cl-search-bar input::placeholder{color:#8fa8bd}
+.cl-search kbd{font:600 11px Manrope,sans-serif;padding:2px 6px;border-radius:6px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#c3d3e0}
+#clSearchList{list-style:none;margin:0;padding:6px;max-height:min(56vh,420px);overflow:auto}
+#clSearchList li{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:12px;cursor:pointer}
+#clSearchList li.on{background:rgba(56,189,248,.16)}
+#clSearchList li i{font-style:normal;flex:0 0 30px;height:30px;display:grid;place-items:center;font-size:17px;border-radius:9px;background:rgba(255,255,255,.07)}
+#clSearchList li span{flex:1;min-width:0}
+#clSearchList li b{display:block;font-size:14px;line-height:1.35;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#clSearchList li small{display:block;font-size:12px;color:#aebfce;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#clSearchList li em{font-style:normal;font-size:11px;font-weight:700;color:#7dd3fc;padding:2px 8px;border-radius:99px;background:rgba(56,189,248,.12)}
+.cl-sr-empty{padding:22px 12px;text-align:center;color:#b3c7d8;cursor:default}
+.cl-search-foot{display:flex;gap:16px;padding:9px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:11.5px;color:#9fb4c6}
+.cl-sf-r{margin-left:auto}
+@media(max-width:640px){.cl-search{padding-top:12px}.cl-search-foot span:not(.cl-sf-r){display:none}.cl-sf-r{display:none}}
+
+/* =========================================================== 7. RESUME STRIP */
+.cl-resume{margin-top:12px;margin-bottom:4px}
+.cl-resume a{display:flex;align-items:center;gap:13px;padding:12px 16px;border-radius:16px;border:1px solid rgba(125,211,252,.3);
+  background:linear-gradient(110deg,rgba(56,189,248,.14),rgba(167,139,250,.1));color:inherit;transition:transform .2s,border-color .2s}
+.cl-resume a:hover{transform:translateY(-2px);border-color:rgba(125,211,252,.6)}
+.cl-resume i{font-style:normal;flex:0 0 40px;height:40px;display:grid;place-items:center;font-size:20px;border-radius:12px;background:rgba(255,255,255,.1)}
+.cl-resume span{flex:1;min-width:0}
+.cl-resume small{display:block;font-size:11.5px;color:#bcd0df;letter-spacing:.02em}
+.cl-resume b{display:block;font-size:15px;line-height:1.4;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cl-resume em{font-style:normal;font-weight:700;font-size:13px;color:#7dd3fc;white-space:nowrap}
+@media(max-width:480px){.cl-resume em{display:none}.cl-resume a{padding:11px 12px}}
+
+@media(prefers-reduced-motion:reduce){.cl-welcome,.cl-search,.cl-wel-card,.cl-search-card{transition:none}}
+
+/* =========================================================== 8. FILTER DIET */
+/* drop-shadow()/blur() filters force an offscreen render pass per element on every frame they move. */
+#app[data-page="home"] .concept-hero::before,
+#app[data-page="home"] .feature-premium-card .premium-home-icon,
+#app[data-page="home"] .hero-copy h1,
+#app[data-page="home"] .premium-home-icon,
+#app[data-page="home"] .stage-premium-card:nth-child(1) .premium-home-icon,
+#app[data-page="home"] .stage-premium-card:nth-child(2) .premium-home-icon,
+#app[data-page="home"] .stage-premium-card:nth-child(3) .premium-home-icon,
+#app[data-page="home"] .stage-premium-card:nth-child(4) .premium-home-icon,
+.dm-planet,
+.dm-sun,
+.dm-wave-dot,
+.dm-wave-line,
+.footer-formula-orbits circle,
+.gdeck-card,
+.gdeck-card.on,
+.gdeck-card:focus-visible,
+.gdeck-card:not(.on),
+.gdeck-ico,
+.gico,
+.goal .gi,
+.home-final-cta .cta:before,
+.result .big b,
+.science-outro-art .so-node,
+.science-outro-art .so-wave,
+.stat b,
+html[data-theme="light"] #app .gdeck-ico,
+html[data-theme="light"] #app .home-lab-card .gico,
+html[data-theme="light"] #app[data-page="home"] .hero-copy h1,
+html[data-theme="light"] #app[data-page="home"] .stage-premium-card:nth-child(1) .premium-home-icon,
+html[data-theme="light"] #app[data-page="home"] .stage-premium-card:nth-child(2) .premium-home-icon,
+html[data-theme="light"] #app[data-page="home"] .stage-premium-card:nth-child(3) .premium-home-icon,
+html[data-theme="light"] #app[data-page="home"] .stage-premium-card:nth-child(4) .premium-home-icon,
+html[data-theme="light"] .dm-planet,
+html[data-theme="light"] .dm-sun,
+html[data-theme="light"] .dm-wave-dot,
+html[data-theme="light"] .dm-wave-line,
+html[data-theme="light"] .footer-formula-orbits circle,
+html[data-theme="light"] .gdeck-ico,
+html[data-theme="light"] .science-outro-art .so-node,
+html[data-theme="light"] .science-outro-art .so-wave,
+html[data-theme="light"] .stat b{filter:none!important}
+
+#nav .cl-nav-search{margin:4px 14px 8px;padding:11px 14px;border-radius:14px;border:1px solid rgba(125,211,252,.28);background:rgba(56,189,248,.08)}

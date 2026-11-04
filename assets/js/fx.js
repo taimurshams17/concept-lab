@@ -66,28 +66,7 @@ if(cv){
  addEventListener('resize',function(){if(isLightTheme()){cv.style.display='none';return;}size();last=performance.now();queueFrame();},{passive:true});
  document.addEventListener('visibilitychange',function(){if(!document.hidden&&!isLightTheme()){last=performance.now();queueFrame();}});
  /* Do not even attach the scroll-pause timer in light mode; the canvas is dormant there. */
- addEventListener('scroll',function(){
-  var html=document.documentElement;
-  if(isLightTheme()){
-   /* Light mode has no starfield. Do not add cl-scrolling here: that class
-      also pauses selected CSS motion and shortens reveal transitions. The
-      page illustrations and their animations must remain continuous. */
-   return;
-  }
-  if(!scrolling){
-   scrolling=true;
-   if(frameId){cancelAnimationFrame(frameId);frameId=0;}
-   html.classList.add('cl-scrolling');
-  }
-  if(scrollResumeTimer)clearTimeout(scrollResumeTimer);
-  scrollResumeTimer=setTimeout(function(){
-   scrolling=false;
-   html.classList.remove('cl-scrolling');
-   scrollResumeTimer=0;
-   last=performance.now();
-   queueFrame();
-  },220);
- },{passive:true});
+ /* v22: scrolling no longer pauses the starfield; it follows the viewport/visibility rules only. */
 }
 /* Wake the starfield only when the user explicitly switches back to Dark. */
 window.addEventListener('cl-theme',function(){

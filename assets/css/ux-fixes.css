@@ -343,7 +343,7 @@ html[data-theme="light"] #app .study-page .study-panel textarea {
 }
 html[data-theme="light"] #app .study-page .study-panel input::placeholder,
 html[data-theme="light"] #app .study-page .study-panel textarea::placeholder {
-  color: #71879a !important;
+  color: #adb9c4 !important;
 }
 /* Light mode deliberately leaves cl-scrolling unused; this is a defensive
    guard in case a stale class survives from another theme or older script. */
@@ -502,5 +502,91 @@ html[data-theme="light"] #app .home-launchpad .launch-feature-card {
   html[data-theme="light"] #app .home-launchpad .launch-feature-card {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* ================================================================
+   v15 · Mobile header: compact, evenly arranged action buttons
+   Sign up + Settings + Notification + Menu: one 30px row, clear gap
+   from the ConceptLab name (dark + light theme, size only)
+   ================================================================ */
+@media (max-width: 600px) {
+  header .w.hr {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    gap: 10px !important;
+  }
+  header .hr .brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    gap: 6px !important;
+  }
+  header .hr .brand .logo {
+    width: 28px !important;
+    height: 28px !important;
+    flex: 0 0 28px !important;
+    border-radius: 8px !important;
+  }
+  header .hr .brand #bn {
+    font-size: 15px !important;
+    letter-spacing: -.02em !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  header .hr .hx {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    gap: 5px !important;
+    align-items: center !important;
+  }
+  header .hx #accountActions {
+    display: flex;
+    align-items: center;
+  }
+  header .hx #accountActions .account-link,
+  header .hx .account-link {
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 10px !important;
+    font-size: 11.5px !important;
+    letter-spacing: 0 !important;
+    border-radius: 10px !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+  header .hx .header-settings-link,
+  header .hx #clMessageCentre .cl-message-trigger,
+  header .hx .cl-message-trigger,
+  header .hx #burger {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    flex: 0 0 30px !important;
+    padding: 0 !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+  }
+  header .hx #clMessageCentre { margin: 0 !important; display: flex; align-items: center; }
+  header .hx .header-settings-link svg { width: 16px !important; height: 16px !important; }
+  header .hx .cl-message-trigger .cl-message-icon,
+  header .hx .cl-message-icon { width: 15px !important; height: 15px !important; }
+  header .hx #burger { transform: none; }
+  header .hx #burger i { transform-origin: center; }
+  header .hx .cl-message-count { display: none !important; }
+}
+@media (max-width: 350px) {
+  header .w.hr { padding-left: 8px !important; padding-right: 8px !important; gap: 6px !important; }
+  header .hr .brand #bn { font-size: 13.5px !important; }
+  header .hr .brand .logo { width: 24px !important; height: 24px !important; flex-basis: 24px !important; }
+  header .hr .hx { gap: 4px !important; }
+  header .hx #accountActions .account-link, header .hx .account-link { padding: 0 8px !important; font-size: 11px !important; }
+  header .hx .header-settings-link, header .hx .cl-message-trigger, header .hx #burger {
+    width: 28px !important; height: 28px !important; min-width: 28px !important; min-height: 28px !important; flex-basis: 28px !important;
   }
 }

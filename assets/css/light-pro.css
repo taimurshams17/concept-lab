@@ -1,0 +1,198 @@
+/* ConceptLab · light-pro.css (v16) — "Porcelain & Ink" light theme polish.
+   theme-light.css supplies the palette (re-mapped to cool slate/indigo); this file refines surfaces,
+   depth, typography and controls so the Light theme reads as calm, crisp and premium.
+   Scoped to html[data-theme="light"]; Dark theme is untouched. */
+
+html[data-theme="light"]{
+  --lp-bg:#f4f6fb; --lp-surface:#ffffff; --lp-sunken:#eef2f8;
+  --lp-line:#e3e8f2; --lp-line-2:#d3dbe9;
+  --lp-ink:#0b1226; --lp-ink-2:#1e293b; --lp-ink-3:#3d4b61;
+  --lp-brand:#2457d6; --lp-brand-2:#4f46e5; --lp-brand-soft:#eaf0ff;
+  --lp-ring:0 0 0 3px rgba(36,87,214,.22);
+  --lp-sh-1:0 1px 2px rgba(15,23,42,.05),0 1px 1px rgba(15,23,42,.03);
+  --lp-sh-2:0 1px 2px rgba(15,23,42,.05),0 10px 28px -14px rgba(30,41,90,.20);
+  --lp-sh-3:0 2px 4px rgba(15,23,42,.05),0 22px 44px -20px rgba(30,41,90,.30);
+  --line:rgba(100,116,160,.22); --mut:#3d4b61; --tx:#0b1226;
+}
+
+/* ---------- canvas ---------- */
+html[data-theme="light"],
+html[data-theme="light"] body{background-color:var(--lp-bg)!important}
+html[data-theme="light"] body{
+  background-image:
+    radial-gradient(900px 480px at 8% -6%,rgba(79,110,220,.075),transparent 62%),
+    radial-gradient(760px 420px at 96% 4%,rgba(124,92,230,.06),transparent 60%),
+    linear-gradient(180deg,#f7f9fd 0%,#f3f5fa 100%)!important;
+  background-attachment:scroll!important;color:var(--lp-ink-2)!important}
+html[data-theme="light"] body::before,
+html[data-theme="light"] #app::before,
+html[data-theme="light"] .concept-hero::after{background-image:none!important}
+html[data-theme="light"] .concept-hero::before{opacity:.5}
+
+/* ---------- typography: crisper, darker, a little heavier ---------- */
+html[data-theme="light"] #app p,
+html[data-theme="light"] #app li{color:var(--lp-ink-2);font-weight:500}
+html[data-theme="light"] #app small,
+html[data-theme="light"] #app .mut,
+html[data-theme="light"] #app .sub{color:var(--lp-ink-3);font-weight:500}
+html[data-theme="light"] #app h1,
+html[data-theme="light"] #app h2,
+html[data-theme="light"] #app h3,
+html[data-theme="light"] #app h4{color:var(--lp-ink);letter-spacing:-.012em}
+html[data-theme="light"] #app h3,
+html[data-theme="light"] #app h4{font-weight:750}
+html[data-theme="light"] ::selection{background:rgba(36,87,214,.2);color:#0b1226}
+html[data-theme="light"] :focus-visible{outline:2px solid var(--lp-brand)!important;outline-offset:3px}
+html[data-theme="light"] a{-webkit-tap-highlight-color:rgba(36,87,214,.12)}
+
+/* ---------- header ---------- */
+html[data-theme="light"] body>header,
+html[data-theme="light"] header{
+  background:rgba(255,255,255,.94)!important;background-image:none!important;
+  border-bottom:1px solid var(--lp-line)!important;box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 8px 24px -18px rgba(30,41,90,.35)!important}
+html[data-theme="light"] header nav a{color:var(--lp-ink-2);font-weight:600}
+html[data-theme="light"] header nav a:hover{background:var(--lp-brand-soft)!important;color:var(--lp-brand)!important}
+html[data-theme="light"] header nav a.on{background:var(--lp-brand-soft)!important;color:var(--lp-brand)!important}
+html[data-theme="light"] .brand,html[data-theme="light"] #bn{color:var(--lp-ink)!important;-webkit-text-fill-color:var(--lp-ink)!important}
+html[data-theme="light"] .header-settings-link,
+html[data-theme="light"] .header-search-btn,
+html[data-theme="light"] .cl-message-trigger,
+html[data-theme="light"] #burger{
+  background:#fff!important;background-image:none!important;border:1px solid var(--lp-line-2)!important;color:var(--lp-ink-2)!important;box-shadow:var(--lp-sh-1)!important}
+html[data-theme="light"] .header-settings-link:hover,
+html[data-theme="light"] .header-search-btn:hover,
+html[data-theme="light"] .cl-message-trigger:hover,
+html[data-theme="light"] #burger:hover{border-color:var(--lp-brand)!important;color:var(--lp-brand)!important;filter:none}
+html[data-theme="light"] #burger i{background:var(--lp-ink-2)!important}
+html[data-theme="light"] .account-link.account-primary,
+html[data-theme="light"] .account-primary{
+  background:linear-gradient(135deg,#2f66e8,#4f46e5)!important;color:#fff!important;border:0!important;
+  box-shadow:0 8px 18px -8px rgba(53,80,220,.65)!important;font-weight:700}
+
+/* ---------- floating bottom navigation ---------- */
+html[data-theme="light"] body>.bottom-nav,
+html[data-theme="light"] .bottom-nav{
+  background:rgba(255,255,255,.97)!important;border:1px solid var(--lp-line)!important;
+  box-shadow:0 18px 40px -16px rgba(30,41,90,.35),0 2px 6px rgba(15,23,42,.06)!important}
+html[data-theme="light"] .bottom-nav a{color:var(--lp-ink-3)!important;font-weight:600}
+html[data-theme="light"] .bottom-nav a svg{stroke:currentColor}
+html[data-theme="light"] .bottom-nav a.on,
+html[data-theme="light"] .bottom-nav a[aria-current="page"],
+html[data-theme="light"] .bottom-nav a.active{
+  background:var(--lp-brand-soft)!important;background-image:none!important;color:var(--lp-brand)!important;
+  border-color:rgba(36,87,214,.28)!important;box-shadow:none!important}
+
+/* ---------- surfaces ---------- */
+html[data-theme="light"] #app .card,
+html[data-theme="light"] #app .home-stat-card,
+html[data-theme="light"] #app .launch-tool,
+html[data-theme="light"] #app .chapter-card,
+html[data-theme="light"] #app .sim-card,
+html[data-theme="light"] #app .game-card{
+  background:var(--lp-surface)!important;background-image:none!important;
+  border:1px solid var(--lp-line)!important;box-shadow:var(--lp-sh-2)!important}
+html[data-theme="light"] #app .card:hover,
+html[data-theme="light"] #app .launch-tool:hover{
+  border-color:rgba(36,87,214,.35)!important;box-shadow:var(--lp-sh-3)!important}
+html[data-theme="light"] #app .pill{background:#fff!important;border:1px solid var(--lp-line-2)!important;color:var(--lp-brand)!important;box-shadow:var(--lp-sh-1)!important;font-weight:700}
+
+/* ---------- buttons ---------- */
+html[data-theme="light"] .btn{background:#fff!important;border:1px solid var(--lp-line-2)!important;color:var(--lp-ink-2)!important;box-shadow:var(--lp-sh-1);font-weight:650}
+html[data-theme="light"] .btn:hover{border-color:var(--lp-brand)!important;color:var(--lp-brand)!important;transform:translateY(-1px)}
+html[data-theme="light"] .btn.pri,
+html[data-theme="light"] .btn.on{
+  background:linear-gradient(135deg,#2f66e8,#4f46e5)!important;color:#fff!important;border-color:transparent!important;
+  box-shadow:0 10px 22px -10px rgba(53,80,220,.7)!important}
+html[data-theme="light"] .btn.pri:hover{filter:brightness(1.06);color:#fff!important}
+
+/* ---------- form controls ---------- */
+html[data-theme="light"] input:not([type=checkbox]):not([type=radio]):not([type=range]),
+html[data-theme="light"] select,
+html[data-theme="light"] textarea{background:#fff!important;color:var(--lp-ink)!important;border:1px solid var(--lp-line-2)!important;border-radius:12px}
+html[data-theme="light"] input:focus,html[data-theme="light"] select:focus,html[data-theme="light"] textarea:focus{border-color:var(--lp-brand)!important;box-shadow:var(--lp-ring)!important;outline:0!important}
+html[data-theme="light"] input::placeholder,html[data-theme="light"] textarea::placeholder{color:#6b7a90}
+
+/* ---------- True / False in light ---------- */
+html[data-theme="light"] #app .tfrow .tfb{background:#fff!important;color:var(--lp-ink)!important;box-shadow:var(--lp-sh-2)}
+html[data-theme="light"] #app .tfrow .tfb.t{border:1.5px solid #34d399!important}
+html[data-theme="light"] #app .tfrow .tfb.f{border:1.5px solid #fb7185!important}
+html[data-theme="light"] #app .tfrow .tfb.t:hover,html[data-theme="light"] #app .tfrow .tfb.t.ok{background:#ecfdf5!important}
+html[data-theme="light"] #app .tfrow .tfb.f:hover,html[data-theme="light"] #app .tfrow .tfb.no{background:#fff1f2!important}
+
+/* ---------- footer ---------- */
+html[data-theme="light"] .site-footer{background:#fff!important;background-image:none!important;border-top:1px solid var(--lp-line)!important}
+html[data-theme="light"] .site-footer a,html[data-theme="light"] .site-footer p,html[data-theme="light"] .site-footer small{color:var(--lp-ink-3)!important}
+html[data-theme="light"] .site-footer h4{color:var(--lp-ink)!important}
+html[data-theme="light"] .site-footer a:hover{color:var(--lp-brand)!important}
+
+/* ---------- new UI: welcome / search / resume ---------- */
+html[data-theme="light"] .cl-welcome,html[data-theme="light"] .cl-search{background:rgba(15,23,42,.45)}
+html[data-theme="light"] .cl-wel-card,html[data-theme="light"] .cl-search-card{background:#fff;border:1px solid var(--lp-line);color:var(--lp-ink-2);box-shadow:0 40px 90px -30px rgba(15,23,42,.45)}
+html[data-theme="light"] .cl-wel-x{background:#eef2f8;color:var(--lp-ink-2)}
+html[data-theme="light"] .cl-wel-head h2{color:var(--lp-ink);-webkit-text-fill-color:var(--lp-ink)}
+html[data-theme="light"] .cl-wel-head h2 span{background:linear-gradient(90deg,#2457d6,#6d4fe0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html[data-theme="light"] .cl-wel-head p{color:var(--lp-ink-3)}
+html[data-theme="light"] .cl-wel-badge{background:var(--lp-brand-soft);border-color:rgba(36,87,214,.25)}
+html[data-theme="light"] .cl-wel-list li{background:#f7f9fd;border-color:var(--lp-line)}
+html[data-theme="light"] .cl-wel-list b{color:var(--lp-ink)}
+html[data-theme="light"] .cl-wel-list span{color:var(--lp-ink-3)}
+html[data-theme="light"] .cl-wel-list em{color:var(--lp-brand)}
+html[data-theme="light"] .cl-search-bar{border-color:var(--lp-line);color:var(--lp-brand)}
+html[data-theme="light"] .cl-search-bar input{color:var(--lp-ink)}
+html[data-theme="light"] .cl-search-bar input::placeholder{color:#6b7a90}
+html[data-theme="light"] .cl-search kbd{background:#f1f4fa;border-color:var(--lp-line-2);color:var(--lp-ink-3)}
+html[data-theme="light"] #clSearchList li.on{background:var(--lp-brand-soft)}
+html[data-theme="light"] #clSearchList li i{background:#f1f4fa}
+html[data-theme="light"] #clSearchList li b{color:var(--lp-ink)}
+html[data-theme="light"] #clSearchList li small{color:var(--lp-ink-3)}
+html[data-theme="light"] #clSearchList li em{background:var(--lp-brand-soft);color:var(--lp-brand)}
+html[data-theme="light"] .cl-sr-empty{color:var(--lp-ink-3)}
+html[data-theme="light"] .cl-search-foot{border-color:var(--lp-line);color:var(--lp-ink-3)}
+html[data-theme="light"] .cl-resume a{background:linear-gradient(110deg,#eef3ff,#f3f0ff);border-color:rgba(36,87,214,.22);box-shadow:var(--lp-sh-1)}
+html[data-theme="light"] .cl-resume i{background:#fff;box-shadow:var(--lp-sh-1)}
+html[data-theme="light"] .cl-resume small{color:var(--lp-ink-3)}
+html[data-theme="light"] .cl-resume b{color:var(--lp-ink)}
+html[data-theme="light"] .cl-resume em{color:var(--lp-brand)}
+
+/* ---------- scrollbars ---------- */
+html[data-theme="light"]{scrollbar-color:#b9c4d8 transparent}
+html[data-theme="light"] ::-webkit-scrollbar-thumb{background:#b9c4d8;border-radius:10px;border:3px solid var(--lp-bg)}
+
+/* ---------- authoritative palette (beats the older !important blocks inside theme-light.css) ---------- */
+html[data-theme="light"]:root{
+  --bg:#f4f6fb!important;--card:#ffffff!important;--line:rgba(100,116,160,.22)!important;--tx:#0b1226!important;--mut:#3d4b61!important;
+  --p:#2457d6!important;--s:#4f46e5!important;--a:#d97706!important;--glow:#6366f1!important;
+  --cl-gold:#2457d6!important;--cl-gold-bright:#2457d6!important;--cl-gold-soft:rgba(79,110,220,.10)!important;--cl-gold-border:rgba(36,87,214,.30)!important;--cl-gold-glow:rgba(99,102,241,.14)!important;--cl-gold-line:rgba(36,87,214,.28)!important;
+  --cl-ice:#2457d6!important;--cl-blue:#2457d6!important;--cl-violet:#6a58cf!important;--cl-ink:#0b1226!important;--cl-muted:#3d4b61!important;--cl-bg:#f4f6fb!important;
+  --cl-panel:rgba(255,255,255,.96)!important;--cl-panel-strong:#ffffff!important;--cl-edge:rgba(100,116,160,.22)!important;--cl-edge-hi:rgba(36,87,214,.40)!important;
+  --cl-shadow:0 18px 44px -26px rgba(30,41,90,.32)!important;--chapter-name:#2457d6!important;
+  --gl-fill:linear-gradient(160deg,#ffffff,#f7f9fe)!important;--gl-fill-strong:linear-gradient(160deg,#ffffff,#f1f4fd)!important;--st-surface:linear-gradient(160deg,#ffffff,#f7f9fe)!important;
+}
+/* every surface the older block tinted "warm" becomes clean white */
+html[data-theme="light"] #app .ga-game-card,html[data-theme="light"] #app .ga-game-note,html[data-theme="light"] #app .ga-level-game-head,
+html[data-theme="light"] #app .ga-level-progress,html[data-theme="light"] #app .ga-review-head,html[data-theme="light"] #app .ga-review-item,
+html[data-theme="light"] #app .ga-howto-grid article,html[data-theme="light"] #app .ga-launch-card,html[data-theme="light"] #app .ga-hero{
+  background:#fff!important;background-image:none!important;border:1px solid var(--lp-line)!important;box-shadow:var(--lp-sh-2)!important}
+html[data-theme="light"] #app .ga-hero{background:linear-gradient(135deg,#ffffff,#f1f5ff)!important}
+html[data-theme="light"] .bottom-nav,html[data-theme="light"] body>.bottom-nav{background-image:none!important}
+html[data-theme="light"] .bottom-nav a.on,html[data-theme="light"] .bottom-nav a[aria-current],html[data-theme="light"] .bottom-nav a.active,html[data-theme="light"] .bottom-nav a.cur{background-image:none!important}
+
+/* ---------- high-specificity fixes ---------- */
+html[data-theme="light"][data-theme] body>nav.bottom-nav,
+html[data-theme="light"][data-theme] nav.bottom-nav{background:rgba(255,255,255,.98)!important;background-image:none!important;border:1px solid var(--lp-line)!important}
+html[data-theme="light"][data-theme] body>nav.bottom-nav a.on,
+html[data-theme="light"][data-theme] nav.bottom-nav a.on{background:var(--lp-brand-soft)!important;background-image:none!important;color:var(--lp-brand)!important;border-color:rgba(36,87,214,.3)!important}
+html[data-theme="light"][data-theme] nav.bottom-nav a.on .bottom-nav-icon,
+html[data-theme="light"][data-theme] nav.bottom-nav a.on span{color:var(--lp-brand)!important}
+html[data-theme="light"][data-theme] #app h1{background-image:linear-gradient(100deg,#0b1226 8%,#1d3f9e 52%,#4f46e5 96%)!important}
+html[data-theme="light"][data-theme] #app .card.ch,
+html[data-theme="light"][data-theme] #app .chapter-index-card{background-image:none!important;background-color:#fff!important}
+
+html[data-theme="light"] .cl-wel-head h2{background:none!important}
+html[data-theme="light"] .cl-wel-list i{background:var(--lp-brand-soft);color:var(--lp-brand)}
+html[data-theme="light"] .cl-wel-badge{color:var(--lp-brand)}
+
+html[data-theme="light"][data-theme] #app .btn.pri,
+html[data-theme="light"][data-theme] #app .btn.on,
+html[data-theme="light"][data-theme] #app button.pri{background:linear-gradient(135deg,#2f66e8,#4f46e5)!important;background-image:linear-gradient(135deg,#2f66e8,#4f46e5)!important;color:#fff!important;-webkit-text-fill-color:#fff!important}
+html[data-theme="light"] .cl-nav-search{border:1px solid var(--lp-line-2);background:#fff}

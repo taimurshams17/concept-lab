@@ -31,11 +31,11 @@ html.intro-on,html.intro-on body{overflow:hidden!important;height:100%}
 .in-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 28%,rgba(0,0,0,.3) 100%)}
 
 /* Small science equipment in three softly focused depth planes. */
-.layer{position:absolute;inset:0;pointer-events:none}
-.l1{filter:blur(5px);opacity:.28}.l2{filter:blur(3px);opacity:.38}.l3{filter:blur(1.7px);opacity:.47}
-.t{position:absolute;width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);color:var(--sky2);animation:inFloat var(--du) ease-in-out var(--de) infinite alternate;will-change:transform}
-.t.c-a{color:#e8bd79}.t.c-t{color:#7cdccf}
-.t svg{width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:scale(.72);animation:inToolIn 1.55s cubic-bezier(.2,.8,.2,1) calc(.5s + var(--de)) forwards;filter:drop-shadow(0 0 7px currentColor)}
+#intro .layer{position:absolute;inset:0;pointer-events:none}
+#intro .l1{filter:blur(5px);opacity:.28}#intro .l2{filter:blur(3px);opacity:.38}#intro .l3{filter:blur(1.7px);opacity:.47}
+#intro .t{position:absolute;width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);color:var(--sky2);animation:inFloat var(--du) ease-in-out var(--de) infinite alternate;will-change:transform}
+#intro .t.c-a{color:#e8bd79}#intro .t.c-t{color:#7cdccf}
+#intro .t svg{width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:scale(.72);animation:inToolIn 1.55s cubic-bezier(.2,.8,.2,1) calc(.5s + var(--de)) forwards;filter:drop-shadow(0 0 7px currentColor)}
 @keyframes inFloat{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(var(--dx),var(--dy),0) rotate(var(--r))}}
 @keyframes inToolIn{to{opacity:1;transform:scale(1)}}
 
@@ -47,19 +47,19 @@ html.intro-on,html.intro-on body{overflow:hidden!important;height:100%}
 .in-mark img{display:block;width:100%;height:100%;object-fit:contain;background:none;user-select:none;-webkit-user-drag:none}
 @keyframes inLogoIn{0%{opacity:0;filter:blur(12px) drop-shadow(0 0 0 transparent)}65%{opacity:1}100%{opacity:1;transform:none;filter:drop-shadow(0 12px 30px rgba(0,0,0,.42))}}
 @keyframes inLogoFloat{50%{transform:translateY(-5px) scale(1.01)}}
-.shine{position:absolute;inset:0;pointer-events:none;-webkit-mask:url(../images/conceptlab-main-logo.webp) center/contain no-repeat;mask:url(../images/conceptlab-main-logo.webp) center/contain no-repeat;background:linear-gradient(108deg,transparent 38%,rgba(255,255,255,.68) 50%,transparent 62%) 130% 0/260% 100% no-repeat;mix-blend-mode:screen;animation:inShine 2.7s ease-in-out 1.7s both}
+#intro .shine{position:absolute;inset:0;pointer-events:none;-webkit-mask:url(../images/conceptlab-main-logo.webp) center/contain no-repeat;mask:url(../images/conceptlab-main-logo.webp) center/contain no-repeat;background:linear-gradient(108deg,transparent 38%,rgba(255,255,255,.68) 50%,transparent 62%) 130% 0/260% 100% no-repeat;mix-blend-mode:screen;animation:inShine 2.7s ease-in-out 1.7s both}
 @keyframes inShine{0%{background-position:130% 0}100%{background-position:-30% 0}}
 
 /* Restrained orbital details */
-.rw{position:absolute;left:50%;top:50%;border-radius:50%;translate:-50% -50%;opacity:0;transform:scale(.72);pointer-events:none;animation:inRingIn 1.35s cubic-bezier(.2,.8,.2,1) forwards}
-.r1{width:calc(var(--logo)*1.42);height:calc(var(--logo)*1.42);animation-delay:.48s;--sp:32s;--dir:normal}
-.r2{width:calc(var(--logo)*1.88);height:calc(var(--logo)*1.88);animation-delay:.7s;--sp:46s;--dir:reverse}
-.ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(108,194,238,.19);animation:inSpin var(--sp) linear infinite var(--dir)}
-.r2 .ring{border-color:rgba(245,189,104,.13)}
-.arc{position:absolute;inset:-1px;border-radius:50%;border:1px solid transparent;border-top-color:rgba(168,229,255,.78);border-right-color:rgba(85,199,255,.2);transform:rotate(-25deg)}
-.r2 .arc{border-top-color:rgba(245,189,104,.7);border-right-color:rgba(245,189,104,.16)}
-.dot{position:absolute;left:50%;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--sky2);box-shadow:0 0 12px 2px rgba(85,199,255,.62)}
-.dot.a{left:83%;top:15%;background:var(--amb);box-shadow:0 0 12px 2px rgba(245,189,104,.55)}
+#intro .rw{position:absolute;left:50%;top:50%;border-radius:50%;translate:-50% -50%;opacity:0;transform:scale(.72);pointer-events:none;animation:inRingIn 1.35s cubic-bezier(.2,.8,.2,1) forwards}
+#intro .r1{width:calc(var(--logo)*1.42);height:calc(var(--logo)*1.42);animation-delay:.48s;--sp:32s;--dir:normal}
+#intro .r2{width:calc(var(--logo)*1.88);height:calc(var(--logo)*1.88);animation-delay:.7s;--sp:46s;--dir:reverse}
+#intro .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(108,194,238,.19);animation:inSpin var(--sp) linear infinite var(--dir)}
+#intro .r2 .ring{border-color:rgba(245,189,104,.13)}
+#intro .arc{position:absolute;inset:-1px;border-radius:50%;border:1px solid transparent;border-top-color:rgba(168,229,255,.78);border-right-color:rgba(85,199,255,.2);transform:rotate(-25deg)}
+#intro .r2 .arc{border-top-color:rgba(245,189,104,.7);border-right-color:rgba(245,189,104,.16)}
+#intro .dot{position:absolute;left:50%;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--sky2);box-shadow:0 0 12px 2px rgba(85,199,255,.62)}
+#intro .dot.a{left:83%;top:15%;background:var(--amb);box-shadow:0 0 12px 2px rgba(245,189,104,.55)}
 @keyframes inRingIn{to{opacity:1;transform:scale(1)}}
 @keyframes inSpin{to{transform:rotate(360deg)}}
 
@@ -85,12 +85,12 @@ html.intro-on,html.intro-on body{overflow:hidden!important;height:100%}
 .in-skip{position:absolute;z-index:3;right:max(18px,env(safe-area-inset-right));bottom:max(19px,env(safe-area-inset-bottom));appearance:none;background:rgba(220,240,255,.045);border:1px solid rgba(168,199,221,.2);color:#9bb0c1;font:700 10px/1 Manrope,Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:10px 14px;border-radius:99px;cursor:pointer;opacity:0;animation:inUp .8s ease 1.25s forwards;transition:color .2s,border-color .2s,background .2s}
 .in-skip:hover,.in-skip:focus-visible{color:#fff;border-color:var(--sky);background:rgba(85,199,255,.09);outline:0}
 
-@media(max-width:600px){.t:nth-child(n+5){display:none}.in-glow{top:44%}.l1{filter:blur(4.5px)}.l2{filter:blur(2.8px)}.l3{filter:blur(1.5px)}}
+@media(max-width:600px){#intro .t:nth-child(n+5){display:none}.in-glow{top:44%}#intro .l1{filter:blur(4.5px)}#intro .l2{filter:blur(2.8px)}#intro .l3{filter:blur(1.5px)}}
 @media(max-width:380px){.in-tag{gap:7px;letter-spacing:.035em}.in-prog{width:78vw}.in-prog li span{font-size:8.5px}}
-@media(max-height:600px){#intro{--logo:clamp(108px,19vh,150px)}.in-word{margin-top:16px}.in-tag{margin-top:10px}.in-prog{margin-top:22px}.t{opacity:.8}}
+@media(max-height:600px){#intro{--logo:clamp(108px,19vh,150px)}.in-word{margin-top:16px}.in-tag{margin-top:10px}.in-prog{margin-top:22px}#intro .t{opacity:.8}}
 @media(prefers-reduced-motion:reduce){
  #intro *{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.15s!important}
- .in-mark,.in-word,.in-tag,.in-prog,.in-skip,.rw,.t svg{opacity:1;transform:none;filter:none}.shine{display:none}
+ .in-mark,.in-word,.in-tag,.in-prog,.in-skip,#intro .rw,#intro .t svg{opacity:1;transform:none;filter:none}#intro .shine{display:none}
 }
 
 

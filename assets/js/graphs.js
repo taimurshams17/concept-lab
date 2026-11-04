@@ -309,16 +309,16 @@ function mount(id,root){
  var cn=root.querySelector('#graphCanvas'),ctl=root.querySelector('#graphParameter');if(!cn||!ctl)return;
  var ctx=cn.getContext('2d');if(!ctx)return;
  var pOut=root.querySelector('#graphParameterOut'),pValueEl=root.querySelector('#graphParameterValue'),xMinEl=root.querySelector('#graphXMin'),xMaxEl=root.querySelector('#graphXMax'),yMinEl=root.querySelector('#graphYMin'),yMaxEl=root.querySelector('#graphYMax'),sampleEl=root.querySelector('#graphSamples'),sampleOut=root.querySelector('#graphSamplesOut'),speedEl=root.querySelector('#graphSpeed'),speedOut=root.querySelector('#graphSpeedOut'),rd=root.querySelector('#graphReadout'),pointerOut=root.querySelector('#graphPointerReadout'),customEl=root.querySelector('#graphCustomData'),statusEl=root.querySelector('#graphDataStatus'),connectEl=root.querySelector('#graphConnectData'),showCurveEl=root.querySelector('#graphShowCurve'),animateBtn=root.querySelector('#graphAnimate');
- var baseDomain=domain(d),customPoints=[],raf=0,animating=false,lastFrame=0,drawStart=0,drawStartProgress=0,drawProgress=1,hoverX=null,customRevision=0,sceneCache=null,sceneKey='',resizeObserver=null;
+ var baseDomain=domain(d),customPoints=[],raf=0,animating=false,lastFrame=0,drawStart=0,drawStartProgress=0,drawProgress=1,hoverX=null,customRevision=0,sceneCache=null,sceneKey='',resizeObserver=null,dprNow=1;
  var nav=window.navigator||{},connection=nav.connection||nav.mozConnection||nav.webkitConnection||{};
  var lowPower=!!((nav.hardwareConcurrency&&nav.hardwareConcurrency<=4)||(nav.deviceMemory&&nav.deviceMemory<=4)||connection.saveData);
  var reduceMotion=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
  var defaults={p:1,xmin:baseDomain[0],xmax:baseDomain[1],ymin:'',ymax:'',samples:160,speed:1};
  function setStatus(t,error){if(statusEl){statusEl.textContent=t;statusEl.classList.toggle('error',!!error);}}
  function settings(){var xmin=Number(xMinEl.value),xmax=Number(xMaxEl.value),ymin=yMinEl.value.trim()===''?null:Number(yMinEl.value),ymax=yMaxEl.value.trim()===''?null:Number(yMaxEl.value),n=Number(sampleEl.value);if(!Number.isFinite(xmin)||!Number.isFinite(xmax)||xmax<=xmin)return null;if((ymin!==null&&!Number.isFinite(ymin))||(ymax!==null&&!Number.isFinite(ymax))||(ymin!==null&&ymax!==null&&ymax<=ymin))return null;var pval=pValueEl&&pValueEl.value.trim()!==''?Number(pValueEl.value):Number(ctl.value);if(!Number.isFinite(pval))return null;return{p:pval,xmin:xmin,xmax:xmax,ymin:ymin,ymax:ymax,n:Math.max(40,Math.min(400,Math.round(n/20)*20)),speed:Number(speedEl.value)||1,showCurve:!showCurveEl||showCurveEl.checked,connect:!connectEl||connectEl.checked};}
- function fitCanvas(){var w=cn.clientWidth||900;if(w<180)return;var dpr=Math.min(lowPower?1.1:1.5,window.devicePixelRatio||1),want=Math.round(w*dpr),height=Math.round(want*420/900);if(cn.width!==want||cn.height!==height){cn.width=want;cn.height=height;sceneCache=null;sceneKey='';}}
+ function fitCanvas(){var w=cn.clientWidth||900;if(w<180)return;var dpr=Math.min(3,Math.max(1,window.devicePixelRatio||1)),want=Math.round(w*dpr),height=Math.round(want*420/900);dprNow=dpr;if(cn.width!==want||cn.height!==height){cn.width=want;cn.height=height;sceneCache=null;sceneKey='';}}
  function buildScene(st){
-  var W=cn.width,H=cn.height,L=Math.max(58,W*.085),R=20,T=38,B=Math.max(52,H*.14),a=samples(d,st.p,st.n,st.xmin,st.xmax),ys=[];
+  var W=cn.width/dprNow,H=cn.height/dprNow,sm=W<520,L=Math.max(sm?54:58,W*.085),R=sm?14:20,T=sm?32:38,B=Math.max(sm?46:52,H*.14),a=samples(d,st.p,st.n,st.xmin,st.xmax),ys=[];
   if(st.showCurve)a.forEach(function(v){v.ys.forEach(function(y){if(Number.isFinite(y))ys.push(y);});});
   var visibleCustom=customPoints.filter(function(v){if(v.x<st.xmin||v.x>st.xmax)return false;ys.push(v.y);return true;}).sort(function(a,b){return a.x-b.x;});
   var lo=st.ymin===null?(ys.length?Math.min.apply(null,ys):-1):st.ymin,hi=st.ymax===null?(ys.length?Math.max.apply(null,ys):1):st.ymax;
@@ -329,15 +329,15 @@ function mount(id,root){
  function draw(progress){
   if(!cn.isConnected)return;progress=progress==null?1:Math.max(0,Math.min(1,progress));var st=settings();
   if(!st){setStatus('অক্ষের সীমা সঠিক দিন: X/Y maximum অবশ্যই minimum-এর চেয়ে বড় হতে হবে।',true);return;}
-  var W=cn.width,H=cn.height,key=[W,H,st.p,st.xmin,st.xmax,st.ymin,st.ymax,st.n,st.showCurve?1:0,st.connect?1:0,customRevision].join('|');
+  var W=cn.width/dprNow,H=cn.height/dprNow,key=[cn.width,W,H,st.p,st.xmin,st.xmax,st.ymin,st.ymax,st.n,st.showCurve?1:0,st.connect?1:0,customRevision].join('|');
   if(!sceneCache||key!==sceneKey){sceneCache=buildScene(st);sceneKey=key;}
-  var sc=sceneCache,L=sc.L,R=sc.R,T=sc.T,B=sc.B,a=sc.a,X=sc.X,Y=sc.Y,lo=sc.lo,hi=sc.hi;
-  ctx.clearRect(0,0,W,H);ctx.fillStyle='#071827';ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(125,190,230,.16)';ctx.lineWidth=Math.max(1,W/900);ctx.fillStyle='#d8e6f3';ctx.font=Math.max(10,13*W/900)+'px system-ui';ctx.textAlign='left';ctx.fillText(d.title,Math.max(12,L*.22),24*H/420);
+  var sc=sceneCache,sm=W<520,L=sc.L,R=sc.R,T=sc.T,B=sc.B,a=sc.a,X=sc.X,Y=sc.Y,lo=sc.lo,hi=sc.hi;
+  ctx.setTransform(dprNow,0,0,dprNow,0,0);ctx.clearRect(0,0,W,H);ctx.fillStyle='#071827';ctx.fillRect(0,0,W,H);ctx.strokeStyle='rgba(125,190,230,.16)';ctx.lineWidth=Math.max(1,W/900);ctx.fillStyle='#d8e6f3';ctx.font=Math.max(11,13*W/900)+'px system-ui, "Noto Sans Bengali", sans-serif';ctx.textAlign='left';ctx.fillText(d.title,Math.max(12,L*.22),Math.max(17,24*H/420));
   for(var i=0;i<=5;i++){var yy=T+(H-T-B)*i/5;ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(W-R,yy);ctx.stroke();ctx.textAlign='right';ctx.fillText(Number((hi-(hi-lo)*i/5).toPrecision(4)).toString(),L-7,yy+4);var xx=L+(W-L-R)*i/5;ctx.beginPath();ctx.moveTo(xx,T);ctx.lineTo(xx,H-B);ctx.stroke();ctx.textAlign='center';ctx.fillText(Number((st.xmin+(st.xmax-st.xmin)*i/5).toPrecision(4)).toString(),xx,H-B+20);}
   ctx.strokeStyle='rgba(185,215,237,.75)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(L,H-B);ctx.lineTo(W-R,H-B);ctx.moveTo(L,T);ctx.lineTo(L,H-B);ctx.stroke();
   if(lo<=0&&hi>=0){ctx.strokeStyle='rgba(220,235,250,.48)';ctx.beginPath();ctx.moveTo(L,Y(0));ctx.lineTo(W-R,Y(0));ctx.stroke();}
   if(st.xmin<=0&&st.xmax>=0){ctx.strokeStyle='rgba(220,235,250,.48)';ctx.beginPath();ctx.moveTo(X(0),T);ctx.lineTo(X(0),H-B);ctx.stroke();}
-  ctx.textAlign='center';ctx.font=Math.max(11,14*W/900)+'px system-ui';ctx.fillText(d.x,(L+W-R)/2,H-12);ctx.save();ctx.translate(18,(H+T-B)/2);ctx.rotate(-Math.PI/2);ctx.fillText(d.y,0,0);ctx.restore();
+  ctx.textAlign='center';ctx.font=Math.max(11.5,14*W/900)+'px system-ui, "Noto Sans Bengali", sans-serif';ctx.fillText(d.x,(L+W-R)/2,H-10);ctx.save();ctx.translate(sm?13:18,(H+T-B)/2);ctx.rotate(-Math.PI/2);ctx.fillText(d.y,0,0);ctx.restore();
   var colors=['#38bdf8','#fbbf24','#34d399'];
   if(st.showCurve){
    var limit=progress*(a.length-1),whole=Math.floor(limit),fraction=limit-whole;
@@ -375,7 +375,7 @@ function mount(id,root){
  if(animateBtn)animateBtn.addEventListener('click',function(){if(animating){stopDraw();return;}startDraw(drawProgress>=1);});
  var resetBtn=root.querySelector('#graphReset');if(resetBtn)resetBtn.addEventListener('click',reset);var dataBtn=root.querySelector('#graphApplyData');if(dataBtn)dataBtn.addEventListener('click',applyCustom);var clearBtn=root.querySelector('#graphClearData');if(clearBtn)clearBtn.addEventListener('click',function(){customPoints=[];customRevision++;if(customEl)customEl.value='';setStatus('নিজস্ব ডেটা মুছে ফেলা হয়েছে।');refresh();});
  var csvBtn=root.querySelector('#graphExportCsv');if(csvBtn)csvBtn.addEventListener('click',exportCsv);var pngBtn=root.querySelector('#graphExportPng');if(pngBtn)pngBtn.addEventListener('click',function(){try{cn.toBlob(function(blob){if(blob)download('conceptlab-'+d.id+'.png',blob);});}catch(e){setStatus('PNG ডাউনলোড সম্ভব হয়নি; browser permission পরীক্ষা করুন।',true);}});
- cn.addEventListener('pointermove',function(ev){var rect=cn.getBoundingClientRect(),st=settings();if(!st||!rect.width)return;var mx=(ev.clientX-rect.left)/rect.width*cn.width,L=Math.max(58,cn.width*.085),R=20;if(mx<L||mx>cn.width-R)return;hoverX=st.xmin+(mx-L)/(cn.width-L-R)*(st.xmax-st.xmin);var val=seriesValues(d.plot,hoverX,st.p)[0];if(pointerOut)pointerOut.textContent='নির্বাচিত বিন্দু: x = '+fmtGraph(hoverX)+' · মডেল y = '+fmtGraph(val);});cn.addEventListener('pointerleave',function(){hoverX=null;if(pointerOut)pointerOut.textContent='গ্রাফের ওপর টাচ বা মাউস রাখলে ওই বিন্দুর মান দেখাবে।';});
+ cn.addEventListener('pointermove',function(ev){var rect=cn.getBoundingClientRect(),st=settings();if(!st||!rect.width)return;var LW=cn.width/dprNow,sm2=LW<520,mx=(ev.clientX-rect.left)/rect.width*LW,L=Math.max(sm2?54:58,LW*.085),R=sm2?14:20;if(mx<L||mx>LW-R)return;hoverX=st.xmin+(mx-L)/(LW-L-R)*(st.xmax-st.xmin);var val=seriesValues(d.plot,hoverX,st.p)[0];if(pointerOut)pointerOut.textContent='নির্বাচিত বিন্দু: x = '+fmtGraph(hoverX)+' · মডেল y = '+fmtGraph(val);});cn.addEventListener('pointerleave',function(){hoverX=null;if(pointerOut)pointerOut.textContent='গ্রাফের ওপর টাচ বা মাউস রাখলে ওই বিন্দুর মান দেখাবে।';});
  function resizeHandler(){if(!cn.isConnected){if(resizeObserver)resizeObserver.disconnect();else window.removeEventListener('resize',resizeHandler);return;}var oldW=cn.width,oldH=cn.height;fitCanvas();if(cn.width!==oldW||cn.height!==oldH)refresh();}
  if(typeof ResizeObserver!=='undefined'){resizeObserver=new ResizeObserver(resizeHandler);var wrap=root.querySelector('.graph-canvas-wrap');if(wrap)resizeObserver.observe(wrap);}else window.addEventListener('resize',resizeHandler,{passive:true});
  fitCanvas();setStatus('এখনও নিজস্ব ডেটা যোগ করা হয়নি।');drawProgress=0;startDraw(true);

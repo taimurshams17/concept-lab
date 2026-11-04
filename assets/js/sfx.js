@@ -27,6 +27,9 @@ window.SFX = (function () {
     }
   } catch (e) { }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+  /* Phone speakers are small and quiet: boost the master level on touch/mobile screens (the slider still goes 0-50%). */
+  function isMobileAudio() { try { return (window.matchMedia && matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 820; } catch (e) { return false; } }
+  function masterLevel() { return Math.min(1.4, st.vol * 0.85 * (isMobileAudio() ? 1.6 : 1)); }
   if (volumeWasAdjusted) save();
 
   var INTRO_KEY = 'cl_intro_music_v1';
@@ -82,9 +85,9 @@ window.SFX = (function () {
     if (!ctx) {
       try {
         ctx = new AC();
-        master = ctx.createGain(); master.gain.value = st.vol * 0.85;
+        master = ctx.createGain(); master.gain.value = masterLevel();
         var comp = ctx.createDynamicsCompressor();
-        comp.threshold.value = -16; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.2;
+        comp.threshold.value = isMobileAudio() ? -9 : -16; comp.ratio.value = isMobileAudio() ? 4 : 6; comp.attack.value = 0.003; comp.release.value = 0.2;
         master.connect(comp); comp.connect(ctx.destination);
       } catch (e) { ctx = null; return null; }
     }
@@ -183,7 +186,7 @@ window.SFX = (function () {
     st.on = !!v; save(); syncUi();
     if (st.on) { ensure(); setTimeout(function () { play('on'); }, 30); }
   }
-  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = st.vol * 0.85; }
+  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = masterLevel(); }
   function setHaptics(v) { st.haptics = !!v; save(); syncUi(); }
 
   /* ---------- wrap FX helpers (toast / confetti) so XP, badges, level-ups and results get their own sounds ---------- */

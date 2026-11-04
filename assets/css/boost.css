@@ -125,11 +125,11 @@ body.px-calm .cl-rip { display: none; }
 #app #gm .physics-sprint-game .ps-stat{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;gap:3px!important;min-width:0!important;min-height:78px!important;padding:13px 15px!important;box-sizing:border-box!important;border:1px solid rgba(125,211,252,.16)!important;border-radius:15px!important;background:linear-gradient(145deg,rgba(15,35,51,.92),rgba(5,15,25,.96))!important;text-align:left!important;overflow:hidden!important}
 #app #gm .physics-sprint-game .ps-stat small{font:800 9px/1.2 Manrope,Inter,sans-serif!important;letter-spacing:.15em!important;color:#83b9d4!important;white-space:nowrap!important}
 #app #gm .physics-sprint-game .ps-stat b{display:block!important;max-width:100%!important;font:800 clamp(19px,2.2vw,25px)/1.2 Manrope,Inter,sans-serif!important;color:#effaff!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
-#app #gm .physics-sprint-game .ps-stat span{font:500 10px/1.3 Manrope,Inter,sans-serif!important;color:#7894a9!important;overflow-wrap:anywhere!important}
+#app #gm .physics-sprint-game .ps-stat span{font:500 10px/1.3 Manrope,Inter,sans-serif!important;color:#b1c1cd!important;overflow-wrap:anywhere!important}
 #app #gm .physics-sprint-game .ps-stat.ps-score b{color:#79d9ff!important;text-shadow:0 0 18px rgba(56,189,248,.18)!important}
 #app #gm .physics-sprint-game .ps-stat #lv{font-size:15px!important;letter-spacing:2px!important;white-space:normal!important}
 #app #gm .physics-sprint-game .ps-progress-wrap{width:100%!important;min-width:0!important;padding:12px 15px!important;box-sizing:border-box!important;border:1px solid rgba(125,211,252,.12)!important;border-radius:14px!important;background:rgba(5,16,26,.78)!important}
-#app #gm .physics-sprint-game .ps-progress-copy{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:10px!important;margin-bottom:8px!important;font:800 9px/1.2 Manrope,Inter,sans-serif!important;letter-spacing:.13em!important;color:#8eabc0!important}
+#app #gm .physics-sprint-game .ps-progress-copy{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:10px!important;margin-bottom:8px!important;font:800 9px/1.2 Manrope,Inter,sans-serif!important;letter-spacing:.13em!important;color:#bdceda!important}
 #app #gm .physics-sprint-game .ps-progress-copy b{font-size:10px!important;color:#b8eaff!important;white-space:nowrap!important}
 #app #gm .physics-sprint-game .ps-progress-track{height:6px!important;width:100%!important;overflow:hidden!important;border-radius:99px!important;background:rgba(148,190,215,.12)!important}
 #app #gm .physics-sprint-game .ps-progress-track i{display:block!important;width:0;height:100%!important;border-radius:inherit!important;background:linear-gradient(90deg,#38bdf8,#8bdbec,#a5b4fc)!important;box-shadow:0 0 12px rgba(56,189,248,.32)!important;transition:width .35s ease!important}
@@ -142,7 +142,7 @@ body.px-calm .cl-rip { display: none; }
 #app #gm .physics-sprint-game .ps-question-area{position:relative!important;z-index:1!important;display:grid!important;place-items:center!important;min-height:110px!important;width:100%!important;max-width:850px!important;margin:0 auto!important;padding:4px 22px!important;box-sizing:border-box!important}
 #app #gm .physics-sprint-game .ps-question-mark{position:absolute!important;top:-27px!important;left:0!important;color:rgba(125,211,252,.18)!important;font:700 78px/1 Georgia,serif!important;pointer-events:none!important}
 #app #gm .physics-sprint-game .ps-question{position:relative!important;z-index:1!important;width:100%!important;max-width:790px!important;margin:0 auto!important;color:#eff8ff!important;font-size:clamp(21px,3vw,31px)!important;font-weight:700!important;line-height:1.75!important;letter-spacing:0!important;text-align:center!important;overflow-wrap:anywhere!important}
-#app #gm .physics-sprint-game .ps-answer-prompt{position:relative!important;z-index:1!important;margin:22px 0 0!important;color:#7e9caf!important;font:600 11px/1.4 Manrope,Inter,sans-serif!important;letter-spacing:.04em!important}
+#app #gm .physics-sprint-game .ps-answer-prompt{position:relative!important;z-index:1!important;margin:22px 0 0!important;color:#b4c6d1!important;font:600 11px/1.4 Manrope,Inter,sans-serif!important;letter-spacing:.04em!important}
 #app #gm .physics-sprint-game .tfrow{position:relative!important;z-index:1!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:stretch!important;gap:14px!important;width:100%!important;max-width:680px!important;min-width:0!important;margin:16px auto 0!important;padding:0!important;box-sizing:border-box!important}
 #app #gm .physics-sprint-game .tfrow .tfb{display:grid!important;grid-template-columns:34px minmax(0,1fr) auto!important;align-items:center!important;justify-items:start!important;gap:11px!important;width:100%!important;max-width:none!important;min-width:0!important;min-height:68px!important;height:auto!important;margin:0!important;padding:13px 16px!important;box-sizing:border-box!important;border:1px solid rgba(125,211,252,.2)!important;border-radius:16px!important;background:rgba(10,27,41,.82)!important;color:#eaf7ff!important;font:750 16px/1.3 Manrope,"Hind Siliguri",sans-serif!important;text-align:left!important;white-space:normal!important;cursor:pointer!important;transition:background .2s,border-color .2s,transform .2s!important}
 #app #gm .physics-sprint-game .tfrow .tfb.t{border-color:rgba(52,211,153,.3)!important}
@@ -151,17 +151,17 @@ body.px-calm .cl-rip { display: none; }
 #app #gm .physics-sprint-game .ps-answer-mark{display:grid!important;place-items:center!important;width:32px!important;height:32px!important;border-radius:10px!important;background:rgba(52,211,153,.12)!important;color:#6ee7b7!important;font:800 18px/1 Manrope,sans-serif!important}
 #app #gm .physics-sprint-game .tfb.f .ps-answer-mark{background:rgba(248,113,113,.12)!important;color:#fca5a5!important}
 #app #gm .physics-sprint-game .ps-answer-label{min-width:0!important;overflow-wrap:anywhere!important}
-#app #gm .physics-sprint-game .tfrow .tfb kbd{display:grid!important;place-items:center!important;min-width:23px!important;height:23px!important;padding:0 5px!important;border:1px solid rgba(148,190,215,.19)!important;border-radius:7px!important;background:rgba(255,255,255,.035)!important;color:#8daabd!important;font:700 10px/1 Manrope,monospace!important}
+#app #gm .physics-sprint-game .tfrow .tfb kbd{display:grid!important;place-items:center!important;min-width:23px!important;height:23px!important;padding:0 5px!important;border:1px solid rgba(148,190,215,.19)!important;border-radius:7px!important;background:rgba(255,255,255,.035)!important;color:#bdced9!important;font:700 10px/1 Manrope,monospace!important}
 #app #gm .physics-sprint-game .tfrow .tfb.ok{border-color:#34d399!important;background:rgba(16,185,129,.16)!important;box-shadow:0 0 0 2px rgba(52,211,153,.08)!important}
 #app #gm .physics-sprint-game .tfrow .tfb.no{border-color:#fb7185!important;background:rgba(244,63,94,.13)!important}
 #app #gm .physics-sprint-game .tfrow .tfb.dim{opacity:.4!important}
 #app #gm .physics-sprint-game .ps-feedback-wrap{position:relative!important;z-index:1!important;min-height:36px!important;width:100%!important;max-width:680px!important;margin:12px auto 0!important;text-align:left!important}
-#app #gm .physics-sprint-game .ps-feedback-wrap .ex{margin:0!important;color:#b9cddd!important;font-size:13px!important;line-height:1.75!important;overflow-wrap:anywhere!important}
+#app #gm .physics-sprint-game .ps-feedback-wrap .ex{margin:0!important;color:#d6e2eb!important;font-size:13px!important;line-height:1.75!important;overflow-wrap:anywhere!important}
 #app #gm .physics-sprint-game .ps-result-tag{display:inline-block!important;margin-right:6px!important;font:800 10px/1.4 Manrope,Inter,sans-serif!important;letter-spacing:.08em!important}
 #app #gm .physics-sprint-game .ps-result-tag.is-good{color:#6ee7b7!important}
 #app #gm .physics-sprint-game .ps-result-tag.is-bad{color:#fda4af!important}
 #app #gm .physics-sprint-game .ps-next-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;min-height:44px!important;margin-top:12px!important;padding:10px 20px!important;border-radius:12px!important}
-#app #gm .physics-sprint-game .ps-footer-note{margin:0!important;color:#69879b!important;font:500 10px/1.6 Manrope,"Hind Siliguri",sans-serif!important;text-align:center!important}
+#app #gm .physics-sprint-game .ps-footer-note{margin:0!important;color:#a8b9c5!important;font:500 10px/1.6 Manrope,"Hind Siliguri",sans-serif!important;text-align:center!important}
 #app #gm .physics-sprint-game .ps-footer-note span{color:#7dd3fc!important;margin-right:5px!important}
 @media(max-width:700px){
  #app #gm .physics-sprint-game .ps-sprint-hud{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
@@ -206,7 +206,7 @@ body.px-calm .cl-rip { display: none; }
 }
 #app .play-detail-page #gm .physics-sprint-game .ps-answer-row>.ps-answer-false{
   border-color:rgba(248,113,113,.48)!important;
-  background:linear-gradient(145deg,rgba(55,24,34,.92),rgba(24,12,22,.98))!important;
+  background:linear-gradient(145deg,rgba(26,53,50,.92),rgba(13,23,22,.98))!important;
 }
 #app .play-detail-page #gm .physics-sprint-game .ps-answer-row>.ps-answer-true{
   border-color:rgba(52,211,153,.42)!important;
@@ -301,7 +301,7 @@ body.px-calm .cl-rip { display: none; }
   background:rgba(4,12,20,.52)!important;
 }
 #app .px-settings-page .sfx-intro-preview .sfx-prev-btn{min-height:36px!important;height:auto!important;padding:8px 13px!important;}
-#app .px-settings-page .sfx-intro-preview small{display:block!important;min-width:0!important;color:#89a7bc!important;font-size:11px!important;line-height:1.4!important;overflow-wrap:anywhere!important;}
+#app .px-settings-page .sfx-intro-preview small{display:block!important;min-width:0!important;color:#bbccd8!important;font-size:11px!important;line-height:1.4!important;overflow-wrap:anywhere!important;}
 #app .px-settings-page .sfx-prev-row{align-items:flex-start!important;}
 #app .px-settings-page .sfx-prev-row>div{flex:1 1 100%!important;min-width:0!important;}
 #app .px-settings-page .sfx-prev-btn{min-height:32px!important;height:auto!important;padding:7px 11px!important;line-height:1.2!important;}

@@ -150,7 +150,7 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
    v28 · Student Hub, Chapters and Games polish
    Additive: intro/tip text, tile hover states, larger tap targets.
    ─────────────────────────────────────────────────────────── */
-.hub-intro{max-width:640px;margin:12px 0 4px;color:#a9bfd0;font-size:14.5px;line-height:1.8}
+.hub-intro{max-width:640px;margin:12px 0 4px;color:#cddae4;font-size:14.5px;line-height:1.8}
 .hub-intro b{color:#e8f7ff;font-weight:700}
 
 .hub-launch-tile{transition:border-color .4s var(--cl-ease),box-shadow .4s var(--cl-ease),background .4s var(--cl-ease)}
@@ -167,7 +167,7 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 }
 
 .chapter-tip{margin:14px 0 4px;padding:11px 15px;border-radius:14px;border:1px solid rgba(125,211,252,.16);
-  background:linear-gradient(135deg,rgba(14,32,48,.7),rgba(5,12,20,.8));color:#a9bfd0;font-size:13.5px;line-height:1.7}
+  background:linear-gradient(135deg,rgba(14,32,48,.7),rgba(5,12,20,.8));color:#cddae4;font-size:13.5px;line-height:1.7}
 .chapter-tip b{color:var(--cl-gold);font-weight:700}
 
 .chapter-index-card:focus-visible,.hub-launch-tile:focus-visible{outline:2px solid var(--cl-ice);outline-offset:3px}
@@ -193,26 +193,26 @@ body{background-color:#06090f}
 /* Compact subject-wise My Progress chapter list. */
 .progress-subject-group{margin:16px 0 22px;padding:14px 16px 10px;border:1px solid rgba(232,196,119,.17);border-radius:17px;background:linear-gradient(135deg,rgba(232,196,119,.055),rgba(11,15,22,.64) 58%)}
 .progress-subject-group>h3{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 9px;color:#f3d79a;font-size:1rem;letter-spacing:.01em}
-.progress-subject-group>h3 span{font-size:.72rem;font-weight:600;color:#aeb6c3;white-space:nowrap}
+.progress-subject-group>h3 span{font-size:.72rem;font-weight:600;color:#d0d5dc;white-space:nowrap}
 .progress-chapter-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 18px}
 .progress-chapter-row{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(52px,86px) 28px;align-items:center;gap:10px;padding:9px 3px;border-bottom:1px solid rgba(255,255,255,.055);color:#e7eaf0;text-decoration:none;transition:color .18s ease,background .18s ease}
 .progress-chapter-row:hover{color:#f5d99a}
 .progress-chapter-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.88rem;font-weight:550}
 .progress-chapter-meter{height:4px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.09)}
 .progress-chapter-meter i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#b58b42,#f5d99a)}
-.progress-chapter-row small{font-size:.72rem;color:#aeb6c3;text-align:right;font-variant-numeric:tabular-nums}
+.progress-chapter-row small{font-size:.72rem;color:#d0d5dc;text-align:right;font-variant-numeric:tabular-nums}
 /* Base Converter: clear hierarchy, instructions, useful actions. */
 #app .base-select-grid{margin-top:12px}
 #app .base-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px}
 #app .base-presets{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
-#app .base-presets>span{font-size:.78rem;color:#b8c0cb;margin-right:3px}
+#app .base-presets>span{font-size:.78rem;color:#d6dae1;margin-right:3px}
 #app .tk-chip{border:1px solid rgba(232,196,119,.28);background:rgba(232,196,119,.07);color:#f1d79d;border-radius:999px;padding:7px 11px;font-size:.78rem;cursor:pointer;transition:background .2s,border-color .2s}
 #app .tk-chip:hover,#app .tk-chip.on{background:rgba(232,196,119,.16);border-color:rgba(245,217,154,.55)}
 #app .base-result-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 0 10px;color:#e8c477;font-size:.72rem;font-weight:800;letter-spacing:.13em}
 #app .base-main-value{color:#f7dfa6;font-size:1.2em;overflow-wrap:anywhere}
 #app .base-steps{margin-top:12px;padding:12px 14px;border:1px solid rgba(232,196,119,.16);border-radius:12px;background:rgba(232,196,119,.035)}
 #app .base-steps summary{cursor:pointer;color:#f0d79d;font-weight:650}
-#app .base-steps p{line-height:1.65;color:#c2cad4;font-size:.88rem}
+#app .base-steps p{line-height:1.65;color:#dce0e6;font-size:.88rem}
 #app .base-steps code{display:block;white-space:normal;overflow-wrap:anywhere;color:#f6e2b4;font-size:.84rem}
 #app .tk-guide{border-color:rgba(232,196,119,.2)}
 #app .tk-guide-title{color:#f0d79d}
@@ -312,7 +312,7 @@ body{background-color:#06090f}
   box-shadow:inset 0 1px 0 rgba(255,245,218,.12),0 6px 18px -14px rgba(232,196,119,.45);
 }
 #app .hub-dashboard .hub-launch-copy b{color:#f3e7c9!important}
-#app .hub-dashboard .hub-launch-copy small{color:#a9bfd0!important}
+#app .hub-dashboard .hub-launch-copy small{color:#cddae4!important}
 #app .hub-dashboard .hub-launch-arrow{color:#e8c477!important}
 /* Shortcut Tricks remains the signature tile, but its gold stays restrained and inside the tile. */
 #app .hub-dashboard .hub-launch-tile-shortcuts{
@@ -324,7 +324,7 @@ body{background-color:#06090f}
   border-color:rgba(232,196,119,.5)!important;
 }
 #app .hub-tool-page .hub-extra-grid a b{color:#f3e7c9!important}
-#app .hub-tool-page .hub-extra-grid a small{color:#a9bfd0!important}
+#app .hub-tool-page .hub-extra-grid a small{color:#cddae4!important}
 
 /* My Progress: reduce vertical bulk and give chapter text a safe inset from each panel edge. */
 #app[data-page="progress"] .lvcard{padding:14px 16px!important;gap:14px}
@@ -505,7 +505,7 @@ body{background-color:#06090f}
 
 /* Home: shorten the feature list visually with compact, quieter cards. */
 #app[data-page="home"] .feature-premium-section .sh2 p{
-  max-width:680px;margin:9px auto 0;color:#aebfce;font-size:clamp(12px,1.15vw,14px);line-height:1.62;
+  max-width:680px;margin:9px auto 0;color:#d0dae3;font-size:clamp(12px,1.15vw,14px);line-height:1.62;
 }
 #app[data-page="home"] .feature-premium-section .sh2{margin-bottom:clamp(16px,2vw,23px)}
 #app[data-page="home"] .feature-premium-list{gap:9px;max-width:840px}
@@ -523,10 +523,10 @@ body{background-color:#06090f}
 #app[data-page="home"] .feature-premium-card .premium-home-icon{width:21px;height:21px;filter:none!important;animation:none!important}
 #app[data-page="home"] .feature-icon-image{width:28px;height:28px;border-radius:8px}
 #app[data-page="home"] .feature-card-copy{padding:0 14px 0 0}
-#app[data-page="home"] .feature-card-tag{margin-bottom:3px;color:#8faabe!important;font-size:7px;letter-spacing:.1em;line-height:1.2}
+#app[data-page="home"] .feature-card-tag{margin-bottom:3px;color:#beced9!important;font-size:7px;letter-spacing:.1em;line-height:1.2}
 #app[data-page="home"] .feature-card-copy h3{margin:0 0 2px;font-size:14px;line-height:1.3}
-#app[data-page="home"] .feature-card-copy p{font-size:12px;line-height:1.45;color:#aebdca}
-#app[data-page="home"] .feature-card-number{top:7px;right:9px;color:#7891a5!important;font-size:7px}
+#app[data-page="home"] .feature-card-copy p{font-size:12px;line-height:1.45;color:#d0d9e0}
+#app[data-page="home"] .feature-card-number{top:7px;right:9px;color:#b1bfcb!important;font-size:7px}
 @media(max-width:620px){
   #app[data-page="home"] .feature-premium-list{gap:7px}
   #app[data-page="home"] .feature-premium-card{grid-template-columns:36px minmax(0,1fr);gap:9px;min-height:0;padding:9px 10px;border-radius:12px}
@@ -558,7 +558,7 @@ body{background-color:#06090f}
   box-shadow:inset 0 1px 0 rgba(255,245,218,.12),0 6px 18px -14px rgba(232,196,119,.45)!important;
 }
 #app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy b{color:#f3e7c9!important}
-#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy small{color:#a9bfd0!important}
+#app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-copy small{color:#cddae4!important}
 #app .hub-dashboard .hub-launch-tile-shortcuts .hub-launch-arrow{color:#e8c477!important}
 
 /* 2026-11-03 — Moment of Inertia Explorer + refined Simulation catalogue controls */
@@ -566,34 +566,34 @@ body{background-color:#06090f}
 #app .mi-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid rgba(107,190,225,.2);border-radius:18px;background:linear-gradient(135deg,rgba(12,37,54,.96),rgba(5,16,27,.98));box-shadow:inset 0 1px rgba(255,255,255,.035)}
 #app .mi-kicker{display:block;color:#72c8e9;font:800 9px/1.4 Manrope,sans-serif;letter-spacing:.17em}
 #app .mi-head h2{margin:5px 0 4px;font-size:clamp(20px,3vw,27px);line-height:1.2;color:#f2f8fc}
-#app .mi-head p{margin:0;color:#a9bdcc;font-size:13px;line-height:1.6}
+#app .mi-head p{margin:0;color:#cdd9e1;font-size:13px;line-height:1.6}
 #app .mi-head-mark{display:grid;place-items:center;width:56px;height:56px;flex:0 0 56px;border-radius:16px;border:1px solid rgba(105,199,235,.34);background:linear-gradient(145deg,rgba(44,137,177,.24),rgba(10,38,56,.55));color:#8cddf5;font:italic 700 30px Georgia,serif;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 #app .mi-mode-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 13px;border:1px solid rgba(107,190,225,.16);border-radius:13px;background:rgba(7,20,32,.86)}
 #app .mi-mode-row>label{color:#c5d7e3;font-size:12px;font-weight:750;white-space:nowrap}
 #app .mi-mode-select{width:100%;min-width:0;min-height:42px;padding:8px 38px 8px 12px;border:1px solid rgba(112,192,225,.3);border-radius:10px;background:#0b2233;color:#edf7fc;font:600 13px "Hind Siliguri",sans-serif;outline:none}
 #app .mi-mode-select:focus{border-color:#60c8ed;box-shadow:0 0 0 3px rgba(56,189,248,.12)}
-#app .mi-mode-count{padding:6px 9px;border-radius:999px;border:1px solid rgba(108,191,222,.18);color:#91b4c8;font-size:10px;white-space:nowrap}
+#app .mi-mode-count{padding:6px 9px;border-radius:999px;border:1px solid rgba(108,191,222,.18);color:#bfd4df;font-size:10px;white-space:nowrap}
 #app .mi-main-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(245px,.8fr);gap:12px;min-width:0}
 #app .mi-visual-panel,#app .mi-result-panel,#app .mi-adjust-panel,#app .mi-learning-panel,#app .mi-compare-panel{min-width:0;border:1px solid rgba(112,188,218,.18);border-radius:16px;background:linear-gradient(145deg,rgba(10,27,41,.96),rgba(5,15,25,.96));box-shadow:inset 0 1px rgba(255,255,255,.025)}
 #app .mi-visual-panel{overflow:hidden}
-#app .mi-visual-head{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid rgba(112,188,218,.13);color:#86a9bd;font:800 9px Manrope,sans-serif;letter-spacing:.13em}
+#app .mi-visual-head{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid rgba(112,188,218,.13);color:#b9cdd9;font:800 9px Manrope,sans-serif;letter-spacing:.13em}
 #app .mi-live-dot{color:#8ed6aa;letter-spacing:.08em}
 #app .mi-canvas{display:block;width:100%;height:auto;aspect-ratio:1200/525;background:#071522}
 #app .mi-motion-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid rgba(112,188,218,.13)}
-#app .mi-motion-bar>span{margin-left:auto;color:#8fa8b9;font-size:10px}
+#app .mi-motion-bar>span{margin-left:auto;color:#becdd6;font-size:10px}
 #app .mi-control-btn,#app .mi-reset-values{min-height:34px;padding:7px 11px;border:1px solid rgba(107,190,225,.24);border-radius:9px;background:linear-gradient(180deg,rgba(20,52,71,.95),rgba(9,29,44,.98));color:#d8edf7;font-size:11px;font-weight:750;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
 #app .mi-control-btn:hover,#app .mi-reset-values:hover{border-color:rgba(105,205,239,.55);background:linear-gradient(180deg,rgba(25,72,96,.95),rgba(9,36,53,.98));transform:translateY(-1px)}
 #app .mi-result-panel{display:flex;flex-direction:column;justify-content:center;padding:20px 18px}
 #app .mi-result-label{color:#7fbad1;font:800 9px Manrope,sans-serif;letter-spacing:.16em}
 #app .mi-result-value{margin-top:9px;color:#f3f8fc;font:800 clamp(27px,4vw,42px)/1.15 Manrope,sans-serif;letter-spacing:-.045em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
-#app .mi-result-unit{margin-top:2px;color:#8fa9ba;font-size:12px}
+#app .mi-result-unit{margin-top:2px;color:#becdd7;font-size:12px}
 #app .mi-formula-box{margin-top:20px;padding:13px;border:1px solid rgba(105,196,229,.2);border-radius:12px;background:linear-gradient(135deg,rgba(16,50,69,.7),rgba(7,25,39,.8))}
-#app .mi-formula-box small{display:block;color:#8fb4c7;font-size:10px}
+#app .mi-formula-box small{display:block;color:#bed4df;font-size:10px}
 #app .mi-formula-box strong{display:block;margin-top:5px;color:#9ce3fb;font:700 clamp(20px,3vw,27px) Georgia,serif;letter-spacing:.01em}
 #app .mi-parts{display:grid;gap:7px;margin-top:12px}
-#app .mi-parts>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 9px;border-radius:8px;background:rgba(111,176,206,.07);font-size:10px;color:#a7c0cf}
+#app .mi-parts>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 9px;border-radius:8px;background:rgba(111,176,206,.07);font-size:10px;color:#ccdae3}
 #app .mi-parts b{color:#e1f3fb;font:700 11px Manrope,sans-serif;white-space:nowrap}
-#app .mi-insight{margin:15px 0 0;padding-left:10px;border-left:2px solid #5dbfe4;color:#b0c6d3;font-size:12px;line-height:1.65}
+#app .mi-insight{margin:15px 0 0;padding-left:10px;border-left:2px solid #5dbfe4;color:#d1dee5;font-size:12px;line-height:1.65}
 #app .mi-adjust-panel,#app .mi-learning-panel,#app .mi-compare-panel{padding:15px 16px}
 #app .mi-section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
 #app .mi-section-title>div>span{color:#74b7d2;font:800 9px Manrope,sans-serif;letter-spacing:.15em}
@@ -604,7 +604,7 @@ body{background-color:#06090f}
 #app .mi-field-value{margin-top:5px;color:#90d6ee;font:700 13px Manrope,sans-serif;font-variant-numeric:tabular-nums}
 #app .mi-field input[type=range]{display:block;width:100%;margin:10px 0 0;accent-color:#54bfe8}
 #app .mi-field .sim-value-editor{margin-top:8px;padding-top:7px}
-#app .mi-learning-panel>p{margin:0;color:#b5c9d6;font-size:13px;line-height:1.8}
+#app .mi-learning-panel>p{margin:0;color:#d4e0e7;font-size:13px;line-height:1.8}
 #app .mi-observe{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;margin-top:12px;padding:11px 12px;border-left:3px solid #55bfe8;border-radius:0 9px 9px 0;background:rgba(48,135,172,.1);font-size:11px;line-height:1.65}
 #app .mi-observe b{color:#83d4f1;white-space:nowrap}
 #app .mi-observe span{color:#c0d3de}
@@ -614,9 +614,9 @@ body{background-color:#06090f}
 #app .mi-compare-panel h3{margin:0 0 11px}
 #app .mi-compare-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 #app .mi-compare-grid>div{display:grid;gap:5px;min-width:0;padding:10px;border:1px solid rgba(112,188,218,.15);border-radius:10px;background:rgba(5,18,29,.72)}
-#app .mi-compare-grid b{color:#a9c2d0;font-size:10px;line-height:1.5}
+#app .mi-compare-grid b{color:#cddce4;font-size:10px;line-height:1.5}
 #app .mi-compare-grid strong{color:#9ce3fb;font:700 18px Georgia,serif}
-#app .mi-compare-panel>p{margin:10px 0 0;color:#819aaa;font-size:10px}
+#app .mi-compare-panel>p{margin:10px 0 0;color:#b6c4ce;font-size:10px}
 
 /* Give the Simulation subject selectors a more deliberate, premium control treatment. */
 #app .lab-page .subject-choice{position:relative;overflow:hidden;border-color:rgba(112,188,218,.22);border-radius:15px;background:linear-gradient(145deg,rgba(12,34,51,.98),rgba(5,17,29,.98));box-shadow:inset 0 1px rgba(255,255,255,.035),0 7px 18px rgba(0,0,0,.13);transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}

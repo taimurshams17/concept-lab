@@ -4,7 +4,7 @@ window.CL_SIMKEYS = ['bohr', 'rutherford', 'rutherfordModel', 'line', 'force', '
 
 window.CL_DEF = {
 settings: {
-  badge: 'বাংলায় ধারণা · খেলা · সিমুলেশন · স্টুডেন্ট হাব',
+  badge: 'বুঝে শেখার আনন্দ',
   h1: 'ConceptLab: মুখস্থ নয়, কনসেপ্ট বুঝুন',
   lead: 'Physics, Chemistry ও Higher Math-এর প্রতিটি অধ্যায় ধারণা থেকে শুরু। তারপর গেম খেলুন, সিমুলেশনে পরীক্ষা করুন, গ্রাফ আঁকুন—আর স্টুডেন্ট হাবের {{HUB_TOOLS}}টি টুলে পড়াশোনা গুছিয়ে নিন।',
   heroPre: 'Play with',

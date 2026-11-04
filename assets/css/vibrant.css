@@ -1,0 +1,374 @@
+/* ConceptLab - vibrant.css (v17)  "Colourful Campus" premium Light theme.
+   Loaded LAST. Light rules are scoped to html[data-theme="light"]; the decor layer also exists (subtle) in Dark. */
+
+/* ================================================================= 1. BACKGROUND DECOR LAYER (both themes) */
+.cl-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:strict}
+.cl-decor .cl-blob{position:absolute;border-radius:50%;opacity:.8}
+.cl-decor .b1{width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:radial-gradient(closest-side,#93c5fd,transparent)}
+.cl-decor .b2{width:40vmax;height:40vmax;right:-12vmax;top:6vmax;background:radial-gradient(closest-side,#bbf2eb,transparent)}
+.cl-decor .b3{width:42vmax;height:42vmax;left:6vmax;bottom:-18vmax;background:radial-gradient(closest-side,#a7f3d0,transparent)}
+.cl-decor .b4{width:34vmax;height:34vmax;right:-8vmax;bottom:-10vmax;background:radial-gradient(closest-side,#fde68a,transparent)}
+.cl-decor .cl-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(37,99,235,.16) 1.2px,transparent 1.6px);background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.25));mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.25))}
+.cl-decor .cl-di{position:absolute;width:var(--sz);height:var(--sz);color:var(--c);opacity:.30;filter:blur(var(--bl));
+  transform:rotate(var(--rot))}
+.cl-decor .cl-di svg{width:100%;height:100%;display:block}
+@keyframes clFloat{from{transform:translate3d(0,0,0) rotate(var(--rot))}to{transform:translate3d(10px,-22px,0) rotate(calc(var(--rot) + 9deg))}}
+@media(max-width:700px){.cl-decor .cl-di-x{display:none}.cl-decor .cl-di{opacity:.26}}
+@media(prefers-reduced-motion:reduce){.cl-decor .cl-di{animation:none}}
+html.cl-low-power .cl-decor .cl-di{animation:none}
+
+/* Dark theme: keep it calm - only a faint glow of the same layer */
+html:not([data-theme="light"]) .cl-decor .cl-blob{display:none}
+html:not([data-theme="light"]) .cl-decor .cl-dots{background-image:radial-gradient(rgba(125,211,252,.07) 1.2px,transparent 1.6px)}
+html:not([data-theme="light"]) .cl-decor .cl-di{opacity:.11}
+
+/* keep real content above the layer */
+#app,main#app,.footer-formula-motion,footer.site-footer{position:relative;z-index:1}
+header{z-index:100}
+
+/* ================================================================= 2. LIGHT CANVAS */
+html[data-theme="light"]{
+  --vb-blue:#2563eb;--vb-violet:#7c3aed;--vb-pink:#ec4899;--vb-orange:#f97316;--vb-green:#10b981;--vb-cyan:#06b6d4;--vb-amber:#f59e0b;
+  --vb-grad:linear-gradient(120deg,#2563eb 0%,#7c3aed 55%,#ec4899 100%);
+  --vb-ink:#0f1b3d;
+  background:linear-gradient(180deg,#e7f1ff 0%,#f3f0ff 38%,#f5fefd 70%,#eafaf3 100%)!important}
+html[data-theme="light"] body,
+html[data-theme="light"] body:not(#_){background:transparent!important;background-image:none!important;color:#1e293b!important}
+html[data-theme="light"] .horizon,html[data-theme="light"] #stars{display:none!important}
+
+/* ================================================================= 3. HEADER / NAVIGATION */
+html[data-theme="light"] body>header,html[data-theme="light"] header{
+  background:linear-gradient(100deg,rgba(255,255,255,.96),rgba(238,244,255,.96) 45%,rgba(250,240,255,.96))!important;
+  border-bottom:0!important;position:sticky;
+  box-shadow:0 10px 30px -14px rgba(76,60,190,.40),0 1px 0 rgba(255,255,255,.9) inset!important}
+html[data-theme="light"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,#38bdf8 0%,#818cf8 35%,#f472b6 70%,#fb923c 100%);pointer-events:none}
+@keyframes vbBar{to{background-position:200% 0}}
+@media(prefers-reduced-motion:reduce){html[data-theme="light"] header::after{animation:none}}
+html[data-theme="light"] #bn{background:var(--vb-grad)!important;-webkit-background-clip:text!important;background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;color:transparent!important;font-weight:800}
+html[data-theme="light"] header nav a{border-radius:12px;transition:background .2s,color .2s,transform .2s}
+html[data-theme="light"] header nav a:hover{background:linear-gradient(135deg,#e0ecff,#f1e8ff)!important;color:#4338ca!important;transform:translateY(-1px)}
+html[data-theme="light"] header nav a.on{background:var(--vb-grad)!important;color:#fff!important;box-shadow:0 8px 18px -8px rgba(99,60,220,.6)}
+html[data-theme="light"] .account-link.account-primary,html[data-theme="light"] .account-primary{
+  background:linear-gradient(135deg,#f97316,#ec4899 55%,#7c3aed)!important;box-shadow:0 10px 22px -10px rgba(236,72,153,.7)!important}
+html[data-theme="light"] .header-search-btn,html[data-theme="light"] .header-settings-link,html[data-theme="light"] .cl-message-trigger,html[data-theme="light"] #burger{
+  background:linear-gradient(145deg,#fff,#eef3ff)!important;border:1px solid #cdd9f7!important;color:#3b4ccf!important}
+html[data-theme="light"] #burger i{background:#4f46e5!important}
+
+/* Mobile menu panel */
+html[data-theme="light"] .navopen header nav,html[data-theme="light"] header nav{scrollbar-color:#a5b4fc transparent}
+@media(max-width:860px){
+  html[data-theme="light"] .navopen header nav{
+    background:linear-gradient(165deg,#ffffff 0%,#eef4ff 45%,#f7efff 100%)!important;border:1px solid #d5ddf8!important;
+    box-shadow:0 30px 70px -20px rgba(67,56,202,.45)!important}
+  html[data-theme="light"] #nav a:not(.cl-nav-search){background:linear-gradient(145deg,#fff,#f1f5ff)!important;border:1px solid #dbe4fb!important}
+  html[data-theme="light"] #nav a:not(.cl-nav-search):nth-of-type(4n+1){--ac:#2563eb}
+  html[data-theme="light"] #nav a:not(.cl-nav-search):nth-of-type(4n+2){--ac:#7c3aed}
+  html[data-theme="light"] #nav a:not(.cl-nav-search):nth-of-type(4n+3){--ac:#10b981}
+  html[data-theme="light"] #nav a:not(.cl-nav-search):nth-of-type(4n+4){--ac:#f97316}
+  html[data-theme="light"] #nav a:not(.cl-nav-search){border-left:4px solid var(--ac,#2563eb)!important}
+}
+
+/* ---- Mobile search bar inside the 3-line menu: full width + perfectly centred ---- */
+@media(max-width:860px){
+  #nav .cl-nav-search,
+  html .navopen header nav .cl-nav-search{
+    grid-column:1/-1!important;display:flex!important;align-items:center!important;justify-content:center!important;
+    width:calc(100% - 28px)!important;max-width:none!important;min-height:48px;box-sizing:border-box!important;
+    margin:14px auto 12px!important;padding:12px 18px!important;text-align:center!important;gap:10px!important;border-radius:16px!important;
+    font-weight:700;align-self:center!important}
+  #nav .cl-nav-search>span{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;margin:0 auto!important;flex:0 1 auto}
+  #nav .cl-nav-search small{display:none!important}
+  html[data-theme="light"] #nav .cl-nav-search{background:linear-gradient(135deg,#e0ecff,#f0e6ff)!important;border:1.5px solid #b9c8f5!important;color:#3730a3!important;
+    box-shadow:0 10px 22px -14px rgba(67,56,202,.55)!important}
+}
+
+/* ================================================================= 4. HERO + SECTIONS */
+html[data-theme="light"] .concept-hero{position:relative}
+html[data-theme="light"] .concept-hero::before{opacity:1!important;background:
+  radial-gradient(520px 260px at 18% 20%,rgba(96,165,250,.28),transparent 70%),
+  radial-gradient(520px 280px at 85% 30%,rgba(120,238,222,.24),transparent 70%),
+  radial-gradient(480px 260px at 55% 90%,rgba(52,211,153,.22),transparent 70%)!important;filter:blur(8px)}
+html[data-theme="light"] .hero-visual-card{background:linear-gradient(150deg,rgba(255,255,255,.96),rgba(236,244,255,.94) 55%,rgba(250,238,255,.94))!important;
+  border:1px solid #cdd9f7!important;box-shadow:0 30px 70px -34px rgba(79,70,229,.5),0 0 0 6px rgba(255,255,255,.55)!important}
+html[data-theme="light"] #app h1{color:var(--vb-ink)}
+html[data-theme="light"] #app h2{color:var(--vb-ink);position:relative}
+html[data-theme="light"] #app section h2::after{content:"";display:block;width:56px;height:4px;border-radius:99px;margin:10px auto 0;
+  background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899)}
+html[data-theme="light"] #app .launch-head h2::after,html[data-theme="light"] #app .launch-tool-head h2::after,html[data-theme="light"] #app .pgw h2::after{margin-left:0}
+html[data-theme="light"] #app .eyebrow,html[data-theme="light"] #app .launch-eyebrow{
+  color:#4338ca!important;background:linear-gradient(135deg,#e0ecff,#f3e8ff)!important;border:1px solid #c7d2fe!important;border-radius:99px;padding:5px 12px}
+
+/* colourful section bands */
+html[data-theme="light"] #app>*>section.scroll-reveal:nth-of-type(odd),
+html[data-theme="light"] #app section.sec-stages,
+html[data-theme="light"] #app section.home-science-outro{position:relative}
+html[data-theme="light"] #app section.sec-stages::before,
+html[data-theme="light"] #app section.sec-features::before,
+html[data-theme="light"] #app section.home-roadmap-section::before{content:"";position:absolute;inset:0 -4vw;z-index:-1;border-radius:36px;
+  background:linear-gradient(135deg,rgba(219,234,254,.65),rgba(243,232,255,.55) 50%,rgba(238,254,252,.6));filter:saturate(1.1)}
+
+/* ================================================================= 5. CARDS: colourful accents */
+html[data-theme="light"] #app :is(.launch-feature-grid,.launch-tool-grid,.stage-premium-grid,.feature-premium-list,.subjects,.goals,.hub-tools,.lab-grid,.graph-grid,.ga-grid,.about-grid,.grid)>*{--ac:#2563eb}
+html[data-theme="light"] #app :is(.launch-feature-grid,.launch-tool-grid,.stage-premium-grid,.feature-premium-list,.subjects,.goals,.hub-tools,.lab-grid,.graph-grid,.ga-grid,.about-grid,.grid)>*:nth-child(6n+2){--ac:#7c3aed}
+html[data-theme="light"] #app :is(.launch-feature-grid,.launch-tool-grid,.stage-premium-grid,.feature-premium-list,.subjects,.goals,.hub-tools,.lab-grid,.graph-grid,.ga-grid,.about-grid,.grid)>*:nth-child(6n+3){--ac:#ec4899}
+html[data-theme="light"] #app :is(.launch-feature-grid,.launch-tool-grid,.stage-premium-grid,.feature-premium-list,.subjects,.goals,.hub-tools,.lab-grid,.graph-grid,.ga-grid,.about-grid,.grid)>*:nth-child(6n+4){--ac:#f97316}
+html[data-theme="light"] #app :is(.launch-feature-grid,.launch-tool-grid,.stage-premium-grid,.feature-premium-list,.subjects,.goals,.hub-tools,.lab-grid,.graph-grid,.ga-grid,.about-grid,.grid)>*:nth-child(6n+5){--ac:#10b981}
+html[data-theme="light"] #app :is(.launch-feature-grid,.launch-tool-grid,.stage-premium-grid,.feature-premium-list,.subjects,.goals,.hub-tools,.lab-grid,.graph-grid,.ga-grid,.about-grid,.grid)>*:nth-child(6n+6){--ac:#06b6d4}
+
+html[data-theme="light"] #app :is(.card:not(.creator-team-section):not(.student-review-card),.launch-feature-card,.launch-tool,.subj-card,.stage-premium-card,.feature-premium-card,.gdeck-card,.lab-sim-card,.graph-card,.hub-launch-tile,.ga-game-card,.home-stat-card,.stat,.discovery-motion-card,.ah-card,.motivation-card,.road-flow-card,.about-card,.scx-ch,.scx-tip){
+  background:linear-gradient(150deg,#ffffff 0%,color-mix(in srgb,var(--ac,#2563eb) 10%,#ffffff) 100%)!important;
+  border:1px solid color-mix(in srgb,var(--ac,#2563eb) 28%,#ffffff)!important;
+  box-shadow:0 14px 30px -20px color-mix(in srgb,var(--ac,#2563eb) 70%,transparent),0 2px 6px rgba(30,41,90,.05)!important;
+  position:relative;overflow:hidden}
+html[data-theme="light"] #app :is(.launch-feature-card,.launch-tool,.subj-card,.stage-premium-card,.feature-premium-card,.gdeck-card,.lab-sim-card,.graph-card,.hub-launch-tile,.ga-game-card,.home-stat-card,.stat,.discovery-motion-card,.card:not(.creator-team-section):not(.student-review-card))::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--ac,#2563eb),color-mix(in srgb,var(--ac,#2563eb) 45%,#ec4899));opacity:.9;pointer-events:none}
+html[data-theme="light"] #app :is(.launch-feature-card,.launch-tool,.subj-card,.stage-premium-card,.feature-premium-card,.gdeck-card,.lab-sim-card,.graph-card,.hub-launch-tile,.ga-game-card):hover{
+  transform:translateY(-4px);border-color:var(--ac,#2563eb)!important;
+  box-shadow:0 24px 40px -20px color-mix(in srgb,var(--ac,#2563eb) 80%,transparent),0 0 0 3px color-mix(in srgb,var(--ac,#2563eb) 18%,transparent)!important}
+
+/* coloured icon chips */
+html[data-theme="light"] #app :is(.launch-feature-icon,.launch-tool-icon,.premium-subj-icon,.stage-icon-orbit,.feature-icon-shell,.gdeck-ico,.gico,.about-icon,.cl-icon-wrap){
+  background:linear-gradient(135deg,var(--ac,#2563eb),color-mix(in srgb,var(--ac,#2563eb) 55%,#ec4899))!important;
+  color:#fff!important;border:0!important;border-radius:14px;box-shadow:0 10px 20px -10px color-mix(in srgb,var(--ac,#2563eb) 85%,transparent)!important}
+html[data-theme="light"] #app :is(.launch-feature-icon,.launch-tool-icon,.premium-subj-icon,.stage-icon-orbit,.feature-icon-shell,.gdeck-ico,.gico,.about-icon) svg{stroke:#fff!important;color:#fff!important}
+html[data-theme="light"] #app .subj-card.subject-phy{--ac:#2563eb}
+html[data-theme="light"] #app .subj-card.subject-chem{--ac:#10b981}
+html[data-theme="light"] #app .subj-card.subject-math{--ac:#f59e0b}
+html[data-theme="light"] #app .feature-card-tag,html[data-theme="light"] #app .chapter-count-chip,html[data-theme="light"] #app .subjects-total-chip{
+  background:color-mix(in srgb,var(--ac,#2563eb) 14%,#fff)!important;color:color-mix(in srgb,var(--ac,#2563eb) 85%,#0f172a)!important;border:1px solid color-mix(in srgb,var(--ac,#2563eb) 30%,#fff)!important}
+
+/* buttons */
+html[data-theme="light"] #app :is(.btn,button.btn,a.btn,.btn.pri,.btn-primary){background:var(--vb-grad)!important;color:#fff!important;border:0!important;
+  box-shadow:0 12px 24px -12px rgba(99,60,220,.7)!important;font-weight:700}
+html[data-theme="light"] #app :is(.btn.gh,.btn.ghost,.btn.sec,.btn-secondary,.btn.outline){background:#fff!important;color:#4338ca!important;border:1.5px solid #c7d2fe!important;box-shadow:none!important}
+
+/* formula marquee band */
+html[data-theme="light"] .footer-formula-motion{background:linear-gradient(100deg,#dbeafe,#ede9fe 40%,#fce7f3 70%,#d1fae5)!important;border-block:1px solid #cdd9f7!important}
+html[data-theme="light"] .footer-formula-track span{color:#3730a3!important;font-weight:700}
+html[data-theme="light"] .footer-formula-track i{color:#ec4899!important}
+html[data-theme="light"] .footer-formula-caption{color:#4338ca!important}
+
+/* ================================================================= 6. FOOTER (both themes get the decor; light gets the colourful gradient) */
+footer.site-footer{overflow:hidden}
+footer.site-footer .pf-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+footer.site-footer .pf-deco span{position:absolute;width:var(--sz);height:var(--sz);color:var(--c);opacity:.30;filter:blur(1px);transform:rotate(var(--rot));
+}
+footer.site-footer .pf-deco svg{width:100%;height:100%;display:block}
+footer.site-footer>.w{position:relative;z-index:2}
+footer.site-footer .pf-rainbow{position:absolute;left:0;right:0;top:0;height:5px;z-index:3;
+  background:linear-gradient(90deg,#38bdf8 0%,#818cf8 35%,#f472b6 70%,#fb923c 100%)}
+@media(prefers-reduced-motion:reduce){footer.site-footer .pf-deco span{animation:none}}
+@media(max-width:700px){footer.site-footer .pf-deco span:nth-child(n+7){display:none}}
+
+html[data-theme="light"] footer.site-footer.pf{
+  background:radial-gradient(700px 320px at 8% 0%,rgba(56,189,248,.45),transparent 70%),radial-gradient(640px 320px at 95% 10%,rgba(236,72,153,.40),transparent 70%),
+    radial-gradient(600px 300px at 55% 110%,rgba(245,158,11,.30),transparent 70%),linear-gradient(135deg,#0b2a7a 0%,#2b2fb8 48%,#6d28d9 100%)!important;
+  color:#e8eeff!important;border-top:0!important;box-shadow:none!important}
+html[data-theme="light"] footer.site-footer .pf-aurora,html[data-theme="light"] footer.site-footer .pf-grain{opacity:.35}
+html[data-theme="light"] footer.site-footer h4{color:#fff!important;position:relative;padding-bottom:10px}
+html[data-theme="light"] footer.site-footer h4::after{content:"";position:absolute;left:0;bottom:0;width:34px;height:3px;border-radius:9px;background:linear-gradient(90deg,#fbbf24,#f472b6)}
+html[data-theme="light"] footer.site-footer p,
+html[data-theme="light"] footer.site-footer small,
+html[data-theme="light"] footer.site-footer .pf-legal,
+html[data-theme="light"] footer.site-footer .pf-legal span{color:#dbe4ff!important}
+html[data-theme="light"] footer.site-footer #fb,html[data-theme="light"] footer.site-footer .pf-brand-lock b{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html[data-theme="light"] footer.site-footer .pf-links a,html[data-theme="light"] footer.site-footer .pf-legal a{color:#e8eeff!important;transition:color .2s,transform .2s}
+html[data-theme="light"] footer.site-footer .pf-links a:hover,html[data-theme="light"] footer.site-footer .pf-legal a:hover{color:#fde68a!important;transform:translateX(4px)}
+html[data-theme="light"] footer.site-footer .pf-subjects a{background:rgba(255,255,255,.14)!important;color:#fff!important;border:1px solid rgba(255,255,255,.28)!important;border-radius:99px}
+html[data-theme="light"] footer.site-footer .pf-subjects a:hover{background:rgba(255,255,255,.28)!important}
+html[data-theme="light"] footer.site-footer .footer-social{background:rgba(255,255,255,.16)!important;color:#fff!important;border:1px solid rgba(255,255,255,.3)!important}
+html[data-theme="light"] footer.site-footer .footer-social svg{fill:#fff}
+html[data-theme="light"] footer.site-footer .pf-top{background:linear-gradient(135deg,#f59e0b,#ec4899)!important;color:#fff!important;border:0!important}
+html[data-theme="light"] footer.site-footer .pf-bottom{border-top:1px solid rgba(255,255,255,.22)!important}
+
+/* ================================================================= 7. ABOUT: creator portraits (Light) */
+#app .creator-avatar-ring{position:relative!important;isolation:isolate}
+#app .creator-avatar-ring::before{content:"";position:absolute;inset:4px;z-index:1;border-radius:50%;background:var(--photo) center 35%/cover no-repeat,#dbeafe}
+#app .creator-avatar-ring img{z-index:2!important}
+html[data-theme="light"] #app .about-grid>.creator-team-section{
+  background:radial-gradient(ellipse at 0 0,rgba(96,165,250,.30),transparent 50%),radial-gradient(ellipse at 100% 100%,rgba(244,114,182,.26),transparent 50%),linear-gradient(145deg,#ffffff,#f4f0ff)!important;
+  border:1px solid #c7d2fe!important}
+html[data-theme="light"] #app .creator-profile{background:linear-gradient(150deg,#ffffff,#eaf1ff)!important;border:1px solid #bfd0fb!important;
+  box-shadow:0 18px 34px -22px rgba(67,56,202,.55)!important;overflow:visible!important}
+html[data-theme="light"] #app .creator-profile:nth-child(2){background:linear-gradient(150deg,#ffffff,#fdeaf6)!important;border-color:#f3bde0!important}
+html[data-theme="light"] #app .creator-profile::after{display:none!important}
+html[data-theme="light"] #app .creator-avatar-ring{background:conic-gradient(from 20deg,#2563eb,#7c3aed,#ec4899,#f59e0b,#10b981,#2563eb)!important;
+  box-shadow:0 0 0 5px rgba(255,255,255,.9),0 14px 28px -10px rgba(99,60,220,.55)!important}
+html[data-theme="light"] #app .creator-avatar-ring img{position:absolute!important;inset:4px!important;width:calc(100% - 8px)!important;height:calc(100% - 8px)!important;
+  object-fit:cover!important;object-position:center 30%!important;border:0!important;border-radius:50%!important;background:#fff!important;opacity:1!important;visibility:visible!important}
+html[data-theme="light"] #app .creator-avatar-ring .creator-avatar-fallback{z-index:0}
+html[data-theme="light"] #app .creator-profile-meta h3{color:#1e1b4b!important;font-weight:800}
+html[data-theme="light"] #app .creator-profile-meta span{background:linear-gradient(135deg,#dbeafe,#f3e8ff)!important;color:#4338ca!important;border:1px solid #c7d2fe!important}
+
+/* ================================================================= 8. misc light polish */
+html[data-theme="light"] .bottom-nav{background:linear-gradient(100deg,rgba(255,255,255,.98),rgba(240,236,255,.98))!important;border:1px solid #cdd9f7!important}
+html[data-theme="light"] .bottom-nav a.on,html[data-theme="light"] .bottom-nav a[aria-current="page"]{background:var(--vb-grad)!important;color:#fff!important}
+html[data-theme="light"] #app input,html[data-theme="light"] #app textarea,html[data-theme="light"] #app select{background:#fff!important;border:1.5px solid #cbd5f5!important}
+html[data-theme="light"] #app input:focus,html[data-theme="light"] #app textarea:focus{border-color:#6366f1!important;box-shadow:0 0 0 4px rgba(99,102,241,.18)!important}
+html[data-theme="light"] ::-webkit-scrollbar-thumb{background:linear-gradient(#60a5fa,#a78bfa);border-radius:9px}
+
+/* ================================================================= 9. v17 fixes (specificity + footer cards) */
+html[data-theme="light"] .concept-hero::before{display:none!important}
+html[data-theme="light"] header .hx a.account-link.account-primary{
+  background:linear-gradient(135deg,#f97316,#ec4899 55%,#7c3aed)!important;color:#fff!important;border:0!important;
+  box-shadow:0 10px 22px -10px rgba(236,72,153,.7)!important}
+
+@media(max-width:860px){
+  html[data-theme="light"] header #nav a:not(.cl-nav-search){
+    background:linear-gradient(145deg,#ffffff,color-mix(in srgb,var(--ac,#2563eb) 12%,#ffffff))!important;
+    border:1px solid color-mix(in srgb,var(--ac,#2563eb) 30%,#ffffff)!important;border-left:4px solid var(--ac,#2563eb)!important}
+  html[data-theme="light"] header #nav a:not(.cl-nav-search) :is(svg,.nav-ico,i,span:first-child){color:var(--ac,#2563eb)}
+  html[data-theme="light"] header #nav a:not(.cl-nav-search):hover{box-shadow:0 12px 22px -14px var(--ac,#2563eb)!important;transform:translateY(-2px)}
+}
+
+html[data-theme="light"] #app .about-grid .about-icon,
+html[data-theme="light"] #app .card .about-icon{
+  background:linear-gradient(135deg,#2563eb,#7c3aed)!important;color:#fff!important;border:0!important;opacity:1!important;
+  box-shadow:0 10px 20px -10px rgba(99,60,220,.8)!important}
+html[data-theme="light"] #app .about-grid .about-icon svg{stroke:#fff!important;color:#fff!important;opacity:1!important}
+html[data-theme="light"] #app .about-grid>.card:nth-child(4n+2) .about-icon{background:linear-gradient(135deg,#ec4899,#f97316)!important}
+html[data-theme="light"] #app .about-grid>.card:nth-child(4n+3) .about-icon{background:linear-gradient(135deg,#10b981,#06b6d4)!important}
+html[data-theme="light"] #app .about-grid>.card:nth-child(4n+4) .about-icon{background:linear-gradient(135deg,#f59e0b,#ef4444)!important}
+
+/* footer: glass cards on the deep gradient, all text readable */
+html[data-theme="light"] footer.site-footer.pf :is(.pf-brand,.pf-col){
+  background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.26)!important;
+  box-shadow:0 18px 40px -22px rgba(8,10,60,.7)!important;backdrop-filter:none!important}
+html[data-theme="light"] footer.site-footer.pf .pf-brand-lock small{color:#c7d2fe!important}
+html[data-theme="light"] footer.site-footer.pf .pf-credit,
+html[data-theme="light"] footer.site-footer.pf .pf-credit span,
+html[data-theme="light"] footer.site-footer.pf #ft,
+html[data-theme="light"] footer.site-footer.pf #footerTagline{color:#eef2ff!important}
+html[data-theme="light"] footer.site-footer.pf .pf-links a{color:#f1f5ff!important}
+html[data-theme="light"] footer.site-footer.pf h4{color:#fff!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col h4::before,
+html[data-theme="light"] footer.site-footer.pf .pf-col h4 i{background:#fbbf24!important}
+html[data-theme="light"] footer.site-footer.pf .footer-social span{color:#fff!important}
+html[data-theme="light"] footer.site-footer.pf .pf-top{box-shadow:0 12px 24px -10px rgba(236,72,153,.8)!important}
+
+/* nav is portalled out of <header>: style the tiles directly */
+html[data-theme="light"] #nav a.menu-tile{
+  background:linear-gradient(145deg,#ffffff,color-mix(in srgb,var(--ac,#2563eb) 14%,#ffffff))!important;
+  border:1px solid color-mix(in srgb,var(--ac,#2563eb) 32%,#ffffff)!important;border-left:4px solid var(--ac,#2563eb)!important;
+  box-shadow:0 10px 20px -16px var(--ac,#2563eb)!important}
+html[data-theme="light"] #nav a.menu-tile svg{color:var(--ac,#2563eb)!important;stroke:var(--ac,#2563eb)!important}
+html[data-theme="light"] #nav a.menu-tile:hover{transform:translateY(-2px);box-shadow:0 14px 24px -14px var(--ac,#2563eb)!important}
+html[data-theme="light"] #nav a.menu-tile.on{background:var(--vb-grad)!important;color:#fff!important}
+html[data-theme="light"] #nav a.menu-tile.on *{color:#fff!important;stroke:#fff!important}
+html[data-theme="light"] #nav{background:linear-gradient(165deg,#ffffff 0%,#eaf2ff 45%,#f6ecff 100%)!important}
+html[data-theme="light"] body #nav a.menu-tile.on,
+html[data-theme="light"] body #nav a.menu-tile.on:hover{
+  background-color:#4f46e5!important;background-image:linear-gradient(120deg,#2563eb,#7c3aed 60%,#ec4899)!important;
+  border-color:#6d28d9!important;box-shadow:0 14px 24px -12px rgba(99,60,220,.7)!important}
+html[data-theme="light"] body #nav a.menu-tile.on :is(b,strong,small,span,svg,em){color:#fff!important;stroke:#fff!important;opacity:1!important}
+
+/* ================================================================= 10. v18: instant sections (no waiting on scroll reveal), darker Dark theme */
+/* v22: light scroll-reveal animations are active again (they run only when the block is near the viewport) */
+html[data-theme="light"] .footer-formula-motion,html[data-theme="light"] .site-footer{content-visibility:visible!important}
+html[data-theme="light"] #app,html[data-theme="light"] #app *{content-visibility:visible}
+html[data-theme="light"] #app .card::before{transition:none}
+
+/* ================================================================= 11. v19: speed, coloured stage/feature icons, softer rings */
+/* --- speed (both themes): no backdrop blur, pause animations off-screen / while scrolling --- */
+html body *,html body *::before,html body *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cl-off,.cl-off *,.cl-off *::before,.cl-off *::after{animation-play-state:paused!important}
+.cl-decor{will-change:auto}
+
+/* --- coloured icon chips: "Four stages" + "Why ConceptLab?" (both themes) --- */
+#app .stage-premium-card,#app .feature-premium-card{--i1:#2563eb;--i2:#06b6d4}
+#app .stage-premium-card:nth-child(9n+2),#app .feature-premium-card:nth-child(9n+2){--i1:#7c3aed;--i2:#ec4899}
+#app .stage-premium-card:nth-child(9n+3),#app .feature-premium-card:nth-child(9n+3){--i1:#10b981;--i2:#06b6d4}
+#app .stage-premium-card:nth-child(9n+4),#app .feature-premium-card:nth-child(9n+4){--i1:#f97316;--i2:#f59e0b}
+#app .feature-premium-card:nth-child(9n+5){--i1:#ec4899;--i2:#f43f5e}
+#app .feature-premium-card:nth-child(9n+6){--i1:#6366f1;--i2:#8b5cf6}
+#app .feature-premium-card:nth-child(9n+7){--i1:#0ea5e9;--i2:#2563eb}
+#app .feature-premium-card:nth-child(9n+8){--i1:#14b8a6;--i2:#22c55e}
+#app .feature-premium-card:nth-child(9n+9){--i1:#f59e0b;--i2:#ef4444}
+html[data-theme] body #app :is(.stage-icon-orbit,.feature-icon-shell){
+  background:linear-gradient(135deg,var(--i1),var(--i2))!important;color:#fff!important;border:0!important;border-radius:16px!important;
+  box-shadow:0 10px 22px -8px var(--i1),inset 0 1px 0 rgba(255,255,255,.35)!important;opacity:1!important;filter:none!important}
+html[data-theme] body #app :is(.stage-icon-orbit,.feature-icon-shell)::before,
+html[data-theme] body #app :is(.stage-icon-orbit,.feature-icon-shell)::after{display:none!important}
+html[data-theme] body #app :is(.stage-icon-orbit,.feature-icon-shell) svg{stroke:#fff!important;color:#fff!important;opacity:1!important;stroke-width:1.9}
+html[data-theme] body #app .feature-card-tag{display:inline-block!important;width:fit-content!important;background:none!important;border:0!important;padding:0!important;
+  color:var(--i1)!important;font-weight:800;letter-spacing:.06em}
+html[data-theme="light"] body #app .stage-premium-card,html[data-theme="light"] body #app .feature-premium-card{
+  border-color:color-mix(in srgb,var(--i1) 30%,#fff)!important;background:linear-gradient(150deg,#fff,color-mix(in srgb,var(--i1) 9%,#fff))!important}
+html[data-theme="light"] body #app .stage-premium-card::after,html[data-theme="light"] body #app .feature-premium-card::after{background:linear-gradient(90deg,var(--i1),var(--i2))!important}
+html:not([data-theme="light"]) body #app .stage-premium-card:hover,html:not([data-theme="light"]) body #app .feature-premium-card:hover{border-color:var(--i1)!important}
+
+/* --- header underline: soft 4-colour blend --- */
+html[data-theme="light"] header::after{background:linear-gradient(90deg,#38bdf8 0%,#818cf8 35%,#f472b6 70%,#fb923c 100%)!important}
+
+/* --- About creators: no rainbow ring, soft blue-violet-pink blend --- */
+html[data-theme="light"] body #app .creator-avatar-ring{background:conic-gradient(from 30deg,#38bdf8,#818cf8,#f472b6,#818cf8,#38bdf8)!important}
+html[data-theme="light"] body #app .creator-avatar-ring:after{border-color:rgba(129,140,248,.35)!important}
+html:not([data-theme="light"]) body #app .creator-avatar-ring{background:conic-gradient(from 30deg,#38bdf8,#818cf8,#f472b6,#818cf8,#38bdf8)!important}
+
+/* v19b: Dark theme sections never wait for scroll-reveal either */
+html:not([data-theme="light"]) body #app .scroll-reveal,html:not([data-theme="light"]) body #app .scroll-reveal:not(.is-visible){
+  opacity:1!important;transform:none!important;transition:none!important;will-change:auto!important}
+
+/* v19c: win the specificity fight for the icon chips + dark .rv reveal */
+html[data-theme][data-theme] body #app :is(.stage-premium-card,.feature-premium-card).rv :is(.stage-icon-orbit,.feature-icon-shell),
+html[data-theme][data-theme] body #app :is(.stage-premium-card,.feature-premium-card) :is(.stage-icon-orbit,.feature-icon-shell){
+  background-color:var(--i1)!important;background-image:linear-gradient(135deg,var(--i1),var(--i2))!important;color:#fff!important;border:0!important;
+  box-shadow:0 10px 22px -8px var(--i1),inset 0 1px 0 rgba(255,255,255,.35)!important}
+html[data-theme][data-theme] body #app :is(.stage-premium-card,.feature-premium-card) :is(.stage-icon-orbit,.feature-icon-shell) svg{stroke:#fff!important;color:#fff!important}
+html:not([data-theme="light"]) body #app .rv,html:not([data-theme="light"]) body #app .js .rv{opacity:1!important;transform:none!important;transition:none!important}
+
+/* ================================================================= 12. v20: game-deck cards are always sharp & fully visible (no blur/fade until touched) */
+html body #app .gdeck-card,
+html body #app .gdeck-card:not(.on),
+html body #app[data-page="home"] .gdeck-card:not(.on){
+  opacity:1!important;filter:none!important;transform:scale(.97)!important;visibility:visible!important}
+html body #app .gdeck-card.on,
+html body #app[data-page="home"] .gdeck-card.on{opacity:1!important;filter:none!important;transform:scale(1)!important}
+html body #app .gdeck-card :is(.gdeck-ico,.gdeck-diff,.gdeck-foot,.gdeck-play,h3,p,span,small,b){opacity:1!important;filter:none!important}
+/* v20b: game-card emoji icon stays a plain emoji (no stretched colour bar) */
+html[data-theme] body #app .gdeck-card .gdeck-ico{background:none!important;box-shadow:none!important;width:auto!important;height:auto!important;border-radius:0!important;align-self:flex-start;font-size:34px}
+
+/* ================================================================= 13. v21 */
+/* --- Quick Access / Daily Reflection / Daily Inspiration: sharp instantly (no fade-in, no blur, no wait) --- */
+html body #app :is(.home-launchpad,.ayat-hadith-section,.motivation-section),
+html body #app :is(.home-launchpad,.ayat-hadith-section,.motivation-section).scroll-reveal,
+html body #app :is(.home-launchpad,.ayat-hadith-section,.motivation-section).scroll-reveal.is-visible{
+  opacity:1!important;filter:none!important;visibility:visible!important}
+html body #app :is(.home-launchpad,.ayat-hadith-section,.motivation-section) :is(.card,.launch-feature-card,.launch-tool,.ah-card,.motivation-card,.btn){
+  opacity:1!important;filter:none!important}
+html body #app :is(.ayat-hadith-section,.motivation-section,.home-launchpad) *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+
+/* --- Daily Inspiration: motivational icons + readable GOLD quote --- */
+#app .motivation-art-core{color:#f59e0b}
+#app .motivation-art-core .mv-ico{width:60%;height:60%;display:block;filter:none}
+#app .motivation-pill i{color:#f59e0b}
+#app .motivation-pill i .mv-ico{width:14px;height:14px;display:block}
+html:not([data-theme="light"]) #app .motivation-card blockquote{color:#fcd34d!important;text-shadow:0 1px 12px rgba(245,158,11,.25)}
+html:not([data-theme="light"]) #app .motivation-author{color:#fbbf24!important}
+html[data-theme="light"] body #app .motivation-card blockquote{color:#a35f00!important;font-weight:700!important;text-shadow:none!important;
+  background:none!important;-webkit-text-fill-color:#a35f00!important}
+html[data-theme="light"] body #app .motivation-author{color:#b45309!important;font-weight:700!important}
+html[data-theme="light"] body #app .motivation-art-core{background:linear-gradient(145deg,#fff7d6,#ffe9a8)!important;border-color:#f3c64d!important;
+  color:#d97706!important;box-shadow:0 10px 26px -10px rgba(245,158,11,.7)!important}
+html[data-theme="light"] body #app .motivation-pill{color:#b45309!important}
+html[data-theme="light"] body #app .motivation-pill i{background:#fff3c4!important;border-color:#f3c64d!important;color:#d97706!important}
+html[data-theme="light"] body #app .motivation-art-float{color:#d97706!important;border-color:#f3d27a!important}
+
+/* --- more speed: calm decorative loops below the hero (home) + fewer decor layers on phones --- */
+/* v22: home-section loops run again; .cl-off pauses them when they are far from the viewport */
+#app[data-page="home"] section:not(.concept-hero) :is(.card,.launch-tool,.launch-feature-card,.stage-premium-card,.feature-premium-card){will-change:auto!important}
+@media(max-width:700px){.cl-decor .cl-di:nth-of-type(n+9){display:none}.cl-decor .cl-di{filter:blur(calc(var(--bl) * .8))}}
+
+
+
+/* ================================================================= 14. v22: proximity-based animation + calmer dark icons */
+/* Animations run only for blocks near the viewport (.cl-off is toggled by vibrant.js) and when the tab is visible. */
+.cl-off,.cl-off *,.cl-off *::before,.cl-off *::after{animation-play-state:paused!important}
+html.cl-hidden *,html.cl-hidden *::before,html.cl-hidden *::after{animation-play-state:paused!important}
+.cl-off{will-change:auto!important}
+/* Settings: never glide; the page always starts at the top */
+html.cl-pin-top{scroll-behavior:auto!important}
+html.cl-pin-top #app{overflow-anchor:none}
