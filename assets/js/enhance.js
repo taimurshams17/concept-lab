@@ -269,7 +269,7 @@
   }
 
   function boot() {
-    Gov.init(); Search.init(); Resume.init(); helpers(); Welcome.flush();
+    Gov.init(); Search.init(); helpers(); Welcome.flush();
     /* A logged-in student might open the site on a fresh tab right after signing up. */
     window.addEventListener('hashchange', function () { if (lsGet('clWelcomePending', null)) Welcome.flush(); });
   }
