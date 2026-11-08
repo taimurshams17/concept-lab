@@ -1,0 +1,385 @@
+/* ConceptLab 2026-11-08 · theme-final
+   1) Light intro: truly pure white canvas, with the colour carried by vivid learning icons.
+   2) Dark theme: every colourful background study icon becomes one deep sky blue.
+   3) Purple theme: new "Amethyst Silk" backdrop and glass UI (no stars, planets or space motifs),
+      with every section appearing instantly.
+   Loaded last so it wins over the earlier theme layers. */
+
+/* ───────────────────────── 1 · LIGHT INTRO ───────────────────────── */
+html[data-theme="light"] #intro,
+html[data-theme="light"] #intro .in-bg{
+  background:#fff!important;background-image:none!important;color:#18304f!important;
+}
+/* Nothing may tint the white: no glow, dust, grid, vignette or pseudo layers. */
+html[data-theme="light"] #intro .in-glow,
+html[data-theme="light"] #intro .in-glow-two,
+html[data-theme="light"] #intro .in-dust,
+html[data-theme="light"] #intro .in-grid,
+html[data-theme="light"] #intro .in-vignette,
+html[data-theme="light"] #intro::before,
+html[data-theme="light"] #intro::after{display:none!important;background:none!important;opacity:0!important}
+
+/* Icons: crisp, full strength, six saturated colours, each on a faint matching colour chip. */
+html[data-theme="light"] #intro .layer,
+html[data-theme="light"] #intro .l1,
+html[data-theme="light"] #intro .l2,
+html[data-theme="light"] #intro .l3{filter:none!important;opacity:1!important}
+html[data-theme="light"] #intro .t{
+  width:calc(var(--s)*1.32)!important;height:calc(var(--s)*1.32)!important;
+  margin:calc(var(--s)*-.66) 0 0 calc(var(--s)*-.66)!important;
+}
+html[data-theme="light"] #intro .t::before{
+  content:"";position:absolute;inset:-26%;border-radius:50%;background:currentColor;opacity:.11;z-index:-1;
+}
+html[data-theme="light"] #intro .t svg{
+  filter:drop-shadow(0 3px 5px rgba(20,40,80,.14))!important;stroke-width:2.6;
+}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+1){color:#1d6fe8!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+2){color:#7a3ff0!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+3){color:#05a38d!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+4){color:#e5386d!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+5){color:#f08a12!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+6){color:#18a34a!important}
+
+/* Logo, rings and wordmark: bright colour accents on the white. */
+html[data-theme="light"] #intro .in-mark{filter:drop-shadow(0 10px 22px rgba(46,96,196,.20))!important}
+html[data-theme="light"] #intro .ring{border-color:rgba(29,111,232,.34)!important}
+html[data-theme="light"] #intro .r2 .ring{border-color:rgba(122,63,240,.30)!important}
+html[data-theme="light"] #intro .arc{border-top-color:#1d6fe8!important;border-right-color:rgba(29,111,232,.26)!important}
+html[data-theme="light"] #intro .r2 .arc{border-top-color:#e5386d!important;border-right-color:rgba(229,56,109,.24)!important}
+html[data-theme="light"] #intro .dot{background:#1d6fe8!important;box-shadow:0 0 10px 2px rgba(29,111,232,.40)!important}
+html[data-theme="light"] #intro .dot.a{background:#f08a12!important;box-shadow:0 0 10px 2px rgba(240,138,18,.40)!important}
+html[data-theme="light"] #intro .in-word{color:#14284a!important}
+html[data-theme="light"] #intro .in-word span{
+  background:linear-gradient(90deg,#1d6fe8 0%,#7a3ff0 32%,#e5386d 66%,#f08a12 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+}
+html[data-theme="light"] #intro .in-tag{color:#4b6285!important}
+html[data-theme="light"] #intro .in-tag i{background:#e5386d!important;box-shadow:0 0 8px rgba(229,56,109,.35)!important}
+html[data-theme="light"] #intro .in-tag i:nth-of-type(2){background:#05a38d!important;box-shadow:0 0 8px rgba(5,163,141,.35)!important}
+html[data-theme="light"] #intro .in-track{background:rgba(29,60,110,.12)!important}
+html[data-theme="light"] #intro .in-fill{background:linear-gradient(90deg,#1d6fe8,#7a3ff0,#e5386d,#f08a12)!important;box-shadow:0 0 8px rgba(122,63,240,.28)!important}
+html[data-theme="light"] #intro .in-prog li b{background:#d4deee!important;border-color:#fff!important}
+html[data-theme="light"] #intro .in-prog li.on b{background:#1d6fe8!important;box-shadow:0 0 0 1px rgba(29,111,232,.3),0 0 9px 1px rgba(29,111,232,.3)!important}
+html[data-theme="light"] #intro .in-prog li.on:nth-child(2) b{background:#7a3ff0!important;box-shadow:0 0 0 1px rgba(122,63,240,.3),0 0 9px 1px rgba(122,63,240,.3)!important}
+html[data-theme="light"] #intro .in-prog li.on:last-child b{background:#05a38d!important;box-shadow:0 0 0 1px rgba(5,163,141,.3),0 0 9px 1px rgba(5,163,141,.3)!important}
+html[data-theme="light"] #intro .in-prog li span{color:#7587a2!important}
+html[data-theme="light"] #intro .in-prog li.on span{color:#1f3a62!important}
+html[data-theme="light"] #intro .in-skip{background:#fff!important;border-color:rgba(29,111,232,.30)!important;color:#35507a!important;box-shadow:0 4px 14px rgba(30,60,110,.10)!important}
+
+/* ───────────────────── 2 · DARK THEME · DEEP SKY ICONS ───────────────────── */
+html[data-theme="dark"] .cl-decor .cl-di{
+  --c:#2b8fd6!important;color:#2b8fd6!important;opacity:.2!important;
+  filter:blur(calc(var(--bl,0px)*.55)) saturate(1.1)!important;
+}
+html[data-theme="dark"] .cl-decor .cl-dots{background-image:radial-gradient(rgba(43,143,214,.10) 1.2px,transparent 1.6px)!important}
+html[data-theme="dark"] .pf-deco span{--c:#2b8fd6!important;color:#2b8fd6!important}
+html[data-theme="dark"] #intro .layer :is(.t,.t.c-a,.t.c-t){color:#2b8fd6!important}
+html[data-theme="dark"] #intro .t svg{filter:drop-shadow(0 0 7px rgba(43,143,214,.55))!important}
+@media(max-width:700px){html[data-theme="dark"] .cl-decor .cl-di{opacity:.17!important}}
+
+/* ───────────────────── 3 · PURPLE · AMETHYST SILK ───────────────────── */
+html[data-theme="purple"]{
+  --bg:#0b0714!important;
+  --cl-glass-fill:rgba(30,20,50,.66);--cl-glass-fill-strong:rgba(40,27,66,.78);
+  --cl-glass-edge:rgba(214,188,255,.26);--cl-glass-inner:rgba(255,255,255,.12);--cl-glass-shadow:rgba(4,0,14,.34);
+  --am-1:#8b5cf6;--am-2:#6d28d9;--am-rose:#d946ef;--am-gold:#f4dcb4;
+  background:#0b0714!important;
+}
+html[data-theme="purple"] body{background:#0b0714!important;background-image:none!important}
+
+/* Backdrop: a deep amethyst mesh, woven satin texture and two glass ribbons. No stars, planets or icons. */
+html[data-theme="purple"] body::before{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;
+  pointer-events:none!important;opacity:1!important;filter:none!important;animation:none!important;
+  background-color:#0b0714!important;
+  background-image:
+    radial-gradient(ellipse 58% 46% at 8% 4%,rgba(124,58,237,.38),transparent 70%),
+    radial-gradient(ellipse 50% 40% at 94% 14%,rgba(217,70,239,.18),transparent 70%),
+    radial-gradient(ellipse 62% 52% at 78% 100%,rgba(79,70,229,.30),transparent 72%),
+    radial-gradient(ellipse 40% 34% at 4% 96%,rgba(244,220,180,.08),transparent 72%),
+    linear-gradient(118deg,transparent 0 22%,rgba(196,160,255,.060) 22.2% 33%,transparent 33.2% 58%,rgba(232,150,255,.045) 58.2% 66%,transparent 66.2%),
+    linear-gradient(160deg,#0d0818 0%,#140b26 48%,#0b0714 100%)!important;
+  background-repeat:no-repeat!important;background-size:cover!important;
+}
+html[data-theme="purple"] body::after{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;
+  pointer-events:none!important;filter:none!important;
+  opacity:.55!important;
+  background-image:
+    repeating-linear-gradient(135deg,rgba(235,222,255,.022) 0 1px,transparent 1px 13px),
+    repeating-linear-gradient(45deg,rgba(235,222,255,.012) 0 1px,transparent 1px 13px)!important;
+  background-size:auto!important;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 22%,#000 0%,transparent 88%);
+  mask-image:radial-gradient(ellipse at 50% 22%,#000 0%,transparent 88%);
+  animation:none!important;
+}
+/* One slow silk light sweep (transform only, paused while scrolling). */
+html[data-theme="purple"] #app::before{
+  content:"";position:fixed;left:-30%;top:-20%;width:60%;height:140%;z-index:-1;pointer-events:none;
+  background:linear-gradient(100deg,transparent 0,rgba(214,188,255,.055) 45%,rgba(244,220,180,.035) 52%,transparent 100%);
+  transform:translate3d(-20%,0,0) skewX(-14deg);animation:clSilkSweep 22s ease-in-out infinite;
+}
+@keyframes clSilkSweep{0%,100%{transform:translate3d(-20%,0,0) skewX(-14deg)}50%{transform:translate3d(170%,0,0) skewX(-14deg)}}
+html[data-theme="purple"].cl-scrolling #app::before{animation-play-state:paused}
+@media(max-width:760px),(prefers-reduced-motion:reduce){html[data-theme="purple"] #app::before{animation:none;opacity:.5}}
+
+/* Remove every space-like decoration in Purple. */
+html[data-theme="purple"] #stars,
+html[data-theme="purple"] .horizon,
+html[data-theme="purple"] .horizon *,
+html[data-theme="purple"] .cl-decor,
+html[data-theme="purple"] .pf-deco,
+html[data-theme="purple"] .footer-formula-orbits{display:none!important;visibility:hidden!important;animation:none!important}
+html[data-theme="purple"] #app,html[data-theme="purple"] header,html[data-theme="purple"] footer{position:relative;z-index:2}
+
+/* Hero: swap the planet-and-orbit visual for a stacked glass crystal. */
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{
+  position:relative;width:min(100%,280px)!important;aspect-ratio:1;margin-inline:auto;
+  transform-style:preserve-3d;perspective:900px;
+  animation:clGemTurn 14s ease-in-out infinite!important;will-change:transform;
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap>*{display:none!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap::before,
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap::after{
+  content:"";position:absolute;border-radius:28%;pointer-events:none;
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap::before{
+  inset:10%;transform:rotate(14deg) translateZ(-30px);
+  background:linear-gradient(145deg,rgba(139,92,246,.55),rgba(217,70,239,.20) 60%,rgba(244,220,180,.16));
+  border:1px solid rgba(226,205,255,.40);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 24px 50px rgba(60,20,120,.45);
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap::after{
+  inset:24%;transform:rotate(-8deg) translateZ(30px);display:grid;place-items:center;
+  content:"∑";font:700 clamp(54px,12vw,86px)/1 Manrope,Inter,system-ui,sans-serif;color:#f8f0ff;
+  background:linear-gradient(150deg,rgba(255,255,255,.20),rgba(139,92,246,.30) 55%,rgba(40,20,80,.50));
+  border:1px solid rgba(240,228,255,.50);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 18px 40px rgba(20,6,50,.5),0 0 40px rgba(167,139,250,.28);
+  text-shadow:0 4px 22px rgba(196,160,255,.7);
+}
+@keyframes clGemTurn{
+  0%,100%{transform:perspective(900px) rotateX(8deg) rotateY(-14deg)}
+  50%{transform:perspective(900px) rotateX(-6deg) rotateY(14deg)}
+}
+html[data-theme="purple"].cl-scrolling #app[data-page="home"] .hero-visual-stage .orb-wrap{animation-play-state:paused!important}
+@media(max-width:760px){html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{animation:none!important;transform:perspective(900px) rotateX(4deg) rotateY(-8deg)!important;width:min(100%,220px)!important}}
+@media(prefers-reduced-motion:reduce){html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{animation:none!important}}
+
+/* Glass UI: satin panels, champagne hairline, amethyst buttons. */
+html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.graph-card,.lab-sim-card,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.hub-extra-tools,.study-panel,.profile-head,.px-power-card,.brain-sprint-shell,.brain-sprint-play,.hero-visual-card,.ga-game-card,.hub-launch-tile){
+  background:linear-gradient(160deg,rgba(255,255,255,.075),transparent 38%),linear-gradient(150deg,rgba(52,36,84,.74),rgba(22,14,38,.82))!important;
+  border:1px solid rgba(214,188,255,.24)!important;
+  border-top-color:rgba(244,226,255,.38)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 16px 36px rgba(6,0,20,.34)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.subj-card,.graph-card,.lab-sim-card,.ga-game-card,.hub-launch-tile):hover{
+  transform:translate3d(0,-3px,0)!important;border-color:rgba(232,210,255,.46)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 20px 42px rgba(60,20,130,.34)!important;
+}
+html[data-theme="purple"] #app .btn.pri,
+html[data-theme="purple"] #app .btn.primary{
+  background:linear-gradient(135deg,#9d6bff 0%,#7036e6 52%,#b43fe0 100%)!important;
+  border:1px solid rgba(244,226,255,.45)!important;color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 10px 26px rgba(109,40,217,.42)!important;
+}
+html[data-theme="purple"] #app .btn.pri:hover{filter:brightness(1.08)}
+html[data-theme="purple"] body>header,html[data-theme="purple"] header,html[data-theme="purple"] .bottom-nav{
+  background:linear-gradient(135deg,rgba(46,31,76,.86),rgba(20,12,36,.9))!important;
+  border-color:rgba(222,200,255,.26)!important;
+}
+html[data-theme="purple"] ::selection{background:rgba(167,139,250,.45);color:#fff}
+
+/* Speed: every section and reveal helper is visible immediately in Purple. */
+html[data-theme="purple"] .js .rv,
+html[data-theme="purple"] .js .rv.in,
+html[data-theme="purple"] .scroll-reveal,
+html[data-theme="purple"] .scroll-reveal.is-visible,
+html[data-theme="purple"] #app .scroll-reveal,
+html[data-theme="purple"] #app .ayat-hadith-section,
+html[data-theme="purple"] #app .motivation-section,
+html[data-theme="purple"] #app .home-final-cta .cta{
+  opacity:1!important;transform:none!important;filter:none!important;visibility:visible!important;
+  transition:none!important;animation:none!important;animation-delay:0s!important;transition-delay:0s!important;
+}
+html[data-theme="purple"] #app.page-enter,
+html[data-theme="purple"] #app.page-enter>.w>*,
+html[data-theme="purple"] #app .hero :is(.eyebrow,h1,.lead,.pill,.cta,.hero-actions){animation:none!important;animation-delay:0s!important}
+html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.stage-premium-card,.feature-premium-card,.subj-card,.hub-launch-tile,.ga-game-card,.graph-card,.lab-sim-card){
+  transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease!important;
+}
+
+/* Purple: remove the leftover orbit ellipses behind the hero and keep every accent inside the amethyst family. */
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage::before,
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage::after{display:none!important}
+html[data-theme="purple"] #app :is(.home-stats-kicker,.home-stats-live){color:#e4d2ff!important}
+html[data-theme="purple"] #app .home-stats-live{background:rgba(139,92,246,.16)!important;border-color:rgba(214,188,255,.34)!important}
+html[data-theme="purple"] #app .home-stats-live i{background:#d8b4fe!important;box-shadow:0 0 8px rgba(216,180,254,.7)!important}
+html[data-theme="purple"] #app .home-stat-card :is(b,strong,.n,.num,.stat-n,.count){color:#f4e6ff!important;-webkit-text-fill-color:#f4e6ff!important}
+html[data-theme="purple"] #app .home-stats-panel{
+  background:linear-gradient(160deg,rgba(255,255,255,.06),transparent 40%),linear-gradient(150deg,rgba(42,28,70,.78),rgba(18,11,32,.86))!important;
+  border-color:rgba(214,188,255,.24)!important;
+}
+
+
+/* ═══════════════ v3 · 2026-11-08 ═══════════════ */
+
+/* ── A · Feature cards ("কেন ConceptLab?"): fix the squeezed text column on phones, in every theme. ── */
+#app[data-page="home"] .feature-premium-card{
+  display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;align-items:center!important;
+  column-gap:14px!important;padding:14px 16px!important;min-height:0!important;
+}
+#app[data-page="home"] .feature-premium-card>.feature-card-number{
+  position:absolute!important;top:10px!important;right:14px!important;grid-area:auto!important;font-size:11px!important;letter-spacing:.08em;
+}
+#app[data-page="home"] .feature-premium-card>.feature-icon-shell{grid-column:1!important;grid-row:1!important;width:46px!important;height:46px!important;border-radius:14px!important}
+#app[data-page="home"] .feature-premium-card>.feature-card-copy{grid-column:2!important;grid-row:1!important;min-width:0!important;padding:0 26px 0 0!important}
+#app[data-page="home"] .feature-card-tag{font-size:10px!important;letter-spacing:.12em!important;margin-bottom:4px!important;display:block}
+#app[data-page="home"] .feature-card-copy h3{font-size:16px!important;line-height:1.35!important;margin:0 0 4px!important;overflow-wrap:anywhere}
+#app[data-page="home"] .feature-card-copy p{font-size:13.5px!important;line-height:1.6!important;margin:0!important;overflow-wrap:anywhere}
+@media(max-width:620px){
+  #app[data-page="home"] .feature-premium-card{column-gap:12px!important;padding:13px 13px!important;border-radius:16px!important}
+  #app[data-page="home"] .feature-premium-card>.feature-icon-shell{width:42px!important;height:42px!important}
+  #app[data-page="home"] .feature-card-copy h3{font-size:15px!important}
+  #app[data-page="home"] .feature-card-copy p{font-size:13px!important}
+}
+html[data-theme="purple"] #app[data-page="home"] .feature-card-tag{color:#d9c4ff!important}
+html[data-theme="purple"] #app[data-page="home"] .feature-card-number{color:#c9b2f5!important}
+html[data-theme="purple"] #app[data-page="home"] .feature-card-copy h3{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html[data-theme="purple"] #app[data-page="home"] .feature-card-copy p{color:#e6dcf7!important;-webkit-text-fill-color:#e6dcf7!important}
+
+/* ── B · Purple: richer, calmer "Midnight Amethyst" backdrop (soft light pools, film grain, no hard stripes). ── */
+html[data-theme="purple"] body::before{
+  background-image:
+    radial-gradient(ellipse 70% 52% at 6% 2%,rgba(132,66,244,.40),transparent 68%),
+    radial-gradient(ellipse 56% 44% at 98% 10%,rgba(214,84,240,.20),transparent 70%),
+    radial-gradient(ellipse 60% 50% at 82% 100%,rgba(84,72,236,.32),transparent 72%),
+    radial-gradient(ellipse 46% 38% at 0% 88%,rgba(236,196,150,.09),transparent 72%),
+    radial-gradient(ellipse 42% 30% at 50% 52%,rgba(120,70,210,.10),transparent 74%),
+    linear-gradient(162deg,#100921 0%,#170c2e 46%,#0b0617 100%)!important;
+}
+html[data-theme="purple"] body::after{
+  opacity:.9!important;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .86  0 0 0 0 .8  0 0 0 0 1  0 0 0 .055 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(5,2,14,.55) 100%)!important;
+  background-size:180px 180px,100% 100%!important;
+  -webkit-mask-image:none!important;mask-image:none!important;
+}
+html[data-theme="purple"] #app::before{
+  background:linear-gradient(100deg,transparent 0,rgba(214,188,255,.04) 40%,rgba(244,220,180,.03) 52%,transparent 100%)!important;
+}
+/* A fine champagne hairline under the purple header. */
+html[data-theme="purple"] header{border-bottom:1px solid rgba(244,220,180,.22)!important}
+
+/* ── C · Light intro: restrained and premium — hairline orbit rings, thin-stroke icons, no colour chips. ── */
+html[data-theme="light"] #intro .t::before{display:none!important}
+html[data-theme="light"] #intro .t{
+  width:var(--s)!important;height:var(--s)!important;margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2)!important;
+}
+html[data-theme="light"] #intro .t svg{stroke-width:1.7;filter:none!important;opacity:.0}
+html[data-theme="light"] #intro .layer{opacity:.62!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+1){color:#2f6bd8!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+2){color:#6b57cf!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+3){color:#1b9a88!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+4){color:#cf5479!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+5){color:#d08a2e!important}
+html[data-theme="light"] #intro .layer :is(.t,.t.c-a,.t.c-t):nth-of-type(6n+6){color:#3f9a64!important}
+html[data-theme="light"] #intro .in-bg{display:block!important}
+html[data-theme="light"] #intro .in-bg::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-radial-gradient(circle at 50% 42%,transparent 0 118px,rgba(40,76,150,.075) 118px 119px);
+  -webkit-mask-image:radial-gradient(circle at 50% 42%,#000 0,#000 30%,transparent 72%);
+  mask-image:radial-gradient(circle at 50% 42%,#000 0,#000 30%,transparent 72%);
+}
+html[data-theme="light"] #intro .in-bg::after{
+  content:"";position:absolute;left:50%;top:42%;width:min(70vw,420px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,0) 52%,rgba(47,107,216,.05) 100%);
+}
+html[data-theme="light"] #intro .in-mark{filter:drop-shadow(0 18px 24px rgba(30,60,130,.18))!important}
+html[data-theme="light"] #intro .ring{border:1px solid rgba(47,107,216,.22)!important}
+html[data-theme="light"] #intro .r2 .ring{border:1px dashed rgba(107,87,207,.28)!important}
+html[data-theme="light"] #intro .arc{border-top:1.5px solid #2f6bd8!important;border-right-color:transparent!important}
+html[data-theme="light"] #intro .r2 .arc{border-top:1.5px solid #6b57cf!important;border-right-color:transparent!important}
+html[data-theme="light"] #intro .dot{background:#2f6bd8!important;box-shadow:0 0 0 4px rgba(47,107,216,.14)!important}
+html[data-theme="light"] #intro .dot.a{background:#d08a2e!important;box-shadow:0 0 0 4px rgba(208,138,46,.16)!important}
+html[data-theme="light"] #intro .in-word{color:#0f1f3d!important;letter-spacing:-.04em}
+html[data-theme="light"] #intro .in-word span{background:linear-gradient(90deg,#2f6bd8,#5a4fd0)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+html[data-theme="light"] #intro .in-tag{color:#5a6c8c!important;letter-spacing:.2em!important;text-transform:uppercase;font-size:clamp(9px,2.5vw,11px)!important;font-weight:600!important}
+html[data-theme="light"] #intro .in-tag i{background:#c9d4e8!important;box-shadow:none!important;width:3px;height:3px}
+html[data-theme="light"] #intro .in-track{background:#e4eaf4!important;height:2px!important}
+html[data-theme="light"] #intro .in-fill{background:linear-gradient(90deg,#2f6bd8,#6b57cf)!important;box-shadow:none!important}
+html[data-theme="light"] #intro .in-prog li b{background:#fff!important;border:1.5px solid #c9d4e8!important;box-shadow:none!important}
+html[data-theme="light"] #intro .in-prog li.on b,
+html[data-theme="light"] #intro .in-prog li.on:nth-child(2) b,
+html[data-theme="light"] #intro .in-prog li.on:last-child b{background:#2f6bd8!important;border-color:#2f6bd8!important;box-shadow:0 0 0 4px rgba(47,107,216,.14)!important}
+html[data-theme="light"] #intro .in-prog li span{color:#8a99b4!important;letter-spacing:.16em!important}
+html[data-theme="light"] #intro .in-prog li.on span{color:#1f3358!important}
+html[data-theme="light"] #intro .in-skip{box-shadow:none!important;border-color:#d5dded!important;color:#4c5f80!important}
+
+/* ── D · Light theme: instant sections + a cleaner, professional UI. ── */
+html[data-theme="light"] .js .rv,
+html[data-theme="light"] .js .rv.in,
+html[data-theme="light"] .scroll-reveal,
+html[data-theme="light"] .scroll-reveal.is-visible,
+html[data-theme="light"] #app .scroll-reveal,
+html[data-theme="light"] #app .ayat-hadith-section,
+html[data-theme="light"] #app .motivation-section,
+html[data-theme="light"] #app .home-final-cta .cta{
+  opacity:1!important;transform:none!important;filter:none!important;visibility:visible!important;
+  transition:none!important;animation:none!important;animation-delay:0s!important;transition-delay:0s!important;
+}
+html[data-theme="light"] #app.page-enter,
+html[data-theme="light"] #app.page-enter>.w>*{animation:none!important;animation-delay:0s!important}
+
+html[data-theme="light"]{--bg:#f5f7fb!important;background:#f5f7fb!important}
+html[data-theme="light"] body{background:#f5f7fb!important;background-image:linear-gradient(180deg,#fbfcfe 0,#f5f7fb 420px)!important;color:#1b2b4a}
+html[data-theme="light"] .cl-decor .cl-blob,
+html[data-theme="light"] .cl-decor .cl-dots{display:none!important}
+html[data-theme="light"] .cl-decor .cl-di{opacity:.15!important;filter:none!important}
+html[data-theme="light"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.graph-card,.lab-sim-card,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.hub-extra-tools,.study-panel,.profile-head,.px-power-card,.brain-sprint-shell,.brain-sprint-play,.hero-visual-card,.ga-game-card,.hub-launch-tile,.home-stats-panel){
+  background:#fff!important;background-image:none!important;
+  border:1px solid #e2e8f2!important;border-radius:16px;
+  box-shadow:0 1px 2px rgba(16,32,64,.04),0 10px 28px -16px rgba(16,32,64,.16)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html[data-theme="light"] #app :is(.card,.launch-feature-card,.launch-tool,.stage-premium-card,.feature-premium-card,.subj-card,.graph-card,.lab-sim-card,.ga-game-card,.hub-launch-tile):hover{
+  transform:translate3d(0,-2px,0)!important;border-color:#c5d3ea!important;
+  box-shadow:0 2px 4px rgba(16,32,64,.05),0 16px 34px -16px rgba(30,70,150,.26)!important;
+}
+html[data-theme="light"] #app :is(.card,.launch-feature-card,.launch-tool,.stage-premium-card,.feature-premium-card,.subj-card,.hub-launch-tile,.ga-game-card,.graph-card,.lab-sim-card){
+  transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease!important;
+}
+html[data-theme="light"] #app :is(h1,h2,h3,.sh2 h2){color:#0f1f3d!important}
+html[data-theme="light"] #app :is(.lead,.card p,.feature-card-copy p,.sh2 p){color:#445676!important}
+html[data-theme="light"] #app .feature-card-tag{color:#2f6bd8!important}
+html[data-theme="light"] #app .feature-card-number{color:#8fa2c4!important}
+html[data-theme="light"] #app .feature-icon-shell{background:#eef3fd!important;border:1px solid #d8e3f8!important;box-shadow:none!important}
+html[data-theme="light"] #app .btn.pri,
+html[data-theme="light"] #app .btn.primary{
+  background:linear-gradient(135deg,#3470e4,#4a4fd2)!important;color:#fff!important;border:1px solid #2b5fcb!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 18px -8px rgba(47,107,216,.55)!important;
+}
+html[data-theme="light"] #app .btn:not(.pri):not(.primary){background:#fff!important;border:1px solid #d5dded!important;color:#24385c!important;box-shadow:0 1px 2px rgba(16,32,64,.05)!important}
+html[data-theme="light"] header,html[data-theme="light"] body>header{
+  background:rgba(255,255,255,.92)!important;border-bottom:1px solid #e2e8f2!important;box-shadow:0 1px 0 rgba(16,32,64,.02),0 8px 24px -18px rgba(16,32,64,.22)!important;
+}
+html[data-theme="light"] header::after,html[data-theme="light"] header::before{background:none!important;height:0!important;border:0!important}
+html[data-theme="light"] header .brand #bn{background:linear-gradient(90deg,#14264a,#2f6bd8)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important;font-weight:800}
+html[data-theme="light"] .bottom-nav{background:rgba(255,255,255,.96)!important;border:1px solid #e2e8f2!important;box-shadow:0 14px 34px -14px rgba(16,32,64,.28)!important}
+html[data-theme="light"] #app :is(.pill,.eyebrow){background:#eef3fd!important;border:1px solid #d8e3f8!important;color:#2a5ac0!important}
+
+/* v3b · cohesive icon tiles and uniform light cards */
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card>.feature-icon-shell,
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card:nth-child(n)>.feature-icon-shell{
+  background:linear-gradient(145deg,#a07bff,#6d3fdc 60%,#b44fe0)!important;
+  border:1px solid rgba(244,226,255,.45)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 20px -6px rgba(124,58,237,.6)!important;
+}
+html[data-theme="light"] #app[data-page="home"] :is(.feature-premium-card,.stage-premium-card,.launch-feature-card,.launch-subject-card,.launch-tool,.home-stat-card){
+  background:#fff!important;background-image:none!important;border:1px solid #e2e8f2!important;
+  box-shadow:0 1px 2px rgba(16,32,64,.04),0 10px 28px -16px rgba(16,32,64,.16)!important;
+}
+html[data-theme="light"] #app[data-page="home"] .feature-premium-card::before{opacity:.5}
+html[data-theme="light"] #app[data-page="home"] :is(.feature-premium-card,.stage-premium-card)::after{display:none!important}
+html[data-theme="light"] #app[data-page="home"] .feature-premium-card{border-color:#e2e8f2!important}
+html[data-theme="light"] #app[data-page="home"] .feature-premium-card::before{background:#2f6bd8!important;opacity:.55}
