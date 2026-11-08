@@ -431,7 +431,7 @@
     if (theme !== 'purple' && window.__clBaseTheme) { var base = window.__clBaseTheme; ['p','s','a','bg','glow'].forEach(function (k) { if (/^#[0-9a-f]{6}$/i.test(base[k] || '')) root.style.setProperty('--' + k, base[k]); }); }
     var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', theme === 'light' ? '#f2f7fd' : (theme === 'purple' ? '#05040a' : '#000000'));
     if (window.FX && typeof FX.setTheme === 'function') {
-      var palette = theme === 'purple' ? { p: '#9078cd', s: '#b7a8e6', fx: 'off' } :
+      var palette = theme === 'purple' ? { p: '#9078cd', s: '#b7a8e6', fx: 'off', motion: true } :
         (theme === 'dark' ? (function () { var map = { sky:['#38bdf8','#7dd3fc'], violet:['#a78bfa','#c4b5fd'], emerald:['#34d399','#6ee7b7'], rose:['#fb7185','#fda4af'], amber:['#fbbf24','#fcd34d'] }; var c = map[prefs().accent] || map.sky; return { p:c[0], s:c[1], fx:prefs().fx ? 'on' : 'off' }; })() : null);
       if (palette) FX.setTheme(palette);
     }

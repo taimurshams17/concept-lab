@@ -147,5 +147,5 @@ function cfFrame(){cc.clearRect(0,0,cf.width,cf.height);for(var i=parts.length-1
 /* ---------- public ---------- */
 return{
  scan:scan,every:every,type:type,toast:toast,confetti:confetti,
- setTheme:function(t){t=t||{};colour=t.p||colour;colour2=t.s||colour2;on=t.fx!=='off';var run=on&&canRunBackdrop();if(cv)cv.style.display=run?'block':'none';if(run){size();queueFrame();}else if(frameId){cancelAnimationFrame(frameId);frameId=0;}document.documentElement.classList.toggle('nofx',!on)}
+ setTheme:function(t){t=t||{};colour=t.p||colour;colour2=t.s||colour2;on=t.fx!=='off';var run=on&&canRunBackdrop();if(cv)cv.style.display=run?'block':'none';if(run){size();queueFrame();}else if(frameId){cancelAnimationFrame(frameId);frameId=0;}document.documentElement.classList.toggle('nofx',!on&&!isPurpleTheme()&&t.motion!==true)}
 }})();
