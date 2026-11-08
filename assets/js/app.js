@@ -279,7 +279,7 @@ function load(d){
  CHL.forEach(function(c){if(!L[c.s])return;L[c.s].push(c);if(c.status=='available'){c.q=c.q||[];C[c.id]=c}});
  applyTheme();statics();
 }
-function applyTheme(){var t=D.theme,r=document.documentElement.style;['p','s','a','bg','glow'].forEach(function(k){if(/^#[0-9a-f]{6}$/i.test(t[k]))r.setProperty('--'+k,t[k])});var m=$('meta[name=theme-color]');if(m)m.content=t.bg||'#000000';FX.setTheme(t)}
+function applyTheme(){var t=D.theme||{},r=document.documentElement,st=r.style,mode='dark';window.__clBaseTheme=t;try{var pref=JSON.parse(localStorage.getItem('clpx_prefs')||'{}');if(pref&&['light','dark','purple'].indexOf(pref.theme)>=0)mode=pref.theme}catch(e){}var m=$('meta[name=theme-color]');if(mode==='purple'){if(m)m.content='#09070f';FX.setTheme({p:'#a78bfa',s:'#ddd6fe',fx:t.fx||'on'});return}['p','s','a','bg','glow'].forEach(function(k){if(/^#[0-9a-f]{6}$/i.test(t[k]))st.setProperty('--'+k,t[k])});if(m)m.content=t.bg||'#000000';FX.setTheme(t)}
 function statics(){
  ST=[X('stage1'),X('stage2'),X('stage3'),X('stage4')];
  var nav=$('header nav');if(nav){
@@ -512,9 +512,13 @@ function labIcon(key){var l=LABS.filter(function(x){return x.sim==key})[0];retur
 
 /* ------------------------------------------------------------ home sections */
 function heroSvg(){
- var t=D.theme||{},light=document.documentElement.getAttribute('data-theme')==='light';
- var p=light?'#1d5fa8':(t.p||'#38bdf8'),s=light?'#4a3fb0':(t.s||'#7dd3fc'),a=light?'#0b7a82':(t.a||'#fbbf24');
- var rim=light?'#173f6b':'#cfd8e3',star=light?'#1d5fa8':'#ffffff',ink=light?'#12304f':'#9fb6cb',axis=light?'#2c4f6e':'#3a4656';
+ var t=D.theme||{},mode=document.documentElement.getAttribute('data-theme'),light=mode==='light',purple=mode==='purple';
+ var p=light?'#1d5fa8':(purple?'#a78bfa':(t.p||'#38bdf8'));
+ var s=light?'#4a3fb0':(purple?'#ddd6fe':(t.s||'#7dd3fc'));
+ var a=light?'#0b7a82':(purple?'#c4b5fd':(t.a||'#fbbf24'));
+ var rim=light?'#173f6b':(purple?'#e4d8f5':'#cfd8e3');
+ var star=light?'#1d5fa8':'#ffffff',ink=light?'#12304f':(purple?'#d8cbe9':'#9fb6cb');
+ var axis=light?'#2c4f6e':(purple?'#79678f':'#3a4656');
  return '<svg viewBox="0 0 400 400" style="width:100%;height:100%;overflow:visible"><defs><radialGradient id="gl"><stop offset="0" stop-color="'+p+'" stop-opacity=".3"/><stop offset="1" stop-color="'+p+'" stop-opacity="0"/></radialGradient><radialGradient id="core" cx="35%" cy="30%"><stop offset="0" stop-color="'+(light?'#ffffff':'#ffffff')+'"/><stop offset=".35" stop-color="'+s+'"/><stop offset="1" stop-color="'+p+'" stop-opacity=".32"/></radialGradient><linearGradient id="rk" x1="0" x2="1"><stop offset="0" stop-color="'+(light?'#12365c':'#b9c6d6')+'"/><stop offset="1" stop-color="'+(light?'#4c97d1':'#ffffff')+'"/></linearGradient></defs>'
  +'<circle cx="200" cy="200" r="150" fill="url(#gl)"/><g class="rot slow"><ellipse cx="200" cy="200" rx="178" ry="62" fill="none" stroke="'+s+'" stroke-opacity="'+(light?'.85':'.58')+'" stroke-dasharray="3 7" transform="rotate(-20 200 200)"/><circle cx="378" cy="200" r="5" fill="'+a+'" transform="rotate(-20 200 200)"/></g>'
  +'<g class="rot rev"><ellipse cx="200" cy="200" rx="140" ry="140" fill="none" stroke="'+p+'" stroke-opacity="'+(light?'.7':'.42')+'"/><circle cx="200" cy="60" r="4" fill="'+star+'"/></g>'
@@ -1029,6 +1033,10 @@ function initScrollReveal(root){
  /* Use one lightweight observer in both themes. Light Theme keeps short, smooth
     reveals instead of making every section visible instantly. */
  var targets=root.querySelectorAll('.home-launchpad,.ayat-hadith-section,.motivation-section,.sec-features,.sec-stages,.arcade-s,.sec-sims,.home-lab,.home-games,.sec-subjects,.goals,.road,.home-discovery-motion,.home-science-outro,.home-stats-section,.pgw>.card,.pgw section,.pgw .card.rv,.lab-subject-group,.chapter-subject-group,.custom-page-heading,.custom-page-content');
+ /* Dark and Purple are intentionally immediate-render modes. Avoid creating a new
+    observer plus a scroll sweep for sections that have no reveal transition. */
+ var theme=document.documentElement.getAttribute('data-theme');
+ if(theme==='dark'||theme==='purple'){targets.forEach(function(el){el.classList.add('scroll-reveal','is-visible')});return}
  if(!('IntersectionObserver' in window)){targets.forEach(function(el){el.classList.add('scroll-reveal','is-visible')});return}
  var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('is-visible');io.unobserve(entry.target)}})},{root:null,rootMargin:'0px 0px 680px 0px',threshold:.01});
  targets.forEach(function(el){if(el.dataset.revealBound)return;el.dataset.revealBound='1';el.classList.add('scroll-reveal');io.observe(el)});

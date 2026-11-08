@@ -1,0 +1,420 @@
+/* ConceptLab premium violet refinement — stronger glass, cohesive violet accents, visible 3D. */
+
+/* ── Purple theme: a completely new, layered amethyst atmosphere ── */
+html[data-theme="purple"]{
+  --bg:#080510!important;--card:rgba(22,13,34,.62)!important;--line:rgba(201,177,255,.20)!important;
+  --tx:#f8f4ff!important;--mut:#c8bddc!important;--p:#b69aff!important;--s:#e3d8ff!important;
+  --a:#d1bcff!important;--glow:#8b5cf6!important;--cl-glass-edge:rgba(218,199,255,.22);
+  color-scheme:dark;background:#07040d
+}
+html[data-theme="purple"] body{
+  background-color:#07040d!important;
+  background-image:
+    radial-gradient(ellipse 58% 43% at 11% 5%,rgba(100,52,157,.28),transparent 69%),
+    radial-gradient(ellipse 50% 42% at 91% 17%,rgba(65,35,117,.30),transparent 70%),
+    radial-gradient(ellipse 66% 38% at 52% 105%,rgba(67,27,100,.25),transparent 72%),
+    linear-gradient(132deg,#06040b 0%,#0d0718 43%,#08050f 100%)!important;
+  background-attachment:fixed!important
+}
+html[data-theme="purple"] body::before{
+  content:"";position:fixed;inset:-8%;z-index:0;pointer-events:none;opacity:.95;
+  background-image:
+    radial-gradient(ellipse 24% 34% at 17% 18%,rgba(184,145,255,.19),transparent 72%),
+    radial-gradient(ellipse 30% 24% at 84% 23%,rgba(124,73,190,.20),transparent 72%),
+    radial-gradient(ellipse 24% 34% at 70% 84%,rgba(100,54,164,.16),transparent 73%),
+    conic-gradient(from 218deg at 66% 37%,transparent 0deg,rgba(175,132,255,.075) 37deg,transparent 76deg,rgba(111,63,174,.07) 118deg,transparent 164deg),
+    linear-gradient(116deg,transparent 0 43%,rgba(226,208,255,.035) 49%,transparent 55% 100%);
+  background-size:140% 140%;filter:saturate(115%);animation:clVioletAtmosphere 28s ease-in-out infinite alternate
+}
+html[data-theme="purple"] body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.62;
+  background:radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(1,0,6,.34) 100%),
+    repeating-linear-gradient(0deg,rgba(220,201,255,.012) 0 1px,transparent 1px 58px),
+    repeating-linear-gradient(90deg,rgba(220,201,255,.010) 0 1px,transparent 1px 58px)
+}
+@keyframes clVioletAtmosphere{0%{transform:translate3d(-1.5%,0,0) scale(1.02);background-position:0% 50%}100%{transform:translate3d(1.5%,-1%,0) scale(1.07);background-position:100% 50%}}
+html[data-theme="purple"] #stars{opacity:.38!important;filter:hue-rotate(54deg) saturate(.72)!important}
+html[data-theme="purple"] .horizon{background:radial-gradient(78% 80% at 50% 130%,rgba(124,58,237,.28),rgba(76,29,149,.13) 44%,transparent 76%)!important}
+html[data-theme="purple"] .horizon .hl{background:linear-gradient(90deg,transparent,#d7c4ff,transparent)!important;box-shadow:0 0 28px 6px rgba(167,139,250,.25)!important}
+
+/* ── A consistent premium glass material across the actual interface ── */
+html[data-theme="purple"] body>header,html[data-theme="purple"] header,
+html[data-theme="purple"] #nav,html[data-theme="purple"] .nav-portal,
+html[data-theme="purple"] .bottom-nav{
+  background:linear-gradient(135deg,rgba(34,22,51,.82),rgba(10,7,18,.78))!important;
+  border-color:rgba(207,185,255,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 18px 48px rgba(1,0,8,.34),0 0 34px rgba(120,74,190,.08)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(165%)!important;backdrop-filter:blur(28px) saturate(165%)!important
+}
+html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.hub-launch-tile,.ga-game-card,.graph-card,.lab-sim-card,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.hub-extra-tools,.hub-extra-grid a,.study-panel,.profile-head,.px-power-card,.brain-sprint-shell,.brain-sprint-play,.ah-card,.motivation-card,.about-card,.creator-profile,.scx-ch,.scx-tip,.gdeck-card,.stat,.feature-card,.stage-card){
+  color:var(--tx)!important;
+  background:linear-gradient(145deg,rgba(49,32,72,.61),rgba(14,9,24,.72) 58%,rgba(10,7,18,.77))!important;
+  border:1px solid rgba(205,183,255,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.105),inset 0 -1px 0 rgba(194,163,255,.035),0 18px 48px rgba(1,0,8,.28),0 0 30px rgba(123,75,195,.075)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(155%)!important;backdrop-filter:blur(24px) saturate(155%)!important
+}
+html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.hub-launch-tile,.ga-game-card,.graph-card,.lab-sim-card,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.hub-extra-tools,.hub-extra-grid a,.study-panel,.profile-head,.px-power-card,.brain-sprint-shell,.brain-sprint-play,.ah-card,.motivation-card,.about-card,.creator-profile,.scx-ch,.scx-tip,.gdeck-card,.stat,.feature-card,.stage-card){
+  -webkit-backdrop-filter:blur(24px) saturate(155%)!important;backdrop-filter:blur(24px) saturate(155%)!important
+}
+html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.hub-launch-tile,.ga-game-card,.graph-card,.lab-sim-card,.home-stat-card,.discovery-motion-card,.road-flow-card):hover{
+  border-color:rgba(222,205,255,.46)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 25px 58px rgba(1,0,8,.38),0 0 38px rgba(139,92,246,.17)!important
+}
+html[data-theme="purple"] #app :is(.px-set,.px-pref-section,.px-settings-actions,.px-switch,.hub-item,.study-list article){border-color:rgba(205,183,255,.20)!important}
+html[data-theme="purple"] #app :is(.px-pref-section,.px-set,.study-list article){background:linear-gradient(145deg,rgba(40,26,59,.70),rgba(12,8,21,.72))!important}
+html[data-theme="purple"] #app :is(input,select,textarea,.px-in,.hub-in){background:rgba(8,5,15,.58)!important;color:#f7f2ff!important;border-color:rgba(204,181,255,.25)!important}
+html[data-theme="purple"] #app :is(input,select,textarea,.px-in,.hub-in):focus{border-color:rgba(199,168,255,.72)!important;box-shadow:0 0 0 3px rgba(139,92,246,.14)!important}
+html[data-theme="purple"] #app :is(.px-note,.px-pref-section p,.px-pref-label,.px-switch small,.mutt){color:#c9bddb!important}
+html[data-theme="purple"] #app h1,html[data-theme="purple"] #app h2,html[data-theme="purple"] #app h3{color:#f7f1ff}
+html[data-theme="purple"] .bottom-nav a.on,html[data-theme="purple"] .bottom-nav a[aria-current]{color:#fbf8ff!important;background:linear-gradient(135deg,rgba(167,139,250,.25),rgba(124,58,237,.17))!important;border:1px solid rgba(211,190,255,.29)!important;box-shadow:inset 0 1px rgba(255,255,255,.10),0 0 22px rgba(139,92,246,.15)!important}
+html[data-theme="purple"] .bottom-nav a.on .bottom-nav-icon,html[data-theme="purple"] .bottom-nav a[aria-current] .bottom-nav-icon{color:#e1d4ff!important}
+html[data-theme="purple"] .site-footer{background:linear-gradient(180deg,rgba(20,12,31,.90),rgba(6,4,11,.98))!important;border-top-color:rgba(203,179,255,.17)!important}
+html[data-theme="purple"] .site-footer :is(a,p,small){color:#d0c4e0}
+html[data-theme="purple"] :focus-visible{outline-color:#cfbaff!important}
+
+/* ── Remove leftover blue from every primary and secondary home action ── */
+html[data-theme="purple"] #app .btn,
+html[data-theme="purple"] #app .px-btn{
+  color:#eee6ff!important;border:1px solid rgba(208,185,255,.28)!important;
+  background:linear-gradient(145deg,rgba(67,43,96,.62),rgba(25,15,39,.82))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 8px 22px rgba(2,0,10,.20)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(145%)!important;backdrop-filter:blur(14px) saturate(145%)!important
+}
+html[data-theme="purple"] #app .btn.pri,
+html[data-theme="purple"] #app .px-btn.pri,
+html[data-theme="purple"] #app .px-btn.primary,
+html[data-theme="purple"] #app[data-page="home"] .btn.pri{
+  color:#fffaff!important;background:linear-gradient(120deg,#a98ae9 0%,#8659d6 48%,#6236ad 100%)!important;
+  border-color:rgba(227,211,255,.52)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 30px rgba(104,58,170,.34),0 0 24px rgba(139,92,246,.13)!important
+}
+html[data-theme="purple"] #app :is(.btn,.px-btn):hover:not(:disabled){filter:brightness(1.12)!important;border-color:rgba(231,216,255,.58)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 14px 34px rgba(104,58,170,.30)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-copy>.pill{background:rgba(44,27,67,.62)!important;border-color:rgba(207,184,255,.25)!important;color:#ddceff!important;-webkit-backdrop-filter:blur(16px)!important;backdrop-filter:blur(16px)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-copy .typed b{color:#d6c4ff!important;text-shadow:0 0 26px rgba(167,139,250,.28)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-copy .caret{background:#cfb5ff!important;box-shadow:0 0 16px rgba(167,139,250,.5)!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad{
+  border-top-color:rgba(196,168,255,.17)!important;border-bottom-color:rgba(196,168,255,.14)!important;
+  background:linear-gradient(180deg,rgba(28,17,43,.30),rgba(8,5,14,.10))!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-card,.launch-subject-card){
+  border-color:rgba(205,181,255,.24)!important;
+  background:linear-gradient(145deg,rgba(55,34,81,.62),rgba(14,9,24,.74))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 14px 34px rgba(0,0,0,.23),0 0 22px rgba(139,92,246,.07)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(155%)!important;backdrop-filter:blur(24px) saturate(155%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-tool{
+  border-color:rgba(205,181,255,.20)!important;background:rgba(39,24,57,.56)!important;color:#e3d8f2!important;
+  -webkit-backdrop-filter:blur(22px) saturate(150%)!important;backdrop-filter:blur(22px) saturate(150%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-card,.launch-subject-card,.launch-tool):hover{border-color:rgba(220,199,255,.54)!important;background:linear-gradient(145deg,rgba(76,49,111,.70),rgba(22,13,36,.82))!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-icon,.launch-subject-icon,.launch-tool-icon){color:#f4edff!important;border-color:rgba(207,182,255,.28)!important;background:linear-gradient(145deg,rgba(157,119,220,.32),rgba(86,52,135,.18))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 8px 22px rgba(0,0,0,.18)!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-arrow,.launch-subject-arrow,.launch-tool-arrow,.launch-subject-head>a,.launch-tool-head>a){color:#d2bdff!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-eyebrow,.launch-feature-copy small,.launch-subject-card small){color:#c7b4e5!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-copy b,.launch-subject-card b,.launch-subject-head h3,.launch-tool-head h3){color:#f5efff!important}
+html[data-theme="purple"] #app[data-page="home"] .home-brain-sprint:before{background:radial-gradient(ellipse at 12% 40%,rgba(139,92,246,.14),transparent 44%),radial-gradient(ellipse at 90% 65%,rgba(91,45,147,.15),transparent 40%)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-shell{border-color:rgba(207,184,255,.25)!important;background:linear-gradient(135deg,rgba(39,24,58,.78),rgba(12,8,20,.82))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 26px 68px rgba(0,0,0,.34),0 0 36px rgba(124,58,237,.10)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-play{border-color:rgba(207,184,255,.22)!important;background:radial-gradient(ellipse at 50% 0,rgba(167,139,250,.12),transparent 52%),linear-gradient(155deg,rgba(38,24,57,.72),rgba(11,7,18,.83))!important}
+html[data-theme="purple"] #app[data-page="home"] :is(.brain-sprint-eyebrow,.brain-sprint-round,.brain-sprint-result-eyebrow){color:#d4c1ff!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-eyebrow i,html[data-theme="purple"] #app[data-page="home"] .brain-sprint-live i{background:#bba0ff!important;box-shadow:0 0 0 4px rgba(167,139,250,.12),0 0 14px rgba(167,139,250,.48)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-subjects button{border-color:rgba(207,184,255,.22)!important;background:rgba(38,24,57,.56)!important;color:#d7cbe8!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-subjects button[aria-pressed="true"]{border-color:rgba(211,190,255,.58)!important;background:rgba(139,92,246,.25)!important;color:#f5edff!important;box-shadow:inset 0 0 0 1px rgba(211,190,255,.12),0 0 18px rgba(139,92,246,.14)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-preview{border-color:rgba(204,181,255,.20)!important;background:rgba(12,8,20,.42)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-preview-art{background:radial-gradient(circle,rgba(167,139,250,.21),rgba(112,66,170,.09) 48%,transparent 72%)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-preview-art .bs-core{background:linear-gradient(145deg,#a98be9,#603aa0)!important;color:#fff!important;box-shadow:0 9px 26px rgba(124,58,237,.34)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-preview-art .bs-orbit{border-color:rgba(208,188,255,.62)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-more{color:#d3bdff!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-result-score{border-color:rgba(205,181,255,.22)!important;background:rgba(139,92,246,.09)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-result-score strong{color:#e0d0ff!important}
+html[data-theme="purple"] #app[data-page="home"] .home-lab .btn,html[data-theme="purple"] #app[data-page="home"] .arcade-s .btn{border-color:rgba(205,181,255,.30)!important}
+
+/* ── Visible 3D: an always-moving orbital learning sculpture, including on phones ── */
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{
+  position:relative;isolation:isolate;overflow:hidden;perspective:1450px;transform-style:preserve-3d;
+  background:linear-gradient(145deg,rgba(50,31,74,.70),rgba(12,8,21,.86) 66%,rgba(28,16,46,.76))!important;
+  border:1px solid rgba(211,190,255,.30)!important;border-radius:26px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 38px 100px -54px rgba(0,0,0,.92),0 0 54px rgba(118,72,188,.16)!important;
+  -webkit-backdrop-filter:blur(30px) saturate(165%)!important;backdrop-filter:blur(30px) saturate(165%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-card::before{background:radial-gradient(ellipse 58% 64% at 50% 48%,rgba(167,139,250,.20),transparent 72%),linear-gradient(112deg,rgba(255,255,255,.10),transparent 34%,rgba(196,181,253,.05))!important;opacity:1!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage{perspective:1100px;transform-style:preserve-3d;isolation:isolate}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage::before{
+  width:66%!important;height:78%!important;left:17%!important;top:9%!important;
+  border-color:rgba(210,188,255,.30)!important;box-shadow:0 0 28px rgba(167,139,250,.12),inset 0 0 28px rgba(167,139,250,.055)!important;
+  transform:rotate(-18deg) rotateY(24deg)!important;animation:clPurpleRingTurn 21s linear infinite!important
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage::after{
+  content:"";position:absolute;z-index:0;left:18%;top:9%;width:64%;height:80%;border:1px solid rgba(167,139,250,.24);border-radius:50%;
+  transform:rotateY(64deg) rotateZ(34deg);box-shadow:0 0 30px rgba(139,92,246,.10);pointer-events:none;animation:clPurpleRingReverse 27s linear infinite
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{
+  z-index:1;transform-style:preserve-3d;will-change:transform;filter:drop-shadow(0 24px 28px rgba(0,0,0,.30));
+  animation:clPurpleOrb3D 9.5s cubic-bezier(.45,0,.55,1) infinite!important
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap svg{
+  transform:translateZ(34px) rotateX(7deg)!important;transform-style:preserve-3d;
+  filter:drop-shadow(0 0 20px rgba(139,92,246,.18))!important
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-float{
+  display:grid!important;z-index:3;transform:translateZ(70px);transform-style:preserve-3d;
+  border-color:rgba(221,202,255,.38)!important;
+  background:linear-gradient(145deg,rgba(92,63,130,.72),rgba(22,13,37,.82))!important;
+  color:#f3eaff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.19),0 22px 44px rgba(0,0,0,.38),0 0 25px rgba(139,92,246,.16)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(165%)!important;backdrop-filter:blur(22px) saturate(165%)!important;
+  animation:clPurpleChipFloat 6.4s ease-in-out infinite!important
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-float-left{left:5%!important;top:27%!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-float-right{right:5%!important;bottom:22%!important;color:#eee4ff!important;animation-delay:-3.2s!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-topline{color:#dfd2f2!important;border-color:rgba(210,188,255,.18)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-topline>span:first-child>i,html[data-theme="purple"] #app[data-page="home"] .hero-live i{background:#c6aaff!important;box-shadow:0 0 13px rgba(167,139,250,.68)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-foot{color:#d1c2e5!important;border-color:rgba(210,188,255,.18)!important}
+@keyframes clPurpleOrb3D{0%,100%{transform:perspective(1100px) rotateX(12deg) rotateY(-13deg) translate3d(0,0,0) scale(.97)}50%{transform:perspective(1100px) rotateX(-10deg) rotateY(14deg) translate3d(0,-7px,17px) scale(1.035)}}
+@keyframes clPurpleChipFloat{0%,100%{transform:perspective(700px) translate3d(0,0,54px) rotateY(-7deg) rotateX(2deg)}50%{transform:perspective(700px) translate3d(0,-10px,78px) rotateY(7deg) rotateX(-3deg)}}
+@keyframes clPurpleRingTurn{to{transform:rotate(-18deg) rotateY(24deg) rotateZ(360deg)}}
+@keyframes clPurpleRingReverse{to{transform:rotateY(64deg) rotateZ(394deg)}}
+
+/* Tactile depth on feature tiles and their icons: visible without hover too. */
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-card,.launch-subject-card,.launch-tool){transform-style:preserve-3d;perspective:900px;transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s,border-color .32s!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-icon{transform:translateZ(18px);animation:clPurpleIconLift 5.8s ease-in-out infinite;animation-delay:var(--launch-delay,0s)}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-card:hover{transform:perspective(900px) translateY(-6px) rotateX(3deg) rotateY(-1deg)!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-subject-card:hover,
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-tool:hover{transform:perspective(900px) translateY(-4px) rotateX(2deg)!important}
+@keyframes clPurpleIconLift{0%,100%{transform:translate3d(0,0,18px) rotateY(-5deg)}50%{transform:translate3d(0,-4px,23px) rotateY(5deg)}}
+@media(max-width:600px){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage{min-height:276px!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{width:min(100%,286px)!important;max-width:286px!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-float{min-width:72px!important;padding:9px 10px!important;border-radius:12px!important;font-size:12px!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-float-left{left:1%!important;top:20%!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-float-right{right:1%!important;bottom:15%!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{border-radius:20px!important}
+}
+@media(max-width:370px){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage{min-height:252px!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{width:min(100%,252px)!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-float{min-width:62px!important;padding:7px 8px!important;font-size:10px!important}
+}
+
+/* ── Light intro: a small, deliberate palette—not monochrome, not rainbow ── */
+html[data-theme="light"] #intro{
+  --sky:#8ebbe0;--sky2:#c9e1f3;--amb:#d9b982;--teal:#8fc7c1;
+  background:radial-gradient(ellipse at 50% 44%,#19334a 0%,#0e1c2b 43%,#08131f 100%)!important
+}
+html[data-theme="light"] #intro .in-glow{background:radial-gradient(circle,rgba(119,171,211,.23),rgba(92,141,180,.08) 40%,transparent 72%)!important;filter:blur(19px)!important}
+html[data-theme="light"] #intro .in-glow-two{opacity:.30!important;background:radial-gradient(circle,rgba(105,168,160,.12),transparent 70%)!important}
+html[data-theme="light"] #intro .in-dust{opacity:.31!important;filter:grayscale(.55) sepia(.12)!important}
+html[data-theme="light"] #intro .in-grid{opacity:.075!important;background-image:linear-gradient(rgba(166,201,225,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(166,201,225,.10) 1px,transparent 1px)!important}
+html[data-theme="light"] #intro .t{color:#b8d4e9!important}
+html[data-theme="light"] #intro .t.c-a{color:#d2b27e!important}
+html[data-theme="light"] #intro .t.c-t{color:#86beb7!important}
+html[data-theme="light"] #intro .t svg{filter:drop-shadow(0 0 6px rgba(160,197,224,.28))!important}
+html[data-theme="light"] #intro .ring{border-color:rgba(173,204,228,.19)!important}
+html[data-theme="light"] #intro .r2 .ring{border-color:rgba(217,185,130,.17)!important}
+html[data-theme="light"] #intro .arc{border-top-color:rgba(190,219,239,.66)!important;border-right-color:rgba(151,190,220,.18)!important}
+html[data-theme="light"] #intro .r2 .arc{border-top-color:rgba(217,185,130,.62)!important;border-right-color:rgba(217,185,130,.16)!important}
+html[data-theme="light"] #intro .dot{background:#c6e0f2!important;box-shadow:0 0 9px 2px rgba(139,181,216,.40)!important}
+html[data-theme="light"] #intro .dot.a{background:#d9b982!important;box-shadow:0 0 9px 2px rgba(217,185,130,.34)!important}
+html[data-theme="light"] #intro .in-word span{background:linear-gradient(180deg,#edf6fc 0%,#b6d3e9 60%,#86b3d7 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-theme="light"] #intro .in-tag i{background:#9bc9c1!important;box-shadow:0 0 7px rgba(143,199,193,.42)!important}
+html[data-theme="light"] #intro .in-fill{background:linear-gradient(90deg,#719fc6 0%,#8fc7c1 72%,#d9b982 100%)!important;box-shadow:0 0 8px rgba(139,181,216,.32)!important}
+html[data-theme="light"] #intro .in-prog li.on b{background:#c2dced!important;box-shadow:0 0 0 1px rgba(190,219,239,.30),0 0 9px 2px rgba(139,181,216,.38)!important}
+html[data-theme="light"] #intro .in-prog li.on:last-child b{background:#d9b982!important;box-shadow:0 0 0 1px rgba(217,185,130,.30),0 0 9px 2px rgba(217,185,130,.34)!important}
+html[data-theme="light"] #intro .in-prog li.on span{color:#d7e7f2!important}
+html[data-theme="light"] #intro .in-prog li.on:last-child span{color:#dfc99f!important}
+html[data-theme="light"] #intro .in-skip{border-color:rgba(173,204,228,.22)!important;background:rgba(173,204,228,.07)!important;color:#c2d5e5!important}
+
+/* Smaller screens still get layered depth; motion respects accessibility settings. */
+@media(hover:hover) and (pointer:fine){
+  html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.ga-game-card,.graph-card,.lab-sim-card):hover{transform:perspective(1000px) translateY(-5px) rotateX(2deg)!important}
+}
+@media(hover:none){
+  html[data-theme="purple"] #app[data-page="home"] .home-launchpad :is(.launch-feature-card,.launch-subject-card,.launch-tool):active{transform:perspective(700px) translateY(-2px) scale(.985)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="purple"] body::before,html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage::before,html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage::after,
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap,html[data-theme="purple"] #app[data-page="home"] .hero-float,
+  html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-icon{animation:none!important}
+  html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.ga-game-card,.graph-card,.lab-sim-card){transition:none!important}
+}
+
+/* ── Cohesive violet pass: catch legacy homepage accents and CMS cards ── */
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card{
+  --stage-accent:#b99bff!important;
+  border-color:rgba(202,177,255,.30)!important;
+  background:radial-gradient(ellipse 82% 55% at 100% 0%,rgba(151,112,226,.20),transparent 72%),linear-gradient(145deg,rgba(54,36,78,.72),rgba(13,8,22,.82) 72%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 0 34px rgba(183,151,255,.035),0 23px 54px rgba(0,0,0,.32),0 0 28px rgba(139,92,246,.10)!important;
+  -webkit-backdrop-filter:blur(27px) saturate(160%)!important;backdrop-filter:blur(27px) saturate(160%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card :is(.stage-step-meta>b,.stage-card-footer>b,.stage-card-glint){color:#d8c7ff!important}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card .stage-icon-orbit{
+  color:#eee5ff!important;border-color:rgba(207,184,255,.43)!important;
+  background:linear-gradient(145deg,rgba(156,119,220,.34),rgba(48,29,72,.52))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 26px rgba(115,76,176,.20)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card .stage-icon-orbit::before{border-color:rgba(206,184,255,.44)!important}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card .premium-home-icon{color:#eee5ff!important;filter:drop-shadow(0 0 9px rgba(190,160,255,.42))!important}
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card{
+  --feature-accent:#c5adff!important;
+  border-color:rgba(198,171,255,.27)!important;
+  background:linear-gradient(145deg,rgba(47,31,69,.72),rgba(13,8,22,.82))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 17px 42px rgba(0,0,0,.26),0 0 26px rgba(139,92,246,.08)!important;
+  -webkit-backdrop-filter:blur(25px) saturate(158%)!important;backdrop-filter:blur(25px) saturate(158%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card .feature-icon-shell,
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card:nth-child(n) .feature-icon-shell{
+  --feature-accent:#d0bcff!important;color:#f2ebff!important;border-color:rgba(211,190,255,.40)!important;
+  background:linear-gradient(145deg,rgba(158,120,222,.32),rgba(50,31,75,.55))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 9px 24px rgba(127,84,195,.18)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card .premium-home-icon{color:#f3ebff!important;filter:drop-shadow(0 0 8px rgba(192,165,255,.46))!important}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-section .sh2 .pill,
+html[data-theme="purple"] #app[data-page="home"] .sec-stages .sh2 .pill,
+html[data-theme="purple"] #app[data-page="home"] .sec-features .sh2 .pill{
+  color:#e0d2ff!important;border-color:rgba(203,179,255,.32)!important;
+  background:linear-gradient(110deg,rgba(70,46,99,.66),rgba(30,18,45,.70))!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.12),0 8px 25px rgba(0,0,0,.2),0 0 24px rgba(139,92,246,.10)!important;
+  -webkit-backdrop-filter:blur(18px)!important;backdrop-filter:blur(18px)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .sec-stages .sh2 .pill i,
+html[data-theme="purple"] #app[data-page="home"] .sec-features .sh2 .pill i{background:#c5aaff!important;box-shadow:0 0 12px rgba(190,160,255,.68)!important}
+html[data-theme="purple"] #app[data-page="home"] .sec-stages .sh2:after,
+html[data-theme="purple"] #app[data-page="home"] .sec-features .sh2:after{background:linear-gradient(90deg,transparent,#b99aff 45%,#e2d3ff 60%,transparent)!important;box-shadow:0 0 18px rgba(167,139,250,.24)!important}
+html[data-theme="purple"] #app[data-page="home"] .sec-stages .stg>.card,
+html[data-theme="purple"] #app[data-page="home"] .sec-features .gA>.card{
+  --accent-rgb:177,145,245!important;
+  border-color:rgba(203,180,255,.27)!important;
+  background:linear-gradient(145deg,rgba(48,31,70,.70),rgba(13,8,22,.82))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 15px 38px rgba(0,0,0,.25),0 0 23px rgba(139,92,246,.07)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(158%)!important;backdrop-filter:blur(24px) saturate(158%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .sec-stages .stg>.card .ic,
+html[data-theme="purple"] #app[data-page="home"] .sec-features .gA>.card .ic{color:#e9deff!important;border-color:rgba(210,189,255,.38)!important;background:linear-gradient(145deg,rgba(151,112,219,.31),rgba(48,29,72,.48))!important;box-shadow:0 8px 22px rgba(120,76,184,.18)!important}
+
+/* Purple game deck, simulator carousel and final CTA—no leftover cyan/blue surfaces. */
+html[data-theme="purple"] #app[data-page="home"] .gdeck-card{
+  --h:263!important;
+  border-color:rgba(199,173,255,.26)!important;
+  background:radial-gradient(130% 90% at 100% 0%,rgba(157,113,230,.28),transparent 63%),linear-gradient(150deg,rgba(49,31,73,.80),rgba(12,8,20,.91))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 19px 42px rgba(0,0,0,.32),0 0 27px rgba(139,92,246,.10)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(160%)!important;backdrop-filter:blur(24px) saturate(160%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .gdeck-card.on{border-color:rgba(220,204,255,.57)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 25px 55px rgba(0,0,0,.38),0 0 36px rgba(139,92,246,.20)!important}
+html[data-theme="purple"] #app[data-page="home"] .gdeck-card .gdeck-ico{filter:drop-shadow(0 0 11px rgba(185,151,255,.33))!important}
+html[data-theme="purple"] #app[data-page="home"] .gdeck-card .gdeck-foot b,
+html[data-theme="purple"] #app[data-page="home"] .gdeck-card .gdeck-play{color:#d9c8ff!important}
+html[data-theme="purple"] #app[data-page="home"] :is(.gdeck-arrow,.home-lab-arrow){
+  color:#f2eaff!important;border-color:rgba(206,182,255,.40)!important;
+  background:linear-gradient(145deg,rgba(100,68,145,.52),rgba(30,18,47,.74))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 9px 22px rgba(0,0,0,.25),0 0 20px rgba(139,92,246,.10)!important;
+  -webkit-backdrop-filter:blur(18px)!important;backdrop-filter:blur(18px)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-lab-card{
+  background:linear-gradient(145deg,rgba(49,32,72,.75),rgba(13,8,22,.86))!important;
+  border-color:rgba(203,180,255,.29)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 22px 52px rgba(0,0,0,.32),0 0 28px rgba(139,92,246,.10)!important;
+  -webkit-backdrop-filter:blur(27px) saturate(165%)!important;backdrop-filter:blur(27px) saturate(165%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-lab-card .gico{background:linear-gradient(145deg,rgba(169,137,232,.33),rgba(66,42,100,.46))!important;border-color:rgba(211,190,255,.34)!important;box-shadow:0 8px 22px rgba(124,78,191,.18)!important}
+html[data-theme="purple"] #app[data-page="home"] .home-final-cta .cta{
+  border-color:rgba(204,178,255,.36)!important;
+  background:radial-gradient(ellipse 80% 100% at 50% 0%,rgba(132,86,198,.24),transparent 72%),linear-gradient(145deg,rgba(49,31,73,.80),rgba(12,8,20,.90))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 27px 70px rgba(0,0,0,.35),0 0 38px rgba(139,92,246,.13)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(160%)!important;backdrop-filter:blur(28px) saturate(160%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-final-cta .cta::before{background:radial-gradient(ellipse,rgba(166,124,231,.24),transparent 68%)!important}
+html[data-theme="purple"] #app[data-page="home"] .home-final-cta .cta .btn{box-shadow:0 12px 30px rgba(113,72,177,.30)!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-option:hover:not(:disabled){border-color:rgba(206,181,255,.52)!important;background:rgba(139,92,246,.13)!important;color:#f7f1ff!important}
+html[data-theme="purple"] #app[data-page="home"] .brain-sprint-option-letter{border-color:rgba(205,182,255,.28)!important;background:rgba(109,75,157,.18)!important;color:#e5d8ff!important}
+
+/* More layered glass: edge refraction without replacing existing card highlight details. */
+html[data-theme="purple"] #app :is(.stage-premium-card,.feature-premium-card,.home-lab-card,.gdeck-card,.brain-sprint-shell,.brain-sprint-play,.launch-feature-card,.launch-subject-card,.launch-tool){
+  position:relative;isolation:isolate;overflow:hidden;
+  outline:1px solid rgba(226,211,255,.035);outline-offset:-3px
+}
+html[data-theme="purple"] #app :is(.stage-premium-card,.feature-premium-card,.home-lab-card,.gdeck-card,.brain-sprint-shell,.brain-sprint-play,.launch-feature-card,.launch-subject-card,.launch-tool)>*{position:relative;z-index:1}
+
+/* A visible slow 3D float on the hero plate and key home tiles, not hover-only. */
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{animation:clPurpleHeroTilt 15s ease-in-out infinite!important;transform-style:preserve-3d}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card,
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card,
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-card{translate:0 0;animation:clPurpleCardFloat 8.5s ease-in-out infinite;animation-delay:calc(var(--d,0s) - 2s)}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card:nth-child(even),
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card:nth-child(even){animation-delay:-4.25s}
+html[data-theme="purple"] #app[data-page="home"] .stage-icon-orbit,
+html[data-theme="purple"] #app[data-page="home"] .feature-icon-shell{transform-style:preserve-3d;animation:clPurpleIcon3D 6.5s ease-in-out infinite}
+@keyframes clPurpleHeroTilt{0%,100%{transform:perspective(1500px) rotateX(.6deg) rotateY(-.5deg) translateY(0)}50%{transform:perspective(1500px) rotateX(-.8deg) rotateY(.8deg) translateY(-3px)}}
+@keyframes clPurpleCardFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+@keyframes clPurpleIcon3D{0%,100%{transform:translateZ(8px) rotateY(-6deg) rotateX(2deg)}50%{transform:translateZ(18px) rotateY(7deg) rotateX(-3deg)}}
+@media(max-width:760px){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{animation-duration:18s!important}
+  html[data-theme="purple"] #app[data-page="home"] .stage-premium-card,
+  html[data-theme="purple"] #app[data-page="home"] .feature-premium-card{animation-duration:10s}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-card,
+  html[data-theme="purple"] #app[data-page="home"] .stage-premium-card,
+  html[data-theme="purple"] #app[data-page="home"] .feature-premium-card,
+  html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-card,
+  html[data-theme="purple"] #app[data-page="home"] .stage-icon-orbit,
+  html[data-theme="purple"] #app[data-page="home"] .feature-icon-shell{animation:none!important;translate:none!important}
+}
+
+/* Light intro: retain three soft, readable accents (ice blue, muted teal, warm amber). */
+html[data-theme="light"] #intro .t{color:#b9d6eb!important}
+html[data-theme="light"] #intro .t.c-a{color:#e1c18b!important}
+html[data-theme="light"] #intro .t.c-t{color:#91cfc5!important}
+html[data-theme="light"] #intro .t.c-a svg{filter:drop-shadow(0 0 7px rgba(225,193,139,.40))!important}
+html[data-theme="light"] #intro .t.c-t svg{filter:drop-shadow(0 0 7px rgba(145,207,197,.34))!important}
+
+
+/* Recolour the legacy science-section ornaments too; keep the science motifs. */
+html[data-theme="purple"] #app[data-page="home"] :is(.home-lab,.home-games,.sec-stages,.sec-features,.sec-subjects):before{
+  border-color:rgba(190,160,255,.20)!important;
+  background:radial-gradient(circle at 35% 35%,rgba(171,132,239,.13),transparent 70%)!important;
+  box-shadow:inset 0 0 28px rgba(167,139,250,.07),0 0 28px rgba(124,58,237,.06)!important
+}
+html[data-theme="purple"] #app[data-page="home"] :is(.home-lab,.home-games,.sec-stages,.sec-features,.sec-subjects):after{
+  color:rgba(202,181,245,.17)!important;text-shadow:0 0 18px rgba(150,112,224,.12)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-lab .home-lab-carousel:before{
+  background:linear-gradient(90deg,transparent,#a88be5,#d4c2ff,transparent)!important;box-shadow:0 0 15px rgba(167,139,250,.22)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .home-science-outro:before{
+  background:radial-gradient(ellipse at 50% 100%,rgba(124,58,237,.19),transparent 68%)!important
+}
+html[data-theme="purple"] #app[data-page="home"] .science-outro-art :is(.so-atom ellipse,.so-flask){stroke:rgba(197,172,255,.72)!important}
+html[data-theme="purple"] #app[data-page="home"] .science-outro-art .so-node{fill:#b69aff!important;filter:drop-shadow(0 0 6px rgba(177,145,245,.58))!important}
+html[data-theme="purple"] #app[data-page="home"] .science-outro-art .so-wave{stroke:#d4c2ff!important;filter:drop-shadow(0 0 5px rgba(167,139,250,.34))!important}
+html[data-theme="purple"] #app[data-page="home"] .science-formula-ticker{
+  border-color:rgba(202,181,245,.18)!important;
+  background:linear-gradient(90deg,rgba(11,7,19,.22),rgba(46,28,69,.62),rgba(11,7,19,.22))!important
+}
+html[data-theme="purple"] #app[data-page="home"] .science-formula-track i{color:#c5adff!important;text-shadow:0 0 13px rgba(167,139,250,.48)!important}
+html[data-theme="purple"] #app[data-page="home"] .road-flow-card,
+html[data-theme="purple"] #app[data-page="home"] .motivation-card,
+html[data-theme="purple"] #app[data-page="home"] .ah-card{
+  border-color:rgba(202,179,255,.24)!important;
+  background:linear-gradient(145deg,rgba(49,31,73,.70),rgba(12,8,20,.84))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 18px 42px rgba(0,0,0,.27),0 0 24px rgba(139,92,246,.08)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(155%)!important;backdrop-filter:blur(24px) saturate(155%)!important
+}
+
+/* Keep the original entrance reveals while adding a separate depth float. */
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card{
+  animation-name:stageCardEnter,clPurpleCardFloat;
+  animation-duration:.65s,8.5s;
+  animation-timing-function:cubic-bezier(.2,.7,.2,1),ease-in-out;
+  animation-delay:var(--d,0s),calc(var(--d,0s) - 2s);
+  animation-fill-mode:both,none;animation-iteration-count:1,infinite
+}
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card{
+  animation-name:featureCardEnter,clPurpleCardFloat;
+  animation-duration:.55s,8.5s;
+  animation-timing-function:cubic-bezier(.2,.7,.2,1),ease-in-out;
+  animation-delay:var(--d,0s),calc(var(--d,0s) - 2s);
+  animation-fill-mode:both,none;animation-iteration-count:1,infinite
+}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-card{
+  animation-name:launchCardIn,clPurpleCardFloat;
+  animation-duration:.48s,8.5s;
+  animation-timing-function:ease,cubic-bezier(.45,0,.55,1);
+  animation-delay:var(--launch-delay,0s),calc(var(--launch-delay,0s) - 2s);
+  animation-fill-mode:both,none;animation-iteration-count:1,infinite
+}

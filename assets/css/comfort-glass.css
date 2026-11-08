@@ -1,0 +1,269 @@
+/* ConceptLab comfort update: balanced glass across all themes, with mobile-first paint costs. */
+
+/* Theme glass materials: translucent colour + crisp edge highlights are shared by every theme. */
+html[data-theme="light"]{
+  --cl-glass-fill:rgba(255,255,255,.68);
+  --cl-glass-fill-strong:rgba(255,255,255,.78);
+  --cl-glass-edge:rgba(255,255,255,.88);
+  --cl-glass-inner:rgba(255,255,255,.92);
+  --cl-glass-shadow:rgba(42,69,112,.095);
+}
+html[data-theme="dark"]{
+  --cl-glass-fill:rgba(21,32,47,.70);
+  --cl-glass-fill-strong:rgba(25,39,57,.80);
+  --cl-glass-edge:rgba(177,204,235,.20);
+  --cl-glass-inner:rgba(255,255,255,.10);
+  --cl-glass-shadow:rgba(0,0,0,.26);
+}
+html[data-theme="purple"]{
+  --cl-glass-fill:rgba(35,24,51,.66);
+  --cl-glass-fill-strong:rgba(43,29,62,.78);
+  --cl-glass-edge:rgba(211,190,245,.25);
+  --cl-glass-inner:rgba(255,255,255,.13);
+  --cl-glass-shadow:rgba(0,0,0,.25);
+}
+
+/* A lighter, shorter and non-fixed purple atmosphere: no moving full-screen paint layers. */
+html[data-theme="purple"] body{
+  background-color:#090711!important;
+  background-image:
+    radial-gradient(ellipse 70% 42% at 12% 0%,rgba(115,77,164,.19),transparent 72%),
+    radial-gradient(ellipse 58% 38% at 100% 30%,rgba(83,54,128,.16),transparent 74%),
+    linear-gradient(145deg,#090711 0%,#100b19 52%,#090711 100%)!important;
+  background-attachment:scroll!important;
+}
+html[data-theme="purple"] body::before,
+html[data-theme="purple"] body::after{
+  content:none!important;display:none!important;animation:none!important;filter:none!important;
+}
+html[data-theme="purple"] #stars{opacity:.22!important;filter:none!important}
+html[data-theme="purple"] .horizon{background:radial-gradient(78% 80% at 50% 130%,rgba(124,58,237,.19),rgba(76,29,149,.08) 44%,transparent 76%)!important}
+html[data-theme="purple"] .horizon .hl{box-shadow:0 0 15px 3px rgba(167,139,250,.16)!important}
+
+/* Shared glass cards. Keep photo/game artwork intact by excluding image-led tiles. */
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app :is(
+  .card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,
+  .feature-premium-card,.subj-card,.graph-card,.lab-sim-card,.home-stat-card,
+  .discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.hub-extra-tools,
+  .study-panel,.profile-head,.px-power-card,.brain-sprint-shell,.brain-sprint-play,
+  .ah-card,.motivation-card,.about-card,.creator-profile,.scx-ch,.scx-tip,
+  .stat,.feature-card,.stage-card,.home-lab-card,.home-final-cta .cta,.hero-visual-card
+){
+  background:linear-gradient(145deg,var(--cl-glass-inner),transparent 42%),
+    linear-gradient(145deg,var(--cl-glass-fill-strong),var(--cl-glass-fill) 64%,var(--cl-glass-fill))!important;
+  border:1px solid var(--cl-glass-edge)!important;
+  box-shadow:inset 0 1px 0 var(--cl-glass-inner),
+    inset 0 -1px 0 rgba(255,255,255,.025),
+    0 12px 32px var(--cl-glass-shadow)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+
+/* Translucent floating chrome gets the stronger frosted-glass treatment. */
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) body>header,
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) header,
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #nav,
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) .nav-portal,
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) .bottom-nav{
+  background:linear-gradient(135deg,var(--cl-glass-fill-strong),var(--cl-glass-fill))!important;
+  border-color:var(--cl-glass-edge)!important;
+  box-shadow:inset 0 1px 0 var(--cl-glass-inner),0 12px 34px var(--cl-glass-shadow)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(135%)!important;
+  backdrop-filter:blur(12px) saturate(135%)!important;
+}
+
+/* Desktop can afford a small amount of blur on large feature surfaces. */
+@media (min-width:761px){
+  html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app :is(
+    .stage-premium-card,.feature-premium-card,.launch-feature-card,.launch-subject-card,
+    .home-lab-card,.home-final-cta .cta,.brain-sprint-shell,.brain-sprint-play
+  ){
+    -webkit-backdrop-filter:blur(7px) saturate(125%)!important;
+    backdrop-filter:blur(7px) saturate(125%)!important;
+  }
+}
+
+/* Purple-specific high-contrast frosted glass, without the previous heavy 24–28px blur. */
+html[data-theme="purple"] #app :is(input,select,textarea,.px-in,.hub-in){
+  background:rgba(12,9,19,.62)!important;color:#f7f2ff!important;
+  border-color:rgba(204,181,255,.24)!important;
+}
+html[data-theme="purple"] #app :is(input,select,textarea,.px-in,.hub-in):focus{
+  border-color:rgba(199,168,255,.68)!important;
+  box-shadow:0 0 0 3px rgba(139,92,246,.12)!important;
+}
+html[data-theme="purple"] #app :is(.px-note,.px-pref-section p,.px-pref-label,.px-switch small,.mutt){color:#c9bddb!important}
+html[data-theme="purple"] #app :is(h1,h2,h3){color:#f7f1ff}
+html[data-theme="purple"] .bottom-nav a.on,
+html[data-theme="purple"] .bottom-nav a[aria-current]{
+  color:#fbf8ff!important;background:linear-gradient(135deg,rgba(167,139,250,.22),rgba(124,58,237,.13))!important;
+  border:1px solid rgba(211,190,255,.26)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.10),0 0 16px rgba(139,92,246,.12)!important;
+}
+html[data-theme="purple"] #app .btn:not(.pri),
+html[data-theme="purple"] #app .px-btn:not(.pri){
+  background:linear-gradient(145deg,rgba(73,49,101,.55),rgba(30,20,43,.76))!important;
+  border-color:rgba(208,185,255,.25)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 7px 18px rgba(2,0,10,.17)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html[data-theme="purple"] #app .btn.pri,
+html[data-theme="purple"] #app .px-btn.pri,
+html[data-theme="purple"] #app .px-btn.primary{
+  background:linear-gradient(120deg,#a98ae9 0%,#8659d6 52%,#683fb5 100%)!important;
+  border-color:rgba(227,211,255,.45)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.30),0 9px 22px rgba(104,58,170,.25)!important;
+}
+
+/* Special homepage plates and small floating chips also shed the old high-radius filters. */
+html[data-theme="purple"] #app[data-page="home"] :is(.hero-visual-card,.hero-float,.gdeck-card,.gdeck-arrow,.home-lab-arrow,.hero-copy>.pill){
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{
+  background:linear-gradient(145deg,rgba(54,39,75,.72),rgba(19,13,30,.82) 68%,rgba(33,20,49,.76))!important;
+  border-color:rgba(211,190,245,.25)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 23px 48px rgba(0,0,0,.24)!important;
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-float{
+  background:linear-gradient(145deg,rgba(69,50,91,.62),rgba(27,18,41,.76))!important;
+  border-color:rgba(196,181,253,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 10px 25px rgba(0,0,0,.20)!important;
+}
+
+/* Keep the depth visible, but do not animate dozens of cards while the page scrolls. */
+html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app[data-page="home"] .hero-visual-card{
+  transform-style:preserve-3d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 22px 48px var(--cl-glass-shadow)!important;
+}
+@media (hover:hover) and (pointer:fine){
+  html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app :is(
+    .stage-premium-card,.feature-premium-card,.launch-feature-card,.launch-subject-card,
+    .home-lab-card,.gdeck-card,.card
+  ):hover{
+    transform:perspective(900px) translateY(-3px) rotateX(1deg)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 20px 42px var(--cl-glass-shadow)!important;
+    transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  }
+  html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app[data-page="home"] .hero-visual-card:hover{
+    transform:perspective(1100px) rotateX(-2deg) rotateY(2deg) translateY(-4px)!important;
+  }
+}
+html[data-theme="purple"] #app[data-page="home"] .stage-premium-card,
+html[data-theme="purple"] #app[data-page="home"] .feature-premium-card,
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-feature-card,
+html[data-theme="purple"] #app[data-page="home"] .stage-icon-orbit,
+html[data-theme="purple"] #app[data-page="home"] .feature-icon-shell{
+  animation:none!important;translate:none!important;
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{
+  animation:clComfortHeroFloat 20s ease-in-out infinite!important;
+  will-change:transform;
+}
+@keyframes clComfortHeroFloat{
+  0%,100%{transform:perspective(1100px) rotateX(.35deg) rotateY(-.35deg) translateY(0)}
+  50%{transform:perspective(1100px) rotateX(-.45deg) rotateY(.55deg) translateY(-2px)}
+}
+
+/* The light intro is genuinely white, with soft but distinct science-colour accents. */
+html[data-theme="light"] #intro{
+  color:#1b3152!important;
+  background:
+    radial-gradient(ellipse 35% 32% at 14% 18%,rgba(119,190,255,.19),transparent 74%),
+    radial-gradient(ellipse 32% 30% at 86% 17%,rgba(183,153,255,.17),transparent 74%),
+    radial-gradient(ellipse 34% 34% at 82% 86%,rgba(103,207,185,.16),transparent 74%),
+    radial-gradient(ellipse 27% 28% at 13% 83%,rgba(255,177,143,.15),transparent 74%),
+    #fff!important;
+}
+html[data-theme="light"] #intro .in-glow{
+  background:radial-gradient(circle,rgba(255,255,255,.98) 0%,rgba(138,197,255,.27) 36%,rgba(183,153,255,.12) 57%,transparent 72%)!important;
+  filter:blur(10px)!important;opacity:.8!important;
+}
+html[data-theme="light"] #intro .in-glow-two{
+  background:radial-gradient(circle,rgba(103,207,185,.18),rgba(255,177,143,.08) 42%,transparent 70%)!important;
+  filter:blur(16px)!important;opacity:.75!important;
+}
+html[data-theme="light"] #intro .in-dust{
+  opacity:.38!important;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 20%,rgba(53,132,218,.54),transparent),
+    radial-gradient(1.5px 1.5px at 82% 17%,rgba(132,91,202,.50),transparent),
+    radial-gradient(1.7px 1.7px at 24% 72%,rgba(20,153,137,.48),transparent),
+    radial-gradient(1.5px 1.5px at 91% 65%,rgba(220,103,126,.42),transparent),
+    radial-gradient(1.5px 1.5px at 62% 84%,rgba(218,142,55,.45),transparent),
+    radial-gradient(1.5px 1.5px at 7% 53%,rgba(53,132,218,.43),transparent);
+}
+html[data-theme="light"] #intro .in-grid{
+  opacity:.26!important;
+  background-image:linear-gradient(rgba(67,116,174,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(67,116,174,.055) 1px,transparent 1px)!important;
+}
+html[data-theme="light"] #intro .in-vignette{background:none!important}
+html[data-theme="light"] #intro .t{color:#438bd0!important}
+html[data-theme="light"] #intro .t:nth-child(5n+2){color:#9271d4!important}
+html[data-theme="light"] #intro .t:nth-child(5n+3){color:#269c91!important}
+html[data-theme="light"] #intro .t:nth-child(5n+4){color:#d87983!important}
+html[data-theme="light"] #intro .t:nth-child(5n+5){color:#d39445!important}
+html[data-theme="light"] #intro .t svg{filter:drop-shadow(0 2px 4px rgba(52,86,133,.12))!important}
+html[data-theme="light"] .in-word{color:#172b4b!important}
+html[data-theme="light"] .in-word span{
+  background:linear-gradient(90deg,#367fc5 0%,#8061c5 38%,#168f89 72%,#d18a49 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+}
+html[data-theme="light"] .in-tag{color:#5b6c86!important}
+html[data-theme="light"] .in-tag i{background:#438bd0!important;box-shadow:0 0 7px rgba(67,139,208,.25)!important}
+html[data-theme="light"] .in-tag i:nth-of-type(2){background:#269c91!important;box-shadow:0 0 7px rgba(38,156,145,.22)!important}
+html[data-theme="light"] #intro .ring{border-color:rgba(67,139,208,.20)!important}
+html[data-theme="light"] #intro .r2 .ring{border-color:rgba(146,113,212,.18)!important}
+html[data-theme="light"] #intro .arc{border-top-color:rgba(67,139,208,.67)!important;border-right-color:rgba(67,139,208,.16)!important}
+html[data-theme="light"] #intro .r2 .arc{border-top-color:rgba(38,156,145,.62)!important;border-right-color:rgba(38,156,145,.15)!important}
+html[data-theme="light"] #intro .dot{background:#438bd0!important;box-shadow:0 0 8px 1px rgba(67,139,208,.28)!important}
+html[data-theme="light"] #intro .dot.a{background:#d39445!important;box-shadow:0 0 8px 1px rgba(211,148,69,.24)!important}
+html[data-theme="light"] .in-track{background:rgba(67,116,174,.16)!important}
+html[data-theme="light"] .in-fill{background:linear-gradient(90deg,#438bd0,#9271d4,#269c91,#d39445)!important;box-shadow:0 0 7px rgba(120,127,190,.18)!important}
+html[data-theme="light"] .in-prog li b{background:#e3eaf3!important;border-color:#fff!important;box-shadow:0 0 0 1px rgba(67,116,174,.16)!important}
+html[data-theme="light"] .in-prog li.on b{background:#438bd0!important;box-shadow:0 0 0 1px rgba(67,139,208,.26),0 0 8px 1px rgba(67,139,208,.24)!important}
+html[data-theme="light"] .in-prog li.on:nth-child(2) b{background:#9271d4!important;box-shadow:0 0 0 1px rgba(146,113,212,.25),0 0 8px 1px rgba(146,113,212,.22)!important}
+html[data-theme="light"] .in-prog li.on:last-child b{background:#269c91!important;box-shadow:0 0 0 1px rgba(38,156,145,.25),0 0 8px 1px rgba(38,156,145,.22)!important}
+html[data-theme="light"] .in-prog li span{color:#71809a!important}
+html[data-theme="light"] .in-prog li.on span{color:#263e60!important}
+html[data-theme="light"] .in-skip{background:rgba(255,255,255,.84)!important;border-color:rgba(67,116,174,.23)!important;color:#455d7c!important}
+html[data-theme="light"] .in-skip:hover,html[data-theme="light"] .in-skip:focus-visible{color:#fff!important;background:#438bd0!important;border-color:#438bd0!important}
+
+/* During active scrolling, trade blur and motion for stable opaque glass surfaces. */
+html.cl-scrolling #app .hero-visual-card,
+html.cl-scrolling #app .stage-premium-card,
+html.cl-scrolling #app .feature-premium-card,
+html.cl-scrolling #app .launch-feature-card,
+html.cl-scrolling #app .launch-subject-card,
+html.cl-scrolling #app .stage-icon-orbit,
+html.cl-scrolling #app .feature-icon-shell,
+html.cl-scrolling #app .hero-visual-stage .orb-wrap,
+html.cl-scrolling #app .hero-float,
+html.cl-scrolling #app .home-launchpad .launch-feature-icon,
+html.cl-scrolling #app[data-page="home"] .hero-visual-stage::before,
+html.cl-scrolling #app[data-page="home"] .hero-visual-stage::after{
+  animation-play-state:paused!important;
+}
+html[data-theme="light"].cl-scrolling .bottom-nav{
+  background:rgba(250,252,255,.97)!important;border-color:rgba(173,193,220,.42)!important;
+}
+html[data-theme="dark"].cl-scrolling .bottom-nav{
+  background:rgba(8,17,28,.97)!important;
+}
+html[data-theme="purple"].cl-scrolling .bottom-nav{
+  background:rgba(20,14,30,.97)!important;border-color:rgba(197,173,235,.24)!important;
+}
+
+/* Small screens: preserve the glass look with no per-card backdrop filter. */
+@media(max-width:760px){
+  html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app :is(
+    .stage-premium-card,.feature-premium-card,.launch-feature-card,.launch-subject-card,
+    .home-lab-card,.home-final-cta .cta,.brain-sprint-shell,.brain-sprint-play
+  ){
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{
+    animation:none!important;will-change:auto;transform:perspective(1100px) rotateX(.45deg)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{animation:none!important;will-change:auto}
+}

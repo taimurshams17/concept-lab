@@ -420,21 +420,29 @@
       content: s.defaultContentWidth || 'standard'
     }, jget('clpx_prefs', {}));
   }
-  /* Theme: dark (default) or light. The attribute on <html> drives assets/css/theme-light.css. */
+  /* Three complete visual modes: Light, Dark and Black + Purple glass. */
   function applyTheme(t) {
-    var light = t === 'light', root = document.documentElement;
-    root.setAttribute('data-theme', light ? 'light' : 'dark');
-    root.style.colorScheme = light ? 'light' : 'dark';
-    var lc = document.getElementById('clLightCss'); if (lc) lc.media = light ? 'all' : 'not all';
-    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', light ? '#f2f7fd' : '#000000');
-    try { window.dispatchEvent(new CustomEvent('cl-theme', { detail: { theme: light ? 'light' : 'dark' } })); } catch (e) { }
+    var theme = t === 'light' ? 'light' : (t === 'purple' ? 'purple' : 'dark');
+    var root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    root.style.colorScheme = theme === 'light' ? 'light' : 'dark';
+    var lc = document.getElementById('clLightCss'); if (lc) lc.media = theme === 'light' ? 'all' : 'not all';
+    /* Remove CMS inline colour tokens in the Purple mode so its palette can be authoritative. */
+    if (theme !== 'purple' && window.__clBaseTheme) { var base = window.__clBaseTheme; ['p','s','a','bg','glow'].forEach(function (k) { if (/^#[0-9a-f]{6}$/i.test(base[k] || '')) root.style.setProperty('--' + k, base[k]); }); }
+    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', theme === 'light' ? '#f2f7fd' : (theme === 'purple' ? '#09070f' : '#000000'));
+    if (window.FX && typeof FX.setTheme === 'function') {
+      var palette = theme === 'purple' ? { p: '#a78bfa', s: '#ddd6fe', fx: prefs().fx ? 'on' : 'off' } :
+        (theme === 'dark' ? (function () { var map = { sky:['#38bdf8','#7dd3fc'], violet:['#a78bfa','#c4b5fd'], emerald:['#34d399','#6ee7b7'], rose:['#fb7185','#fda4af'], amber:['#fbbf24','#fcd34d'] }; var c = map[prefs().accent] || map.sky; return { p:c[0], s:c[1], fx:prefs().fx ? 'on' : 'off' }; })() : null);
+      if (palette) FX.setTheme(palette);
+    }
+    try { window.dispatchEvent(new CustomEvent('cl-theme', { detail: { theme: theme } })); } catch (e) { }
   }
   function applyPrefs() {
     var p = prefs(), st = $('#clpxTheme');
     if (!st) { st = document.createElement('style'); st.id = 'clpxTheme'; document.head.appendChild(st); }
     var a = ACCENTS.filter(function (x) { return x[0] === p.accent; })[0], css = '';
     applyTheme(p.theme);
-    if (a && a[4] && p.theme !== 'light') css += ':root{--p:' + a[4][0] + '!important;--s:' + a[4][1] + '!important;--glow:' + a[4][2] + '!important}';
+    if (a && a[4] && p.theme === 'dark') css += ':root{--p:' + a[4][0] + '!important;--s:' + a[4][1] + '!important;--glow:' + a[4][2] + '!important}';
     if (!p.fx) css += '#stars,.horizon{display:none!important}html[data-theme=\"light\"] body:before,html[data-theme=\"light\"] body:after{animation:none!important}';
     var banglaFonts = {
       hind: '"Hind Siliguri",sans-serif', noto: '"Noto Sans Bengali",sans-serif',
@@ -478,10 +486,11 @@
   function prefOptions() {
     var p = prefs();
     return '<div class="px-pref-grid">' +
-      '<section class="px-pref-section px-theme-section"><h3>Theme</h3><p>Choose how ConceptLab looks. Dark is the default.</p><div class="px-theme-choice" role="group" aria-label="Theme">' +
-      '<button type="button" class="px-theme-btn" data-pxtheme="light" aria-pressed="' + (p.theme === 'light') + '"><span class="px-theme-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42m0-14.14-1.42 1.42m-11.3 11.3-1.42 1.42"/><path d="m18.4 3.7.45 1.25 1.25.45-1.25.45-.45 1.25-.45-1.25-1.25-.45 1.25-.45z" fill="currentColor" stroke="none"/></svg></span><span class="px-theme-tx"><b>Light</b></span></button>' +
-      '<button type="button" class="px-theme-btn" data-pxtheme="dark" aria-pressed="' + (p.theme !== 'light') + '"><span class="px-theme-ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.7 14.1A8.9 8.9 0 0 1 9.9 3.3 9.2 9.2 0 1 0 20.7 14.1Z"/><path d="m17.7 3 .45 1.25L19.4 4.7l-1.25.45L17.7 6.4l-.45-1.25L16 4.7l1.25-.45z" fill="currentColor" stroke="none"/><path d="m21 8 .3.8.8.3-.8.3-.3.8-.3-.8-.8-.3.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="px-theme-tx"><b>Dark</b></span></button>' +
-      '</div><p class="px-theme-tip"><span aria-hidden="true">✦</span> Use Dark Theme for better Experience</p></section>' +
+      '<section class="px-pref-section px-theme-section"><h3>Theme</h3><p>Choose a visual space that feels comfortable for studying.</p><div class="px-theme-choice" role="group" aria-label="Theme">' +
+      '<button type="button" class="px-theme-btn px-theme-light" data-pxtheme="light" aria-pressed="' + (p.theme === 'light') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Light</b><small>Daylight · calm &amp; clear</small></span></button>' +
+      '<button type="button" class="px-theme-btn px-theme-dark" data-pxtheme="dark" aria-pressed="' + (p.theme === 'dark') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Dark</b><small>Deep space · sky glow</small></span></button>' +
+      '<button type="button" class="px-theme-btn px-theme-purple" data-pxtheme="purple" aria-pressed="' + (p.theme === 'purple') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Black + Purple</b><small>Violet light beam · glowing glass</small></span></button>' +
+      '</div><p class="px-theme-tip"><span aria-hidden="true">✦</span> Your selected theme is saved on this device.</p></section>' +
       '<section class="px-pref-section px-accent-section"><h3>Accent colour</h3><p>Button, highlight and glow colours. <span class="px-accent-lock">Light theme uses its Daylight Cosmos palette; accent colours apply to the Dark theme.</span></p><div class="px-swatches" role="group" aria-label="Accent colour">' + ACCENTS.map(function (a) { return '<button type="button" class="px-swatch" data-pxacc="' + a[0] + '" aria-pressed="' + (p.accent === a[0]) + '" aria-label="' + a[1] + '" style="--c1:' + a[2] + ';--c2:' + a[3] + '"><span>' + a[1] + '</span></button>'; }).join('') + '</div></section>' +
       '<section class="px-pref-section"><h3>Fonts · ফন্ট</h3><p>বাংলা ও English ফন্ট আলাদাভাবে বেছে নিন। একটি বদলালে অন্যটি বদলাবে না।</p>' +
       '<label class="px-pref-label">বাংলা ফন্ট (শুধু বাংলা অক্ষর)<select class="px-in" data-pxpref="bnFont">' +
@@ -519,8 +528,10 @@
       var th = e.target.closest('[data-pxtheme]'), a = e.target.closest('[data-pxacc]'), t = e.target.closest('[data-pxtog]'), r = e.target.closest('[data-pxreset]'), i = e.target.closest('#pxInstallBtn');
       var p = prefs();
       if (th) {
-        p.theme = th.getAttribute('data-pxtheme') === 'light' ? 'light' : 'dark'; jset('clpx_prefs', p); applyPrefs();
-        $$('.px-theme-btn', app).forEach(function (b) { b.setAttribute('aria-pressed', b === th); }); toast(p.theme === 'light' ? 'Light theme on' : 'Dark theme on');
+        var chosenTheme = th.getAttribute('data-pxtheme');
+        p.theme = ['light','dark','purple'].indexOf(chosenTheme) >= 0 ? chosenTheme : 'dark'; jset('clpx_prefs', p); applyPrefs();
+        $$('.px-theme-btn', app).forEach(function (b) { b.setAttribute('aria-pressed', b === th ? 'true' : 'false'); });
+        toast(p.theme === 'light' ? 'Light theme on' : (p.theme === 'purple' ? 'Black + Purple theme on' : 'Dark theme on'));
       } else if (a) {
         p.accent = a.getAttribute('data-pxacc'); jset('clpx_prefs', p); applyPrefs();
         $$('.px-swatch', app).forEach(function (b) { b.setAttribute('aria-pressed', b === a); }); toast('Accent colour saved');

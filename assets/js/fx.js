@@ -4,38 +4,42 @@ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').mat
 var nav=window.navigator||{},connection=nav.connection||nav.mozConnection||nav.webkitConnection||{};
 var lowPower=!!(reduce||(nav.hardwareConcurrency&&nav.hardwareConcurrency<=4)||(nav.deviceMemory&&nav.deviceMemory<=4)||connection.saveData);
 if(lowPower&&document.documentElement)document.documentElement.classList.add('cl-low-power');
-function isLightTheme(){return document.documentElement&&document.documentElement.getAttribute('data-theme')==='light';}
+function themeName(){return document.documentElement&&document.documentElement.getAttribute('data-theme')||'dark';}
+function isLightTheme(){return themeName()==='light';}
+function isPurpleTheme(){return themeName()==='purple';}
+function canRunBackdrop(){return !isLightTheme()&&!isPurpleTheme();}
 var on=true,colour='#38bdf8',colour2='#7dd3fc';
 function rgb(h){h=(h||'#38bdf8').replace('#','');return[parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]}
 /* ---------- background canvas ---------- */
 var cv=document.getElementById('stars'),cx=cv&&cv.getContext('2d'),W=0,H=0,stars=[],embers=[],shoots=[],planets=[],px=0,py=0,tx=0,ty=0,dpr=1,nextShoot=2,scrolling=false,scrollResumeTimer=0;
-function size(){if(!cv)return;if(isLightTheme()){cv.style.display='none';return;}cv.style.display='block';dpr=Math.min(lowPower?1:(innerWidth<700?1.15:1.4),window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cx.setTransform(dpr,0,0,dpr,0,0);
+function size(){if(!cv)return;if(!canRunBackdrop()){cv.style.display='none';if(cx)cx.clearRect(0,0,W,H);return;}cv.style.display='block';dpr=Math.min(lowPower?1:(innerWidth<700?1.15:1.4),window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cx.setTransform(dpr,0,0,dpr,0,0);
  var n=Math.min(lowPower?(innerWidth<700?30:54):(innerWidth<700?72:130),Math.round(W*H/(innerWidth<700?14500:12500)));stars=[];for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,z:.2+Math.random()*.8,r:Math.random()*1.3+.2,t:Math.random()*6.28,s:.4+Math.random()*1.6});
  var m=0; /* v9.8.0: rising bottom bubbles/embers removed */embers=[];for(var j=0;j<m;j++)embers.push(ember(true));
- /* Sparse, low-opacity celestial objects: fixed in the sky so they feel like distant scenery. */
+ /* Dark theme's distant science markers now share one muted deep-sky-blue palette. */
+ var deepSky='#285f83';
  planets=[
-  {x:W*.82,y:H*.22,r:Math.min(15,W*.022),c:'#38bdf8',ring:true},
-  {x:W*.13,y:H*.58,r:Math.min(8,W*.012),c:'#c084fc',ring:false},
-  {x:W*.72,y:H*.76,r:Math.min(6,W*.009),c:'#fbbf24',ring:false},
-  {x:W*.39,y:H*.17,r:Math.min(6,W*.009),c:'#a78bfa',ring:false},
-  {x:W*.58,y:H*.43,r:Math.min(10,W*.014),c:'#7dd3fc',ring:true},
-  {x:W*.91,y:H*.57,r:Math.min(7,W*.01),c:'#f9a8d4',ring:false},
-  {x:W*.30,y:H*.82,r:Math.min(8,W*.012),c:'#fbbf24',ring:false},
-  {x:W*.66,y:H*.91,r:Math.min(5,W*.008),c:'#c4b5fd',ring:false}
+  {x:W*.82,y:H*.22,r:Math.min(15,W*.022),c:deepSky,ring:true},
+  {x:W*.13,y:H*.58,r:Math.min(8,W*.012),c:deepSky,ring:false},
+  {x:W*.72,y:H*.76,r:Math.min(6,W*.009),c:deepSky,ring:false},
+  {x:W*.39,y:H*.17,r:Math.min(6,W*.009),c:deepSky,ring:false},
+  {x:W*.58,y:H*.43,r:Math.min(10,W*.014),c:deepSky,ring:true},
+  {x:W*.91,y:H*.57,r:Math.min(7,W*.01),c:deepSky,ring:false},
+  {x:W*.30,y:H*.82,r:Math.min(8,W*.012),c:deepSky,ring:false},
+  {x:W*.66,y:H*.91,r:Math.min(5,W*.008),c:deepSky,ring:false}
  ];
 }
 function ember(init){return{x:Math.random()*W,y:init?H-Math.random()*H*.55:H+10,r:Math.random()*2.2+.6,v:12+Math.random()*34,w:Math.random()*6.28,a:.2+Math.random()*.6}}
 var last=performance.now(),frameId=0;
-function queueFrame(){if(frameId||!cx||!on||isLightTheme()||document.hidden||scrolling)return;frameId=requestAnimationFrame(frame);}
-function frame(n){frameId=0;if(!cx||!on||isLightTheme()||document.hidden||scrolling){last=n;return}if(!lowPower&&n-last<1000/(innerWidth<700?18:24)){queueFrame();return;}
+function queueFrame(){if(frameId||!cx||!on||!canRunBackdrop()||document.hidden||scrolling)return;frameId=requestAnimationFrame(frame);}
+function frame(n){frameId=0;if(!cx||!on||!canRunBackdrop()||document.hidden||scrolling){last=n;return}if(!lowPower&&n-last<1000/(innerWidth<700?18:24)){queueFrame();return;}
  var dt=Math.min(.05,(n-last)/1000);last=n;px+=(tx-px)*.05;py+=(ty-py)*.05;cx.clearRect(0,0,W,H);
  var light=document.documentElement.getAttribute('data-theme')==='light';
  var c=rgb(colour),c2=rgb(colour2),t=n/1000;
  /* Several distant spiral galaxies: faint, slow-moving, and cheap to render. */
  var galaxies=[{x:W*.18,y:H*.29,s:1,a:-.22},{x:W*.70,y:H*.24,s:.56,a:.32},{x:W*.48,y:H*.72,s:.42,a:-.48}];
  for(var gi=0;gi<galaxies.length;gi++){var gal=galaxies[gi],gr=Math.min(W,H)*.105*gal.s;cx.save();cx.translate(gal.x,gal.y);cx.rotate(gal.a+Math.sin(t*.06+gi)*.018);
-  var gg=cx.createRadialGradient(0,0,0,0,0,gr*1.25);gg.addColorStop(0,gi===1?(light?'rgba(167,139,250,.19)':'rgba(192,132,252,.075)'):(light?'rgba(125,211,252,.19)':'rgba(125,211,252,.085)'));gg.addColorStop(.38,light?'rgba(56,189,248,.075)':'rgba(56,189,248,.035)');gg.addColorStop(1,'rgba(56,189,248,0)');cx.fillStyle=gg;cx.beginPath();cx.arc(0,0,gr*1.25,0,6.283);cx.fill();cx.globalAlpha=gi===0?.105:.075;
-  for(var arm=0;arm<2;arm++){cx.beginPath();var galaxySteps=W<700?36:72;for(var qg=0;qg<galaxySteps;qg++){var ang=qg*(.115*72/galaxySteps)+arm*Math.PI,rad=gr*(qg/galaxySteps),xx=Math.cos(ang)*rad*1.45,yy=Math.sin(ang)*rad*.56;if(qg===0)cx.moveTo(xx,yy);else cx.lineTo(xx,yy)}cx.strokeStyle=gi===1?(light?'rgba(124,91,190,.62)':'rgba(196,181,253,.6)'):(light?'rgba(58,133,180,.62)':'rgba(125,211,252,.6)');cx.lineWidth=1;cx.stroke()}cx.restore()
+  var gg=cx.createRadialGradient(0,0,0,0,0,gr*1.25);gg.addColorStop(0,light?'rgba(125,211,252,.19)':'rgba(44,101,139,.065)');gg.addColorStop(.38,light?'rgba(56,189,248,.075)':'rgba(39,91,124,.028)');gg.addColorStop(1,'rgba(56,189,248,0)');cx.fillStyle=gg;cx.beginPath();cx.arc(0,0,gr*1.25,0,6.283);cx.fill();cx.globalAlpha=gi===0?.105:.075;
+  for(var arm=0;arm<2;arm++){cx.beginPath();var galaxySteps=W<700?36:72;for(var qg=0;qg<galaxySteps;qg++){var ang=qg*(.115*72/galaxySteps)+arm*Math.PI,rad=gr*(qg/galaxySteps),xx=Math.cos(ang)*rad*1.45,yy=Math.sin(ang)*rad*.56;if(qg===0)cx.moveTo(xx,yy);else cx.lineTo(xx,yy)}cx.strokeStyle=light?'rgba(58,133,180,.62)':'rgba(48,105,143,.56)';cx.lineWidth=1;cx.stroke()}cx.restore()
  }
  /* Small planets with atmospheric rim and occasional rings. */
  for(var pi=0;pi<planets.length;pi++){var pl=planets[pi],drift=Math.sin(t*.18+pi*2)*4,pr=pl.r;
@@ -44,11 +48,11 @@ function frame(n){frameId=0;if(!cx||!on||isLightTheme()||document.hidden||scroll
   pg.addColorStop(0,light?'rgba(255,255,255,.92)':pl.c);pg.addColorStop(.7,light?'rgba(105,160,204,.30)':'rgba(4,16,28,.9)');pg.addColorStop(1,'rgba(0,0,0,0)');
   cx.fillStyle=pg;cx.beginPath();cx.arc(0,0,pr*1.4,0,6.283);cx.fill();
   cx.globalAlpha=light?.44:.28;cx.strokeStyle=pl.c;cx.lineWidth=.7;cx.beginPath();cx.arc(0,0,pr*1.02,0,6.283);cx.stroke();
-  if(pl.ring){cx.globalAlpha=light?.30:.13;cx.beginPath();cx.ellipse(0,0,pr*1.8,pr*.48,-.18,0,6.283);cx.strokeStyle='#7dd3fc';cx.lineWidth=2;cx.stroke()}
+  if(pl.ring){cx.globalAlpha=light?.30:.13;cx.beginPath();cx.ellipse(0,0,pr*1.8,pr*.48,-.18,0,6.283);cx.strokeStyle='#285f83';cx.lineWidth=2;cx.stroke()}
   cx.restore()
  }
  for(var i=0;i<stars.length;i++){var s=stars[i];s.y-=s.z*dt*4;if(s.y<-2){s.y=H+2;s.x=Math.random()*W}
-  var a=.25+.75*Math.abs(Math.sin(t*s.s+s.t));cx.globalAlpha=a*s.z;cx.fillStyle=light?(i%7==0?'rgb('+c2[0]+','+c2[1]+','+c2[2]+')':'rgba(88,125,163,.72)'):(i%7==0?'rgb('+c2[0]+','+c2[1]+','+c2[2]+')':'#fff');
+  var a=.25+.75*Math.abs(Math.sin(t*s.s+s.t));cx.globalAlpha=(light?.55:.42)*a*s.z;cx.fillStyle=light?(i%7==0?'rgb('+c2[0]+','+c2[1]+','+c2[2]+')':'rgba(88,125,163,.72)'):(i%7==0?'rgb(49,105,143)':'rgba(54,111,148,.82)');
   cx.beginPath();cx.arc(s.x+px*s.z*24,s.y+py*s.z*24,s.r,0,6.283);cx.fill()}
  /* rising embers in the sky-blue zone */
  cx.globalCompositeOperation='lighter';
@@ -59,19 +63,30 @@ function frame(n){frameId=0;if(!cx||!on||isLightTheme()||document.hidden||scroll
  /* shooting stars */
  nextShoot-=dt;if(nextShoot<0&&!reduce){nextShoot=3+Math.random()*6;shoots.push({x:Math.random()*W*.9+W*.1,y:Math.random()*H*.35,vx:-420-Math.random()*240,vy:200+Math.random()*120,l:0})}
  for(var q=shoots.length-1;q>=0;q--){var sh=shoots[q];sh.l+=dt;sh.x+=sh.vx*dt;sh.y+=sh.vy*dt;var al=Math.max(0,1-sh.l/1.1);if(al<=0){shoots.splice(q,1);continue}
-  var gr=cx.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*.12,sh.y-sh.vy*.12);gr.addColorStop(0,light?'rgba(67,137,194,'+al+')':'rgba(255,255,255,'+al+')');gr.addColorStop(1,light?'rgba(125,211,252,0)':'rgba(255,255,255,0)');cx.globalAlpha=1;cx.strokeStyle=gr;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(sh.x,sh.y);cx.lineTo(sh.x-sh.vx*.12,sh.y-sh.vy*.12);cx.stroke()}
+  var gr=cx.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*.12,sh.y-sh.vy*.12);gr.addColorStop(0,light?'rgba(67,137,194,'+al+')':'rgba(47,104,143,'+al+')');gr.addColorStop(1,light?'rgba(125,211,252,0)':'rgba(47,104,143,0)');cx.globalAlpha=1;cx.strokeStyle=gr;cx.lineWidth=1.6;cx.beginPath();cx.moveTo(sh.x,sh.y);cx.lineTo(sh.x-sh.vx*.12,sh.y-sh.vy*.12);cx.stroke()}
  cx.globalAlpha=1;if(!lowPower)queueFrame();}
 if(cv){
- if(isLightTheme())cv.style.display='none';else{size();queueFrame();}
- addEventListener('resize',function(){if(isLightTheme()){cv.style.display='none';return;}size();last=performance.now();queueFrame();},{passive:true});
- document.addEventListener('visibilitychange',function(){if(!document.hidden&&!isLightTheme()){last=performance.now();queueFrame();}});
- /* Do not even attach the scroll-pause timer in light mode; the canvas is dormant there. */
- /* v22: scrolling no longer pauses the starfield; it follows the viewport/visibility rules only. */
+ if(!canRunBackdrop())cv.style.display='none';else{size();queueFrame();}
+ addEventListener('resize',function(){if(!canRunBackdrop()){cv.style.display='none';if(cx)cx.clearRect(0,0,W,H);return;}size();last=performance.now();queueFrame();},{passive:true});
+ document.addEventListener('visibilitychange',function(){if(!document.hidden&&canRunBackdrop()){last=performance.now();queueFrame();}});
+ /* Pause background canvas work and decorative motion while the user is actively scrolling. */
+ function pauseFXDuringScroll(){
+  document.documentElement.classList.add('cl-scrolling');
+  scrolling=true;
+  if(frameId){cancelAnimationFrame(frameId);frameId=0;}
+  if(scrollResumeTimer)clearTimeout(scrollResumeTimer);
+  scrollResumeTimer=setTimeout(function(){
+   scrollResumeTimer=0;scrolling=false;
+   document.documentElement.classList.remove('cl-scrolling');
+   last=performance.now();queueFrame();
+  },180);
+ }
+ addEventListener('scroll',pauseFXDuringScroll,{passive:true});
 }
 /* Wake the starfield only when the user explicitly switches back to Dark. */
 window.addEventListener('cl-theme',function(){
  if(!cv)return;
- if(isLightTheme()){
+ if(!canRunBackdrop()){
   /* Clear any scroll-throttling state left by Dark mode before switching. */
   document.documentElement.classList.remove('cl-scrolling');
   if(scrollResumeTimer){clearTimeout(scrollResumeTimer);scrollResumeTimer=0;}
@@ -90,9 +105,10 @@ var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){
 function count(el){if(el._c)return;el._c=1;var to=+el.getAttribute('data-count')||0,t0=performance.now(),d=reduce?0:1100;(function f(n){var p=d?Math.min(1,(n-t0)/d):1;p=1-Math.pow(1-p,3);el.textContent=Math.round(to*p).toLocaleString();if(p<1&&el.isConnected)requestAnimationFrame(f)})(t0)}
 function scan(root){
  root=root||document;
- var list=root.querySelectorAll('.rv:not(.in)');
+ var list=root.querySelectorAll('.rv:not(.in)'),instant=!isLightTheme();
  list.forEach(function(el){
-  if(io){if(el.dataset.fxRevealObserved!=='1'){el.dataset.fxRevealObserved='1';io.observe(el)}}
+  if(instant)el.classList.add('in');
+  else if(io){if(el.dataset.fxRevealObserved!=='1'){el.dataset.fxRevealObserved='1';io.observe(el)}}
   else el.classList.add('in');
  });
  /* Count descendants of already-visible reveal cards too. In Light Theme the app
@@ -101,14 +117,14 @@ function scan(root){
  cs.forEach(function(el){
   var reveal=el.closest('.rv');
   if(reveal){
-   if(reveal.classList.contains('in'))count(el);
+   if(reveal.classList.contains('in')||instant)count(el);
    else if(!io)count(el);
    else if(reveal.dataset.fxRevealObserved!=='1'){reveal.dataset.fxRevealObserved='1';io.observe(reveal)}
-  }else if(io){if(el.dataset.fxCountObserved!=='1'){el.dataset.fxCountObserved='1';io.observe(el)}}
+  }else if(!instant&&io){if(el.dataset.fxCountObserved!=='1'){el.dataset.fxCountObserved='1';io.observe(el)}}
   else count(el);
  });
 }
-setTimeout(function(){document.querySelectorAll('.rv:not(.in)').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){el.classList.add('in');el.querySelectorAll('[data-count]').forEach(count)}})},1200);
+if(isLightTheme())setTimeout(function(){document.querySelectorAll('.rv:not(.in)').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){el.classList.add('in');el.querySelectorAll('[data-count]').forEach(count)}})},1200);
 /* ---------- card spotlight + tilt ---------- */
 document.addEventListener('pointermove',function(e){if(lowPower)return;var c=e.target.closest&&e.target.closest('.card');if(!c)return;var r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
  if(c.classList.contains('tilt')&&!reduce&&e.pointerType!=='touch'){var rx=((y/r.height)-.5)*-7,ry=((x/r.width)-.5)*7;c.style.transform='perspective(800px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-4px)'}},{passive:true});
@@ -130,5 +146,5 @@ function cfFrame(){cc.clearRect(0,0,cf.width,cf.height);for(var i=parts.length-1
 /* ---------- public ---------- */
 return{
  scan:scan,every:every,type:type,toast:toast,confetti:confetti,
- setTheme:function(t){t=t||{};colour=t.p||colour;colour2=t.s||colour2;on=t.fx!=='off';var run=on&&!isLightTheme();if(cv)cv.style.display=run?'block':'none';if(run){size();queueFrame();}else if(frameId){cancelAnimationFrame(frameId);frameId=0;}document.documentElement.classList.toggle('nofx',!on)}
+ setTheme:function(t){t=t||{};colour=t.p||colour;colour2=t.s||colour2;on=t.fx!=='off';var run=on&&canRunBackdrop();if(cv)cv.style.display=run?'block':'none';if(run){size();queueFrame();}else if(frameId){cancelAnimationFrame(frameId);frameId=0;}document.documentElement.classList.toggle('nofx',!on)}
 }})();
