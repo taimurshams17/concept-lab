@@ -37,13 +37,13 @@ settings: {
   progressCardTitle: 'Progress Card — show off your level',
   progressCardIntro: 'A shareable card built from your real ConceptLab progress: level, XP, streak, simulations, games and badges. Download it or share it with friends.',
   settingsTitle: 'Settings — your learning space',
-  settingsIntro: 'অ্যাকাউন্ট ছাড়াই ওয়েবসাইটের ফন্ট, টেক্সট সাইজ, রং, লেআউট ও অ্যানিমেশন বদলাতে পারবেন। পরিবর্তন এই ডিভাইসে সংরক্ষিত হবে।',
+  settingsIntro: 'অ্যাকাউন্ট ছাড়াই থিম, Accent colour, অ্যানিমেশন ও সাউন্ড সেটিংস পরিবর্তন করুন। পছন্দগুলো এই ডিভাইসে সংরক্ষিত হবে।',
   about: 'ConceptLab একটি স্বাধীন, শিক্ষার্থী-পরিচালিত শিক্ষামূলক প্রকল্প, তৈরি করেছেন Taimur Shams ও Moshiur Rahman Araf। লক্ষ্য: মুখস্থের বাইরে গিয়ে মূল ধারণা বোঝানো, এবং ধারণা, গেম, সিমুলেশন, গ্রাফ ও স্টুডেন্ট হাবের টুল দিয়ে পড়াশোনাকে আনন্দময় ও গোছানো করা।'
 },
 navigation: [
  {id:'home',href:'#/',label:'Home',enabled:true},
  {id:'chapters',href:'#/chapters',label:'Explore Chapters',enabled:true},
- {id:'play',href:'#/play',label:'Games',enabled:true},
+ {id:'play',href:'#/play',label:'Arcade',description:'শেখার গেম, কুইজ ও ইন্টারঅ্যাকটিভ সিমুলেশন',enabled:true},
  {id:'lab',href:'#/lab',label:'Simulations',enabled:true},
  {id:'progress',href:'#/progress',label:'My Progress',enabled:true},
  {id:'hub',href:'#/hub',label:'Student Hub',enabled:true},  {id:'study-space',href:'#/study-space',label:'Study Space',enabled:true},

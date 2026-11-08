@@ -14,7 +14,7 @@ const context = {
   localStorage: { getItem() { return null; }, setItem() {} }
 };
 vm.createContext(context);
-for (const relative of ['assets/js/defaults.js', 'assets/js/game-academy.js', 'assets/js/games.js']) {
+for (const relative of ['assets/js/defaults.js', 'assets/js/game-academy.js', 'assets/js/games.js', 'assets/js/arcade-expansion.js']) {
   const filename = path.join(projectRoot, relative);
   vm.runInContext(fs.readFileSync(filename, 'utf8'), context, { filename });
 }
@@ -70,6 +70,33 @@ for (const game of games) {
   }
   if (game.type === 'simExplorer' && (!data.sim || !data.sim.kind || !data.sim.values || !Object.keys(data.sim.values).length)) {
     issue(game, 'has an incomplete simulation definition');
+  }
+  if (game.type === 'arcadeQuest') {
+    const rounds = data.rounds;
+    const mode = data.mode;
+    if (!['sort', 'sequence', 'build', 'target', 'path', 'spot', 'connect', 'balance'].includes(mode)) issue(game, `unsupported Arcade Quest mode ${mode}`);
+    if (!Array.isArray(rounds) || rounds.length < 4) issue(game, 'needs at least four playable missions');
+    (Array.isArray(rounds) ? rounds : []).forEach((round, index) => {
+      let valid = true;
+      if (mode === 'sort') valid = !!round[0] && !!round[1] && Array.isArray(round[2]) && Number.isInteger(+round[3]) && +round[3] >= 0 && +round[3] < round[2].length && !!round[4];
+      if (mode === 'sequence') valid = !!round[0] && Array.isArray(round[1]) && round[1].length >= 3 && !!round[2];
+      if (mode === 'build') valid = !!round[0] && Array.isArray(round[1]) && Array.isArray(round[2]) && round[2].length > 0 && round[2].every((part) => Number.isInteger(+part) && +part >= 0 && +part < round[1].length) && !!round[3];
+      if (mode === 'target') valid = !!round[0] && Number.isFinite(+round[1]) && Number.isFinite(+round[2]) && +round[1] < +round[2] && +round[3] >= +round[1] && +round[3] <= +round[2] && !!round[5];
+      if (mode === 'path' || mode === 'spot') valid = !!round[0] && Array.isArray(round[1]) && Number.isInteger(+round[2]) && +round[2] >= 0 && +round[2] < round[1].length && !!round[3];
+      if (mode === 'connect') valid = !!round[0] && Array.isArray(round[1]) && round[1].length >= 2 && round[1].every((pair) => pair && pair[0] && pair[1]) && !!round[2];
+      if (mode === 'balance') {
+        valid = !!round[0] && Array.isArray(round[1]) && round[1].length > 0 && Number.isFinite(+round[2]) && !!round[4];
+        if (valid) {
+          let achievable = false;
+          for (let mask = 1; mask < (1 << round[1].length); mask++) {
+            const sum = round[1].reduce((total, value, i) => total + ((mask >> i) & 1 ? +value : 0), 0);
+            if (sum === +round[2]) { achievable = true; break; }
+          }
+          valid = achievable;
+        }
+      }
+      if (!valid) issue(game, `invalid ${mode || 'unknown'} mission ${index + 1}`);
+    });
   }
 }
 

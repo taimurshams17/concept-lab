@@ -1,0 +1,99 @@
+/* ConceptLab · cinematic intro motion pass. GPU-friendly transforms and opacity only. */
+#intro{isolation:isolate;--intro-violet:#a78bfa;--intro-cyan:#75d8f4}
+#intro .in-bg{z-index:0}
+#intro .in-tools{z-index:1}
+#intro .in-content{z-index:3}
+#intro .in-skip{z-index:4}
+#intro .in-bg::before{content:"";position:absolute;left:50%;top:49%;width:min(92vmax,1180px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:conic-gradient(from 15deg,transparent 0 18%,rgba(59,177,232,.16) 26%,transparent 39%,rgba(130,104,229,.12) 54%,transparent 68%,rgba(58,203,190,.11) 82%,transparent 100%);filter:blur(35px);opacity:.55;animation:introAuroraRotate 26s linear infinite}
+#intro .in-bg::after{content:"";position:absolute;inset:-20%;background:linear-gradient(112deg,transparent 34%,rgba(177,225,255,.055) 47%,rgba(210,195,255,.1) 50%,rgba(177,225,255,.045) 53%,transparent 66%);transform:translate3d(-42%,0,0) rotate(-8deg);animation:introLightSweep 7.2s cubic-bezier(.6,0,.25,1) 1.1s infinite}
+@keyframes introAuroraRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes introLightSweep{0%,18%{transform:translate3d(-42%,0,0) rotate(-8deg);opacity:0}32%{opacity:.85}70%,100%{transform:translate3d(42%,0,0) rotate(-8deg);opacity:0}}
+#intro .in-comet{position:absolute;z-index:2;left:-25%;width:clamp(74px,12vw,170px);height:1px;border-radius:99px;opacity:0;transform:rotate(-24deg);background:linear-gradient(90deg,transparent,rgba(153,222,255,.05) 18%,rgba(181,231,255,.92) 76%,transparent);box-shadow:0 0 12px rgba(103,201,255,.35);animation:introCometTravel 6.8s cubic-bezier(.2,.65,.3,1) infinite}
+#intro .in-comet-one{top:23%;animation-delay:1.5s}
+#intro .in-comet-two{top:66%;width:clamp(54px,8vw,120px);animation-delay:4s;animation-duration:8.2s;transform:rotate(-18deg)}
+#intro .in-comet-three{top:83%;width:clamp(40px,7vw,100px);animation-delay:5.4s;animation-duration:9.3s;transform:rotate(-28deg)}
+@keyframes introCometTravel{0%,12%{opacity:0;translate:0 0}17%{opacity:.8}38%{opacity:0;translate:135vw 0}100%{opacity:0;translate:135vw 0}}
+#intro .in-logo{isolation:isolate}
+#intro .in-logo::before{content:"";position:absolute;z-index:-1;inset:12%;border-radius:50%;background:radial-gradient(circle,rgba(76,180,232,.2),rgba(112,97,217,.09) 48%,transparent 72%);filter:blur(9px);opacity:0;animation:introCorePulse 4.8s ease-in-out 1.2s infinite}
+#intro .in-logo::after{content:"";position:absolute;z-index:0;left:50%;top:50%;width:calc(var(--logo)*1.3);height:calc(var(--logo)*1.3);border:1px solid rgba(169,225,255,.1);border-radius:50%;transform:translate(-50%,-50%) scale(.92);box-shadow:0 0 28px rgba(86,187,238,.06),inset 0 0 22px rgba(111,135,236,.04);pointer-events:none;animation:introCoreRing 6s ease-in-out infinite}
+@keyframes introCorePulse{0%,100%{opacity:.35;transform:scale(.84)}50%{opacity:1;transform:scale(1.12)}}
+@keyframes introCoreRing{0%,100%{opacity:.28;transform:translate(-50%,-50%) scale(.92)}50%{opacity:.8;transform:translate(-50%,-50%) scale(1.035)}}
+#intro .in-mark{animation:inLogoIn 1.25s cubic-bezier(.2,.8,.2,1) .28s forwards,introLogoDrift 5.4s ease-in-out 1.8s infinite}
+@keyframes introLogoDrift{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(0,-8px,0) scale(1.018)}}
+#intro .r1{--sp:22s}
+#intro .r2{--sp:32s}
+#intro .r3{width:calc(var(--logo)*2.18);height:calc(var(--logo)*1.73);animation-delay:.92s;--sp:38s;--dir:normal}
+#intro .r3 .ring{border-style:dashed;border-color:rgba(119,220,230,.14);animation-duration:var(--sp)}
+#intro .r3 .arc{border-top-color:rgba(117,216,244,.55);border-right-color:rgba(167,139,250,.24)}
+#intro .r3 .dot{left:17%;top:8%;width:5px;height:5px;background:#84e3d4;box-shadow:0 0 12px 2px rgba(132,227,212,.62)}
+#intro .ring{animation-timing-function:linear}
+#intro .r1 .arc{animation:introArcTurn 11s linear infinite}
+#intro .r2 .arc{animation:introArcTurn 15s linear infinite reverse}
+@keyframes introArcTurn{to{transform:rotate(335deg)}}
+#intro .t{animation-duration:calc(var(--du)*.72);filter:drop-shadow(0 0 8px currentColor)}
+#intro .t svg{animation:inToolIn 1.35s cubic-bezier(.2,.8,.2,1) calc(.32s + var(--de)) both,introToolPulse 5.8s ease-in-out calc(1.8s + var(--de)) infinite alternate}
+@keyframes introToolPulse{0%{filter:drop-shadow(0 0 4px currentColor);opacity:.78}100%{filter:drop-shadow(0 0 12px currentColor);opacity:1}}
+#intro .in-mark img{filter:drop-shadow(0 14px 34px rgba(0,0,0,.28))}
+#intro .shine{animation:inShine 2.4s ease-in-out 1.3s both,introShineAgain 8s ease-in-out 5.6s infinite}
+@keyframes introShineAgain{0%,58%{background-position:130% 0;opacity:0}68%{opacity:1}88%,100%{background-position:-30% 0;opacity:0}}
+#intro .in-word{position:relative;overflow:visible;text-shadow:0 5px 24px rgba(72,164,223,.12)}
+#intro .in-word::after{content:"";position:absolute;top:-4%;bottom:-4%;left:-55%;width:28%;pointer-events:none;transform:skewX(-22deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.52),transparent);filter:blur(2px);opacity:0;animation:introWordSweep 4.8s ease-in-out 2.2s infinite}
+@keyframes introWordSweep{0%,52%{left:-55%;opacity:0}62%{opacity:.9}88%,100%{left:130%;opacity:0}}
+#intro .in-tag span{animation:introTagLift 4s ease-in-out infinite}
+#intro .in-tag span:nth-of-type(2){animation-delay:.35s}#intro .in-tag span:nth-of-type(3){animation-delay:.7s}
+@keyframes introTagLift{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+#intro .in-tag i{animation:introTagDot 2.7s ease-in-out infinite}
+#intro .in-tag i:nth-of-type(2){animation-delay:1.1s}
+@keyframes introTagDot{0%,100%{transform:scale(.8);opacity:.65}50%{transform:scale(1.6);opacity:1}}
+#intro .in-prog{filter:drop-shadow(0 5px 15px rgba(80,179,225,.08))}
+#intro .in-track{box-shadow:0 0 14px rgba(125,211,252,.11)}
+#intro .in-fill{background-size:180% 100%;animation:introProgressGlow 2.8s linear infinite}
+@keyframes introProgressGlow{to{background-position:180% 0}}
+#intro .in-prog li.on b{animation:introStepPulse 1.8s ease-in-out infinite}
+@keyframes introStepPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 1px rgba(168,229,255,.38),0 0 9px 1px rgba(85,199,255,.35)}50%{transform:scale(1.23);box-shadow:0 0 0 3px rgba(168,229,255,.08),0 0 17px 3px rgba(85,199,255,.52)}}
+#intro .in-skip{transition:transform .2s ease,color .2s ease,border-color .2s ease,background .2s ease}
+#intro .in-skip:hover{transform:translateY(-2px)}
+
+/* Daylight: keep the canvas truly white while the science geometry moves in gentle colour. */
+html[data-theme="light"] #intro{background:#fff!important;color:#17294a!important}
+html[data-theme="light"] #intro .in-bg{background:#fff!important}
+html[data-theme="light"] #intro .in-bg::before{background:conic-gradient(from 10deg,transparent 0 15%,rgba(51,119,222,.08) 25%,transparent 38%,rgba(130,89,204,.07) 52%,transparent 67%,rgba(25,159,143,.055) 82%,transparent 100%);filter:blur(22px);opacity:.72}
+html[data-theme="light"] #intro .in-bg::after{background:linear-gradient(112deg,transparent 38%,rgba(67,126,224,.035) 48%,rgba(125,87,204,.055) 51%,transparent 63%)}
+html[data-theme="light"] #intro .in-comet{background:linear-gradient(90deg,transparent,rgba(69,119,196,.04),rgba(79,121,202,.35),transparent);box-shadow:none}
+html[data-theme="light"] #intro .in-logo::before{background:radial-gradient(circle,rgba(67,111,212,.1),rgba(143,119,211,.045) 48%,transparent 72%)}
+html[data-theme="light"] #intro .in-logo::after{border-color:rgba(67,111,212,.13);box-shadow:0 0 24px rgba(67,111,212,.035),inset 0 0 20px rgba(122,105,203,.025)}
+html[data-theme="light"] #intro .r3 .ring{border-color:rgba(45,147,145,.15)}
+html[data-theme="light"] #intro .r3 .arc{border-top-color:rgba(45,147,145,.52);border-right-color:rgba(67,111,212,.18)}
+html[data-theme="light"] #intro .in-word::after{background:linear-gradient(90deg,transparent,rgba(75,104,170,.2),transparent)}
+html[data-theme="light"] #intro .in-fill{background-image:linear-gradient(90deg,#3470d8,#8c6ed5,#2aa58d,#3470d8)!important}
+
+/* Midnight: extra depth and more visible moving violet light. */
+html[data-theme="purple"] #intro{background:radial-gradient(ellipse at 50% 43%,#211139 0%,#10091d 39%,#08050f 76%,#05030a 100%)!important;--sky:#b59aff;--sky2:#d8c8ff;--amb:#df9cff;--teal:#8ce4dd}
+html[data-theme="purple"] #intro .in-bg::before{background:conic-gradient(from 15deg,transparent 0 16%,rgba(142,76,242,.23) 26%,transparent 39%,rgba(223,111,242,.17) 54%,transparent 68%,rgba(94,153,245,.13) 83%,transparent 100%);opacity:.8;filter:blur(28px)}
+html[data-theme="purple"] #intro .in-bg::after{background:linear-gradient(112deg,transparent 34%,rgba(161,116,255,.035) 45%,rgba(203,148,255,.15) 50%,rgba(135,120,255,.045) 55%,transparent 68%)}
+html[data-theme="purple"] #intro .in-glow{background:radial-gradient(circle,rgba(132,74,225,.32),rgba(91,55,154,.15) 34%,transparent 69%)}
+html[data-theme="purple"] #intro .in-glow-two{background:radial-gradient(circle,rgba(204,100,236,.18),transparent 68%)}
+html[data-theme="purple"] #intro .t{color:#c5afff!important}
+html[data-theme="purple"] #intro .t.c-a{color:#e3a8ed!important}html[data-theme="purple"] #intro .t.c-t{color:#91e2e5!important}
+html[data-theme="purple"] #intro .ring{border-color:rgba(193,164,255,.2)}html[data-theme="purple"] #intro .r2 .ring{border-color:rgba(223,156,255,.16)}
+html[data-theme="purple"] #intro .arc{border-top-color:rgba(213,187,255,.88);border-right-color:rgba(167,139,250,.3)}
+html[data-theme="purple"] #intro .r2 .arc{border-top-color:rgba(235,162,255,.76);border-right-color:rgba(235,162,255,.22)}
+html[data-theme="purple"] #intro .r3 .ring{border-color:rgba(143,126,241,.22)}html[data-theme="purple"] #intro .r3 .arc{border-top-color:#9e89ff;border-right-color:rgba(213,187,255,.24)}
+html[data-theme="purple"] #intro .in-mark{filter:drop-shadow(0 15px 38px rgba(131,76,218,.36))}
+html[data-theme="purple"] #intro .in-word{color:#faf6ff;text-shadow:0 0 22px rgba(167,139,250,.18)}
+html[data-theme="purple"] #intro .in-word span{background:linear-gradient(180deg,#f2dcff 0%,#bd9cff 58%,#965de2 100%);background-clip:text;-webkit-background-clip:text;color:transparent}
+html[data-theme="purple"] #intro .in-tag{color:#c9b9e2}html[data-theme="purple"] #intro .in-tag i{background:#d7a5ff;box-shadow:0 0 10px rgba(215,165,255,.65)}
+html[data-theme="purple"] #intro .in-fill{background-image:linear-gradient(90deg,#8b5cf6,#d49cff,#8b5cf6)!important;box-shadow:0 0 12px rgba(167,139,250,.5)}
+html[data-theme="purple"] #intro .in-prog li.on b{background:#b89aff;box-shadow:0 0 0 1px rgba(196,181,253,.4),0 0 14px 3px rgba(167,139,250,.6)}
+html[data-theme="purple"] #intro .in-skip{color:#c7b7df;border-color:rgba(196,181,253,.24);background:rgba(255,255,255,.045)}
+
+@media(max-width:600px){
+  #intro .in-comet-one{top:18%}#intro .in-comet-two{top:71%}#intro .in-comet-three{top:87%}
+  #intro .r3{width:calc(var(--logo)*1.9);height:calc(var(--logo)*1.58)}
+  #intro .in-logo::after{width:calc(var(--logo)*1.2);height:calc(var(--logo)*1.2)}
+}
+@media(prefers-reduced-motion:reduce){
+  #intro .in-bg::before,#intro .in-bg::after,#intro .in-comet,#intro .in-logo::before,#intro .in-logo::after,#intro .r1 .arc,#intro .r2 .arc,#intro .in-tag span,#intro .in-tag i,#intro .in-prog li.on b,#intro .in-word::after{animation:none!important;opacity:1!important}
+  #intro .in-mark{animation:none!important;opacity:1!important;transform:none!important}
+  #intro .t svg{animation:none!important;opacity:1!important;transform:none!important}
+}

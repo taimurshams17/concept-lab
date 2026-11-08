@@ -1,0 +1,149 @@
+/* ConceptLab v8 · refined Student Hub, live stats, compact preferences and deep Violet canvas */
+
+/* Student Hub Toolkit: slightly larger than v7, without returning to oversized tiles. */
+#app .hub-tool-launch-grid .hub-launch-tile{
+  min-height:94px!important;
+  padding:13px 29px 13px 13px!important;
+  gap:10px!important;
+  border-radius:14px!important;
+}
+#app .hub-tool-launch-grid .hub-launch-icon{
+  width:38px!important;height:38px!important;flex-basis:38px!important;font-size:18px!important;
+}
+#app .hub-tool-launch-grid .hub-launch-copy{gap:4px!important}
+#app .hub-tool-launch-grid .hub-launch-copy b{font-size:12px!important;line-height:1.38!important}
+#app .hub-tool-launch-grid .hub-launch-copy small{font-size:9.5px!important;line-height:1.48!important}
+@media(max-width:700px){
+  #app .hub-tool-launch-grid .hub-launch-tile{min-height:88px!important;padding:11px 25px 11px 10px!important;gap:9px!important}
+  #app .hub-tool-launch-grid .hub-launch-icon{width:35px!important;height:35px!important;flex-basis:35px!important;font-size:17px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy b{font-size:11.3px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy small{font-size:9.2px!important}
+}
+@media(max-width:430px){
+  #app .hub-tool-launch-grid .hub-launch-tile{min-height:84px!important;padding:10px 22px 10px 9px!important;gap:8px!important}
+  #app .hub-tool-launch-grid .hub-launch-icon{width:33px!important;height:33px!important;flex-basis:33px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy b{font-size:11px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy small{font-size:9px!important}
+}
+
+/* Live counters: clear numeric focus, subtle motion cue in all themes. */
+#app .home-stats-grid .home-stat-card [data-count]{
+  display:inline-block;min-width:1ch;font-variant-numeric:tabular-nums;
+  transform-origin:left center;will-change:contents;
+}
+#app .home-stats-grid .home-stat-card.in [data-count]{animation:clStatPop .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes clStatPop{0%{opacity:.35;transform:translateY(7px) scale(.94);filter:blur(1.5px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){#app .home-stats-grid .home-stat-card [data-count]{animation:none!important;will-change:auto}}
+
+/* Arcade All category uses a dedicated four-square grid icon. */
+.arcade-page .ga-mode-icon-all svg{display:block;width:19px;height:19px;fill:currentColor;stroke:currentColor;stroke-width:.35}
+@media(max-width:760px){.arcade-page .ga-mode-icon-all svg{width:17px;height:17px}}
+
+/* Violet: mostly ink-black, with visible but restrained architectural geometry. */
+html[data-theme="purple"] body{
+  background-color:#05040a!important;
+  background-image:
+    radial-gradient(ellipse 42% 32% at 14% 4%,rgba(73,39,117,.17),transparent 73%),
+    radial-gradient(ellipse 34% 27% at 91% 23%,rgba(76,43,116,.13),transparent 72%),
+    radial-gradient(ellipse 44% 35% at 67% 98%,rgba(70,39,111,.15),transparent 74%),
+    linear-gradient(145deg,#05040a 0%,#090710 52%,#05040a 100%)!important;
+  color:#f7f2ff!important;
+}
+html[data-theme="purple"] body::before{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;
+  pointer-events:none!important;opacity:1!important;filter:none!important;animation:none!important;
+  background-image:
+    radial-gradient(circle at 88% 18%,transparent 0 84px,rgba(165,132,211,.16) 85px 86px,transparent 87px 122px,rgba(165,132,211,.10) 123px 124px,transparent 125px 100%),
+    radial-gradient(circle at 10% 78%,transparent 0 118px,rgba(153,124,198,.12) 119px 120px,transparent 121px 164px,rgba(153,124,198,.075) 165px 166px,transparent 167px 100%),
+    linear-gradient(118deg,transparent 0 23%,rgba(170,143,208,.045) 23.1% 23.22%,transparent 23.35% 69%,rgba(170,143,208,.035) 69.1% 69.22%,transparent 69.35%),
+    repeating-linear-gradient(135deg,rgba(186,165,216,.022) 0 1px,transparent 1px 34px);
+  background-size:100% 100%,100% 100%,100% 100%,auto;
+  background-position:center;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.8) 68%,rgba(0,0,0,.5) 100%);
+  mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.8) 68%,rgba(0,0,0,.5) 100%);
+}
+html[data-theme="purple"] body::after{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;
+  pointer-events:none!important;opacity:.62!important;filter:none!important;animation:none!important;
+  background-image:
+    linear-gradient(90deg,transparent 0 8%,rgba(186,165,216,.045) 8.05% 8.13%,transparent 8.2% 92%,rgba(186,165,216,.035) 92.05% 92.13%,transparent 92.2%),
+    linear-gradient(0deg,transparent 0 13%,rgba(186,165,216,.035) 13.05% 13.13%,transparent 13.2% 87%,rgba(186,165,216,.03) 87.05% 87.13%,transparent 87.2%),
+    radial-gradient(ellipse at 50% 50%,transparent 28%,rgba(0,0,0,.25) 100%);
+}
+html[data-theme="purple"] #app,
+html[data-theme="purple"] body>header,
+html[data-theme="purple"] header,
+html[data-theme="purple"] .bottom-nav,
+html[data-theme="purple"] footer.site-footer{position:relative;z-index:2}
+html[data-theme="purple"] #app::before,
+html[data-theme="purple"] #app::after{pointer-events:none}
+
+/* Sound library: closed by default, opens into a neat compact chip matrix. */
+#app .sfx-library-compact{
+  margin-top:8px;border:1px solid var(--line,rgba(125,150,175,.22));
+  border-radius:13px;background:rgba(120,140,160,.045);overflow:hidden;
+}
+#app .sfx-library-compact>summary{
+  min-height:42px;display:flex;align-items:center;gap:9px;padding:8px 12px;
+  list-style:none;cursor:pointer;user-select:none;font-size:12px;font-weight:800;
+}
+#app .sfx-library-compact>summary::-webkit-details-marker{display:none}
+#app .sfx-library-compact>summary small{margin-left:auto;color:var(--mut,#8190a0);font-size:10px;font-weight:650}
+#app .sfx-library-compact>summary>b{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:rgba(125,150,175,.10);font-size:14px;transition:transform .18s ease}
+#app .sfx-library-compact[open]>summary>b{transform:rotate(180deg)}
+#app .sfx-prev-grid{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding:0 10px 10px;
+}
+#app .sfx-prev-grid .sfx-prev-btn{
+  min-width:0;min-height:28px;height:auto;padding:5px 6px;border-radius:8px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;line-height:1.15;
+}
+@media(max-width:760px){#app .sfx-prev-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}#app .sfx-prev-grid .sfx-prev-btn{font-size:9.5px;padding:5px 4px}}
+@media(max-width:380px){#app .sfx-prev-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+html[data-theme="light"] #app .sfx-library-compact{background:#f7f9fb;border-color:#e0e6ed}
+html[data-theme="light"] #app .sfx-library-compact>summary>b{background:#e9eef4;color:#546579}
+html[data-theme="purple"] #app .sfx-library-compact{background:rgba(18,12,28,.78);border-color:rgba(177,151,211,.2)}
+html[data-theme="purple"] #app .sfx-library-compact>summary>b{background:rgba(163,132,202,.13);color:#d9c9ee}
+
+/* v9: clearly visible monochrome architectural artwork for Light and Violet canvases. */
+html[data-theme="light"] body{
+  background-color:#f7f8fa!important;
+  background-image:
+    radial-gradient(ellipse at 12% 12%,rgba(255,255,255,.98) 0 10%,transparent 34%),
+    radial-gradient(ellipse at 88% 38%,rgba(226,231,237,.62) 0 9%,transparent 34%),
+    linear-gradient(135deg,transparent 0 48.8%,rgba(173,183,194,.20) 49% 49.18%,transparent 49.35%),
+    linear-gradient(45deg,transparent 0 68.8%,rgba(188,197,207,.18) 69% 69.18%,transparent 69.35%),
+    repeating-linear-gradient(0deg,rgba(133,147,162,.075) 0 1px,transparent 1px 54px),
+    repeating-linear-gradient(90deg,rgba(133,147,162,.075) 0 1px,transparent 1px 54px),
+    linear-gradient(145deg,#fbfcfd 0%,#f1f3f6 52%,#fafbfc 100%)!important;
+  background-attachment:fixed!important;
+}
+html[data-theme="light"] body::before{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  opacity:1!important;filter:none!important;animation:none!important;
+  background-image:
+    radial-gradient(circle at 14% 19%,transparent 0 74px,rgba(143,155,169,.24) 75px 76px,transparent 77px 112px,rgba(143,155,169,.15) 113px 114px,transparent 115px),
+    radial-gradient(circle at 88% 73%,transparent 0 104px,rgba(143,155,169,.20) 105px 106px,transparent 107px 151px,rgba(143,155,169,.13) 152px 153px,transparent 154px),
+    linear-gradient(120deg,transparent 0 19%,rgba(255,255,255,.88) 19.1% 19.8%,transparent 20%),
+    linear-gradient(300deg,transparent 0 73%,rgba(214,220,227,.38) 73.1% 73.7%,transparent 73.9%);
+}
+html[data-theme="light"] body::after{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  opacity:.72!important;filter:none!important;animation:none!important;
+  background-image:
+    linear-gradient(30deg,transparent 0 47%,rgba(150,161,174,.12) 47.1% 47.22%,transparent 47.35%),
+    linear-gradient(150deg,transparent 0 61%,rgba(150,161,174,.11) 61.1% 61.22%,transparent 61.35%),
+    radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.85),transparent 55%);
+}
+html[data-theme="light"] #app,
+html[data-theme="light"] header,
+html[data-theme="light"] footer.site-footer,
+html[data-theme="light"] .bottom-nav{position:relative;z-index:2}
+html[data-theme="purple"] body{
+  background-color:#030308!important;
+  background-image:
+    radial-gradient(ellipse at 14% 15%,rgba(80,49,123,.24),transparent 32%),
+    radial-gradient(ellipse at 86% 64%,rgba(72,43,112,.20),transparent 34%),
+    linear-gradient(145deg,#030308 0%,#080611 52%,#030308 100%)!important;
+}
+html[data-theme="purple"] body::before{opacity:1!important;background-size:100% 100%,100% 100%,100% 100%,auto!important}

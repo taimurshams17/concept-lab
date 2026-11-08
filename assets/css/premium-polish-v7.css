@@ -1,0 +1,169 @@
+/* ConceptLab v7 · balanced Hub controls, four-way Arcade navigation, visible daylight geometry and lean viewport rendering. */
+
+/* Student Hub toolkit: bring the launch tiles back to a comfortable middle size. */
+#app .hub-tool-launch-grid .hub-launch-tile{
+  min-height:86px!important;
+  padding:12px 27px 12px 11px!important;
+  gap:9px!important;
+  border-radius:13px!important;
+}
+#app .hub-tool-launch-grid .hub-launch-icon{
+  width:35px!important;height:35px!important;flex-basis:35px!important;font-size:17px!important;
+}
+#app .hub-tool-launch-grid .hub-launch-copy b{font-size:11.5px!important;line-height:1.36!important}
+#app .hub-tool-launch-grid .hub-launch-copy small{font-size:9px!important;line-height:1.42!important}
+@media(max-width:700px){
+  #app .hub-tool-launch-grid .hub-launch-tile{min-height:82px!important;padding:10px 24px 10px 9px!important;gap:8px!important;align-items:center!important}
+  #app .hub-tool-launch-grid .hub-launch-icon{width:32px!important;height:32px!important;flex-basis:32px!important;font-size:16px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy b{font-size:10.8px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy small{font-size:8.8px!important}
+}
+@media(max-width:430px){
+  #app .hub-tool-launch-grid .hub-launch-tile{min-height:76px!important;padding:9px 21px 9px 8px!important;gap:7px!important}
+  #app .hub-tool-launch-grid .hub-launch-icon{width:30px!important;height:30px!important;flex-basis:30px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy b{font-size:10.5px!important}
+  #app .hub-tool-launch-grid .hub-launch-copy small{font-size:8.6px!important}
+}
+
+/* Arcade: All + Games + Quiz + Simulation always remain on one row. */
+.arcade-page .ga-mode-deck{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;margin:0 0 16px!important;
+}
+.arcade-page .ga-mode-card{
+  min-height:92px!important;padding:12px 13px!important;gap:9px!important;border-radius:15px!important;
+}
+.arcade-page .ga-mode-copy b{font-size:14px!important}
+.arcade-page .ga-mode-copy small{font-size:9px!important}
+.arcade-page .ga-mode-copy em{font-size:8px!important}
+.arcade-page .ga-toolbar{
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto auto!important;
+  align-items:center!important;gap:9px!important;padding:10px!important;
+  border-radius:15px!important;box-shadow:0 8px 22px -20px rgba(22,36,54,.34)!important;
+}
+.arcade-page .ga-search{
+  min-width:0!important;min-height:46px!important;padding:0 13px!important;gap:10px!important;
+  border-radius:12px!important;box-shadow:inset 0 1px 2px rgba(20,35,52,.035)!important;
+}
+.arcade-page .ga-search>span{font-size:22px!important;line-height:1!important;opacity:.72}
+.arcade-page .ga-search input{font-size:13px!important;min-height:42px!important}
+.arcade-page .ga-subject-select-label{gap:7px!important;font-size:10px!important;white-space:nowrap}
+.arcade-page .ga-subject-select-label select{min-height:42px!important;max-width:158px!important;border-radius:11px!important;padding-left:10px!important;font-size:11px!important}
+.arcade-page .ga-catalog-count{
+  display:inline-flex!important;align-items:center!important;gap:4px!important;
+  min-height:34px;padding:0 10px;border:1px solid rgba(115,135,155,.16);border-radius:999px;
+  background:rgba(255,255,255,.56);white-space:nowrap;font-size:9px!important;
+}
+.arcade-page .ga-catalog-count b{font-size:12px!important}
+
+/* Theme-aware filter bar and category controls. */
+html[data-theme="light"] .arcade-page .ga-mode-card{background:linear-gradient(145deg,#fff,#f7f8fa)!important;border-color:#dfe4ea!important}
+html[data-theme="light"] .arcade-page .ga-mode-card.is-active{background:linear-gradient(145deg,#eef2f6,#fff)!important;border-color:#8294a8!important}
+html[data-theme="light"] .arcade-page .ga-toolbar{background:linear-gradient(145deg,#f3f5f7,#fff)!important;border-color:#dfe4ea!important}
+html[data-theme="light"] .arcade-page .ga-catalog-count{background:#fff!important;border-color:#e0e5eb!important}
+html[data-theme="dark"] .arcade-page .ga-toolbar{background:linear-gradient(145deg,#14283a,#101f2e)!important;border-color:#33495e!important}
+html[data-theme="dark"] .arcade-page .ga-catalog-count{background:#1a3044!important;border-color:#3b5368!important;color:#c7d5e1!important}
+html[data-theme="purple"] .arcade-page .ga-toolbar{background:linear-gradient(145deg,#21192e,#171220)!important;border-color:#493b5b!important}
+html[data-theme="purple"] .arcade-page .ga-catalog-count{background:#2d223c!important;border-color:#514164!important;color:#d0c2e2!important}
+@media(max-width:760px){
+  .arcade-page .ga-mode-deck{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;margin-bottom:13px!important}
+  .arcade-page .ga-mode-card{
+    display:flex!important;position:relative!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+    min-width:0!important;min-height:76px!important;padding:8px 3px 7px!important;gap:4px!important;border-radius:12px!important;text-align:center!important;
+  }
+  .arcade-page .ga-mode-icon{width:27px!important;height:27px!important;flex:0 0 27px!important;border-radius:9px!important;font-size:14px!important}
+  .arcade-page .ga-mode-copy{display:block!important;min-width:0!important;width:100%!important}
+  .arcade-page .ga-mode-copy b{display:block!important;font-size:9.5px!important;line-height:1.15!important;white-space:nowrap!important;letter-spacing:-.02em}
+  .arcade-page .ga-mode-copy small,.arcade-page .ga-mode-copy em{display:none!important}
+  .arcade-page .ga-mode-card>strong{position:absolute!important;top:3px!important;right:4px!important;min-width:16px!important;height:16px!important;padding:0 4px!important;font-size:8px!important;line-height:16px!important}
+  .arcade-page .ga-toolbar{grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;padding:9px!important;margin-bottom:15px!important}
+  .arcade-page .ga-search{grid-column:1/-1!important;width:100%!important;min-height:45px!important;padding:0 11px!important}
+  .arcade-page .ga-search input{font-size:12px!important}
+  .arcade-page .ga-subject-select-label{justify-self:start!important;gap:6px!important;font-size:9px!important}
+  .arcade-page .ga-subject-select-label select{max-width:145px!important;min-height:38px!important;font-size:10px!important;padding:0 24px 0 8px!important}
+  .arcade-page .ga-catalog-count{justify-self:end!important;min-height:31px!important;padding:0 8px!important;font-size:8px!important}
+  .arcade-page .ga-catalog-count b{font-size:11px!important}
+}
+@media(max-width:360px){
+  .arcade-page .ga-mode-deck{gap:5px!important}
+  .arcade-page .ga-mode-card{min-height:71px!important;padding:7px 2px 6px!important}
+  .arcade-page .ga-mode-icon{width:24px!important;height:24px!important;flex-basis:24px!important;font-size:12px!important}
+  .arcade-page .ga-mode-copy b{font-size:8.5px!important}
+  .arcade-page .ga-mode-card>strong{top:2px!important;right:3px!important;min-width:14px!important;height:14px!important;font-size:7px!important;line-height:14px!important}
+  .arcade-page .ga-subject-select-label select{max-width:128px!important}
+}
+
+/* Light home canvas: visible monochrome geometry, rings and soft architectural panels. */
+html[data-theme="light"] body{
+  background-color:#f1f3f5!important;
+  background-image:linear-gradient(138deg,#fff 0%,#f3f5f7 48%,#eceff2 100%)!important;
+  background-attachment:scroll!important;
+}
+html[data-theme="light"] body::before{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  opacity:.94!important;filter:none!important;animation:none!important;
+  background-image:
+    radial-gradient(ellipse 31% 24% at 88% 12%,transparent 58%,rgba(90,99,110,.20) 58.4% 58.9%,transparent 59.3% 72%,rgba(90,99,110,.12) 72.4% 72.8%,transparent 73.2%),
+    radial-gradient(ellipse 26% 20% at 8% 76%,transparent 60%,rgba(94,103,114,.15) 60.5% 61%,transparent 61.5% 78%,rgba(94,103,114,.10) 78.5% 79%,transparent 79.5%),
+    linear-gradient(135deg,transparent 0 37%,rgba(102,110,120,.06) 37.15% 37.45%,transparent 37.6% 100%),
+    repeating-linear-gradient(135deg,rgba(89,97,108,.055) 0 1px,transparent 1px 24px),
+    radial-gradient(circle,rgba(78,87,98,.14) 1px,transparent 1.45px);
+  background-size:100% 100%,100% 100%,100% 100%,180px 180px,22px 22px;
+  background-position:center,center,center,28px 18px,0 0;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.92),rgba(0,0,0,.48) 60%,rgba(0,0,0,.78));
+}
+html[data-theme="light"] body::after{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  opacity:.88!important;animation:none!important;
+  background-image:
+    linear-gradient(90deg,transparent 0 8%,rgba(89,98,109,.055) 8.1% 8.22%,transparent 8.35% 91.5%,rgba(89,98,109,.05) 91.6% 91.72%,transparent 91.85%),
+    linear-gradient(0deg,transparent 0 14%,rgba(89,98,109,.045) 14.1% 14.22%,transparent 14.35% 86%,rgba(89,98,109,.045) 86.1% 86.22%,transparent 86.35%),
+    radial-gradient(circle at 78% 76%,transparent 0 48px,rgba(94,102,112,.12) 49px 50px,transparent 51px 74px,rgba(94,102,112,.08) 75px 76px,transparent 77px),
+    radial-gradient(ellipse at 22% 28%,rgba(255,255,255,.8),transparent 45%);
+}
+html[data-theme="light"] #app{position:relative;z-index:1}
+html[data-theme="light"] body>header,html[data-theme="light"] .bottom-nav,html[data-theme="light"] .site-footer{position:relative;z-index:2}
+
+/* Stronger colour in the Violet theme swatch preview (the live palette remains unchanged). */
+.px-theme-violet .px-theme-preview{
+  background:linear-gradient(132deg,#090511 0%,#211039 40%,#4e247f 74%,#170d2b 100%)!important;
+  border-color:#9b76df!important;
+}
+.px-theme-violet .px-theme-preview::before{background:linear-gradient(145deg,#8750d2,#2b1747 78%)!important}
+.px-theme-violet .px-theme-preview i{background:#a66cff!important;box-shadow:0 0 11px rgba(166,108,255,.62)!important}
+.px-theme-violet .px-theme-preview b{background:#ead9ff!important;box-shadow:0 0 13px rgba(220,196,255,.5)!important}
+.px-theme-violet .px-theme-preview em{background:#60339a!important}
+.px-theme-violet[aria-pressed="true"]{border-color:#a879f1!important;box-shadow:0 0 0 2px rgba(157,105,230,.22)!important}
+html[data-theme="light"] .px-accent-section.is-locked{border-color:#dfe3e8!important;background:#f6f7f9!important}
+html[data-theme="light"] .px-accent-section.is-locked .px-accent-status{color:#687482!important}
+
+/* Hero artwork has its own child motion; large parent cards remain stable. */
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-radar{animation:clRadarPulse 5s ease-in-out infinite}
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-orbit-a{animation:clLightOrbit 14s linear infinite}
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-orbit-b{animation:clLightOrbit 19s linear infinite reverse}
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-prism{animation:clPrismFloat 6s ease-in-out infinite}
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-prism>i{animation:clPrismPulse 2.5s ease-in-out infinite}
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-node{animation:clNodeFloat 5s ease-in-out infinite}
+html[data-theme="light"] #app[data-page="home"] .hero-visual-stage .cl-light-sweep{animation:clSilverSweep 4.5s ease-in-out infinite}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-halo{animation:clVioletHalo 7s ease-in-out infinite}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-orbit-a{animation:clLightOrbit 21s linear infinite}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-orbit-b{animation:clLightOrbit 29s linear infinite reverse}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-core{animation:clVioletCore 7s ease-in-out infinite}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-node{animation:clNodeFloat 6s ease-in-out infinite}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-constellation i{animation:clPrismPulse 3.3s ease-in-out infinite}
+html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .cl-violet-sweep{animation:clSilverSweep 6s ease-in-out infinite}
+html[data-theme="light"] #app[data-page="home"] .cl-motion-paused :is(.cl-light-radar,.cl-light-orbit,.cl-light-prism,.cl-light-prism>i,.cl-light-node,.cl-light-sweep),
+html[data-theme="purple"] #app[data-page="home"] .cl-motion-paused :is(.cl-violet-halo,.cl-violet-orbit,.cl-violet-core,.cl-violet-node,.cl-violet-constellation i,.cl-violet-sweep){animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="light"] #app[data-page="home"] .hero-visual-stage :is(.cl-light-radar,.cl-light-orbit,.cl-light-prism,.cl-light-prism>i,.cl-light-node,.cl-light-sweep),
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage :is(.cl-violet-halo,.cl-violet-orbit,.cl-violet-core,.cl-violet-node,.cl-violet-constellation i,.cl-violet-sweep){animation:none!important;transition:none!important}
+}
+
+/* Keep below-fold sections cheap to render while retaining every animation when scrolled near. */
+@supports(content-visibility:auto){
+  #app[data-page="home"] :is(.sec-stages,.sec-features,.sec-sims,.home-brain-sprint,.home-science-outro,.home-games,.home-lab,.home-final-cta){content-visibility:auto!important;contain-intrinsic-size:auto 540px}
+  #app[data-page="play"] .arcade-page .ga-subject-block{content-visibility:auto!important;contain-intrinsic-size:auto 980px}
+  #app[data-page="play"] .arcade-page .ga-howto{content-visibility:auto!important;contain-intrinsic-size:auto 300px}
+  #app .hub-dashboard .hub-tool-group{content-visibility:auto!important;contain-intrinsic-size:auto 430px}
+  html[data-theme="light"] #app :is(.sec-stages,.sec-features,.sec-sims,.home-brain-sprint,.home-science-outro,.home-games,.home-lab,.home-final-cta){content-visibility:auto!important}
+}

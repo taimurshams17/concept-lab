@@ -420,7 +420,7 @@
       content: s.defaultContentWidth || 'standard'
     }, jget('clpx_prefs', {}));
   }
-  /* Three complete visual modes: Light, Dark and Black + Purple glass. */
+  /* Three complete visual modes: Light, Dark and Violet. */
   function applyTheme(t) {
     var theme = t === 'light' ? 'light' : (t === 'purple' ? 'purple' : 'dark');
     var root = document.documentElement;
@@ -429,9 +429,9 @@
     var lc = document.getElementById('clLightCss'); if (lc) lc.media = theme === 'light' ? 'all' : 'not all';
     /* Remove CMS inline colour tokens in the Purple mode so its palette can be authoritative. */
     if (theme !== 'purple' && window.__clBaseTheme) { var base = window.__clBaseTheme; ['p','s','a','bg','glow'].forEach(function (k) { if (/^#[0-9a-f]{6}$/i.test(base[k] || '')) root.style.setProperty('--' + k, base[k]); }); }
-    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', theme === 'light' ? '#f2f7fd' : (theme === 'purple' ? '#09070f' : '#000000'));
+    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', theme === 'light' ? '#f2f7fd' : (theme === 'purple' ? '#05040a' : '#000000'));
     if (window.FX && typeof FX.setTheme === 'function') {
-      var palette = theme === 'purple' ? { p: '#a78bfa', s: '#ddd6fe', fx: prefs().fx ? 'on' : 'off' } :
+      var palette = theme === 'purple' ? { p: '#9078cd', s: '#b7a8e6', fx: 'off' } :
         (theme === 'dark' ? (function () { var map = { sky:['#38bdf8','#7dd3fc'], violet:['#a78bfa','#c4b5fd'], emerald:['#34d399','#6ee7b7'], rose:['#fb7185','#fda4af'], amber:['#fbbf24','#fcd34d'] }; var c = map[prefs().accent] || map.sky; return { p:c[0], s:c[1], fx:prefs().fx ? 'on' : 'off' }; })() : null);
       if (palette) FX.setTheme(palette);
     }
@@ -489,19 +489,9 @@
       '<section class="px-pref-section px-theme-section"><h3>Theme</h3><p>Choose a visual space that feels comfortable for studying.</p><div class="px-theme-choice" role="group" aria-label="Theme">' +
       '<button type="button" class="px-theme-btn px-theme-light" data-pxtheme="light" aria-pressed="' + (p.theme === 'light') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Light</b><small>Daylight · calm &amp; clear</small></span></button>' +
       '<button type="button" class="px-theme-btn px-theme-dark" data-pxtheme="dark" aria-pressed="' + (p.theme === 'dark') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Dark</b><small>Deep space · sky glow</small></span></button>' +
-      '<button type="button" class="px-theme-btn px-theme-purple" data-pxtheme="purple" aria-pressed="' + (p.theme === 'purple') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Black + Purple</b><small>Violet light beam · glowing glass</small></span></button>' +
+      '<button type="button" class="px-theme-btn px-theme-violet" data-pxtheme="purple" aria-pressed="' + (p.theme === 'purple') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Violet</b><small>Balanced violet · calm surfaces</small></span></button>' +
       '</div><p class="px-theme-tip"><span aria-hidden="true">✦</span> Your selected theme is saved on this device.</p></section>' +
-      '<section class="px-pref-section px-accent-section"><h3>Accent colour</h3><p>Button, highlight and glow colours. <span class="px-accent-lock">Light theme uses its Daylight Cosmos palette; accent colours apply to the Dark theme.</span></p><div class="px-swatches" role="group" aria-label="Accent colour">' + ACCENTS.map(function (a) { return '<button type="button" class="px-swatch" data-pxacc="' + a[0] + '" aria-pressed="' + (p.accent === a[0]) + '" aria-label="' + a[1] + '" style="--c1:' + a[2] + ';--c2:' + a[3] + '"><span>' + a[1] + '</span></button>'; }).join('') + '</div></section>' +
-      '<section class="px-pref-section"><h3>Fonts · ফন্ট</h3><p>বাংলা ও English ফন্ট আলাদাভাবে বেছে নিন। একটি বদলালে অন্যটি বদলাবে না।</p>' +
-      '<label class="px-pref-label">বাংলা ফন্ট (শুধু বাংলা অক্ষর)<select class="px-in" data-pxpref="bnFont">' +
-      [['hind','Hind Siliguri · পরিষ্কার ও আধুনিক'],['noto','Noto Sans Bengali · সহজপাঠ্য'],['notoserif','Noto Serif Bengali · Serif'],['anek','Anek Bangla · Contemporary'],['atma','Atma · Rounded'],['baloo','Baloo Da 2 · Friendly'],['mina','Mina · Bengali text'],['tiro','Tiro Bangla · Serif'],['galada','Galada · Decorative'],['mukti','Mukti · Classic'],['kalpurush','Kalpurush · যদি ডিভাইসে থাকে'],['solaiman','SolaimanLipi · যদি ডিভাইসে থাকে'],['system','System Bengali fallback']].map(function (f) { return '<option value="' + f[0] + '" ' + (p.bnFont === f[0] ? 'selected' : '') + '>' + E(f[1]) + '</option>'; }).join('') +
-      '</select><small class="px-note">বাংলা অক্ষরের জন্যই এই নির্বাচন প্রযোজ্য। কিছু স্থানীয় ফন্ট ডিভাইসে ইনস্টল থাকা প্রয়োজন।</small></label>' +
-      '<label class="px-pref-label">English font (English letters only)<select class="px-in" data-pxpref="enFont">' +
-      [['inter','Inter · Clean UI'],['manrope','Manrope · Modern'],['roboto','Roboto · Familiar'],['poppins','Poppins · Geometric'],['lora','Lora · Editorial serif'],['amiri','Amiri · Classic serif'],['serif','Georgia · System serif'],['system','System default']].map(function (f) { return '<option value="' + f[0] + '" ' + (p.enFont === f[0] ? 'selected' : '') + '>' + E(f[1]) + '</option>'; }).join('') +
-      '</select><small class="px-note">This choice changes English/Latin letters only, not Bengali glyphs.</small></label></section>' +
-      '<section class="px-pref-section"><h3>Text size</h3><p>Adjust the overall interface scale for your screen.</p><label class="px-pref-label">Text scaling<select class="px-in" data-pxpref="scale"><option value="90" ' + (String(p.scale) === '90' ? 'selected' : '') + '>Small · 90%</option><option value="95" ' + (String(p.scale) === '95' ? 'selected' : '') + '>Compact · 95%</option><option value="100" ' + (String(p.scale) === '100' ? 'selected' : '') + '>Standard · 100%</option><option value="105" ' + (String(p.scale) === '105' ? 'selected' : '') + '>Large · 105%</option><option value="110" ' + (String(p.scale) === '110' ? 'selected' : '') + '>Extra large · 110%</option><option value="120" ' + (String(p.scale) === '120' ? 'selected' : '') + '>Largest · 120%</option></select></label></section>' +
-      '<section class="px-pref-section"><h3>Reading & language</h3><p>আরও আরামদায়কভাবে পড়ুন।</p><label class="px-pref-label">Lesson line spacing<select class="px-in" data-pxpref="line"><option value="normal" ' + (p.line === 'normal' ? 'selected' : '') + '>Normal</option><option value="relaxed" ' + (p.line === 'relaxed' ? 'selected' : '') + '>Relaxed · পড়তে আরাম</option><option value="tight" ' + (p.line === 'tight' ? 'selected' : '') + '>Tight · বেশি কনটেন্ট</option></select></label><label class="px-pref-label">Interface language<select class="px-in" data-pxpref="language"><option value="mixed" ' + ((p.language || 'mixed') === 'mixed' ? 'selected' : '') + '>বাংলা + English</option><option value="bn" ' + (p.language === 'bn' ? 'selected' : '') + '>বাংলা অগ্রাধিকার</option><option value="en" ' + (p.language === 'en' ? 'selected' : '') + '>English অগ্রাধিকার</option></select></label></section>' +
-      '<section class="px-pref-section"><h3>Layout</h3><p>Choose comfortable or compact spacing.</p><label class="px-pref-label">Card spacing<select class="px-in" data-pxpref="density"><option value="comfortable" ' + (p.density === 'comfortable' ? 'selected' : '') + '>Comfortable</option><option value="compact" ' + (p.density === 'compact' ? 'selected' : '') + '>Compact · save screen space</option></select></label><label class="px-pref-label">Content width<select class="px-in" data-pxpref="content"><option value="narrow" ' + (p.content === 'narrow' ? 'selected' : '') + '>Narrow · focused reading</option><option value="standard" ' + (p.content === 'standard' ? 'selected' : '') + '>Standard</option><option value="wide" ' + (p.content === 'wide' ? 'selected' : '') + '>Wide</option></select></label><label class="px-pref-label">Corner style<select class="px-in" data-pxpref="corners"><option value="rounded" ' + (p.corners === 'rounded' ? 'selected' : '') + '>Rounded</option><option value="crisp" ' + (p.corners === 'crisp' ? 'selected' : '') + '>Crisp · less rounded</option></select></label></section>' +
+      '<section class="px-pref-section px-accent-section' + (p.theme !== 'dark' ? ' is-locked' : '') + '"><div class="px-accent-heading"><h3>Accent colour</h3><span class="px-accent-status" aria-live="polite">' + (p.theme === 'purple' ? 'OFF · VIOLET' : (p.theme === 'light' ? 'FIXED · LIGHT' : 'AVAILABLE')) + '</span></div><p>Button, highlight and glow colours. <span class="px-accent-lock">' + (p.theme === 'purple' ? 'Violet uses its coordinated palette; custom accent colours are switched off.' : (p.theme === 'light' ? 'Light uses its fixed neutral palette. Custom accent colours are available in Dark theme.' : 'Choose an accent colour for buttons and highlights.')) + '</span></p><div class="px-swatches" role="group" aria-label="Accent colour">' + ACCENTS.map(function (a) { return '<button type="button" class="px-swatch" data-pxacc="' + a[0] + '" ' + (p.theme !== 'dark' ? 'disabled aria-disabled="true"' : '') + ' aria-pressed="' + (p.accent === a[0]) + '" aria-label="' + a[1] + '" style="--c1:' + a[2] + ';--c2:' + a[3] + '"><span>' + a[1] + '</span></button>'; }).join('') + '</div></section>' +
       '<section class="px-pref-section"><h3>Motion & accessibility</h3>' +
       '<div class="px-switch"><div><b>Animated background</b><small>Stars and horizon glow</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="fx" aria-checked="' + (!!p.fx) + '" aria-label="Animated background"></button></div>' +
       '<div class="px-switch"><div><b>Calm mode</b><small>Reduces animation and transitions</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="calm" aria-checked="' + (!!p.calm) + '" aria-label="Calm mode"></button></div>' +
@@ -516,7 +506,7 @@
     var backLink = '<a class="px-settings-back" href="' + E(back) + '">← ফিরে যান</a>';
     if (!flagOn(settings().allowGuestSettings) && !s) return '<section class="px-page px-settings-page">' + backLink + '<h1>Settings</h1><p class="lead">ব্যক্তিগত Settings ব্যবহার করতে সাইন ইন করুন।</p><a class="px-btn pri" href="#/account/signin">Sign in</a></section>';
     return '<section class="px-page px-settings-page">' + backLink + '<h1>' + E(settingText('settingsTitle', 'Settings — your learning space')) + '</h1>' +
-      '<p class="lead">' + E(settingText('settingsIntro', 'অ্যাকাউন্ট ছাড়াই ওয়েবসাইটের ফন্ট, টেক্সট সাইজ, রং, লেআউট ও অ্যানিমেশন বদলাতে পারবেন। পরিবর্তন এই ডিভাইসে সংরক্ষিত হবে।')) + '</p>' +
+      '<p class="lead">' + E(settingText('settingsIntro', 'অ্যাকাউন্ট ছাড়াই থিম, Accent colour, অ্যানিমেশন ও সাউন্ড সেটিংস পরিবর্তন করুন। পছন্দগুলো এই ডিভাইসে সংরক্ষিত হবে।')) + '</p>' +
       '<div class="px-panel px-set">' + prefOptions() + '<div class="px-settings-actions">' + (s ? '<a class="px-btn" href="#/profile">My profile</a><a class="px-btn" href="#/edit-profile">Edit profile</a>' : '<a class="px-btn" href="#/account/signup">Create an account (optional)</a>') + '</div><section><button type="button" class="px-btn" data-pxreset>Reset preferences</button></section></div>' +
       '<p class="px-note" style="margin-top:14px">প্রাইভেসি নোট: এই পছন্দগুলো লোকাল ব্রাউজার স্টোরেজে থাকে; পাসওয়ার্ড বা ব্যক্তিগত তথ্য এখানে চাওয়া হয় না।</p></section>';
   }
@@ -531,7 +521,15 @@
         var chosenTheme = th.getAttribute('data-pxtheme');
         p.theme = ['light','dark','purple'].indexOf(chosenTheme) >= 0 ? chosenTheme : 'dark'; jset('clpx_prefs', p); applyPrefs();
         $$('.px-theme-btn', app).forEach(function (b) { b.setAttribute('aria-pressed', b === th ? 'true' : 'false'); });
-        toast(p.theme === 'light' ? 'Light theme on' : (p.theme === 'purple' ? 'Black + Purple theme on' : 'Dark theme on'));
+        var accentSection = $('.px-accent-section', app), accentLocked = p.theme !== 'dark';
+        if (accentSection) {
+          accentSection.classList.toggle('is-locked', accentLocked);
+          var accentStatus = $('.px-accent-status', accentSection), accentNote = $('.px-accent-lock', accentSection);
+          if (accentStatus) accentStatus.textContent = p.theme === 'purple' ? 'OFF · VIOLET' : (p.theme === 'light' ? 'FIXED · LIGHT' : 'AVAILABLE');
+          if (accentNote) accentNote.textContent = p.theme === 'purple' ? 'Violet uses its coordinated palette; custom accent colours are switched off.' : (p.theme === 'light' ? 'Light uses its fixed neutral palette. Custom accent colours are available in Dark theme.' : 'Choose an accent colour for buttons and highlights.');
+          $$('[data-pxacc]', accentSection).forEach(function (b) { b.disabled = accentLocked; if (accentLocked) b.setAttribute('aria-disabled', 'true'); else b.removeAttribute('aria-disabled'); });
+        }
+        toast(p.theme === 'light' ? 'Light theme on' : (p.theme === 'purple' ? 'Violet theme on · Accent colour off' : 'Dark theme on'));
       } else if (a) {
         p.accent = a.getAttribute('data-pxacc'); jset('clpx_prefs', p); applyPrefs();
         $$('.px-swatch', app).forEach(function (b) { b.setAttribute('aria-pressed', b === a); }); toast('Accent colour saved');
@@ -559,7 +557,7 @@
     ['#/solver', '🧮', 'Formula Solver', FORMS.length+' formulas across Physics, Chemistry and Math, solved step by step.', '#38bdf8'],
     ['#/reference', '📚', 'Reference Shelf', 'Constants, ions, identities and prefixes — searchable and copy-ready.', '#34d399'],
     ['#/share-card', '🏅', 'Progress Card', 'Turn your level, XP and streak into a shareable image.', '#fbbf24'],
-    ['#/settings', '⚙️', 'Settings', 'Fonts, text size, contrast and responsive layout.', '#fb7185']
+    ['#/settings', '⚙️', 'Settings', 'Theme, accent colour, sound and motion preferences.', '#fb7185']
   ];
   function powerStrip(app) {
     if ($('.px-power', app) || !flagOn(settings().premiumHome)) return;

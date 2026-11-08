@@ -79,3 +79,20 @@ The admin panel edits published content; application code, styles, and new funct
 - Each case has its own labelled diagram, formula, live numerical result, relevant controls, and a short Bengali explanation. Parallel-axis calculations use a solid disc as the worked example; the perpendicular-axis model uses a rectangular lamina.
 - The object diagrams rotate gently and can be paused or reset. Animation is limited to 30 redraws per second, pauses when the lab is off-screen or the document is hidden, and respects reduced-motion preferences.
 - The Simulation subject selectors and show-all control now use a more consistent dark-blue glass treatment with restrained cyan accents.
+
+
+## Premium refinement v8 (2026-11)
+
+- Increased Student Hub Toolkit tile size modestly while keeping the compact responsive layout.
+- Home-page LIVE COUNTS now count up when each metric actually enters the viewport, consistently across Light, Dark, and Violet themes.
+- Replaced Arcade's All sparkle with a dedicated four-square grid icon.
+- Updated Violet's canvas to a near-black base with visible, restrained geometric ring and line patterns.
+- Removed Fonts, Text size, Reading & language, and Layout panels from Settings without removing the underlying saved preference compatibility.
+- Collapsed the 26-item Sound Library by default and arranged previews in a compact responsive chip grid.
+- Bumped the service-worker cache version and script/style cache keys to ensure clients receive the new assets.
+
+### Verification
+- `npm run check` — JavaScript syntax checks.
+- `npm run check:games` — Arcade registry integrity.
+- CSS parsed with `tinycss2` (all stylesheets).
+- `npm run build` — static production build.

@@ -53,11 +53,11 @@
   function buildFooterDecor() {
     var f = doc.querySelector('footer.site-footer');
     if (!f || f.querySelector('.pf-deco')) return;
-    var names = ['atom', 'flask', 'book', 'bulb', 'gear', 'cap', 'pencil', 'calc', 'dna', 'globe'];
+    var names = ['atom', 'flask', 'book', 'bulb', 'gear', 'cap', 'pencil', 'calc', 'dna', 'globe', 'prism', 'magnet', 'ruler', 'pi', 'clip', 'beaker'];
     var cols = ['#7dd3fc', '#fda4af', '#fde68a', '#86efac', '#c4b5fd', '#fdba74', '#67e8f9', '#f9a8d4'];
     var x = '<div class="pf-deco" aria-hidden="true">';
     names.forEach(function (n, i) {
-      x += '<span style="left:' + (4 + i * 10.4) + '%;top:' + (i % 2 ? 62 : 8) + '%;--sz:' + (34 + (i % 3) * 12) + 'px;--c:' + cols[i % cols.length] + ';--de:-' + (i * 1.7) + 's;--rot:' + (i % 2 ? 12 : -12) + 'deg">' + ico(n) + '</span>';
+      x += '<span style="left:' + (3 + (i % 8) * 13.2) + '%;top:' + (i < 8 ? 9 : 61) + '%;--sz:' + (28 + (i % 3) * 11) + 'px;--c:' + cols[i % cols.length] + ';--de:-' + (i * 1.2) + 's;--rot:' + (i % 2 ? 12 : -12) + 'deg">' + ico(n) + '</span>';
     });
     x += '</div><div class="pf-rainbow" aria-hidden="true"></div>';
     f.insertAdjacentHTML('afterbegin', x);

@@ -102,7 +102,8 @@ if(!lowPower)addEventListener('pointermove',function(e){tx=(e.clientX/innerWidth
 /* Custom cursor removed: use the browser-native cursor. */
 /* ---------- reveal + counters ---------- */
 var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);var cs=e.target.querySelectorAll('[data-count]');cs.forEach(count);if(e.target.hasAttribute('data-count'))count(e.target)}})},{threshold:.02,rootMargin:'0px 0px 680px 0px'}):null;
-function count(el){if(el._c)return;el._c=1;var to=+el.getAttribute('data-count')||0,t0=performance.now(),d=reduce?0:1100;(function f(n){var p=d?Math.min(1,(n-t0)/d):1;p=1-Math.pow(1-p,3);el.textContent=Math.round(to*p).toLocaleString();if(p<1&&el.isConnected)requestAnimationFrame(f)})(t0)}
+var statCountIO=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){statCountIO.unobserve(e.target);count(e.target,true)}})},{threshold:.32,rootMargin:'0px 0px -6% 0px'}):null;
+function count(el,force){if(el._c)return;var isHomeStat=!!(el.closest&&el.closest('.home-stats-section'));if(isHomeStat&&!force&&statCountIO){if(!el._statObserved){el._statObserved=true;statCountIO.observe(el)}return;}el._c=1;var to=+el.getAttribute('data-count')||0,t0=performance.now(),d=reduce?0:(isHomeStat?1650:1100);(function f(n){var p=d?Math.min(1,(n-t0)/d):1;p=1-Math.pow(1-p,3);el.textContent=Math.round(to*p).toLocaleString();if(p<1&&el.isConnected)requestAnimationFrame(f)})(t0)}
 function scan(root){
  root=root||document;
  var list=root.querySelectorAll('.rv:not(.in)'),instant=!isLightTheme();
