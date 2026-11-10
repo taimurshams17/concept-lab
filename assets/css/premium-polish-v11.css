@@ -1,0 +1,193 @@
+/* ConceptLab v11 — centered gold creator portraits + distinct bilingual motivation typography. */
+
+/* About: one centered portrait ring, no competing cyan/pink/purple halos. */
+#app .creator-profile{
+  align-items:center!important;
+  text-align:center!important;
+}
+#app .creator-avatar-ring{
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+  width:94px!important;
+  height:94px!important;
+  min-width:94px!important;
+  min-height:94px!important;
+  flex:0 0 94px!important;
+  box-sizing:border-box!important;
+  margin:0 auto!important;
+  padding:4px!important;
+  border-radius:50%!important;
+  isolation:isolate!important;
+  overflow:visible!important;
+  transform:none!important;
+  animation:none!important;
+  background:conic-gradient(from 218deg,
+    #76551b 0deg,
+    #b98b2e 54deg,
+    #f6e5a5 112deg,
+    #d5ad55 170deg,
+    #8f6a22 236deg,
+    #c79a3c 302deg,
+    #76551b 360deg
+  )!important;
+  box-shadow:
+    0 0 0 1px rgba(255,239,190,.72),
+    0 0 0 4px rgba(195,151,55,.12),
+    0 8px 22px rgba(0,0,0,.24)!important;
+}
+#app .creator-avatar-ring::before{
+  content:none!important;
+  display:none!important;
+  filter:none!important;
+  animation:none!important;
+}
+#app .creator-avatar-ring::after{
+  content:""!important;
+  position:absolute!important;
+  inset:-3px!important;
+  border:1px solid rgba(220,188,111,.66)!important;
+  border-radius:50%!important;
+  box-shadow:0 0 0 1px rgba(255,245,215,.10)!important;
+  pointer-events:none!important;
+}
+#app .creator-avatar-ring img{
+  position:absolute!important;
+  inset:4px!important;
+  display:block!important;
+  width:calc(100% - 8px)!important;
+  height:calc(100% - 8px)!important;
+  min-width:0!important;
+  min-height:0!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  border:2px solid rgba(255,245,216,.96)!important;
+  border-radius:50%!important;
+  object-fit:cover!important;
+  object-position:50% 36%!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+  z-index:2!important;
+  background:#14202d!important;
+}
+#app .creator-avatar-ring .creator-avatar-fallback{
+  position:absolute!important;
+  inset:4px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:2px solid rgba(255,245,216,.96)!important;
+  border-radius:50%!important;
+  z-index:1!important;
+}
+#app .creator-avatar-ring.image-loaded .creator-avatar-fallback{display:none!important}
+#app .creator-spark{display:none!important;animation:none!important}
+#app .creator-profiles{align-items:start!important}
+#app .creator-profile-meta{width:100%!important;text-align:center!important}
+#app .creator-team-section{
+  border-color:rgba(190,151,65,.34)!important;
+  box-shadow:inset 0 1px 0 rgba(255,239,190,.08),0 14px 38px rgba(0,0,0,.17)!important;
+}
+#app .creator-profile{
+  border-color:rgba(190,151,65,.25)!important;
+  background:linear-gradient(145deg,rgba(31,37,47,.94),rgba(13,20,30,.96))!important;
+  box-shadow:inset 0 1px 0 rgba(255,244,211,.055),0 10px 24px rgba(0,0,0,.16)!important;
+}
+#app .creator-profile:hover{
+  border-color:rgba(221,184,99,.62)!important;
+  box-shadow:0 12px 26px rgba(0,0,0,.22),0 0 22px rgba(201,158,68,.09)!important;
+}
+#app .creator-profile-meta h3{color:#f3e7c8!important}
+#app .creator-profile-meta span{
+  color:#e4d2a5!important;
+  border-color:rgba(205,168,83,.35)!important;
+  background:linear-gradient(135deg,rgba(177,133,45,.12),rgba(246,222,157,.07))!important;
+}
+#app .creator-note{color:#c6c3b8!important}
+
+/* Light theme: clean ivory panels with restrained antique-gold accents. */
+html[data-theme="light"] #app .creator-team-section{
+  background:radial-gradient(ellipse at 50% 0,rgba(214,177,92,.12),transparent 52%),linear-gradient(145deg,#fffefa,#fbf8ef)!important;
+  border-color:rgba(173,132,43,.38)!important;
+  box-shadow:0 18px 42px -28px rgba(113,82,20,.22),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] #app .creator-profile{
+  background:linear-gradient(145deg,#fffefa,#f8f3e6)!important;
+  border-color:rgba(177,139,57,.32)!important;
+  box-shadow:0 10px 24px -18px rgba(113,82,20,.28),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] #app .creator-avatar-ring img{
+  border-color:#fffdf6!important;
+  background:#f7f1e2!important;
+}
+html[data-theme="light"] #app .creator-profile-meta h3{color:#453516!important}
+html[data-theme="light"] #app .creator-profile-meta span{
+  color:#785a1c!important;
+  border-color:rgba(177,139,57,.34)!important;
+  background:linear-gradient(135deg,#fff9e8,#f5ebce)!important;
+}
+html[data-theme="light"] #app .creator-note{color:#665a41!important}
+
+/* Violet theme: keep its dark glass look, but let gold be the only portrait accent. */
+html[data-theme="purple"] #app .creator-team-section{border-color:rgba(190,151,65,.34)!important}
+html[data-theme="purple"] #app .creator-profile{
+  background:linear-gradient(145deg,rgba(26,24,34,.96),rgba(12,12,19,.98))!important;
+  border-color:rgba(190,151,65,.26)!important;
+}
+html[data-theme="purple"] #app .creator-profile-meta h3{color:#f3e7c8!important}
+
+/* Bilingual Daily Inspiration: Bengali uses the named local font; English gets a dedicated display face. */
+#app .motivation-section .motivation-quote-bn{
+  font-family:var(--font-nakshatra)!important;
+  font-size:clamp(22px,3.6vw,32px)!important;
+  font-weight:400!important;
+  line-height:1.75!important;
+  letter-spacing:0!important;
+}
+#app .motivation-section .motivation-quote-en{
+  font-family:"Cormorant Garamond","Lora",Georgia,serif!important;
+  font-size:clamp(27px,4.1vw,38px)!important;
+  font-weight:600!important;
+  font-style:italic!important;
+  line-height:1.28!important;
+  letter-spacing:.005em!important;
+}
+#app .motivation-section .motivation-author,
+#app .motivation-section .motivation-pill-label{
+  font-family:"Cormorant Garamond","Lora",Georgia,serif!important;
+  font-weight:600!important;
+  letter-spacing:.035em!important;
+}
+#app .motivation-section .motivation-author{font-size:clamp(17px,2.3vw,21px)!important}
+#app .motivation-section .motivation-pill-label{font-size:12px!important}
+#app .ah-meaning,
+#app .ah-meaning>span,
+#app .ah-meaning>p,
+#app .ah-topic,
+#app .ah-reference,
+#app .ah-footnote,
+#app .ah-kind,
+#app .ah-section-head h2,
+#app .ayat-hadith-section h2{
+  font-family:var(--font-nakshatra)!important;
+}
+#app .ah-meaning>p{font-size:clamp(18px,2.6vw,23px)!important;line-height:1.9!important;font-weight:400!important}
+#app .ah-meaning>span{font-size:clamp(14px,1.7vw,17px)!important;line-height:1.6!important;font-weight:500!important;letter-spacing:0!important}
+#app .motivation-section h2,
+#app .motivation-bottomline,
+#app .sh2 h2,
+#app .sec-head h2,
+#app .hub-tool-page>h1,
+#app .sr-quote p,
+#app .sr-spot h2,
+#app .hub-group-head h2,
+#app .hub-tool-box>h2{
+  font-family:var(--font-nakshatra)!important;
+  letter-spacing:0!important;
+}
+@media(max-width:520px){
+  #app .creator-avatar-ring{width:88px!important;height:88px!important;min-width:88px!important;min-height:88px!important;flex-basis:88px!important}
+  #app .creator-profile{padding:15px 9px 13px!important}
+  #app .motivation-section .motivation-quote-en{font-size:clamp(25px,7vw,32px)!important}
+}

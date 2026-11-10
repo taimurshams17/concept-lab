@@ -1,0 +1,190 @@
+/* ConceptLab v10 · compact hero, clearer Hub spotlight, premium feature discovery,
+   aqua / ice / deep-blue creator rings, and a lighter rendering profile. */
+
+/* 1) Creator portraits — crisp aqua-to-blue gradient ring in every theme. */
+#app .creator-avatar-ring{
+  position:relative!important;isolation:isolate!important;padding:4px!important;
+  border-radius:50%!important;
+  background:conic-gradient(from 218deg,#164e8a 0deg,#2563eb 62deg,#38bdf8 132deg,#b8e8ff 184deg,#67d8f5 236deg,#1d4ed8 302deg,#164e8a 360deg)!important;
+  box-shadow:0 0 0 1px rgba(190,235,255,.52),0 0 0 4px rgba(56,189,248,.10),0 0 20px rgba(56,189,248,.24),0 0 34px rgba(37,99,235,.16),0 8px 22px rgba(0,0,0,.25)!important;
+}
+#app .creator-avatar-ring::before{
+  content:"";position:absolute;inset:-4px;border-radius:inherit;z-index:-1;pointer-events:none;
+  background:conic-gradient(from 30deg,rgba(14,116,144,.1),rgba(125,211,252,.75),rgba(37,99,235,.7),rgba(30,64,175,.45),rgba(14,116,144,.1));
+  filter:blur(5px);opacity:.65;
+}
+#app .creator-avatar-ring::after{inset:2px!important;border:1px solid rgba(219,245,255,.68)!important;border-radius:50%!important;pointer-events:none}
+#app .creator-avatar-ring img{
+  width:100%!important;height:100%!important;border:3px solid rgba(7,27,48,.92)!important;
+  border-radius:50%!important;object-fit:cover!important;position:relative!important;z-index:2!important;
+}
+html[data-theme="light"] #app .creator-avatar-ring img{border-color:#f6fbff!important}
+html[data-theme="purple"] #app .creator-avatar-ring img{border-color:#100b1c!important}
+
+/* 2) Mobile hero visual — preserve the animated science illustration, reduce vertical bulk. */
+#app[data-page="home"] .hero-visual-card{
+  border-radius:24px!important;
+  -webkit-backdrop-filter:blur(12px) saturate(1.16)!important;
+  backdrop-filter:blur(12px) saturate(1.16)!important;
+  box-shadow:0 20px 54px -42px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
+@media(max-width:760px){
+  #app[data-page="home"] .hero-visual-card{margin-top:18px!important;border-radius:19px!important}
+  #app[data-page="home"] .hero-visual-topline{
+    min-height:34px!important;padding:8px 11px!important;gap:6px!important;
+    flex-direction:row!important;align-items:center!important;justify-content:space-between!important;
+    font-size:7px!important;line-height:1.25!important;letter-spacing:.065em!important;
+  }
+  #app[data-page="home"] .hero-visual-topline>span{gap:5px!important;white-space:nowrap!important}
+  #app[data-page="home"] .hero-visual-topline>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  #app[data-page="home"] .hero-live{flex:none!important;font-size:6.8px!important}
+  #app[data-page="home"] .hero-visual-stage{min-height:clamp(158px,48vw,208px)!important}
+  #app[data-page="home"] .hero-visual-stage .orb-wrap{width:min(58vw,218px)!important;max-width:218px!important}
+  #app[data-page="home"] .hero-visual-foot{
+    min-height:27px!important;padding:7px 11px!important;gap:7px!important;
+    font-size:7px!important;line-height:1.2!important;letter-spacing:.07em!important;
+  }
+  #app[data-page="home"] .hero-visual-foot .hero-foot-note{display:none!important}
+  #app[data-page="home"] .hero-visual-foot i{width:3px!important;height:3px!important;flex:none!important}
+}
+@media(max-width:390px){
+  #app[data-page="home"] .hero-visual-topline{font-size:6.5px!important;letter-spacing:.045em!important;padding-inline:9px!important}
+  #app[data-page="home"] .hero-visual-stage{min-height:150px!important}
+  #app[data-page="home"] .hero-visual-stage .orb-wrap{width:min(56vw,184px)!important}
+  #app[data-page="home"] .hero-visual-foot{gap:5px!important;font-size:6.5px!important}
+}
+
+/* 3) Student Hub spotlight — higher contrast and a more confident premium finish in Dark. */
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight{
+  color:#f3faff!important;border:1px solid rgba(91,195,232,.43)!important;
+  background:
+    radial-gradient(ellipse 47% 90% at 93% 12%,rgba(39,151,196,.20),transparent 72%),
+    radial-gradient(ellipse 55% 120% at 0% 100%,rgba(23,89,132,.22),transparent 74%),
+    linear-gradient(118deg,#0b1d2e 0%,#10283d 52%,#0a1a2b 100%)!important;
+  box-shadow:0 18px 42px -30px rgba(0,0,0,.88),0 0 0 1px rgba(125,211,252,.035),inset 0 1px 0 rgba(232,249,255,.12)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight::before{
+  opacity:.33!important;background-image:linear-gradient(rgba(157,218,244,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(157,218,244,.11) 1px,transparent 1px)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight-kicker{color:#9ce7fa!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight-kicker i{background:#67d7f3!important;box-shadow:0 0 0 4px rgba(56,189,248,.12),0 0 13px rgba(56,189,248,.55)!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight h2{color:#f5fbff!important;text-shadow:0 2px 20px rgba(56,189,248,.10)!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight p{color:#c1d6e4!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight-cta{
+  color:#041b2a!important;background:linear-gradient(135deg,#b8efff 0%,#62cce9 52%,#3a9bd0 100%)!important;
+  border:1px solid rgba(214,247,255,.72)!important;box-shadow:0 9px 21px -14px rgba(56,189,248,.72),inset 0 1px 0 rgba(255,255,255,.48)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight-tags i{color:#cceafa!important;background:rgba(17,53,76,.72)!important;border-color:rgba(125,211,252,.25)!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-art-card{
+  border-color:rgba(134,207,234,.36)!important;
+  background:linear-gradient(145deg,#1b3b54,#10293f)!important;
+  box-shadow:0 14px 28px -22px rgba(0,0,0,.92),inset 0 1px 0 rgba(235,249,255,.13)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-art-main>span{color:#9edff3!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-art-main>b{color:#f2faff!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-art-main>small{color:#b9d0df!important}
+
+/* 4) New feature showcase cards — a visual gateway to the rest of ConceptLab. */
+#app[data-page="home"] .home-feature-showcase{margin:30px 0 34px}
+#app[data-page="home"] .home-feature-showcase-head{max-width:760px;margin:0 0 16px}
+#app[data-page="home"] .home-feature-showcase-kicker{
+  display:inline-flex;align-items:center;gap:8px;color:#65c9e7;
+  font:800 9px/1.2 Manrope,Inter,sans-serif;letter-spacing:.17em;text-transform:uppercase;
+}
+#app[data-page="home"] .home-feature-showcase-kicker::before{content:"";width:19px;height:1px;background:currentColor;opacity:.8}
+#app[data-page="home"] .home-feature-showcase-head h2{margin:8px 0 6px;color:var(--text,#e9f4fc);font-family:var(--font-nakshatra)!important;font-size:clamp(21px,2.6vw,28px);font-weight:500;line-height:1.4;letter-spacing:0}
+#app[data-page="home"] .home-feature-showcase-head p{margin:0;color:var(--muted,#9fb3c4);font-size:12px;line-height:1.7}
+#app[data-page="home"] .home-feature-showcase-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+#app[data-page="home"] .home-feature-showcase-card{
+  --showcase-accent:#7dd3fc;--showcase-soft:rgba(56,189,248,.13);
+  position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;
+  min-width:0;min-height:184px;padding:15px 15px 13px;overflow:hidden;
+  border:1px solid rgba(125,181,211,.23);border-radius:17px;text-decoration:none;
+  color:#e9f5fc;background:linear-gradient(145deg,rgba(19,43,62,.96),rgba(9,24,39,.98));
+  box-shadow:0 11px 27px -23px rgba(0,0,0,.82),inset 0 1px 0 rgba(255,255,255,.075);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+#app[data-page="home"] .home-feature-showcase-card::before{
+  content:"";position:absolute;z-index:-1;right:-46px;top:-54px;width:138px;height:138px;border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--showcase-accent) 34%,transparent);
+  box-shadow:0 0 0 17px color-mix(in srgb,var(--showcase-accent) 5%,transparent),0 0 0 36px color-mix(in srgb,var(--showcase-accent) 3%,transparent);
+  pointer-events:none;
+}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="sky"]{--showcase-accent:#7dd3fc;--showcase-soft:rgba(56,189,248,.14)}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="violet"]{--showcase-accent:#c4b5fd;--showcase-soft:rgba(167,139,250,.15)}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="mint"]{--showcase-accent:#7ee4c3;--showcase-soft:rgba(45,212,191,.13)}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="amber"]{--showcase-accent:#f4cb88;--showcase-soft:rgba(245,189,104,.13)}
+#app[data-page="home"] .showcase-card-top{display:flex;align-items:center;gap:9px;width:100%;margin-bottom:13px}
+#app[data-page="home"] .showcase-card-icon{display:grid;place-items:center;width:39px;height:39px;flex:none;border:1px solid color-mix(in srgb,var(--showcase-accent) 36%,transparent);border-radius:12px;color:var(--showcase-accent);background:var(--showcase-soft);font-size:19px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+#app[data-page="home"] .showcase-card-kicker{min-width:0;color:var(--showcase-accent);font:800 8px/1.45 Manrope,Inter,sans-serif;letter-spacing:.12em}
+#app[data-page="home"] .home-feature-showcase-card>strong{position:relative;z-index:1;color:#f3f9ff;font-size:14px;line-height:1.35;font-weight:800}
+#app[data-page="home"] .showcase-card-copy{position:relative;z-index:1;display:block;margin-top:7px;color:#b5c9d8;font-size:10px;line-height:1.65}
+#app[data-page="home"] .showcase-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-top:auto;padding-top:13px;color:var(--showcase-accent);font-size:9px;font-weight:800}
+#app[data-page="home"] .showcase-card-bottom b{display:grid;place-items:center;width:23px;height:23px;border:1px solid color-mix(in srgb,var(--showcase-accent) 34%,transparent);border-radius:8px;background:var(--showcase-soft);font-size:13px;line-height:1}
+@media(hover:hover) and (pointer:fine){
+  #app[data-page="home"] .home-feature-showcase-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--showcase-accent) 55%,transparent);box-shadow:0 17px 30px -24px rgba(0,0,0,.8),0 0 0 1px color-mix(in srgb,var(--showcase-accent) 13%,transparent),inset 0 1px 0 rgba(255,255,255,.12)}
+  #app[data-page="home"] .home-feature-showcase-card:hover .showcase-card-icon{transform:translateY(-1px);transition:transform .18s ease}
+}
+#app[data-page="home"] .home-feature-showcase-card:focus-visible{outline:2px solid var(--showcase-accent);outline-offset:3px}
+
+/* Light theme: restrained white/ice surfaces with readable copy. */
+html[data-theme="light"] #app[data-page="home"] .home-feature-showcase-kicker{color:#397eaa}
+html[data-theme="light"] #app[data-page="home"] .home-feature-showcase-head h2{color:#172b49!important}
+html[data-theme="light"] #app[data-page="home"] .home-feature-showcase-head p{color:#5b6d82!important}
+html[data-theme="light"] #app[data-page="home"] .home-feature-showcase-card{
+  color:#20334e;border-color:#d9e4ef;background:linear-gradient(145deg,#fff,#f4f8fc);
+  box-shadow:0 10px 24px -21px rgba(28,61,93,.28),inset 0 1px 0 #fff;
+}
+html[data-theme="light"] #app[data-page="home"] .home-feature-showcase-card>strong{color:#1b304b!important}
+html[data-theme="light"] #app[data-page="home"] .showcase-card-copy{color:#5c6e82!important}
+html[data-theme="light"] #app[data-page="home"] .showcase-card-icon{background:linear-gradient(145deg,#f5fbff,#edf4fa);box-shadow:none}
+html[data-theme="light"] #app[data-page="home"] .showcase-card-bottom{color:#397ea9}
+
+/* Violet theme: midnight-black base, with an understated violet edge. */
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-kicker{color:#c8b1ff}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-head h2{color:#f5efff!important}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-head p{color:#bdb1cf!important}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-card{
+  color:#f3edff;border-color:rgba(190,160,245,.23);
+  background:radial-gradient(ellipse at 100% 0%,rgba(110,65,176,.14),transparent 54%),linear-gradient(145deg,#171124,#0e0a17);
+  box-shadow:0 12px 26px -23px rgba(0,0,0,.88),inset 0 1px 0 rgba(255,255,255,.075);
+}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-card>strong{color:#f7f1ff!important}
+html[data-theme="purple"] #app[data-page="home"] .showcase-card-copy{color:#bcb0d0!important}
+
+@media(max-width:900px){
+  #app[data-page="home"] .home-feature-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #app[data-page="home"] .home-feature-showcase-card{min-height:166px}
+}
+@media(max-width:520px){
+  #app[data-page="home"] .home-feature-showcase{margin:24px 0 28px}
+  #app[data-page="home"] .home-feature-showcase-head{margin-bottom:12px}
+  #app[data-page="home"] .home-feature-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #app[data-page="home"] .home-feature-showcase-card{min-height:168px;padding:12px 11px 10px;border-radius:14px}
+  #app[data-page="home"] .showcase-card-top{gap:7px;margin-bottom:10px}
+  #app[data-page="home"] .showcase-card-icon{width:33px;height:33px;border-radius:10px;font-size:16px}
+  #app[data-page="home"] .showcase-card-kicker{font-size:7px;letter-spacing:.08em}
+  #app[data-page="home"] .home-feature-showcase-card>strong{font-size:12px}
+  #app[data-page="home"] .showcase-card-copy{font-size:9px;line-height:1.55}
+  #app[data-page="home"] .showcase-card-bottom{padding-top:10px;font-size:8px}
+  #app[data-page="home"] .showcase-card-bottom b{width:20px;height:20px}
+}
+
+/* 5) Bengali type hierarchy — use Alinur Nakshatra wherever its font file is installed. */
+#app :is(.home-feature-showcase-head h2,.launch-head h2,.launch-tool-head h3,.brain-sprint-copy h2,.hub-home-spotlight h2,.hub-dashboard-copy h1){font-family:var(--font-nakshatra)!important;letter-spacing:0!important}
+#app .ah-meaning,#app .motivation-section blockquote{font-family:var(--font-nakshatra)!important}
+#app .ah-meaning{line-height:1.85!important}
+#app .motivation-section blockquote{font-weight:400!important;letter-spacing:0!important;line-height:1.75!important}
+
+/* 6) Lighter render profile for phones and modest hardware. Keep key SVG motion and controls. */
+html.cl-low-power #app :is(.hero-visual-card,.hub-home-spotlight,.hub-dashboard-hero,.hub-art-window,.hub-home-art-card,.home-feature-showcase-card,.launch-feature-card,.launch-tool,.hub-launch-tile,.ga-game-card,.lab-sim-card,.graph-card,.about-card,.creator-profile){
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  box-shadow:0 8px 22px -18px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+html.cl-low-power #app :is(.hub-home-art-orbit,.hub-home-art-spark,.hub-art-orbit-b,.hub-art-window,.hub-art-spark,.hub-art-float,.home-feature-showcase-card::before){animation:none!important}
+html.cl-low-power #app :is(.hero-visual-card,.hub-home-spotlight,.home-feature-showcase-card,.launch-feature-card,.launch-tool,.hub-launch-tile){transition-duration:.14s!important}
+html.cl-low-power #app .creator-avatar-ring::before{filter:none!important;opacity:.42!important}
+html.cl-low-power #app[data-page="home"] .hero-visual-card{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+@media(prefers-reduced-motion:reduce){
+  #app[data-page="home"] .home-feature-showcase-card,#app[data-page="home"] .showcase-card-icon{transition:none!important}
+}

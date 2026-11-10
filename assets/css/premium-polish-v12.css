@@ -1,0 +1,248 @@
+/* ConceptLab v16 — quieter, icon-led Light footer and robust home rendering recovery. */
+html[data-theme="light"] footer.site-footer.pf{
+  position:relative!important;overflow:hidden!important;
+  background:linear-gradient(180deg,#f7faff 0%,#f1f6fc 100%)!important;
+  border-top:1px solid rgba(44,94,145,.18)!important;
+  color:#27425f!important;box-shadow:0 -16px 42px -34px rgba(37,82,133,.18)!important;
+}
+html[data-theme="light"] footer.site-footer.pf::before{
+  height:2px!important;opacity:1!important;animation:none!important;
+  background:linear-gradient(90deg,transparent 0%,#b7d2ed 16%,#3977b8 50%,#b7d2ed 84%,transparent 100%)!important;
+  background-size:100% 100%!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-aurora{
+  opacity:1!important;background:radial-gradient(70% 65% at 12% 0%,rgba(73,132,190,.075),transparent 72%),radial-gradient(55% 55% at 92% 8%,rgba(73,132,190,.045),transparent 74%),linear-gradient(180deg,transparent,#f3f7fc 100%)!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-grain{
+  opacity:.18!important;background-image:radial-gradient(rgba(54,105,158,.16) .7px,transparent 1px)!important;background-size:24px 24px!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-brand,
+html[data-theme="light"] footer.site-footer.pf .pf-col{
+  border:1px solid rgba(57,105,157,.16)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.93),rgba(246,250,255,.82))!important;
+  box-shadow:0 10px 28px rgba(36,75,118,.045),inset 0 1px rgba(255,255,255,.9)!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-brand::before,
+html[data-theme="light"] footer.site-footer.pf .pf-col::before{background:radial-gradient(circle at top right,rgba(69,126,184,.07),transparent 70%)!important}
+html[data-theme="light"] footer.site-footer.pf .pf-brand-lock b{color:#193957!important;-webkit-text-fill-color:#193957!important}
+html[data-theme="light"] footer.site-footer.pf .pf-brand-lock small,
+html[data-theme="light"] footer.site-footer.pf #footerTagline{color:#42688b!important;-webkit-text-fill-color:#42688b!important}
+html[data-theme="light"] footer.site-footer.pf .pf-credit{color:#536e88!important}
+html[data-theme="light"] footer.site-footer.pf .pf-subjects a{
+  color:#315f8d!important;border:1px solid rgba(57,105,157,.2)!important;
+  background:linear-gradient(145deg,#fff,#f1f6fc)!important;box-shadow:inset 0 1px rgba(255,255,255,.9)!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-subjects a:hover{border-color:rgba(47,104,163,.42)!important;background:#fff!important}
+html[data-theme="light"] footer.site-footer.pf .pf-subjects .sd{color:#3976ad!important;background:none!important;box-shadow:none!important}
+html[data-theme="light"] footer.site-footer.pf #footerSocials .footer-social{
+  color:#315f8d!important;border:1px solid rgba(57,105,157,.22)!important;
+  background:linear-gradient(145deg,#fff,#f2f7fc)!important;box-shadow:0 7px 20px rgba(36,75,118,.05)!important;
+}
+html[data-theme="light"] footer.site-footer.pf #footerSocials .footer-social svg{fill:#3976ad!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col h4{
+  display:flex!important;align-items:center!important;gap:9px!important;
+  color:#285984!important;font-size:10px!important;letter-spacing:.14em!important;
+  margin:2px 0 13px!important;padding:0!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-col h4::before,
+html[data-theme="light"] footer.site-footer.pf .pf-col h4::after{content:none!important;display:none!important}
+html[data-theme="light"] footer.site-footer.pf .pf-heading-icon{
+  display:block!important;width:19px!important;height:19px!important;flex:0 0 19px!important;
+  fill:none!important;stroke:#3976ad!important;stroke-width:1.55!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+  padding:5px!important;box-sizing:content-box!important;border-radius:9px!important;
+  background:linear-gradient(145deg,#e9f2fb,#f8fbff)!important;
+  border:1px solid rgba(57,105,157,.16)!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-links{gap:4px!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col a{
+  display:flex!important;align-items:center!important;gap:8px!important;
+  padding:5px 0!important;color:#304c68!important;font-size:12.5px!important;
+  line-height:1.5!important;transition:color .16s,transform .16s!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-col a::before{content:none!important;display:none!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col a:hover{color:#174f82!important;transform:translateX(2px)!important}
+html[data-theme="light"] footer.site-footer.pf .pf-link-icon{
+  display:block!important;width:15px!important;height:15px!important;flex:0 0 15px!important;
+  fill:none!important;stroke:#6b91b4!important;stroke-width:1.55!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;opacity:.9!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom{
+  border-top:1px solid rgba(57,105,157,.16)!important;color:#607991!important;
+}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom .dot{background:#7ea4c8!important;box-shadow:none!important}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom a{color:#315f8d!important}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom a:hover{color:#173f67!important}
+html[data-theme="light"] footer.site-footer.pf button.pf-top{
+  color:#315f8d!important;border:1px solid rgba(57,105,157,.23)!important;
+  background:linear-gradient(145deg,#fff,#edf4fb)!important;box-shadow:0 7px 18px rgba(36,75,118,.06)!important;
+}
+html[data-theme="light"] footer.site-footer.pf button.pf-top::after{
+  color:#fff!important;background:linear-gradient(145deg,#477fb2,#2c5f91)!important;
+}
+/* The formula strip above the footer stays within the same restrained blue family. */
+html[data-theme="light"] .footer-formula-motion{
+  border-top:1px solid rgba(57,105,157,.14)!important;border-bottom:1px solid rgba(57,105,157,.14)!important;
+  background:linear-gradient(180deg,#f5f9fe,#fff)!important;
+}
+html[data-theme="light"] .footer-formula-grid{opacity:.08!important;background-image:linear-gradient(rgba(57,105,157,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(57,105,157,.14) 1px,transparent 1px)!important}
+html[data-theme="light"] .footer-formula-track{color:#3a6e9e!important}
+html[data-theme="light"] .footer-formula-track span,
+html[data-theme="light"] .footer-formula-track span:nth-of-type(n){color:#3a6e9e!important;border-color:rgba(57,105,157,.14)!important;background:rgba(255,255,255,.78)!important;text-shadow:none!important;box-shadow:none!important}
+html[data-theme="light"] .footer-formula-track i,
+html[data-theme="light"] .footer-formula-caption{color:#6285a6!important}
+html[data-theme="light"] .footer-formula-dot{background:#4c82b4!important;box-shadow:none!important}
+/* Ensure no legacy orange, pink, purple or green accent survives in Light footer elements. */
+html[data-theme="light"] footer.site-footer.pf :is(.pf-col h4::before,.pf-col h4::after,.pf-bottom .dot,.pf-subjects .sd){filter:none!important}
+
+/* Theme-coloured footer top edge — no multicolour sweep in any theme. */
+html[data-theme="dark"] footer.site-footer.pf::before{
+  height:2px!important;opacity:1!important;animation:none!important;
+  background:linear-gradient(90deg,transparent,#75d8f4 18%,#75d8f4 82%,transparent)!important;
+  background-size:100% 100%!important;
+}
+html[data-theme="purple"] footer.site-footer.pf::before{
+  height:2px!important;opacity:1!important;animation:none!important;
+  background:linear-gradient(90deg,transparent,#a78bfa 18%,#a78bfa 82%,transparent)!important;
+  background-size:100% 100%!important;
+}
+/* Subject symbols replace the old coloured dots and stay legible in every theme. */
+footer.site-footer.pf .pf-subjects .sd{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:16px!important;height:16px!important;flex:0 0 16px!important;
+  border-radius:0!important;background:none!important;box-shadow:none!important;
+  font:700 14px/1 "Hind Siliguri",Manrope,sans-serif!important;font-style:normal!important;
+}
+html[data-theme="dark"] footer.site-footer.pf .pf-subjects .sd{color:#75d8f4!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-subjects .sd{color:#a78bfa!important}
+html[data-theme="light"] footer.site-footer.pf .pf-subjects .sd{color:#3976ad!important}
+
+/* =====================================================================
+   v17 — Footer: one shared, theme-independent layout + per-theme colours.
+   Fixes: oversized/misplaced SVG icons and broken text wrapping in Dark &
+   Purple, white-on-light text in Light, and the Daily Challenges icon.
+   ===================================================================== */
+footer.site-footer.pf .pf-col h4{
+  display:flex!important;align-items:center!important;gap:10px!important;
+  margin:2px 0 14px!important;padding:0!important;line-height:1.25!important;
+  white-space:normal!important;text-align:left!important;
+}
+footer.site-footer.pf .pf-col h4::before,
+footer.site-footer.pf .pf-col h4::after{content:none!important;display:none!important}
+footer.site-footer.pf .pf-col h4 span{min-width:0!important;overflow-wrap:normal!important;word-break:normal!important}
+footer.site-footer.pf .pf-heading-icon{
+  display:block!important;width:19px!important;height:19px!important;min-width:19px!important;max-width:19px!important;
+  flex:0 0 19px!important;box-sizing:content-box!important;padding:5px!important;margin:0!important;
+  fill:none!important;stroke:currentColor!important;stroke-width:1.55!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;border-radius:9px!important;
+}
+footer.site-footer.pf .pf-col .pf-links{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:4px!important}
+footer.site-footer.pf .pf-col .pf-links a,
+footer.site-footer.pf .pf-col a{
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:9px!important;
+  padding:5px 0!important;text-align:left!important;white-space:normal!important;
+  overflow-wrap:normal!important;word-break:normal!important;line-height:1.45!important;
+}
+footer.site-footer.pf .pf-col a::before,
+footer.site-footer.pf .pf-col a::after{content:none!important;display:none!important;width:0!important;margin:0!important}
+footer.site-footer.pf .pf-link-icon{
+  display:block!important;width:15px!important;height:15px!important;min-width:15px!important;max-width:15px!important;
+  flex:0 0 15px!important;margin:0!important;padding:0!important;
+  fill:none!important;stroke:currentColor!important;stroke-width:1.55!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;opacity:.92!important;
+}
+footer.site-footer.pf #pfInstallLi{display:block!important}
+footer.site-footer.pf #pfInstallLi[hidden]{display:none!important}
+footer.site-footer.pf .pf-subjects a{display:inline-flex!important;align-items:center!important;gap:7px!important;white-space:nowrap!important}
+footer.site-footer.pf #footerSocials .footer-social{display:inline-flex!important;align-items:center!important;gap:10px!important}
+footer.site-footer.pf #footerSocials .footer-social svg{width:16px!important;height:16px!important;flex:0 0 16px!important}
+footer.site-footer.pf .pf-bottom{display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:wrap!important;gap:14px!important}
+footer.site-footer.pf .pf-legal{display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:10px!important}
+footer.site-footer.pf .pf-legal > span{display:inline-flex!important;gap:4px!important;white-space:nowrap!important}
+footer.site-footer.pf .pf-legal .dot{display:inline-block!important;width:5px!important;height:5px!important;flex:0 0 5px!important;border-radius:50%!important}
+
+/* ---------- Dark (cyan) ---------- */
+html[data-theme="dark"] footer.site-footer.pf .pf-col h4,
+html[data-theme="dark"] footer.site-footer.pf .pf-col h4 span{color:#b7e9ff!important}
+html[data-theme="dark"] footer.site-footer.pf .pf-heading-icon{
+  color:#75d8f4!important;background:linear-gradient(145deg,rgba(117,216,244,.16),rgba(117,216,244,.05))!important;
+  border:1px solid rgba(117,216,244,.24)!important;
+}
+html[data-theme="dark"] footer.site-footer.pf .pf-col a{color:#cdd9e2!important}
+html[data-theme="dark"] footer.site-footer.pf .pf-col a:hover{color:#fff!important}
+html[data-theme="dark"] footer.site-footer.pf .pf-link-icon{color:#75d8f4!important}
+html[data-theme="dark"] footer.site-footer.pf #footerSocials .footer-social svg{fill:#75d8f4!important}
+html[data-theme="dark"] footer.site-footer.pf .pf-legal,
+html[data-theme="dark"] footer.site-footer.pf .pf-legal > span{color:#c3d3df!important}
+html[data-theme="dark"] footer.site-footer.pf .pf-legal .dot{background:#75d8f4!important;box-shadow:none!important}
+
+/* ---------- Purple (violet) ---------- */
+html[data-theme="purple"] footer.site-footer.pf .pf-col h4,
+html[data-theme="purple"] footer.site-footer.pf .pf-col h4 span{color:#e5dcfb!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-heading-icon{
+  color:#b9a2fb!important;background:linear-gradient(145deg,rgba(167,139,250,.22),rgba(167,139,250,.06))!important;
+  border:1px solid rgba(167,139,250,.3)!important;
+}
+html[data-theme="purple"] footer.site-footer.pf .pf-col a{color:#ddd3f5!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-col a:hover{color:#fff!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-link-icon{color:#b9a2fb!important}
+html[data-theme="purple"] footer.site-footer.pf #footerSocials .footer-social svg{fill:#b9a2fb!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-legal,
+html[data-theme="purple"] footer.site-footer.pf .pf-legal > span{color:#d6caf3!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-legal .dot{background:#a78bfa!important;box-shadow:none!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-subjects .sd{background:none!important;box-shadow:none!important}
+
+/* ---------- Light: legacy white text overrides (vibrant.css / theme-light.css) ---------- */
+html[data-theme="light"] footer.site-footer.pf .pf-brand-lock #fb,
+html[data-theme="light"] footer.site-footer.pf .pf-brand-lock b{color:#193957!important;-webkit-text-fill-color:#193957!important;background:none!important}
+html[data-theme="light"] footer.site-footer.pf .pf-brand #footerTagline,
+html[data-theme="light"] footer.site-footer.pf .pf-brand .pf-credit,
+html[data-theme="light"] footer.site-footer.pf .pf-brand .pf-credit span,
+html[data-theme="light"] footer.site-footer.pf .pf-brand #ft{color:#4a6783!important;-webkit-text-fill-color:#4a6783!important}
+html[data-theme="light"] footer.site-footer.pf .pf-brand .pf-subjects a{color:#264f7a!important;-webkit-text-fill-color:#264f7a!important}
+html[data-theme="light"] footer.site-footer.pf .pf-brand #footerSocials .footer-social,
+html[data-theme="light"] footer.site-footer.pf .pf-brand #footerSocials .footer-social span,
+html[data-theme="light"] footer.site-footer.pf .pf-brand #footerSocials .footer-social #footerFacebookLabel{color:#264f7a!important;-webkit-text-fill-color:#264f7a!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col h4,
+html[data-theme="light"] footer.site-footer.pf .pf-col h4 span{color:#285984!important;-webkit-text-fill-color:#285984!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col a{color:#304c68!important;-webkit-text-fill-color:#304c68!important}
+html[data-theme="light"] footer.site-footer.pf .pf-col a:hover{color:#174f82!important;-webkit-text-fill-color:#174f82!important}
+html[data-theme="light"] footer.site-footer.pf .pf-heading-icon{color:#3976ad!important}
+html[data-theme="light"] footer.site-footer.pf .pf-link-icon{color:#4f7fae!important}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom .pf-legal,
+html[data-theme="light"] footer.site-footer.pf .pf-bottom .pf-legal span,
+html[data-theme="light"] footer.site-footer.pf .pf-bottom .pf-legal span span{color:#4f6b86!important;-webkit-text-fill-color:#4f6b86!important}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom .pf-legal a{color:#264f7a!important;-webkit-text-fill-color:#264f7a!important}
+html[data-theme="light"] footer.site-footer.pf .pf-bottom .pf-legal .dot{background:#7ea4c8!important}
+html[data-theme="light"] footer.site-footer.pf button.pf-top{color:#264f7a!important;-webkit-text-fill-color:#264f7a!important}
+
+@media(max-width:600px){
+  footer.site-footer.pf .pf-col a{font-size:12px!important}
+  footer.site-footer.pf .pf-heading-icon{width:16px!important;height:16px!important;min-width:16px!important;max-width:16px!important;flex-basis:16px!important;padding:4px!important}
+  footer.site-footer.pf .pf-col h4{font-size:9.5px!important;gap:7px!important}
+  footer.site-footer.pf .pf-bottom{justify-content:center!important}
+}
+html[data-theme="light"] footer.site-footer.pf button.pf-top::after{color:#fff!important;-webkit-text-fill-color:#fff!important}
+
+/* =====================================================================
+   v20 — Fast card reveal (Four stages / Why ConceptLab) + Dark top bar scrolls away
+   ===================================================================== */
+/* The entrance keyframes were paused while the section was off-screen and then played
+   with a per-card stagger, so the boxes appeared one by one after the section arrived.
+   Neutralise the entrance (cards are simply there); looping/float animations are untouched. */
+@keyframes stageCardEnter{from{opacity:1;transform:none}to{opacity:1;transform:none}}
+@keyframes featureCardEnter{from{opacity:1;transform:none}to{opacity:1;transform:none}}
+.js #app :is(.stage-premium-card,.feature-premium-card).rv,
+.js #app :is(.stage-premium-card,.feature-premium-card).rv.in{opacity:1!important;transition-delay:0s!important}
+.js #app :is(.stage-premium-card,.feature-premium-card).rv:not(.in){transform:none!important}
+#app :is(.stage-premium-card,.feature-premium-card){animation-delay:0s!important}
+/* Sections themselves must not hold their cards back either. */
+#app :is(.sec-stages,.sec-features).scroll-reveal{opacity:1!important;transform:none!important;transition:none!important}
+
+/* Dark theme: the top navigation bar is a normal, non-sticky bar — it scrolls away with the page. */
+html[data-theme="dark"] body > header,
+html[data-theme="dark"] header{position:relative!important;top:auto!important}
+/* Elements that were offset to sit under the sticky bar now stick to the top edge. */
+html[data-theme="dark"] .ion-game-root .ion-topline{top:8px!important}
+html[data-theme="dark"] #app .scx-controls{top:8px!important}
+html[data-theme="dark"] .px-side{top:16px!important}

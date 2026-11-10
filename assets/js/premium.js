@@ -619,4 +619,5 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
   window.CL_PREMIUM = { forms: FORMS, compute: compute, parseNum: parseNum, sig: sig };
+  window.CL_APPLY_PREFS = applyPrefs; /* used by the header theme button */
 })();

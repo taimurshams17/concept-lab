@@ -232,7 +232,7 @@
     if (root.nodeType === Node.TEXT_NODE) { replaceText(root); return; }
     if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE && root.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) return;
     if (root.nodeType === Node.ELEMENT_NODE && (root.matches('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,[contenteditable="true"]'))) return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,.no-mono,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
     const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode); nodes.forEach(replaceText);
   };
   let pending = false;

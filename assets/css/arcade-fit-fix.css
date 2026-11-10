@@ -1,0 +1,74 @@
+/* ConceptLab · Arcade fit fix (v12)
+   Root cause: `#app section{padding:Npx 0!important}` removed the left/right padding of every boxed <section>,
+   and `.ga-game-card` fell into an implicit two-column grid on narrow screens. This file restores comfortable
+   inner spacing so text never touches a border, on mobile and desktop, in all three themes. */
+:root{--fit-pad:clamp(14px,3.6vw,22px);--fit-pad-sm:clamp(11px,3vw,16px)}
+
+/* 1) Boxed sections: put the horizontal padding back */
+#app section:is(.aq-shell,.study-panel,.ion-panel,.ion-simulation-guide,.ion-sample,.ion-question,.ion-notebook-hero,.ion-live-result,
+ .wet-sample-panel,.wet-inference,.wet-action-panel,.sim-observation-panel,.sim-explorer-main,.sim-explorer-controls,
+ .mi-learning-panel,.mi-lab,.mi-compare-panel,.mi-adjust-panel,.ps-challenge-card,.student-review-card,.graph-interactive-card,
+ .ga-mode-deck,.ga-howto,.ga-hero,.lab-subject-panel,.daily-done,.goals,.about-card,.concept-hero,.motivation-section){
+  padding-left:var(--fit-pad)!important;padding-right:var(--fit-pad)!important;
+  padding-top:var(--fit-pad)!important;padding-bottom:var(--fit-pad)!important}
+#app section.card:not(.hero):not(.w){padding-left:var(--fit-pad)!important;padding-right:var(--fit-pad)!important}
+#app section.aq-shell{margin-left:auto;margin-right:auto;width:100%;max-width:900px}
+
+/* 2) Game / quiz inner parts */
+#app .aq-head{gap:12px}
+#app .aq-head>div:first-child{min-width:0;flex:1}
+#app .aq-head h2,#app .aq-head p,#app .aq-prompt,#app .aq-option,#app .aq-token,#app .aq-connect-item,#app .aq-weight,#app .aq-feedback{overflow-wrap:anywhere}
+#app .aq-play{padding:var(--fit-pad)!important}
+#app .aq-option,#app .aq-token,#app .aq-connect-item,#app .aq-weight{padding:12px 14px!important;line-height:1.5}
+#app .aq-object{padding:16px 14px}
+#app .aq-feedback{padding:12px 14px;border-radius:12px}
+#app .aq-controls{gap:10px}
+@media(max-width:560px){
+ #app .aq-connect-item{padding:10px 9px!important;font-size:12px}
+ #app .aq-option-grid{grid-template-columns:minmax(0,1fr)}
+}
+
+/* 3) Simulation parameter rows / panels */
+#app .sim-param{padding:12px 0}
+#app .sim-explorer-controls,#app .sim-explorer-main{overflow:hidden}
+#app .sim-observation-panel{border-radius:16px}
+#app :is(.hud,.ps-stat,.ctl,.ex,.tile,.term,.opt,.op,.bn,.tfb){box-sizing:border-box;min-width:0;overflow-wrap:anywhere}
+#app :is(.bn,.tfb,.opt,.op,.term){padding-left:max(14px,.8em)!important;padding-right:max(14px,.8em)!important}
+#app .hud{padding-left:var(--fit-pad-sm);padding-right:var(--fit-pad-sm)}
+#app .ps-stat{padding:10px 12px}
+#app .pq-options{gap:10px}
+
+/* 4) Arcade list cards: single clean column, real inner padding */
+#app .ga-game-card{display:flex!important;flex-direction:column;gap:12px;padding:16px!important;min-width:0;overflow:hidden}
+#app .ga-game-card-head{align-items:flex-start;gap:12px;min-width:0}
+#app .ga-card-title-wrap{min-width:0;flex:1;overflow-wrap:anywhere}
+#app .ga-xp{flex:none;white-space:nowrap}
+#app .ga-card-about{padding:12px 14px!important;flex:1 1 auto;overflow-wrap:anywhere}
+#app .ga-game-card-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 12px;padding-top:12px!important;margin-top:auto}
+#app .ga-game-stats{flex-wrap:wrap;gap:6px 12px;min-width:0}
+#app .ga-game-actions{flex-wrap:wrap;gap:8px 12px;align-items:center}
+#app .ga-game-grid{padding:0!important;gap:14px!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr))}
+@media(max-width:560px){#app .ga-game-grid{grid-template-columns:minmax(0,1fr)!important}#app .ga-game-actions{width:100%}#app .ga-game-actions .btn{flex:1 1 auto;justify-content:center}}
+
+/* 5) Level picker + game title hero */
+#app .ga-level-game-head{padding:var(--fit-pad)!important;gap:14px;min-width:0}
+#app .ga-level-game-head>div{min-width:0}
+#app .ga-level-game-head h1,#app .ga-level-game-head p{overflow-wrap:anywhere}
+#app .ga-level-picker>h2{margin-left:2px;margin-right:2px}
+#app .ga-level-card,#app .ga-level-picker a[href*="/play/"]{padding:16px 18px!important}
+
+/* 6) Nothing may escape the screen */
+#app .pgw,#app .ga-level-picker,#app .aq-shell,#app .sim-explorer-main{max-width:100%}
+#app :is(.aq-shell,.ga-game-card,.ga-level-picker) :is(img,svg,canvas,table){max-width:100%}
+#app .tbar,#app .slots,#app .step-bank{padding-left:6px;padding-right:6px}
+
+/* 7) Arcade card polish: full-width brief, readable sizes, left-aligned footer */
+#app .ga-game-card{align-items:stretch!important;justify-content:flex-start!important;text-align:left}
+#app .ga-game-card>*{width:100%;max-width:100%;box-sizing:border-box}
+#app .ga-card-about{margin:0!important;min-height:0!important}
+#app .ga-card-about>span{font-size:9px!important;margin-bottom:6px!important}
+#app .ga-card-about>p{font-size:12.5px!important;line-height:1.65!important}
+#app .ga-game-card-bottom{align-items:center!important;flex-direction:row!important}
+#app .ga-game-stats{font-size:11.5px;justify-content:flex-start}
+@media(max-width:560px){#app .ga-game-card-bottom{flex-direction:column!important;align-items:stretch!important}#app .ga-game-stats{justify-content:space-between}}
+@media(max-width:560px){#app .ga-game-actions{justify-content:space-between}}

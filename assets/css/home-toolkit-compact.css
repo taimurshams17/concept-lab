@@ -1,0 +1,186 @@
+/* ConceptLab v28 — verified home-card theme accents and compact subject cards. */
+.launch-swipe-hint,.launch-swipe-bar{display:none}
+
+@media (max-width:700px){
+  html body #app[data-page="home"] .home-launchpad .launch-swipe-hint{
+    display:flex;align-items:center;justify-content:center;gap:10px;margin:2px 0 10px;
+    font-size:12px;font-weight:680;color:#7dd3fc;opacity:.98
+  }
+  html[data-theme="dark"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#7dd3fc!important}
+  html[data-theme="light"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#347fc1!important}
+  html[data-theme="purple"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#c9b2ff!important}
+
+  html body #app[data-page="home"] .home-launchpad .launch-swipe-hint b{
+    font-size:21px;line-height:1;font-weight:750;animation:lsNudgeL 1.6s ease-in-out infinite
+  }
+  html body #app[data-page="home"] .home-launchpad .launch-swipe-hint b:last-child{animation-name:lsNudgeR}
+  @keyframes lsNudgeL{0%,100%{transform:translateX(0)}50%{transform:translateX(-4px)}}
+  @keyframes lsNudgeR{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+
+  /* Four tools per column; two columns visible, with native touch scrolling. */
+  html body #app[data-page="home"] .home-launchpad .launch-tool-grid{
+    display:grid!important;width:100%!important;box-sizing:border-box!important;
+    grid-template-columns:none!important;grid-auto-flow:column!important;
+    grid-template-rows:repeat(4,54px)!important;grid-auto-rows:54px!important;
+    grid-auto-columns:calc((100% - 10px)/2)!important;
+    column-gap:10px!important;row-gap:10px!important;
+    overflow-x:scroll!important;overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:none!important;
+    scroll-behavior:auto!important;overscroll-behavior-x:contain;
+    touch-action:pan-x pan-y;scrollbar-width:none;
+    padding:2px 0 4px!important;
+    -webkit-mask-image:none!important;mask-image:none!important
+  }
+  html body #app[data-page="home"] .home-launchpad .launch-tool-grid::-webkit-scrollbar{display:none}
+
+  html body #app[data-page="home"] .home-launchpad .launch-tool-grid .launch-tool{
+    flex:none!important;display:flex!important;flex-direction:row!important;align-items:center!important;
+    justify-content:flex-start!important;gap:8px!important;width:auto!important;
+    height:54px!important;min-height:54px!important;max-height:54px!important;
+    min-width:0!important;max-width:none!important;box-sizing:border-box!important;
+    padding:9px 10px!important;border-radius:14px!important;text-align:left!important;
+    font-size:12px!important;line-height:1.25!important;transform:none!important;
+    transition:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    scroll-snap-align:none!important;overflow:hidden
+  }
+  html body #app[data-page="home"] .home-launchpad .launch-tool-grid .launch-tool>span:nth-child(2){
+    flex:1 1 auto!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;
+    -webkit-line-clamp:2;overflow:hidden!important;white-space:normal!important;min-width:0!important;
+    font-size:12px!important;font-weight:670!important;line-height:1.25!important;letter-spacing:0!important;
+    text-align:left!important;overflow-wrap:anywhere;text-overflow:clip!important
+  }
+  html body #app[data-page="home"] .home-launchpad .launch-tool-grid .launch-tool .launch-tool-icon{
+    width:30px!important;height:30px!important;min-width:30px!important;flex:0 0 30px!important;
+    border-radius:10px!important;font-size:15px!important;margin:0!important;filter:none!important
+  }
+  html body #app[data-page="home"] .home-launchpad .launch-tool-grid .launch-tool .launch-tool-arrow{display:none!important}
+
+  html body #app[data-page="home"] .home-launchpad .launch-swipe-bar{
+    display:block;position:relative;height:4px;margin:10px auto 0;width:min(180px,56%);
+    border-radius:99px;background:rgba(125,140,170,.28);overflow:hidden
+  }
+  html body #app[data-page="home"] .home-launchpad .launch-swipe-bar i{
+    position:absolute;left:0;top:0;height:100%;width:70%;border-radius:99px;
+    background:var(--accent,#38bdf8);transition:none;will-change:transform
+  }
+}
+
+/* Compact Violet hero stage, matching the Dark and Light animation cards. */
+@media(max-width:760px){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage{min-height:208px!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{width:min(58vw,218px)!important;max-width:218px!important}
+}
+@media(max-width:390px){
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage{min-height:190px!important}
+  html[data-theme="purple"] #app[data-page="home"] .hero-visual-stage .orb-wrap{width:min(56vw,184px)!important;max-width:184px!important}
+}
+
+
+/* v28: compact subject cards. Explicit dimensions and spacing keep the reduction visible in every theme. */
+#app[data-page="home"] .sec-subjects .premium-subj-card{
+  min-height:188px!important;height:188px!important;padding:14px!important;box-sizing:border-box!important;
+}
+#app[data-page="home"] .sec-subjects .premium-subj-top{margin-bottom:9px!important}
+#app[data-page="home"] .sec-subjects .premium-subj-icon{width:43px!important;height:43px!important;flex-basis:43px!important;font-size:23px!important}
+#app[data-page="home"] .sec-subjects .premium-subj-kicker{font-size:8px!important;line-height:1.25!important}
+#app[data-page="home"] .sec-subjects .premium-subj-card h3{margin:5px 0 0!important;font-size:clamp(17px,1.8vw,21px)!important}
+#app[data-page="home"] .sec-subjects .premium-subj-bottom{padding-top:8px!important}
+@media(max-width:850px){
+  #app[data-page="home"] .sec-subjects .premium-subj-card{min-height:176px!important;height:176px!important;padding:12px!important}
+}
+@media(max-width:600px){
+  #app[data-page="home"] .sec-subjects .premium-subj-card,
+  #app[data-page="home"] .sec-subjects .premium-subj-card:last-child{min-height:164px!important;height:164px!important;padding:11px!important}
+  #app[data-page="home"] .sec-subjects .premium-subj-top{margin-bottom:7px!important}
+  #app[data-page="home"] .sec-subjects .premium-subj-bottom{padding-top:7px!important}
+}
+
+/* Subject identity: pin the accent directly to each card, independent of theme-wide icon rules. */
+#app[data-page="home"] .sec-subjects .subject-phy{--subject-accent:#38bdf8!important}
+#app[data-page="home"] .sec-subjects .subject-chem{--subject-accent:#34d399!important}
+#app[data-page="home"] .sec-subjects .subject-math{--subject-accent:#a78bfa!important}
+html[data-theme="light"] #app[data-page="home"] .sec-subjects .subject-phy{--subject-accent:#2788c7!important}
+html[data-theme="light"] #app[data-page="home"] .sec-subjects .subject-chem{--subject-accent:#15966d!important}
+html[data-theme="light"] #app[data-page="home"] .sec-subjects .subject-math{--subject-accent:#8065c9!important}
+#app[data-page="home"] .sec-subjects .premium-subj-icon{
+  color:var(--subject-accent)!important;
+  border-color:color-mix(in srgb,var(--subject-accent) 48%,transparent)!important;
+  background:color-mix(in srgb,var(--subject-accent) 13%,#0b1520)!important;
+}
+html[data-theme="light"] #app[data-page="home"] .sec-subjects .premium-subj-icon{
+  color:var(--subject-accent)!important;
+  border-color:color-mix(in srgb,var(--subject-accent) 42%,white)!important;
+  background:color-mix(in srgb,var(--subject-accent) 15%,white)!important;
+  box-shadow:0 5px 13px color-mix(in srgb,var(--subject-accent) 16%,transparent)!important;
+}
+html[data-theme="purple"] #app[data-page="home"] .sec-subjects .premium-subj-icon{
+  color:var(--subject-accent)!important;
+  border-color:color-mix(in srgb,var(--subject-accent) 42%,#28202f)!important;
+  background:color-mix(in srgb,var(--subject-accent) 15%,#17121e)!important;
+}
+
+/* Discover ConceptLab: explicit per-card icon colours override shared Light-theme icon tints. */
+#app[data-page="home"] .home-feature-showcase-card[data-tone="sky"]{--showcase-accent:#38bdf8!important;--showcase-soft:rgba(56,189,248,.16)!important}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="violet"]{--showcase-accent:#a78bfa!important;--showcase-soft:rgba(167,139,250,.16)!important}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="mint"]{--showcase-accent:#34d399!important;--showcase-soft:rgba(52,211,153,.16)!important}
+#app[data-page="home"] .home-feature-showcase-card[data-tone="amber"]{--showcase-accent:#f59e0b!important;--showcase-soft:rgba(245,158,11,.16)!important}
+#app[data-page="home"] .home-feature-showcase-card .showcase-card-icon{
+  color:var(--showcase-accent)!important;
+  background:var(--showcase-soft)!important;
+  border:1px solid color-mix(in srgb,var(--showcase-accent) 42%,transparent)!important;
+  -webkit-text-fill-color:var(--showcase-accent)!important;
+  filter:none!important;box-shadow:none!important;
+}
+html[data-theme="light"] #app[data-page="home"] .home-feature-showcase-card .showcase-card-icon{
+  color:var(--showcase-accent)!important;
+  background:color-mix(in srgb,var(--showcase-accent) 13%,white)!important;
+  border-color:color-mix(in srgb,var(--showcase-accent) 42%,white)!important;
+  -webkit-text-fill-color:var(--showcase-accent)!important;
+}
+
+#app[data-page="home"] .home-feature-showcase-card .showcase-card-icon svg{
+  display:block!important;width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;
+  stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+#app[data-page="home"] .sec-subjects .premium-subj-icon svg{
+  display:block!important;width:29px!important;height:29px!important;fill:none!important;stroke:currentColor!important;
+  stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+
+/* ConceptLab v29: subject cards slightly shorter; subject icons are inline SVGs, never emoji/sprite references. */
+#app[data-page="home"] .sec-subjects .premium-subj-card{
+  min-height:178px!important;height:178px!important;padding:12px!important;box-sizing:border-box!important;
+}
+#app[data-page="home"] .sec-subjects .premium-subj-top{margin-bottom:6px!important}
+#app[data-page="home"] .sec-subjects .premium-subj-icon{width:40px!important;height:40px!important;flex:0 0 40px!important;font-size:21px!important}
+#app[data-page="home"] .sec-subjects .premium-subj-kicker{font-size:8px!important;line-height:1.2!important}
+#app[data-page="home"] .sec-subjects .premium-subj-card h3{margin:4px 0 0!important;font-size:clamp(16px,1.8vw,20px)!important;line-height:1.2!important}
+#app[data-page="home"] .sec-subjects .premium-subj-bottom{padding-top:6px!important}
+@media(max-width:850px){
+  #app[data-page="home"] .sec-subjects .premium-subj-card{min-height:166px!important;height:166px!important;padding:10px!important}
+  #app[data-page="home"] .sec-subjects .premium-subj-bottom{padding-top:5px!important}
+}
+@media(max-width:600px){
+  #app[data-page="home"] .sec-subjects .premium-subj-card,
+  #app[data-page="home"] .sec-subjects .premium-subj-card:last-child{min-height:154px!important;height:154px!important;padding:9px!important}
+  #app[data-page="home"] .sec-subjects .premium-subj-top{margin-bottom:5px!important}
+  #app[data-page="home"] .sec-subjects .premium-subj-icon{width:38px!important;height:38px!important;flex-basis:38px!important}
+  #app[data-page="home"] .sec-subjects .premium-subj-bottom{padding-top:5px!important}
+}
+
+/* Keep each subject's SVG stroke tied to its own card accent in all themes. */
+#app[data-page="home"] .sec-subjects .subject-phy{--subject-accent:#38bdf8!important}
+#app[data-page="home"] .sec-subjects .subject-chem{--subject-accent:#34d399!important}
+#app[data-page="home"] .sec-subjects .subject-math{--subject-accent:#a78bfa!important}
+html[data-theme="light"] body #app[data-page="home"] .sec-subjects .subject-phy{--subject-accent:#2788c7!important}
+html[data-theme="light"] body #app[data-page="home"] .sec-subjects .subject-chem{--subject-accent:#15966d!important}
+html[data-theme="light"] body #app[data-page="home"] .sec-subjects .subject-math{--subject-accent:#8065c9!important}
+html body #app[data-page="home"] .sec-subjects .premium-subj-icon{
+  color:var(--subject-accent)!important;-webkit-text-fill-color:var(--subject-accent)!important;
+}
+html body #app[data-page="home"] .sec-subjects .premium-subj-icon svg,
+html body #app[data-page="home"] .sec-subjects .premium-subj-icon svg *{
+  display:block!important;fill:none!important;stroke:var(--subject-accent)!important;
+  color:var(--subject-accent)!important;stroke-width:2.5!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+}

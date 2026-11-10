@@ -1,0 +1,23 @@
+/* ConceptLab · আলিনুর নক্ষত্র (Alinur Nakshatra) for Bangla quotes & key headings (v12)
+   Put the font file at assets/fonts/AlinurNakshatra.(woff2|woff|ttf). Missing file => falls back to Hind Siliguri. */
+@font-face{font-family:"Alinur Nakshatra";font-style:normal;font-weight:400;font-display:swap;
+ src:local("Alinur Nakshatra"),local("AlinurNakshatra"),local("Alinur Nakshatra Regular"),local("AlinurNakshatra-Regular"),
+ url("../fonts/AlinurNakshatra.woff2") format("woff2"),url("../fonts/AlinurNakshatra.woff") format("woff"),url("../fonts/AlinurNakshatra.ttf") format("truetype")}
+:root{--font-nakshatra:"Alinur Nakshatra","Hind Siliguri","Noto Sans Bengali","Tiro Bangla",sans-serif}
+
+/* আয়াত / হাদিসের বাংলা অনুবাদ ও তথ্য */
+#app .ah-meaning,#app .ah-topic,#app .ah-reference,#app .ah-footnote,#app .ah-kind,#app .ah-section-head h2,#app .ayat-hadith-section h2{font-family:var(--font-nakshatra)!important}
+#app .ah-meaning{font-size:clamp(18px,2.6vw,23px);line-height:1.85;font-weight:400;letter-spacing:0}
+/* DAILY INSPIRATION — আজকের অনুপ্রেরণা */
+#app .motivation-section h2,#app .motivation-section blockquote,#app .motivation-author,#app .motivation-bottomline,#app .motivation-pill{font-family:var(--font-nakshatra)!important}
+#app .motivation-section blockquote{font-size:clamp(22px,3.6vw,32px);line-height:1.7;font-weight:400}
+#app .motivation-section h2{font-weight:400;letter-spacing:0}
+#app .motivation-author{font-size:clamp(16px,2.2vw,19px)}
+/* অন্যান্য গুরুত্বপূর্ণ জায়গা: হোম সেকশনের শিরোনাম, Hub টুলের শিরোনাম, Study Room-এর অনুপ্রেরণা ও হাইলাইট */
+#app .sh2 h2,#app .sec-head h2,#app .hub-tool-page>h1,#app .hp-lead,#app .sr-quote p,#app .sr-spot h2,#app .sr-blank h3,#app .hub-hero-copy .lead,#app .hub-group-head h2,#app .hub-tool-box>h2{font-family:var(--font-nakshatra)}
+#app .sr-quote p{font-size:16px;line-height:1.8}
+#app .sr-spot h2{font-weight:400}
+#app .sh2 h2,#app .hub-tool-page>h1{font-weight:400;letter-spacing:0}
+/* beat the older home-page rule that forces a serif on the quote */
+#app[data-page] .motivation-section .motivation-card blockquote,#app[data-page] .motivation-section .motivation-card h2,#app[data-page] .motivation-section .motivation-card .motivation-author{font-family:var(--font-nakshatra)!important}
+#app[data-page] .motivation-section .motivation-card blockquote{font-weight:400!important;letter-spacing:0!important;line-height:1.75!important}

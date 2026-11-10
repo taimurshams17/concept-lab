@@ -1,0 +1,127 @@
+/* ConceptLab Student Hub premium pass — dark theme only, plus creator portrait rings. */
+
+/* Dashboard tool collection: clearer depth, cleaner borders and brighter hierarchy. */
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-box{
+  border:1px solid rgba(111,205,238,.27)!important;
+  background:
+    radial-gradient(80% 65% at 0% 0%,rgba(56,189,248,.095),transparent 72%),
+    radial-gradient(55% 65% at 100% 100%,rgba(37,99,235,.09),transparent 72%),
+    linear-gradient(145deg,#0c1d30 0%,#091625 58%,#071321 100%)!important;
+  box-shadow:0 24px 54px -34px rgba(0,0,0,.9),inset 0 1px 0 rgba(222,246,255,.09),inset 0 0 0 1px rgba(125,211,252,.035)!important;
+}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-box-head{border-bottom-color:rgba(125,211,252,.18)!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-box-head h2{color:#f3faff!important;text-shadow:0 2px 18px rgba(56,189,248,.08)}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-box-head p{color:#adc4d5!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-count{color:#d3f1ff!important;border-color:rgba(125,211,252,.28)!important;background:linear-gradient(135deg,rgba(56,189,248,.13),rgba(37,99,235,.09))!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-group{border-bottom-color:rgba(125,211,252,.15)!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-group-heading>div>span{color:#80d9f4!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-group-heading h3{color:#f0f8ff!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-group-heading p{color:#a6bdce!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-group-heading>b{color:#d7f2ff!important;border-color:rgba(125,211,252,.23)!important;background:rgba(56,189,248,.09)!important}
+
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-tile{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  border:1px solid rgba(118,190,221,.27)!important;border-radius:15px!important;
+  background:linear-gradient(145deg,rgba(24,49,70,.97),rgba(11,27,44,.98) 62%,rgba(8,21,36,.99))!important;
+  box-shadow:0 13px 28px -22px rgba(0,0,0,.95),inset 0 1px 0 rgba(226,246,255,.09),inset 0 0 0 1px rgba(125,211,252,.025)!important;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease!important;
+}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-tile::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background:radial-gradient(120% 100% at 0% 0%,rgba(56,189,248,.12),transparent 68%);
+}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-tile:hover,
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-tile:focus-visible{
+  transform:translateY(-3px)!important;border-color:rgba(103,218,249,.62)!important;
+  background:linear-gradient(145deg,rgba(29,64,89,.99),rgba(12,33,53,.99) 62%,rgba(9,25,42,.99))!important;
+  box-shadow:0 18px 34px -22px rgba(0,0,0,.98),0 0 0 1px rgba(56,189,248,.12),0 0 25px -15px rgba(56,189,248,.34),inset 0 1px 0 rgba(235,250,255,.13)!important;
+  outline:none!important;
+}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-icon{
+  color:#bcefff!important;border:1px solid rgba(125,211,252,.33)!important;
+  background:linear-gradient(145deg,rgba(56,189,248,.2),rgba(37,99,235,.13))!important;
+  box-shadow:inset 0 1px 0 rgba(235,250,255,.12),0 7px 18px -13px rgba(56,189,248,.55)!important;
+}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-copy b{color:#f3f9ff!important;font-weight:800!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-copy small{color:#b3c9d9!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-arrow{color:#91e3fb!important;opacity:.95!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-group-revise .hub-launch-icon{color:#baf3e8!important;background:linear-gradient(145deg,rgba(45,212,191,.2),rgba(13,148,136,.12))!important;border-color:rgba(94,234,212,.3)!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-group-track .hub-launch-icon{color:#d8cbff!important;background:linear-gradient(145deg,rgba(167,139,250,.2),rgba(109,40,217,.12))!important;border-color:rgba(196,181,253,.3)!important}
+html[data-theme="dark"] #app .hub-dashboard .hub-tool-group-tools .hub-launch-icon{color:#ffe2ad!important;background:linear-gradient(145deg,rgba(245,189,104,.19),rgba(180,111,35,.1))!important;border-color:rgba(253,211,142,.3)!important}
+
+/* Tool pages and panels. */
+html[data-theme="dark"] #app .hub-tool-page>h1{color:#f2f9ff!important;text-shadow:0 3px 22px rgba(56,189,248,.08)}
+html[data-theme="dark"] #app .hub-tool-page .hub-tool-page-nav .btn{
+  color:#d5f3ff!important;border:1px solid rgba(125,211,252,.32)!important;
+  background:linear-gradient(135deg,rgba(56,189,248,.13),rgba(37,99,235,.09))!important;
+  box-shadow:0 8px 22px -17px rgba(56,189,248,.48),inset 0 1px 0 rgba(235,250,255,.08)!important;
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hubc,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-card,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .sr-card,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-quad,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-item,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-block,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-sl,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-check{
+  color:#e8f4fc!important;border-color:rgba(125,190,225,.25)!important;
+  background:linear-gradient(148deg,rgba(20,42,61,.96),rgba(10,25,41,.98))!important;
+  box-shadow:0 15px 34px -27px rgba(0,0,0,.95),inset 0 1px 0 rgba(235,249,255,.075)!important;
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hub-item{border-color:rgba(125,190,225,.2)!important;background:rgba(17,37,55,.72)!important;border-radius:12px!important}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(.mutt,.hp-hint,.hp-meta,.hp-lead,.sr-note,.hp-item-f small,.hp-stats small,.hp-table span,.hp-day){color:#b3c8d8!important}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(h2,h3,h4,.hp-h,.sr-card-h h3){color:#f0f8ff!important}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(.hp-result,.hp-ans){color:#ecf8ff!important}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(input,select,textarea){
+  color:#eff8ff!important;border:1px solid rgba(132,190,220,.3)!important;
+  background:linear-gradient(145deg,rgba(5,17,29,.96),rgba(10,25,41,.98))!important;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.28)!important;
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(input,select,textarea)::placeholder{color:#819caf!important}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(input,select,textarea):focus{border-color:rgba(56,189,248,.72)!important;box-shadow:0 0 0 3px rgba(56,189,248,.13)!important;outline:none!important}
+
+/* Consistent high-contrast controls across legacy and Hub Plus tools. */
+html[data-theme="dark"] #app .hub-tool-page #hubBody .btn:not(.pri),
+html[data-theme="dark"] #app .hub-tool-page #hubBody .sr-btn:not(.sr-go):not(.sr-stop),
+html[data-theme="dark"] #app .hub-tool-page #hubBody .sr-mini,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .sr-x,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hub-icon-btn,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hub-goal-step,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hub-week-nav-btn,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hp-mood button{
+  color:#e2f4ff!important;border:1px solid rgba(125,211,252,.3)!important;
+  background:linear-gradient(145deg,rgba(35,65,88,.92),rgba(15,36,56,.96))!important;
+  box-shadow:0 8px 19px -16px rgba(0,0,0,.95),inset 0 1px 0 rgba(240,250,255,.1)!important;
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody .btn.pri,
+html[data-theme="dark"] #app .hub-tool-page #hubBody .sr-btn.sr-go{
+  color:#041522!important;border:1px solid rgba(167,232,255,.55)!important;
+  background:linear-gradient(135deg,#8be2f5 0%,#38bdf8 48%,#2563eb 100%)!important;
+  box-shadow:0 12px 26px -15px rgba(56,189,248,.65),inset 0 1px 0 rgba(255,255,255,.42)!important;
+  font-weight:800!important;
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(.btn,.sr-btn,.sr-mini,.sr-x,.hub-icon-btn,.hub-goal-step,.hub-week-nav-btn,.hp-mood button):hover{
+  border-color:rgba(125,211,252,.68)!important;filter:brightness(1.08);transform:translateY(-1px);
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody :is(.btn,.sr-btn,.sr-mini,.sr-x,.hub-icon-btn,.hub-goal-step,.hub-week-nav-btn,.hp-mood button):focus-visible{
+  outline:2px solid rgba(125,211,252,.85)!important;outline-offset:2px!important;
+}
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hub-bar{background:rgba(148,184,207,.16)!important;border:1px solid rgba(125,211,252,.12)!important}
+html[data-theme="dark"] #app .hub-tool-page #hubBody .hub-bar i{background:linear-gradient(90deg,#38bdf8,#2563eb)!important;box-shadow:0 0 14px rgba(56,189,248,.3)!important}
+
+/* About tab: aqua + ice blue + deep blue creator portrait ring. */
+#app .creator-avatar-ring{
+  background:conic-gradient(from 28deg,#0e7490 0deg,#22d3ee 58deg,#bae6fd 118deg,#38bdf8 178deg,#2563eb 244deg,#1e40af 310deg,#0e7490 360deg)!important;
+  box-shadow:0 0 0 3px rgba(125,211,252,.12),0 0 24px rgba(56,189,248,.22),0 0 42px rgba(37,99,235,.13),0 9px 24px rgba(0,0,0,.28)!important;
+}
+#app .creator-avatar-ring:after{border-color:rgba(125,211,252,.42)!important}
+#app .creator-avatar-ring img{border-color:rgba(191,232,255,.72)!important}
+
+@media(max-width:620px){
+ html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-tile{min-height:76px!important;padding:10px 26px 10px 10px!important;border-radius:13px!important}
+ html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-icon{width:35px!important;height:35px!important;flex-basis:35px!important;border-radius:10px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-theme="dark"] #app .hub-dashboard .hub-tool-launch-grid .hub-launch-tile,
+ html[data-theme="dark"] #app .hub-tool-page #hubBody :is(.btn,.sr-btn,.sr-mini,.sr-x,.hub-icon-btn,.hub-goal-step,.hub-week-nav-btn,.hp-mood button){transition:none!important}
+}

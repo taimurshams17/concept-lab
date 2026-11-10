@@ -2,6 +2,17 @@
    Observe animation-owning sections rather than hundreds of individual cards. */
 (function () {
   'use strict';
+
+  /* Enable the lightweight visual profile on phones and modest hardware. */
+  try {
+    var memory = Number(navigator.deviceMemory || 0);
+    var cores = Number(navigator.hardwareConcurrency || 0);
+    var compactDevice = window.matchMedia && window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+    if (compactDevice || (memory > 0 && memory <= 4) || (cores > 0 && cores <= 4)) {
+      document.documentElement.classList.add('cl-low-power');
+    }
+  } catch (e) {}
+
   if (!('IntersectionObserver' in window)) return;
 
   var selectors = [
