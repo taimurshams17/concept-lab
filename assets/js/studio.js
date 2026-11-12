@@ -165,27 +165,6 @@
   }
   function baseOpts(sel) { var o = ''; for (var b = 2; b <= 36; b++) o += '<option value="' + b + '"' + (b === sel ? ' selected' : '') + '>' + b + (b === 2 ? ' (Binary)' : b === 8 ? ' (Octal)' : b === 10 ? ' (Decimal)' : b === 16 ? ' (Hex)' : '') + '</option>'; return o; }
 
-  /* ---------- 7. Sig figs & scientific notation ---------- */
-  function sigCount(str) {
-    var s = str.trim().replace(/^[+-]/, '').toLowerCase(), m = s.split('e')[0];
-    if (!/^(\d+\.?\d*|\.\d+)$/.test(m)) return NaN;
-    if (m.indexOf('.') >= 0) return m.replace('.', '').replace(/^0+/, '').length || 1;
-    return m.replace(/^0+/, '').replace(/0+$/, '').length || 1;
-  }
-  function sciRun() {
-    var raw = val('tk-sig'), x = Number(raw.replace(/,/g, '.')), n = parseInt(val('tk-sn'), 10);
-    if (!raw.trim() || !isFinite(x)) return warn('একটি সংখ্যা দিন, যেমন 0.004560 বা 1.20e5');
-    var sc = sigCount(raw.replace(/,/g, '.')), pretty = function (e) { return String(e).replace(/e\+?(-?\d+)/i, ' × 10<sup>$1</sup>'); };
-    var out = row('সার্থক অঙ্ক', isFinite(sc) ? sc : '—') + row('বৈজ্ঞানিক রূপ', pretty(x.toExponential(isFinite(sc) ? Math.max(0, sc - 1) : undefined)));
-    if (n >= 1 && n <= 15) out += row(n + ' সার্থক অঙ্কে', pretty(x.toPrecision(n)), pretty(x.toExponential(n - 1)));
-    return out + row('SI উপসর্গ', prefixFor(x));
-  }
-  function prefixFor(x) {
-    if (!x) return '—'; var P = [[1e12, 'T (টেরা)'], [1e9, 'G (গিগা)'], [1e6, 'M (মেগা)'], [1e3, 'k (কিলো)'], [1, '—'], [1e-3, 'm (মিলি)'], [1e-6, 'µ (মাইক্রো)'], [1e-9, 'n (ন্যানো)'], [1e-12, 'p (পিকো)']], a = Math.abs(x);
-    for (var i = 0; i < P.length; i++) if (a >= P[i][0]) return fmt(x / P[i][0], 6) + ' ' + P[i][1].split(' ')[0];
-    return fmt(x / 1e-12, 6) + ' p';
-  }
-
   /* ---------- 8. Percent & ratio ---------- */
   function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a; }
   function pctRun() {
@@ -285,7 +264,6 @@
     { id: 'stats', icon: '📊', label: 'Statistics', desc: 'গড়, মধ্যক, প্রচুরক, চতুর্থক ও পরিমিত ব্যবধান', form: function () { return '<label class="tk-field"><span>ডেটা (কমা বা স্পেস দিয়ে)</span><textarea id="tk-data" rows="3" inputmode="decimal">12, 15, 11, 18, 15, 20, 9</textarea></label>'; }, run: statsRun },
     { id: 'quad', icon: '𝑥²', label: 'দ্বিঘাত সমীকরণ সমাধান', desc: 'Quadratic Solver: ax² + bx + c = 0 সমীকরণের মূল ও শীর্ষবিন্দু বের করুন', form: function () { return guide(['সমীকরণটি ax² + bx + c = 0 আকারে লিখুন।','a ঘরে x²-এর সহগ, b ঘরে x-এর সহগ এবং c ঘরে ধ্রুবক সংখ্যা দিন।','তিনটি মান দিলেই মূল, মূলের যোগফল-গুণফল ও শীর্ষবিন্দু নিচে দেখা যাবে।'], 'x² − 5x + 6 = 0 হলে a = 1, b = −5, c = 6।') + '<div class="tk-grid3">' + field('tk-qa', 'a (x²-এর সহগ)', '1') + field('tk-qb', 'b (x-এর সহগ)', '-5') + field('tk-qc', 'c (ধ্রুবক)', '6') + '</div><p class="tk-note">মনে রাখুন: a = 0 হলে এটি দ্বিঘাত সমীকরণ থাকে না।</p>'; }, run: quadRun },
     { id: 'base', icon: '⌗', label: 'Base Converter', desc: 'Convert integers between binary, octal, decimal, hexadecimal and bases 2–36.', form: function () { return guide(['Enter an integer using digits valid for the source base. Letters A–Z represent digit values 10–35.','Choose the source base and the base you want to convert to. Results update automatically.','Use Swap to reverse the selected bases, or Copy result to copy the main answer.','The result panel also shows common bases, binary grouping, bit length and a short method explanation.'], '255 in base 10 → FF in base 16 → 11111111 in base 2. Negative integers are supported; fractional numbers are not supported yet.') + '<label class="tk-field"><span>Number to convert</span><input class="tk-in" id="tk-num" type="text" value="255" inputmode="text" autocomplete="off" spellcheck="false" aria-describedby="baseHelp"></label><p class="tk-note" id="baseHelp">Use 0–9 and A–Z as allowed by the selected base. Example: FF is valid in base 16.</p><div class="tk-grid2 base-select-grid"><label class="tk-field"><span>From base</span><select id="tk-from">' + baseOpts(10) + '</select></label><label class="tk-field"><span>To base</span><select id="tk-to">' + baseOpts(2) + '</select></label></div><div class="base-actions"><button type="button" class="btn ghost" data-base-swap>⇄ Swap bases</button><div class="base-presets"><span>Quick examples</span><button type="button" class="tk-chip" data-base-preset="255|10|2">255 → Binary</button><button type="button" class="tk-chip" data-base-preset="FF|16|10">FF → Decimal</button><button type="button" class="tk-chip" data-base-preset="101101|2|16">Binary → Hex</button></div></div>'; }, run: baseRun },
-    { id: 'sigfig', icon: '⚛️', label: 'সার্থক অঙ্ক ও বৈজ্ঞানিক রূপ', desc: 'Significant Figures: সার্থক অঙ্ক গণনা, বৈজ্ঞানিক রূপ ও রাউন্ডিং শিখুন', form: function () { return guide(['যে সংখ্যাটির সার্থক অঙ্ক জানতে চান সেটি লিখুন।','কতটি সার্থক অঙ্কে রাউন্ড করতে চান, ১ থেকে ১৫-এর মধ্যে লিখুন।','নিচে সার্থক অঙ্কের সংখ্যা, বৈজ্ঞানিক রূপ এবং রাউন্ড করা মান স্বয়ংক্রিয়ভাবে পাবেন।'], '0.004560 সংখ্যাটিতে ৪টি সার্থক অঙ্ক আছে; শুরুতে থাকা শূন্যগুলো গণনা হয় না, দশমিকের পর শেষের শূন্যটি গণনা হয়।') + field('tk-sig', 'ধাপ ১: সংখ্যাটি লিখুন', '0.004560', { mode: 'text', ph: 'যেমন 0.004560 বা 1.20e5' }) + field('tk-sn', 'ধাপ ২: কতটি সার্থক অঙ্কে রাউন্ড করবেন?', '2', { mode: 'numeric' }) + '<p class="tk-note">দশমিক ও বৈজ্ঞানিক নোটেশন—দুই ধরনের সংখ্যাই লিখতে পারবেন।</p>'; }, run: sciRun },
     { id: 'percent', icon: '％', label: 'Percent & Ratio', desc: 'শতকরা, পরিবর্তনের হার ও সরল অনুপাত', form: function () { return '<label class="tk-field"><span>কী বের করবেন</span><select id="tk-pm"><option value="of">x% of y</option><option value="is">x হলো y-এর কত %</option><option value="chg">x থেকে y-তে % পরিবর্তন</option><option value="ratio">x : y সরল অনুপাত</option></select></label><div class="tk-grid2">' + field('tk-px', 'x', '25') + field('tk-py', 'y', '240') + '</div>'; }, run: pctRun },
     { id: 'sound', icon: '🎧', label: 'Focus Sounds', desc: 'বৃষ্টি, ব্রাউন ও পিঙ্ক নয়েজ — পড়ায় মনোযোগের জন্য', form: soundForm, run: null }
   ];
@@ -334,5 +312,5 @@
     if (onTool) { mount(app); return; }
     if (prevMount) prevMount(pg, app);
   };
-  window.CL_STUDIO = { tiles: tiles, tools: TOOLS, parseFormula: parseFormula, det: det, inv: inv, sigCount: sigCount, toBig: toBig, fromBig: fromBig };
+  window.CL_STUDIO = { tiles: tiles, tools: TOOLS, parseFormula: parseFormula, det: det, inv: inv, toBig: toBig, fromBig: fromBig };
 })();

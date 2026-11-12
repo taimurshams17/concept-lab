@@ -8,7 +8,7 @@
     'Geometry Tools':'Geometry','GPA Calculator':'GPA','Weekly Planner':'Weekly Plan','Monthly Planner':'Monthly Plan',
     'Reference Shelf':'Reference','Shortcut Tricks':'Shortcuts','Formula Solver':'Solver','Score Tracker':'Scores',
     'Exam Countdown':'Countdown','Mistake Notebook (ভুলের খাতা)':'Mistake Notebook','Time Blocks (দিনের সময়সূচি)':'Time Blocks',
-    'Eye Rest (২০-২০-২০)':'Eye Rest','দ্বিঘাত সমীকরণ সমাধান':'দ্বিঘাত সমীকরণ','সার্থক অঙ্ক ও বৈজ্ঞানিক রূপ':'সার্থক অঙ্ক','মোলার ভর নির্ণয়':'মোলার ভর'
+    'Eye Rest (২০-২০-২০)':'Eye Rest','দ্বিঘাত সমীকরণ সমাধান':'দ্বিঘাত সমীকরণ','মোলার ভর নির্ণয়':'মোলার ভর'
   };
   var mq = window.matchMedia ? window.matchMedia('(max-width:700px)') : { matches: false };
   var cachedGrid = null, bar = null, maxScroll = 0, travelPercent = 0;
@@ -56,11 +56,47 @@
       bar.style.transform = 'translate3d(0,0,0)';
     }
   }
+  function bindDesktopDrag(g) {
+    if (!g || g.__clDesktopDragBound) return;
+    g.__clDesktopDragBound = true;
+    var pointer = null, startX = 0, startLeft = 0, dragging = false;
+    g.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0 || g.scrollWidth <= g.clientWidth + 2) return;
+      pointer = e.pointerId; startX = e.clientX; startLeft = g.scrollLeft; dragging = false;
+    }, true);
+    g.addEventListener('pointermove', function (e) {
+      if (pointer === null || e.pointerId !== pointer) return;
+      var dx = e.clientX - startX;
+      if (!dragging && Math.abs(dx) > 6) {
+        dragging = true; g.classList.add('is-dragging');
+        if (g.setPointerCapture) { try { g.setPointerCapture(pointer); } catch (err) {} }
+      }
+      if (dragging) { g.scrollLeft = startLeft - dx; e.preventDefault(); }
+    }, { capture: true, passive: false });
+    function finish(e) {
+      if (pointer === null || (e && e.pointerId !== pointer)) return;
+      var didDrag = dragging;
+      pointer = null; dragging = false; g.classList.remove('is-dragging');
+      if (didDrag) {
+        g.setAttribute('data-suppress-drag-click', '1');
+        window.setTimeout(function () { g.removeAttribute('data-suppress-drag-click'); }, 350);
+      }
+    }
+    g.addEventListener('pointerup', finish, true);
+    g.addEventListener('pointercancel', finish, true);
+    g.addEventListener('lostpointercapture', finish, true);
+    g.addEventListener('click', function (e) {
+      if (g.getAttribute('data-suppress-drag-click') === '1') {
+        e.preventDefault(); e.stopPropagation(); g.removeAttribute('data-suppress-drag-click');
+      }
+    }, true);
+  }
   function refresh() {
     queued = false;
     var g = grid();
     if (!g) { cachedGrid = null; bar = null; return; }
     shorten(g);
+    bindDesktopDrag(g);
     measure(g);
   }
   function queue() {

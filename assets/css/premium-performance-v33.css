@@ -1,0 +1,103 @@
+/* ConceptLab v33 · premium midnight surfaces and mobile-friendly simulation layout. */
+html[data-theme="dark"]{
+  --bg:#080e1c;
+  --card:#101a2b;
+  --line:rgba(155,181,225,.16);
+  --pm-surface:linear-gradient(145deg,rgba(255,255,255,.055),rgba(124,157,220,.018) 58%,rgba(255,255,255,.012));
+  --pm-edge:rgba(151,180,230,.18);
+  --pm-edge-hi:rgba(113,166,255,.48);
+  --pm-shadow:0 1px 0 rgba(255,255,255,.055) inset,0 15px 34px -22px rgba(0,0,0,.86),0 5px 16px -12px rgba(55,105,205,.24);
+}
+html[data-theme="dark"] body{background:#080e1c!important}
+html[data-theme="dark"] body::before{
+  background:
+    radial-gradient(52% 42% at 14% 0%,rgba(42,105,210,.22),transparent 72%),
+    radial-gradient(42% 44% at 92% 9%,rgba(116,76,204,.16),transparent 72%),
+    radial-gradient(42% 34% at 52% 100%,rgba(18,126,158,.105),transparent 74%),
+    linear-gradient(155deg,#0b1426 0%,#080e1c 46%,#070b16 100%)!important;
+}
+html[data-theme="dark"] body::after{
+  background-image:linear-gradient(rgba(148,177,225,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(148,177,225,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 74% 62% at 50% 26%,#000 8%,transparent 82%);
+  mask-image:radial-gradient(ellipse 74% 62% at 50% 26%,#000 8%,transparent 82%);
+}
+html[data-theme="dark"] header{background:rgba(9,16,30,.82)!important;border-bottom-color:rgba(160,188,235,.16)!important}
+html[data-theme="dark"] #app :is(.card,.lab-sim-card,.sim-explorer-intro,.sim-explorer-controls,.sim-explorer-main,.sim-observation-panel){border-color:rgba(155,181,225,.16)}
+html[data-theme="dark"] #app .sim-explorer-visual{background:linear-gradient(145deg,rgba(17,30,51,.9),rgba(8,15,28,.96));border-color:rgba(130,166,228,.2)}
+html[data-theme="dark"] #app .sim-explorer-presets button{border-color:rgba(132,169,232,.25);background:rgba(111,151,220,.09);color:var(--txt)}
+html[data-theme="dark"] #app .sim-explorer-presets button:focus-visible,
+html[data-theme="dark"] #app .sim-explorer-presets button:hover{border-color:rgba(120,170,255,.65);background:rgba(87,137,226,.18)}
+
+/* Defer off-screen card painting instead of removing the site's motion system. */
+#app .lab-card-grid>.lab-sim-card,
+#app .ga-game-grid>.ga-game-card,
+#app .chapter-index-grid>.chapter-index-card,
+#app .ga-review-list>.ga-review-item{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 205px;
+}
+@media(max-width:760px){
+  html[data-theme="dark"] header{-webkit-backdrop-filter:blur(7px) saturate(1.08);backdrop-filter:blur(7px) saturate(1.08)}
+  html.cl-low-power #app :is(.card,.lab-sim-card,.ga-game-card,.chapter-index-card){box-shadow:0 1px 0 rgba(255,255,255,.035) inset,0 7px 18px -16px rgba(0,0,0,.68)!important}
+  #app .lab-detail-page{padding-left:12px!important;padding-right:12px!important}
+  #app .lab-detail-page>.gh2{gap:10px!important;align-items:flex-start!important;margin:12px 0 14px!important}
+  #app .lab-detail-page>.gh2 .gico.big{width:42px!important;height:42px!important;flex:0 0 42px!important}
+  #app .lab-detail-page>.gh2 .ctitle{font-size:clamp(18px,5vw,23px)!important;line-height:1.25!important}
+  #app .lab-detail-page>.gh2 .mutt{font-size:12px!important;line-height:1.55!important}
+  #app .lab-detail-page .study-save-sim-btn{min-height:34px!important;padding:7px 10px!important;font-size:11px!important;margin-top:8px!important}
+  #app .lab-detail-page .simcard{padding:10px!important;border-radius:14px!important;gap:10px!important}
+
+  /* Main model gets more room; text panels and inputs stay compact. */
+  #app .sim-explorer{gap:10px!important;margin-top:12px!important}
+  #app .sim-explorer-intro,#app .sim-explorer-controls,#app .sim-explorer-main,#app .sim-observation-panel{padding:11px!important;border-radius:14px!important}
+  #app .sim-explorer-intro h2{font-size:clamp(17px,4.9vw,22px)!important;margin:5px 0!important}
+  #app .sim-explorer-intro>p{font-size:11px!important;line-height:1.55!important}
+  #app .sim-explorer-mission{margin-top:9px!important;padding:8px 10px!important;gap:3px!important}
+  #app .sim-explorer-mission b,#app .sim-explorer-mission span{font-size:10px!important;line-height:1.5!important}
+  #app .sim-explorer-layout{gap:10px!important;grid-template-columns:minmax(0,1fr)!important}
+  #app .sim-explorer-main{order:1!important}
+  #app .sim-explorer-controls{order:2!important}
+  #app .sim-explorer-section-title{gap:7px!important;margin-bottom:9px!important}
+  #app .sim-explorer-section-title>span{flex-basis:23px!important;height:23px!important;border-radius:7px!important;font-size:9px!important}
+  #app .sim-explorer-section-title h3{font-size:13px!important}
+  #app .sim-explorer-visual{min-height:205px!important;padding:6px!important;border-radius:11px!important;display:grid;align-items:center}
+  #app .sim-explorer-svg{width:100%!important;height:auto!important;max-height:none!important;min-height:190px!important}
+  #app .sim-explorer-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important;margin-top:8px!important}
+  #app .sim-metric{padding:8px!important;border-radius:9px!important;gap:3px!important}
+  #app .sim-metric small{font-size:9px!important}
+  #app .sim-metric b{font-size:12px!important;line-height:1.35!important}
+  #app .sim-explorer-formula{margin-top:8px!important;padding:9px!important}
+  #app .sim-explorer-formula b{font-size:12px!important;line-height:1.5!important}
+  #app .sim-explorer-formula p{font-size:10px!important;margin-top:5px!important}
+  #app .sim-param{grid-template-columns:minmax(0,1fr) 106px!important;gap:5px 10px!important;padding:8px 0!important;align-items:center!important}
+  #app .sim-param>span:first-child{grid-column:1/-1!important;font-size:11px!important}
+  #app .sim-param input[type=range]{grid-column:1!important;grid-row:2!important;margin:0!important;min-width:0!important}
+  #app .sim-param-numeric{grid-column:2!important;grid-row:2!important;gap:4px!important}
+  #app .sim-param-numeric input{padding:6px 7px!important;font-size:11px!important;min-height:31px!important}
+  #app .sim-param-numeric small{font-size:9px!important}
+  #app .sim-explorer-presets{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+  #app .sim-explorer-presets>span{width:100%;font-size:10px;color:var(--mut);font-weight:700}
+  #app .sim-explorer-presets button{min-height:30px;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--txt);font:inherit;font-size:10px}
+  #app #simReset{min-height:34px;padding:7px 10px!important;font-size:11px!important;margin-top:8px!important}
+  #app .sim-observation-head h3{font-size:14px!important}
+  #app .sim-observation-head p{font-size:10px!important}
+  #app .sim-observation-actions button{flex:1 1 140px!important;min-height:36px!important;padding:7px 9px!important;font-size:10px!important}
+  #app .sim-explorer-footnote{font-size:9px!important}
+
+  /* Legacy simulation visuals are no longer squeezed into short thumbnails. */
+  #app .lab-detail-page .simcard>.cv2{width:100%!important;height:clamp(210px,62vw,300px)!important;max-height:300px!important;min-height:210px!important;object-fit:contain!important}
+  #app .lab-detail-page .simcard .motion-stage svg,
+  #app .lab-detail-page .simcard .fl-visual{min-height:190px!important}
+  #app .lab-detail-page .simcard>.ctl{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  #app .lab-detail-page .simcard>.ctl>div{padding:7px!important}
+  #app .lab-detail-page .simcard>.ctl label{font-size:10px!important}
+  #app .lab-detail-page .simcard .sim-value-editor{display:grid;grid-template-columns:minmax(0,1fr) minmax(72px,100px);align-items:center;gap:5px;margin-top:5px}
+  #app .lab-detail-page .simcard .sim-value-editor>span{font-size:9px!important;color:var(--mut)}
+  #app .lab-detail-page .simcard .sim-value-input{width:100%;min-width:0;min-height:30px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--txt);font:inherit;font-size:11px}
+}
+@media(max-width:390px){
+  #app .sim-explorer-visual{min-height:185px!important}
+  #app .sim-explorer-svg{min-height:175px!important}
+  #app .sim-param{grid-template-columns:minmax(0,1fr) 92px!important}
+}
