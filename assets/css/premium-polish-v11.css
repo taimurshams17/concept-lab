@@ -132,7 +132,7 @@ html[data-theme="light"] #app .creator-note{color:#665a41!important}
 /* Violet theme: keep its dark glass look, but let gold be the only portrait accent. */
 html[data-theme="purple"] #app .creator-team-section{border-color:rgba(190,151,65,.34)!important}
 html[data-theme="purple"] #app .creator-profile{
-  background:linear-gradient(145deg,rgba(26,24,34,.96),rgba(12,12,19,.98))!important;
+  background:linear-gradient(145deg,rgba(22,23,36,.96),rgba(11,12,20,.98))!important;
   border-color:rgba(190,151,65,.26)!important;
 }
 html[data-theme="purple"] #app .creator-profile-meta h3{color:#f3e7c8!important}

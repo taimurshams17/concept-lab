@@ -19,7 +19,7 @@
   border-radius:50%!important;object-fit:cover!important;position:relative!important;z-index:2!important;
 }
 html[data-theme="light"] #app .creator-avatar-ring img{border-color:#f6fbff!important}
-html[data-theme="purple"] #app .creator-avatar-ring img{border-color:#100b1c!important}
+html[data-theme="purple"] #app .creator-avatar-ring img{border-color:#09091e!important}
 
 /* 2) Mobile hero visual — preserve the animated science illustration, reduce vertical bulk. */
 #app[data-page="home"] .hero-visual-card{
@@ -141,16 +141,16 @@ html[data-theme="light"] #app[data-page="home"] .showcase-card-icon{background:l
 html[data-theme="light"] #app[data-page="home"] .showcase-card-bottom{color:#397ea9}
 
 /* Violet theme: midnight-black base, with an understated violet edge. */
-html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-kicker{color:#c8b1ff}
-html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-head h2{color:#f5efff!important}
-html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-head p{color:#bdb1cf!important}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-kicker{color:#b1b1ff}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-head h2{color:#efefff!important}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-head p{color:#b2b1cf!important}
 html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-card{
-  color:#f3edff;border-color:rgba(190,160,245,.23);
-  background:radial-gradient(ellipse at 100% 0%,rgba(110,65,176,.14),transparent 54%),linear-gradient(145deg,#171124,#0e0a17);
+  color:#ededff;border-color:rgba(161,160,245,.23);
+  background:radial-gradient(ellipse at 100% 0%,rgba(67,65,176,.14),transparent 54%),linear-gradient(145deg,#0f0f26,#090918);
   box-shadow:0 12px 26px -23px rgba(0,0,0,.88),inset 0 1px 0 rgba(255,255,255,.075);
 }
-html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-card>strong{color:#f7f1ff!important}
-html[data-theme="purple"] #app[data-page="home"] .showcase-card-copy{color:#bcb0d0!important}
+html[data-theme="purple"] #app[data-page="home"] .home-feature-showcase-card>strong{color:#f1f1ff!important}
+html[data-theme="purple"] #app[data-page="home"] .showcase-card-copy{color:#b1b0d0!important}
 
 @media(max-width:900px){
   #app[data-page="home"] .home-feature-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}

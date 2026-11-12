@@ -1,0 +1,266 @@
+/* ConceptLab v35 · Indigo theme → "Midnight Indigo" (deep navy + periwinkle glass, white pill CTAs).
+   Scoped to html[data-theme="purple"] only — Dark and Light themes are untouched.
+   Loaded last on purpose. */
+
+html[data-theme="purple"]{
+  --mi-bg:#050816;
+  --mi-bg2:#080c24;
+  --mi-card-a:rgba(26,30,84,.78);
+  --mi-card-b:rgba(9,12,38,.90);
+  --mi-edge:rgba(118,126,255,.34);
+  --mi-edge-soft:rgba(118,126,255,.20);
+  --mi-accent:#6f6cff;
+  --mi-accent-2:#8f95ff;
+  --mi-tint:#b9bdff;
+  --mi-ink:#f3f4ff;
+  --mi-sub:#9ea4d4;
+
+  --bg:#050816!important;--card:rgba(14,18,54,.72)!important;--line:rgba(118,126,255,.26)!important;
+  --tx:#f3f4ff!important;--mut:#9ea4d4!important;--p:#7a78ff!important;--s:#b9bdff!important;
+  --a:#9aa0ff!important;--glow:#5a58f2!important;
+  --cl-glass-fill:rgba(14,18,54,.66)!important;--cl-glass-fill-strong:rgba(18,23,66,.80)!important;
+  --cl-glass-edge:rgba(126,134,255,.30)!important;--cl-glass-inner:rgba(190,196,255,.14)!important;
+  --cl-glass-shadow:rgba(2,3,20,.42)!important;
+  --sp-ink:#f3f4ff;--sp-sub:#9ea4d4;--sp-accent:#8f95ff;--sp-deep:#4a4ad8;--sp-deeper:#1b1f5c;
+  --sp-edge:rgba(118,126,255,.30);
+  --footer-accent:#8f95ff!important;
+  color-scheme:dark;
+  background:#050816!important;
+}
+
+/* ── Page foundation: deep navy, the existing blueprint / orbit background keeps its design ── */
+html[data-theme="purple"] body{
+  color:var(--mi-ink)!important;
+  background-color:#050816!important;
+  font-feature-settings:"ss01","cv11";
+}
+html[data-theme="purple"] body::before{background-color:#050816!important}
+html[data-theme="purple"] ::selection{background:rgba(111,108,255,.55);color:#fff}
+html[data-theme="purple"] :focus-visible{outline:2px solid #8f95ff!important;outline-offset:3px}
+html[data-theme="purple"] *{scrollbar-color:#3b3ec4 #070a1f}
+html[data-theme="purple"] ::-webkit-scrollbar{width:10px;height:10px}
+html[data-theme="purple"] ::-webkit-scrollbar-track{background:#070a1f}
+html[data-theme="purple"] ::-webkit-scrollbar-thumb{background:linear-gradient(#4a4cd8,#2d2f93);border-radius:9px;border:2px solid #070a1f}
+
+/* ── Typography: clean white headings, calm periwinkle secondary text ── */
+html[data-theme="purple"] :is(h1,h2,h3,h4){
+  color:#f6f7ff!important;letter-spacing:-.012em;font-weight:650;
+  text-shadow:0 0 38px rgba(111,108,255,.18);
+}
+html[data-theme="purple"] h1{
+  background:linear-gradient(180deg,#ffffff 28%,#c5c9ff 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+  -webkit-text-fill-color:transparent;text-shadow:none;
+}
+html[data-theme="purple"] h2 em{
+  background:linear-gradient(100deg,#aeb3ff,#7a78ff)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+}
+html[data-theme="purple"] :is(.lead,.mutt,.c p,.sh2 p){color:var(--mi-sub)!important}
+
+/* ── Header + bottom navigation: dark navy glass, thin periwinkle hairline ── */
+html[data-theme="purple"] body>header,
+html[data-theme="purple"] header{
+  background:linear-gradient(180deg,rgba(6,9,30,.90),rgba(6,9,28,.74))!important;
+  border:0!important;border-bottom:1px solid rgba(118,126,255,.18)!important;border-radius:0!important;
+  box-shadow:0 18px 40px -28px rgba(55,57,220,.55)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(140%)!important;backdrop-filter:blur(14px) saturate(140%)!important;
+}
+html[data-theme="purple"] #nav,
+html[data-theme="purple"] .nav-portal{
+  background:rgba(8,11,36,.88)!important;border:1px solid var(--mi-edge-soft)!important;
+  box-shadow:inset 0 1px 0 rgba(190,196,255,.10),0 24px 50px -22px rgba(0,0,12,.9)!important;
+}
+html[data-theme="purple"] nav a{color:#b4b9e6!important;border-radius:999px}
+html[data-theme="purple"] nav a:hover{color:#fff!important;background:rgba(111,108,255,.16)!important}
+html[data-theme="purple"] nav a.on{
+  color:#fff!important;background:rgba(111,108,255,.26)!important;
+  box-shadow:inset 0 0 0 1px rgba(143,149,255,.45),0 0 22px -6px rgba(111,108,255,.7)!important;
+}
+html[data-theme="purple"] .bottom-nav{
+  background:linear-gradient(180deg,rgba(10,13,42,.92),rgba(5,8,26,.96))!important;
+  border:1px solid var(--mi-edge-soft)!important;
+  box-shadow:inset 0 1px 0 rgba(190,196,255,.10),0 -14px 40px -20px rgba(70,72,240,.45)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(140%)!important;backdrop-filter:blur(14px) saturate(140%)!important;
+}
+html[data-theme="purple"] .bottom-nav a.on,
+html[data-theme="purple"] .bottom-nav a[aria-current="page"]{color:#fff!important}
+
+/* ── Card system: navy gradient, periwinkle edge, soft inner glow, 16px radius ── */
+html[data-theme="purple"] body #app[data-page] :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.graph-card,.lab-sim-card,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.hub-extra-tools,.study-panel,.profile-head,.px-power-card,.brain-sprint-shell,.brain-sprint-play,.gdeck-card,.home-lab-card,.hub-tool-box,.motivation-card,.ah-card,.hero-visual-card,.hub-dashboard,.home-stats-panel){
+  background:
+    radial-gradient(130% 90% at 0% 0%,rgba(111,108,255,.20),transparent 58%),
+    linear-gradient(165deg,var(--mi-card-a),var(--mi-card-b))!important;
+  border:1px solid var(--mi-edge)!important;
+  border-radius:16px!important;
+  box-shadow:
+    inset 0 1px 0 rgba(190,196,255,.14),
+    inset 0 0 0 1px rgba(70,74,220,.06),
+    0 22px 46px -26px rgba(2,3,24,.95),
+    0 0 34px -18px rgba(90,88,242,.55)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;
+}
+html[data-theme="purple"] body #app[data-page] :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card,.subj-card,.graph-card,.lab-sim-card,.gdeck-card,.home-lab-card,.hub-tool-box):hover{
+  border-color:rgba(160,166,255,.62)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(210,214,255,.20),
+    0 26px 52px -26px rgba(2,3,24,.95),
+    0 0 44px -10px rgba(111,108,255,.65)!important;
+}
+
+/* Icon shells inside cards: small rounded navy tiles with a lit periwinkle rim */
+html[data-theme="purple"] body #app[data-page] :is(.feature-icon-shell,.launch-feature-icon,.stage-icon-orbit,.gdeck-ico,.premium-home-icon,.premium-subj-icon){
+  background:linear-gradient(145deg,rgba(111,108,255,.34),rgba(16,20,70,.9))!important;
+  border:1px solid rgba(150,156,255,.45)!important;border-radius:13px!important;
+  box-shadow:inset 0 1px 0 rgba(220,224,255,.22),0 10px 24px -12px rgba(90,88,242,.9)!important;
+  color:#e4e6ff!important;
+}
+
+/* ── Buttons: white pill primary (like “Запросить ДЕМО”), navy outline secondary ── */
+html[data-theme="purple"] .btn{
+  border-radius:999px!important;
+  background:rgba(12,16,50,.80)!important;
+  border:1px solid rgba(126,134,255,.42)!important;
+  color:#eef0ff!important;
+  box-shadow:inset 0 1px 0 rgba(190,196,255,.12)!important;
+}
+html[data-theme="purple"] .btn:hover{
+  background:rgba(111,108,255,.22)!important;border-color:#9aa0ff!important;
+  box-shadow:0 12px 30px -12px rgba(111,108,255,.85)!important;transform:translateY(-1px)!important;
+}
+html[data-theme="purple"] .btn.pri,
+html[data-theme="purple"] body #app[data-page] :is(.btn.pri,.btn.primary,.px-btn.pri,.px-btn.primary,.aq-primary,.aq-next,.hub-hero-primary),
+html[data-theme="purple"] body header #accountActions a.account-link.account-primary,
+html[data-theme="purple"] .account-primary,
+html[data-theme="purple"] a.account-link.account-primary{
+  background:linear-gradient(180deg,#ffffff,#e9ebff)!important;
+  color:#0a0d2e!important;border:1px solid #ffffff!important;font-weight:700!important;
+  box-shadow:0 14px 34px -14px rgba(143,149,255,.95),0 0 0 4px rgba(111,108,255,.10)!important;
+}
+html[data-theme="purple"] .btn.pri:hover,
+html[data-theme="purple"] body #app[data-page] :is(.btn.pri,.btn.primary,.px-btn.pri,.px-btn.primary,.aq-primary,.aq-next,.hub-hero-primary):hover,
+html[data-theme="purple"] body header #accountActions a.account-link.account-primary:hover,
+html[data-theme="purple"] .account-primary:hover{
+  background:linear-gradient(180deg,#ffffff,#dfe2ff)!important;filter:none!important;
+  box-shadow:0 18px 40px -12px rgba(143,149,255,1),0 0 0 5px rgba(111,108,255,.16)!important;
+}
+html[data-theme="purple"] .btn.pri *,html[data-theme="purple"] body header #accountActions a.account-primary *{color:inherit!important}
+html[data-theme="purple"] .btn.on{background:#6f6cff!important;color:#fff!important;border-color:#8f95ff!important}
+
+/* ── Chips / pills / tags: solid periwinkle chips like “HR / Маркетинг” ── */
+html[data-theme="purple"] .pill,
+html[data-theme="purple"] body #app[data-page] :is(.feature-card-tag,.launch-eyebrow,.home-stats-kicker,.brain-sprint-eyebrow){
+  background:rgba(111,108,255,.22)!important;
+  border:1px solid rgba(143,149,255,.40)!important;
+  color:#d4d7ff!important;border-radius:9px!important;
+}
+html[data-theme="purple"] .pill i{background:#8f95ff!important;box-shadow:0 0 12px #6f6cff!important}
+
+/* ── Inputs ── */
+html[data-theme="purple"] :is(input,select,textarea){
+  background:rgba(8,11,38,.78)!important;border:1px solid rgba(118,126,255,.32)!important;
+  color:#f3f4ff!important;border-radius:14px!important;
+}
+html[data-theme="purple"] :is(input,select,textarea):focus{
+  border-color:#8f95ff!important;box-shadow:0 0 0 3px rgba(111,108,255,.25)!important;outline:none!important;
+}
+html[data-theme="purple"] ::placeholder{color:#767cb4!important}
+
+/* ── Hero visual card: the “chat window” look from the reference (rim glow, lit edge) ── */
+html[data-theme="purple"] body #app[data-page="home"] .hero-visual-card{
+  border-radius:20px!important;
+  box-shadow:
+    inset 0 1px 0 rgba(200,205,255,.20),
+    0 0 0 1px rgba(111,108,255,.18),
+    0 34px 70px -30px rgba(2,3,28,.95),
+    0 0 70px -14px rgba(90,88,242,.60)!important;
+}
+
+/* ── Footer ── */
+html[data-theme="purple"] .site-footer{
+  background:linear-gradient(180deg,rgba(5,8,22,.0),rgba(6,9,30,.92) 40%,#04061a)!important;
+  border-top:1px solid rgba(118,126,255,.20)!important;
+}
+html[data-theme="purple"] .site-footer :is(a,p,span){color:#aab0dd}
+html[data-theme="purple"] .site-footer a:hover{color:#fff}
+html[data-theme="purple"] .site-footer :is(h4,b){color:#f3f4ff}
+
+/* ── Intro screen: same navy world ── */
+html[data-theme="purple"] #intro{
+  background:radial-gradient(ellipse at 50% 44%,#171b5c 0%,#0a0d30 42%,#050816 78%,#03040f 100%)!important;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion:reduce){
+  html[data-theme="purple"] body #app[data-page] :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.stage-premium-card,.feature-premium-card){transition:none}
+}
+
+/* ── Specificity pass: header CTA, hero visual and floating chips ── */
+html[data-theme="purple"] body header .hx a.account-link.account-primary,
+html[data-theme="purple"] body a.account-link.account-primary{
+  background:linear-gradient(180deg,#ffffff,#e9ebff)!important;
+  color:#0a0d2e!important;border:1px solid #ffffff!important;border-radius:999px!important;
+  box-shadow:0 12px 28px -12px rgba(143,149,255,.95),0 0 0 3px rgba(111,108,255,.12)!important;
+  text-shadow:none!important;
+}
+html[data-theme="purple"] body header .hx :is(.header-search-btn,#burger,button,.profile-link){
+  background:linear-gradient(165deg,rgba(26,30,84,.78),rgba(9,12,38,.9))!important;
+  border:1px solid rgba(118,126,255,.34)!important;color:#dfe2ff!important;
+  box-shadow:inset 0 1px 0 rgba(190,196,255,.12)!important;
+}
+html[data-theme="purple"] body #app[data-page="home"] .hero-visual-card,
+html[data-theme="purple"] body #app[data-page="home"] .hero-visual-card.rv.in{
+  background:
+    radial-gradient(90% 70% at 50% 0%,rgba(90,88,242,.26),transparent 70%),
+    linear-gradient(170deg,rgba(18,22,70,.92),rgba(6,9,32,.96))!important;
+  border:1px solid rgba(126,134,255,.45)!important;
+}
+html[data-theme="purple"] body #app[data-page="home"] .hero-visual-topline{
+  border-bottom:1px solid rgba(118,126,255,.22)!important;
+  background:linear-gradient(180deg,rgba(111,108,255,.10),transparent)!important;color:#c9ccff!important;
+}
+html[data-theme="purple"] body #app[data-page="home"] .hero-float{
+  background:linear-gradient(145deg,rgba(40,44,128,.78),rgba(11,14,52,.90))!important;
+  border:1px solid rgba(143,149,255,.42)!important;border-radius:14px!important;color:#f3f4ff!important;
+  box-shadow:inset 0 1px 0 rgba(210,214,255,.18),0 16px 30px -16px rgba(60,60,230,.8)!important;
+}
+html[data-theme="purple"] body #app :is(.stage-premium-card,.feature-premium-card,.launch-feature-card,.launch-tool,.launch-subject-card,.home-lab-card,.gdeck-card,.home-stat-card){
+  border-radius:16px!important;
+}
+
+html[data-theme="purple"] body header #accountActions a.account-link.account-primary::after,
+html[data-theme="purple"] .btn.pri::after{background:linear-gradient(105deg,transparent 30%,rgba(111,108,255,.30) 50%,transparent 70%)!important}
+
+/* v35.1: no box behind the hero text, no tile behind section icons, no arrow badges */
+html[data-theme="purple"] body #app[data-page="home"] section.concept-hero{
+  background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+html[data-theme="purple"] body #app[data-page] :is(.feature-icon-shell,.stage-icon-orbit,.launch-feature-icon){
+  background:none!important;border:0!important;box-shadow:none!important;
+}
+html[data-theme="purple"] body #app[data-page] :is(.feature-icon-shell,.stage-icon-orbit,.launch-feature-icon)::before,
+html[data-theme="purple"] body #app[data-page] :is(.feature-icon-shell,.stage-icon-orbit,.launch-feature-icon)::after{background:none!important;box-shadow:none!important;border:0!important}
+html[data-theme="purple"] .btn.pri::before{content:none!important}
+html[data-theme="purple"] :is(.hero-copy,.home-final-cta,.launch-swipe-hint) .btn.pri{padding-right:20px!important}
+
+
+/* Settings swatch: Indigo must preview the live midnight-indigo surfaces. */
+.px-theme-violet .px-theme-preview{background:linear-gradient(135deg,#070b24 0%,#202b86 58%,#0b143c 100%)!important;border-color:#6268e8!important}
+.px-theme-violet .px-theme-preview::before{background:linear-gradient(145deg,#3d48c4,#111b4a)!important}
+.px-theme-violet .px-theme-preview i{background:#6068f0!important;box-shadow:none!important}
+.px-theme-violet .px-theme-preview b{background:#a5b4fc!important;box-shadow:none!important}
+.px-theme-violet .px-theme-preview em{background:#7775ff!important}
+html[data-theme="purple"] .px-theme-violet[aria-pressed="true"]{border-color:#7775ff!important;outline-color:rgba(119,117,255,.28)!important}
+
+/* Remove both the icon tile and any nested image/icon chip in the four-stage cards. */
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit,
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit :is(span,svg,img,i){
+  background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important;
+}
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit::before,
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit::after,
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit :is(span,svg,img,i)::before,
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit :is(span,svg,img,i)::after{content:none!important;display:none!important}
+html[data-theme="purple"] body #app[data-page="home"] .stage-premium-card .stage-icon-orbit{color:#c7cbff!important}

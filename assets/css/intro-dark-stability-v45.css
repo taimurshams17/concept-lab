@@ -1,0 +1,53 @@
+/* ConceptLab v45 — stabilize the Dark intro by avoiding competing opacity/transform animations. */
+html[data-theme="dark"] #intro{
+  background:radial-gradient(ellipse at 50% 42%,#101e31 0%,#07111f 43%,#03070d 100%)!important;
+  isolation:isolate;
+}
+html[data-theme="dark"] #intro .in-bg{contain:paint;}
+html[data-theme="dark"] #intro .in-bg::before{
+  filter:none!important;
+  background:conic-gradient(from 15deg,transparent 0 18%,rgba(59,177,232,.19) 27%,transparent 40%,rgba(130,104,229,.13) 55%,transparent 69%,rgba(58,203,190,.13) 83%,transparent 100%)!important;
+  animation:clDarkIntroAurora 34s linear infinite!important;
+  transform:translate3d(-50%,-50%,0);
+  will-change:transform;
+}
+@keyframes clDarkIntroAurora{to{transform:translate3d(-50%,-50%,0) rotate(360deg)}}
+html[data-theme="dark"] #intro .in-glow{
+  filter:none!important;
+  animation:clDarkIntroGlow 8s ease-in-out .1s infinite!important;
+  will-change:opacity,transform;
+}
+html[data-theme="dark"] #intro .in-glow-two{
+  filter:none!important;
+  animation:clDarkIntroGlowTwo 10s ease-in-out .4s infinite!important;
+  will-change:opacity,transform;
+}
+@keyframes clDarkIntroGlow{0%,100%{opacity:.42;transform:translate3d(-50%,-50%,0) scale(.94)}50%{opacity:.88;transform:translate3d(-50%,-50%,0) scale(1.04)}}
+@keyframes clDarkIntroGlowTwo{0%,100%{opacity:.24;transform:translate3d(0,0,0) scale(.96)}50%{opacity:.62;transform:translate3d(0,-2%,0) scale(1.04)}}
+html[data-theme="dark"] #intro .in-logo::before{filter:none!important;animation:clDarkIntroCore 5.8s ease-in-out 1s infinite!important;will-change:opacity,transform}
+@keyframes clDarkIntroCore{0%,100%{opacity:.28;transform:scale(.9)}50%{opacity:.8;transform:scale(1.08)}}
+html[data-theme="dark"] #intro .in-logo::after{animation:clDarkIntroRing 7s ease-in-out infinite!important;will-change:opacity,transform}
+@keyframes clDarkIntroRing{0%,100%{opacity:.22;transform:translate3d(-50%,-50%,0) scale(.94)}50%{opacity:.68;transform:translate3d(-50%,-50%,0) scale(1.025)}}
+html[data-theme="dark"] #intro .in-mark{filter:drop-shadow(0 10px 22px rgba(0,0,0,.3))!important;animation:clDarkIntroLogo 6s cubic-bezier(.4,0,.2,1) .25s both!important;will-change:transform,opacity}
+@keyframes clDarkIntroLogo{0%{opacity:0;transform:translate3d(0,12px,0) scale(.88)}18%{opacity:1}30%,100%{opacity:1;transform:translate3d(0,0,0) scale(1)}55%{transform:translate3d(0,-5px,0) scale(1.012)}80%{transform:translate3d(0,0,0) scale(1)}}
+html[data-theme="dark"] #intro .in-word,
+html[data-theme="dark"] #intro .in-tag,
+html[data-theme="dark"] #intro .in-prog{filter:none!important}
+html[data-theme="dark"] #intro .in-word{animation:clDarkIntroText 1s cubic-bezier(.2,.8,.2,1) 1.05s both!important}
+html[data-theme="dark"] #intro .in-tag{animation:clDarkIntroText 1s cubic-bezier(.2,.8,.2,1) 1.65s both!important}
+html[data-theme="dark"] #intro .in-prog{animation:clDarkIntroText .8s ease 2.2s both!important}
+@keyframes clDarkIntroText{from{opacity:0;transform:translate3d(0,9px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+html[data-theme="dark"] #intro .t{filter:none!important;will-change:transform}
+html[data-theme="dark"] #intro .t svg{filter:drop-shadow(0 0 5px currentColor)!important;animation:clDarkIntroTool 5s ease-in-out calc(.5s + var(--de)) infinite alternate!important;will-change:opacity,transform}
+@keyframes clDarkIntroTool{from{opacity:.72;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+html[data-theme="dark"] #intro .rw{will-change:transform,opacity}
+html[data-theme="dark"] #intro .in-comet{box-shadow:0 0 7px rgba(103,201,255,.22)!important}
+html[data-theme="dark"] #intro .in-word::after{filter:none!important}
+@media(max-width:600px){
+  html[data-theme="dark"] #intro .in-bg::before{width:min(110vmax,900px)!important}
+  html[data-theme="dark"] #intro .in-glow{width:min(110vw,700px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="dark"] #intro *,html[data-theme="dark"] #intro *::before,html[data-theme="dark"] #intro *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;will-change:auto!important}
+  html[data-theme="dark"] #intro .in-mark,html[data-theme="dark"] #intro .in-word,html[data-theme="dark"] #intro .in-tag,html[data-theme="dark"] #intro .in-prog{opacity:1!important;transform:none!important}
+}

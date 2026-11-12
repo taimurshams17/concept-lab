@@ -63,8 +63,8 @@ html[data-theme="light"] .arcade-page .ga-toolbar{background:linear-gradient(145
 html[data-theme="light"] .arcade-page .ga-catalog-count{background:#fff!important;border-color:#e0e5eb!important}
 html[data-theme="dark"] .arcade-page .ga-toolbar{background:linear-gradient(145deg,#14283a,#101f2e)!important;border-color:#33495e!important}
 html[data-theme="dark"] .arcade-page .ga-catalog-count{background:#1a3044!important;border-color:#3b5368!important;color:#c7d5e1!important}
-html[data-theme="purple"] .arcade-page .ga-toolbar{background:linear-gradient(145deg,#21192e,#171220)!important;border-color:#493b5b!important}
-html[data-theme="purple"] .arcade-page .ga-catalog-count{background:#2d223c!important;border-color:#514164!important;color:#d0c2e2!important}
+html[data-theme="purple"] .arcade-page .ga-toolbar{background:linear-gradient(145deg,#171631,#101022)!important;border-color:#3c3b5b!important}
+html[data-theme="purple"] .arcade-page .ga-catalog-count{background:#23223c!important;border-color:#424164!important;color:#c3c2e2!important}
 @media(max-width:760px){
   .arcade-page .ga-mode-deck{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;margin-bottom:13px!important}
   .arcade-page .ga-mode-card{

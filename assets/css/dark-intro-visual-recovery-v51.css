@@ -1,0 +1,63 @@
+/* ConceptLab v51 — Dark intro visual recovery: remove the oversized sweep artefact and isolate the intro screen. */
+html[data-theme="dark"] #intro{
+  position:fixed!important;inset:0!important;z-index:2147483000!important;
+  overflow:hidden!important;isolation:isolate!important;
+  background:radial-gradient(ellipse 78% 62% at 50% 38%,#10243a 0%,#071321 52%,#02060d 100%)!important;
+  opacity:1;
+}
+html[data-theme="dark"] #intro .in-bg{
+  position:absolute!important;inset:0!important;z-index:0!important;overflow:hidden!important;
+  background:radial-gradient(ellipse at 50% 45%,rgba(28,104,154,.12),transparent 68%)!important;
+}
+/* The previous diagonal light-sweep was a large rotated rectangle on mobile. Replace it with no overlay. */
+html[data-theme="dark"] #intro .in-bg::after{content:none!important;display:none!important;animation:none!important}
+html[data-theme="dark"] #intro .in-bg::before{
+  left:50%!important;top:45%!important;width:min(105vmin,760px)!important;height:min(105vmin,760px)!important;
+  border-radius:50%!important;filter:blur(20px)!important;opacity:.36!important;
+  background:conic-gradient(from 15deg,transparent 0 20%,rgba(59,177,232,.12) 29%,transparent 43%,rgba(130,104,229,.08) 58%,transparent 72%,rgba(58,203,190,.08) 86%,transparent 100%)!important;
+  animation:clDarkIntroHaloV51 48s linear infinite!important;will-change:transform!important;
+}
+@keyframes clDarkIntroHaloV51{from{transform:translate3d(-50%,-50%,0) rotate(0)}to{transform:translate3d(-50%,-50%,0) rotate(360deg)}}
+html[data-theme="dark"] #intro .in-tools{z-index:1!important;opacity:.32!important}
+html[data-theme="dark"] #intro .in-content{
+  position:relative!important;z-index:3!important;width:100%!important;max-width:100%!important;
+  padding:18px 22px max(76px,calc(env(safe-area-inset-bottom) + 68px))!important;
+  transform:none!important;
+}
+html[data-theme="dark"] #intro .in-logo{flex:0 0 auto;isolation:isolate}
+html[data-theme="dark"] #intro .in-logo::after{
+  width:calc(var(--logo)*1.22)!important;height:calc(var(--logo)*1.22)!important;
+  border-color:rgba(117,216,244,.12)!important;box-shadow:0 0 22px rgba(76,181,226,.045)!important;
+}
+html[data-theme="dark"] #intro .r3{width:calc(var(--logo)*1.78)!important;height:calc(var(--logo)*1.42)!important;opacity:.48!important}
+html[data-theme="dark"] #intro .r1 .arc,html[data-theme="dark"] #intro .r2 .arc,html[data-theme="dark"] #intro .r3 .arc{animation:none!important}
+html[data-theme="dark"] #intro .in-word{margin-top:clamp(16px,3vh,25px)!important}
+html[data-theme="dark"] #intro .in-tag{margin-top:12px!important;white-space:normal!important;flex-wrap:wrap;row-gap:5px}
+html[data-theme="dark"] #intro .in-prog{margin-top:clamp(22px,4vh,34px)!important}
+html[data-theme="dark"] #intro .in-skip{z-index:5!important;bottom:max(16px,env(safe-area-inset-bottom))!important}
+/* Keep the underlying home page/navigation from showing through the intro layer. */
+html.intro-on[data-theme="dark"] header,
+html.intro-on[data-theme="dark"] #app,
+html.intro-on[data-theme="dark"] footer,
+html.intro-on[data-theme="dark"] .bottom-nav,
+html.intro-on[data-theme="dark"] #stars,
+html.intro-on[data-theme="dark"] .horizon,
+html.intro-on[data-theme="dark"] #toasts,
+html.intro-on[data-theme="dark"] #conf{visibility:hidden!important;pointer-events:none!important}
+@media(max-width:600px){
+  html[data-theme="dark"] #intro{--logo:clamp(112px,29vw,148px)!important}
+  html[data-theme="dark"] #intro .in-content{padding-left:18px!important;padding-right:18px!important}
+  html[data-theme="dark"] #intro .in-word{font-size:clamp(30px,8vw,40px)!important}
+  html[data-theme="dark"] #intro .in-prog{width:min(78vw,310px)!important}
+  html[data-theme="dark"] #intro .in-bg::before{width:min(112vmin,620px)!important;height:min(112vmin,620px)!important}
+}
+@media(max-height:650px){
+  html[data-theme="dark"] #intro{--logo:clamp(96px,17vh,126px)!important}
+  html[data-theme="dark"] #intro .in-content{padding-top:8px!important;padding-bottom:66px!important}
+  html[data-theme="dark"] #intro .in-word{margin-top:12px!important}
+  html[data-theme="dark"] #intro .in-tag{margin-top:8px!important}
+  html[data-theme="dark"] #intro .in-prog{margin-top:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="dark"] #intro .in-bg::before{animation:none!important}
+}

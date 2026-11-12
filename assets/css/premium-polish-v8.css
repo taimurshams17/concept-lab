@@ -41,22 +41,22 @@
 
 /* Violet: mostly ink-black, with visible but restrained architectural geometry. */
 html[data-theme="purple"] body{
-  background-color:#05040a!important;
+  background-color:#03040b!important;
   background-image:
-    radial-gradient(ellipse 42% 32% at 14% 4%,rgba(73,39,117,.17),transparent 73%),
-    radial-gradient(ellipse 34% 27% at 91% 23%,rgba(76,43,116,.13),transparent 72%),
-    radial-gradient(ellipse 44% 35% at 67% 98%,rgba(70,39,111,.15),transparent 74%),
-    linear-gradient(145deg,#05040a 0%,#090710 52%,#05040a 100%)!important;
-  color:#f7f2ff!important;
+    radial-gradient(ellipse 42% 32% at 14% 4%,rgba(41,39,117,.17),transparent 73%),
+    radial-gradient(ellipse 34% 27% at 91% 23%,rgba(45,43,116,.13),transparent 72%),
+    radial-gradient(ellipse 44% 35% at 67% 98%,rgba(41,39,111,.15),transparent 74%),
+    linear-gradient(145deg,#03040b 0%,#060611 52%,#03040b 100%)!important;
+  color:#f2f2ff!important;
 }
 html[data-theme="purple"] body::before{
   content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;
   pointer-events:none!important;opacity:1!important;filter:none!important;animation:none!important;
   background-image:
-    radial-gradient(circle at 88% 18%,transparent 0 84px,rgba(165,132,211,.16) 85px 86px,transparent 87px 122px,rgba(165,132,211,.10) 123px 124px,transparent 125px 100%),
-    radial-gradient(circle at 10% 78%,transparent 0 118px,rgba(153,124,198,.12) 119px 120px,transparent 121px 164px,rgba(153,124,198,.075) 165px 166px,transparent 167px 100%),
-    linear-gradient(118deg,transparent 0 23%,rgba(170,143,208,.045) 23.1% 23.22%,transparent 23.35% 69%,rgba(170,143,208,.035) 69.1% 69.22%,transparent 69.35%),
-    repeating-linear-gradient(135deg,rgba(186,165,216,.022) 0 1px,transparent 1px 34px);
+    radial-gradient(circle at 88% 18%,transparent 0 84px,rgba(134,132,211,.16) 85px 86px,transparent 87px 122px,rgba(134,132,211,.10) 123px 124px,transparent 125px 100%),
+    radial-gradient(circle at 10% 78%,transparent 0 118px,rgba(125,124,198,.12) 119px 120px,transparent 121px 164px,rgba(125,124,198,.075) 165px 166px,transparent 167px 100%),
+    linear-gradient(118deg,transparent 0 23%,rgba(145,143,208,.045) 23.1% 23.22%,transparent 23.35% 69%,rgba(145,143,208,.035) 69.1% 69.22%,transparent 69.35%),
+    repeating-linear-gradient(135deg,rgba(166,165,216,.022) 0 1px,transparent 1px 34px);
   background-size:100% 100%,100% 100%,100% 100%,auto;
   background-position:center;
   -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.8) 68%,rgba(0,0,0,.5) 100%);
@@ -66,8 +66,8 @@ html[data-theme="purple"] body::after{
   content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;
   pointer-events:none!important;opacity:.62!important;filter:none!important;animation:none!important;
   background-image:
-    linear-gradient(90deg,transparent 0 8%,rgba(186,165,216,.045) 8.05% 8.13%,transparent 8.2% 92%,rgba(186,165,216,.035) 92.05% 92.13%,transparent 92.2%),
-    linear-gradient(0deg,transparent 0 13%,rgba(186,165,216,.035) 13.05% 13.13%,transparent 13.2% 87%,rgba(186,165,216,.03) 87.05% 87.13%,transparent 87.2%),
+    linear-gradient(90deg,transparent 0 8%,rgba(166,165,216,.045) 8.05% 8.13%,transparent 8.2% 92%,rgba(166,165,216,.035) 92.05% 92.13%,transparent 92.2%),
+    linear-gradient(0deg,transparent 0 13%,rgba(166,165,216,.035) 13.05% 13.13%,transparent 13.2% 87%,rgba(166,165,216,.03) 87.05% 87.13%,transparent 87.2%),
     radial-gradient(ellipse at 50% 50%,transparent 28%,rgba(0,0,0,.25) 100%);
 }
 html[data-theme="purple"] #app,
@@ -102,8 +102,8 @@ html[data-theme="purple"] #app::after{pointer-events:none}
 @media(max-width:380px){#app .sfx-prev-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 html[data-theme="light"] #app .sfx-library-compact{background:#f7f9fb;border-color:#e0e6ed}
 html[data-theme="light"] #app .sfx-library-compact>summary>b{background:#e9eef4;color:#546579}
-html[data-theme="purple"] #app .sfx-library-compact{background:rgba(18,12,28,.78);border-color:rgba(177,151,211,.2)}
-html[data-theme="purple"] #app .sfx-library-compact>summary>b{background:rgba(163,132,202,.13);color:#d9c9ee}
+html[data-theme="purple"] #app .sfx-library-compact{background:rgba(11,10,30,.78);border-color:rgba(153,151,211,.2)}
+html[data-theme="purple"] #app .sfx-library-compact>summary>b{background:rgba(134,132,202,.13);color:#cac9ee}
 
 /* v9: clearly visible monochrome architectural artwork for Light and Violet canvases. */
 html[data-theme="light"] body{
@@ -140,10 +140,10 @@ html[data-theme="light"] header,
 html[data-theme="light"] footer.site-footer,
 html[data-theme="light"] .bottom-nav{position:relative;z-index:2}
 html[data-theme="purple"] body{
-  background-color:#030308!important;
+  background-color:#020309!important;
   background-image:
-    radial-gradient(ellipse at 14% 15%,rgba(80,49,123,.24),transparent 32%),
-    radial-gradient(ellipse at 86% 64%,rgba(72,43,112,.20),transparent 34%),
-    linear-gradient(145deg,#030308 0%,#080611 52%,#030308 100%)!important;
+    radial-gradient(ellipse at 14% 15%,rgba(51,49,123,.24),transparent 32%),
+    radial-gradient(ellipse at 86% 64%,rgba(45,43,112,.20),transparent 34%),
+    linear-gradient(145deg,#020309 0%,#050512 52%,#020309 100%)!important;
 }
 html[data-theme="purple"] body::before{opacity:1!important;background-size:100% 100%,100% 100%,100% 100%,auto!important}

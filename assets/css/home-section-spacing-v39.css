@@ -1,0 +1,7 @@
+/* ConceptLab v39 — clear vertical rhythm between homepage sections on desktop.
+   Kept desktop-only so the existing tablet and mobile spacing is unchanged. */
+@media (min-width: 1024px) {
+  #app[data-page="home"] > * + * {
+    margin-block-start: clamp(36px, 3.4vw, 54px) !important;
+  }
+}

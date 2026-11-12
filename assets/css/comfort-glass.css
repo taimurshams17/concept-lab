@@ -16,20 +16,20 @@ html[data-theme="dark"]{
   --cl-glass-shadow:rgba(0,0,0,.26);
 }
 html[data-theme="purple"]{
-  --cl-glass-fill:rgba(35,24,51,.66);
-  --cl-glass-fill-strong:rgba(43,29,62,.78);
-  --cl-glass-edge:rgba(211,190,245,.25);
+  --cl-glass-fill:rgba(22,21,54,.66);
+  --cl-glass-fill-strong:rgba(30,29,62,.78);
+  --cl-glass-edge:rgba(191,190,245,.25);
   --cl-glass-inner:rgba(255,255,255,.13);
   --cl-glass-shadow:rgba(0,0,0,.25);
 }
 
 /* A lighter, shorter and non-fixed purple atmosphere: no moving full-screen paint layers. */
 html[data-theme="purple"] body{
-  background-color:#090711!important;
+  background-color:#060612!important;
   background-image:
-    radial-gradient(ellipse 70% 42% at 12% 0%,rgba(115,77,164,.19),transparent 72%),
-    radial-gradient(ellipse 58% 38% at 100% 30%,rgba(83,54,128,.16),transparent 74%),
-    linear-gradient(145deg,#090711 0%,#100b19 52%,#090711 100%)!important;
+    radial-gradient(ellipse 70% 42% at 12% 0%,rgba(80,77,164,.19),transparent 72%),
+    radial-gradient(ellipse 58% 38% at 100% 30%,rgba(55,54,128,.16),transparent 74%),
+    linear-gradient(145deg,#060612 0%,#0a091b 52%,#060612 100%)!important;
   background-attachment:scroll!important;
 }
 html[data-theme="purple"] body::before,
@@ -37,8 +37,8 @@ html[data-theme="purple"] body::after{
   content:none!important;display:none!important;animation:none!important;filter:none!important;
 }
 html[data-theme="purple"] #stars{opacity:.22!important;filter:none!important}
-html[data-theme="purple"] .horizon{background:radial-gradient(78% 80% at 50% 130%,rgba(124,58,237,.19),rgba(76,29,149,.08) 44%,transparent 76%)!important}
-html[data-theme="purple"] .horizon .hl{box-shadow:0 0 15px 3px rgba(167,139,250,.16)!important}
+html[data-theme="purple"] .horizon{background:radial-gradient(78% 80% at 50% 130%,rgba(61,58,237,.19),rgba(31,29,149,.08) 44%,transparent 76%)!important}
+html[data-theme="purple"] .horizon .hl{box-shadow:0 0 15px 3px rgba(139,140,250,.16)!important}
 
 /* Shared glass cards. Keep photo/game artwork intact by excluding image-led tiles. */
 html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) #app :is(
@@ -84,34 +84,34 @@ html:is([data-theme="light"],[data-theme="dark"],[data-theme="purple"]) .bottom-
 
 /* Purple-specific high-contrast frosted glass, without the previous heavy 24–28px blur. */
 html[data-theme="purple"] #app :is(input,select,textarea,.px-in,.hub-in){
-  background:rgba(12,9,19,.62)!important;color:#f7f2ff!important;
-  border-color:rgba(204,181,255,.24)!important;
+  background:rgba(8,8,20,.62)!important;color:#f2f2ff!important;
+  border-color:rgba(181,181,255,.24)!important;
 }
 html[data-theme="purple"] #app :is(input,select,textarea,.px-in,.hub-in):focus{
-  border-color:rgba(199,168,255,.68)!important;
-  box-shadow:0 0 0 3px rgba(139,92,246,.12)!important;
+  border-color:rgba(169,168,255,.68)!important;
+  box-shadow:0 0 0 3px rgba(92,92,246,.12)!important;
 }
-html[data-theme="purple"] #app :is(.px-note,.px-pref-section p,.px-pref-label,.px-switch small,.mutt){color:#c9bddb!important}
-html[data-theme="purple"] #app :is(h1,h2,h3){color:#f7f1ff}
+html[data-theme="purple"] #app :is(.px-note,.px-pref-section p,.px-pref-label,.px-switch small,.mutt){color:#bebddb!important}
+html[data-theme="purple"] #app :is(h1,h2,h3){color:#f1f1ff}
 html[data-theme="purple"] .bottom-nav a.on,
 html[data-theme="purple"] .bottom-nav a[aria-current]{
-  color:#fbf8ff!important;background:linear-gradient(135deg,rgba(167,139,250,.22),rgba(124,58,237,.13))!important;
-  border:1px solid rgba(211,190,255,.26)!important;
-  box-shadow:inset 0 1px rgba(255,255,255,.10),0 0 16px rgba(139,92,246,.12)!important;
+  color:#f8f8ff!important;background:linear-gradient(135deg,rgba(139,140,250,.22),rgba(61,58,237,.13))!important;
+  border:1px solid rgba(190,190,255,.26)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.10),0 0 16px rgba(92,92,246,.12)!important;
 }
 html[data-theme="purple"] #app .btn:not(.pri),
 html[data-theme="purple"] #app .px-btn:not(.pri){
-  background:linear-gradient(145deg,rgba(73,49,101,.55),rgba(30,20,43,.76))!important;
-  border-color:rgba(208,185,255,.25)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 7px 18px rgba(2,0,10,.17)!important;
+  background:linear-gradient(145deg,rgba(51,49,101,.55),rgba(18,17,46,.76))!important;
+  border-color:rgba(185,185,255,.25)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 7px 18px rgba(0,0,10,.17)!important;
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
 html[data-theme="purple"] #app .btn.pri,
 html[data-theme="purple"] #app .px-btn.pri,
 html[data-theme="purple"] #app .px-btn.primary{
-  background:linear-gradient(120deg,#a98ae9 0%,#8659d6 52%,#683fb5 100%)!important;
-  border-color:rgba(227,211,255,.45)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.30),0 9px 22px rgba(104,58,170,.25)!important;
+  background:linear-gradient(120deg,#8a8ae9 0%,#5b59d6 52%,#403fb5 100%)!important;
+  border-color:rgba(212,211,255,.45)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.30),0 9px 22px rgba(61,58,170,.25)!important;
 }
 
 /* Special homepage plates and small floating chips also shed the old high-radius filters. */
@@ -119,13 +119,13 @@ html[data-theme="purple"] #app[data-page="home"] :is(.hero-visual-card,.hero-flo
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
 html[data-theme="purple"] #app[data-page="home"] .hero-visual-card{
-  background:linear-gradient(145deg,rgba(54,39,75,.72),rgba(19,13,30,.82) 68%,rgba(33,20,49,.76))!important;
-  border-color:rgba(211,190,245,.25)!important;
+  background:linear-gradient(145deg,rgba(40,39,75,.72),rgba(11,11,32,.82) 68%,rgba(18,17,52,.76))!important;
+  border-color:rgba(191,190,245,.25)!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 23px 48px rgba(0,0,0,.24)!important;
 }
 html[data-theme="purple"] #app[data-page="home"] .hero-float{
-  background:linear-gradient(145deg,rgba(69,50,91,.62),rgba(27,18,41,.76))!important;
-  border-color:rgba(196,181,253,.22)!important;
+  background:linear-gradient(145deg,rgba(51,50,91,.62),rgba(16,15,44,.76))!important;
+  border-color:rgba(181,182,253,.22)!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 10px 25px rgba(0,0,0,.20)!important;
 }
 
@@ -249,7 +249,7 @@ html[data-theme="dark"].cl-scrolling .bottom-nav{
   background:rgba(8,17,28,.97)!important;
 }
 html[data-theme="purple"].cl-scrolling .bottom-nav{
-  background:rgba(20,14,30,.97)!important;border-color:rgba(197,173,235,.24)!important;
+  background:rgba(12,12,32,.97)!important;border-color:rgba(174,173,235,.24)!important;
 }
 
 /* Small screens: preserve the glass look with no per-card backdrop filter. */

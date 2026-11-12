@@ -1,0 +1,23 @@
+/* ConceptLab v50 — improve readability of the Game Brief content. */
+#app .arcade-page .ga-game-card .ga-card-about{
+  flex-basis:112px!important;height:112px!important;min-height:112px!important;max-height:112px!important;
+  padding:10px 11px!important
+}
+#app .arcade-page .ga-game-card .ga-card-about>span{
+  font-size:9px!important;line-height:1.3!important;margin:0 0 6px!important
+}
+#app .arcade-page .ga-game-card .ga-card-about>p{
+  font-size:12px!important;line-height:1.48!important;-webkit-line-clamp:4!important
+}
+@media(max-width:700px){
+  #app .arcade-page .ga-game-card .ga-card-about{
+    flex-basis:104px!important;height:104px!important;min-height:104px!important;max-height:104px!important;
+    padding:8px 9px!important
+  }
+  #app .arcade-page .ga-game-card .ga-card-about>span{font-size:8px!important;line-height:1.3!important;margin-bottom:5px!important}
+  #app .arcade-page .ga-game-card .ga-card-about>p{font-size:10.5px!important;line-height:1.45!important;-webkit-line-clamp:4!important}
+}
+@media(max-width:360px){
+  #app .arcade-page .ga-game-card .ga-card-about{flex-basis:100px!important;height:100px!important;min-height:100px!important;max-height:100px!important}
+  #app .arcade-page .ga-game-card .ga-card-about>p{font-size:10px!important;line-height:1.4!important;-webkit-line-clamp:4!important}
+}

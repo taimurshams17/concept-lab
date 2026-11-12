@@ -1,0 +1,306 @@
+/* ConceptLab v48 — repair the Arcade card header sizing cascade.
+   Keep the phone catalogue in two columns without letting flex/grid shrink
+   the title wrapper to its min-content (single-character) width. */
+
+#app .arcade-page .ga-game-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  gap:12px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+}
+#app .arcade-page .ga-game-grid > .ga-game-card{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:14px!important;
+  gap:9px!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  text-align:left!important;
+  writing-mode:horizontal-tb!important;
+}
+
+/* Desktop header: icon / title / XP in one measured row. */
+#app .arcade-page .ga-game-card .ga-game-card-head{
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr) auto!important;
+  grid-template-areas:"icon title xp"!important;
+  align-items:center!important;
+  justify-content:stretch!important;
+  column-gap:9px!important;
+  row-gap:4px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+#app .arcade-page .ga-game-card .ga-game-card-head > .ga-game-icon{
+  grid-area:icon!important;
+  display:grid!important;
+  place-items:center!important;
+  width:40px!important;
+  height:40px!important;
+  min-width:40px!important;
+  max-width:40px!important;
+  flex:none!important;
+  margin:0!important;
+}
+#app .arcade-page .ga-game-card .ga-game-card-head > .ga-card-title-wrap{
+  grid-area:title!important;
+  display:block!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  flex:1 1 auto!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+  writing-mode:horizontal-tb!important;
+}
+#app .arcade-page .ga-game-card .ga-card-title-wrap > .ga-card-kicker{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  margin:0 0 3px!important;
+  font-size:8px!important;
+  line-height:1.25!important;
+  letter-spacing:.07em!important;
+  white-space:normal!important;
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+  writing-mode:horizontal-tb!important;
+}
+#app .arcade-page .ga-game-card .ga-card-title-wrap > h4{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  font-size:14px!important;
+  line-height:1.34!important;
+  white-space:normal!important;
+  word-break:normal!important;
+  overflow-wrap:break-word!important;
+  writing-mode:horizontal-tb!important;
+}
+#app .arcade-page .ga-game-card .ga-game-card-head > .ga-xp{
+  grid-area:xp!important;
+  position:static!important;
+  justify-self:end!important;
+  align-self:center!important;
+  display:inline-flex!important;
+  width:auto!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:5px 8px!important;
+  white-space:nowrap!important;
+  font-size:9px!important;
+  box-sizing:border-box!important;
+}
+
+#app .arcade-page .ga-game-card .ga-card-about{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:10px 11px!important;
+  box-sizing:border-box!important;
+}
+#app .arcade-page .ga-game-card .ga-card-about > span{
+  display:block!important;
+  max-width:100%!important;
+  margin:0 0 5px!important;
+  font-size:8px!important;
+  line-height:1.25!important;
+  letter-spacing:.07em!important;
+  white-space:normal!important;
+}
+#app .arcade-page .ga-game-card .ga-card-about > p{
+  display:-webkit-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  font-size:11px!important;
+  line-height:1.55!important;
+  white-space:normal!important;
+  word-break:normal!important;
+  overflow-wrap:break-word!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:4!important;
+  overflow:hidden!important;
+}
+#app .arcade-page .ga-game-card .ga-game-card-bottom{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-top:auto!important;
+  padding-top:9px!important;
+  box-sizing:border-box!important;
+}
+#app .arcade-page .ga-game-card .ga-game-stats{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:5px 9px!important;
+  max-width:100%!important;
+  min-width:0!important;
+  font-size:9px!important;
+  line-height:1.35!important;
+}
+#app .arcade-page .ga-game-card .ga-game-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:7px!important;
+  width:auto!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+}
+#app .arcade-page .ga-game-card .ga-game-actions .btn{
+  flex:0 1 auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  padding:8px 10px!important;
+  font-size:10px!important;
+  line-height:1.25!important;
+  white-space:normal!important;
+  text-align:center!important;
+}
+#app .arcade-page .ga-game-card .ga-review-link{
+  display:inline-block!important;
+  max-width:100%!important;
+  font-size:9px!important;
+  white-space:normal!important;
+}
+
+/* Center All / Games / Quiz as one compact control. */
+#app .arcade-page .ga-mode-deck{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:fit-content!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0 auto 16px!important;
+  padding:5px!important;
+  box-sizing:border-box!important;
+}
+#app .arcade-page .ga-mode-card{
+  display:flex!important;
+  flex:0 1 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:78px!important;
+  max-width:100%!important;
+  white-space:nowrap!important;
+}
+#app .arcade-page .ga-mode-card .ga-mode-copy,
+#app .arcade-page .ga-mode-card .ga-mode-copy b,
+#app .arcade-page .ga-mode-card > strong{
+  min-width:0!important;
+  white-space:nowrap!important;
+  word-break:keep-all!important;
+}
+
+@media(max-width:700px){
+  #app .arcade-page .ga-game-grid{gap:9px!important}
+  #app .arcade-page .ga-game-grid > .ga-game-card{padding:10px!important;gap:7px!important;border-radius:13px!important}
+  /* Two-column card header with a full-width title track. The XP badge gets
+     its own second row, so it cannot steal title width on narrow phones. */
+  #app .arcade-page .ga-game-card .ga-game-card-head{
+    display:grid!important;
+    grid-template-columns:32px minmax(0,1fr)!important;
+    grid-template-areas:"icon title" "icon xp"!important;
+    align-items:center!important;
+    column-gap:8px!important;
+    row-gap:3px!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+  #app .arcade-page .ga-game-card .ga-game-card-head > .ga-game-icon{
+    width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important;
+    border-radius:9px!important;font-size:16px!important
+  }
+  #app .arcade-page .ga-game-card .ga-card-title-wrap{
+    grid-area:title!important;
+    width:auto!important;min-width:0!important;max-width:100%!important;
+    padding:0!important;flex:1 1 auto!important
+  }
+  #app .arcade-page .ga-game-card .ga-card-title-wrap > .ga-card-kicker{
+    font-size:7px!important;letter-spacing:.055em!important;line-height:1.25!important;
+    word-break:keep-all!important;overflow-wrap:normal!important
+  }
+  #app .arcade-page .ga-game-card .ga-card-title-wrap > h4{
+    font-size:11px!important;line-height:1.3!important;
+    word-break:normal!important;overflow-wrap:break-word!important
+  }
+  #app .arcade-page .ga-game-card .ga-xp{
+    grid-area:xp!important;position:static!important;justify-self:end!important;
+    padding:3px 6px!important;font-size:7.5px!important
+  }
+  #app .arcade-page .ga-game-card .ga-card-about{padding:8px!important;border-radius:10px!important}
+  #app .arcade-page .ga-game-card .ga-card-about > span{font-size:7px!important;margin-bottom:4px!important}
+  #app .arcade-page .ga-game-card .ga-card-about > p{
+    font-size:9.5px!important;line-height:1.45!important;-webkit-line-clamp:4!important
+  }
+  #app .arcade-page .ga-game-card .ga-game-card-bottom{
+    flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;
+    gap:6px!important;padding-top:7px!important
+  }
+  #app .arcade-page .ga-game-card .ga-game-stats{font-size:7.5px!important;gap:4px 7px!important}
+  #app .arcade-page .ga-game-card .ga-game-actions{
+    display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+    justify-content:space-between!important;align-items:center!important;gap:5px!important;width:100%!important
+  }
+  #app .arcade-page .ga-game-card .ga-game-actions .btn{
+    flex:1 1 92px!important;padding:6px 5px!important;font-size:8.5px!important
+  }
+  #app .arcade-page .ga-game-card .ga-review-link{font-size:8px!important}
+  #app .arcade-page .ga-mode-deck{width:min(100%,330px)!important;gap:4px!important;margin-bottom:13px!important}
+  #app .arcade-page .ga-mode-card{flex:1 1 0!important;min-width:0!important;padding:8px 7px!important;gap:5px!important}
+  #app .arcade-page .ga-mode-icon{display:none!important}
+  #app .arcade-page .ga-mode-card .ga-mode-copy b{font-size:11px!important}
+  #app .arcade-page .ga-mode-card > strong{font-size:8px!important;min-width:17px!important;height:17px!important;padding:0 4px!important}
+}
+
+@media(max-width:360px){
+  #app .arcade-page .ga-game-grid{gap:7px!important}
+  #app .arcade-page .ga-game-grid > .ga-game-card{padding:8px!important}
+  #app .arcade-page .ga-game-card .ga-card-title-wrap > h4{font-size:10.5px!important}
+  #app .arcade-page .ga-game-card .ga-card-about > p{font-size:9px!important;-webkit-line-clamp:3!important}
+  #app .arcade-page .ga-game-card .ga-game-actions{flex-direction:column!important;align-items:stretch!important}
+  #app .arcade-page .ga-game-card .ga-game-actions .btn{flex:1 1 auto!important;width:100%!important}
+  #app .arcade-page .ga-game-card .ga-review-link{align-self:flex-end!important}
+}
+
+@media(min-width:701px){
+  #app .arcade-page .ga-game-card .ga-card-title-wrap > h4{font-size:13px!important}
+}

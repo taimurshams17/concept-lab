@@ -83,57 +83,57 @@ html[data-theme="light"] #app[data-page="home"] .cl-light-sweep{background:linea
 
 /* ── Restore the previous, more colourful Amethyst Violet identity (v4) ── */
 html[data-theme="purple"]{
-  --bg:#080510!important;--card:rgba(22,13,34,.72)!important;--line:rgba(201,177,255,.22)!important;
-  --tx:#f8f4ff!important;--mut:#c8bddc!important;--p:#b69aff!important;--s:#e3d8ff!important;
-  --a:#d1bcff!important;--glow:#8b5cf6!important;
-  --cl-glass-fill:rgba(30,20,50,.76)!important;--cl-glass-fill-strong:rgba(40,27,66,.88)!important;
-  --cl-glass-edge:rgba(214,188,255,.26)!important;color-scheme:dark!important;background:#080510!important;
+  --bg:#040411!important;--card:rgba(12,11,36,.72)!important;--line:rgba(177,177,255,.22)!important;
+  --tx:#f4f4ff!important;--mut:#bdbddc!important;--p:#9a9bff!important;--s:#d8d8ff!important;
+  --a:#bcbcff!important;--glow:#5c5cf6!important;
+  --cl-glass-fill:rgba(17,17,53,.76)!important;--cl-glass-fill-strong:rgba(27,27,66,.88)!important;
+  --cl-glass-edge:rgba(189,188,255,.26)!important;color-scheme:dark!important;background:#040411!important;
 }
 html[data-theme="purple"] body{
-  background-color:#080510!important;
-  background-image:radial-gradient(ellipse 58% 46% at 8% 4%,rgba(124,58,237,.34),transparent 70%),radial-gradient(ellipse 50% 40% at 94% 14%,rgba(217,70,239,.16),transparent 70%),radial-gradient(ellipse 62% 52% at 78% 100%,rgba(79,70,229,.25),transparent 72%),linear-gradient(118deg,#0b0714 0%,#140b26 48%,#080510 100%)!important;
-  background-attachment:scroll!important;color:#f8f4ff!important;
+  background-color:#040411!important;
+  background-image:radial-gradient(ellipse 58% 46% at 8% 4%,rgba(61,58,237,.34),transparent 70%),radial-gradient(ellipse 50% 40% at 94% 14%,rgba(91,70,239,.16),transparent 70%),radial-gradient(ellipse 62% 52% at 78% 100%,rgba(70,79,229,.25),transparent 72%),linear-gradient(118deg,#060615 0%,#090829 48%,#040411 100%)!important;
+  background-attachment:scroll!important;color:#f4f4ff!important;
 }
 html[data-theme="purple"] body::before{
   content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;opacity:.9!important;filter:none!important;animation:none!important;
-  background-image:radial-gradient(ellipse 38% 30% at 17% 18%,rgba(184,145,255,.15),transparent 72%),radial-gradient(ellipse 36% 26% at 84% 23%,rgba(124,73,190,.16),transparent 72%),radial-gradient(ellipse 30% 36% at 70% 84%,rgba(100,54,164,.13),transparent 73%),linear-gradient(116deg,transparent 0 43%,rgba(226,208,255,.04) 49%,transparent 55% 100%)!important;
+  background-image:radial-gradient(ellipse 38% 30% at 17% 18%,rgba(146,145,255,.15),transparent 72%),radial-gradient(ellipse 36% 26% at 84% 23%,rgba(76,73,190,.16),transparent 72%),radial-gradient(ellipse 30% 36% at 70% 84%,rgba(57,54,164,.13),transparent 73%),linear-gradient(116deg,transparent 0 43%,rgba(209,208,255,.04) 49%,transparent 55% 100%)!important;
   background-size:140% 140%!important;
 }
 html[data-theme="purple"] body::after{
   content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;opacity:.42!important;
-  background-image:repeating-linear-gradient(0deg,rgba(220,201,255,.018) 0 1px,transparent 1px 54px),repeating-linear-gradient(90deg,rgba(220,201,255,.014) 0 1px,transparent 1px 54px),radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(1,0,6,.34) 100%)!important;
+  background-image:repeating-linear-gradient(0deg,rgba(202,201,255,.018) 0 1px,transparent 1px 54px),repeating-linear-gradient(90deg,rgba(202,201,255,.014) 0 1px,transparent 1px 54px),radial-gradient(ellipse at 50% 42%,transparent 28%,rgba(0,0,6,.34) 100%)!important;
 }
 html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.subj-card,.stage-premium-card,.feature-premium-card,.gdeck-card,.lab-sim-card,.graph-card,.ga-game-card,.hub-launch-tile,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.study-panel,.profile-head,.px-power-card,.hub-extra-tools,.home-lab-card,.hero-visual-card,.motivation-card,.about-card,.hub-home-spotlight,.hub-benefit-card,.hub-dashboard .hub-tool-box){
-  background:linear-gradient(160deg,rgba(255,255,255,.065),transparent 38%),linear-gradient(150deg,rgba(47,30,73,.88),rgba(21,13,37,.94))!important;
-  border-color:rgba(201,177,255,.24)!important;border-top-color:rgba(239,225,255,.34)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 16px 36px rgba(6,0,20,.34)!important;
+  background:linear-gradient(160deg,rgba(255,255,255,.065),transparent 38%),linear-gradient(150deg,rgba(31,30,73,.88),rgba(11,11,39,.94))!important;
+  border-color:rgba(177,177,255,.24)!important;border-top-color:rgba(226,225,255,.34)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 16px 36px rgba(0,0,20,.34)!important;
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
-html[data-theme="purple"] #app :is(h1,h2,h3,h4,.launch-feature-copy b,.launch-tool,.hub-launch-copy b){color:#f8f4ff!important}
-html[data-theme="purple"] #app :is(p,small,.mutt,.lead,.launch-feature-copy small){color:#c8bddc!important}
+html[data-theme="purple"] #app :is(h1,h2,h3,h4,.launch-feature-copy b,.launch-tool,.hub-launch-copy b){color:#f4f4ff!important}
+html[data-theme="purple"] #app :is(p,small,.mutt,.lead,.launch-feature-copy small){color:#bdbddc!important}
 html[data-theme="purple"] #app :is(.btn.pri,.btn.primary,.px-btn.pri,.px-btn.primary,.aq-primary,.aq-next,.hub-hero-primary){
-  background:linear-gradient(135deg,#8b5cf6,#6d28d9)!important;border:1px solid rgba(221,203,255,.5)!important;color:#fff!important;
-  box-shadow:0 9px 24px -15px rgba(124,58,237,.55)!important;
+  background:linear-gradient(135deg,#5c5cf6,#2b28d9)!important;border:1px solid rgba(203,203,255,.5)!important;color:#fff!important;
+  box-shadow:0 9px 24px -15px rgba(61,58,237,.55)!important;
 }
-html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile{background:linear-gradient(145deg,rgba(48,31,73,.82),rgba(24,15,41,.94))!important;border-color:rgba(201,177,255,.22)!important}
-html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile:hover{background:linear-gradient(145deg,rgba(67,43,101,.9),rgba(30,18,51,.96))!important;border-color:rgba(220,199,255,.44)!important}
-html[data-theme="purple"] #app .hub-tool-launch-icon,html[data-theme="purple"] #app .hub-launch-icon{color:#d8c5ff!important}
-html[data-theme="purple"] #app .hub-home-spotlight{background:linear-gradient(130deg,#211335,#2d1949 55%,#171027)!important;border-color:rgba(201,177,255,.34)!important}
-html[data-theme="purple"] #app .hub-home-spotlight-cta{background:linear-gradient(135deg,#9b72ef,#6d45be)!important;color:#fff!important}
-html[data-theme="purple"] #app .hub-home-spotlight-tags i{background:rgba(139,92,246,.14)!important;border-color:rgba(201,177,255,.23)!important;color:#e6d8ff!important}
-html[data-theme="purple"] #app .hub-home-art-card{background:linear-gradient(145deg,#34214f,#1a102c)!important;border-color:rgba(207,184,255,.3)!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-kinetic{--v:#a78bfa;--v2:#6d28d9;--v3:#211335;color:#e3d8ff!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-halo{background:radial-gradient(circle,rgba(124,58,237,.34),rgba(217,70,239,.1) 36%,transparent 68%)!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-orbit{border-color:rgba(196,160,255,.54)!important;box-shadow:0 0 18px rgba(139,92,246,.13)!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-core{background:linear-gradient(145deg,#553681,#211335)!important;border-color:rgba(221,203,255,.46)!important;box-shadow:0 20px 42px -24px #000,0 0 30px rgba(139,92,246,.22),inset 0 1px rgba(255,255,255,.16)!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-core b{color:#f6efff!important;text-shadow:0 3px 22px rgba(196,160,255,.48)!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-orbit i{background:#d2baff!important;box-shadow:0 0 0 5px rgba(167,139,250,.15),0 0 14px rgba(167,139,250,.65)!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-node{background:linear-gradient(145deg,#2a1a43,#171027)!important;border-color:rgba(201,177,255,.32)!important;color:#e7dcff!important}
-html[data-theme="purple"] #app[data-page="home"] .cl-violet-sweep{background:linear-gradient(90deg,transparent,rgba(196,160,255,.68),rgba(217,70,239,.28),transparent)!important}
-html[data-theme="purple"] .px-theme-purple .px-theme-preview{background:linear-gradient(130deg,#080510,#38215b 60%,#120b20)!important}
-html[data-theme="purple"] .px-theme-purple .px-theme-preview::before{background:linear-gradient(145deg,#613d91,#211335)!important}
-html[data-theme="purple"] .px-theme-purple .px-theme-preview i{background:#8b5cf6!important;box-shadow:0 0 10px rgba(139,92,246,.45)!important}
-html[data-theme="purple"] .px-theme-purple .px-theme-preview b{background:#d4bfff!important;box-shadow:0 0 12px rgba(196,160,255,.32)!important}
+html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile{background:linear-gradient(145deg,rgba(32,31,73,.82),rgba(13,12,44,.94))!important;border-color:rgba(177,177,255,.22)!important}
+html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile:hover{background:linear-gradient(145deg,rgba(44,43,101,.9),rgba(15,15,54,.96))!important;border-color:rgba(200,199,255,.44)!important}
+html[data-theme="purple"] #app .hub-tool-launch-icon,html[data-theme="purple"] #app .hub-launch-icon{color:#c5c5ff!important}
+html[data-theme="purple"] #app .hub-home-spotlight{background:linear-gradient(130deg,#101038,#1a1949 55%,#0e0e29)!important;border-color:rgba(177,177,255,.34)!important}
+html[data-theme="purple"] #app .hub-home-spotlight-cta{background:linear-gradient(135deg,#7372ef,#4645be)!important;color:#fff!important}
+html[data-theme="purple"] #app .hub-home-spotlight-tags i{background:rgba(92,92,246,.14)!important;border-color:rgba(177,177,255,.23)!important;color:#d8d8ff!important}
+html[data-theme="purple"] #app .hub-home-art-card{background:linear-gradient(145deg,#22214f,#0e0d2f)!important;border-color:rgba(184,184,255,.3)!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-kinetic{--v:#8b8cfa;--v2:#2b28d9;--v3:#101038;color:#d8d8ff!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-halo{background:radial-gradient(circle,rgba(61,58,237,.34),rgba(91,70,239,.1) 36%,transparent 68%)!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-orbit{border-color:rgba(162,160,255,.54)!important;box-shadow:0 0 18px rgba(92,92,246,.13)!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-core{background:linear-gradient(145deg,#383681,#101038)!important;border-color:rgba(203,203,255,.46)!important;box-shadow:0 20px 42px -24px #000,0 0 30px rgba(92,92,246,.22),inset 0 1px rgba(255,255,255,.16)!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-core b{color:#efefff!important;text-shadow:0 3px 22px rgba(162,160,255,.48)!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-orbit i{background:#bbbaff!important;box-shadow:0 0 0 5px rgba(139,140,250,.15),0 0 14px rgba(139,140,250,.65)!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-node{background:linear-gradient(145deg,#1b1a43,#0e0e29)!important;border-color:rgba(177,177,255,.32)!important;color:#dcdcff!important}
+html[data-theme="purple"] #app[data-page="home"] .cl-violet-sweep{background:linear-gradient(90deg,transparent,rgba(162,160,255,.68),rgba(91,70,239,.28),transparent)!important}
+html[data-theme="purple"] .px-theme-purple .px-theme-preview{background:linear-gradient(130deg,#040411,#22215b 60%,#090922)!important}
+html[data-theme="purple"] .px-theme-purple .px-theme-preview::before{background:linear-gradient(145deg,#3f3d91,#101038)!important}
+html[data-theme="purple"] .px-theme-purple .px-theme-preview i{background:#5c5cf6!important;box-shadow:0 0 10px rgba(92,92,246,.45)!important}
+html[data-theme="purple"] .px-theme-purple .px-theme-preview b{background:#bfbfff!important;box-shadow:0 0 12px rgba(162,160,255,.32)!important}
 
 /* ── Keep motion alive nearby; pause it only when an animated block is well off-screen ── */
 .cl-motion-paused,.cl-motion-paused *{animation-play-state:paused!important}

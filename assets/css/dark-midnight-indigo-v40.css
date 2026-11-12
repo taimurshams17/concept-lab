@@ -1,0 +1,362 @@
+/* ConceptLab v40 · Midnight Indigo for the default Dark theme.
+   Pure-black foundation, vivid sky/indigo accents and restrained glass surfaces.
+   Every rule is scoped to data-theme="dark"; Indigo and Light remain untouched. */
+
+html[data-theme="dark"]{
+  --bg:#020309!important;
+  --card:rgba(8,11,23,.86)!important;
+  --line:rgba(113,130,255,.20)!important;
+  --tx:#f2f5ff!important;
+  --mut:#aab5d1!important;
+  --p:#6577ff!important;
+  --s:#62d6ff!important;
+  --a:#a8b3ff!important;
+  --glow:#4c5eff!important;
+  --pm-surface:linear-gradient(145deg,rgba(24,29,62,.58),rgba(7,10,22,.88))!important;
+  --pm-edge:rgba(116,132,255,.22)!important;
+  --pm-edge-hi:rgba(100,215,255,.58)!important;
+  --pm-shadow:inset 0 1px 0 rgba(226,232,255,.055),0 16px 36px -26px rgba(0,0,0,.96),0 0 24px -18px rgba(91,105,255,.54)!important;
+  --cl-glass-fill:rgba(8,12,27,.76)!important;
+  --cl-glass-fill-strong:rgba(11,15,34,.88)!important;
+  --cl-glass-edge:rgba(120,137,255,.23)!important;
+  --cl-glass-inner:rgba(226,232,255,.065)!important;
+  --cl-glass-shadow:rgba(0,0,0,.54)!important;
+  color-scheme:dark;
+  background:#020309!important;
+}
+
+/* A visible but quiet ambient backdrop: true black with two controlled colour fields. */
+html[data-theme="dark"] body,
+html[data-theme="dark"] body:not(#_){
+  background:#020309!important;
+  background-color:#020309!important;
+  color:#f2f5ff!important;
+}
+html[data-theme="dark"] body::before{
+  content:""!important;display:block!important;position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  opacity:1!important;
+  background:
+    radial-gradient(ellipse 62% 40% at 12% 0%,rgba(62,77,255,.22),transparent 72%),
+    radial-gradient(ellipse 48% 38% at 94% 12%,rgba(35,151,225,.13),transparent 74%),
+    radial-gradient(ellipse 52% 36% at 48% 100%,rgba(53,67,206,.12),transparent 76%),
+    linear-gradient(155deg,#050713 0%,#020309 52%,#010208 100%)!important;
+}
+html[data-theme="dark"] body::after{
+  content:""!important;
+  position:fixed!important;inset:0!important;z-index:0!important;pointer-events:none!important;
+  opacity:.72!important;
+  background-image:
+    linear-gradient(rgba(111,132,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(111,132,255,.045) 1px,transparent 1px)!important;
+  background-size:58px 58px!important;
+  -webkit-mask-image:radial-gradient(ellipse 78% 64% at 50% 24%,#000 7%,transparent 84%)!important;
+  mask-image:radial-gradient(ellipse 78% 64% at 50% 24%,#000 7%,transparent 84%)!important;
+}
+html[data-theme="dark"] #stars{opacity:.74!important;filter:saturate(1.12)!important}
+html[data-theme="dark"] .horizon{
+  background:radial-gradient(78% 80% at 50% 135%,rgba(79,96,255,.16),rgba(35,157,218,.07) 44%,transparent 76%)!important;
+}
+html[data-theme="dark"] .horizon .hl{box-shadow:0 0 17px 3px rgba(89,112,255,.22)!important}
+html[data-theme="dark"] #clDecor .cl-di,
+html[data-theme="dark"] .cl-decor .cl-di{
+  color:#6d9bff!important;opacity:.145!important;filter:saturate(1.25)!important;
+}
+html[data-theme="dark"] #clDecor .cl-blob,
+html[data-theme="dark"] .cl-decor .cl-blob{display:block!important;opacity:.24!important}
+html[data-theme="dark"] .cl-decor .b1{background:radial-gradient(closest-side,rgba(73,82,255,.40),transparent)!important}
+html[data-theme="dark"] .cl-decor .b2{background:radial-gradient(closest-side,rgba(25,142,220,.31),transparent)!important}
+html[data-theme="dark"] .cl-decor .b3{background:radial-gradient(closest-side,rgba(91,88,224,.25),transparent)!important}
+html[data-theme="dark"] .cl-decor .b4{background:radial-gradient(closest-side,rgba(81,117,202,.22),transparent)!important}
+html[data-theme="dark"] #clDecor .cl-dots,
+html[data-theme="dark"] .cl-decor .cl-dots{
+  opacity:.42!important;
+  background-image:radial-gradient(rgba(117,151,255,.18) 1.1px,transparent 1.6px)!important;
+  background-size:28px 28px!important;
+}
+
+/* Header and navigation: dark frosted glass, never a bright blue slab. */
+html[data-theme="dark"] body>header,
+html[data-theme="dark"] body header,
+html[data-theme="dark"] body>nav.bottom-nav{
+  background:rgba(4,6,16,.84)!important;
+  border-color:rgba(113,130,255,.19)!important;
+  box-shadow:0 14px 34px -27px rgba(70,83,255,.62)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(1.22)!important;
+  backdrop-filter:blur(14px) saturate(1.22)!important;
+}
+html[data-theme="dark"] #nav,
+html[data-theme="dark"] .nav-portal{
+  background:rgba(7,10,24,.82)!important;
+  border-color:rgba(113,130,255,.18)!important;
+  box-shadow:inset 0 1px 0 rgba(225,230,255,.055),0 18px 38px -26px rgba(0,0,0,.95)!important;
+}
+html[data-theme="dark"] nav a{color:#b5bfd9!important}
+html[data-theme="dark"] nav a:hover{color:#fff!important;background:rgba(91,105,255,.12)!important}
+html[data-theme="dark"] nav a.on,
+html[data-theme="dark"] nav a[aria-current="page"]{
+  color:#f5f7ff!important;background:rgba(87,103,255,.18)!important;
+  box-shadow:inset 0 0 0 1px rgba(116,134,255,.30),0 0 18px -10px rgba(87,103,255,.60)!important;
+}
+html[data-theme="dark"] body>nav.bottom-nav{background:rgba(4,6,16,.92)!important}
+
+/* Cohesive glassmorphism: low-opacity tint, quiet rim and soft shadow. */
+html[data-theme="dark"] body #app[data-page] :is(
+  .card,.launch-feature-card,.launch-tool,.launch-subject-card,.subj-card,
+  .stage-premium-card,.feature-premium-card,.home-stat-card,.home-stats-panel,
+  .discovery-motion-card,.road-flow-card,.graph-card,.lab-sim-card,.gdeck-card,
+  .ga-game-card,.ga-level-card,.hub-launch-tile,.hub-benefit-card,.hub-tool-box,
+  .home-lab-card,.hero-visual-card,.motivation-card,.about-card,.hub-extra-tools,
+  .study-panel,.px-panel,.px-pref-section,.px-power-card,.profile-head,
+  .home-feature-showcase-card,.home-flow .fc-node,.ah-card
+){
+  background:
+    radial-gradient(115% 85% at 0% 0%,rgba(88,103,255,.075),transparent 60%),
+    linear-gradient(150deg,rgba(12,16,34,.86),rgba(4,7,17,.94))!important;
+  border-color:rgba(116,132,255,.20)!important;
+  box-shadow:inset 0 1px 0 rgba(226,232,255,.055),
+    0 16px 34px -26px rgba(0,0,0,.95),
+    0 0 20px -17px rgba(91,105,255,.46)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(1.12)!important;
+  backdrop-filter:blur(12px) saturate(1.12)!important;
+}
+html[data-theme="dark"] body #app[data-page] :is(
+  .card,.launch-feature-card,.launch-tool,.launch-subject-card,.subj-card,
+  .stage-premium-card,.feature-premium-card,.home-stat-card,.discovery-motion-card,
+  .road-flow-card,.graph-card,.lab-sim-card,.gdeck-card,.ga-game-card,
+  .ga-level-card,.hub-launch-tile,.hub-benefit-card,.hub-tool-box,.home-lab-card,
+  .home-feature-showcase-card,.home-flow .fc-node
+):hover,
+html[data-theme="dark"] body #app[data-page] :is(
+  .card,.launch-feature-card,.launch-tool,.launch-subject-card,.subj-card,
+  .stage-premium-card,.feature-premium-card,.home-stat-card,.discovery-motion-card,
+  .road-flow-card,.graph-card,.lab-sim-card,.gdeck-card,.ga-game-card,
+  .ga-level-card,.hub-launch-tile,.hub-benefit-card,.hub-tool-box,.home-lab-card,
+  .home-feature-showcase-card,.home-flow .fc-node
+):focus-visible{
+  border-color:rgba(100,215,255,.48)!important;
+  box-shadow:inset 0 1px 0 rgba(232,238,255,.075),
+    0 20px 40px -27px rgba(0,0,0,.96),
+    0 0 25px -13px rgba(82,105,255,.52)!important;
+}
+
+/* Main spotlight / hero surfaces retain hierarchy without over-bright panels. */
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight{
+  background:radial-gradient(90% 115% at 0% 0%,rgba(74,89,255,.20),transparent 66%),
+    linear-gradient(130deg,rgba(10,14,34,.94),rgba(4,8,20,.97))!important;
+  border-color:rgba(113,132,255,.28)!important;
+  box-shadow:inset 0 1px 0 rgba(225,232,255,.08),0 24px 50px -35px rgba(0,0,0,.98),0 0 32px -22px rgba(81,101,255,.60)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight::before{
+  opacity:.25!important;
+  background-image:linear-gradient(rgba(135,150,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(135,150,255,.08) 1px,transparent 1px)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight-kicker,
+html[data-theme="dark"] #app[data-page="home"] .hero-visual-topline,
+html[data-theme="dark"] #app[data-page="home"] .hero-live{color:#9eafff!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight p{color:#b9c5e0!important}
+html[data-theme="dark"] #app[data-page="home"] .hub-home-spotlight-cta{
+  background:linear-gradient(125deg,#596bff,#287fc0)!important;color:#fff!important;
+  box-shadow:0 10px 28px -17px rgba(80,110,255,.88),inset 0 1px rgba(255,255,255,.22)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hero-visual-card{
+  background:radial-gradient(75% 75% at 50% 0%,rgba(78,92,255,.15),transparent 72%),
+    linear-gradient(165deg,rgba(12,16,36,.90),rgba(4,7,17,.97))!important;
+  border-color:rgba(113,132,255,.24)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hero-visual-topline{border-bottom-color:rgba(113,132,255,.18)!important}
+html[data-theme="dark"] #app[data-page="home"] .hero-float{
+  background:rgba(9,14,31,.88)!important;border-color:rgba(111,133,255,.3)!important;
+  color:#dce6ff!important;box-shadow:inset 0 1px rgba(255,255,255,.06),0 12px 28px -20px rgba(75,95,255,.7)!important;
+}
+
+/* Keep sky-blue vivid and use Indigo as the unifying accent. */
+html[data-theme="dark"] #app :is(.pill,.feature-card-tag,.launch-eyebrow,.home-stats-kicker,.brain-sprint-eyebrow){
+  color:#b9c8ff!important;border-color:rgba(112,130,255,.28)!important;
+  background:rgba(85,101,255,.105)!important;
+}
+html[data-theme="dark"] #app .pill i{background:#69d9ff!important;box-shadow:0 0 11px rgba(91,210,255,.52)!important}
+html[data-theme="dark"] #app :is(.launch-feature-icon,.launch-tool-icon,.stage-icon-orbit,.feature-icon-shell,
+  .premium-subj-icon,.showcase-card-icon,.gdeck-ico,.fc-ico){
+  color:#aebaff!important;border-color:rgba(112,132,255,.32)!important;
+  background:linear-gradient(145deg,rgba(83,101,255,.16),rgba(7,11,25,.88))!important;
+  box-shadow:inset 0 1px rgba(230,235,255,.07),0 0 20px -15px rgba(86,109,255,.62)!important;
+}
+html[data-theme="dark"] #app :is(.premium-home-icon,.feature-premium-card svg,.stage-premium-card svg){
+  filter:drop-shadow(0 0 6px rgba(98,150,255,.25))!important;
+}
+html[data-theme="dark"] #app :is(.feature-card-tag,.launch-eyebrow,.home-stats-kicker,.ga-eyebrow,.ga-level-kicker){color:#9db7ff!important}
+html[data-theme="dark"] #app :is(.feature-premium-card h3,.stage-premium-card h3,.home-feature-showcase-card strong){color:#f1f4ff!important}
+html[data-theme="dark"] #app :is(.feature-premium-card p,.stage-premium-card p,.home-feature-showcase-card .showcase-card-copy){color:#aebbd5!important}
+
+/* Buttons and controls: one measured Indigo glow, not neon on every state. */
+html[data-theme="dark"] #app .btn:not(.pri),
+html[data-theme="dark"] body header :is(button,.header-search-btn,#burger){
+  color:#dbe3ff!important;background:rgba(9,13,31,.84)!important;
+  border-color:rgba(113,130,255,.25)!important;
+  box-shadow:inset 0 1px rgba(230,235,255,.055)!important;
+}
+html[data-theme="dark"] #app .btn:not(.pri):hover,
+html[data-theme="dark"] body header :is(button,.header-search-btn,#burger):hover{
+  background:rgba(80,96,230,.16)!important;border-color:rgba(104,213,255,.48)!important;
+  box-shadow:0 10px 25px -18px rgba(82,105,255,.72)!important;
+}
+html[data-theme="dark"] #app .btn.pri,
+html[data-theme="dark"] #app :is(.account-primary,.aq-primary,.aq-next,.hub-hero-primary){
+  color:#fff!important;background:linear-gradient(120deg,#566aff,#277fc0)!important;
+  border-color:rgba(146,169,255,.52)!important;
+  box-shadow:0 10px 25px -17px rgba(79,103,255,.82),inset 0 1px rgba(255,255,255,.2)!important;
+}
+html[data-theme="dark"] #app .btn.pri:hover,
+html[data-theme="dark"] #app :is(.account-primary,.aq-primary,.aq-next,.hub-hero-primary):hover{
+  filter:brightness(1.08)!important;box-shadow:0 14px 30px -16px rgba(79,103,255,.9),inset 0 1px rgba(255,255,255,.23)!important;
+}
+html[data-theme="dark"] #app :is(input,select,textarea){
+  color:#eef2ff!important;background:rgba(5,9,22,.86)!important;
+  border-color:rgba(116,132,255,.24)!important;
+}
+html[data-theme="dark"] #app :is(input,select,textarea):focus{
+  border-color:rgba(93,211,255,.72)!important;
+  box-shadow:0 0 0 3px rgba(80,107,255,.14)!important;outline:none!important;
+}
+html[data-theme="dark"] #app ::placeholder{color:#7f8cad!important}
+html[data-theme="dark"] :focus-visible{outline-color:#73dfff!important}
+html[data-theme="dark"] ::selection{background:rgba(87,102,255,.48)!important;color:#fff!important}
+
+/* Theme selector preview must look like this darker, indigo-led design. */
+html[data-theme="dark"] .px-theme-dark .px-theme-preview{
+  background:linear-gradient(135deg,#020309,#0b1025 56%,#10194a)!important;
+  border:1px solid rgba(119,135,255,.35)!important;
+}
+html[data-theme="dark"] .px-theme-dark .px-theme-preview::before{
+  background:linear-gradient(145deg,#18204d,#070b1b)!important;
+  border-color:rgba(119,135,255,.28)!important;
+}
+html[data-theme="dark"] .px-theme-dark .px-theme-preview i{background:rgba(91,111,255,.76)!important;box-shadow:0 0 8px rgba(91,111,255,.42)!important}
+html[data-theme="dark"] .px-theme-dark .px-theme-preview b{background:#6bdcff!important;box-shadow:0 0 8px rgba(87,210,255,.4)!important}
+
+/* Flowchart on larger screens: elegant dark panels and legible connectors. */
+html[data-theme="dark"] #app[data-page="home"] .home-flow .fc-head h2{color:#f2f5ff!important}
+html[data-theme="dark"] #app[data-page="home"] .home-flow .fc-head p{color:#aab7d4!important}
+html[data-theme="dark"] #app[data-page="home"] .fc-board{--line:rgba(107,128,255,.42)!important}
+html[data-theme="dark"] #app[data-page="home"] .fc-node{
+  background:radial-gradient(110% 90% at 0% 0%,rgba(84,99,255,.13),transparent 62%),
+    linear-gradient(155deg,rgba(10,14,31,.92),rgba(3,6,16,.97))!important;
+  border-color:rgba(116,132,255,.25)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .fc-ico{stroke:#77dfff!important;filter:drop-shadow(0 0 6px rgba(88,194,255,.24))!important}
+html[data-theme="dark"] #app[data-page="home"] .fc-txt b{color:#f0f3ff!important}
+html[data-theme="dark"] #app[data-page="home"] .fc-txt small{color:#a5b4d2!important}
+html[data-theme="dark"] #app[data-page="home"] .fc-core{
+  background:radial-gradient(circle at 50% 24%,#566bff 0%,#18245e 54%,#050817 100%)!important;
+  border-color:rgba(139,157,255,.66)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 0 44px -8px rgba(79,101,255,.72),0 0 76px -34px rgba(91,214,255,.52)!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .fc-ring{border-color:rgba(110,133,255,.48)!important}
+
+/* Mobile homepage spacing: replace 52px section padding with a consistent, moderate rhythm. */
+@media(max-width:760px){
+  body:has(#app[data-page="home"] .hero) #app[data-page="home"]>section:not(.concept-hero){
+    padding-block:17px!important;margin-block:0!important;
+  }
+  body:has(#app[data-page="home"] .hero) #app[data-page="home"] .home-launchpad{
+    padding-block:16px!important;margin-block:0!important;
+  }
+  body:has(#app[data-page="home"] .hero) #app[data-page="home"] .home-feature-showcase{
+    padding-block:17px!important;margin-block:0!important;
+  }
+  body:has(#app[data-page="home"] .hero) #app[data-page="home"] .home-flow{
+    padding-block:17px!important;
+  }
+  #app[data-page="home"] .home-flow .fc-head{margin-bottom:18px!important}
+  #app[data-page="home"] .home-flow .fc-head h2{font-size:clamp(21px,6vw,26px)!important;line-height:1.28!important;margin-bottom:7px!important}
+  #app[data-page="home"] .home-flow .fc-head p{font-size:12.5px!important;line-height:1.6!important;max-width:32ch}
+
+  /* Icons use fixed boxes and visible SVG viewports so they cannot collapse or clip. */
+  #app[data-page="home"] :is(.launch-feature-icon,.launch-tool-icon,.stage-icon-orbit,.feature-icon-shell,
+    .premium-subj-icon,.showcase-card-icon,.gico,.fc-ico){
+    flex-shrink:0!important;display:grid!important;place-items:center!important;line-height:1!important;
+    overflow:visible!important;align-self:center!important;
+  }
+  #app[data-page="home"] :is(.launch-feature-icon,.launch-tool-icon,.stage-icon-orbit,.feature-icon-shell,
+    .premium-subj-icon,.showcase-card-icon) :is(svg,img){
+    display:block!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;
+  }
+  #app[data-page="home"] :is(.showcase-card-icon,.premium-subj-icon) svg{width:22px!important;height:22px!important}
+  #app[data-page="home"] .stage-icon-orbit{width:38px!important;height:38px!important;flex:0 0 38px!important}
+  #app[data-page="home"] .stage-icon-orbit :is(svg,img){width:21px!important;height:21px!important}
+  #app[data-page="home"] .feature-icon-shell{width:40px!important;height:40px!important;flex:0 0 40px!important}
+  #app[data-page="home"] .feature-icon-shell :is(svg,img){width:22px!important;height:22px!important}
+}
+
+/* Mobile flowchart: one confident vertical path instead of cramped two-column tiles. */
+@media(max-width:860px){
+  #app[data-page="home"] .home-flow{padding:17px 0 20px!important}
+  #app[data-page="home"] .fc-board{
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    gap:10px!important;width:100%!important;max-width:520px!important;margin:0 auto!important;
+  }
+  #app[data-page="home"] .fc-col{display:contents!important}
+  #app[data-page="home"] .fc-hub{
+    order:0!important;display:grid!important;place-items:center!important;height:auto!important;
+    margin:0 0 8px!important;padding:0!important;
+  }
+  #app[data-page="home"] .fc-hub::before,
+  #app[data-page="home"] .fc-hub::after{display:none!important}
+  #app[data-page="home"] .fc-core{width:112px!important;height:112px!important;gap:2px!important}
+  #app[data-page="home"] .fc-core img{width:67px!important;height:67px!important;object-fit:contain!important}
+  #app[data-page="home"] .fc-core span{font-size:11px!important;line-height:1!important;margin-top:-4px!important;transform:translateY(-2px)!important}
+  #app[data-page="home"] .fc-ring{width:112px!important;height:112px!important}
+  #app[data-page="home"] .fc-trunk{display:none!important}
+  #app[data-page="home"] .fc-left .fc-node{order:calc(var(--r,0) + 1)!important}
+  #app[data-page="home"] .fc-right .fc-node{order:calc(var(--r,0) + 6)!important}
+  #app[data-page="home"] .fc-node{
+    position:relative!important;z-index:1!important;display:grid!important;
+    grid-template-columns:38px minmax(0,1fr)!important;align-items:center!important;
+    width:100%!important;height:auto!important;min-height:72px!important;margin:0!important;
+    padding:12px 14px!important;gap:12px!important;border-radius:14px!important;
+    flex-direction:row!important;justify-content:start!important;
+  }
+  #app[data-page="home"] .fc-node::after{display:none!important}
+  #app[data-page="home"] .fc-ico{
+    display:block!important;width:23px!important;height:23px!important;flex:none!important;
+    justify-self:center!important;align-self:center!important;
+  }
+  #app[data-page="home"] .fc-txt{min-width:0!important;gap:3px!important}
+  #app[data-page="home"] .fc-txt b{font-size:13.5px!important;line-height:1.32!important;overflow-wrap:anywhere}
+  #app[data-page="home"] .fc-txt small{font-size:11.5px!important;line-height:1.42!important;-webkit-line-clamp:2!important}
+}
+@media(max-width:380px){
+  #app[data-page="home"] .fc-node{min-height:68px!important;padding:10px 12px!important;grid-template-columns:34px minmax(0,1fr)!important;gap:10px!important}
+  #app[data-page="home"] .fc-txt b{font-size:13px!important}
+  #app[data-page="home"] .fc-txt small{font-size:11px!important}
+}
+
+/* Preserve performance on lower-power phones and respect reduced-motion settings. */
+@media(max-width:760px){
+  html.cl-low-power[data-theme="dark"] #app :is(.card,.launch-feature-card,.launch-tool,.stage-premium-card,.feature-premium-card,.hub-launch-tile,.home-flow .fc-node){
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="dark"] #app :is(.card,.launch-feature-card,.launch-tool,.stage-premium-card,.feature-premium-card,.hub-launch-tile,.home-flow .fc-node){
+    transition:none!important;transform:none!important;
+  }
+}
+
+/* Clear type hierarchy and stable icon geometry across every route. */
+html[data-theme="dark"] #app :is(h2,h3,h4){color:#f1f4ff!important}
+html[data-theme="dark"] #app :is(.lead,.mutt,.muted,.subtle){color:#aab7d3!important}
+html[data-theme="dark"] #app :is(.card,.btn,button,a){-webkit-tap-highlight-color:rgba(91,108,255,.14)}
+@media(max-width:760px){
+  html[data-theme="dark"] #app :is(.ic,.ico,.gico,.hub-launch-icon,.hub-icon-btn,.ga-mode-icon,
+    .ga-game-icon,.ga-level-icon,.graph-subject-icon,.chapter-icon,.feature-icon-shell,
+    .stage-icon-orbit,.premium-subj-icon,.launch-feature-icon,.launch-tool-icon){
+    flex-shrink:0!important;min-width:0!important;line-height:1!important;
+    align-items:center!important;justify-content:center!important;
+  }
+  html[data-theme="dark"] #app :is(.ic,.ico,.gico,.hub-launch-icon,.hub-icon-btn,.ga-mode-icon,
+    .ga-game-icon,.ga-level-icon,.graph-subject-icon,.chapter-icon,.feature-icon-shell,
+    .stage-icon-orbit,.premium-subj-icon,.launch-feature-icon,.launch-tool-icon) svg{
+    display:block!important;max-width:100%!important;max-height:100%!important;flex:none!important;
+  }
+}

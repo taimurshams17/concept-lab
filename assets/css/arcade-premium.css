@@ -70,17 +70,17 @@ html[data-theme="dark"] #app .hub-dashboard-bottom small{color:#b9cbd8!important
 
 /* VIOLET: cohesive, quiet purple family. Keep internal data-theme="purple" for saved preference compatibility. */
 html[data-theme="purple"]{
-  --p:#9078cd;--s:#b7a8e6;--a:#c5b8ed;--glow:transparent;
-  --sp-ink:#f0edf7;--sp-sub:#c2bbd1;--sp-accent:#b2a1e3;--sp-deep:#6f5aa9;--sp-deeper:#403457;
-  --sp-glass:linear-gradient(145deg,#29233a,#211c30);
-  --sp-edge:rgba(190,178,219,.22);
+  --p:#7878cd;--s:#a8a9e6;--a:#b8b9ed;--glow:transparent;
+  --sp-ink:#ededf7;--sp-sub:#bbbbd1;--sp-accent:#a1a2e3;--sp-deep:#5a5ba9;--sp-deeper:#343457;
+  --sp-glass:linear-gradient(145deg,#23233a,#191a33);
+  --sp-edge:rgba(178,178,219,.22);
   --sp-shadow:0 1px 0 rgba(255,255,255,.035) inset,0 15px 32px -24px rgba(0,0,0,.72);
-  --cl-glass-fill:#252036;--cl-glass-fill-strong:#2b2540;--cl-glass-edge:rgba(194,181,224,.22);--cl-glass-inner:rgba(255,255,255,.045);--cl-glass-shadow:rgba(0,0,0,.32);
+  --cl-glass-fill:#202036;--cl-glass-fill-strong:#252540;--cl-glass-edge:rgba(181,181,224,.22);--cl-glass-inner:rgba(255,255,255,.045);--cl-glass-shadow:rgba(0,0,0,.32);
   color-scheme:dark;
 }
 html[data-theme="purple"] body{
-  color:#f0edf7!important;background:#191624!important;
-  background-image:linear-gradient(145deg,#1c1928 0%,#191624 54%,#211c2d 100%)!important;
+  color:#ededf7!important;background:#141426!important;
+  background-image:linear-gradient(145deg,#17172a 0%,#141426 54%,#1a1a2f 100%)!important;
   background-attachment:scroll!important;
 }
 html[data-theme="purple"] body::before,html[data-theme="purple"] body::after,
@@ -89,49 +89,49 @@ html[data-theme="purple"] #stars,html[data-theme="purple"] .horizon,html[data-th
 html[data-theme="purple"] #clDecor,html[data-theme="purple"] .cl-decor,html[data-theme="purple"] .pf-deco,
 html[data-theme="purple"] .footer-formula-orbits{display:none!important;opacity:0!important}
 html[data-theme="purple"] body>header,html[data-theme="purple"] header,html[data-theme="purple"] .bottom-nav{
-  background:#201b2e!important;border-color:#3c3450!important;box-shadow:0 12px 28px -20px rgba(0,0,0,.8)!important;
+  background:#181931!important;border-color:#343450!important;box-shadow:0 12px 28px -20px rgba(0,0,0,.8)!important;
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
-html[data-theme="purple"] .bottom-nav a.on,html[data-theme="purple"] .bottom-nav a[aria-current]{background:#332b47!important;border:1px solid #514568!important;box-shadow:none!important;color:#f5f1fc!important}
-html[data-theme="purple"] #app :is(h1,h2,h3,h4){color:#f4f0fa!important}
-html[data-theme="purple"] #app :is(p,small,.mutt,.lead){color:#c2bbd1}
+html[data-theme="purple"] .bottom-nav a.on,html[data-theme="purple"] .bottom-nav a[aria-current]{background:#2b2b47!important;border:1px solid #454568!important;box-shadow:none!important;color:#f1f1fc!important}
+html[data-theme="purple"] #app :is(h1,h2,h3,h4){color:#f0f0fa!important}
+html[data-theme="purple"] #app :is(p,small,.mutt,.lead){color:#bbbbd1}
 html[data-theme="purple"] #app :is(.card,.launch-feature-card,.launch-tool,.launch-subject-card,.subj-card,.stage-premium-card,.feature-premium-card,.gdeck-card,.lab-sim-card,.graph-card,.ga-game-card,.hub-launch-tile,.home-stat-card,.discovery-motion-card,.road-flow-card,.px-panel,.px-pref-section,.study-panel,.profile-head,.px-power-card,.hub-extra-tools,.home-lab-card,.hero-visual-card,.motivation-card,.about-card){
-  background:linear-gradient(145deg,#2a243c,#211c30)!important;
-  border:1px solid #433a57!important;box-shadow:0 1px 0 rgba(255,255,255,.035) inset,0 13px 30px -24px rgba(0,0,0,.75)!important;
+  background:linear-gradient(145deg,#24243c,#191a33)!important;
+  border:1px solid #3a3a57!important;box-shadow:0 1px 0 rgba(255,255,255,.035) inset,0 13px 30px -24px rgba(0,0,0,.75)!important;
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
 html[data-theme="purple"] #app :is(.launch-feature-card,.launch-tool,.subj-card,.stage-premium-card,.feature-premium-card,.gdeck-card,.lab-sim-card,.graph-card,.ga-game-card,.hub-launch-tile):hover{
-  background:linear-gradient(145deg,#332c49,#29233b)!important;border-color:#65587d!important;box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 15px 30px -24px rgba(0,0,0,.76)!important;
+  background:linear-gradient(145deg,#2c2c49,#23233b)!important;border-color:#58587d!important;box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 15px 30px -24px rgba(0,0,0,.76)!important;
 }
-html[data-theme="purple"] #app .hub-dashboard-hero{background:linear-gradient(128deg,#29233a,#302843 58%,#272238)!important;border:1px solid #514665!important}
+html[data-theme="purple"] #app .hub-dashboard-hero{background:linear-gradient(128deg,#23233a,#282843 58%,#222238)!important;border:1px solid #464665!important}
 html[data-theme="purple"] #app .hub-benefit-card,
 html[data-theme="purple"] #app .hub-dashboard .hub-tool-box,
 html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile,
 html[data-theme="purple"] #app .hub-dashboard-bottom{
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
-html[data-theme="purple"] #app .hub-benefit-card{background:#2b253d!important;border-color:#4a405e!important}
-html[data-theme="purple"] #app .hub-benefit-card b{color:#f1edf8!important}
-html[data-theme="purple"] #app .hub-benefit-card p{color:#c1b9d1!important}
-html[data-theme="purple"] #app .hub-dashboard .hub-tool-box{background:#211c30!important;border-color:#514663!important}
-html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile{background:#2b253d!important;border-color:#4a405e!important}
-html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile:hover{background:#342c49!important;border-color:#75668e!important}
-html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-copy b{color:#f5f1fa!important}
-html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-copy small{color:#cbc3d8!important}
-html[data-theme="purple"] #app .hub-dashboard-bottom{background:#29233a!important;border-color:#4a405e!important}
-html[data-theme="purple"] #app .hub-dashboard-bottom b{color:#f1edf8!important}
-html[data-theme="purple"] #app .hub-dashboard-bottom small{color:#c1b9d1!important}
+html[data-theme="purple"] #app .hub-benefit-card{background:#25253d!important;border-color:#40405e!important}
+html[data-theme="purple"] #app .hub-benefit-card b{color:#ededf8!important}
+html[data-theme="purple"] #app .hub-benefit-card p{color:#b9b9d1!important}
+html[data-theme="purple"] #app .hub-dashboard .hub-tool-box{background:#191a33!important;border-color:#464663!important}
+html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile{background:#25253d!important;border-color:#40405e!important}
+html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-tile:hover{background:#2c2c49!important;border-color:#67668e!important}
+html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-copy b{color:#f1f1fa!important}
+html[data-theme="purple"] #app .hub-tool-launch-grid .hub-launch-copy small{color:#c3c3d8!important}
+html[data-theme="purple"] #app .hub-dashboard-bottom{background:#23233a!important;border-color:#40405e!important}
+html[data-theme="purple"] #app .hub-dashboard-bottom b{color:#ededf8!important}
+html[data-theme="purple"] #app .hub-dashboard-bottom small{color:#b9b9d1!important}
 html[data-theme="purple"] #app :is(.btn.pri,.btn.primary,.px-btn.pri,.px-btn.primary,.hub-hero-primary){
-  background:linear-gradient(180deg,#8d78c8,#7662b0)!important;color:#fff!important;border:1px solid #a391d7!important;
+  background:linear-gradient(180deg,#7879c8,#6263b0)!important;color:#fff!important;border:1px solid #9192d7!important;
   box-shadow:0 7px 18px -14px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.16)!important;
 }
-html[data-theme="purple"] #app :is(.pill,.ga-eyebrow,.hub-tool-eyebrow,.launch-eyebrow){background:#352d49!important;border:1px solid #514663!important;color:#d5caed!important;box-shadow:none!important}
-html[data-theme="purple"] #app :is(.btn:not(.pri):not(.primary),.px-btn:not(.pri):not(.primary)){background:#2b253b!important;border-color:#514663!important;color:#e8e1f3!important;box-shadow:none!important}
-html[data-theme="purple"] :focus-visible{outline-color:#b6a6df!important}
+html[data-theme="purple"] #app :is(.pill,.ga-eyebrow,.hub-tool-eyebrow,.launch-eyebrow){background:#2d2d49!important;border:1px solid #464663!important;color:#cacaed!important;box-shadow:none!important}
+html[data-theme="purple"] #app :is(.btn:not(.pri):not(.primary),.px-btn:not(.pri):not(.primary)){background:#25253b!important;border-color:#464663!important;color:#e1e1f3!important;box-shadow:none!important}
+html[data-theme="purple"] :focus-visible{outline-color:#a6a6df!important}
 .px-theme-violet .px-theme-preview{background:linear-gradient(145deg,#2d2740,#1e1a2c)!important;border-color:#71628e!important}
 .px-theme-violet .px-theme-preview i{background:#8f7bc5!important}.px-theme-violet .px-theme-preview b{background:#b5a7df!important}.px-theme-violet .px-theme-preview em{background:#49405f!important}
 .px-theme-violet[aria-pressed="true"]{border-color:#a18ed5!important;box-shadow:0 0 0 2px rgba(145,123,198,.13)!important}
-html[data-theme="purple"] .px-accent-section.is-locked{border-color:#514663!important;background:#262136!important}
+html[data-theme="purple"] .px-accent-section.is-locked{border-color:#464663!important;background:#212136!important}
 
 /* ARCADE: three clear paths, generous hierarchy and readable learning cards. */
 .arcade-page{max-width:1180px!important;padding-top:clamp(18px,3vw,34px)!important;padding-bottom:100px!important}
@@ -210,28 +210,28 @@ html[data-theme="dark"] .arcade-page .ga-xp,html[data-theme="dark"] .arcade-page
 html[data-theme="dark"] .arcade-page .ga-game-card-bottom{border-color:#334a5f}html[data-theme="dark"] .arcade-page .ga-game-stats,html[data-theme="dark"] .arcade-page .ga-review-link{color:#b5c8d7}
 html[data-theme="dark"] .arcade-page .ga-howto-grid article{background:#1b2e42;border-color:#3a5268}html[data-theme="dark"] .arcade-page .ga-howto-grid b{color:#dce8f0}html[data-theme="dark"] .arcade-page .ga-howto-grid p{color:#c0ceda}
 
-html[data-theme="purple"] .arcade-page .ga-hero{background:linear-gradient(125deg,#29243a,#302942 58%,#272236);border-color:#514763;box-shadow:none}
+html[data-theme="purple"] .arcade-page .ga-hero{background:linear-gradient(125deg,#24243a,#292942 58%,#222236);border-color:#474763;box-shadow:none}
 html[data-theme="purple"] .arcade-page .ga-hero::before{opacity:.13}
-html[data-theme="purple"] .arcade-page .ga-mode-card{background:#29243a;border-color:#494058;color:#f2eef8;box-shadow:none}
-html[data-theme="purple"] .arcade-page .ga-mode-card.is-active{background:#342c48;border-color:#8373aa;box-shadow:inset 0 0 0 1px rgba(205,194,229,.08)}
-html[data-theme="purple"] .arcade-page .ga-mode-copy b{color:#f4f0fa}html[data-theme="purple"] .arcade-page .ga-mode-copy small{color:#c6bfd3}html[data-theme="purple"] .arcade-page .ga-mode-copy em{color:#c1b3e2}
-html[data-theme="purple"] .arcade-page .ga-mode-icon,html[data-theme="purple"] .arcade-page .ga-mode-card>strong{background:#3a324f;border-color:#5b506f;color:#eee9f6}
-html[data-theme="purple"] .arcade-page .ga-launch-card,html[data-theme="purple"] .arcade-page .ga-game-card{background:#29243a;border-color:#494058;box-shadow:none}
-html[data-theme="purple"] .arcade-page .ga-launch-card h2,html[data-theme="purple"] .arcade-page .ga-catalog-heading h2,html[data-theme="purple"] .arcade-page .ga-subject-head h2,html[data-theme="purple"] .arcade-page .ga-howto h2{color:#f2eef8}
-html[data-theme="purple"] .arcade-page .ga-launch-card p,html[data-theme="purple"] .arcade-page .ga-catalog-heading p{color:#c6bfd3}
-html[data-theme="purple"] .arcade-page .ga-toolbar,html[data-theme="purple"] .arcade-page .ga-howto{background:#242034;border-color:#494058}
-html[data-theme="purple"] .arcade-page .ga-search,html[data-theme="purple"] .arcade-page .ga-subject-select-label select{background:#302941;border-color:#514763;color:#eee9f6}
-html[data-theme="purple"] .arcade-page .ga-search input{color:#f2eef8}
-html[data-theme="purple"] .arcade-page .ga-catalog-count,html[data-theme="purple"] .arcade-page .ga-subject-head p,html[data-theme="purple"] .arcade-page .ga-paper-tag{color:#bcb4ca}
-html[data-theme="purple"] .arcade-page .ga-subject-head{border-color:#474057}html[data-theme="purple"] .arcade-page .ga-subject-icon,html[data-theme="purple"] .arcade-page .ga-subject-head>b,html[data-theme="purple"] .arcade-page .ga-chapter-group>.subh small{background:#39314c;border-color:#554b68;color:#e4dced}
-html[data-theme="purple"] .arcade-page .ga-chapter-group>.subh{color:#ddd5e9}
-html[data-theme="purple"] .arcade-page .ga-card-title-wrap h4{color:#f4f0fa}html[data-theme="purple"] .arcade-page .ga-card-description{color:#c9c2d6}
-html[data-theme="purple"] .arcade-page .ga-card-learning>div{background:#302940;border-color:#4d435e}html[data-theme="purple"] .arcade-page .ga-card-learning>div>span{color:#d2c6e8}html[data-theme="purple"] .arcade-page .ga-card-learning p{color:#cec6da}
-html[data-theme="purple"] .arcade-page .ga-card-why{background:#353047;color:#d2cadf;border-left-color:#a493cf}html[data-theme="purple"] .arcade-page .ga-card-why b{color:#f0eaf8}
-html[data-theme="purple"] .arcade-page .ga-xp,html[data-theme="purple"] .arcade-page .ga-game-icon{background:#3a324e;border-color:#554a6a;color:#eee8f6}
-html[data-theme="purple"] .arcade-page .ga-game-card-bottom{border-color:#474057}html[data-theme="purple"] .arcade-page .ga-game-stats,html[data-theme="purple"] .arcade-page .ga-review-link{color:#c2b9d2}
-html[data-theme="purple"] .arcade-page .ga-howto-grid article{background:#302940;border-color:#4d435e}html[data-theme="purple"] .arcade-page .ga-howto-grid b{color:#e2d9ef}html[data-theme="purple"] .arcade-page .ga-howto-grid p{color:#c9c1d7}
-html[data-theme="purple"] .arcade-page .ga-mode-card:focus-visible{outline-color:rgba(179,164,216,.42)}
+html[data-theme="purple"] .arcade-page .ga-mode-card{background:#24243a;border-color:#404058;color:#eeeef8;box-shadow:none}
+html[data-theme="purple"] .arcade-page .ga-mode-card.is-active{background:#2c2c48;border-color:#7373aa;box-shadow:inset 0 0 0 1px rgba(194,194,229,.08)}
+html[data-theme="purple"] .arcade-page .ga-mode-copy b{color:#f0f0fa}html[data-theme="purple"] .arcade-page .ga-mode-copy small{color:#bfbfd3}html[data-theme="purple"] .arcade-page .ga-mode-copy em{color:#b3b3e2}
+html[data-theme="purple"] .arcade-page .ga-mode-icon,html[data-theme="purple"] .arcade-page .ga-mode-card>strong{background:#32324f;border-color:#50506f;color:#e9e9f6}
+html[data-theme="purple"] .arcade-page .ga-launch-card,html[data-theme="purple"] .arcade-page .ga-game-card{background:#24243a;border-color:#404058;box-shadow:none}
+html[data-theme="purple"] .arcade-page .ga-launch-card h2,html[data-theme="purple"] .arcade-page .ga-catalog-heading h2,html[data-theme="purple"] .arcade-page .ga-subject-head h2,html[data-theme="purple"] .arcade-page .ga-howto h2{color:#eeeef8}
+html[data-theme="purple"] .arcade-page .ga-launch-card p,html[data-theme="purple"] .arcade-page .ga-catalog-heading p{color:#bfbfd3}
+html[data-theme="purple"] .arcade-page .ga-toolbar,html[data-theme="purple"] .arcade-page .ga-howto{background:#202034;border-color:#404058}
+html[data-theme="purple"] .arcade-page .ga-search,html[data-theme="purple"] .arcade-page .ga-subject-select-label select{background:#292941;border-color:#474763;color:#e9e9f6}
+html[data-theme="purple"] .arcade-page .ga-search input{color:#eeeef8}
+html[data-theme="purple"] .arcade-page .ga-catalog-count,html[data-theme="purple"] .arcade-page .ga-subject-head p,html[data-theme="purple"] .arcade-page .ga-paper-tag{color:#b4b4ca}
+html[data-theme="purple"] .arcade-page .ga-subject-head{border-color:#404057}html[data-theme="purple"] .arcade-page .ga-subject-icon,html[data-theme="purple"] .arcade-page .ga-subject-head>b,html[data-theme="purple"] .arcade-page .ga-chapter-group>.subh small{background:#31314c;border-color:#4b4b68;color:#dddced}
+html[data-theme="purple"] .arcade-page .ga-chapter-group>.subh{color:#d5d5e9}
+html[data-theme="purple"] .arcade-page .ga-card-title-wrap h4{color:#f0f0fa}html[data-theme="purple"] .arcade-page .ga-card-description{color:#c2c2d6}
+html[data-theme="purple"] .arcade-page .ga-card-learning>div{background:#292940;border-color:#43435e}html[data-theme="purple"] .arcade-page .ga-card-learning>div>span{color:#c6c6e8}html[data-theme="purple"] .arcade-page .ga-card-learning p{color:#c6c6da}
+html[data-theme="purple"] .arcade-page .ga-card-why{background:#303047;color:#cacadf;border-left-color:#9393cf}html[data-theme="purple"] .arcade-page .ga-card-why b{color:#eaeaf8}
+html[data-theme="purple"] .arcade-page .ga-xp,html[data-theme="purple"] .arcade-page .ga-game-icon{background:#32324e;border-color:#4a4a6a;color:#e8e8f6}
+html[data-theme="purple"] .arcade-page .ga-game-card-bottom{border-color:#404057}html[data-theme="purple"] .arcade-page .ga-game-stats,html[data-theme="purple"] .arcade-page .ga-review-link{color:#b9b9d2}
+html[data-theme="purple"] .arcade-page .ga-howto-grid article{background:#292940;border-color:#43435e}html[data-theme="purple"] .arcade-page .ga-howto-grid b{color:#dad9ef}html[data-theme="purple"] .arcade-page .ga-howto-grid p{color:#c1c1d7}
+html[data-theme="purple"] .arcade-page .ga-mode-card:focus-visible{outline-color:rgba(164,164,216,.42)}
 
 @media(max-width:900px){.arcade-page .ga-hero{grid-template-columns:minmax(0,1fr) 190px}.arcade-page .ga-howto-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){

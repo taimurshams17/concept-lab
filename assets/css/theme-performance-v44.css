@@ -1,0 +1,50 @@
+/* ConceptLab v44 — stable theme previews + faster Dark rendering.
+   Theme swatches are product previews, so their appearance must not depend on
+   the currently active html[data-theme] value. */
+.px-theme-dark .px-theme-preview{
+  background:radial-gradient(ellipse at 86% 14%,rgba(49,67,169,.16),transparent 40%),
+    linear-gradient(125deg,#000 0%,#020309 70%,#070b1d 100%)!important;
+  border:1px solid rgba(114,132,255,.27)!important;
+}
+.px-theme-dark .px-theme-preview::before{
+  background:linear-gradient(145deg,#0b1020 0%,#02040a 82%)!important;
+  border-color:rgba(111,129,255,.22)!important;
+}
+.px-theme-dark .px-theme-preview i{
+  background:rgba(55,77,190,.42)!important;
+  box-shadow:0 0 8px rgba(63,83,190,.28)!important;
+}
+.px-theme-dark .px-theme-preview b{
+  background:#70dfff!important;
+  box-shadow:0 0 7px rgba(82,207,255,.34)!important;
+}
+.px-theme-dark .px-theme-preview em{background:#d7e6ee!important}
+
+/* Keep all three swatches independent of the active theme. */
+.px-theme-light .px-theme-preview{background:linear-gradient(130deg,#fff,#e9edf2 58%,#dfe4ea)!important}
+.px-theme-light .px-theme-preview::before{background:linear-gradient(145deg,#fff,#f2f4f6)!important;border-color:#fff!important}
+.px-theme-light .px-theme-preview i{background:rgba(155,166,180,.4)!important}
+.px-theme-light .px-theme-preview b{background:#717c89!important}
+.px-theme-violet .px-theme-preview{background:linear-gradient(135deg,#070b24 0%,#202b86 58%,#0b143c 100%)!important;border-color:#6268e8!important}
+.px-theme-violet .px-theme-preview::before{background:linear-gradient(145deg,#3d48c4,#111b4a)!important}
+.px-theme-violet .px-theme-preview i{background:#6068f0!important;box-shadow:none!important}
+.px-theme-violet .px-theme-preview b{background:#a5b4fc!important;box-shadow:none!important}
+.px-theme-violet .px-theme-preview em{background:#7775ff!important}
+
+/* Faster Dark mode, especially on touch/mobile devices: remove expensive
+   backdrop/filter work from decorative surfaces while preserving layout. */
+@media (max-width:900px),(pointer:coarse){
+  html[data-theme="dark"] #app :is(.card,.px-panel,.hubc,.hero-visual-card,.stage-premium-card,.feature-premium-card,.launch-feature-card,.launch-subject-card,.home-feature-showcase-card,.fc-node,.hub-home-spotlight){
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  html[data-theme="dark"] #app :is(.card,.px-panel,.hubc,.hero-visual-card,.stage-premium-card,.feature-premium-card,.launch-feature-card,.launch-subject-card,.home-feature-showcase-card,.fc-node,.hub-home-spotlight){
+    box-shadow:0 8px 24px -18px rgba(0,0,0,.72),inset 0 1px rgba(255,255,255,.035)!important;
+  }
+  html[data-theme="dark"] body::before,html[data-theme="dark"] body::after{background-attachment:scroll!important}
+  html[data-theme="dark"] #stars{will-change:auto!important}
+  html[data-theme="dark"] #app :is(.cl-decor,.pf-grain,.pf-aurora,.hub-home-art-spark){animation:none!important;filter:none!important}
+  html[data-theme="dark"] #app :is(.cl-engine-sparks,.cl-engine-scan){animation:none!important;opacity:.55}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="dark"] #app *{scroll-behavior:auto!important}
+}

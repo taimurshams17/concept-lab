@@ -96,3 +96,20 @@ The admin panel edits published content; application code, styles, and new funct
 - `npm run check:games` — Arcade registry integrity.
 - CSS parsed with `tinycss2` (all stylesheets).
 - `npm run build` — static production build.
+
+## Flowchart, Indigo, admin studio and security update (2026-11)
+
+- Replaced the public “কেন ConceptLab?” feature section with a ten-card learning flowchart in the same homepage position. The first nine cards remain connected to the editable feature content in Admin; a tenth Reference Shelf card completes the flow.
+- Increased the central ConceptLab logo and wordmark inside the flowchart circle.
+- Renamed the Settings theme label from Violet to Indigo, updated its navy-indigo preview, and removed the small icon background tiles from the four concept-stage cards in Indigo mode. The internal saved theme key is retained for backward compatibility.
+- Expanded Admin with dashboard shortcuts and a Theme Studio featuring palette presets, five precise colour controls, live preview, and contrast checks. The editor updates its preview immediately; changes go live when saved.
+- Added API origin/method and JSON content-type checks, request-size and upload validation, rate limits for authentication and public submission routes, a 12-character minimum for admin passwords, and stronger site security headers.
+- Removed an unused font-folder placeholder. Retained referenced assets and excluded generated `dist/` output from the source package.
+
+See [`UPDATE-NOTES-v37.md`](./UPDATE-NOTES-v37.md) for the detailed change list and security limitations.
+
+### Verification
+- `npm run check` — passed.
+- `npm run check:games` — passed.
+- `npm run build` — passed.
+- `netlify.toml` parsed successfully; all 47 CSS stylesheets passed syntax parsing.

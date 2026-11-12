@@ -1,0 +1,26 @@
+/* ConceptLab v46 — compact two-column Arcade cards on phones. */
+@media (max-width:700px){
+  .arcade-page .ga-game-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;align-items:stretch}
+  .arcade-page .ga-game-card{position:relative;min-width:0;padding:12px 10px 10px!important;gap:8px!important;border-radius:14px!important;overflow:hidden}
+  .arcade-page .ga-game-card-head{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:8px!important;width:100%;min-width:0}
+  .arcade-page .ga-game-icon{width:36px!important;height:36px!important;border-radius:11px!important;font-size:19px!important}
+  .arcade-page .ga-card-title-wrap{width:100%;min-width:0}
+  .arcade-page .ga-card-kicker{font-size:7px!important;letter-spacing:.09em!important}
+  .arcade-page .ga-card-title-wrap h4{font-size:12px!important;line-height:1.35!important;overflow-wrap:anywhere}
+  .arcade-page .ga-xp{position:absolute;top:10px;right:9px;padding:4px 6px!important;font-size:8px!important;max-width:62px;white-space:nowrap}
+  .arcade-page .ga-card-description{font-size:10px!important;line-height:1.55!important;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;min-height:0}
+  /* Keep the main game summary readable; secondary learning panels are desktop details. */
+  .arcade-page .ga-card-learning,.arcade-page .ga-card-why{display:none!important}
+  .arcade-page .ga-game-card-bottom{display:flex;flex-direction:column;align-items:stretch;gap:7px;margin-top:auto;padding-top:8px}
+  .arcade-page .ga-game-stats{font-size:8px;gap:5px}
+  .arcade-page .ga-game-actions{width:100%;display:flex;justify-content:stretch;gap:5px}
+  .arcade-page .ga-game-actions .btn{flex:1;min-width:0;padding:7px 5px!important;font-size:9px!important;white-space:nowrap}
+  .arcade-page .ga-review-link{font-size:8px!important}
+}
+@media(max-width:360px){
+  .arcade-page .ga-game-grid{gap:8px!important}
+  .arcade-page .ga-game-card{padding:10px 8px 9px!important}
+  .arcade-page .ga-card-title-wrap h4{font-size:11px!important}
+  .arcade-page .ga-card-description{-webkit-line-clamp:3;font-size:9px!important}
+  .arcade-page .ga-xp{font-size:7px!important;right:7px;top:8px}
+}

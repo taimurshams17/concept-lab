@@ -166,9 +166,9 @@ html[data-theme="light"].cl-scrolling body>nav.bottom-nav{
 }
 html[data-theme="purple"] body>nav.bottom-nav,
 html[data-theme="purple"].cl-scrolling body>nav.bottom-nav{
-  background:rgba(20,14,30,.97)!important;
+  background:rgba(12,12,32,.97)!important;
   background-image:none!important;
-  border-color:rgba(197,173,235,.24)!important;
+  border-color:rgba(174,173,235,.24)!important;
 }
 
 /* Dark theme: near-black graphite canvas, cool cyan/steel-blue accents, no violet glow. */

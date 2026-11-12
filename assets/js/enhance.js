@@ -46,7 +46,7 @@
     var lastSync = 0, pending = 0;
     function onScroll() {
       if (pending) return;
-      pending = setTimeout(function () { pending = 0; lastSync = Date.now(); sync(); }, Math.max(0, 120 - (Date.now() - lastSync)));
+      pending = setTimeout(function () { pending = 0; lastSync = Date.now(); sync(); }, Math.max(0, 320 - (Date.now() - lastSync)));
     }
     function init() {
       window.addEventListener('scroll', onScroll, { passive: true });

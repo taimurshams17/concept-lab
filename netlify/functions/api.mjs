@@ -19,7 +19,23 @@ async function snapshot(content, by) {
   return id;
 }
 const ms = () => getStore("media");
-const J = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
+const securityStore = () => getStore("security");
+const J = (d, s = 200, extra = {}) => new Response(JSON.stringify(d), { status: s, headers: Object.assign({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff", "cross-origin-resource-policy": "same-origin" }, extra) });
+async function rateLimit(req, scope, max, windowMs) {
+  const ip = req.headers.get("x-nf-client-connection-ip") || (req.headers.get("x-forwarded-for") || "").split(",")[0].trim();
+  if (!ip) return 0;
+  const id = "rl_" + createHash("sha256").update(scope + "|" + ip).digest("hex").slice(0, 40);
+  const now = Date.now();
+  try {
+    const store = securityStore();
+    const old = await store.get(id, { type: "json" });
+    const row = old && Number(old.until) > now ? old : { count: 0, until: now + windowMs };
+    if (Number(row.count) >= max) return Math.max(1, Math.ceil((Number(row.until) - now) / 1000));
+    row.count = Number(row.count || 0) + 1;
+    await store.setJSON(id, row);
+  } catch { /* Fail open if the optional rate-limit store is temporarily unavailable. */ }
+  return 0;
+}
 const H = (p, s) => scryptSync(p, s, 32).toString("hex");
 const setupKeyMatches = (candidate, configured) => {
   const a = createHash("sha256").update(String(candidate || "")).digest();
@@ -39,31 +55,34 @@ const saveU = (u) => st().setJSON("users", u);
 async function secret() { let s = await st().get("secret"); if (!s) { s = randomBytes(32).toString("hex"); await st().set("secret", s); } return s; }
 async function sign(u) { const b = Buffer.from(JSON.stringify({ u, e: Date.now() + 12 * 36e5 })).toString("base64url"); return b + "." + createHmac("sha256", await secret()).update(b).digest("base64url"); }
 async function signStudent(email) { const b = Buffer.from(JSON.stringify({ student: email, e: Date.now() + 30 * 24 * 36e5 })).toString("base64url"); return b + "." + createHmac("sha256", await secret()).update(b).digest("base64url"); }
+function bearerParts(req) {
+  const match = /^Bearer\s+([A-Za-z0-9_-]+)\.([A-Za-z0-9_-]+)$/.exec(req.headers.get("authorization") || "");
+  return match ? [match[1], match[2]] : null;
+}
 async function whoStudent(req) {
   try {
-    const [b, g] = (req.headers.get("authorization") || "").replace("Bearer ", "").split(".");
-    if (!b || !g) return null;
-    const x = createHmac("sha256", await secret()).update(b).digest("base64url");
+    const parts = bearerParts(req); if (!parts) return null;
+    const [b, g] = parts, x = createHmac("sha256", await secret()).update(b).digest("base64url");
     if (g.length !== x.length || !timingSafeEqual(Buffer.from(g), Buffer.from(x))) return null;
     const o = JSON.parse(Buffer.from(b, "base64url").toString());
-    if (!o.student || o.e < Date.now()) return null;
+    if (typeof o.student !== "string" || !o.student || !Number.isFinite(o.e) || o.e < Date.now()) return null;
     return (await students())[o.student] ? o.student : null;
   } catch { return null; }
 }
 async function who(req) {
   try {
-    const [b, g] = (req.headers.get("authorization") || "").replace("Bearer ", "").split(".");
-    const x = createHmac("sha256", await secret()).update(b).digest("base64url");
+    const parts = bearerParts(req); if (!parts) return null;
+    const [b, g] = parts, x = createHmac("sha256", await secret()).update(b).digest("base64url");
     if (g.length !== x.length || !timingSafeEqual(Buffer.from(g), Buffer.from(x))) return null;
     const o = JSON.parse(Buffer.from(b, "base64url").toString());
-    if (o.e < Date.now()) return null;
+    if (typeof o.u !== "string" || !Number.isFinite(o.e) || o.e < Date.now()) return null;
     return (await users())[o.u] ? o.u : null;
   } catch { return null; }
 }
 function mk(us, b) {
   const u = String(b.username || "").trim().toLowerCase(), p = String(b.password || "");
   if (!/^[a-z0-9_.-]{3,30}$/.test(u)) throw new Error("Username: 3-30 letters, numbers, . _ -");
-  if (p.length < 8) throw new Error("Password must be at least 8 characters");
+  if (p.length < 12 || p.length > 128) throw new Error("Password must be 12–128 characters");
   if (us[u]) throw new Error("That username already exists");
   const s = randomBytes(16).toString("hex"); us[u] = { s, h: H(p, s) }; return u;
 }
@@ -155,10 +174,19 @@ export default async (req) => {
   const p = new URL(req.url).pathname.replace(/^\/api/, "").replace(/\/$/, "");
   const m = req.method;
   try {
+    if (!["GET", "POST", "PUT", "DELETE"].includes(m)) return J({ error: "Method not allowed" }, 405, { allow: "GET, POST, PUT, DELETE" });
+    if (m !== "GET") {
+      const origin = req.headers.get("origin");
+      if (origin) { try { if (new URL(origin).origin !== new URL(req.url).origin) return J({ error: "Cross-origin request blocked" }, 403); } catch { return J({ error: "Invalid request origin" }, 403); } }
+      if (req.headers.get("sec-fetch-site") === "cross-site") return J({ error: "Cross-site request blocked" }, 403);
+    }
     if (m === "GET" && p.startsWith("/media/") && /^[a-f0-9]{8,40}$/.test(p.slice(7))) {
       const r = await ms().getWithMetadata(p.slice(7), { type: "arrayBuffer" });
       if (!r) return J({ error: "Not found" }, 404);
-      return new Response(r.data, { headers: { "content-type": r.metadata?.type || "image/webp", "cache-control": "public, max-age=31536000, immutable", "x-content-type-options": "nosniff" } });
+      const type = ["image/webp", "image/jpeg", "image/png", "image/gif", "application/pdf"].includes(r.metadata?.type) ? r.metadata.type : "application/octet-stream";
+      const headers = { "content-type": type, "cache-control": "public, max-age=31536000, immutable", "x-content-type-options": "nosniff", "cross-origin-resource-policy": "same-origin" };
+      if (type === "application/pdf") headers["content-disposition"] = "inline; filename=\"ConceptLab-document.pdf\"";
+      return new Response(r.data, { headers });
     }
     if (p === "/content" && m === "GET") return J((await st().get("content", { type: "json" })) || {}, 200, { "cache-control": "no-store, no-cache, must-revalidate, max-age=0" });
     if (p === "/student-leaderboard" && m === "GET") { const all = await students(); const rows = Object.values(all).map((u) => ({ name: String(u.name || "Student"), avatar: String(u.avatar || ""), xp: Math.max(0, Number(u.xp) || 0) })).sort((a, b) => b.xp - a.xp || a.name.localeCompare(b.name)); return J({ count: rows.length, students: rows }); }
@@ -166,7 +194,18 @@ export default async (req) => {
       const setup = !Object.keys(await users()).length;
       return J({ setup, setupReady: !setup || configuredSetupKey().length >= 24 });
     }
-    const body = m === "GET" ? {} : await req.json().catch(() => ({}));
+    let body = {};
+    if (m !== "GET") {
+      const contentType = req.headers.get("content-type") || "";
+      if (!/^application\/json(?:\s*;|$)/i.test(contentType)) return J({ error: "Requests must use application/json" }, 415);
+      const maxBody = p === "/media" ? 6500000 : 1750000;
+      const declared = Number(req.headers.get("content-length") || 0);
+      if (declared > maxBody) return J({ error: "Request body is too large" }, 413);
+      const raw = await req.text();
+      if (new TextEncoder().encode(raw).byteLength > maxBody) return J({ error: "Request body is too large" }, 413);
+      try { body = raw ? JSON.parse(raw) : {}; } catch { return J({ error: "Invalid JSON request" }, 400); }
+      if (!body || typeof body !== "object" || Array.isArray(body)) return J({ error: "Invalid request body" }, 400);
+    }
     if (p === "/feedback" && m === "POST") {
       if (String(body.website || "").trim()) return J({ received: true });
       const message = String(body.message || "").trim();
@@ -175,6 +214,7 @@ export default async (req) => {
       const page = String(body.page || "#/about").slice(0, 180);
       if (message.length < 5 || message.length > 2000) return J({ error: "Message must be 5–2000 characters" }, 400);
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return J({ error: "Enter a valid email address or leave it blank" }, 400);
+      const wait = await rateLimit(req, "public-feedback", 5, 10 * 60 * 1000); if (wait) return J({ error: "Too many feedback messages. Please try again later." }, 429, { "retry-after": String(wait) });
       const feedback = (await st().get("feedback", { type: "json" })) || [];
       if (!Array.isArray(feedback)) return J({ error: "Feedback storage is unavailable" }, 500);
       const now = Date.now();
@@ -193,6 +233,7 @@ export default async (req) => {
       const page = String(body.page || "#/about").slice(0, 180);
       if (!Number.isInteger(rating) || rating < 1 || rating > 5) return J({ error: "Choose a rating from 1 to 5 stars" }, 400);
       if (message.length < 10 || message.length > 1200) return J({ error: "Review must be 10–1200 characters" }, 400);
+      const wait = await rateLimit(req, "public-reviews", 3, 10 * 60 * 1000); if (wait) return J({ error: "Too many reviews from this connection. Please try again later." }, 429, { "retry-after": String(wait) });
       const reviews = (await st().get("reviews", { type: "json" })) || [];
       if (!Array.isArray(reviews)) return J({ error: "Review storage is unavailable" }, 500);
       const now = Date.now();
@@ -217,6 +258,7 @@ export default async (req) => {
       return J({ sent: true, id: item.id }, 201);
     }
     if (p === "/student-signup" && m === "POST") {
+      const wait = await rateLimit(req, "student-signup", 8, 60 * 60 * 1000); if (wait) return J({ error: "Too many sign-up attempts. Please try again later." }, 429, { "retry-after": String(wait) });
       const name = String(body.name || "").trim(), school = String(body.school || "").trim(), email = String(body.email || "").trim().toLowerCase(), password = String(body.password || "");
       if (name.length < 2 || name.length > 80) return J({ error: "Name must be 2–80 characters" }, 400);
       if (school.length < 2 || school.length > 120) return J({ error: "Institute name must be 2–120 characters" }, 400);
@@ -230,11 +272,13 @@ export default async (req) => {
       return J({ token: await signStudent(email), user: { name, email, school, xp: 0 } }, 201);
     }
     if (p === "/student-login" && m === "POST") {
+      const wait = await rateLimit(req, "student-login", 12, 15 * 60 * 1000); if (wait) return J({ error: "Too many sign-in attempts. Please try again later." }, 429, { "retry-after": String(wait) });
       const email = String(body.email || "").trim().toLowerCase(), password = String(body.password || ""), us = await students(), rec = us[email];
       if (!users_ok(rec, password)) { await new Promise((r) => setTimeout(r, 350)); return J({ error: "Incorrect email or password" }, 401); }
       return J({ token: await signStudent(email), user: { name: rec.name, email: rec.email, school: rec.school || "", avatar: rec.avatar || "", bio: rec.bio || "", location: rec.location || "", xp: rec.xp || 0 } });
     }
     if (p === "/setup" && m === "POST") {
+      const wait = await rateLimit(req, "admin-setup", 4, 60 * 60 * 1000); if (wait) return J({ error: "Too many setup attempts. Please try again later." }, 429, { "retry-after": String(wait) });
       const us = await users();
       if (Object.keys(us).length) return J({ error: "Already set up" }, 403);
       const expected = configuredSetupKey();
@@ -243,6 +287,7 @@ export default async (req) => {
       const u = mk(us, body); await saveU(us); return J({ token: await sign(u), user: u });
     }
     if (p === "/login" && m === "POST") {
+      const wait = await rateLimit(req, "admin-login", 8, 15 * 60 * 1000); if (wait) return J({ error: "Too many sign-in attempts. Please try again later." }, 429, { "retry-after": String(wait) });
       const us = await users(), u = String(body.username || "").trim().toLowerCase();
       if (!users_ok(us[u], String(body.password || ""))) { await new Promise((r) => setTimeout(r, 600)); return J({ error: "Wrong username or password" }, 401); }
       return J({ token: await sign(u), user: u });
@@ -396,9 +441,20 @@ export default async (req) => {
       return J({ items: await Promise.all(blobs.map(async (b) => ({ id: b.key, name: (await ms().getMetadata(b.key))?.metadata?.name || b.key, url: "/api/media/" + b.key }))) });
     }
     if (p === "/media" && m === "POST") {
+      const wait = await rateLimit(req, "admin-media-upload", 25, 60 * 60 * 1000); if (wait) return J({ error: "Upload limit reached. Please try again later." }, 429, { "retry-after": String(wait) });
       if (!["image/webp", "image/jpeg", "image/png", "image/gif", "application/pdf"].includes(body.type)) throw new Error("Only images and PDF files are allowed");
-      const buf = Buffer.from(String(body.data || ""), "base64");
+      const encoded = String(body.data || "");
+      if (!/^[A-Za-z0-9+/]+={0,2}$/.test(encoded) || encoded.length > 5800000 || encoded.length % 4 !== 0) throw new Error("Invalid file data");
+      const buf = Buffer.from(encoded, "base64");
+      if (buf.toString("base64") !== encoded) throw new Error("Invalid file encoding");
       if (!buf.length || buf.length > 4.2e6) throw new Error("File is empty or too large (max 4 MB)");
+      const starts = (sig) => sig.every((v, i) => buf[i] === v);
+      const validType = body.type === "image/png" ? starts([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]) :
+        body.type === "image/jpeg" ? starts([0xff,0xd8,0xff]) :
+        body.type === "image/gif" ? (buf.subarray(0,6).toString("ascii") === "GIF87a" || buf.subarray(0,6).toString("ascii") === "GIF89a") :
+        body.type === "image/webp" ? (buf.subarray(0,4).toString("ascii") === "RIFF" && buf.subarray(8,12).toString("ascii") === "WEBP") :
+        body.type === "application/pdf" ? buf.subarray(0,5).toString("ascii") === "%PDF-" : false;
+      if (!validType) throw new Error("File contents do not match the selected file type");
       const id = randomBytes(8).toString("hex");
       await ms().set(id, buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength), { metadata: { name: String(body.name || "image").slice(0, 80), type: body.type } });
       return J({ id, url: "/api/media/" + id });
@@ -415,7 +471,7 @@ export default async (req) => {
     if (p === "/password" && m === "POST") {
       const us = await users();
       if (!users_ok(us[me], String(body.old || ""))) throw new Error("Current password is wrong");
-      if (String(body.new || "").length < 8) throw new Error("New password must be at least 8 characters");
+      if (String(body.new || "").length < 12 || String(body.new || "").length > 128) throw new Error("New password must be 12–128 characters");
       const s = randomBytes(16).toString("hex"); us[me] = { s, h: H(String(body.new), s) }; await saveU(us); return J({ changed: true });
     }
     return J({ error: "Not found" }, 404);

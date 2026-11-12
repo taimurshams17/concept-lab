@@ -1,0 +1,23 @@
+/* ConceptLab v43 — transparent flowchart logo and true per-card feature icon colours. */
+#app[data-page="home"] .home-flow .fc-core{isolation:isolate}
+#app[data-page="home"] .home-flow .fc-core img{
+  display:block!important;background:transparent!important;background-color:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  padding:0!important;object-fit:contain!important;mix-blend-mode:normal!important;
+}
+/* vibrant.css and theme-light.css previously forced a violet/blue palette over these icons.
+   Use the actual accent authored on each feature card instead. */
+html[data-theme="light"] #app[data-page="home"] .feature-premium-card{
+  --i1:var(--feature-source-accent)!important;
+  --i2:color-mix(in srgb,var(--feature-source-accent) 72%,#ffffff)!important;
+}
+html[data-theme="light"] #app[data-page="home"] .feature-premium-card>.feature-icon-shell{
+  --feature-accent:var(--feature-source-accent)!important;
+  color:#fff!important;
+  background:linear-gradient(140deg,var(--feature-source-accent),color-mix(in srgb,var(--feature-source-accent) 72%,#ffffff))!important;
+  border:1px solid color-mix(in srgb,var(--feature-source-accent) 72%,#ffffff)!important;
+  box-shadow:0 7px 18px -9px color-mix(in srgb,var(--feature-source-accent) 65%,transparent)!important;
+}
+html[data-theme="light"] #app[data-page="home"] .feature-premium-card>.feature-icon-shell svg{
+  color:#fff!important;stroke:#fff!important;fill:none!important;filter:none!important;
+}

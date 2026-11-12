@@ -8,7 +8,7 @@
   }
   html[data-theme="dark"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#7dd3fc!important}
   html[data-theme="light"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#347fc1!important}
-  html[data-theme="purple"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#c9b2ff!important}
+  html[data-theme="purple"] body #app[data-page="home"] .home-launchpad .launch-swipe-hint{color:#b2b2ff!important}
 
   html body #app[data-page="home"] .home-launchpad .launch-swipe-hint b{
     font-size:21px;line-height:1;font-weight:750;animation:lsNudgeL 1.6s ease-in-out infinite
@@ -115,8 +115,8 @@ html[data-theme="light"] #app[data-page="home"] .sec-subjects .premium-subj-icon
 }
 html[data-theme="purple"] #app[data-page="home"] .sec-subjects .premium-subj-icon{
   color:var(--subject-accent)!important;
-  border-color:color-mix(in srgb,var(--subject-accent) 42%,#28202f)!important;
-  background:color-mix(in srgb,var(--subject-accent) 15%,#17121e)!important;
+  border-color:color-mix(in srgb,var(--subject-accent) 42%,#1f1e31)!important;
+  background:color-mix(in srgb,var(--subject-accent) 15%,#111020)!important;
 }
 
 /* Discover ConceptLab: explicit per-card icon colours override shared Light-theme icon tints. */

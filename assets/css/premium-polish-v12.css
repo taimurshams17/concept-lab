@@ -103,7 +103,7 @@ html[data-theme="dark"] footer.site-footer.pf::before{
 }
 html[data-theme="purple"] footer.site-footer.pf::before{
   height:2px!important;opacity:1!important;animation:none!important;
-  background:linear-gradient(90deg,transparent,#a78bfa 18%,#a78bfa 82%,transparent)!important;
+  background:linear-gradient(90deg,transparent,#8b8cfa 18%,#8b8cfa 82%,transparent)!important;
   background-size:100% 100%!important;
 }
 /* Subject symbols replace the old coloured dots and stay legible in every theme. */
@@ -114,7 +114,7 @@ footer.site-footer.pf .pf-subjects .sd{
   font:700 14px/1 "Hind Siliguri",Manrope,sans-serif!important;font-style:normal!important;
 }
 html[data-theme="dark"] footer.site-footer.pf .pf-subjects .sd{color:#75d8f4!important}
-html[data-theme="purple"] footer.site-footer.pf .pf-subjects .sd{color:#a78bfa!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-subjects .sd{color:#8b8cfa!important}
 html[data-theme="light"] footer.site-footer.pf .pf-subjects .sd{color:#3976ad!important}
 
 /* =====================================================================
@@ -178,18 +178,18 @@ html[data-theme="dark"] footer.site-footer.pf .pf-legal .dot{background:#75d8f4!
 
 /* ---------- Purple (violet) ---------- */
 html[data-theme="purple"] footer.site-footer.pf .pf-col h4,
-html[data-theme="purple"] footer.site-footer.pf .pf-col h4 span{color:#e5dcfb!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-col h4 span{color:#dcdcfb!important}
 html[data-theme="purple"] footer.site-footer.pf .pf-heading-icon{
-  color:#b9a2fb!important;background:linear-gradient(145deg,rgba(167,139,250,.22),rgba(167,139,250,.06))!important;
-  border:1px solid rgba(167,139,250,.3)!important;
+  color:#a2a3fb!important;background:linear-gradient(145deg,rgba(139,140,250,.22),rgba(139,140,250,.06))!important;
+  border:1px solid rgba(139,140,250,.3)!important;
 }
-html[data-theme="purple"] footer.site-footer.pf .pf-col a{color:#ddd3f5!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-col a{color:#d3d3f5!important}
 html[data-theme="purple"] footer.site-footer.pf .pf-col a:hover{color:#fff!important}
-html[data-theme="purple"] footer.site-footer.pf .pf-link-icon{color:#b9a2fb!important}
-html[data-theme="purple"] footer.site-footer.pf #footerSocials .footer-social svg{fill:#b9a2fb!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-link-icon{color:#a2a3fb!important}
+html[data-theme="purple"] footer.site-footer.pf #footerSocials .footer-social svg{fill:#a2a3fb!important}
 html[data-theme="purple"] footer.site-footer.pf .pf-legal,
-html[data-theme="purple"] footer.site-footer.pf .pf-legal > span{color:#d6caf3!important}
-html[data-theme="purple"] footer.site-footer.pf .pf-legal .dot{background:#a78bfa!important;box-shadow:none!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-legal > span{color:#cacaf3!important}
+html[data-theme="purple"] footer.site-footer.pf .pf-legal .dot{background:#8b8cfa!important;box-shadow:none!important}
 html[data-theme="purple"] footer.site-footer.pf .pf-subjects .sd{background:none!important;box-shadow:none!important}
 
 /* ---------- Light: legacy white text overrides (vibrant.css / theme-light.css) ---------- */
