@@ -1,0 +1,65 @@
+/* ConceptLab v67 — site-wide premium layer (loaded last): Labs, Graphs, headings, inputs, focus, scrollbars. */
+:root{--pm-line:rgba(148,163,255,.16);--pm-line-hi:rgba(129,140,248,.45)}
+html[data-theme="light"]{--pm-line:rgba(15,23,42,.1);--pm-line-hi:rgba(79,70,229,.4)}
+::selection{background:rgba(129,140,248,.4);color:#fff}
+html{scrollbar-width:thin;scrollbar-color:rgba(129,140,248,.45) transparent}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:rgba(129,140,248,.4);border-radius:9px;border:2px solid transparent;background-clip:padding-box}::-webkit-scrollbar-track{background:transparent}
+:focus-visible{outline:2px solid rgba(129,140,248,.9);outline-offset:2px;border-radius:8px}
+
+/* ---------- Labs: simulation cards ---------- */
+#app .lab-page .lab-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E),#app .lab-page .lab-subject-group>div[class*="grid"]:not(#A):not(#B):not(#C):not(#D):not(#E){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;align-items:stretch!important}
+#app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E){position:relative;display:flex!important;flex-direction:column!important;gap:8px!important;height:auto!important;min-height:0!important;padding:16px!important;border-radius:16px!important;overflow:hidden;text-decoration:none!important;
+  background:linear-gradient(165deg,rgba(255,255,255,.055),rgba(255,255,255,.015) 60%)!important;border:1px solid var(--pm-line)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 10px 26px -18px rgba(0,0,0,.7)!important;transition:transform .18s,border-color .18s,box-shadow .18s!important}
+#app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E)::before{content:"";position:absolute;left:16px;right:16px;top:0;height:2px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.9),rgba(56,189,248,.8),transparent);opacity:.5;transition:opacity .18s}
+#app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E):hover{transform:translateY(-3px);border-color:var(--pm-line-hi)!important;box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 18px 34px -18px rgba(79,70,229,.55)!important}
+#app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E):hover::before{opacity:1}
+#app .lab-page .lab-sim-card .gico:not(#A):not(#B):not(#C):not(#D):not(#E){width:42px!important;height:42px!important;font-size:20px!important;border-radius:12px!important;display:grid!important;place-items:center;margin:0 0 2px!important}
+#app .lab-page .lab-sim-card h3:not(#A):not(#B):not(#C):not(#D):not(#E){margin:0!important;font-size:15px!important;line-height:1.3!important;font-weight:650!important}
+#app .lab-page .lab-sim-card .lab-topic:not(#A):not(#B):not(#C):not(#D):not(#E){display:inline-block!important;align-self:flex-start;margin:0!important;padding:2px 9px;border-radius:999px;font-size:10.5px!important;line-height:1.5;background:rgba(129,140,248,.12);border:1px solid rgba(129,140,248,.22);opacity:.95}
+#app .lab-page .lab-sim-card p:not(#A):not(#B):not(#C):not(#D):not(#E){margin:0!important;font-size:12.5px!important;line-height:1.55!important;opacity:.78;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1 1 auto}
+#app .lab-page .lab-sim-card .go:not(#A):not(#B):not(#C):not(#D):not(#E){align-self:stretch;display:flex!important;align-items:center;justify-content:center;margin-top:6px!important;height:34px;border-radius:10px;font-size:12.5px!important;font-weight:650;
+  background:linear-gradient(135deg,rgba(99,102,241,.22),rgba(56,189,248,.16));border:1px solid rgba(129,140,248,.4);color:#e0e7ff!important;transition:background .18s}
+#app .lab-page .lab-sim-card:hover .go:not(#A):not(#B):not(#C):not(#D):not(#E){background:linear-gradient(135deg,#6366f1,#0ea5e9);color:#fff!important;border-color:transparent}
+#app .lab-page .lab-subject-group .subh:not(#A):not(#B):not(#C):not(#D):not(#E),#app .graph-chapter-title:not(#A):not(#B):not(#C):not(#D):not(#E){display:flex!important;align-items:center;gap:10px;position:relative;padding:0 0 0 12px!important;border:0!important;margin:0 0 12px!important}
+#app .lab-page .lab-subject-group .subh:not(#A):not(#B):not(#C):not(#D):not(#E)::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;border-radius:3px;background:linear-gradient(180deg,#818cf8,#38bdf8)}
+#app .lab-page .lab-subject-group .subh small:not(#A):not(#B):not(#C):not(#D):not(#E){padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.07);font-size:11px}
+#app .lab-page .lab-subject-group:not(#A):not(#B):not(#C):not(#D):not(#E){margin-top:22px!important}
+
+/* ---------- Graphs ---------- */
+#app .graph-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E){display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+#app .graph-card:not(#A):not(#B):not(#C):not(#D):not(#E){border-radius:16px!important;border:1px solid var(--pm-line)!important;background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012) 60%)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 10px 26px -18px rgba(0,0,0,.7)!important;transition:transform .18s,border-color .18s,box-shadow .18s!important}
+#app .graph-card:not(#A):not(#B):not(#C):not(#D):not(#E):hover{transform:translateY(-3px);border-color:var(--pm-line-hi)!important;box-shadow:0 18px 34px -18px rgba(79,70,229,.5)!important}
+#app .graph-search-row:not(#A):not(#B):not(#C):not(#D):not(#E){display:flex!important;align-items:center;gap:14px;margin:16px 0!important}
+#graphSearch:not(#A):not(#B):not(#C):not(#D):not(#E){flex:1 1 auto;height:46px!important;padding:0 18px!important;border-radius:14px!important;font-size:14px!important;background:rgba(255,255,255,.04)!important;border:1px solid var(--pm-line)!important;transition:border-color .18s,box-shadow .18s}
+#graphSearch:not(#A):not(#B):not(#C):not(#D):not(#E):focus{border-color:var(--pm-line-hi)!important;box-shadow:0 0 0 4px rgba(99,102,241,.16)!important;outline:none}
+#app .graph-subject-buttons>*:not(#A):not(#B):not(#C):not(#D):not(#E){border-radius:16px!important;transition:transform .18s,border-color .18s!important}
+#app .graph-subject-buttons>*:not(#A):not(#B):not(#C):not(#D):not(#E):hover{transform:translateY(-2px);border-color:var(--pm-line-hi)!important}
+
+/* ---------- shared inputs (arcade/lab/hub search) ---------- */
+#app input[type="search"]:not(#A):not(#B):not(#C):not(#D):not(#E),#app input[type="text"]:not(#A):not(#B):not(#C):not(#D):not(#E){transition:border-color .18s,box-shadow .18s}
+#app input[type="search"]:not(#A):not(#B):not(#C):not(#D):not(#E):focus,#app input[type="text"]:not(#A):not(#B):not(#C):not(#D):not(#E):focus{border-color:var(--pm-line-hi)!important;box-shadow:0 0 0 4px rgba(99,102,241,.16)!important;outline:none}
+
+/* ---------- page headers ---------- */
+#app .pgw>h1:not(#A):not(#B):not(#C):not(#D):not(#E){letter-spacing:-.01em}
+#app .pgw>.lead:not(#A):not(#B):not(#C):not(#D):not(#E){max-width:68ch}
+
+@media (max-width:1000px){#app .lab-page .lab-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E),#app .lab-page .lab-subject-group>div[class*="grid"]:not(#A):not(#B):not(#C):not(#D):not(#E){grid-template-columns:repeat(2,minmax(0,1fr))!important}#app .graph-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E){grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:600px){
+  #app .lab-page .lab-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E),#app .lab-page .lab-subject-group>div[class*="grid"]:not(#A):not(#B):not(#C):not(#D):not(#E){gap:10px!important}
+  #app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E){padding:12px!important;gap:6px!important;border-radius:14px!important}
+  #app .lab-page .lab-sim-card .gico:not(#A):not(#B):not(#C):not(#D):not(#E){width:34px!important;height:34px!important;font-size:17px!important}
+  #app .lab-page .lab-sim-card h3:not(#A):not(#B):not(#C):not(#D):not(#E){font-size:13px!important}
+  #app .lab-page .lab-sim-card p:not(#A):not(#B):not(#C):not(#D):not(#E){font-size:11.5px!important}
+  #app .lab-page .lab-sim-card .go:not(#A):not(#B):not(#C):not(#D):not(#E){height:31px;font-size:11.5px!important}
+  #app .graph-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E){gap:10px!important}
+}
+/* ---------- light theme ---------- */
+html[data-theme="light"] #app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E),html[data-theme="light"] #app .graph-card:not(#A):not(#B):not(#C):not(#D):not(#E){background:linear-gradient(165deg,#fff,#f8f9fc)!important;box-shadow:0 1px 2px rgba(15,23,42,.05),0 12px 24px -18px rgba(15,23,42,.25)!important}
+html[data-theme="light"] #app .lab-page .lab-sim-card .go:not(#A):not(#B):not(#C):not(#D):not(#E){background:#f1f4fb;color:#3730a3!important;border-color:rgba(79,70,229,.3)}
+html[data-theme="light"] #graphSearch:not(#A):not(#B):not(#C):not(#D):not(#E){background:#fff!important}
+
+@media (max-width:600px){
+  #app .lab-page .lab-sim-card .lab-topic:not(#A):not(#B):not(#C):not(#D):not(#E){display:block!important;max-width:100%;border-radius:8px;font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}

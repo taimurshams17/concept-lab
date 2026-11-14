@@ -7,3 +7,4 @@
 - New file: assets/css/speed-v64.css (loaded last).
 - v65: Dark/Violet home sections, card grids, footer no longer use content-visibility:auto (they were rendered only when scrolled into view); now always rendered in place like Light.
 - v66: Arcade premium layout — new assets/css/arcade-premium-v66.css (3-column compact cards on PC, 2 on mobile, refined headers/buttons, dark + light).
+- v67: site-wide premium layer — new assets/css/premium-site-v67.css (Labs cards, Graphs cards/search, headings, focus rings, scrollbars, light theme).
