@@ -420,18 +420,18 @@
       content: s.defaultContentWidth || 'standard'
     }, jget('clpx_prefs', {}));
   }
-  /* Three complete visual modes: Light, Dark and Violet. */
+  /* Three complete visual modes: Light, Dark and Indigo. */
   function applyTheme(t) {
     var theme = t === 'light' ? 'light' : (t === 'purple' ? 'purple' : 'dark');
     var root = document.documentElement;
     root.setAttribute('data-theme', theme);
     root.style.colorScheme = theme === 'light' ? 'light' : 'dark';
     var lc = document.getElementById('clLightCss'); if (lc) lc.media = theme === 'light' ? 'all' : 'not all';
-    /* Remove CMS inline colour tokens in the Purple mode so its palette can be authoritative. */
+    /* Remove CMS inline colour tokens in Indigo mode so its palette can be authoritative. */
     if (theme !== 'purple' && window.__clBaseTheme) { var base = window.__clBaseTheme; ['p','s','a','bg','glow'].forEach(function (k) { if (/^#[0-9a-f]{6}$/i.test(base[k] || '')) root.style.setProperty('--' + k, base[k]); }); }
-    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', theme === 'light' ? '#f2f7fd' : (theme === 'purple' ? '#05040a' : '#000000'));
+    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', theme === 'light' ? '#f2f7fd' : (theme === 'purple' ? '#080b25' : '#000000'));
     if (window.FX && typeof FX.setTheme === 'function') {
-      var palette = theme === 'purple' ? { p: '#9078cd', s: '#b7a8e6', fx: 'off', motion: true } :
+      var palette = theme === 'purple' ? { p: '#6f6cff', s: '#a5b4fc', fx: 'off', motion: true } :
         (theme === 'dark' ? (function () { var map = { sky:['#38bdf8','#7dd3fc'], violet:['#a78bfa','#c4b5fd'], emerald:['#34d399','#6ee7b7'], rose:['#fb7185','#fda4af'], amber:['#fbbf24','#fcd34d'] }; var c = map[prefs().accent] || map.sky; return { p:c[0], s:c[1], fx:prefs().fx ? 'on' : 'off' }; })() : null);
       if (palette) FX.setTheme(palette);
     }
@@ -489,9 +489,8 @@
       '<section class="px-pref-section px-theme-section"><h3>Theme</h3><p>Choose a visual space that feels comfortable for studying.</p><div class="px-theme-choice" role="group" aria-label="Theme">' +
       '<button type="button" class="px-theme-btn px-theme-light" data-pxtheme="light" aria-pressed="' + (p.theme === 'light') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Light</b><small>Daylight · calm &amp; clear</small></span></button>' +
       '<button type="button" class="px-theme-btn px-theme-dark" data-pxtheme="dark" aria-pressed="' + (p.theme === 'dark') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Dark</b><small>Deep space · sky glow</small></span></button>' +
-      '<button type="button" class="px-theme-btn px-theme-violet" data-pxtheme="purple" aria-pressed="' + (p.theme === 'purple') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Violet</b><small>Balanced violet · calm surfaces</small></span></button>' +
+      '<button type="button" class="px-theme-btn px-theme-violet" data-pxtheme="purple" aria-pressed="' + (p.theme === 'purple') + '"><span class="px-theme-preview" aria-hidden="true"><i></i><b></b><em></em></span><span class="px-theme-tx"><b>Indigo</b><small>Midnight indigo · cool &amp; focused</small></span></button>' +
       '</div><p class="px-theme-tip"><span aria-hidden="true">✦</span> Your selected theme is saved on this device.</p></section>' +
-      '<section class="px-pref-section px-accent-section' + (p.theme !== 'dark' ? ' is-locked' : '') + '"><div class="px-accent-heading"><h3>Accent colour</h3><span class="px-accent-status" aria-live="polite">' + (p.theme === 'purple' ? 'OFF · VIOLET' : (p.theme === 'light' ? 'FIXED · LIGHT' : 'AVAILABLE')) + '</span></div><p>Button, highlight and glow colours. <span class="px-accent-lock">' + (p.theme === 'purple' ? 'Violet uses its coordinated palette; custom accent colours are switched off.' : (p.theme === 'light' ? 'Light uses its fixed neutral palette. Custom accent colours are available in Dark theme.' : 'Choose an accent colour for buttons and highlights.')) + '</span></p><div class="px-swatches" role="group" aria-label="Accent colour">' + ACCENTS.map(function (a) { return '<button type="button" class="px-swatch" data-pxacc="' + a[0] + '" ' + (p.theme !== 'dark' ? 'disabled aria-disabled="true"' : '') + ' aria-pressed="' + (p.accent === a[0]) + '" aria-label="' + a[1] + '" style="--c1:' + a[2] + ';--c2:' + a[3] + '"><span>' + a[1] + '</span></button>'; }).join('') + '</div></section>' +
       '<section class="px-pref-section"><h3>Motion & accessibility</h3>' +
       '<div class="px-switch"><div><b>Animated background</b><small>Stars and horizon glow</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="fx" aria-checked="' + (!!p.fx) + '" aria-label="Animated background"></button></div>' +
       '<div class="px-switch"><div><b>Calm mode</b><small>Reduces animation and transitions</small></div><button type="button" class="px-toggle" role="switch" data-pxtog="calm" aria-checked="' + (!!p.calm) + '" aria-label="Calm mode"></button></div>' +
@@ -506,7 +505,7 @@
     var backLink = '<a class="px-settings-back" href="' + E(back) + '">← ফিরে যান</a>';
     if (!flagOn(settings().allowGuestSettings) && !s) return '<section class="px-page px-settings-page">' + backLink + '<h1>Settings</h1><p class="lead">ব্যক্তিগত Settings ব্যবহার করতে সাইন ইন করুন।</p><a class="px-btn pri" href="#/account/signin">Sign in</a></section>';
     return '<section class="px-page px-settings-page">' + backLink + '<h1>' + E(settingText('settingsTitle', 'Settings — your learning space')) + '</h1>' +
-      '<p class="lead">' + E(settingText('settingsIntro', 'অ্যাকাউন্ট ছাড়াই থিম, Accent colour, অ্যানিমেশন ও সাউন্ড সেটিংস পরিবর্তন করুন। পছন্দগুলো এই ডিভাইসে সংরক্ষিত হবে।')) + '</p>' +
+      '<p class="lead">' + E(settingText('settingsIntro', 'অ্যাকাউন্ট ছাড়াই থিম, অ্যানিমেশন ও সাউন্ড সেটিংস পরিবর্তন করুন। পছন্দগুলো এই ডিভাইসে সংরক্ষিত হবে।')) + '</p>' +
       '<div class="px-panel px-set">' + prefOptions() + '<div class="px-settings-actions">' + (s ? '<a class="px-btn" href="#/profile">My profile</a><a class="px-btn" href="#/edit-profile">Edit profile</a>' : '<a class="px-btn" href="#/account/signup">Create an account (optional)</a>') + '</div><section><button type="button" class="px-btn" data-pxreset>Reset preferences</button></section></div>' +
       '<p class="px-note" style="margin-top:14px">প্রাইভেসি নোট: এই পছন্দগুলো লোকাল ব্রাউজার স্টোরেজে থাকে; পাসওয়ার্ড বা ব্যক্তিগত তথ্য এখানে চাওয়া হয় না।</p></section>';
   }
@@ -515,24 +514,13 @@
     if (app._prefBound) return;
     app._prefBound = true;
     app.addEventListener('click', function (e) {
-      var th = e.target.closest('[data-pxtheme]'), a = e.target.closest('[data-pxacc]'), t = e.target.closest('[data-pxtog]'), r = e.target.closest('[data-pxreset]'), i = e.target.closest('#pxInstallBtn');
+      var th = e.target.closest('[data-pxtheme]'), t = e.target.closest('[data-pxtog]'), r = e.target.closest('[data-pxreset]'), i = e.target.closest('#pxInstallBtn');
       var p = prefs();
       if (th) {
         var chosenTheme = th.getAttribute('data-pxtheme');
         p.theme = ['light','dark','purple'].indexOf(chosenTheme) >= 0 ? chosenTheme : 'dark'; jset('clpx_prefs', p); applyPrefs();
         $$('.px-theme-btn', app).forEach(function (b) { b.setAttribute('aria-pressed', b === th ? 'true' : 'false'); });
-        var accentSection = $('.px-accent-section', app), accentLocked = p.theme !== 'dark';
-        if (accentSection) {
-          accentSection.classList.toggle('is-locked', accentLocked);
-          var accentStatus = $('.px-accent-status', accentSection), accentNote = $('.px-accent-lock', accentSection);
-          if (accentStatus) accentStatus.textContent = p.theme === 'purple' ? 'OFF · VIOLET' : (p.theme === 'light' ? 'FIXED · LIGHT' : 'AVAILABLE');
-          if (accentNote) accentNote.textContent = p.theme === 'purple' ? 'Violet uses its coordinated palette; custom accent colours are switched off.' : (p.theme === 'light' ? 'Light uses its fixed neutral palette. Custom accent colours are available in Dark theme.' : 'Choose an accent colour for buttons and highlights.');
-          $$('[data-pxacc]', accentSection).forEach(function (b) { b.disabled = accentLocked; if (accentLocked) b.setAttribute('aria-disabled', 'true'); else b.removeAttribute('aria-disabled'); });
-        }
-        toast(p.theme === 'light' ? 'Light theme on' : (p.theme === 'purple' ? 'Violet theme on · Accent colour off' : 'Dark theme on'));
-      } else if (a) {
-        p.accent = a.getAttribute('data-pxacc'); jset('clpx_prefs', p); applyPrefs();
-        $$('.px-swatch', app).forEach(function (b) { b.setAttribute('aria-pressed', b === a); }); toast('Accent colour saved');
+        toast(p.theme === 'light' ? 'Light theme on' : (p.theme === 'purple' ? 'Indigo theme on' : 'Dark theme on'));
       } else if (t) {
         var k = t.getAttribute('data-pxtog'); p[k] = !p[k]; jset('clpx_prefs', p); applyPrefs(); t.setAttribute('aria-checked', p[k]); toast('Preference saved');
       } else if (r) {
@@ -557,7 +545,7 @@
     ['#/solver', '🧮', 'Formula Solver', FORMS.length+' formulas across Physics, Chemistry and Math, solved step by step.', '#38bdf8'],
     ['#/reference', '📚', 'Reference Shelf', 'Constants, ions, identities and prefixes — searchable and copy-ready.', '#34d399'],
     ['#/share-card', '🏅', 'Progress Card', 'Turn your level, XP and streak into a shareable image.', '#fbbf24'],
-    ['#/settings', '⚙️', 'Settings', 'Theme, accent colour, sound and motion preferences.', '#fb7185']
+    ['#/settings', '⚙️', 'Settings', 'Theme, sound and motion preferences.', '#fb7185']
   ];
   function powerStrip(app) {
     if ($('.px-power', app) || !flagOn(settings().premiumHome)) return;

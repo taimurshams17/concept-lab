@@ -114,7 +114,7 @@
     root.innerHTML = '<section class="mi-lab" aria-label="Moment of inertia interactive simulation">' +
       '<header class="mi-head"><div><span class="mi-kicker">ROTATIONAL MECHANICS · INTERACTIVE LAB</span><h2>Moment of Inertia Explorer</h2><p>ভর কোথায় আছে এবং ঘূর্ণন অক্ষ থেকে কত দূরে—নিজে বদলে জড়তার ভ্রামক বুঝুন।</p></div><div class="mi-head-mark" aria-hidden="true">I</div></header>' +
       '<div class="mi-mode-row"><label for="miMode">মডেল বেছে নিন</label><select id="miMode" class="mi-mode-select">' + options + '</select><span class="mi-mode-count">১৪টি শেখার মডেল</span></div>' +
-      '<div class="mi-main-grid"><div class="mi-visual-panel"><div class="mi-visual-head"><span>LIVE MODEL</span><span class="mi-live-dot">● ANIMATED</span></div><canvas class="mi-canvas" width="1200" height="525" aria-label="ঘূর্ণন অক্ষ, বস্তু ও ভরের অবস্থান দেখানো অ্যানিমেটেড চিত্র"></canvas><div class="mi-motion-bar"><button type="button" class="mi-control-btn" data-mi-action="toggle">Ⅱ বিরতি</button><button type="button" class="mi-control-btn" data-mi-action="reset">↺ ঘূর্ণন রিসেট</button><span>অক্ষের চারদিকে ঘূর্ণন</span></div></div>' +
+      '<div class="mi-main-grid"><div class="mi-visual-panel"><div class="mi-visual-head"><span>LIVE MODEL</span><span class="mi-live-dot">● ANIMATED</span></div><canvas class="mi-canvas" width="1200" height="470" aria-label="ঘূর্ণন অক্ষ, বস্তু ও ভরের অবস্থান দেখানো অ্যানিমেটেড চিত্র"></canvas><div class="mi-motion-bar"><button type="button" class="mi-control-btn" data-mi-action="toggle">Ⅱ বিরতি</button><button type="button" class="mi-control-btn" data-mi-action="reset">↺ ঘূর্ণন রিসেট</button><span>অক্ষের চারদিকে ঘূর্ণন</span></div></div>' +
       '<aside class="mi-result-panel"><span class="mi-result-label">MOMENT OF INERTIA</span><div class="mi-result-value" data-mi-result>—</div><div class="mi-result-unit">kg·m²</div><div class="mi-formula-box"><small>প্রযোজ্য সূত্র</small><strong data-mi-formula></strong></div><div class="mi-parts" data-mi-parts></div><p class="mi-insight" data-mi-insight></p></aside></div>' +
       '<section class="mi-adjust-panel"><div class="mi-section-title"><div><span>CHANGE THE VARIABLES</span><h3>মান পরিবর্তন করুন</h3></div><button type="button" class="mi-reset-values" data-mi-action="values">↺ ডিফল্ট মান</button></div><div class="mi-fields" data-mi-fields></div></section>' +
       '<section class="mi-learning-panel"><div class="mi-section-title"><div><span>UNDERSTAND THE MODEL</span><h3>কীভাবে বুঝবেন</h3></div></div><p data-mi-note></p><div class="mi-observe"><b>যা লক্ষ্য করবেন</b><span data-mi-extra>ভর বা দূরত্ব বদলে ফলাফল দেখুন।</span></div><details class="mi-how"><summary>সিমুলেশনটি ব্যবহারের নিয়ম</summary><ol><li>উপরের তালিকা থেকে বস্তু বা উপপাদ্য বেছে নিন।</li><li>ভর ও প্রয়োজনীয় দৈর্ঘ্য/ব্যাসার্ধের মান পরিবর্তন করুন।</li><li>চিত্রে অক্ষ এবং ভর কোথায় ছড়িয়ে আছে তা লক্ষ্য করুন।</li><li>ফলাফল ও সূত্রের অংশ মিলিয়ে দেখুন—কোন মান বদলালে I কতটা বদলায়।</li></ol></details></section>' +
@@ -123,6 +123,9 @@
 
     var canvas = root.querySelector('.mi-canvas');
     var ctx = canvas.getContext('2d');
+    var H = 470, ZOOM = 1.14, SHIFT = -30;
+    var Q = Math.max(1.5, Math.min(2, window.devicePixelRatio || 1));
+    canvas.width = Math.round(1200 * Q); canvas.height = Math.round(H * Q);
     var select = root.querySelector('#miMode');
     var fields = root.querySelector('[data-mi-fields]');
     var current = cases[0];
@@ -192,10 +195,10 @@
     }
     function glowCircle(x, y, r, fill) { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = fill; ctx.shadowColor = fill; ctx.shadowBlur = 14; ctx.fill(); ctx.shadowBlur = 0; }
     function base() {
-      var g = ctx.createLinearGradient(0, 0, 0, 525); g.addColorStop(0, '#0a1d2a'); g.addColorStop(1, '#07111d'); ctx.fillStyle = g; ctx.fillRect(0, 0, 1200, 525);
+      var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0a1d2a'); g.addColorStop(1, '#07111d'); ctx.fillStyle = g; ctx.fillRect(0, 0, 1200, H);
       ctx.strokeStyle = 'rgba(110,170,205,.10)'; ctx.lineWidth = 1;
-      for (var x = 24; x < 1200; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 525); ctx.stroke(); }
-      for (var y = 24; y < 525; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1200, y); ctx.stroke(); }
+      for (var x = 24; x < 1200; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (var y = 24; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1200, y); ctx.stroke(); }
       label(current.label, 34, 42, '#e4f2fb', 22);
       line(34, 58, 1165, 58, 'rgba(125,190,230,.2)', 1);
     }
@@ -214,7 +217,7 @@
       else label('r = x', (left + right) / 2, y + 105, '#a9c8da', 14, 'center');
       if (current.id === 'integral') {
         for (var j = 0; j < 32; j++) { var sx = left + (j + .5) * (right - left) / 32; ctx.fillStyle = 'rgba(245,196,106,' + (.12 + .3 * Math.abs(sx - ax) / (right - left)) + ')'; ctx.fillRect(sx - 3, y - 28, 6, 56); }
-        label('ক্ষুদ্র ভরখণ্ড dm', 520, 165, '#f8d995', 17, 'center'); arrow(520, 180, 520, 238, '#f8d995');
+        label('ক্ষুদ্র ভরখণ্ড dm', 715, 175, '#f8d995', 17, 'center'); arrow(715, 190, 715, 240, '#f8d995');
       }
       ctx.beginPath(); ctx.arc(ax, y, 86, end ? -Math.PI / 2 : -Math.PI / 3, end ? Math.PI / 3 : Math.PI / 3); ctx.strokeStyle = '#65d0f1'; ctx.lineWidth = 3; ctx.stroke();
     }
@@ -252,7 +255,7 @@
       ctx.fillStyle = 'rgba(56,189,248,.2)'; ctx.strokeStyle = '#8cddf5'; ctx.lineWidth = 3; roundedRect(x, y, w, h, 10); ctx.fill(); ctx.stroke();
       for (var i = 1; i < 7; i++) { line(x + i * w / 7, y, x + i * w / 7, y + h, 'rgba(137,218,244,.18)', 1); }
       for (var j = 1; j < 4; j++) { line(x, y + j * h / 4, x + w, y + j * h / 4, 'rgba(137,218,244,.18)', 1); }
-      label('a = ' + f(values.a, 1) + ' m', cx, y - 18, '#f8d995', 17, 'center'); label('b = ' + f(values.b, 1) + ' m', x + w + 20, cy, '#f8d995', 17);
+      label('a = ' + f(values.a, 1) + ' m', x, y - 14, '#f8d995', 17, 'left'); label('b = ' + f(values.b, 1) + ' m', x + w + 20, cy, '#f8d995', 17);
       if (perpendicular) {
         arrow(cx - 165, cy, cx + 175, cy, '#38bdf8'); label('x অক্ষ', cx + 190, cy + 5, '#8fdcf4', 15);
         arrow(cx, cy + 125, cx, cy - 125, '#65d0f1'); label('y অক্ষ', cx + 16, cy - 135, '#8fdcf4', 15);
@@ -271,16 +274,19 @@
       var coneY = top + (bottom - top) * .72, coneR = rx * .72; glowCircle(cx + coneR * Math.cos(phase), coneY + ry * .4 * Math.sin(phase), 6, '#f5c46a');
     }
     function drawParallel() {
-      var cx = 360, cy = 280, rx = 115, ry = 95, dist = 120 + values.d * 45, shifted = cx + dist;
+      var cx = 360, cy = 262, rx = 115, ry = 95, dist = 120 + values.d * 45, shifted = cx + dist;
       ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2); ctx.fillStyle = 'rgba(56,189,248,.2)'; ctx.fill(); ctx.strokeStyle = '#8cddf5'; ctx.lineWidth = 3; ctx.stroke();
       axis(cx, cy, true, 'ভরকেন্দ্রীয় অক্ষ'); line(shifted, cy + 115, shifted, cy - 115, '#f5c46a', 3, [7, 6]); arrow(shifted, cy - 50, shifted, cy - 116, '#f5c46a'); label('সমান্তরাল অক্ষ', shifted + 12, cy - 124, '#f8d995', 15);
       line(cx, cy + 155, shifted, cy + 155, '#f5c46a', 3); line(cx, cy + 143, cx, cy + 166, '#f5c46a', 2); line(shifted, cy + 143, shifted, cy + 166, '#f5c46a', 2); label('d = ' + f(values.d, 1) + ' m', (cx + shifted) / 2, cy + 182, '#f8d995', 17, 'center');
       var orbitX = cx + rx * .72 * Math.cos(phase), orbitY = cy + ry * .72 * Math.sin(phase); line(cx, cy, orbitX, orbitY, '#f5c46a', 2); glowCircle(orbitX, orbitY, 6, '#f5c46a');
-      label('উদাহরণ: কঠিন চাকতি', 500, 450, '#c6dce9', 16, 'center');
+      label('উদাহরণ: কঠিন চাকতি', 880, 290, '#c6dce9', 16, 'center');
     }
     function draw() {
       if (!ctx) return;
+      ctx.setTransform(Q, 0, 0, Q, 0, 0);
       base();
+      /* Zoom the model itself (not the title or the mass note) so it fills the wider canvas. */
+      ctx.save(); ctx.translate(600, 292 + SHIFT); ctx.scale(ZOOM, ZOOM); ctx.translate(-600, -292);
       if (current.id === 'discrete') {
         var cx = 470, cy = 285, n = Math.round(values.N), radius = 160;
         for (var i = 0; i < n; i++) { var rr = radius * (0.25 + .75 * (n === 1 ? 1 : i / (n - 1))), a = phase + i * Math.PI * 2 / n; ctx.beginPath(); ctx.ellipse(cx, cy, rr, rr * .58, 0, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(137,218,244,.2)'; ctx.lineWidth = 1.5; ctx.stroke(); glowCircle(cx + rr * Math.cos(a), cy + rr * .58 * Math.sin(a), 7, '#f5c46a'); }
@@ -294,7 +300,8 @@
       else if (current.id === 'cone') drawCone();
       else if (current.id === 'parallel') drawParallel();
       else if (current.id === 'perpendicular') drawPlate(true);
-      label('M = ' + f(values.M, 1) + ' kg', 1135, 492, '#a9c8da', 16, 'right');
+      ctx.restore();
+      label('M = ' + f(values.M, 1) + ' kg', 1135, H - 24, '#a9c8da', 16, 'right');
     }
 
     select.addEventListener('change', function () { setCase(select.value); });

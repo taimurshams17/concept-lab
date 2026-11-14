@@ -1,12 +1,12 @@
-/* ConceptLab — single header theme button. Cycle: Dark (default) → Violet → Light → Dark.
+/* ConceptLab — single header theme button. Cycle: Dark (default) → Indigo → Light → Dark.
  * The switch is animated with a circular reveal that expands from the button
  * (View Transitions API, with an overlay fallback) and a morphing icon. */
 (function () {
   'use strict';
   var ORDER = ['dark', 'purple', 'light'];
-  var LABEL = { dark: 'Dark', purple: 'Violet', light: 'Light' };
-  var BG = { dark: '#02060c', purple: '#0b0714', light: '#f4f8fd' };
-  var GLOW = { dark: '125,211,252', purple: '167,139,250', light: '255,196,87' };
+  var LABEL = { dark: 'Dark', purple: 'Indigo', light: 'Light' };
+  var BG = { dark: '#02060c', purple: '#080b25', light: '#f4f8fd' };
+  var GLOW = { dark: '125,211,252', purple: '99,102,241', light: '255,196,87' };
   var busy = false;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
 

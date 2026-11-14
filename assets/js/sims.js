@@ -3,7 +3,7 @@ window.CL_SIMS=(function(){
 var S={},TAU=Math.PI*2;
 function col(n,f){return(getComputedStyle(document.documentElement).getPropertyValue(n)||'').trim()||f}
 function pal(){return{p:col('--p','#38bdf8'),s:col('--s','#7dd3fc'),a:col('--a','#fbbf24'),g:'#34d399',r:'#f87171',dim:'rgba(125,190,230,.14)',ax:'rgba(150,200,240,.45)',tx:'#9fb6cb'}}
-function mk(root,w,h){var c=document.createElement('canvas'),dpr=Math.min(2,window.devicePixelRatio||1);c.width=w*dpr;c.height=h*dpr;c.className='cv2';c.style.aspectRatio=w+'/'+h;var x=c.getContext('2d');x.scale(dpr,dpr);root.appendChild(c);
+function mk(root,w,h){var c=document.createElement('canvas'),dpr=Math.max(1.5,Math.min(2,window.devicePixelRatio||1));c.width=w*dpr;c.height=h*dpr;c.className='cv2';c.style.aspectRatio=w+'/'+h;var x=c.getContext('2d');x.scale(dpr,dpr);root.appendChild(c);
  return{c:c,x:x,w:w,h:h,pt:function(e){var r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*w/r.width,y:(e.clientY-r.top)*h/r.height}}}}
 function loop(root,fn){var last=performance.now();(function f(n){if(!root.isConnected)return;var dt=Math.min(.05,(n-last)/1000);last=n;fn(dt,n/1000);requestAnimationFrame(f)})(last)}
 function controls(root,defs,cb){var w=document.createElement('div');w.className='ctl';

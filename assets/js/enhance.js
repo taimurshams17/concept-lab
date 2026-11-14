@@ -92,14 +92,14 @@
         '<h2 id="clWelTitle">স্বাগতম, <span>' + esc(name) + '</span>!</h2>' +
         '<p>ConceptLab-এ তোমার অ্যাকাউন্ট তৈরি হয়েছে। ১ মিনিটের ছোট্ট গাইড:</p></div>' +
         '<ul class="cl-wel-list">' +
-        '<li><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16"/></svg></i><div><b>অধ্যায়</b><span>☰ মেনু → <em>Explore Chapters</em> — ধারণা থেকে শেখা শুরু করো।</span></div></li>' +
+
         '<li><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12a4 4 0 0 1 3.8 5.2l-1.2 4A2.5 2.5 0 0 1 16 18l-2-2h-4l-2 2a2.5 2.5 0 0 1-4.6-.8l-1.2-4A4 4 0 0 1 6 8Z"/><path d="M7 11v4m-2-2h4m7-1h.01M18 14h.01"/></svg></i><div><b>গেমস ও ল্যাব</b><span>নিচের বারে <em>Arcade</em>, <em>Labs</em>, <em>Graphs</em> — খেলে ও সিমুলেশন চালিয়ে প্র্যাকটিস।</span></div></li>' +
         '<li><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></svg></i><div><b>Student Hub</b><span>নিচের বারে <em>Hub</em> — প্ল্যানার, ফোকাস টাইমার, ফর্মুলা সলভার।</span></div></li>' +
         '<li><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18M7 15l4-5 4 3 5-7"/></svg></i><div><b>অগ্রগতি</b><span>☰ মেনু → <em>My Progress</em> — XP, স্ট্রিক ও লিডারবোর্ড।</span></div></li>' +
         '<li><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></i><div><b>সেটিংস</b><span>উপরের গিয়ার আইকনে — Light/Dark থিম, সাউন্ড ও মোশন বদলাও।</span></div></li>' +
         '<li><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></i><div><b>খুঁজে নাও</b><span><em>Ctrl + K</em> বা উপরের সার্চ আইকনে — যেকোনো অধ্যায়, গেম বা ল্যাব।</span></div></li>' +
         '</ul>' +
-        '<div class="cl-wel-actions"><a class="btn pri" href="#/chapters" data-wel="go">শুরু করি →</a><button type="button" class="btn" data-wel="close">পরে দেখব</button></div>' +
+        '<div class="cl-wel-actions"><a class="btn pri" href="#/lab" data-wel="go">শুরু করি →</a><button type="button" class="btn" data-wel="close">পরে দেখব</button></div>' +
         '</div>';
       box.addEventListener('click', function (e) {
         var t = e.target;
@@ -128,7 +128,7 @@
   /* ------------------------------------------------------------------ 3. quick search */
   var Search = (function () {
     var pages = [
-      ['Home', 'হোম', '#/', '🏠', 'home main'], ['Explore Chapters', 'অধ্যায়সমূহ', '#/chapters', '📖', 'chapters lesson physics chemistry math অধ্যায়'],
+      ['Home', 'হোম', '#/', '🏠', 'home main'],
       ['Arcade', 'গেমস, কুইজ ও সিমুলেশন', '#/play', '🎮', 'arcade games play quiz simulation খেলা'], ['Simulations', 'সিমুলেশন ল্যাব', '#/lab', '🔬', 'lab simulation experiment পরীক্ষা'],
       ['Graph Lab', 'গ্রাফ ল্যাব', '#/graphs', '📈', 'graph plot গ্রাফ'], ['Leaderboard', 'লিডারবোর্ড', '#/leaderboard', '🏆', 'rank leaderboard র‍্যাংক'],
       ['My Progress', 'আমার অগ্রগতি', '#/progress', '📊', 'progress xp streak অগ্রগতি'], ['Study Space', 'স্টাডি স্পেস', '#/study-space', '🪴', 'study space notes'],
