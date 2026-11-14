@@ -1,0 +1,39 @@
+/* ConceptLab v64 — speed pass (loaded last). Sections appear instantly, counters are quick, phones scroll with fewer paint-heavy effects. */
+
+/* 1) Sections: never wait for a reveal. Short fade only, no stagger delay. */
+.js .rv:not(.in){opacity:1!important;transform:none!important}
+.js .rv,.js .rv.in,.scroll-reveal,.scroll-reveal.is-visible,
+#app .rv,#app .rv.in,.pgw .card.rv,.pgw .card.rv.in,.pgw .game-card.rv.in,.pgw .chapter-card.rv.in,.pgw .sim-card.rv.in,.pgw .stat-card.rv.in{
+  transition-delay:0s!important;animation-delay:0s!important;--d:0s;--reveal-delay:0s;
+}
+.js .rv,.js .rv.in,.scroll-reveal,.scroll-reveal.is-visible{transition-duration:.18s!important}
+#app .rv.in,.pgw .card.rv.in,.pgw .game-card.rv.in,.pgw .chapter-card.rv.in,.pgw .sim-card.rv.in,.pgw .stat-card.rv.in{animation-duration:.2s!important}
+.scroll-reveal:not(.is-visible){opacity:1!important;transform:none!important}
+.scroll-reveal{will-change:auto!important}
+
+/* 2) "CONCEPTLAB AT A GLANCE" counters: light, smooth, no blur filter. */
+#app .home-stats-grid .home-stat-card [data-count]{will-change:auto!important;font-variant-numeric:tabular-nums;min-width:3ch}
+#app .home-stats-grid .home-stat-card.in [data-count]{animation:clStatPop64 .28s cubic-bezier(.2,.8,.2,1) both!important}
+@keyframes clStatPop64{0%{opacity:.5;transform:translateY(4px)}100%{opacity:1;transform:none}}
+
+/* 3) Phones / tablets: remove the effects that make scrolling hang. */
+@media (max-width:820px),(pointer:coarse){
+  html{scroll-behavior:auto!important}
+  *:not(#a):not(#b):not(#c),*:not(#a):not(#b):not(#c)::before,*:not(#a):not(#b):not(#c)::after{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    mix-blend-mode:normal!important;will-change:auto!important;
+  }
+  /* keep a readable dim backdrop behind the hamburger menu and pop-ups (blur replaced by darker tint) */
+  .nav-backdrop,.cl-notice-overlay{background:rgba(3,7,18,.72)!important}
+  /* decorative blurred blobs / glows / meshes: no blur filter, no endless animation */
+  :is([class*="orb"],[class*="blob"],[class*="aurora"],[class*="mesh"],[class*="particle"],[class*="sheen"]):not(#a):not(#b){
+    filter:none!important;animation-play-state:paused!important}
+  :not(#a):not(#b):not(#c)::before,:not(#a):not(#b):not(#c)::after{filter:none!important}
+  /* sections show at once on phones */
+  .js .rv,.js .rv.in,.scroll-reveal,.scroll-reveal.is-visible,#app .rv.in,.pgw .card.rv.in,.pgw .game-card.rv.in,.pgw .chapter-card.rv.in,.pgw .sim-card.rv.in,.pgw .stat-card.rv.in{
+    opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+  #app .home-stats-grid .home-stat-card.in [data-count]{animation:none!important}
+}
+
+/* 4) Dark/Violet: sections stay rendered in place (same as Light) instead of being skipped until scrolled into view. */
+*:not(#a):not(#b):not(#c),.site-footer:not(#a):not(#b):not(#c){content-visibility:visible!important;contain-intrinsic-size:none!important}

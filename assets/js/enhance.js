@@ -43,10 +43,11 @@
     function later(ms) { clearTimeout(syncTimer); syncTimer = setTimeout(sync, ms || 260); }
     /* v22: scrolling / touch-holding never pauses animations. Only distance from the viewport does:
        blocks inside (or ~260px near) the screen keep animating, farther ones pause. */
-    var lastSync = 0, pending = 0;
+    /* v64: no layout reads while the finger/wheel is moving. Visibility is re-synced only after scrolling settles. */
+    var pending = 0;
     function onScroll() {
-      if (pending) return;
-      pending = setTimeout(function () { pending = 0; lastSync = Date.now(); sync(); }, Math.max(0, 320 - (Date.now() - lastSync)));
+      clearTimeout(pending);
+      pending = setTimeout(function () { pending = 0; sync(); }, 220);
     }
     function init() {
       window.addEventListener('scroll', onScroll, { passive: true });
