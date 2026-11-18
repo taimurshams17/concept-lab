@@ -1,13 +1,13 @@
 /* ConceptLab Student Hub v10.6.1 - compact mobile controls and flexible monthly tasks. */
 (function(){
 /* Extra launcher tiles shown in the Student Hub. Add/remove items here only; counts update automatically. */
-function hubExtraTiles(){return [{href:'#/shortcuts',icon:'⚡',label:'Shortcut Tricks',desc:'পদার্থবিজ্ঞান, রসায়ন ও উচ্চতর গণিতের সব অধ্যায়ের শর্টকাট ও পরীক্ষার কৌশল',highlight:true},
-  {href:'#/solver',icon:'🧮',label:'Formula Solver',desc:'সূত্র সমাধান'},
-  {href:'#/reference',icon:'📚',label:'Reference Shelf',desc:'সূত্র ও ধ্রুবক'},
-  {href:'#/share-card',icon:'🏅',label:'Progress Card',desc:'অগ্রগতির কার্ড'}];}
+function hubExtraTiles(){return [{href:'#/shortcuts',icon:'⚡',label:'দ্রুত শর্টকাট',desc:'পদার্থবিজ্ঞান, রসায়ন ও উচ্চতর গণিতের সব অধ্যায়ের শর্টকাট ও পরীক্ষার কৌশল',highlight:true},
+  {href:'#/solver',icon:'🧮',label:'সূত্র সমাধান',desc:'সূত্র সমাধান'},
+  {href:'#/reference',icon:'📚',label:'রেফারেন্স গাইড',desc:'সূত্র ও ধ্রুবক'},
+  {href:'#/share-card',icon:'🏅',label:'অগ্রগতির কার্ড',desc:'অগ্রগতির কার্ড'}];}
 /* Total number of tools shown on the Student Hub (used by the home page counters). */
 window.CL_HUB_TOOL_COUNT=function(){return TABS.length+hubExtraTiles().length+((window.CL_STUDIO&&window.CL_STUDIO.tiles)||[]).length};
-var K='clhub_v1',TABS=[['plan','✅ Study Planner'],['week','🗓 Weekly Planner'],['monthly','▦ Monthly Planner'],['syllabus','📖 Syllabus Tracker'],['focus','⏱ Focus Timer'],['exam','📅 Exam Countdown'],['revision','📚 Revision Tracker'],['review','🧠 Spaced Review'],['goals','🎯 Goals & Milestones'],['scores','📊 Score Tracker'],['cards','🃏 Flashcards'],['notes','📝 Quick Notes'],['hab','🌱 Habits'],['form','📐 Formula Sheet'],['gpa','🎓 GPA Calculator'],['backup','💾 Backup & Restore']],tab='focus',T=null,planEditing=-1,planFilter='all',weekOffset=0,weekEditing=null,goalEditing=null,monthlyMonth='',monthlyEditing=null;
+var K='clhub_v1',TABS=[['plan','✅ পড়ার পরিকল্পনা'],['week','🗓 সাপ্তাহিক রুটিন'],['monthly','🗓 মাসিক পরিকল্পনা'],['syllabus','📖 সিলেবাসের অগ্রগতি'],['focus','⏱ ফোকাস টাইমার'],['exam','📅 পরীক্ষার কাউন্টডাউন'],['revision','📚 রিভিশন প্ল্যান'],['review','🔁 স্মার্ট রিভিশন'],['goals','🎯 পড়ার লক্ষ্য'],['scores','📈 নম্বরের হিসাব'],['cards','🃏 ফ্ল্যাশকার্ড'],['notes','📝 দ্রুত নোট'],['hab','🌱 পড়ার অভ্যাস'],['form','📐 সূত্রের খাতা'],['gpa','🎓 GPA ক্যালকুলেটর'],['backup','💾 ডেটা ব্যাকআপ']],tab='focus',T=null,planEditing=-1,planFilter='all',weekOffset=0,weekEditing=null,goalEditing=null,monthlyMonth='',monthlyEditing=null;
 var calcExpr='0',calcAns=0,calcMemory=0,calcMode='DEG',calcFormat='NORM',calcError='',calcAnswerText='',calcShift=false,calcAlpha=false,calcHistory=[],calcTool='scientific',calcToolOutput='',calcDisplayMode='DEC',swRunning=false,swStart=0,swElapsed=0,swTimer=null;
 var geomTool='angle',geomObjects=[],geomUndo=[],geomPending=[],geomHover=null,geomDrawing=false,geomDrawingIndex=-1,geomLastAngle=null,geomCompass={pivot:null,radius:null,tip:null,path:[],penDown:false,dragging:false};
 var UNIT_GROUPS={
@@ -442,7 +442,8 @@ window.CL_HUB={pages:{hub:function(){
    {id:'organize',kicker:'GET ORGANISED',title:'গুছিয়ে নেওয়ার টুল',intro:'অগ্রাধিকার ঠিক করুন, পরীক্ষার প্রস্তুতি সাজান, ব্যাগ ও রুটিন গুছিয়ে নিন।'},
    {id:'revise',kicker:'PRACTISE & REMEMBER',title:'অনুশীলন ও রিভিশন',intro:'Flashcards, Formula Sheet ও Spaced Review দিয়ে শেখা মনে রাখুন।'},
    {id:'track',kicker:'SEE YOUR PROGRESS',title:'লক্ষ্য ও অগ্রগতি',intro:'সিলেবাস, স্কোর, অভ্যাস ও ব্যক্তিগত লক্ষ্য এক জায়গায় ট্র্যাক করুন।'},
-   {id:'wellbeing',kicker:'BODY & MIND',title:'সুস্থতা ও অভ্যাস',intro:'ঘুম, চোখের বিশ্রাম ও দিনের ভাবনা—ভালো পড়াশোনার ভিত্তি।'},
+   {id:'science',kicker:'SCIENCE & MATH LAB',title:'বিজ্ঞান ও গণিত ল্যাব',intro:'রসায়ন, পদার্থবিজ্ঞান ও উচ্চতর গণিতের হিসাব—ধাপে ধাপে ব্যাখ্যাসহ।'},
+ {id:'wellbeing',kicker:'BODY & MIND',title:'সুস্থতা ও অভ্যাস',intro:'ঘুম, চোখের বিশ্রাম ও দিনের ভাবনা—ভালো পড়াশোনার ভিত্তি।'},
    {id:'tools',kicker:'ACADEMIC TOOLKIT',title:'ক্যালকুলেশন ও রিসোর্স',intro:'GPA, Formula Solver ও Reference-এর মতো দরকারি সহায়ক টুল।'}
   ];
   var groupedTools=hubGroups.map(function(g){var items=toolTiles.filter(function(t){return groupFor(t)===g.id;}).sort(function(x,y){return (y.priority||0)-(x.priority||0);});if(!items.length)return '';return '<section class="hub-tool-group hub-tool-group-'+g.id+'" aria-labelledby="hub-group-'+g.id+'"><div class="hub-group-heading"><div><span>'+g.kicker+'</span><h3 id="hub-group-'+g.id+'">'+g.title+'</h3><p>'+g.intro+'</p></div><b>'+items.length+'টি</b></div><div class="hub-tool-launch-grid">'+items.map(function(t){var index=toolTiles.indexOf(t);return '<a class="hub-launch-tile'+(t.highlight?' hub-launch-tile-shortcuts':'')+'" href="'+E(t.href)+'" style="--hub-tile-index:'+index+'"><span class="hub-launch-icon" aria-hidden="true">'+t.icon+'</span><span class="hub-launch-copy"><b>'+E(t.label)+'</b><small>'+E(t.desc)+'</small></span><span class="hub-launch-arrow" aria-hidden="true">↗</span></a>';}).join('')+'</div></section>';}).join('');

@@ -7,7 +7,7 @@ if(lowPower&&document.documentElement)document.documentElement.classList.add('cl
 function themeName(){return document.documentElement&&document.documentElement.getAttribute('data-theme')||'dark';}
 function isLightTheme(){return themeName()==='light';}
 function isPurpleTheme(){return themeName()==='purple';}
-function canRunBackdrop(){return !isLightTheme()&&!isPurpleTheme()&&innerWidth>820;}
+function canRunBackdrop(){return false;} /* v68: starfield, shooting stars, galaxies and planets removed from the dark background */
 var on=true,colour='#38bdf8',colour2='#7dd3fc';
 function rgb(h){h=(h||'#38bdf8').replace('#','');return[parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]}
 /* ---------- background canvas ---------- */
@@ -132,7 +132,7 @@ document.addEventListener('pointermove',function(e){if(lowPower)return;var c=e.t
 document.addEventListener('pointerout',function(e){var c=e.target.closest&&e.target.closest('.card.tilt');if(c&&!c.contains(e.relatedTarget))c.style.transform=''});
 /* ---------- helpers ---------- */
 function every(el,ms,fn){var id=setInterval(function(){if(!el.isConnected){clearInterval(id);return}fn()},ms);return id}
-function type(el,words,pre){if(!el||!words.length)return;var w=0,i=0,del=false;(function step(){if(!el.isConnected)return;var word=words[w];if(!del){i++;if(i>=word.length){del=true;el.textContent=word;return setTimeout(step,1500)}}else{i--;if(i<=0){del=false;w=(w+1)%words.length;i=0}}el.textContent=word.slice(0,i);setTimeout(step,del?45:90)})()}
+function type(el,words,pre){if(!el||!words.length)return;var w=0,i=0,del=false;(function step(){if(!el.isConnected)return;var word=words[w];if(!del){i++;if(i>=word.length){del=true;el.textContent=word;return setTimeout(step,720)}}else{i--;if(i<=0){del=false;w=(w+1)%words.length;i=0}}el.textContent=word.slice(0,i);setTimeout(step,del?22:34)})()}
 /* ---------- toasts ---------- */
 function toast(html,kind){var box=document.getElementById('toasts');if(!box)return;var d=document.createElement('div');d.className='toast '+(kind||'');d.innerHTML=html;box.appendChild(d);requestAnimationFrame(function(){d.classList.add('in')});setTimeout(function(){d.classList.remove('in');setTimeout(function(){d.remove()},400)},3400)}
 /* ---------- confetti ---------- */
