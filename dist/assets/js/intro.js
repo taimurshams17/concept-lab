@@ -5,7 +5,7 @@
   if (!el || root.classList.contains('intro-seen')) { if (el) el.remove(); return; }
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var MIN = reduce ? 2000 : 4300, MAX = 6800, t0 = performance.now();
+  var MIN = reduce ? 1200 : 2400, MAX = 4200, t0 = performance.now();
   var loaded = document.readyState === 'complete', done = false, raf = 0;
   var fill = el.querySelector('.in-fill'), nodes = [].slice.call(el.querySelectorAll('.in-prog li'));
   root.classList.add('intro-on');
@@ -110,7 +110,7 @@
     setTimeout(function () {
       root.classList.remove('intro-on'); root.classList.add('intro-seen');
       if (el.parentNode) el.parentNode.removeChild(el);
-    }, reduce ? 160 : 930);
+    }, reduce ? 120 : 520);
   }
   var closing = false;
   function tick(now) {
@@ -119,7 +119,7 @@
     if (!loaded && elapsed < MAX) progress = Math.min(progress, 0.94);
     if (fill) fill.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
     for (var i = 0; i < nodes.length; i++) nodes[i].classList.toggle('on', progress >= i / Math.max(1, nodes.length - 1) - 0.001 && (i > 0 || elapsed > 1100));
-    if (progress >= 1) { closing = true; setTimeout(finish, reduce ? 40 : 480); return; }
+    if (progress >= 1) { closing = true; setTimeout(finish, reduce ? 40 : 260); return; }
     raf = requestAnimationFrame(tick);
   }
   raf = requestAnimationFrame(tick);

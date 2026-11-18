@@ -27,6 +27,9 @@ window.SFX = (function () {
     }
   } catch (e) { }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } }
+  /* Phone speakers are small and quiet: boost the master level on touch/mobile screens (the slider still goes 0-50%). */
+  function isMobileAudio() { try { return (window.matchMedia && matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 820; } catch (e) { return false; } }
+  function masterLevel() { return Math.min(1.4, st.vol * 0.85 * (isMobileAudio() ? 1.6 : 1)); }
   if (volumeWasAdjusted) save();
 
   var INTRO_KEY = 'cl_intro_music_v1';
@@ -82,9 +85,9 @@ window.SFX = (function () {
     if (!ctx) {
       try {
         ctx = new AC();
-        master = ctx.createGain(); master.gain.value = st.vol * 0.85;
+        master = ctx.createGain(); master.gain.value = masterLevel();
         var comp = ctx.createDynamicsCompressor();
-        comp.threshold.value = -16; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.2;
+        comp.threshold.value = isMobileAudio() ? -9 : -16; comp.ratio.value = isMobileAudio() ? 4 : 6; comp.attack.value = 0.003; comp.release.value = 0.2;
         master.connect(comp); comp.connect(ctx.destination);
       } catch (e) { ctx = null; return null; }
     }
@@ -183,7 +186,7 @@ window.SFX = (function () {
     st.on = !!v; save(); syncUi();
     if (st.on) { ensure(); setTimeout(function () { play('on'); }, 30); }
   }
-  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = st.vol * 0.85; }
+  function setVolume(v) { st.vol = Math.max(0, Math.min(1, v)); save(); if (master) master.gain.value = masterLevel(); }
   function setHaptics(v) { st.haptics = !!v; save(); syncUi(); }
 
   /* ---------- wrap FX helpers (toast / confetti) so XP, badges, level-ups and results get their own sounds ---------- */
@@ -292,14 +295,15 @@ window.SFX = (function () {
     var burger = document.getElementById('burger'); hx.insertBefore(link, burger || null);
   }
   function settingsHtml() {
-    var prev = [['tap', 'Button click'], ['soft', 'Soft tap'], ['nav', 'Navigation'], ['select', 'Selection'], ['open', 'Open'], ['close', 'Close'], ['correct', 'Correct'], ['wrong', 'Wrong'], ['gameStart', 'Game start'], ['streak', 'Streak'], ['coin', 'XP'], ['badge', 'Badge'], ['levelup', 'Level up'], ['complete', 'Complete'], ['perfect', 'Perfect'], ['unlock', 'Unlock'], ['hint', 'Hint'], ['mystery', 'Mystery'], ['countdown', 'Countdown'], ['save', 'Save'], ['remove', 'Remove'], ['bookmark', 'Bookmark'], ['focus', 'Focus'], ['filter', 'Filter'], ['reminder', 'Reminder'], ['reset', 'Reset']].map(function (p) { return '<button type="button" class="sfx-prev-btn" data-sfx-prev="' + p[0] + '">' + p[1] + '</button>'; }).join('');
+    var prevList = [['tap', 'Button click'], ['soft', 'Soft tap'], ['nav', 'Navigation'], ['select', 'Selection'], ['open', 'Open'], ['close', 'Close'], ['correct', 'Correct'], ['wrong', 'Wrong'], ['gameStart', 'Game start'], ['streak', 'Streak'], ['coin', 'XP'], ['badge', 'Badge'], ['levelup', 'Level up'], ['complete', 'Complete'], ['perfect', 'Perfect'], ['unlock', 'Unlock'], ['hint', 'Hint'], ['mystery', 'Mystery'], ['countdown', 'Countdown'], ['save', 'Save'], ['remove', 'Remove'], ['bookmark', 'Bookmark'], ['focus', 'Focus'], ['filter', 'Filter'], ['reminder', 'Reminder'], ['reset', 'Reset']];
+    var prev = prevList.map(function (p) { return '<button type="button" class="sfx-prev-btn" data-sfx-prev="' + p[0] + '">' + p[1] + '</button>'; }).join('');
     return '<section class="px-pref-section sfx-pref"><h3>Sound &amp; feedback</h3>' +
       '<div class="px-switch"><div><b>Sound effects</b><small>Distinct, musical feedback for buttons, navigation, answers and achievements</small></div><button type="button" class="px-toggle" role="switch" data-sfx-tog="on" aria-checked="' + st.on + '" aria-label="Sound effects"></button></div>' +
       '<div class="px-switch"><div><b>Vibration</b><small>Short haptic feedback on phones that support it</small></div><button type="button" class="px-toggle" role="switch" data-sfx-tog="haptics" aria-checked="' + st.haptics + '" aria-label="Vibration"></button></div>' +
       '<div class="px-switch sfx-vol"><div class="sfx-vol-copy"><b>Volume</b><small id="sfxVolTxt">' + Math.round(st.vol * 100) + '%</small></div><input type="range" min="0" max="100" step="5" value="' + Math.round(st.vol * 100) + '" data-sfx-vol aria-label="Sound effects volume"></div>' +
       '<div class="px-switch sfx-intro-switch"><div><b>Intro music</b><small>Soft cinematic music during the opening animation</small></div><button type="button" class="px-toggle" role="switch" data-intro-music aria-checked="' + introPref.on + '" aria-label="Intro music"></button></div>' +
       '<div class="sfx-intro-preview"><button type="button" class="sfx-prev-btn" data-intro-preview>Preview intro music</button><small id="introMusicStatus" aria-live="polite">' + (introPref.on ? 'Enabled for the next intro' : 'Disabled') + '</small></div>' +
-      '<div class="sfx-prev-row"><span>Sound library</span><div>' + prev + '</div></div></section>';
+      '<details class="sfx-library-compact"><summary><span>Sound library</span><small>' + prevList.length + ' sound effects</small><b aria-hidden="true">⌄</b></summary><div class="sfx-prev-grid">' + prev + '</div></details></section>';
   }
 
   function onUiClick(e) {

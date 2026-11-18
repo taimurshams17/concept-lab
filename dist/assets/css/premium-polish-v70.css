@@ -1,0 +1,276 @@
+/* ConceptLab v70 — theme harmony, refined Student Hub and responsive home layouts. */
+
+/* Home headline accents: preserve the original cool-blue dark treatment and give
+   light/violet themes their own readable palette instead of the old flat-white override. */
+html[data-theme="light"] #app[data-page="home"] .hero-copy h1,
+html[data-theme="light"] #app[data-page="home"] .hero-copy h1 *{
+  color:#19314b!important;
+  background-image:linear-gradient(105deg,#14243b 3%,#2358bd 48%,#078b8b 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;text-shadow:none!important;
+}
+html[data-theme="light"] #app[data-page="home"] .hero-copy .typed b{color:#087c91!important;text-shadow:0 0 22px rgba(8,145,178,.14)!important}
+html[data-theme="light"] #app[data-page="home"] .hero-copy .caret{background:#0b879e!important;box-shadow:0 0 12px rgba(8,145,178,.22)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-copy h1,
+html[data-theme="purple"] #app[data-page="home"] .hero-copy h1 *{
+  color:#f4efff!important;
+  background-image:linear-gradient(105deg,#fbf8ff 2%,#ded0ff 44%,#a78bfa 76%,#c4a5ff 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;text-shadow:none!important;
+  filter:drop-shadow(0 8px 28px rgba(167,139,250,.15))!important;
+}
+html[data-theme="purple"] #app[data-page="home"] .hero-copy .typed b{color:#cbb7ff!important;text-shadow:0 0 24px rgba(167,139,250,.26)!important}
+html[data-theme="purple"] #app[data-page="home"] .hero-copy .caret{background:#c4a5ff!important;box-shadow:0 0 14px rgba(167,139,250,.35)!important}
+html[data-theme="dark"] #app[data-page="home"] .hero-copy h1{
+  background-image:linear-gradient(105deg,#f7fbff 4%,#d8f2ff 48%,#7dd3fc 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;
+}
+html[data-theme="dark"] #app[data-page="home"] .hero-copy .typed b{color:#91dcff!important}
+
+/* Premium 4 + 4 feature flowchart on desktop. */
+#app[data-page="home"] .home-flow{padding:clamp(48px,6vw,76px) 0 58px!important}
+#app[data-page="home"] .home-flow .fc-head{max-width:760px;margin:0 auto 42px!important}
+#app[data-page="home"] .home-flow .fc-head h2{font-size:clamp(28px,3.7vw,42px)!important;letter-spacing:-.035em!important}
+#app[data-page="home"] .home-flow .fc-head p{max-width:700px;font-size:clamp(14px,1.45vw,16px)!important}
+#app[data-page="home"] .fc-board{
+  --rail:54px;--nh:84px;
+  grid-template-columns:minmax(0,1fr) 250px minmax(0,1fr)!important;
+  max-width:1160px!important;gap:0!important;align-items:center!important;
+}
+#app[data-page="home"] .fc-col{gap:16px!important}
+#app[data-page="home"] .fc-left{padding-right:var(--rail)!important}
+#app[data-page="home"] .fc-right{padding-left:var(--rail)!important}
+#app[data-page="home"] .fc-node{
+  height:var(--nh)!important;min-height:var(--nh)!important;padding:0 18px!important;gap:13px!important;
+  border-radius:19px!important;border:1px solid rgba(125,190,230,.2)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.022) 58%),var(--card,#0b1422)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.075),0 16px 34px -25px rgba(0,0,0,.7)!important;
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease!important;
+}
+#app[data-page="home"] .fc-node:hover,#app[data-page="home"] .fc-node:focus-visible{
+  transform:translateY(-3px)!important;border-color:color-mix(in srgb,var(--s) 64%,transparent)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 20px 38px -23px rgba(0,0,0,.76),0 0 28px -16px var(--p)!important;
+  outline:none!important;
+}
+#app[data-page="home"] .fc-ico{
+  width:42px!important;height:42px!important;flex:0 0 42px!important;padding:10px!important;
+  border-radius:13px!important;background:rgba(74,166,219,.11)!important;
+  border:1px solid rgba(125,211,252,.16)!important;stroke:var(--s)!important;stroke-width:1.8!important;
+}
+#app[data-page="home"] .fc-txt{gap:4px!important}
+#app[data-page="home"] .fc-txt b{font-size:clamp(13px,1.25vw,15px)!important;font-weight:750!important;letter-spacing:-.012em}
+#app[data-page="home"] .fc-txt small{font-size:11.5px!important;line-height:1.42!important}
+#app[data-page="home"] .fc-hub{height:210px!important}
+#app[data-page="home"] .fc-core{
+  width:158px!important;height:158px!important;gap:4px!important;
+  border:1px solid rgba(160,216,255,.4)!important;
+  background:radial-gradient(circle at 50% 24%,#328fc6 0%,#164e82 48%,#08172c 100%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 0 0 9px rgba(56,189,248,.035),0 0 64px -10px rgba(56,189,248,.55)!important;
+}
+#app[data-page="home"] .fc-core img{width:94px!important;height:94px!important}
+#app[data-page="home"] .fc-core span{font-size:16px!important;letter-spacing:.015em}
+#app[data-page="home"] .fc-ring{width:158px!important;height:158px!important;border-color:rgba(91,190,245,.42)!important}
+html[data-theme="light"] #app[data-page="home"] .fc-node{
+  background:linear-gradient(145deg,#fff,#f5f9ff)!important;border-color:rgba(75,112,173,.2)!important;
+  box-shadow:inset 0 1px 0 #fff,0 13px 30px -24px rgba(30,55,100,.38)!important;
+}
+html[data-theme="light"] #app[data-page="home"] .fc-ico{background:rgba(37,99,235,.075)!important;border-color:rgba(37,99,235,.13)!important;stroke:#2563b8!important}
+html[data-theme="purple"] #app[data-page="home"] .fc-node{
+  background:linear-gradient(145deg,rgba(75,65,135,.36),rgba(25,23,53,.88))!important;border-color:rgba(177,153,255,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 17px 34px -24px rgba(0,0,0,.65)!important;
+}
+html[data-theme="purple"] #app[data-page="home"] .fc-ico{background:rgba(167,139,250,.12)!important;border-color:rgba(196,181,253,.18)!important;stroke:#d4c3ff!important}
+html[data-theme="purple"] #app[data-page="home"] .fc-core{background:radial-gradient(circle at 50% 24%,#9a79ed 0%,#55409e 48%,#20163e 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 0 9px rgba(167,139,250,.045),0 0 64px -10px rgba(167,139,250,.5)!important}
+
+@media(max-width:860px){
+  #app[data-page="home"] .fc-board{--nhm:88px!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto repeat(4,var(--nhm))!important;column-gap:18px!important;row-gap:10px!important;max-width:560px!important}
+  #app[data-page="home"] .fc-node{height:var(--nhm)!important;min-height:var(--nhm)!important;padding:9px 10px!important;gap:7px!important;border-radius:15px!important}
+  #app[data-page="home"] .fc-ico{width:32px!important;height:32px!important;flex:0 0 32px!important;padding:7px!important;border-radius:10px!important}
+  #app[data-page="home"] .fc-txt b{font-size:12px!important;line-height:1.25!important}
+  #app[data-page="home"] .fc-txt small{font-size:10px!important;line-height:1.35!important}
+  #app[data-page="home"] .fc-hub{height:auto!important}
+}
+@media(max-width:390px){
+  #app[data-page="home"] .fc-board{column-gap:12px!important;row-gap:8px!important}
+  #app[data-page="home"] .fc-node{padding:8px!important}
+  #app[data-page="home"] .fc-txt b{font-size:11px!important}
+  #app[data-page="home"] .fc-txt small{font-size:9px!important}
+}
+
+/* Student Hub toolkit rail: understated desktop arrows; phone keeps touch scrolling only. */
+#app[data-page="home"] .home-launchpad .launch-swipe-hint{display:none!important}
+#app[data-page="home"] .home-launchpad .launch-tool-carousel{position:relative!important;padding:0 38px!important;min-width:0!important}
+#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn{
+  position:absolute!important;z-index:3!important;top:50%!important;transform:translateY(-50%)!important;
+  display:grid!important;place-items:center!important;width:28px!important;height:28px!important;
+  padding:0!important;border:1px solid rgba(125,190,230,.22)!important;border-radius:50%!important;
+  color:var(--tx,#dcecff)!important;background:rgba(24,42,61,.82)!important;
+  box-shadow:0 5px 16px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.07)!important;
+  font:600 22px/1 Inter,system-ui,sans-serif!important;cursor:pointer!important;
+  transition:background .18s,border-color .18s,opacity .18s,transform .18s!important;
+}
+#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn.prev{left:3px!important}
+#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn.next{right:3px!important}
+#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn:hover:not(:disabled){background:rgba(56,132,188,.22)!important;border-color:rgba(125,211,252,.5)!important;transform:translateY(-50%) scale(1.06)!important}
+#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn:disabled{opacity:.22!important;cursor:default!important;box-shadow:none!important}
+#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn:focus-visible{outline:2px solid var(--s,#7dd3fc)!important;outline-offset:3px!important}
+#app[data-page="home"] .home-launchpad .launch-swipe-bar{margin-top:10px!important}
+html[data-theme="light"] #app[data-page="home"] .home-launchpad .launch-tool-arrow-btn{color:#24415f!important;background:rgba(255,255,255,.92)!important;border-color:rgba(74,102,150,.22)!important}
+html[data-theme="purple"] #app[data-page="home"] .home-launchpad .launch-tool-arrow-btn{color:#e6dcff!important;background:rgba(45,35,77,.9)!important;border-color:rgba(190,167,255,.25)!important}
+
+/* Student Hub: clearer hierarchy, calmer cards and semantic accent icons. */
+#app .hub-dashboard .hub-tool-box{
+  border-radius:26px!important;padding:clamp(16px,2.5vw,26px)!important;
+  background:linear-gradient(155deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),var(--card,#0b1422)!important;
+  border:1px solid rgba(135,177,220,.17)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 24px 60px -48px rgba(0,0,0,.55)!important;
+}
+#app .hub-dashboard .hub-tool-box-head{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:14px!important;margin-bottom:20px!important}
+#app .hub-dashboard .hub-tool-box-head h2{font-size:clamp(21px,2.4vw,28px)!important;letter-spacing:-.03em!important}
+#app .hub-dashboard .hub-tool-box-head p{max-width:560px!important;line-height:1.65!important}
+#app .hub-dashboard .hub-tool-count{flex:0 0 auto!important;padding:7px 11px!important;border-radius:999px!important;border:1px solid rgba(125,190,230,.18)!important;background:rgba(56,189,248,.075)!important;font-size:11px!important;font-weight:750!important}
+#app .hub-dashboard .hub-tool-group{margin:20px 0 0!important;padding:18px 0 0!important;border-top:1px solid rgba(135,177,220,.12)!important}
+#app .hub-dashboard .hub-tool-group:first-of-type{margin-top:0!important;padding-top:0!important;border-top:0!important}
+#app .hub-dashboard .hub-group-heading{margin:0 0 12px!important;align-items:center!important}
+#app .hub-dashboard .hub-group-heading h3{font-size:17px!important;font-weight:780!important;letter-spacing:-.02em!important}
+#app .hub-dashboard .hub-group-heading p{font-size:12px!important;line-height:1.5!important}
+#app .hub-dashboard .hub-tool-launch-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:11px!important}
+#app .hub-dashboard .hub-launch-tile{
+  min-height:82px!important;padding:12px!important;gap:11px!important;border-radius:17px!important;
+  border:1px solid rgba(135,177,220,.16)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.052),rgba(255,255,255,.014))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 12px 24px -22px rgba(0,0,0,.65)!important;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease!important;
+}
+#app .hub-dashboard .hub-launch-tile:hover,#app .hub-dashboard .hub-launch-tile:focus-visible{
+  transform:translateY(-2px)!important;border-color:rgba(125,211,252,.42)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 15px 28px -22px rgba(56,189,248,.24)!important;
+}
+#app .hub-dashboard .hub-launch-icon{
+  display:grid!important;place-items:center!important;flex:0 0 38px!important;width:38px!important;height:38px!important;
+  border-radius:12px!important;background:rgba(56,189,248,.11)!important;border:1px solid rgba(125,211,252,.17)!important;
+  font-size:19px!important;line-height:1!important;
+}
+#app .hub-dashboard .hub-launch-copy b{font-size:13px!important;font-weight:760!important;line-height:1.34!important}
+#app .hub-dashboard .hub-launch-copy small{font-size:10.5px!important;line-height:1.45!important;opacity:.82!important}
+#app .hub-dashboard .hub-launch-arrow{opacity:.62!important;font-size:12px!important}
+html[data-theme="light"] #app .hub-dashboard .hub-tool-box{background:linear-gradient(155deg,#fff,#f6f9ff)!important;border-color:rgba(75,103,155,.18)!important;box-shadow:0 22px 55px -42px rgba(44,68,111,.25)!important}
+html[data-theme="light"] #app .hub-dashboard .hub-tool-group{border-color:rgba(75,103,155,.14)!important}
+html[data-theme="light"] #app .hub-dashboard .hub-launch-tile{background:linear-gradient(145deg,#fff,#f7faff)!important;border-color:rgba(75,103,155,.17)!important;box-shadow:inset 0 1px 0 #fff,0 12px 25px -22px rgba(44,68,111,.28)!important}
+html[data-theme="light"] #app .hub-dashboard .hub-launch-icon{background:rgba(37,99,235,.075)!important;border-color:rgba(37,99,235,.13)!important;color:#2457b9!important}
+html[data-theme="purple"] #app .hub-dashboard .hub-tool-box{background:linear-gradient(155deg,rgba(77,60,127,.23),rgba(22,19,42,.93))!important;border-color:rgba(190,167,255,.18)!important}
+html[data-theme="purple"] #app .hub-dashboard .hub-tool-group{border-color:rgba(190,167,255,.12)!important}
+html[data-theme="purple"] #app .hub-dashboard .hub-launch-tile{background:linear-gradient(145deg,rgba(100,80,160,.2),rgba(32,26,56,.72))!important;border-color:rgba(190,167,255,.19)!important}
+html[data-theme="purple"] #app .hub-dashboard .hub-launch-icon{background:rgba(167,139,250,.14)!important;border-color:rgba(196,181,253,.18)!important;color:#d7c5ff!important}
+
+/* Mobile simulation cards: reclaim side space and reduce vertical bulk. */
+@media(max-width:700px){
+  #app[data-page="lab"] .lab-page{width:100%!important;max-width:none!important;padding-left:8px!important;padding-right:8px!important;padding-top:18px!important}
+  #app[data-page="lab"] .lab-page .lab-subject-groups{margin-left:0!important;margin-right:0!important}
+  #app[data-page="lab"] .lab-page .lab-subject-group{margin:12px 0 18px!important}
+  #app[data-page="lab"] .lab-page .lab-subject-group .lab-card-grid{grid-template-columns:minmax(0,1fr)!important;gap:8px!important;margin-top:8px!important}
+  #app[data-page="lab"] .lab-page .lab-sim-card{
+    display:grid!important;grid-template-columns:38px minmax(0,1fr)!important;align-content:center!important;align-items:center!important;
+    column-gap:10px!important;row-gap:4px!important;width:100%!important;max-width:none!important;min-height:0!important;height:auto!important;
+    margin:0!important;padding:10px 12px!important;border-radius:14px!important;
+  }
+  #app[data-page="lab"] .lab-page .lab-sim-card .gico{grid-column:1!important;grid-row:1/5!important;width:36px!important;height:36px!important;min-width:36px!important;flex-basis:36px!important;margin:0!important;font-size:21px!important;border-radius:11px!important}
+  #app[data-page="lab"] .lab-page .lab-sim-card h3{grid-column:2!important;margin:0!important;font-size:13px!important;line-height:1.32!important}
+  #app[data-page="lab"] .lab-page .lab-sim-card p{grid-column:2!important;margin:0!important;font-size:10.5px!important;line-height:1.42!important;-webkit-line-clamp:2!important}
+  #app[data-page="lab"] .lab-page .lab-sim-card .diff,
+  #app[data-page="lab"] .lab-page .lab-sim-card .lab-topic{grid-column:2!important;justify-self:start!important;margin:0!important;font-size:9px!important}
+  #app[data-page="lab"] .lab-page .lab-sim-card .go{grid-column:2!important;justify-self:start!important;margin:2px 0 0!important;padding:5px 9px!important;font-size:10px!important;line-height:1.25!important}
+  #app[data-page="lab"] .lab-page .subject-chooser{gap:7px!important;margin-top:14px!important}
+  #app[data-page="lab"] .lab-page .subject-choice{min-height:42px!important;padding:8px 7px!important;font-size:11px!important}
+}
+
+/* Desktop/tablet Hub grid adapts without making every tile feel cramped. */
+@media(min-width:701px) and (max-width:1050px){
+  #app .hub-dashboard .hub-tool-launch-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+  #app .hub-dashboard .hub-tool-box{padding:15px 12px!important;border-radius:20px!important}
+  #app .hub-dashboard .hub-tool-box-head{align-items:flex-start!important;margin-bottom:14px!important}
+  #app .hub-dashboard .hub-tool-count{padding:6px 8px!important;font-size:10px!important}
+  #app .hub-dashboard .hub-tool-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  #app .hub-dashboard .hub-launch-tile{min-height:74px!important;padding:9px!important;gap:8px!important;border-radius:14px!important}
+  #app .hub-dashboard .hub-launch-icon{width:31px!important;height:31px!important;flex-basis:31px!important;border-radius:10px!important;font-size:16px!important}
+  #app .hub-dashboard .hub-launch-copy b{font-size:11px!important;line-height:1.28!important}
+  #app .hub-dashboard .hub-launch-copy small{font-size:9px!important;line-height:1.35!important}
+  #app .hub-dashboard .hub-launch-arrow{font-size:10px!important}
+  #app[data-page="home"] .home-launchpad .launch-tool-carousel{padding:0!important}
+  #app[data-page="home"] .home-launchpad .launch-tool-arrow-btn{display:none!important}
+  #app[data-page="home"] .home-launchpad .launch-swipe-hint{display:flex!important;gap:8px!important;margin:4px 0 9px!important;font-size:10px!important}
+  #app[data-page="home"] .home-launchpad .launch-tool-grid{width:100%!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #app[data-page="home"] .fc-node,#app .hub-dashboard .hub-launch-tile,#app[data-page="home"] .home-launchpad .launch-tool-arrow-btn{transition:none!important}
+}
+
+
+/* ConceptLab v71 — search decluttering and genuinely effective mobile lab sizing. */
+/* Search field stays focused: categories remain in their original tool groups, not in search controls. */
+.hpro-find .hpro-chips{display:none!important}
+.hpro-related{display:none!important}
+
+@media(max-width:700px){
+  /* The outer .w/.pgw defaults were stacking their horizontal spacing on small screens. */
+  #app .w.pgw.lab-page{
+    width:100%!important;max-width:none!important;
+    padding-left:7px!important;padding-right:7px!important;
+    margin-left:0!important;margin-right:0!important;
+  }
+  #app .lab-page .lab-subject-groups{width:100%!important;margin-left:0!important;margin-right:0!important}
+  #app .lab-page .lab-subject-group{width:100%!important;margin-left:0!important;margin-right:0!important}
+  /* Preserve the familiar two-card layout, but make each card use the reclaimed width. */
+  #app .lab-page .lab-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E),
+  #app .lab-page .lab-subject-group>div[class*="grid"]:not(#A):not(#B):not(#C):not(#D):not(#E){
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;width:100%!important;margin-left:0!important;margin-right:0!important;
+  }
+  #app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E){
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    gap:7px!important;width:100%!important;min-width:0!important;max-width:none!important;
+    min-height:0!important;height:auto!important;padding:12px 10px!important;
+    overflow:visible!important;border-radius:14px!important;
+  }
+  #app .lab-page .lab-sim-card .gico:not(#A):not(#B):not(#C):not(#D):not(#E){
+    width:36px!important;height:36px!important;min-width:36px!important;flex:0 0 36px!important;
+    margin:0 0 1px!important;font-size:18px!important;
+  }
+  #app .lab-page .lab-sim-card h3:not(#A):not(#B):not(#C):not(#D):not(#E){
+    margin:0!important;font-size:13px!important;line-height:1.34!important;
+    white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+    display:block!important;overflow-wrap:anywhere!important;
+  }
+  #app .lab-page .lab-sim-card .lab-topic:not(#A):not(#B):not(#C):not(#D):not(#E){
+    display:inline-block!important;align-self:flex-start!important;max-width:100%!important;
+    margin:0!important;padding:3px 7px!important;border-radius:8px!important;
+    white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+    overflow-wrap:anywhere!important;font-size:9.5px!important;line-height:1.42!important;
+  }
+  #app .lab-page .lab-sim-card p:not(#A):not(#B):not(#C):not(#D):not(#E){
+    display:block!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important;
+    flex:0 0 auto!important;max-height:none!important;height:auto!important;
+    margin:0!important;font-size:11.5px!important;line-height:1.5!important;
+    white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+    overflow-wrap:anywhere!important;opacity:.86!important;
+  }
+  #app .lab-page .lab-sim-card .diff:not(#A):not(#B):not(#C):not(#D):not(#E){
+    align-self:flex-start!important;margin:0!important;font-size:9px!important;line-height:1.3!important;
+  }
+  #app .lab-page .lab-sim-card .go:not(#A):not(#B):not(#C):not(#D):not(#E){
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    align-self:stretch!important;width:100%!important;height:auto!important;min-height:34px!important;
+    margin:3px 0 0!important;padding:7px 6px!important;font-size:10.5px!important;
+    line-height:1.35!important;white-space:normal!important;text-align:center!important;
+  }
+}
+@media(max-width:390px){
+  #app .w.pgw.lab-page{padding-left:5px!important;padding-right:5px!important}
+  #app .lab-page .lab-card-grid:not(#A):not(#B):not(#C):not(#D):not(#E),
+  #app .lab-page .lab-subject-group>div[class*="grid"]:not(#A):not(#B):not(#C):not(#D):not(#E){gap:7px!important}
+  #app .lab-page .lab-sim-card:not(#A):not(#B):not(#C):not(#D):not(#E){padding:10px 8px!important}
+  #app .lab-page .lab-sim-card h3:not(#A):not(#B):not(#C):not(#D):not(#E){font-size:12.5px!important}
+  #app .lab-page .lab-sim-card p:not(#A):not(#B):not(#C):not(#D):not(#E){font-size:11px!important}
+}

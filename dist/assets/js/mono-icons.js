@@ -93,11 +93,36 @@
     bookopen: '<path d="M3 5h6a3 3 0 0 1 3 3v13a3 3 0 0 0-3-3H3zM21 5h-6a3 3 0 0 0-3 3v13a3 3 0 0 1 3-3h6z"/>',
     shield: '<path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="m8 12 3 3 5-6"/>',
     headphones: '<path d="M3 13v-2a9 9 0 0 1 18 0v2M3 13h4v7H5a2 2 0 0 1-2-2zM21 13h-4v7h2a2 2 0 0 0 2-2z"/>',
+    clipboard: '<rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2M8 10h8M8 14h8M8 18h5"/>',
+    matrix: '<rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/>',
+    checklist: '<path d="m3 6 1.5 1.5L7 5M10 6h11M3 13l1.5 1.5L7 12m3 1h11M3 20l1.5 1.5L7 19m3 1h11"/>',
+    moon: '<path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.8 8.8 0 1 0 20.5 14.5Z"/>',
+    eye: '<path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.7"/>',
+    cards: '<rect x="4" y="5" width="13" height="16" rx="2"/><path d="M8 3h10a2 2 0 0 1 2 2v12M7 10h7M7 14h7"/>',
+    percent: '<circle cx="6.5" cy="6.5" r="3"/><circle cx="17.5" cy="17.5" r="3"/><path d="m19 4-14 16"/>',
+    sigma: '<path d="M19 4H6l7 8-7 8h13"/>',
     generic: '<circle cx="12" cy="12" r="8"/><path d="M12 8v8m-4-4h8"/>'
   };
   const map = new Map();
   const assign = (chars, name) => chars.forEach(ch => map.set(ch, name));
   assign(['🏠','⌂'],'home'); assign(['⏱','⏱️'],'clock'); assign(['☑','✅'],'check'); assign(['🃏','🧩'],'puzzle'); assign(['⚛','🧬'],'atom'); assign(['🧪','🧫','⚗'],'flask'); assign(['🎯'],'target'); assign(['💡'],'bulb'); assign(['📐','📏'],'ruler'); assign(['⚡'],'bolt'); assign(['🪜'],'stairs'); assign(['⚖'],'scale'); assign(['📈'],'chart'); assign(['🔖'],'bookmark'); assign(['🎮'],'game'); assign(['🧠'],'brain'); assign(['🏆'],'trophy'); assign(['☁'],'cloud'); assign(['⚠'],'warning'); assign(['🧲'],'magnet'); assign(['🔬'],'microscope'); assign(['🚀'],'rocket'); assign(['🎉','🎈'],'celebration'); assign(['🪐'],'planet'); assign(['🧩'],'puzzle'); assign(['🌀'],'spiral'); assign(['📝'],'notes'); assign(['📅'],'calendar'); assign(['🔤'],'alphabet'); assign(['🌡'],'thermometer'); assign(['🔭'],'telescope'); assign(['🛰','📡'],'satellite'); assign(['🧭'],'compass'); assign(['🔋'],'battery'); assign(['🛠','🧰'],'tools'); assign(['📚'],'books'); assign(['📖'],'book'); assign(['⚔'],'sword'); assign(['🌊'],'waves'); assign(['🛒'],'cart'); assign(['♥'],'heart'); assign(['🎓'],'graduation'); assign(['🔁'],'refresh'); assign(['🔒','🗝'],'lock'); assign(['🔎'],'search'); assign(['💻'],'laptop'); assign(['💬'],'chat'); assign(['💾'],'save'); assign(['🥇'],'medal'); assign(['🥈'],'medal2'); assign(['🥉'],'trophy'); assign(['🧯'],'extinguisher'); assign(['🧱'],'brick'); assign(['📊'],'chartbars'); assign(['🧷'],'pin'); assign(['🪄'],'magic'); assign(['🧊'],'snow'); assign(['🪙'],'coin'); assign(['🪶'],'leaf'); assign(['🪴'],'leaf'); assign(['🪸','🪷'],'flower'); assign(['🪁'],'kite'); assign(['🛞'],'wheel'); assign(['🧴','🧻'],'bottle'); assign(['🎁'],'gift'); assign(['✨','✦'],'sparkles'); assign(['🤝'],'handshake'); assign(['🌍'],'globe'); assign(['🔗'],'link'); assign(['💧'],'droplet'); assign(['🔌'],'plug'); assign(['🎲'],'dice'); assign(['💎'],'diamond'); assign(['➡'],'arrow'); assign(['✔','✓','✅'],'check'); assign(['✘','✕','✗'],'cross'); assign(['★','🔥'],'star'); assign(['👨'],'person'); assign(['🔵','🟠'],'target'); assign(['🏁'],'medal'); assign(['⚙'],'tools'); assign(['📴'],'laptop'); assign(['🧮'],'ruler'); assign(['🧵'],'link'); assign(['🌈'],'sparkles'); assign(['🔲'],'game'); assign(['🚤'],'waves'); assign(['☄'],'rocket'); assign(['🌌'],'planet'); assign(['🗺'],'globe'); assign(['🌱'],'leaf'); assign(['🌟'],'star'); assign(['🔍'],'search');
+  // Exact Student Hub icon assignments. These take priority over broad text-based heuristics.
+  // Chemistry vocabulary in a description must never turn an unrelated tool into a flask icon.
+  const hubToolIcons = Object.freeze({
+    plan:'check', week:'calendar', monthly:'calendar', syllabus:'bookopen', focus:'clock', exam:'calendar',
+    revision:'books', review:'refresh', goals:'target', scores:'chartbars', cards:'cards', notes:'notes',
+    hab:'leaf', form:'function', gpa:'graduation', backup:'save',
+    shortcuts:'bolt', solver:'calculator', reference:'bookopen', 'share-card':'medal',
+    board:'clipboard', routine:'calendar', streak:'chartbars', doubts:'chat', wreview:'chart', reading:'bookopen',
+    mistakes:'notes', matrix:'matrix', 'exam-plan':'calendar', 'marks-needed':'calculator', 'time-blocks':'clock',
+    'next-up':'compass', feynman:'brain', cornell:'notes', checklists:'checklist', sleep:'moon',
+    'eye-rest':'eye', journal:'book',
+    balancer:'scale', elements:'atom2', solution:'droplet', circuit:'plug', complex:'function',
+    counting:'dice', series:'sigma', pace:'clock',
+    molar:'atom2', vector:'compass', stats:'chartbars', quad:'function', base:'calculator',
+    percent:'percent', sound:'headphones', room:'clock', 'study-room':'clock'
+  });
+
   // Keep emoji outside this set untouched when it is part of non-decorative prose.
   // Match all pictographic emoji, including symbols that were absent from the old replacement list.
   const regex = /(?:✦|\p{Extended_Pictographic}(?:\uFE0F|\uFE0E)?(?:\u200D\p{Extended_Pictographic}(?:\uFE0F|\uFE0E)?)*(?:\uFE0F|\uFE0E)?|[0-9#*]\uFE0F?\u20E3)/gu;
@@ -119,7 +144,7 @@
     [/circuit|electricity|resistance|voltage|current/i, 'plug'],
     [/gas law|ideal gas|pressure|temperature|thermodynamics/i, 'thermometer'],
     [/graph|plot|function graph|coordinate/i, 'chart'],
-    [/রসায়ন|chemistry|ion|molecule|reaction|periodic|bond|acid|base|lab|flask|chemical/i, 'flask'],
+    [/রসায়ন|chemistry|ion|molecule|reaction|periodic|bond|acid|base|chemical/i, 'flask'],
     [/পদার্থবিজ্ঞান|physics|force|motion|projectile|velocity|magnet|wave|circuit|electric|optics|gravity/i, 'atom'],
     [/গণিত|mathematics|math|algebra|matrix|vector|calculus|equation|formula|calculate|number|arithmetic/i, 'calculator'],
     [/গেম|game|arcade|play|challenge|sprint|quest|race|puzzle|match|memory/i, 'game'],
@@ -195,6 +220,14 @@
   ];
   function contextualIcon(node, emoji) {
     const host = node && (node.parentElement || node.parentNode);
+    const hubIcon = host && host.closest('.hub-launch-icon');
+    const hubTile = hubIcon && hubIcon.closest('.hub-launch-tile');
+    if (hubTile) {
+      const href = hubTile.getAttribute('href') || '';
+      const match = href.match(/^#\/(?:hub\/)?([^/?]+)/);
+      const slug = match ? match[1] : '';
+      if (Object.prototype.hasOwnProperty.call(hubToolIcons, slug)) return hubToolIcons[slug];
+    }
     const card = host && (host.closest('a,button,article,li,[class*=card],[class*=tile],[class*=item],[class*=game],[class*=sim],[class*=lab-detail]') || host.parentElement || host);
     const context = ((card && card.textContent) || (host && host.textContent) || '').slice(0, 700);
     const titleNode = card && (card.querySelector('h1,h2,h3,h4,.title,.card-title,[class*=title]'));
@@ -232,7 +265,7 @@
     if (root.nodeType === Node.TEXT_NODE) { replaceText(root); return; }
     if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE && root.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) return;
     if (root.nodeType === Node.ELEMENT_NODE && (root.matches('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,[contenteditable="true"]'))) return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n) { return n.parentElement?.closest('script,style,textarea,input,code,pre,svg,.cl-icon-wrap,.gico:not(.lab-sim-icon):not(.lab-detail-icon),.gdeck-ico,.no-mono,[contenteditable="true"]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});
     const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode); nodes.forEach(replaceText);
   };
   let pending = false;
