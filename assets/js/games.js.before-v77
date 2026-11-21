@@ -1,0 +1,912 @@
+/* ConceptLab mini-games. CL_GAMES[type](rootEl, gameConfig, api)
+   api: X(textKey), E(escape), every(el,ms,fn), questions(), done({score,pct,detail}), confetti(), toast(html) */
+window.CL_GAMES=(function(){
+var G={},TAU=Math.PI*2,SUBD='₀₁₂₃₄₅₆₇₈₉';
+function sh(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function qa(r,s){return r.querySelector(s)}
+function qq(r,s){return Array.prototype.slice.call(r.querySelectorAll(s))}
+function ri(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+function col(n,f){return(getComputedStyle(document.documentElement).getPropertyValue(n)||'').trim()||f}
+function empty(r,msg){r.innerHTML='<div class="card"><p class="bn" style="margin:0">'+msg+'</p></div>'}
+function hud(items){return'<div class="hud">'+items.map(function(i){return'<div><small>'+i[0]+'</small><b id="'+i[1]+'">'+(i[2]==null?'':i[2])+'</b></div>'}).join('')+'</div>'}
+function hearts(n,max){var s='';for(var i=0;i<(max||3);i++)s+=i<n?'<span class="hrt">♥</span>':'<span class="hrt off">♥</span>';return s}
+function keyhandler(r,fn){function h(e){if(!r.isConnected){document.removeEventListener('keydown',h);return}fn(e)}document.addEventListener('keydown',h)}
+function flameSvg(c){return'<svg viewBox="0 0 200 240" class="flame-svg"><defs><radialGradient id="fgg" cx="50%" cy="85%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="'+c+'"/><stop offset="1" stop-color="'+c+'" stop-opacity="0"/></radialGradient></defs><ellipse cx="100" cy="140" rx="90" ry="104" fill="url(#fgg)" opacity=".55"/><path class="fl1" d="M100 24C132 70 150 100 144 140C140 176 120 190 100 190C80 190 60 176 56 140C50 100 68 70 100 24Z" fill="'+c+'" opacity=".92"/><path class="fl2" d="M100 70C122 100 130 120 126 146C123 170 112 182 100 182C88 182 77 170 74 146C70 120 78 100 100 70Z" fill="#fff" opacity=".6"/><rect x="86" y="188" width="28" height="36" rx="4" fill="#475569"/><rect x="72" y="222" width="56" height="10" rx="4" fill="#334155"/></svg>'}
+
+/* ================= Circuit Logic Scramble ================= */
+G.logicCircuit=function(r,g,A){var E=A.E,levels=[
+ {gate:'AND',a:1,b:1,y:1,why:'AND-এ দুটো ইনপুটই 1 হলে আউটপুট 1।'},
+ {gate:'OR',a:0,b:1,y:1,why:'OR-এ অন্তত একটি ইনপুট 1 হলেই আউটপুট 1।'},
+ {gate:'XOR',a:1,b:0,y:1,why:'XOR-এ ইনপুট দুটো আলাদা হলে আউটপুট 1।'},
+ {gate:'NAND',a:1,b:1,y:0,why:'NAND হলো AND-এর বিপরীত আউটপুট।'},
+ {gate:'NOR',a:0,b:0,y:1,why:'NOR হলো OR-এর বিপরীত আউটপুট।'},
+ {gate:'NOT',a:0,b:1,y:1,why:'NOT এক ইনপুটকে উল্টে দেয়: 0→1, 1→0।'},
+ {gate:'XNOR',a:1,b:1,y:1,why:'XNOR-এ ইনপুট দুটো একই হলে আউটপুট 1।'},
+ {gate:'AND',a:1,b:0,y:0,why:'AND-এ একটি ইনপুট 0 থাকলেও আউটপুট 0।'},
+ {gate:'OR',a:0,b:0,y:0,why:'OR-এ দুটো ইনপুটই 0 হলে আউটপুট 0।'},
+ {gate:'XOR',a:1,b:1,y:0,why:'XOR-এ ইনপুট একই হলে আউটপুট 0।'}
+ ];levels=levels.slice(0,(g.challengeLevel===1?3:g.challengeLevel===2?5:g.challengeLevel===3?7:levels.length));var idx=0,score=0,correct=0,tries=0,solved=[],cur=null,gate='AND',a=0,b=0,locked=false;
+ function out(){if(gate==='NOT')return a?0:1;if(gate==='AND')return a&b;if(gate==='OR')return a|b;if(gate==='XOR')return a^b;if(gate==='NAND')return 1-(a&b);if(gate==='NOR')return 1-(a|b);return 1-(a^b)}
+ function render(){cur=levels[idx];gate=cur.gate;a=cur.a;b=cur.b;var opts=['AND','OR','XOR','NAND','NOR','NOT','XNOR'];r.innerHTML='<div class="circuit-hud"><div><small>LEVEL</small><b>'+(idx+1)+' / '+levels.length+'</b></div><div><small>LOGIC POINTS</small><b>'+score+'</b></div><div><small>PERFECT</small><b>'+correct+'</b></div></div><div class="circuit-board"><div class="circuit-level-head"><span>MISSION '+String(idx+1).padStart(2,'0')+'</span><b>টার্গেট LED জ্বালাও</b></div><p class="bn">টার্গেট আউটপুট <b>'+cur.y+'</b>। গেট ও ইনপুট সুইচ বদলে আউটপুটের মান টার্গেটের সঙ্গে মেলাও।</p><div class="circuit-controls"><div class="circuit-input"><small>INPUT A</small><button type="button" class="circuit-switch" data-in="a" aria-pressed="'+a+'">'+a+'</button></div><div class="circuit-wire"></div><div class="circuit-gate"><small>LOGIC GATE</small><div class="gate-glyph" id="circuitGlyph">'+gate+'</div><select id="circuitGate" aria-label="লজিক গেট বেছে নিন">'+opts.map(function(x){return'<option'+(x===gate?' selected':'')+'>'+x+'</option>'}).join('')+'</select></div><div class="circuit-wire"></div><div class="circuit-input"><small>INPUT B</small><button type="button" class="circuit-switch" data-in="b" aria-pressed="'+b+'" '+(gate==='NOT'?'disabled':'')+'>'+b+'</button></div></div><div class="circuit-output-row"><span class="circuit-output-wire"></span><div class="circuit-led '+(out()?'lit':'')+'" id="circuitLed"><i></i><b>OUTPUT Y = '+out()+'</b><small>'+(out()?'HIGH · ON':'LOW · OFF')+'</small></div></div><div class="circuit-target '+(out()===cur.y?'target-match':'')+'">'+(out()===cur.y?'✓ টার্গেট মিলে গেছে!':'টার্গেট: '+cur.y+' · বর্তমান: '+out())+'</div><div class="circuit-actions"><button type="button" class="btn pri" id="circuitCheck">উত্তর যাচাই করুন</button><button type="button" class="btn" id="circuitHint">💡 ইঙ্গিত</button><button type="button" class="btn" id="circuitTruth">Truth table</button></div><div id="circuitFeedback" aria-live="polite"></div><div id="circuitTruthBox" hidden></div></div><p class="mutt">আসল সার্কিট ডিজাইনের মতো এখানে প্রতিটি ইনপুট 0 (LOW) বা 1 (HIGH)। সঠিক গেট নির্বাচন এবং সুইচের অবস্থা মিলিয়ে আউটপুট তৈরি হয়।</p>';bind();}
+ function bind(){r.querySelectorAll('[data-in]').forEach(function(btn){btn.addEventListener('click',function(){if(locked)return;if(btn.dataset.in==='a')a=1-a;else b=1-b;refresh()})});r.querySelector('#circuitGate').addEventListener('change',function(){if(!locked){gate=this.value;refresh()}});r.querySelector('#circuitCheck').addEventListener('click',check);r.querySelector('#circuitHint').addEventListener('click',function(){var f=r.querySelector('#circuitFeedback');f.innerHTML='<div class="circuit-feedback">💡 '+E(cur.why)+'</div>'});r.querySelector('#circuitTruth').addEventListener('click',function(){var box=r.querySelector('#circuitTruthBox');box.hidden=!box.hidden;if(!box.hidden){var rows=(gate==='NOT'?[[0,'—',1],[1,'—',0]]:[[0,0],[0,1],[1,0],[1,1]]).map(function(q){var olda=a,oldb=b;a=q[0];b=q[1];var y=out();a=olda;b=oldb;return'<tr><td>'+q[0]+'</td><td>'+q[1]+'</td><td>'+y+'</td></tr>'}).join('');box.innerHTML='<table class="circuit-truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody>'+rows+'</tbody></table>'}})}
+ function refresh(){var y=out(),led=r.querySelector('#circuitLed');r.querySelector('#circuitGlyph').textContent=gate;led.classList.toggle('lit',!!y);led.querySelector('b').textContent='OUTPUT Y = '+y;led.querySelector('small').textContent=y?'HIGH · ON':'LOW · OFF';r.querySelector('[data-in="a"]').textContent=a;r.querySelector('[data-in="a"]').setAttribute('aria-pressed',String(a));r.querySelector('[data-in="b"]').textContent=b;r.querySelector('[data-in="b"]').setAttribute('aria-pressed',String(b));r.querySelector('[data-in="b"]').disabled=gate==='NOT';r.querySelector('.circuit-target').classList.toggle('target-match',y===cur.y);r.querySelector('.circuit-target').textContent=y===cur.y?'✓ টার্গেট মিলে গেছে!':'টার্গেট: '+cur.y+' · বর্তমান: '+y}
+ function check(){if(locked)return;tries++;if(gate===cur.gate&&out()===cur.y){locked=true;correct++;score+=100;r.querySelector('#circuitFeedback').innerHTML='<div class="circuit-feedback good">✓ সঠিক সার্কিট! '+E(cur.why)+' <button class="btn pri" id="circuitNext">পরের লেভেল →</button></div>';r.querySelector('#circuitNext').addEventListener('click',function(){idx++;if(idx>=levels.length){A.done({score:score,pct:correct/levels.length,detail:correct+' / '+levels.length+' levels solved'});return}locked=false;render()})}else{r.querySelector('#circuitFeedback').innerHTML='<div class="circuit-feedback bad">এখনও মেলেনি। গেটের ধরন ও ইনপুট দুটোই দেখুন; প্রয়োজনে ইঙ্গিত নিন।</div>'}}
+ render();};
+
+/* ================= Quiz Blitz ================= */
+G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
+ if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
+ if(pool.length<2)return empty(r,'এই গেমের প্রশ্ন এখনো প্রস্তুত নয়। অন্য একটি গেম বেছে নিন।');
+ var T=+d.time||60,targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[],lastCountdown=-1;
+ r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';
+ function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}
+ function nxt(){if(over)return;if(targetRounds&&asked>=targetRounds)return end();if(!order.length)order=sh(pool.slice());cur=order.pop();asked++;var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');lock=false}
+ qa(r,'#qa').onclick=function(e){var b=e.target.closest('.opt');if(!b||lock||over)return;lock=true;var ok=b.dataset.ok=='1';
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<12)missed.push({q:cur.q,a:cur.o[cur.a],yourAnswer:b.textContent,e:cur.e});if(cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}}
+  h();if(lives<=0)return setTimeout(end,cur.e&&!ok?1800:800);setTimeout(nxt,ok?320:(cur.e?1900:950))};
+ A.every(r,150,function(){var left=T-(performance.now()-t0)/1000,seconds=Math.max(0,Math.ceil(left));qa(r,'#tm').textContent=seconds;qa(r,'#tb').style.width=Math.max(0,left/T*100)+'%';if(seconds<=5&&seconds>0&&seconds!==lastCountdown){lastCountdown=seconds;if(window.SFX)window.SFX.play('countdown',seconds)}if(left<=0)end()});
+ function end(){if(over)return;over=true;A.done({score:score,pct:targetRounds?Math.min(1,correct/targetRounds):Math.min(1,score/200),detail:correct+' correct'+(targetRounds?' / '+targetRounds+' questions':''),review:missed})}
+ h();nxt()};
+
+/* ================= Formula Memory ================= */
+G.memory=function(r,g,A){var X=A.X,E=A.E,pairs=((g.data||{}).pairs||[]).filter(function(p){return p&&p.a&&p.b});if(pairs.length<2)return empty(r,'এই গেমটি খেলতে অন্তত ২টি মিলের জুটি প্রয়োজন।');
+ var chosen=sh(pairs.slice()).slice(0,6),n=chosen.length,cards=[];chosen.forEach(function(p,i){cards.push({id:i,t:p.a});cards.push({id:i,t:p.b})});sh(cards);
+ var first=-1,lock=false,moves=0,matched=0,t0=performance.now(),over=false,missed=[],cols=cards.length>=12?4:cards.length>=8?4:3;
+ r.innerHTML=hud([[X('g_moves'),'mv',0],['Pairs','pr','0 / '+n],[X('g_time'),'tm','0s']])+'<div class="mgrid" style="--cols:'+cols+'">'+cards.map(function(c,i){return'<button class="mc" data-i="'+i+'"><span class="mf">?</span><span class="mb">'+E(c.t)+'</span></button>'}).join('')+'</div>';
+ A.every(r,500,function(){if(!over)qa(r,'#tm').textContent=Math.round((performance.now()-t0)/1000)+'s'});
+ r.onclick=function(e){var b=e.target.closest('.mc');if(!b||lock||over||b.classList.contains('on')||b.classList.contains('ok'))return;var i=+b.dataset.i;b.classList.add('on');
+  if(first<0){first=i;return}moves++;qa(r,'#mv').textContent=moves;var a=qq(r,'.mc')[first];
+  if(cards[first].id==cards[i].id){a.classList.add('ok');b.classList.add('ok');matched++;first=-1;qa(r,'#pr').textContent=matched+' / '+n;if(matched==n){over=true;var secs=Math.round((performance.now()-t0)/1000);setTimeout(function(){A.done({score:Math.max(100,Math.round(1000-moves*25-secs*4)),pct:Math.max(.35,Math.min(1,n*1.5/moves)),detail:moves+' moves, '+secs+'s',review:missed})},700)}}
+  else{if(missed.length<12){var ca=cards[first],cb=cards[i],mate=cards.find(function(c){return c.id===ca.id&&c!==ca});missed.push({q:'মিল খুঁজুন: '+ca.t+' ↔ '+cb.t,a:ca.t+' ↔ '+(mate?mate.t:ca.t),yourAnswer:ca.t+' ↔ '+cb.t,e:'দুটি কার্ড একই ধারণা/সূত্রের জোড়া নয়। ধারণা ও সংজ্ঞা মিলিয়ে আবার চেষ্টা করো।'})}lock=true;setTimeout(function(){a.classList.remove('on');b.classList.remove('on');first=-1;lock=false},850)}}};
+
+/* ================= True or False ================= */
+G.tf=function(r,g,A){
+ var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.s});
+ if(items.length<2)return empty(r,'এই গেমে এখনো কোনো বিবৃতি যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
+ var sprint=String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint';
+ var list=sh(items.slice()).slice(0,10),i=0,lives=3,score=0,combo=0,right=0,lock=false,over=false,missed=[];
+ if(sprint){
+  r.classList.add('physics-sprint-game');
+  r.innerHTML='<div class="ps-sprint-shell">'+
+   '<div class="ps-sprint-hud">'+
+    '<div class="ps-stat ps-score"><small>SCORE</small><b id="sc">0</b><span>points</span></div>'+
+    '<div class="ps-stat"><small>COMBO</small><b id="cb">×1</b><span>streak multiplier</span></div>'+
+    '<div class="ps-stat"><small>LIVES</small><b id="lv"></b><span>keep your focus</span></div>'+
+    '<div class="ps-stat"><small>CARDS</small><b id="pg">1 / '+list.length+'</b><span>concept check</span></div>'+
+   '</div>'+
+   '<div class="ps-progress-wrap"><div class="ps-progress-copy"><span>YOUR PROGRESS</span><b id="psProgressLabel">01 / '+String(list.length).padStart(2,'0')+'</b></div><div class="ps-progress-track"><i id="psProgressFill"></i></div></div>'+
+   '<section class="ps-challenge-card" id="tc"></section>'+
+   '<p class="ps-footer-note"><span aria-hidden="true">✦</span> Take a breath, read carefully, and trust your understanding.</p>'+
+  '</div>';
+ }else{
+  r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],['Card','pg','']])+'<div class="card tfc" id="tc"></div>';
+ }
+ function isT(it){return it.t===true||String(it.t)==='true'||String(it.t)==='1'}
+ function h(){
+  qa(r,'#sc').textContent=score;qa(r,'#cb').textContent=sprint?'×'+Math.min(4,1+Math.floor(combo/3)):'x'+Math.min(4,1+Math.floor(combo/3));
+  qa(r,'#lv').innerHTML=hearts(lives);qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length;
+  if(sprint){var pct=Math.round(((i+1)/list.length)*100),fill=qa(r,'#psProgressFill'),label=qa(r,'#psProgressLabel');if(fill)fill.style.width=pct+'%';if(label)label.textContent=String(i+1).padStart(2,'0')+' / '+String(list.length).padStart(2,'0')}
+ }
+ function show(){
+  lock=false;
+  if(sprint){
+   qa(r,'#tc').innerHTML='<div class="ps-card-top"><span class="ps-kicker"><i></i> PHYSICS · CONCEPT CHECK</span><span class="ps-card-number">CARD '+String(i+1).padStart(2,'0')+'</span></div>'+
+    '<div class="ps-question-area"><span class="ps-question-mark" aria-hidden="true">“</span><p class="bn qt ps-question">'+E(list[i].s)+'</p></div>'+
+    '<p class="ps-answer-prompt">Choose the correct statement</p>'+
+    '<div class="ps-answer-row" role="group" aria-label="Choose true or false">'+
+    '<button type="button" class="tfb t ps-answer-button ps-answer-true" data-v="1" aria-label="True"><span class="ps-answer-mark" aria-hidden="true">✓</span><span class="ps-answer-label">'+E(X('g_true')||'True')+'</span><kbd aria-hidden="true">A</kbd></button>'+
+    '<button type="button" class="tfb f ps-answer-button ps-answer-false" data-v="0" aria-label="False"><span class="ps-answer-mark" aria-hidden="true">×</span><span class="ps-answer-label">'+E(X('g_false')||'False')+'</span><kbd aria-hidden="true">B</kbd></button>'+
+    '</div>'+
+    '<div class="ps-feedback-wrap"><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div></div>';
+  }else{
+   qa(r,'#tc').innerHTML='<p class="bn qt">'+E(list[i].s)+'</p><div class="tfrow"><button class="tfb t" data-v="1">✔ '+E(X('g_true'))+' <small>←</small></button><button class="tfb f" data-v="0">✘ '+E(X('g_false'))+' <small>→</small></button></div><p class="ex" id="ex"></p><div id="nx"></div>';
+  }
+  h();
+ }
+ function ans(v){
+  if(lock||over)return;lock=true;var it=list[i],ok=(v==isT(it));
+  qq(r,'.tfb').forEach(function(b){var bv=b.dataset.v=='1';b.classList.add(bv==isT(it)?'ok':(bv==v?'no':'dim'));b.disabled=true});
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else{combo=0;lives--;if(missed.length<12)missed.push({q:it.s,a:isT(it)?'সত্য':'মিথ্যা',yourAnswer:isT(it)?'মিথ্যা':'সত্য',e:it.e||''})}
+  qa(r,'#ex').innerHTML='<span class="ps-result-tag '+(ok?'is-good':'is-bad')+'">'+(ok?'✓ Correct':'↗ Review')+'</span> '+E(it.e||'');h();
+  if(lives<=0||i>=list.length-1){setTimeout(end,1400)}else{
+   qa(r,'#nx').innerHTML='<button type="button" class="btn pri ps-next-btn" id="nb">'+E(X('g_next'))+' <span aria-hidden="true">→</span></button>';qa(r,'#nb').onclick=nx;
+  }
+ }
+ function nx(){i++;show()}
+ function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct',review:missed})}
+ r.onclick=function(e){var b=e.target.closest('.tfb');if(b)ans(b.dataset.v=='1')};
+ keyhandler(r,function(e){if(e.key==='ArrowLeft'||(sprint&&(e.key==='a'||e.key==='A')))ans(true);else if(e.key==='ArrowRight'||(sprint&&(e.key==='b'||e.key==='B')))ans(false);else if((e.key==='Enter'||e.key===' ')&&lock){var nb=qa(r,'#nb');if(nb){e.preventDefault();nb.click()}}});
+ show();
+};
+
+/* ================= Word Scramble ================= */
+G.scramble=function(r,g,A){var X=A.X,E=A.E,words=((g.data||{}).words||[]).filter(function(w){return w&&w.w&&w.w.trim().length>=3});if(!words.length)return empty(r,'এই গেমে এখনো কোনো শব্দ যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
+ var list=sh(words.slice()).slice(0,5),i=0,score=0,solved=0,cur,target,bank,ans,hints,t0,lock=false,over=false,missed=[];
+ r.innerHTML=hud([[X('g_score'),'sc',0],['Word','pg',''],['Hints used','ht',0]])+'<div class="card" id="sb"></div>';
+ function setup(){cur=list[i];target=Array.from(cur.w.trim().toUpperCase().replace(/\s+/g,''));bank=target.map(function(c,k){return{c:c,k:k}});var tries=0;do{sh(bank);tries++}while(tries<20&&bank.map(function(b){return b.c}).join('')==target.join(''));ans=[];hints=0;t0=performance.now();lock=false;draw()}
+ function draw(){qa(r,'#pg').textContent=(i+1)+' / '+list.length;qa(r,'#sc').textContent=score;qa(r,'#ht').textContent=hints;
+  qa(r,'#sb').innerHTML='<p class="bn" style="margin:0 0 14px;text-align:center">💡 '+E(cur.h||'')+'</p><div class="slots">'+target.map(function(_,k){return'<button class="tile slot'+(ans[k]?' fill':'')+'" data-a="'+k+'">'+(ans[k]?E(ans[k].c):'')+'</button>'}).join('')+'</div><div class="slots bank">'+bank.map(function(b,k){return'<button class="tile" data-b="'+k+'">'+E(b.c)+'</button>'}).join('')+'</div><div class="chips" style="margin-top:16px"><button class="btn" data-x="shuf">Shuffle</button><button class="btn" data-x="hint">Hint (−30)</button><button class="btn" data-x="clear">Clear</button><button class="btn" data-x="skip">Skip →</button></div>'}
+ function back(k){var t=ans.splice(k,1)[0];if(t)bank.push(t)}
+ function check(){lock=true;var ok=ans.map(function(a){return a.c}).join('')==target.join('');var sl=qq(r,'.slot');
+  if(ok){sl.forEach(function(s){s.classList.add('ok')});var secs=(performance.now()-t0)/1000,pts=Math.max(20,100-hints*30)+Math.max(0,Math.round(40-secs));score+=pts;solved+=hints?.6:1;qa(r,'#sc').textContent=score;setTimeout(next,900)}
+  else{if(missed.length<12)missed.push({q:'ইঙ্গিত: '+(cur.h||'শব্দটি সঠিকভাবে সাজাও'),a:target.join(''),yourAnswer:ans.map(function(a){return a.c}).join(''),e:'অক্ষরগুলো সঠিক ক্রমে সাজাও; শব্দটির সংকেত ও বানান মিলিয়ে দেখো।'});sl.forEach(function(s){s.classList.add('no')});setTimeout(function(){while(ans.length)back(0);lock=false;draw()},650)}}
+ function next(){i++;if(i>=list.length){over=true;return A.done({score:score,pct:Math.min(1,solved/list.length),detail:Math.round(solved)+' / '+list.length+' solved',review:missed})}setup()}
+ r.onclick=function(e){if(lock||over)return;var b=e.target.closest('[data-b]'),a=e.target.closest('[data-a]'),x=e.target.closest('[data-x]');
+  if(b){ans.push(bank.splice(+b.dataset.b,1)[0]);draw();if(ans.length==target.length)check()}
+  else if(a){if(ans[+a.dataset.a]){back(+a.dataset.a);draw()}}
+  else if(x){var k=x.dataset.x;if(k=='shuf'){sh(bank);draw()}else if(k=='clear'){while(ans.length)back(0);draw()}else if(k=='skip'){if(missed.length<12)missed.push({q:'ইঙ্গিত: '+(cur.h||'শব্দটি সঠিকভাবে সাজাও'),a:target.join(''),yourAnswer:'এড়িয়ে গেছে',e:'ইঙ্গিত ও অক্ষর দেখে শব্দটি তৈরি করার চেষ্টা করো।'});next()}
+   else if(k=='hint'){var p=0;while(p<ans.length&&ans[p].c==target[p])p++;while(ans.length>p)back(p);var bi=-1;bank.forEach(function(t,q){if(bi<0&&t.c==target[ans.length])bi=q});if(bi>=0){ans.push(bank.splice(bi,1)[0]);hints++}draw();if(ans.length==target.length)check()}}};
+ setup()};
+
+/* ================= Balance the Equation ================= */
+function norm(f){return String(f).replace(/[₀-₉]/g,function(c){return SUBD.indexOf(c)})}
+function pretty(f){return norm(f).replace(/([A-Za-z)])(\d+)/g,function(m,a,b){return a+b.split('').map(function(d){return SUBD[+d]}).join('')})}
+function atoms(f){f=norm(f);var i=0;function num(){var s='';while(i<f.length&&/\d/.test(f[i]))s+=f[i++];return s?+s:1}
+ function grp(){var o={};while(i<f.length){var ch=f[i];if(ch=='('){i++;var inner=grp();i++;var n=num();for(var k in inner)o[k]=(o[k]||0)+inner[k]*n}else if(ch==')'){return o}else if(/[A-Z]/.test(ch)){var s=ch;i++;while(i<f.length&&/[a-z]/.test(f[i]))s+=f[i++];var m=num();o[s]=(o[s]||0)+m}else i++}return o}return grp()}
+function parseEq(line){var parts=String(line||'').replace(/->|=>|→|⟶|=/,'→').split('→');if(parts.length!=2)return null;
+ function side(s){return s.split('+').map(function(t){return t.trim().replace(/^\d+\s*/,'')}).filter(Boolean).map(function(f){return{f:f,a:atoms(f)}})}
+ var L=side(parts[0]),R=side(parts[1]);return L.length&&R.length?{L:L,R:R}:null}
+function gcd(a,b){return b?gcd(b,a%b):a}
+G.balance=function(r,g,A){var X=A.X,E=A.E,eqs=((g.data||{}).eqs||[]).map(parseEq).filter(Boolean);if(!eqs.length)return empty(r,'এই গেমে এখনো কোনো সমীকরণ যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
+ var list=sh(eqs.slice()).slice(0,5),i=0,score=0,solved=0,eq,co,clicks,over=false,done=false;
+ r.innerHTML=hud([[X('g_score'),'sc',0],['Equation','pg','']])+'<div class="card" id="bb"></div>';
+ function terms(){return eq.L.concat(eq.R)}
+ function tally(side,off){var o={};side.forEach(function(t,k){for(var e in t.a)o[e]=(o[e]||0)+t.a[e]*co[off+k]});return o}
+ function setup(){eq=list[i];co=terms().map(function(){return 1});clicks=0;done=false;draw()}
+ function status(){var l=tally(eq.L,0),rr=tally(eq.R,eq.L.length),els={};Object.keys(l).concat(Object.keys(rr)).forEach(function(e){els[e]=1});var ok=true;Object.keys(els).forEach(function(e){if((l[e]||0)!=(rr[e]||0))ok=false});return{l:l,r:rr,els:Object.keys(els),ok:ok}}
+ function draw(){var st=status(),n=eq.L.length;qa(r,'#pg').textContent=(i+1)+' / '+list.length;qa(r,'#sc').textContent=score;
+  function term(t,k){return'<div class="term"><span class="stp"><button data-t="'+k+'" data-d="1" aria-label="more">+</button><b>'+co[k]+'</b><button data-t="'+k+'" data-d="-1" aria-label="less">−</button></span><span class="fm">'+E(pretty(t.f))+'</span></div>'}
+  var h='<div class="eqrow">'+eq.L.map(function(t,k){return(k?'<span class="op">+</span>':'')+term(t,k)}).join('')+'<span class="op arr">→</span>'+eq.R.map(function(t,k){return(k?'<span class="op">+</span>':'')+term(t,n+k)}).join('')+'</div>';
+  h+='<div class="atoms">'+st.els.map(function(e){var a=st.l[e]||0,b=st.r[e]||0;return'<div class="at '+(a==b?'ok':'no')+'"><b>'+E(e)+'</b><span>'+a+' | '+b+'</span><i>'+(a==b?'✓':'✗')+'</i></div>'}).join('')+'</div><p class="ex" id="bm" style="text-align:center">Atoms on the left | atoms on the right. Make every element match.</p>';
+  qa(r,'#bb').innerHTML=h;if(st.ok&&!done){var gg=co.reduce(gcd,0);if(gg==1){done=true;win()}else qa(r,'#bm').textContent='Balanced, but can you use the smallest whole numbers?'}}
+ function win(){var pts=Math.max(30,120-clicks*6);score+=pts;solved++;qa(r,'#sc').textContent=score;A.confetti();qa(r,'#bm').innerHTML='✔ Balanced! +'+pts;qq(r,'.stp button').forEach(function(b){b.disabled=true});setTimeout(function(){i++;if(i>=list.length){over=true;A.done({score:score,pct:solved/list.length,detail:solved+' / '+list.length+' balanced'})}else setup()},1300)}
+ r.onclick=function(e){var b=e.target.closest('[data-t]');if(!b||done||over)return;var k=+b.dataset.t,v=co[k]+ +b.dataset.d;if(v<1||v>12)return;co[k]=v;clicks++;draw()};setup()};
+
+/* ================= Projectile Cannon ================= */
+G.cannon=function(r,g,A){var X=A.X,E=A.E,W=800,H=340,GY=300,OX=46,SC=3.6,GR=9.8,rounds=(g.challengeLevel===1?3:g.challengeLevel===2?4:g.challengeLevel===3?5:7),round=0,shots=3,score=0,hits=0,tgt,shot=null,ghosts=[],msg='',busy=false,over=false,ang=45,pow=25,boom=0;
+ r.innerHTML=hud([[X('g_score'),'sc',0],['Target','rd',''],['Shots left','sl','']])+'<div class="card" style="padding:12px"><canvas id="cn" class="cv2" width="'+W+'" height="'+H+'" style="aspect-ratio:'+W+'/'+H+'"></canvas></div><div class="ctl"><div><label><span>Angle</span><output id="ao"></output></label><input id="an" type="range" min="5" max="85" value="45"></div><div><label><span>Power</span><output id="po"></output></label><input id="pw" type="range" min="10" max="40" value="25"></div></div><div class="chips"><button class="btn pri" id="fire">🔥 Fire!</button></div><p class="ex" id="cm" style="text-align:center">Range R = v² · sin 2θ ÷ g. Choose the angle and power so that R equals the distance to the target.</p>';
+ var c=qa(r,'#cn'),x=c.getContext('2d'),P=col('--p','#38bdf8'),S2=col('--s','#7dd3fc'),Am=col('--a','#fbbf24'),dpr=1;
+ function upd(){ang=+qa(r,'#an').value;pow=+qa(r,'#pw').value;qa(r,'#ao').textContent=ang+'°';qa(r,'#po').textContent=pow+' m/s'}
+ r.oninput=upd;upd();
+ function newT(){var d=ri(35,150);while(tgt&&Math.abs(d-tgt.d)<30)d=ri(35,150);tgt={d:d};shots=3;ghosts=[];shot=null;busy=false;msg='';qa(r,'#rd').textContent=(round+1)+' / '+rounds;qa(r,'#sl').textContent=shots;qa(r,'#sc').textContent=score;qa(r,'#cm').textContent='Target is '+d+' m away.'}
+ function fire(){if(busy||over)return;busy=true;shot={th:ang*Math.PI/180,v:pow,t:0};shots--;qa(r,'#sl').textContent=shots}
+ qa(r,'#fire').onclick=fire;
+ function land(){var T=2*shot.v*Math.sin(shot.th)/GR,R=shot.v*Math.cos(shot.th)*T,err=R-tgt.d;ghosts.push({th:shot.th,v:shot.v});shot.landed=R;
+  if(Math.abs(err)<=5){var pts=Math.max(30,100-(2-shots)*30)+(Math.abs(err)<1.5?10:0);score+=pts;hits++;boom=1;A.confetti();qa(r,'#sc').textContent=score;qa(r,'#cm').textContent='🎯 Direct hit! +'+pts+' (landed at '+R.toFixed(1)+' m)';setTimeout(nextRound,1500)}
+  else{qa(r,'#cm').textContent='Landed at '+R.toFixed(1)+' m, '+(err<0?'short':'long')+' by '+Math.abs(err).toFixed(1)+' m.'+(shots>0?' Adjust and fire again.':'');if(shots<=0)setTimeout(nextRound,1700);else busy=false}}
+ function nextRound(){round++;if(round>=rounds){over=true;return A.done({score:score,pct:hits/rounds,detail:hits+' / '+rounds+' targets'})}newT()}
+ function pos(s,t){return[OX+s.v*Math.cos(s.th)*t*SC,GY-(s.v*Math.sin(s.th)*t-.5*GR*t*t)*SC]}
+ (function frame(){if(!r.isConnected)return;var last=frame.l||performance.now(),n=performance.now(),dt=Math.min(.05,(n-last)/1000);frame.l=n;
+  x.clearRect(0,0,W,H);x.strokeStyle='rgba(125,190,230,.12)';x.lineWidth=1;x.fillStyle='#7f9bb3';x.font='11px Inter,sans-serif';x.textAlign='center';for(var d=0;d<=210;d+=30){var gx=OX+d*SC;x.beginPath();x.moveTo(gx,20);x.lineTo(gx,GY);x.stroke();x.fillText(d+' m',gx,GY+16)}
+  x.strokeStyle='rgba(150,200,240,.5)';x.lineWidth=2;x.beginPath();x.moveTo(0,GY);x.lineTo(W,GY);x.stroke();
+  ghosts.forEach(function(gh){x.beginPath();var T=2*gh.v*Math.sin(gh.th)/GR;for(var i=0;i<=60;i++){var p=pos(gh,T*i/60);i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])}x.strokeStyle='rgba(125,211,252,.28)';x.setLineDash([4,6]);x.lineWidth=1.5;x.stroke();x.setLineDash([])});
+  if(tgt){var tx=OX+tgt.d*SC,tw=5*SC;x.fillStyle='rgba(251,191,36,.25)';x.fillRect(tx-tw,GY-4,tw*2,6);for(var k=3;k>=1;k--){x.beginPath();x.arc(tx,GY-18,k*7,0,TAU);x.fillStyle=k%2?'#f87171':'#fff';x.fill()}x.fillStyle=Am;x.font='bold 12px Inter,sans-serif';x.fillText(tgt.d+' m',tx,GY-52)}
+  var a=ang*Math.PI/180;x.save();x.translate(OX,GY-8);x.rotate(-a);x.fillStyle='#475569';x.fillRect(0,-7,46,14);x.fillStyle=P;x.fillRect(38,-8,10,16);x.restore();x.fillStyle='#1e293b';x.beginPath();x.arc(OX,GY-4,16,Math.PI,0);x.fill();
+  if(!busy&&!over){x.strokeStyle=P+'55';x.setLineDash([3,6]);x.lineWidth=2;x.beginPath();x.moveTo(OX,GY-8);x.lineTo(OX+Math.cos(a)*90,GY-8-Math.sin(a)*90);x.stroke();x.setLineDash([])}
+  if(shot){shot.t+=dt*1.5;var T=2*shot.v*Math.sin(shot.th)/GR,tt=Math.min(shot.t,T);x.beginPath();for(var i=0;i<=60;i++){var p=pos(shot,tt*i/60);i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])}x.strokeStyle=S2;x.lineWidth=3;x.shadowColor=P;x.shadowBlur=10;x.stroke();x.shadowBlur=0;var q=pos(shot,tt);x.fillStyle=Am;x.shadowColor=Am;x.shadowBlur=14;x.beginPath();x.arc(q[0],q[1],7,0,TAU);x.fill();x.shadowBlur=0;if(shot.t>=T&&shot.landed==null)land()}
+  requestAnimationFrame(frame)})();
+ newT()};
+
+/* ================= Slope Sniper ================= */
+G.slope=function(r,g,A){var X=A.X,E=A.E,W=600,H=400,SC=30,rounds=(g.challengeLevel===1?3:g.challengeLevel===2?4:g.challengeLevel===3?5:7),round=0,score=0,solved=0,m0,c0,pts,t0,hint=0,lock=false,over=false;
+ r.innerHTML=hud([[X('g_score'),'sc',0],['Round','rd',''],['Points on line','ph','0 / 3']])+'<div class="card" style="padding:12px"><canvas id="sg" class="cv2" width="'+W+'" height="'+H+'" style="aspect-ratio:'+W+'/'+H+'"></canvas></div><div class="ctl"><div><label><span>Slope m</span><output id="mo"></output></label><input id="ms" type="range" min="-4" max="4" step=".5" value="0"></div><div><label><span>y-intercept c</span><output id="co"></output></label><input id="cs" type="range" min="-6" max="6" step="1" value="0"></div></div><p class="bn" id="eq" style="text-align:center;margin:0 0 8px"></p><div class="chips"><button class="btn" id="hn">Hint (−30)</button><button class="btn" id="sk">Skip →</button></div><p class="ex" id="hm" style="text-align:center"></p>';
+ var cv=qa(r,'#sg'),x=cv.getContext('2d'),P=col('--p','#38bdf8'),Am=col('--a','#fbbf24'),m=0,c=0;
+ function upd(){m=+qa(r,'#ms').value;c=+qa(r,'#cs').value;qa(r,'#mo').textContent=m;qa(r,'#co').textContent=c;qa(r,'#eq').textContent='y = '+m+'x '+(c<0?'− ':'+ ')+Math.abs(c)}
+ r.oninput=upd;
+ function newR(){var ok=false;while(!ok){m0=ri(-3,3);if(!m0)continue;c0=ri(-4,4);var xs=sh([-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6]).slice(0,3).sort(function(a,b){return a-b});pts=xs.map(function(xv){return[xv,m0*xv+c0]});ok=pts.every(function(p){return Math.abs(p[1])<=6})}
+  hint=0;lock=false;t0=performance.now();qa(r,'#rd').textContent=(round+1)+' / '+rounds;qa(r,'#hm').textContent='';qa(r,'#ms').value=0;qa(r,'#cs').value=0;upd()}
+ qa(r,'#hn').onclick=function(){hint++;var a=pts[0],b=pts[1];qa(r,'#hm').textContent='Slope between the first two dots = rise ÷ run = ('+(b[1]-a[1])+') ÷ ('+(b[0]-a[0])+') = '+((b[1]-a[1])/(b[0]-a[0]))+'. The line crosses the y-axis where x = 0.'};
+ qa(r,'#sk').onclick=function(){if(!lock)next()};
+ function next(){round++;if(round>=rounds){over=true;return A.done({score:score,pct:solved/rounds,detail:solved+' / '+rounds+' lines found'})}newR()}
+ function X1(v){return W/2+v*SC}function Y1(v){return H/2-v*SC}
+ (function frame(){if(!r.isConnected)return;x.clearRect(0,0,W,H);x.strokeStyle='rgba(125,190,230,.12)';x.lineWidth=1;x.beginPath();for(var i=-10;i<=10;i++){x.moveTo(X1(i),0);x.lineTo(X1(i),H)}for(i=-6;i<=6;i++){x.moveTo(0,Y1(i));x.lineTo(W,Y1(i))}x.stroke();x.strokeStyle='rgba(150,200,240,.45)';x.beginPath();x.moveTo(0,Y1(0));x.lineTo(W,Y1(0));x.moveTo(X1(0),0);x.lineTo(X1(0),H);x.stroke();
+  x.beginPath();x.moveTo(X1(-10),Y1(m*-10+c));x.lineTo(X1(10),Y1(m*10+c));x.strokeStyle=P;x.lineWidth=3.5;x.shadowColor=P;x.shadowBlur=12;x.stroke();x.shadowBlur=0;
+  var n=0;if(pts)pts.forEach(function(p){var on=Math.abs(m*p[0]+c-p[1])<1e-6;if(on)n++;x.fillStyle=on?'#34d399':Am;x.shadowColor=x.fillStyle;x.shadowBlur=on?22:12;x.beginPath();x.arc(X1(p[0]),Y1(p[1]),on?9:7,0,TAU);x.fill();x.shadowBlur=0;x.fillStyle='#e2f1ff';x.font='11px Inter,sans-serif';x.textAlign='left';x.fillText('('+p[0]+', '+p[1]+')',X1(p[0])+12,Y1(p[1])-10)});
+  var el=qa(r,'#ph');if(el)el.textContent=n+' / 3';
+  if(n==3&&!lock&&!over){lock=true;var secs=(performance.now()-t0)/1000,pt=Math.max(30,100-hint*30-Math.round(secs/2));score+=pt;solved++;qa(r,'#sc').textContent=score;A.confetti(null,null,50);qa(r,'#hm').textContent='🎯 Perfect line! +'+pt;setTimeout(next,1300)}
+  requestAnimationFrame(frame)})();newR()};
+
+/* ================= Flame Detective ================= */
+G.flame=function(r,g,A){var X=A.X,E=A.E,items=((g.data||{}).items||[]).filter(function(i){return i&&i.n&&i.c});if(items.length<3)return empty(r,'এই গেমটি খেলতে অন্তত ৩টি আয়ন প্রয়োজন।');
+ var rounds=(g.challengeLevel===1?4:g.challengeLevel===2?6:g.challengeLevel===3?8:10),i=0,score=0,combo=0,right=0,lock=false,tgt,missed=[];
+ r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],['Round','rd','']])+'<div class="card" style="text-align:center"><div class="flamebox" id="fb"></div><p class="bn" style="margin:6px 0 14px">এই শিখার রং কোন আয়নের?</p><div id="fo"></div><p class="ex" id="fe"></p><div id="fn"></div></div>';
+ function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#rd').textContent=Math.min(i+1,rounds)+' / '+rounds}
+ function show(){lock=false;tgt=items[Math.floor(Math.random()*items.length)];var others=sh(items.filter(function(t){return t!==tgt})).slice(0,3),opts=sh([tgt].concat(others));qa(r,'#fb').innerHTML=flameSvg(tgt.c);qa(r,'#fo').innerHTML='<div class="chips">'+opts.map(function(o){return'<button class="btn opt2" data-n="'+E(o.n)+'">'+E(o.n)+'</button>'}).join('')+'</div>';qa(r,'#fe').textContent='';qa(r,'#fn').innerHTML='';h()}
+ r.onclick=function(e){var b=e.target.closest('.opt2');if(!b||lock)return;lock=true;var ok=b.dataset.n==tgt.n;qq(r,'.opt2').forEach(function(o){o.classList.add(o.dataset.n==tgt.n?'okb':(o===b?'nob':'dim'))});
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));right++}else combo=0;qa(r,'#fe').textContent=(ok?'✔ ':'✘ ')+tgt.n+': '+(tgt.l||'')+' শিখা';h();
+  setTimeout(function(){i++;if(i>=rounds)A.done({score:score,pct:right/rounds,detail:right+' / '+rounds+' correct',review:missed});else show()},1300)};show()};
+
+/* ================= Periodic Quest ================= */
+G.periodic=function(r,g,A){
+ var E=A.E,mode='home',score=0,right=0,round=0,over=false,selected=null,placed={},used={},timer=null;
+ var els=[
+ [1,'H','Hydrogen',1,1],[2,'He','Helium',1,18],
+ [3,'Li','Lithium',2,1],[4,'Be','Beryllium',2,2],[5,'B','Boron',2,13],[6,'C','Carbon',2,14],[7,'N','Nitrogen',2,15],[8,'O','Oxygen',2,16],[9,'F','Fluorine',2,17],[10,'Ne','Neon',2,18],
+ [11,'Na','Sodium',3,1],[12,'Mg','Magnesium',3,2],[13,'Al','Aluminium',3,13],[14,'Si','Silicon',3,14],[15,'P','Phosphorus',3,15],[16,'S','Sulfur',3,16],[17,'Cl','Chlorine',3,17],[18,'Ar','Argon',3,18],
+ [19,'K','Potassium',4,1],[20,'Ca','Calcium',4,2],[21,'Sc','Scandium',4,3],[22,'Ti','Titanium',4,4],[23,'V','Vanadium',4,5],[24,'Cr','Chromium',4,6],[25,'Mn','Manganese',4,7],[26,'Fe','Iron',4,8],[27,'Co','Cobalt',4,9],[28,'Ni','Nickel',4,10],[29,'Cu','Copper',4,11],[30,'Zn','Zinc',4,12],[31,'Ga','Gallium',4,13],[32,'Ge','Germanium',4,14],[33,'As','Arsenic',4,15],[34,'Se','Selenium',4,16],[35,'Br','Bromine',4,17],[36,'Kr','Krypton',4,18],
+ [37,'Rb','Rubidium',5,1],[38,'Sr','Strontium',5,2],[39,'Y','Yttrium',5,3],[40,'Zr','Zirconium',5,4],[41,'Nb','Niobium',5,5],[42,'Mo','Molybdenum',5,6],[43,'Tc','Technetium',5,7],[44,'Ru','Ruthenium',5,8],[45,'Rh','Rhodium',5,9],[46,'Pd','Palladium',5,10],[47,'Ag','Silver',5,11],[48,'Cd','Cadmium',5,12],[49,'In','Indium',5,13],[50,'Sn','Tin',5,14],[51,'Sb','Antimony',5,15],[52,'Te','Tellurium',5,16],[53,'I','Iodine',5,17],[54,'Xe','Xenon',5,18],
+ [55,'Cs','Caesium',6,1],[56,'Ba','Barium',6,2],[57,'La','Lanthanum',8,3],[58,'Ce','Cerium',8,3],[59,'Pr','Praseodymium',8,4],[60,'Nd','Neodymium',8,5],[61,'Pm','Promethium',8,6],[62,'Sm','Samarium',8,7],[63,'Eu','Europium',8,8],[64,'Gd','Gadolinium',8,9],[65,'Tb','Terbium',8,10],[66,'Dy','Dysprosium',8,11],[67,'Ho','Holmium',8,12],[68,'Er','Erbium',8,13],[69,'Tm','Thulium',8,14],[70,'Yb','Ytterbium',8,15],[71,'Lu','Lutetium',8,16],[72,'Hf','Hafnium',6,4],[73,'Ta','Tantalum',6,5],[74,'W','Tungsten',6,6],[75,'Re','Rhenium',6,7],[76,'Os','Osmium',6,8],[77,'Ir','Iridium',6,9],[78,'Pt','Platinum',6,10],[79,'Au','Gold',6,11],[80,'Hg','Mercury',6,12],[81,'Tl','Thallium',6,13],[82,'Pb','Lead',6,14],[83,'Bi','Bismuth',6,15],[84,'Po','Polonium',6,16],[85,'At','Astatine',6,17],[86,'Rn','Radon',6,18],
+ [87,'Fr','Francium',7,1],[88,'Ra','Radium',7,2],[89,'Ac','Actinium',9,3],[90,'Th','Thorium',9,4],[91,'Pa','Protactinium',9,5],[92,'U','Uranium',9,6],[93,'Np','Neptunium',9,7],[94,'Pu','Plutonium',9,8],[95,'Am','Americium',9,9],[96,'Cm','Curium',9,10],[97,'Bk','Berkelium',9,11],[98,'Cf','Californium',9,12],[99,'Es','Einsteinium',9,13],[100,'Fm','Fermium',9,14],[101,'Md','Mendelevium',9,15],[102,'No','Nobelium',9,16],[103,'Lr','Lawrencium',9,17],[104,'Rf','Rutherfordium',7,4],[105,'Db','Dubnium',7,5],[106,'Sg','Seaborgium',7,6],[107,'Bh','Bohrium',7,7],[108,'Hs','Hassium',7,8],[109,'Mt','Meitnerium',7,9],[110,'Ds','Darmstadtium',7,10],[111,'Rg','Roentgenium',7,11],[112,'Cn','Copernicium',7,12],[113,'Nh','Nihonium',7,13],[114,'Fl','Flerovium',7,14],[115,'Mc','Moscovium',7,15],[116,'Lv','Livermorium',7,16],[117,'Ts','Tennessine',7,17],[118,'Og','Oganesson',7,18]
+ ];
+ var bySym={};els.forEach(function(x){bySym[x[1]]=x});
+ var trends=[
+ {q:'একই পর্যায়ে বাম থেকে ডানে সাধারণত পারমাণবিক আকার কী হয়?',o:['বাড়ে','কমে','একই থাকে','প্রথমে সবসময় বাড়ে'],a:1,e:'কার্যকর নিউক্লীয় আকর্ষণ বাড়ায় ইলেকট্রন মেঘ সাধারণত সংকুচিত হয়।'},
+ {q:'গ্রুপে ওপর থেকে নিচে পারমাণবিক আকার সাধারণত—',o:['কমে','বাড়ে','অপরিবর্তিত','শূন্য হয়'],a:1,e:'নিচে নামলে নতুন প্রধান শক্তিস্তর যুক্ত হয়।'},
+ {q:'একই পর্যায়ে সাধারণত আয়নীকরণ শক্তি কোন দিকে বাড়ে?',o:['বাম থেকে ডানে','ডান থেকে বামে','নিচে নামলে','কোনো প্রবণতা নেই'],a:0,e:'সাধারণ প্রবণতা ডানদিকে বৃদ্ধি; কিছু গুরুত্বপূর্ণ ব্যতিক্রম আছে।'},
+ {q:'Na ও Cl-এর মধ্যে কার ধাতব ধর্ম বেশি?',o:['Na','Cl','দুজনের সমান','নির্ধারণ করা যায় না'],a:0,e:'একই পর্যায়ে বামদিকে ধাতব ধর্ম বেশি।'},
+ {q:'হ্যালোজেনদের সাধারণত ইলেকট্রন গ্রহণের প্রবণতা কেমন?',o:['তুলনামূলক বেশি','সবচেয়ে কম','শূন্য','সবসময় ধাতুর মতো'],a:0,e:'হ্যালোজেনের বহিঃস্ত স্তরে একটি ইলেকট্রন কম থাকে।'},
+ {q:'Be-এর প্রথম আয়নীকরণ শক্তি B-এর চেয়ে বেশি হওয়ার গুরুত্বপূর্ণ কারণ—',o:['Be-এর 2s উপস্তর পূর্ণ','B-এর নিউট্রন নেই','Be নিষ্ক্রিয় গ্যাস','B-এর নিউক্লিয়াস নেই'],a:0,e:'Be-এর 2s² উপস্তর তুলনামূলক স্থিতিশীল; B-এর ইলেকট্রন 2p উপস্তরে যায়।'},
+ {q:'N-এর প্রথম আয়নীকরণ শক্তি O-এর চেয়ে বেশি হওয়ার কারণ—',o:['N-এর অর্ধপূর্ণ 2p³ বিন্যাস','O-এর প্রোটন নেই','N ধাতু','O-এর সব উপস্তর পূর্ণ'],a:0,e:'N-এর অর্ধপূর্ণ p উপস্তর অতিরিক্ত স্থিতিশীল; O-তে একটি p অরবিটালে জোড়া ইলেকট্রনের বিকর্ষণ থাকে।'},
+ {q:'গলনাঙ্ক ও স্ফুটনাঙ্কের জন্য কোন বক্তব্যটি সবচেয়ে সঠিক?',o:['সবসময় ডানদিকে বাড়ে','সবসময় নিচে বাড়ে','বন্ধন ও গঠনের ওপর নির্ভর করে','সব মৌলের সমান'],a:2,e:'গলনাঙ্ক ও স্ফুটনাঙ্কে একটিমাত্র সর্বজনীন পর্যায়গত নিয়ম নেই।'},
+ {q:'একটি পরমাণু ইলেকট্রন হারালে সাধারণত কী তৈরি হয়?',o:['ঋণায়ন','ধনায়ন','নিউট্রন','সমস্থানিক'],a:1,e:'ইলেকট্রন হারালে প্রোটনের তুলনায় ইলেকট্রন কমে, তাই ধনাত্মক আয়ন হয়।'},
+ {q:'একই মৌলের ধনায়নের আকার সাধারণত নিরপেক্ষ পরমাণুর তুলনায়—',o:['বড়','ছোট','একই','অসীম'],a:1,e:'ইলেকট্রন হারানো ও ইলেকট্রন-ইলেকট্রন বিকর্ষণ কমার ফলে ধনায়ন সাধারণত ছোট হয়।'}
+ ];
+ function home(){mode='home';r.onclick=function(e){var b=e.target.closest('[data-mode]');if(!b)return;if(b.dataset.mode==='table')tableStart();else trendStart()};r.innerHTML='<div class="card"><div class="bn" style="font-size:1.35rem;font-weight:800">🧪 Periodic Quest · মৌলের পর্যায়বৃত্ত ধর্ম</div><p class="mutt">পর্যায়সারণী সাজাও, ধর্মের প্রবণতা ধরো, ব্যতিক্রম খুঁজে বের করো।</p><div class="gA g2" style="margin-top:18px"><button class="btn pri" data-mode="table">🧩 Table Architect · মৌল বসাও</button><button class="btn" data-mode="trend">📈 Trend Hunter · ধর্মের প্রবণতা</button></div><p class="mutt" style="margin-top:16px">লক্ষ্য: সঠিক অবস্থান, পর্যায়বৃত্ত প্রবণতা এবং কেন এমন হয়—সব একসঙ্গে শেখা।</p></div>'}
+ function tableStart(){mode='table';score=0;right=0;round=0;placed={};used={};var pool=sh(els.filter(function(x){return x[0]<=36||[47,53,55,56,79,80,82,92,118].indexOf(x[0])>=0}).slice()).slice(0,12); // sampled target elements
+  // include a representative mix every run
+  pool=sh(pool);selected=null;
+  function draw(){var inPool={};pool.forEach(function(x){inPool[x[0]]=1});
+   function cell(p,gr){var found=els.find(function(x){return x[3]===p&&x[4]===gr});if(!found)return'<span class="pq-cell pq-none"></span>';var val=placed[found[0]];if(val)return'<button type="button" class="pq-cell filled" disabled aria-label="'+val[1]+'"><b>'+val[1]+'</b></button>';return'<button type="button" class="pq-cell target" data-cell="'+p+','+gr+'" aria-label="পারমাণবিক সংখ্যা '+found[0]+'"><small>'+found[0]+'</small></button>'}
+   var cells='';for(var p=1;p<=7;p++){for(var gr=1;gr<=18;gr++)cells+=cell(p,gr)}
+   var f='';for(var p2=8;p2<=9;p2++){for(var g2=3;g2<=17;g2++)f+=cell(p2,g2)}
+   var left=pool.filter(function(x){return !used[x[0]]});
+   r.innerHTML='<div class="hud"><div><small>স্কোর</small><b>'+score+'</b></div><div><small>সঠিক</small><b>'+right+' / 12</b></div><div><small>নির্বাচিত</small><b>'+(selected?selected[1]:'—')+'</b></div></div><div class="card"><p class="bn">নিচ থেকে মৌলের প্রতীক বেছে নাও, তারপর যে ঘরের পারমাণবিক সংখ্যা মেলে সেখানে ট্যাপ করো।</p><div class="pq-table pq-fit">'+cells+'</div><p class="mutt pq-fl">ল্যান্থানয়েড ও অ্যাক্টিনয়েড</p><div class="pq-table pq-f pq-fit">'+f+'</div><div class="pq-tray pq-chips">'+left.map(function(x){return'<button type="button" class="pq-chip '+(selected&&selected[0]===x[0]?'sel':'')+'" data-el="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div><p class="ex" id="pq-feedback"></p><button class="btn" data-home>← ব্যাক মেনু</button></div>';
+  }
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.dataset.el){selected=pool.find(function(x){return x[0]===+b.dataset.el});draw();return}if(b.dataset.cell&&selected){var pos=b.dataset.cell.split(',').map(Number),ok=selected[3]===pos[0]&&selected[4]===pos[1];var fb=r.querySelector('#pq-feedback');if(ok){placed[selected[0]]=selected;used[selected[0]]=1;score+=10;right++;selected=null;if(right>=12){over=true;return A.done({score:score,pct:right/12,detail:'১২টির মধ্যে ১২টি মৌল সঠিক ঘরে বসানো হয়েছে'})}draw();var ff=r.querySelector('#pq-feedback');if(ff)ff.textContent='✔ সঠিক! মৌলের অবস্থান মনে রাখো।'}else{score=Math.max(0,score-2);if(fb)fb.textContent='আবার চেষ্টা করো—পারমাণবিক সংখ্যা, গ্রুপ ও পর্যায় মিলিয়ে দেখো।';draw();var f2=r.querySelector('#pq-feedback');if(f2)f2.textContent='আবার চেষ্টা করো—পারমাণবিক সংখ্যা, গ্রুপ ও পর্যায় মিলিয়ে দেখো।'}}};
+  draw()
+ }
+ function trendStart(){mode='trend';score=0;right=0;round=0;over=false;var order=sh(trends.slice());function show(){if(round>=8)return A.done({score:score,pct:right/8,detail:right+' / 8 সঠিক উত্তর'});var q=order[round%order.length],opts=sh(q.o.map(function(t,i){return{t:t,ok:i===q.a}}));r.innerHTML='<div class="hud"><div><small>স্কোর</small><b>'+score+'</b></div><div><small>রাউন্ড</small><b>'+(round+1)+' / 8</b></div><div><small>সঠিক</small><b>'+right+'</b></div></div><div class="card"><p class="bn" style="font-size:1.2rem;font-weight:700">'+E(q.q)+'</p><div class="pq-options">'+opts.map(function(o){return'<button class="btn" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="pq-explain"></p><button class="btn" data-next hidden>পরের প্রশ্ন →</button><button class="btn" data-home>← ব্যাক মেনু</button></div>';r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.hasAttribute('data-next')){round++;return show()}if(b.dataset.ok!=null&&!b.disabled){var ok=b.dataset.ok==='1';if(ok){right++;score+=10}r.querySelectorAll('[data-ok]').forEach(function(x){x.disabled=true;x.classList.add(x.dataset.ok==='1'?'okb':'dim')});r.querySelector('#pq-explain').textContent=(ok?'✔ সঠিক। ':'✘ সঠিক উত্তর: '+q.o[q.a]+'. ')+q.e;r.querySelector('[data-next]').hidden=false}}}show()}
+ r.onclick=function(e){var b=e.target.closest('[data-mode]');if(!b)return;if(b.dataset.mode==='table')tableStart();else trendStart()};
+ home()
+};
+
+
+
+/* ================= Element Sprint ================= */
+/* ================= Mass Atlas: atomic mass through the periodic table =================
+   s = standard atomic weight (IUPAC conventional value, 2 d.p.).
+   r = no standard atomic weight (no stable isotopes / synthetic): the number is the mass number of the
+       longest-lived known isotope, written in square brackets like on IUPAC-style tables. NOT a standard mass.
+   t = radioactive but with extremely long-lived isotopes (Th, Pa, U): standard weight exists. */
+G.massAtlas=function(r,g,A){
+ var E=A.E,mode='home',score=0,right=0,round=0,tries=0,sel=null,placed={},order=[],cur=null,locked=false;
+ var RAW='1|H|Hydrogen|1.01|s;2|He|Helium|4.00|s;3|Li|Lithium|6.94|s;4|Be|Beryllium|9.01|s;5|B|Boron|10.81|s;6|C|Carbon|12.01|s;7|N|Nitrogen|14.01|s;8|O|Oxygen|16.00|s;9|F|Fluorine|19.00|s;10|Ne|Neon|20.18|s;11|Na|Sodium|22.99|s;12|Mg|Magnesium|24.31|s;13|Al|Aluminium|26.98|s;14|Si|Silicon|28.09|s;15|P|Phosphorus|30.97|s;16|S|Sulfur|32.06|s;17|Cl|Chlorine|35.45|s;18|Ar|Argon|39.95|s;19|K|Potassium|39.10|s;20|Ca|Calcium|40.08|s;21|Sc|Scandium|44.96|s;22|Ti|Titanium|47.87|s;23|V|Vanadium|50.94|s;24|Cr|Chromium|52.00|s;25|Mn|Manganese|54.94|s;26|Fe|Iron|55.85|s;27|Co|Cobalt|58.93|s;28|Ni|Nickel|58.69|s;29|Cu|Copper|63.55|s;30|Zn|Zinc|65.38|s;31|Ga|Gallium|69.72|s;32|Ge|Germanium|72.63|s;33|As|Arsenic|74.92|s;34|Se|Selenium|78.97|s;35|Br|Bromine|79.90|s;36|Kr|Krypton|83.80|s;37|Rb|Rubidium|85.47|s;38|Sr|Strontium|87.62|s;39|Y|Yttrium|88.91|s;40|Zr|Zirconium|91.22|s;41|Nb|Niobium|92.91|s;42|Mo|Molybdenum|95.95|s;43|Tc|Technetium|98|r;44|Ru|Ruthenium|101.07|s;45|Rh|Rhodium|102.91|s;46|Pd|Palladium|106.42|s;47|Ag|Silver|107.87|s;48|Cd|Cadmium|112.41|s;49|In|Indium|114.82|s;50|Sn|Tin|118.71|s;51|Sb|Antimony|121.76|s;52|Te|Tellurium|127.60|s;53|I|Iodine|126.90|s;54|Xe|Xenon|131.29|s;55|Cs|Caesium|132.91|s;56|Ba|Barium|137.33|s;57|La|Lanthanum|138.91|s;58|Ce|Cerium|140.12|s;59|Pr|Praseodymium|140.91|s;60|Nd|Neodymium|144.24|s;61|Pm|Promethium|145|r;62|Sm|Samarium|150.36|s;63|Eu|Europium|151.96|s;64|Gd|Gadolinium|157.25|s;65|Tb|Terbium|158.93|s;66|Dy|Dysprosium|162.50|s;67|Ho|Holmium|164.93|s;68|Er|Erbium|167.26|s;69|Tm|Thulium|168.93|s;70|Yb|Ytterbium|173.05|s;71|Lu|Lutetium|174.97|s;72|Hf|Hafnium|178.49|s;73|Ta|Tantalum|180.95|s;74|W|Tungsten|183.84|s;75|Re|Rhenium|186.21|s;76|Os|Osmium|190.23|s;77|Ir|Iridium|192.22|s;78|Pt|Platinum|195.08|s;79|Au|Gold|196.97|s;80|Hg|Mercury|200.59|s;81|Tl|Thallium|204.38|s;82|Pb|Lead|207.20|s;83|Bi|Bismuth|208.98|s;84|Po|Polonium|209|r;85|At|Astatine|210|r;86|Rn|Radon|222|r;87|Fr|Francium|223|r;88|Ra|Radium|226|r;89|Ac|Actinium|227|r;90|Th|Thorium|232.04|t;91|Pa|Protactinium|231.04|t;92|U|Uranium|238.03|t;93|Np|Neptunium|237|r;94|Pu|Plutonium|244|r;95|Am|Americium|243|r;96|Cm|Curium|247|r;97|Bk|Berkelium|247|r;98|Cf|Californium|251|r;99|Es|Einsteinium|252|r;100|Fm|Fermium|257|r;101|Md|Mendelevium|258|r;102|No|Nobelium|259|r;103|Lr|Lawrencium|266|r;104|Rf|Rutherfordium|267|r;105|Db|Dubnium|268|r;106|Sg|Seaborgium|269|r;107|Bh|Bohrium|270|r;108|Hs|Hassium|269|r;109|Mt|Meitnerium|278|r;110|Ds|Darmstadtium|281|r;111|Rg|Roentgenium|282|r;112|Cn|Copernicium|285|r;113|Nh|Nihonium|286|r;114|Fl|Flerovium|289|r;115|Mc|Moscovium|290|r;116|Lv|Livermorium|293|r;117|Ts|Tennessine|294|r;118|Og|Oganesson|294|r';
+ function pos(z){if(z===1)return[1,1];if(z===2)return[1,18];if(z<=4)return[2,z-2];if(z<=10)return[2,z+8];if(z<=12)return[3,z-10];if(z<=18)return[3,z];if(z<=36)return[4,z-18];if(z<=54)return[5,z-36];if(z<=56)return[6,z-54];if(z<=71)return[8,z-54];if(z<=86)return[6,z-68];if(z<=88)return[7,z-86];if(z<=103)return[9,z-86];return[7,z-100]}
+ var els=RAW.split(';').map(function(t){var a=t.split('|'),z=+a[0],q=pos(z);return[z,a[1],a[2],q[0],q[1],parseFloat(a[3]),a[4]]});
+ var byZ={};els.forEach(function(x){byZ[x[0]]=x});
+ var STD=els.filter(function(x){return x[6]!=='r'});
+ function isR(x){return x[6]==='r'}
+ function m2(x){return isR(x)?'['+x[5]+']':x[5].toFixed(2)}
+ var inversions={18:'Ar (৩৯.৯৫) K (৩৯.১০)-এর চেয়ে ভারী হলেও Ar-এর পারমাণবিক সংখ্যা ১৮, K-এর ১৯।',27:'Co (৫৮.৯৩) Ni (৫৮.৬৯)-এর চেয়ে ভারী, অথচ Co-এর পারমাণবিক সংখ্যা ২৭ ও Ni-এর ২৮।',52:'Te (১২৭.৬০) I (১২৬.৯০)-এর চেয়ে ভারী, অথচ Te-এর পারমাণবিক সংখ্যা ৫২ ও I-এর ৫৩।',90:'Th (২৩২.০৪) Pa (২৩১.০৪)-এর চেয়ে ভারী, অথচ Th-এর পারমাণবিক সংখ্যা ৯০ ও Pa-এর ৯১।'};
+ function why(x){var z=x[0];
+  if(x[6]==='t')return'ℹ️ '+x[1]+' তেজস্ক্রিয়, কিন্তু এর আইসোটোপগুলো অত্যন্ত দীর্ঘজীবী (অর্ধায়ু কোটি বছরের কাছাকাছি বা বেশি)। তাই প্রকৃতিতে আইসোটোপের অনুপাত স্থির, এবং এর প্রমিত পারমাণবিক ভর আছে।';
+  if(x[6]!=='r')return'';
+  var base='⚠️ '+x[1]+'-এর কোনো প্রমিত পারমাণবিক ভর নেই। প্রমিত ভর নির্ভর করে প্রকৃতিতে আইসোটোপগুলোর স্থির অনুপাতের ওপর, আর তেজস্ক্রিয় মৌল ক্ষয় হয়ে যায় বলে সেই অনুপাত স্থির থাকে না। ';
+  var tail=' বন্ধনীর সংখ্যাটি সবচেয়ে দীর্ঘজীবী পরিচিত আইসোটোপের ভরসংখ্যা, প্রমিত ভর নয়; উৎসভেদে এটি ভিন্ন হতে পারে।';
+  if(z===43||z===61)return base+'এর কোনো স্থিতিশীল আইসোটোপই নেই।'+tail;
+  if(z>=93)return base+'এটি কৃত্রিম মৌল, পরীক্ষাগারে পারমাণবিক বিক্রিয়ায় তৈরি; প্রকৃতিতে পাওয়া যায় না বা অতি সামান্য, আর আইসোটোপগুলোর অর্ধায়ু খুব কম।'+tail;
+  return base+'এর সব আইসোটোপ তেজস্ক্রিয় ও তুলনামূলক স্বল্পায়ু, তাই প্রকৃতিতে অতি সামান্য পাওয়া যায়।'+tail}
+ function band(x){var m=x[5];return m<20?0:m<45?1:m<80?2:m<130?3:4}
+ var BANDS=['< ২০','২০–৪৫','৪৫–৮০','৮০–১৩০','১৩০+'];
+ function legend(){return'<div class="ma-legend">'+BANDS.map(function(t,i){return'<span><i class="ma-b'+i+'"></i>'+t+'</span>'}).join('')+'<span><i class="ma-rad-k"></i>প্রমিত ভর নেই</span></div>'}
+ var WARN='<p class="ma-warn">⚠️ ধূসর ডটেড ঘরের মৌলগুলোর (তেজস্ক্রিয়/কৃত্রিম) কোনো প্রমিত পারমাণবিক ভর পাওয়া যায় না। এদের ভর বন্ধনীতে [ ] দেখানো হয়, যা কেবল সবচেয়ে দীর্ঘজীবী আইসোটোপের ভরসংখ্যা।</p>';
+ function cellHtml(f,o){var cls='ma-cell '+(isR(f)?'ma-rad':'ma-b'+band(f))+(o.hit===f[0]?' hit':'')+(o.sel===f[0]?' sel':'')+(o.miss&&o.miss[f[0]]?' miss':'');return'<button type="button" class="'+cls+'" data-z="'+f[0]+'"'+(o.off?' disabled':'')+' aria-label="'+f[2]+'"><b>'+f[1]+'</b></button>'}
+ function grid(o){o=o||{};var h='',p,gr,f;function at(pp,gg){return els.find(function(x){return x[3]===pp&&x[4]===gg})}
+  for(p=1;p<=7;p++)for(gr=1;gr<=18;gr++){f=at(p,gr);if(f)h+=cellHtml(f,o);else if(gr===3&&p===6)h+='<span class="ma-cell ma-ph">*</span>';else if(gr===3&&p===7)h+='<span class="ma-cell ma-ph">**</span>';else h+='<span class="ma-cell ma-none"></span>'}
+  var fr='';for(p=8;p<=9;p++)for(gr=3;gr<=17;gr++){f=at(p,gr);fr+=f?cellHtml(f,o):'<span class="ma-cell ma-none"></span>'}
+  return'<div class="ma-table">'+h+'</div><p class="mutt ma-fl">* ল্যান্থানয়েড (৫৭–৭১) &nbsp; ** অ্যাক্টিনয়েড (৮৯–১০৩)</p><div class="ma-table ma-f">'+fr+'</div>'}
+ function home(){mode='home';r.onclick=function(e){var b=e.target.closest('[data-mode]');if(!b)return;({map:mapStart,hunt:huntStart,ladder:ladderStart})[b.dataset.mode]()};
+  r.innerHTML='<div class="card"><div class="bn" style="font-size:1.35rem;font-weight:800">⚖️ Mass Atlas · ভরের মানচিত্র</div><p class="mutt">পর্যায়সারণীর রঙিন মানচিত্রে ঘুরে মৌলের পারমাণবিক ভর শেখো, খুঁজে বের করো, সাজাও।</p><div class="gA g2" style="margin-top:18px"><button class="btn pri" data-mode="map">🗺️ Mass Map · ভর দেখো</button><button class="btn" data-mode="hunt">🎯 Mass Hunt · ভর দেখে মৌল খোঁজো</button><button class="btn" data-mode="ladder">🪜 Mass Ladder · ভর বসাও</button></div><p class="mutt" style="margin-top:16px">মান: IUPAC-এর প্রমিত পারমাণবিক ভর, দুই দশমিক পর্যন্ত। রং যত গাঢ়, ভর তত বেশি।</p>'+WARN+'</div>'}
+ /* ---- Mode 1: explore ---- */
+ function mapStart(){mode='map';sel=null;mapDraw()}
+ function mapDraw(){var x=sel?byZ[sel]:null;
+  r.innerHTML='<div class="card"><p class="bn">যেকোনো মৌলে ট্যাপ করে তার ভর দেখো।</p><div class="ma-info">'+(x?'<span class="ma-sym">'+x[1]+'</span><div><div class="ma-name">'+x[2]+' · Z = '+x[0]+'</div><div class="ma-mass'+(isR(x)?' ma-mass-r':'')+'">'+m2(x)+' <small>u'+(isR(x)?' · প্রমিত ভর নয়':'')+'</small></div></div>':'<div class="mutt">একটি মৌল বেছে নাও…</div>')+'</div>'+(x&&(isR(x)||x[6]==='t')?'<p class="ex">'+why(x)+'</p>':'')+(x&&inversions[x[0]]?'<p class="ex">⚠️ '+inversions[x[0]]+'</p>':'')+legend()+grid({sel:sel})+WARN+'<button class="btn" data-home>← ব্যাক মেনু</button></div>';
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.dataset.z){sel=+b.dataset.z;mapDraw()}}}
+ /* ---- Mode 2: hunt (only elements that have a standard atomic weight are asked) ---- */
+ function huntStart(){mode='hunt';score=0;right=0;round=0;order=sh(STD.slice()).slice(0,10);huntShow()}
+ function huntShow(){if(round>=order.length){return A.done({score:score,pct:right/order.length,detail:right+' / '+order.length+' মৌল প্রথম চেষ্টায় সঠিক'})}
+  cur=order[round];tries=0;locked=false;if(Math.random()<.5)huntDrawFind({});else huntDrawChoice()}
+ function hudH(){return'<div class="hud"><div><small>স্কোর</small><b>'+score+'</b></div><div><small>রাউন্ড</small><b>'+(round+1)+' / '+order.length+'</b></div><div><small>সঠিক</small><b>'+right+'</b></div></div>'}
+ function huntDrawFind(miss,hit,msg){r.innerHTML=hudH()+'<div class="card"><p class="bn" style="font-size:1.15rem;font-weight:700">ভর <span class="ma-big">'+m2(cur)+'</span> u — এটি কোন মৌলের?</p><p class="mutt ma-hint">ধূসর ঘরের মৌলের প্রমিত ভর নেই, ওগুলো উত্তর নয়।</p>'+legend()+grid({miss:miss,hit:hit,off:!!hit})+'<p class="ex" id="ma-fb">'+(msg||'')+'</p><button class="btn pri" data-next '+(hit?'':'hidden')+'>পরের রাউন্ড →</button><button class="btn" data-home>← ব্যাক মেনু</button></div>';
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.hasAttribute('data-next')){round++;return huntShow()}
+   if(!b.dataset.z||locked)return;var z=+b.dataset.z,w=byZ[z];
+   if(z===cur[0]){locked=true;if(tries===0){right++;score+=10}else score+=Math.max(2,6-tries*2);huntDrawFind(miss,z,'✔ '+cur[1]+' ('+cur[2]+')-এর ভর '+m2(cur)+' u। '+(inversions[cur[0]]||''))}
+   else if(isR(w)){miss[z]=1;huntDrawFind(miss,null,why(w))}
+   else{tries++;miss[z]=1;score=Math.max(0,score-2);huntDrawFind(miss,null,'✘ '+w[1]+'-এর ভর '+m2(w)+' u। '+(w[5]<cur[5]?'খুঁজছি তার চেয়ে ভারী মৌল।':'খুঁজছি তার চেয়ে হালকা মৌল।'))}}}
+ function huntDrawChoice(){var pool=STD.filter(function(x){return x[0]!==cur[0]&&Math.abs(x[5]-cur[5])>.4}).sort(function(a,b){return Math.abs(a[5]-cur[5])-Math.abs(b[5]-cur[5])}).slice(0,6);var opts=sh(sh(pool).slice(0,3).concat([cur]));
+  r.innerHTML=hudH()+'<div class="card"><p class="bn" style="font-size:1.15rem;font-weight:700"><span class="ma-big">'+cur[1]+'</span> ('+cur[2]+', Z = '+cur[0]+')-এর পারমাণবিক ভর কত?</p><div class="pq-options">'+opts.map(function(o){return'<button class="btn" data-ok="'+(o===cur?1:0)+'">'+m2(o)+' u</button>'}).join('')+'</div><p class="ex" id="ma-fb"></p><button class="btn pri" data-next hidden>পরের রাউন্ড →</button><button class="btn" data-home>← ব্যাক মেনু</button></div>';
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.hasAttribute('data-next')){round++;return huntShow()}
+   if(b.dataset.ok==null||b.disabled)return;var ok=b.dataset.ok==='1';if(ok){right++;score+=10}else score=Math.max(0,score-2);r.querySelectorAll('[data-ok]').forEach(function(x){x.disabled=true;x.classList.add(x.dataset.ok==='1'?'okb':(x===b?'nob':'dim'))});r.querySelector('#ma-fb').textContent=(ok?'✔ সঠিক। ':'✘ সঠিক ভর '+m2(cur)+' u। ')+(inversions[cur[0]]||'');r.querySelector('[data-next]').hidden=false}}
+ /* ---- Mode 3: ladder (8 consecutive elements that have a standard atomic weight) ---- */
+ function ladderStart(){mode='ladder';score=0;right=0;placed={};sel=null;var st=ri(0,STD.length-8);order=STD.slice(st,st+8);ladderDraw()}
+ function ladderDraw(fbMsg){var rows=order.map(function(x){var v=placed[x[0]];return'<button type="button" class="ma-row '+(v?'filled':'')+'" data-z="'+x[0]+'" '+(v?'disabled':'')+'><span class="ma-z">'+x[0]+'</span><span class="ma-s">'+x[1]+'</span><span class="ma-n">'+x[2]+'</span><span class="ma-v">'+(v?m2(x):'?')+'</span></button>'}).join('');
+  var chips=order.filter(function(x){return !placed[x[0]]}).map(function(x){return x[5]}).sort(function(a,b){return a-b});
+  r.innerHTML='<div class="hud"><div><small>স্কোর</small><b>'+score+'</b></div><div><small>সঠিক</small><b>'+right+' / '+order.length+'</b></div><div><small>নির্বাচিত</small><b>'+(sel!=null?sel.toFixed(2):'—')+'</b></div></div><div class="card"><p class="bn">নিচ থেকে একটি ভর বেছে সঠিক মৌলের সারিতে ট্যাপ করো। পারমাণবিক সংখ্যা বাড়লে ভর সাধারণত বাড়ে।</p><div class="ma-ladder">'+rows+'</div><div class="pq-chips ma-chips">'+chips.map(function(v){return'<button type="button" class="pq-chip '+(sel===v?'sel':'')+'" data-m="'+v+'">'+v.toFixed(2)+'</button>'}).join('')+'</div><p class="ex" id="ma-fb">'+(fbMsg||'')+'</p><button class="btn" data-home>← ব্যাক মেনু</button></div>';
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();
+   if(b.dataset.m){sel=+b.dataset.m;return ladderDraw()}
+   if(b.dataset.z&&sel!=null){var x=byZ[+b.dataset.z];if(Math.abs(x[5]-sel)<.001){placed[x[0]]=1;right++;score+=10;sel=null;if(right>=order.length){return A.done({score:score,pct:1,detail:order.length+'টি মৌলের ভর সঠিকভাবে সাজানো হয়েছে'})}ladderDraw('✔ '+x[1]+' = '+m2(x)+' u. '+(inversions[x[0]]||''))}else{score=Math.max(0,score-2);ladderDraw('✘ ঠিক হয়নি। পারমাণবিক সংখ্যা ও আগের-পরের মৌলের ভর মিলিয়ে দেখো।')}}}}
+ home();
+};
+G.elementSprint=function(r,g,A){var E=A.E,items=[['H','Hydrogen',1],['He','Helium',2],['Li','Lithium',3],['Be','Beryllium',4],['B','Boron',5],['C','Carbon',6],['N','Nitrogen',7],['O','Oxygen',8],['F','Fluorine',9],['Ne','Neon',10],['Na','Sodium',11],['Mg','Magnesium',12],['Al','Aluminium',13],['Si','Silicon',14],['P','Phosphorus',15],['S','Sulfur',16],['Cl','Chlorine',17],['Ar','Argon',18]],qs=[],score=0,right=0,i=0,lock=false;items.forEach(function(x){qs.push({q:'কোন মৌলের পারমাণবিক সংখ্যা '+x[2]+'?',o:[x[0]+' — '+x[1],items[(x[2]+4)%items.length][0]+' — '+items[(x[2]+4)%items.length][1],items[(x[2]+9)%items.length][0]+' — '+items[(x[2]+9)%items.length][1],items[(x[2]+13)%items.length][0]+' — '+items[(x[2]+13)%items.length][1]],a:0,e:x[0]+' ('+x[1]+')-এর পারমাণবিক সংখ্যা '+x[2]+'.'})});qs=sh(qs).slice(0,10);function show(){if(i>=qs.length)return A.done({score:score,pct:right/qs.length,detail:right+' / '+qs.length+' সঠিক উত্তর'});var q=qs[i],opts=sh(q.o.map(function(t,j){return{t:t,ok:j===q.a}}));r.innerHTML=hud([['স্কোর','sc',score],['রাউন্ড','rd',(i+1)+' / '+qs.length],['সঠিক','rr',right]])+'<div class="card"><p class="bn qt">'+E(q.q)+'</p><div class="pq-options">'+opts.map(function(o){return'<button class="btn" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="es-ex"></p><button class="btn pri" data-next hidden>পরের প্রশ্ন →</button></div>';lock=false;r.onclick=function(e){var b=e.target.closest('button');if(!b||lock)return;if(b.hasAttribute('data-next')){i++;return show()}if(b.dataset.ok!=null){lock=true;if(b.dataset.ok==='1'){score+=10;right++}r.querySelectorAll('[data-ok]').forEach(function(x){x.disabled=true;x.classList.add(x.dataset.ok==='1'?'okb':(x===b?'nob':'dim'))});r.querySelector('#es-ex').textContent=(b.dataset.ok==='1'?'✔ সঠিক। ':'✘ ')+q.e;r.querySelector('[data-next]').hidden=false}}}show()};
+
+
+/* ================= Element Sprint =================
+   Dedicated registry entry used by the Arcade config. */
+G.elementSprint=function(r,g,A){
+ var E=A.E,score=0,right=0,round=0,finished=false,missed=[];
+ var elements=[
+  {n:1,s:'H',name:'Hydrogen'},{n:2,s:'He',name:'Helium'},{n:3,s:'Li',name:'Lithium'},
+  {n:6,s:'C',name:'Carbon'},{n:7,s:'N',name:'Nitrogen'},{n:8,s:'O',name:'Oxygen'},
+  {n:11,s:'Na',name:'Sodium'},{n:12,s:'Mg',name:'Magnesium'},{n:13,s:'Al',name:'Aluminium'},
+  {n:14,s:'Si',name:'Silicon'},{n:16,s:'S',name:'Sulfur'},{n:17,s:'Cl',name:'Chlorine'},
+  {n:19,s:'K',name:'Potassium'},{n:20,s:'Ca',name:'Calcium'},{n:26,s:'Fe',name:'Iron'},
+  {n:29,s:'Cu',name:'Copper'},{n:30,s:'Zn',name:'Zinc'},{n:47,s:'Ag',name:'Silver'},
+  {n:53,s:'I',name:'Iodine'},{n:79,s:'Au',name:'Gold'}
+ ];
+ function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+ var questions=shuffle(elements.slice()).slice(0,(g.challengeLevel===1?5:g.challengeLevel===2?8:g.challengeLevel===3?12:16)).map(function(el,i){
+  var mode=i%3,correct=mode===0?el.s:mode===1?el.name:String(el.n);
+  var others=shuffle(elements.filter(function(x){return x.n!==el.n}).slice()).slice(0,3).map(function(x){return mode===0?x.s:mode===1?x.name:String(x.n)});
+  return {el:el,mode:mode,correct:correct,opts:shuffle(others.concat([correct]))};
+ });
+ function show(){
+  if(round>=questions.length){finished=true;A.done({score:score,pct:right/questions.length,detail:right+' / '+questions.length+' সঠিক উত্তর',review:missed});return}
+  var q=questions[round],prompt=q.mode===0?'পারমাণবিক সংখ্যা '+q.el.n+' কোন মৌলের?':q.mode===1?q.el.s+' কোন মৌলের প্রতীক?':q.el.name+'-এর পারমাণবিক সংখ্যা কত?';
+  r.innerHTML='<div class="hud"><div><small>স্কোর</small><b>'+score+'</b></div><div><small>সঠিক</small><b>'+right+' / '+questions.length+'</b></div><div><small>প্রশ্ন</small><b>'+(round+1)+' / '+questions.length+'</b></div></div><div class="card"><h2 class="bn">⚡ Element Sprint</h2><p class="bn">'+E(prompt)+'</p><div class="gA g2" style="margin-top:14px">'+q.opts.map(function(o){return '<button class="btn" data-answer="'+E(o)+'">'+E(o)+'</button>'}).join('')+'</div><p class="ex" id="es-feedback" aria-live="polite"></p><button class="btn" data-next hidden>পরের প্রশ্ন →</button><p class="mutt">প্রতীক, নাম ও পারমাণবিক সংখ্যা মিলিয়ে দ্রুত অনুশীলন করো।</p></div>';
+  r.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-answer')){if(r.dataset.answered==='1')return;r.dataset.answered='1';var good=b.dataset.answer===q.correct; if(good){right++;score+=10;A.confetti&&A.confetti()}else if(missed.length<12)missed.push({q:prompt,a:q.correct,yourAnswer:b.dataset.answer,e:q.el.name+' ('+q.el.s+')-এর পারমাণবিক সংখ্যা '+q.el.n+'.'});Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(x){x.disabled=true;if(x.dataset.answer===q.correct)x.classList.add('pri')});var fb=r.querySelector('#es-feedback');if(fb)fb.textContent=good?'✔ সঠিক! '+q.el.name+' ('+q.el.s+') — পারমাণবিক সংখ্যা '+q.el.n+'.':'সঠিক উত্তর: '+q.correct+'. '+q.el.name+'-এর পারমাণবিক সংখ্যা '+q.el.n+'.';var nx=r.querySelector('[data-next]');if(nx)nx.hidden=false}else if(b.hasAttribute('data-next')){round++;delete r.dataset.answered;show()}};
+ }
+ show();
+};
+
+/* ================= Trend Duel: explicit per-button handlers prevent stale/delegated clicks ================= */
+G.trendDuel=function(r,g,A){
+ var E=A.E,qs=[
+ {q:'একই পর্যায়ে Na ও Cl-এর মধ্যে কার পারমাণবিক আকার বড়?',o:['Na','Cl','সমান','তথ্য যথেষ্ট নয়'],a:0,e:'একই পর্যায়ে সাধারণত বাম থেকে ডানে কার্যকর নিউক্লিয়ার চার্জ বাড়ে, তাই পারমাণবিক আকার কমে।'},
+ {q:'একই গ্রুপে Li ও K-এর মধ্যে কার পারমাণবিক আকার বড়?',o:['Li','K','সমান','দুটিই শূন্য'],a:1,e:'গ্রুপে নিচে নামলে নতুন শক্তিস্তর যুক্ত হয় এবং পারমাণবিক আকার বাড়ে।'},
+ {q:'Be ও B-এর মধ্যে কার প্রথম আয়নীকরণ শক্তি বেশি?',o:['Be','B','সমান','কোনোটির নয়'],a:0,e:'Be-এর 2s উপস্তর পূর্ণ; B থেকে 2p ইলেকট্রন সরানো তুলনামূলক সহজ।'},
+ {q:'N ও O-এর মধ্যে কার প্রথম আয়নীকরণ শক্তি বেশি?',o:['N','O','সমান','সবসময় O'],a:0,e:'N-এর অর্ধপূর্ণ 2p³ বিন্যাস স্থিতিশীল; O-তে জোড়া ইলেকট্রনের বিকর্ষণ থাকে।'},
+ {q:'একই পর্যায়ে সাধারণত ধাতব ধর্ম কোন দিকে বাড়ে?',o:['ডান দিকে','বাম দিকে','শুধু মাঝখানে','পরিবর্তন হয় না'],a:1,e:'পর্যায়ে বামদিকে ইলেকট্রন ত্যাগ করা তুলনামূলক সহজ, তাই ধাতব ধর্ম সাধারণত বেশি।'},
+ {q:'একই গ্রুপে সাধারণত তড়িৎঋণাত্মকতা নিচে নামলে কী হয়?',o:['বাড়ে','কমে','সবসময় সমান','শূন্য হয়'],a:1,e:'পরমাণুর আকার ও শিল্ডিং বাড়ায় বন্ধন-ইলেকট্রনের ওপর আকর্ষণ সাধারণত কমে।'},
+ {q:'গলনাঙ্কের জন্য কোন বক্তব্যটি ঠিক?',o:['সব মৌলে ডানদিকে বাড়ে','সব মৌলে নিচে বাড়ে','বন্ধন ও গঠনের ওপর নির্ভর করে','সব মৌলে সমান'],a:2,e:'গলনাঙ্কের একটিমাত্র সর্বজনীন প্রবণতা নেই; গঠন ও বন্ধনের ধরন গুরুত্বপূর্ণ।'},
+ {q:'একটি পরমাণু ইলেকট্রন হারালে কী তৈরি হয়?',o:['ধনায়ন','ঋণায়ন','নিউট্রন','সমস্থানিক'],a:0,e:'ইলেকট্রন হারালে প্রোটনের সংখ্যা ইলেকট্রনের চেয়ে বেশি হয়, ফলে ধনায়ন তৈরি হয়।'}
+ ];
+ function shuffle(a){return sh(a)} qs=shuffle(qs.slice()).slice(0,(g.challengeLevel===1?4:g.challengeLevel===2?6:g.challengeLevel===3?7:qs.length));var i=0,score=0,right=0,answered=false,locked=false,missed=[];
+ function show(){
+  if(i>=qs.length){A.done({score:score,pct:right/qs.length,detail:right+' / '+qs.length+' সঠিক উত্তর',review:missed});return}
+  var q=qs[i],opts=shuffle(q.o.map(function(t,j){return{t:t,ok:j===q.a}}));answered=false;locked=false;
+  r.innerHTML=hud([['স্কোর','td-score',score],['ডুয়েল','td-round',(i+1)+' / '+qs.length],['সঠিক','td-right',right]])+'<div class="card trend-duel-card"><div class="td-kicker">PERIODIC TRENDS · ROUND '+(i+1)+'</div><p class="bn qt">⚔️ '+E(q.q)+'</p><div class="pq-options">'+opts.map(function(o,j){return'<button type="button" class="btn td-option" data-answer="'+(o.ok?'1':'0')+'"><span class="td-letter">'+String.fromCharCode(65+j)+'</span><span>'+E(o.t)+'</span></button>'}).join('')+'</div><p class="ex" id="td-ex" aria-live="polite"></p><div class="td-actions"><button type="button" class="btn pri td-next" data-next disabled>আগে উত্তর নির্বাচন করুন</button><a class="btn" href="#/play">← ব্যাক মেনু</a></div><p class="mutt td-tip">উত্তর বেছে নাও; ব্যাখ্যাটি পড়ে পরের ডুয়েলে যাও।</p></div>';
+  Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(b){b.addEventListener('click',function(){if(locked)return;locked=true;answered=true;var ok=b.dataset.answer==='1';if(ok){score+=10;right++}else if(missed.length<12)missed.push({q:q.q,a:q.o[q.a],yourAnswer:b.textContent,e:q.e});Array.prototype.forEach.call(r.querySelectorAll('[data-answer]'),function(x){x.disabled=true;if(x.dataset.answer==='1')x.classList.add('okb');else if(x===b)x.classList.add('nob');else x.classList.add('dim')});var ex=r.querySelector('#td-ex');if(ex)ex.textContent=(ok?'✔ সঠিক উত্তর! ':'✘ সঠিক উত্তর: '+q.o[q.a]+'। ')+q.e;var nx=r.querySelector('[data-next]');if(nx){nx.disabled=false;nx.textContent=i===qs.length-1?'ফলাফল দেখুন →':'পরের ডুয়েল →';nx.addEventListener('click',function(){if(!answered)return;i++;show()},{once:true})}})});
+ }
+ show();
+};
+
+/* ================= Odd One Out ================= */
+G.oddOne=function(r,g,A){var X=A.X,E=A.E,sets=((g.data||{}).sets||[]).filter(function(s){return s&&Array.isArray(s.i)&&s.i.filter(Boolean).length>=3&&s.i[+s.odd]!=null&&String(s.i[+s.odd]).trim()!==''});
+ if(sets.length<2)return empty(r,'এই গেমটি খেলতে অন্তত ২টি সেট প্রয়োজন।');
+ var list=sh(sets.slice()).slice(0,8),i=0,score=0,combo=0,right=0,lock=false,over=false,missed=[];
+ r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],['Round','pg','']])+'<div class="card" id="oc"></div>';
+ function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/2));qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length}
+ function show(){lock=false;var s=list[i],opts=sh(s.i.map(function(t,k){return{t:t,k:k}}).filter(function(o){return o.t!=null&&String(o.t).trim()!==''}));
+  qa(r,'#oc').innerHTML='<p class="bn qt">'+E(s.q||'কোনটি অন্যগুলোর মতো নয়?')+'</p><div class="odd-grid">'+opts.map(function(o){return'<button class="opt" data-k="'+o.k+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div>';h()}
+ function pick(b){if(lock||over)return;lock=true;var s=list[i],k=+b.dataset.k,odd=+s.odd,ok=k===odd;
+  qq(r,'.opt').forEach(function(o){if(+o.dataset.k===odd)o.classList.add('ok');else if(o===b)o.classList.add('no');else o.classList.add('dim')});
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/2));right++}else{combo=0;if(missed.length<12)missed.push({q:(s.q||'অন্যরকমটি কোনটি?')+' ('+s.i.filter(Boolean).join(', ')+')',a:s.i[odd],yourAnswer:s.i[k],e:s.why||''})}
+  qa(r,'#ex').textContent=(ok?'✔ ':'✘ সঠিক উত্তর: '+s.i[odd]+'। ')+(s.why||'');h();
+  var last=i>=list.length-1;qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+(last?'ফলাফল দেখুন →':E(X('g_next')))+'</button>';
+  qa(r,'#nb').onclick=function(){if(last)return end();i++;show()}}
+ function end(){if(over)return;over=true;A.done({score:score,pct:right/list.length,detail:right+' / '+list.length+' correct',review:missed})}
+ r.onclick=function(e){var b=e.target.closest('.opt');if(b&&b.closest('#oc'))pick(b)};show()};
+
+/* ================= Step Order ================= */
+G.stepOrder=function(r,g,A){var X=A.X,E=A.E,puz=((g.data||{}).puzzles||[]).filter(function(p){return p&&Array.isArray(p.steps)&&p.steps.filter(function(s){return s&&String(s).trim()}).length>=3}).map(function(p){return{t:p.t||'ধাপগুলো সাজান',steps:p.steps.filter(function(s){return s&&String(s).trim()}),why:p.why||''}});
+ if(puz.length<1)return empty(r,'এই গেমে এখনো কোনো ধাঁধা যোগ করা হয়নি। অন্য একটি গেম বেছে নিন।');
+ var list=sh(puz.slice()).slice(0,5),i=0,score=0,total=0,over=false,missed=[],mist=0,placed=0,order=[];
+ r.innerHTML=hud([[X('g_score'),'sc',0],['Puzzle','pg',''],['ভুল চাল','ms',0]])+'<div class="card" id="sc2"></div>';
+ function h(){qa(r,'#sc').textContent=score;qa(r,'#pg').textContent=Math.min(i+1,list.length)+' / '+list.length;qa(r,'#ms').textContent=mist}
+ function show(){var p=list[i];mist=0;placed=0;order=sh(p.steps.map(function(t,k){return{t:t,k:k}}));
+  qa(r,'#sc2').innerHTML='<p class="bn qt">'+E(p.t)+'</p><p class="mutt">ধাপগুলো সঠিক ক্রমে একটি একটি করে ট্যাপ করুন।</p><ol class="step-done" id="sd"></ol><div class="step-bank" id="sb">'+order.map(function(o){return'<button class="opt step-chip" data-k="'+o.k+'">'+E(o.t)+'</button>'}).join('')+'</div><p class="ex" id="ex" aria-live="polite"></p><div id="nx"></div>';h()}
+ function tap(b){if(over||b.disabled)return;var p=list[i],k=+b.dataset.k;
+  if(k===placed){b.disabled=true;b.classList.add('ok');var li=document.createElement('li');li.textContent=p.steps[k];qa(r,'#sd').appendChild(li);b.remove();placed++;
+   if(placed===p.steps.length){var frac=Math.max(0,1-.25*mist);total+=frac;score+=Math.max(5,Math.round(30*frac));if(mist>0&&missed.length<12)missed.push({q:p.t,a:p.steps.map(function(s,n){return(n+1)+') '+s}).join(' → '),e:p.why});
+    qa(r,'#ex').textContent=(mist?'সম্পূর্ণ হয়েছে ('+mist+'টি ভুল চাল)। ':'✔ নিখুঁত! ')+(p.why||'');h();var last=i>=list.length-1;
+    qa(r,'#nx').innerHTML='<button class="btn pri" id="nb">'+(last?'ফলাফল দেখুন →':E(X('g_next')))+'</button>';qa(r,'#nb').onclick=function(){if(last)return end();i++;show()}}
+   else h()}
+  else{mist++;b.classList.add('no');setTimeout(function(){b.classList.remove('no')},450);qa(r,'#ex').textContent='✘ এটি এখন নয়—আগে কোন ধাপটি হবে ভাবুন।';h()}}
+ function end(){if(over)return;over=true;A.done({score:score,pct:total/list.length,detail:Math.round(total*10)/10+' / '+list.length+' puzzles solved cleanly',review:missed})}
+ r.onclick=function(e){var b=e.target.closest('.step-chip');if(b)tap(b)};show()};
+
+
+/* ================= Ion Detective: complete qualitative analysis game ================= */
+G.ionDetective=function(r,g,A){
+ r.classList.add('ion-game-root');
+ var E=A.E,activeMode='home',notebookResumeLab=false,quizList=[],quizIndex=0,quizScore=0,quizRight=0,quizLock=false,quizOver=false,quizStart=0,quizSeconds=60,quizTimer=null,quizMissed=[],
+     labList=[],labIndex=0,labScore=0,labPerfect=0,labTested={},labSelected={cation:'',anion:''},labAnswered=false,labMissed=[],labHint=false;
+ function shuffle(a){return sh(a.slice())}
+ var cases=[
+  {id:'A-01',look:'নীল দ্রবণ',cation:'Cu²⁺',anion:'SO₄²⁻',why:'Cu²⁺-এর সঙ্গে NaOH দিলে নীল Cu(OH)₂ অধঃক্ষেপ হয়; অম্লীয় দ্রবণে BaCl₂ পরীক্ষায় SO₄²⁻ সাদা BaSO₄ দেয়।'},
+  {id:'A-02',look:'ফ্যাকাশে সবুজ দ্রবণ',cation:'Fe²⁺',anion:'SO₄²⁻',why:'Fe²⁺-এর সঙ্গে NaOH দিলে প্রথমে সবুজ Fe(OH)₂ অধঃক্ষেপ হয়, যা বাতাসে ধীরে বাদামি হতে পারে; BaCl₂ পরীক্ষায় সালফেটের সাদা BaSO₄ তৈরি হয়।'},
+  {id:'A-03',look:'হলুদাভ-বাদামি দ্রবণ',cation:'Fe³⁺',anion:'Cl⁻',why:'Fe³⁺-এর সঙ্গে NaOH দিলে লালচে-বাদামি Fe(OH)₃ অধঃক্ষেপ হয়; অম্লায়িত নমুনায় AgNO₃ দিলে সাদা AgCl তৈরি হয়।'},
+  {id:'A-04',look:'বর্ণহীন দ্রবণ',cation:'Na⁺',anion:'Cl⁻',why:'Na⁺ তীব্র সোনালি-হলুদ শিখা দেয় এবং সাধারণত NaOH-এ অধঃক্ষেপ দেয় না; AgNO₃ পরীক্ষায় ক্লোরাইডের সাদা AgCl তৈরি হয়।'},
+  {id:'A-05',look:'বর্ণহীন দ্রবণ',cation:'NH₄⁺',anion:'Cl⁻',why:'NaOH দিয়ে উষ্ণ করলে NH₄⁺ থেকে NH₃ গ্যাস বের হয়, যা সিক্ত লাল লিটমাসকে নীল করে; ক্লোরাইডের জন্য AgNO₃ সাদা AgCl দেয়।'},
+  {id:'A-06',look:'বর্ণহীন দ্রবণ',cation:'K⁺',anion:'NO₃⁻',why:'K⁺ শিখা পরীক্ষায় হালকা বেগুনি রং দেয় (সোডিয়ামের হলুদ শিখা ঢেকে দিতে পারে); নাইট্রেটের উপযুক্ত নিশ্চিতকরণ পরীক্ষায় ব্রাউন-রিং দেখা যায়।'},
+  {id:'A-07',look:'বর্ণহীন দ্রবণ',cation:'Ba²⁺',anion:'Cl⁻',why:'Ba²⁺ আপেল-সবুজ শিখা দেয়; অম্লায়িত নমুনায় AgNO₃ দিলে ক্লোরাইডের সাদা AgCl তৈরি হয়।'},
+  {id:'A-08',look:'বর্ণহীন দ্রবণ',cation:'Li⁺',anion:'Br⁻',why:'Li⁺ গাঢ় লাল/ক্রিমসন শিখা দেয়; অম্লায়িত নমুনায় AgNO₃ দিলে ব্রোমাইডের ক্রিম রঙের AgBr অধঃক্ষেপ হয়।'},
+  {id:'A-09',look:'বর্ণহীন দ্রবণ',cation:'Na⁺',anion:'CO₃²⁻',why:'Na⁺ সোনালি-হলুদ শিখা দেয়; কার্বনেটের সঙ্গে dilute acid যোগ করলে CO₂-এর বুদ্‌বুদ তৈরি হয় এবং চুনপানি ঘোলা করে।'},
+  {id:'A-10',look:'বর্ণহীন দ্রবণ',cation:'K⁺',anion:'Br⁻',why:'K⁺-এর শিখা হালকা বেগুনি; ব্রোমাইডে অম্লায়িত নমুনার AgNO₃ পরীক্ষা ক্রিম রঙের AgBr অধঃক্ষেপ দেয়।'},
+  {id:'A-11',look:'বর্ণহীন দ্রবণ',cation:'Na⁺',anion:'SO₄²⁻',why:'Na⁺ সোনালি-হলুদ শিখা দেয়; অম্লীয় মাধ্যমে BaCl₂ দিলে সাদা, অদ্রবণীয় BaSO₄ অধঃক্ষেপ সালফেট নির্দেশ করে।'},
+  {id:'A-12',look:'বর্ণহীন দ্রবণ',cation:'NH₄⁺',anion:'NO₃⁻',why:'NaOH দিয়ে উষ্ণ করলে NH₃ গ্যাস নির্গত হয়; নাইট্রেটের উপযুক্ত নিশ্চিতকরণ পরীক্ষায় ব্রাউন-রিং দেখা যায়।'},
+  {id:'A-13',look:'বর্ণহীন দ্রবণ',cation:'K⁺',anion:'I⁻',why:'K⁺ হালকা বেগুনি শিখা দিতে পারে; অম্লায়িত নমুনায় AgNO₃ দিলে I⁻ হলুদ AgI অধঃক্ষেপ তৈরি করে।'},
+  {id:'A-14',look:'বর্ণহীন দ্রবণ',cation:'Al³⁺',anion:'Cl⁻',why:'Al³⁺-এর সঙ্গে NaOH দিলে সাদা জেলির মতো Al(OH)₃ অধঃক্ষেপ হয়; অতিরিক্ত NaOH-এ এটি দ্রবীভূত হতে পারে। ক্লোরাইডের জন্য AgNO₃-এ সাদা AgCl হয়।'},
+  {id:'A-15',look:'বর্ণহীন দ্রবণ',cation:'Mg²⁺',anion:'SO₄²⁻',why:'Mg²⁺-এর সঙ্গে NaOH দিলে সাদা Mg(OH)₂ অধঃক্ষেপ হয়; সালফেটের উপযুক্ত পরীক্ষায় অম্লীয় মাধ্যমে BaCl₂ সাদা BaSO₄ দেয়।'},
+  {id:'A-16',look:'বর্ণহীন দ্রবণ',cation:'Ca²⁺',anion:'Cl⁻',why:'Ca²⁺ শিখা পরীক্ষায় ইট-লাল/কমলা-লাল রং দিতে পারে। ক্লোরাইডের জন্য উপযুক্তভাবে অম্লায়িত নমুনায় AgNO₃ সাদা AgCl দেয়।'}
+ ];
+ var cations=['Na⁺','K⁺','Li⁺','Cu²⁺','Fe²⁺','Fe³⁺','NH₄⁺','Ba²⁺','Al³⁺','Mg²⁺','Ca²⁺'];
+ var anions=['Cl⁻','Br⁻','I⁻','SO₄²⁻','CO₃²⁻','NO₃⁻'];
+ var tests=[
+  {id:'naoh',icon:'🧴',name:'NaOH পরীক্ষা',short:'NaOH',sub:'যোগ করলে অধঃক্ষেপের রং বা গ্যাস নির্গমন লক্ষ করো',how:'এই ভার্চুয়াল মডেলে NaOH যোগ করার পর অবক্ষেপের রং, গ্যাসের ইঙ্গিত এবং প্রয়োজনে অতিরিক্ত বিকারকে দ্রবণীয়তার পরিবর্তন দেখানো হয়।',look:'নীল, সবুজ, বাদামি বা সাদা অধঃক্ষেপ; NH₄⁺ হলে NH₃-এর ইঙ্গিত।',why:'অবক্ষেপের রং/দ্রাব্যতা দেখুন। NH₄⁺ থাকলে NaOH দিয়ে উষ্ণ করার পরে NH₃ শনাক্তকরণ জরুরি।'},
+  {id:'flame',icon:'🔥',name:'শিখা পরীক্ষা',short:'শিখা',sub:'শিখার রং থেকে ধাতব আয়নের ইঙ্গিত',how:'ভার্চুয়াল শিখার রং পর্যবেক্ষণ করো। সব আয়ন স্পষ্ট রং দেয় না এবং দূষণ/মিশ্রণ ফলকে ঢেকে দিতে পারে।',look:'Na⁺ হলুদ, K⁺ হালকা বেগুনি, Li⁺ ক্রিমসন, Ba²⁺ আপেল-সবুজ, Cu²⁺ নীলাভ-সবুজ।',why:'Na⁺ হলুদ, K⁺ হালকা বেগুনি, Li⁺ গাঢ় লাল, Ba²⁺ আপেল-সবুজ ও Cu²⁺ নীলাভ-সবুজ শিখা দিতে পারে।'},
+  {id:'agno3',icon:'⚗️',name:'AgNO₃ পরীক্ষা',short:'AgNO₃',sub:'সাদা/ক্রিম/হলুদ অধঃক্ষেপ তুলনা',how:'হ্যালাইডের ফল বোঝাতে নমুনা যথাযথভাবে অম্লায়িত—সাধারণত dilute HNO₃ মডেলে—ধরা হয়েছে; HCl ব্যবহার করলে অতিরিক্ত Cl⁻ ফল নষ্ট করতে পারে।',look:'Cl⁻ সাদা AgCl, Br⁻ ক্রিম AgBr, I⁻ হলুদ AgI।',why:'হ্যালাইড পরীক্ষায় নমুনা dilute HNO₃ দিয়ে অম্লায়িত করা হয়; HCl ব্যবহার করলে অতিরিক্ত Cl⁻ ঢুকে ফল ভুল হতে পারে।'},
+  {id:'sulfate',icon:'🧪',name:'BaCl₂ পরীক্ষা',short:'BaCl₂',sub:'স্থায়ী সাদা BaSO₄ অধঃক্ষেপ দেখো',how:'উপযুক্ত অম্লীয় মাধ্যমে BaCl₂ যোগ করার ফল ভার্চুয়ালি দেখানো হয়; অম্লায়ন কিছু বিঘ্নকারী আয়নের প্রভাব কমায়।',look:'SO₄²⁻ থাকলে ঘন সাদা BaSO₄ অধঃক্ষেপ।',why:'নমুনাকে উপযুক্তভাবে অম্লায়িত করে BaCl₂ যোগ করলে SO₄²⁻ সাদা BaSO₄ অধঃক্ষেপ দিতে পারে।'},
+  {id:'acid',icon:'🫧',name:'পাতলা অ্যাসিড পরীক্ষা',short:'Dilute acid',sub:'বুদ্‌বুদ ও CO₂-এর প্রমাণ খোঁজো',how:'কার্বনেটের সঙ্গে অ্যাসিডের ভার্চুয়াল বিক্রিয়া দেখো; গ্যাসের বুদ্‌বুদ এবং চুনপানির ঘোলা হওয়া হলো প্রাসঙ্গিক লক্ষণ।',look:'CO₃²⁻ থাকলে CO₂ নির্গমন; চুনপানি ঘোলা হয়।',why:'কার্বনেটের সঙ্গে পাতলা অ্যাসিডে CO₂ বুদ্‌বুদ হয়; গ্যাসটি চুনপানিকে ঘোলা করে।'},
+  {id:'nitrate',icon:'🟤',name:'নাইট্রেট নিশ্চিতকরণ',short:'NO₃⁻',sub:'ব্রাউন-রিং ফলের অর্থ বুঝো',how:'এটি nitrate confirmatory test-এর ধারণাগত ফল; সংযোগস্থলে বাদামি ring দেখানো হলে সেটিকে পরীক্ষার অন্যান্য শর্তসহ ব্যাখ্যা করতে হয়।',look:'ধারণাগত মডেলে সংযোগস্থলে বাদামি ring।',why:'নাইট্রেটের নির্দিষ্ট নিশ্চিতকরণ পরীক্ষার ফল হিসেবে এখানে brown-ring পর্যবেক্ষণ শেখানো হয়। এটি ভার্চুয়াল মডেল।'}
+ ];
+ function cationResult(id,ion){
+  if(id==='naoh'){
+   if(ion==='Cu²⁺')return{obs:'নীল অধঃক্ষেপ তৈরি হলো।',eq:'Cu²⁺ + 2OH⁻ → Cu(OH)₂↓',tag:'অধঃক্ষেপ',tone:'blue'};
+   if(ion==='Fe²⁺')return{obs:'প্রথমে ময়লা-সবুজ অধঃক্ষেপ; কিছুক্ষণ বাতাসে থাকলে বাদামি হতে পারে।',eq:'Fe²⁺ + 2OH⁻ → Fe(OH)₂↓',tag:'অধঃক্ষেপ',tone:'green'};
+   if(ion==='Fe³⁺')return{obs:'লালচে-বাদামি অধঃক্ষেপ তৈরি হলো।',eq:'Fe³⁺ + 3OH⁻ → Fe(OH)₃↓',tag:'অধঃক্ষেপ',tone:'brown'};
+   if(ion==='Al³⁺')return{obs:'সাদা, জেলির মতো Al(OH)₃ অধঃক্ষেপ তৈরি হতে পারে; অতিরিক্ত NaOH-এ এটি দ্রবীভূত হয়—এই দ্বিতীয় পর্যবেক্ষণটি গুরুত্বপূর্ণ।',eq:'Al³⁺ + 3OH⁻ → Al(OH)₃↓',tag:'সাদা অধঃক্ষেপ',tone:'white'};
+   if(ion==='Mg²⁺')return{obs:'সাদা Mg(OH)₂ অধঃক্ষেপ তৈরি হলো; এটি অতিরিক্ত NaOH-এ সাধারণত Al(OH)₃-এর মতো দ্রবীভূত হয় না।',eq:'Mg²⁺ + 2OH⁻ → Mg(OH)₂↓',tag:'সাদা অধঃক্ষেপ',tone:'white'};
+   if(ion==='Ca²⁺')return{obs:'পরীক্ষার ঘনত্ব ও শর্ত অনুযায়ী সাদা/খুব সামান্য অধঃক্ষেপ দেখা যেতে পারে; একে একা নিশ্চিত প্রমাণ ধরো না।',eq:'Ca²⁺ + 2OH⁻ ⇌ Ca(OH)₂(s)',tag:'সতর্ক পর্যবেক্ষণ',tone:'neutral'};
+   if(ion==='NH₄⁺')return{obs:'সাধারণ অধঃক্ষেপ নেই; NaOH দিয়ে উষ্ণ করলে NH₃ গ্যাস পাওয়া যেতে পারে, যা সিক্ত লাল লিটমাস নীল করে।',eq:'NH₄⁺ + OH⁻ → NH₃↑ + H₂O',tag:'গ্যাস',tone:'gas'};
+   return{obs:'এই পরিস্থিতিতে উল্লেখযোগ্য রঙিন অধঃক্ষেপ দেখা গেল না। শুধু এই ফল থেকে আয়ন নিশ্চিত করা যায় না।',eq:'—',tag:'অধঃক্ষেপ নেই',tone:'neutral'};
+  }
+  if(id==='flame'){
+   var flame={'Na⁺':['তীব্র সোনালি-হলুদ শিখা।','Na⁺-এর বৈশিষ্ট্যপূর্ণ শিখার রং হলুদ।','gold'],'K⁺':['হালকা বেগুনি শিখা; সোডিয়ামের হলুদ রং ঢেকে দিতে পারে।','K⁺-এর শিখার রং হালকা বেগুনি; প্রয়োজনে উপযুক্ত filter দিয়ে দেখা হয়।','lilac'],'Li⁺':['গাঢ় লাল/ক্রিমসন শিখা।','Li⁺-এর শিখার রং ক্রিমসন লাল।','red'],'Ba²⁺':['আপেল-সবুজ শিখা।','Ba²⁺-এর বৈশিষ্ট্যপূর্ণ শিখা আপেল-সবুজ।','green'],'Cu²⁺':['নীলাভ-সবুজ শিখা।','Cu²⁺-যুক্ত লবণ নীলাভ-সবুজ শিখা দিতে পারে।','bluegreen'],'Ca²⁺':['ইট-লাল/কমলা-লাল শিখা দেখা যেতে পারে।','Ca²⁺-এর শিখা ইট-লাল; শর্ত ও অন্যান্য আয়নে রং অস্পষ্ট হতে পারে।','red']};
+   if(flame[ion])return{obs:flame[ion][0],eq:flame[ion][1],tag:'শিখার রং',tone:flame[ion][2]};
+   return{obs:'এই নমুনায় এই পরীক্ষায় নির্ভরযোগ্য বৈশিষ্ট্যপূর্ণ শিখার রং পাওয়া যায়নি। অন্য পরীক্ষা বেছে নিন।',eq:'শিখা পরীক্ষা সব ধনায়নের জন্য কার্যকর নয়।',tag:'সীমাবদ্ধতা',tone:'neutral'};
+  }
+  return{obs:'এই পরীক্ষা ধনায়নের জন্য নয়; এটি ঋণায়ন/নির্দিষ্ট গ্যাস শনাক্তকরণের সহায়ক পরীক্ষা।',eq:'—',tag:'অন্য পরীক্ষা',tone:'neutral'};
+ }
+ function anionResult(id,ion){
+  if(id==='agno3'){
+   if(ion==='Cl⁻')return{obs:'সাদা, দইয়ের মতো AgCl অধঃক্ষেপ তৈরি হলো।',eq:'Ag⁺ + Cl⁻ → AgCl↓',tag:'সাদা অধঃক্ষেপ',tone:'white'};
+   if(ion==='Br⁻')return{obs:'ক্রিম রঙের AgBr অধঃক্ষেপ তৈরি হলো।',eq:'Ag⁺ + Br⁻ → AgBr↓',tag:'ক্রিম অধঃক্ষেপ',tone:'cream'};
+   if(ion==='I⁻')return{obs:'হলুদ AgI অধঃক্ষেপ তৈরি হলো।',eq:'Ag⁺ + I⁻ → AgI↓',tag:'হলুদ অধঃক্ষেপ',tone:'yellow'};
+   return{obs:'হ্যালাইডের জন্য প্রত্যাশিত বৈশিষ্ট্যপূর্ণ অধঃক্ষেপ দেখা গেল না। একে একা চূড়ান্ত প্রমাণ ধরে নেবেন না।',eq:'—',tag:'নির্ণায়ক ফল নেই',tone:'neutral'};
+  }
+  if(id==='sulfate'){
+   if(ion==='SO₄²⁻')return{obs:'ঘন সাদা BaSO₄ অধঃক্ষেপ তৈরি হলো, যা উপযুক্ত অম্লীয় মাধ্যমে অদ্রবণীয় থাকে।',eq:'Ba²⁺ + SO₄²⁻ → BaSO₄↓',tag:'সাদা অধঃক্ষেপ',tone:'white'};
+   return{obs:'এই মডেলে সালফেটের বৈশিষ্ট্যপূর্ণ স্থায়ী সাদা BaSO₄ অধঃক্ষেপ দেখা গেল না।',eq:'—',tag:'সালফেটের প্রমাণ নেই',tone:'neutral'};
+  }
+  if(id==='acid'){
+   if(ion==='CO₃²⁻')return{obs:'বুদ্‌বুদসহ CO₂ নির্গত হচ্ছে; গ্যাস চুনপানিকে ঘোলা করে।',eq:'CO₃²⁻ + 2H⁺ → CO₂↑ + H₂O',tag:'গ্যাস নির্গমন',tone:'gas'};
+   return{obs:'কার্বনেটের মতো স্পষ্ট effervescence বা CO₂-এর ফল দেখা গেল না।',eq:'—',tag:'বুদ্‌বুদ নেই',tone:'neutral'};
+  }
+  if(id==='nitrate'){
+   if(ion==='NO₃⁻')return{obs:'নাইট্রেটের নিশ্চিতকরণ পরীক্ষার মডেলে সংযোগস্থলে বাদামি ring দেখা গেল।',eq:'নির্দিষ্ট nitrate confirmatory test (ধারণাগত ফল)',tag:'Brown ring',tone:'brown'};
+   return{obs:'এই পরীক্ষার মডেলে বাদামি ring দেখা গেল না। একাধিক পরীক্ষার ফল মিলিয়ে নিন।',eq:'—',tag:'নির্ণায়ক ফল নেই',tone:'neutral'};
+  }
+  return{obs:'এই পরীক্ষা এই আয়নের জন্য সরাসরি নিশ্চিতকরণ পরীক্ষা নয়।',eq:'—',tag:'অন্য পরীক্ষা',tone:'neutral'};
+ }
+ function testResult(testId,sample){if(testId==='naoh'||testId==='flame')return cationResult(testId,sample.cation);return anionResult(testId,sample.anion)}
+ function scrollGameToTop(){var doc=document.documentElement,old=doc.style.scrollBehavior;doc.style.scrollBehavior='auto';var header=document.querySelector('header'),hh=header?header.getBoundingClientRect().height:0,top=window.pageYOffset+r.getBoundingClientRect().top-hh-8;window.scrollTo(0,Math.max(0,top));requestAnimationFrame(function(){doc.style.scrollBehavior=old;});}
+ function restoreGameScroll(y){var doc=document.documentElement,old=doc.style.scrollBehavior;doc.style.scrollBehavior='auto';window.scrollTo(0,y);requestAnimationFrame(function(){window.scrollTo(0,y);requestAnimationFrame(function(){window.scrollTo(0,y);doc.style.scrollBehavior=old;});});}
+ function liveResultCard(){var ids=Object.keys(labTested);if(!ids.length)return '<section class="ion-simulation-guide"><b>🧭 পরীক্ষা কীভাবে বুঝবে?</b><div class="ion-guide-steps"><span>১ · বিকারক বেছে নাও</span><i>→</i><span>২ · রং/গ্যাস লক্ষ্য করো</span><i>→</i><span>৩ · ফল মিলিয়ে আয়ন বাছো</span></div><p>শুধু রং দেখে অনুমান নয়—পর্যবেক্ষণ, বিক্রিয়ার সমীকরণ ও দ্বিতীয় নিশ্চিতকরণ পরীক্ষা মিলিয়ে সিদ্ধান্ত নাও।</p></section>';
+  var id=ids[ids.length-1],z=labTested[id],t=tests.filter(function(x){return x.id===id})[0],meaning={naoh:'এটি মূলত ধনায়ন সম্পর্কে ইঙ্গিত দেয়। অধঃক্ষেপের রং, গ্যাসের প্রমাণ এবং দ্রাব্যতার পরিবর্তন একসঙ্গে বিবেচনা করো।',flame:'এটি ধাতব ধনায়নের একটি ইঙ্গিত মাত্র। অন্য পরীক্ষা দিয়ে নিশ্চিত করো; সোডিয়ামের হলুদ শিখা অন্য রং ঢেকে দিতে পারে।',agno3:'সাদা AgCl → Cl⁻, ক্রিম AgBr → Br⁻, হলুদ AgI → I⁻-এর পক্ষে প্রমাণ। নমুনার অম্লায়নের শর্ত গুরুত্বপূর্ণ।',sulfate:'উপযুক্ত অম্লীয় মাধ্যমে স্থায়ী সাদা BaSO₄ দেখা সালফেটের পক্ষে প্রমাণ; অন্য সম্ভাবনা বাদ দিতে শর্ত যাচাই করো।',acid:'বুদ্‌বুদে CO₂ হলে কার্বনেটের সম্ভাবনা থাকে; চুনপানি ঘোলা হওয়া অতিরিক্ত প্রমাণ।',nitrate:'বাদামি ring nitrate পরীক্ষার নির্দেশক ফল; মডেলটি ফলের ধারণা বোঝায়, বাস্তব পরীক্ষার সম্পূর্ণ ধাপ নয়.'}[id]||'একটি পর্যবেক্ষণকে অন্য উপযুক্ত নিশ্চিতকরণ পরীক্ষার সঙ্গে মিলিয়ে দেখো।';
+  var visual=id==='flame'?'<div class="ion-reaction-visual flame-scene" aria-hidden="true"><span>🔥</span><small>শিখার রং</small></div>':id==='acid'?'<div class="ion-reaction-visual gas-scene" aria-hidden="true"><span class="gas-bubble b1"></span><span class="gas-bubble b2"></span><span class="gas-bubble b3"></span><small>গ্যাস/বুদ্‌বুদ</small></div>':id==='nitrate'?'<div class="ion-reaction-visual ring-scene" aria-hidden="true"><span>◉</span><small>Brown ring</small></div>':'<div class="ion-reaction-visual precip-scene tone-'+E(z.tone)+'" aria-hidden="true"><span class="mini-tube"><i></i></span><small>অধঃক্ষেপ/দ্রবণ</small></div>';
+  return '<section class="ion-live-result"><div class="ion-live-head"><span class="ion-live-pulse">●</span><b>সিমুলেশনের ফল · '+E(t?t.name:'পরীক্ষা')+'</b><span class="ion-live-status">পর্যবেক্ষণ প্রস্তুত</span></div><div class="ion-live-body">'+visual+'<div class="ion-live-copy"><small>যা দেখা গেল</small><p>'+E(z.obs)+'</p><code>'+E(z.eq)+'</code><small class="ion-meaning-label">এটার অর্থ কী?</small><p class="ion-meaning">'+E(meaning)+'</p></div></div><div class="ion-live-sequence"><span>বিকারক/পরীক্ষা</span><i>→</i><span>পর্যবেক্ষণ</span><i>→</i><span>সিদ্ধান্তের প্রমাণ</span></div></section>';
+ }
+ function home(){if(quizTimer){clearInterval(quizTimer);quizTimer=null}activeMode='home';r.innerHTML='<div class="ion-game-shell"><div class="ion-home-nav"><a class="ion-exit-link" href="#/play">← সব গেমে ফিরুন</a><span>ION DETECTIVE · CHEMISTRY LAB</span></div><div class="ion-hero"><div class="ion-hero-icon">🧪</div><div><div class="ion-eyebrow">CONCEPTLAB · CHEMISTRY LAB</div><h2>Ion Detective <span>আয়ন শনাক্তকরণ</span></h2><p>পরীক্ষা চালাও, পর্যবেক্ষণ নাও, প্রমাণ মিলিয়ে আয়ন শনাক্ত করো।</p></div></div><div class="ion-mode-grid">'+[
+  ['lab','🧫','অজানা নমুনা','নিজে পরীক্ষা বেছে ধনায়ন ও ঋণায়ন শনাক্ত করো।','প্রধান ল্যাব'],
+  ['flame','🔥','শিখা পরীক্ষা','শিখার রং থেকে নির্দিষ্ট ধাতব আয়ন চিনে নাও।','৬টি প্রশ্ন'],
+  ['precip','🧪','অধঃক্ষেপের ধাঁধা','রং, দ্রাব্যতা ও বিকারকের ফল মিলিয়ে উত্তর দাও।','৮টি প্রশ্ন'],
+  ['anion','🫧','ঋণায়ন অনুসন্ধান','Cl⁻, Br⁻, SO₄²⁻, CO₃²⁻ ও NO₃⁻ শনাক্তকরণ।','৮টি প্রশ্ন'],
+  ['admission','⚔️','Admission Battle','সময়ের মধ্যে মিশ্র MCQ ও নিশ্চিতকরণ পরীক্ষা।','৬০ সেকেন্ড'],
+  ['notebook','📓','Reaction Notebook','পরীক্ষার ফল, আয়নিক সমীকরণ ও সিদ্ধান্ত ঝালিয়ে নাও।','দ্রুত রিভিশন']
+ ].map(function(m){return'<button type="button" class="ion-mode-card" data-mode="'+m[0]+'"><span class="ion-mode-icon">'+m[1]+'</span><span class="ion-mode-copy"><b>'+E(m[2])+'</b><small>'+E(m[3])+'</small><em>'+E(m[4])+'</em></span><span class="ion-mode-go">→</span></button>'}).join('')+'</div><div class="ion-learning-strip"><b>🧠 Detective rule</b><span>একটি পরীক্ষার ফলেই সব সময় সিদ্ধান্ত নয়—একাধিক পর্যবেক্ষণ মিলিয়ে নাও।</span></div><p class="ion-safety-note">এটি একটি ভার্চুয়াল শিক্ষামূলক সিমুলেশন। বাস্তব রাসায়নিক পরীক্ষা কেবল উপযুক্ত ল্যাব ও প্রশিক্ষিত শিক্ষকের তত্ত্বাবধানে করা উচিত।</p></div>';scrollGameToTop();}
+ function labStart(){activeMode='lab';labList=shuffle(cases).slice(0,5);labIndex=0;labScore=0;labPerfect=0;labMissed=[];labShow()}
+ function labShow(preserve){var oldY=window.pageYOffset;activeMode='lab';if(quizTimer){clearInterval(quizTimer);quizTimer=null}if(labIndex>=labList.length){A.done({score:labScore,pct:Math.min(1,labScore/(labList.length*50)),detail:labPerfect+' / '+labList.length+' নমুনায় দুই আয়নই সঠিক',review:labMissed});return}if(!preserve){labTested={};labSelected={cation:'',anion:''};labAnswered=false;labHint=false}var sm=labList[labIndex];
+  r.innerHTML='<div class="ion-topline"><button class="btn" data-ion-home>← Ion Detective</button><span class="ion-mode-pill">🧫 VIRTUAL LAB</span><span class="ion-round">নমুনা '+(labIndex+1)+' / '+labList.length+'</span></div><div class="ion-lab-hud"><div><small>এই সেশনের স্কোর</small><b>'+labScore+'</b></div><div><small>পরীক্ষা করা হয়েছে</small><b id="ionTestCount">'+Object.keys(labTested).length+' / '+tests.length+'</b></div><div><small>লক্ষ্য</small><b>২টি আয়ন</b></div></div><section class="ion-sample card"><div class="ion-sample-art"><div class="ion-tube"><i class="ion-liquid '+(sm.cation==='Cu²⁺'?'liquid-blue':sm.cation==='Fe²⁺'?'liquid-green':sm.cation==='Fe³⁺'?'liquid-amber':'liquid-clear')+'"></i></div><span>UNKNOWN<br> SAMPLE</span></div><div class="ion-sample-meta"><span class="ion-tag">নমুনা '+E(sm.id)+'</span><h3>অজানা লবণ</h3><p><b>প্রাথমিক পর্যবেক্ষণ:</b> '+E(sm.look)+'</p><p class="mutt">পরীক্ষার ফল সংগ্রহ করে নমুনার ধনায়ন ও ঋণায়ন নির্ণয় করো।</p><button class="btn sm" data-hint>💡 পরীক্ষা নির্বাচনের ইঙ্গিত</button><p id="ionHint" class="ion-hint" '+(labHint?'':'hidden')+'>ধনায়ন খুঁজতে NaOH/শিখা পরীক্ষা এবং ঋণায়ন খুঁজতে AgNO₃, BaCl₂ বা dilute acid-এর ফল তুলনা করো।</p></div></section><section class="ion-panel"><div class="ion-panel-head"><div><span class="ion-step">ধাপ ১ / STEP 01</span><h3>পরীক্ষা নির্বাচন করো</h3></div><span class="ion-muted">ফলাফল নিচে দেখুন ↓</span></div><p class="ion-step-hint" role="note"><b>কীভাবে চলবে:</b> নিচের যেকোনো পরীক্ষায় চাপ দিন। পরীক্ষার পর <b>“পরীক্ষার ফল”</b> এই অংশের নিচে দেখা যাবে—প্রয়োজনে নিচে স্ক্রল করুন। এরপর ধাপ ২-এ পর্যবেক্ষণ এবং ধাপ ৩-এ আয়ন নির্বাচন করুন।</p><div class="ion-test-grid">'+tests.map(function(t){var done=!!labTested[t.id];return'<button type="button" class="ion-test-btn '+(done?'is-done':'')+'" data-test="'+t.id+'" '+(done?'disabled':'')+'><span>'+t.icon+'</span><b>'+E(t.name)+'</b><small>'+E(t.sub)+'</small><em>'+(done?'✓ সম্পন্ন':'পরীক্ষা চালাও · ফল নিচে ↓')+'</em></button>'}).join('')+'</div></section>'+liveResultCard()+'<section class="ion-panel"><div class="ion-panel-head"><div><span class="ion-step">ধাপ ২ / STEP 02</span><h3>পর্যবেক্ষণ খাতা</h3></div><span class="ion-muted">'+Object.keys(labTested).length+'টি নোট</span></div><div class="ion-observations">'+(Object.keys(labTested).length?tests.filter(function(t){return labTested[t.id]}).map(function(t){var z=labTested[t.id];return'<article class="ion-observation tone-'+E(z.tone)+'"><div class="ion-obs-top"><b>'+t.icon+' '+E(t.name)+'</b><span>'+E(z.tag)+'</span></div><p>'+E(z.obs)+'</p><code>'+E(z.eq)+'</code></article>'}).join(''):'<div class="ion-empty-note">এখনও কোনো পরীক্ষা করা হয়নি। উপরের যেকোনো পরীক্ষায় ট্যাপ করো।</div>')+'</div></section><section class="ion-panel"><div class="ion-panel-head"><div><span class="ion-step">ধাপ ৩ / STEP 03</span><h3>তোমার সিদ্ধান্ত</h3></div><span class="ion-muted">প্রতি সঠিক আয়নে ২০ পয়েন্ট</span></div><div class="ion-select-columns"><div class="ion-ion-pick"><b>ধনায়ন (Cation)</b><p>ধনাত্মক আয়নটি বেছে নাও</p><div class="ion-chip-grid">'+cations.map(function(x){return'<button type="button" data-ion-kind="cation" data-ion-value="'+x+'" class="ion-ion-chip '+(labSelected.cation===x?'selected':'')+'" '+(labAnswered?'disabled':'')+'>'+x+'</button>'}).join('')+'</div></div><div class="ion-ion-pick"><b>ঋণায়ন (Anion)</b><p>ঋণাত্মক আয়নটি বেছে নাও</p><div class="ion-chip-grid">'+anions.map(function(x){return'<button type="button" data-ion-kind="anion" data-ion-value="'+x+'" class="ion-ion-chip '+(labSelected.anion===x?'selected':'')+'" '+(labAnswered?'disabled':'')+'>'+x+'</button>'}).join('')+'</div></div></div><p id="ionLabFeedback" class="ion-feedback" aria-live="polite"></p><div class="ion-actions">'+(labAnswered?'<button type="button" class="btn pri" data-next-sample>'+(labIndex===labList.length-1?'ফলাফল দেখুন →':'পরের নমুনা →')+'</button>':'<button type="button" class="btn pri" data-submit-ion>সিদ্ধান্ত জমা দিন →</button>')+' <button type="button" class="btn" data-mode="notebook">📓 Reaction Notebook</button></div></section><p class="ion-safety-note">ভার্চুয়াল পরীক্ষা · বাস্তব ল্যাবে নিরাপত্তাবিধি অনুসরণ করো।</p>';if(preserve)restoreGameScroll(oldY);else scrollGameToTop();
+ }
+ var flameQs=[
+  {q:'কোন আয়ন সাধারণত তীব্র সোনালি-হলুদ শিখা দেয়?',o:['Na⁺','K⁺','Li⁺','Ba²⁺'],a:0,e:'Na⁺-এর বৈশিষ্ট্যপূর্ণ শিখা তীব্র হলুদ।'},
+  {q:'হালকা বেগুনি (lilac) শিখার সঙ্গে কোন আয়ন সম্পর্কিত?',o:['K⁺','Na⁺','Cu²⁺','Ba²⁺'],a:0,e:'K⁺ হালকা বেগুনি শিখা দেয়; Na-এর হলুদ শিখা এটি ঢেকে দিতে পারে।'},
+  {q:'Li⁺-এর শিখার রং কোনটি?',o:['ক্রিমসন লাল','সোনালি হলুদ','আপেল সবুজ','নীলাভ সবুজ'],a:0,e:'লিথিয়াম সাধারণত গাঢ় লাল বা ক্রিমসন শিখা দেয়।'},
+  {q:'আপেল-সবুজ শিখা কোন আয়নের নির্দেশক হতে পারে?',o:['Ba²⁺','Na⁺','Li⁺','K⁺'],a:0,e:'বেরিয়াম লবণ আপেল-সবুজ শিখা দিতে পারে।'},
+  {q:'Cu²⁺-যুক্ত লবণের শিখা সাধারণত কেমন?',o:['নীলাভ সবুজ','হলুদ','ক্রিমসন লাল','হালকা বেগুনি'],a:0,e:'কপার-যুক্ত লবণ নীলাভ-সবুজ শিখা দিতে পারে।'},
+  {q:'শিখা পরীক্ষার সীমাবদ্ধতা সম্পর্কে সঠিক বক্তব্য কোনটি?',o:['সব আয়নের আলাদা শিখার রং থাকে','একা শিখা পরীক্ষা সব আয়ন নিশ্চিত করে না','শিখার রং কখনও বদলায় না','এটি ঋণায়নকে সবসময় সরাসরি শনাক্ত করে'],a:1,e:'সব আয়ন স্পষ্ট বৈশিষ্ট্যপূর্ণ শিখা দেয় না; অন্য নিশ্চিতকরণ পরীক্ষাও দরকার।'}
+ ];
+ var precipQs=[
+  {q:'Cu²⁺-এর দ্রবণে NaOH যোগ করলে সাধারণত কোন রঙের অধঃক্ষেপ হয়?',o:['নীল','সাদা','লালচে-বাদামি','ক্রিম'],a:0,e:'Cu(OH)₂ নীল অধঃক্ষেপ।'},
+  {q:'Fe³⁺ + OH⁻ বিক্রিয়ায় কোন পর্যবেক্ষণ প্রত্যাশিত?',o:['লালচে-বাদামি অধঃক্ষেপ','হালকা বেগুনি শিখা','হলুদ গ্যাস','নীল অধঃক্ষেপ'],a:0,e:'Fe(OH)₃ লালচে-বাদামি অধঃক্ষেপ।'},
+  {q:'Fe²⁺-এর সঙ্গে NaOH যোগে প্রথমে কী দেখা যায়?',o:['ময়লা-সবুজ অধঃক্ষেপ','সাদা AgCl','হলুদ AgI','আপেল-সবুজ শিখা'],a:0,e:'Fe(OH)₂ প্রথমে সবুজাভ; বাতাসে জারিত হয়ে বাদামি হতে পারে।'},
+  {q:'অম্লায়িত ক্লোরাইড দ্রবণে AgNO₃ যোগ করলে কী দেখা যায়?',o:['সাদা AgCl অধঃক্ষেপ','নীল Cu(OH)₂','CO₂-এর বুদ্‌বুদ','বাদামি ring'],a:0,e:'Ag⁺ + Cl⁻ → AgCl↓; সাদা অধঃক্ষেপ।'},
+  {q:'Br⁻-এর সঙ্গে AgNO₃-এ কোন রঙের অধঃক্ষেপ?',o:['ক্রিম AgBr','হলুদ AgI','নীল Cu(OH)₂','সবুজ Fe(OH)₂'],a:0,e:'AgBr ক্রিম রঙের অধঃক্ষেপ।'},
+  {q:'BaCl₂ দিয়ে সালফেট পরীক্ষা করার আগে উপযুক্তভাবে অম্লায়িত করার একটি কারণ কী?',o:['কার্বনেটজাতীয় বিঘ্নকারী ফল কমাতে','শিখা হলুদ করতে','Na⁺-কে Cu²⁺ করতে','দ্রবণকে সবসময় নীল করতে'],a:0,e:'উপযুক্ত অম্লীয় মাধ্যমে BaSO₄-এর সাদা অধঃক্ষেপ সালফেট পরীক্ষায় সহায়ক; পরীক্ষার শর্ত গুরুত্বপূর্ণ।'},
+  {q:'Al³⁺-এর সঙ্গে NaOH-এর ফল সম্পর্কে কোন বক্তব্যটি সাধারণত সঠিক?',o:['সাদা জেলির মতো Al(OH)₃ তৈরি হতে পারে এবং অতিরিক্ত NaOH-এ দ্রবীভূত হয়','শুধু সাদা AgCl হয়','সবসময় হলুদ গ্যাস হয়','লাল শিখা দেয়'],a:0,e:'Al(OH)₃ উভধর্মী; অতিরিক্ত NaOH-এ দ্রবীভূত হতে পারে।'},
+  {q:'দুটি ভিন্ন আয়ন একই ধরনের অধঃক্ষেপ দিতে পারে হলে সেরা পদক্ষেপ কী?',o:['আরেকটি উপযুক্ত নিশ্চিতকরণ পরীক্ষা করা','প্রথম ফল দেখেই নিশ্চিত হওয়া','পরীক্ষা না করে অনুমান করা','শুধু দ্রবণের পরিমাণ দেখা'],a:0,e:'নির্ভরযোগ্য গুণগত বিশ্লেষণে একাধিক পর্যবেক্ষণ মেলানো হয়।'}
+ ];
+ var anionQs=[
+  {q:'কার্বনেটের সঙ্গে পাতলা অ্যাসিডে কোন গ্যাস তৈরি হয়?',o:['CO₂','NH₃','O₂','H₂'],a:0,e:'CO₃²⁻ + 2H⁺ → CO₂↑ + H₂O। CO₂ চুনপানি ঘোলা করে।'},
+  {q:'সালফেট আয়ন শনাক্তে কোন আয়ন সাদা অদ্রবণীয় BaSO₄ দেয়?',o:['Ba²⁺','Ag⁺','Cu²⁺','Na⁺'],a:0,e:'Ba²⁺ + SO₄²⁻ → BaSO₄↓।'},
+  {q:'AgNO₃ পরীক্ষায় সাদা দইয়ের মতো অধঃক্ষেপ কোন আয়নের সঙ্গে মেলে?',o:['Cl⁻','Br⁻','I⁻','CO₃²⁻ সবক্ষেত্রে'],a:0,e:'উপযুক্তভাবে অম্লায়িত নমুনায় Cl⁻ সাদা AgCl দেয়।'},
+  {q:'AgNO₃ পরীক্ষায় ক্রিম রঙের অধঃক্ষেপ কোনটি?',o:['AgBr','AgCl','AgI','BaSO₄'],a:0,e:'AgBr ক্রিম রঙের; AgCl সাদা এবং AgI হলুদ।'},
+  {q:'নাইট্রেটের একটি পরিচিত নিশ্চিতকরণ পরীক্ষার ফল কোনটি?',o:['বাদামি ring','নীল Cu(OH)₂','আপেল-সবুজ শিখা','দইয়ের মতো AgCl'],a:0,e:'নির্দিষ্ট brown-ring test nitrate সম্পর্কে নির্দেশ দিতে পারে।'},
+  {q:'AgNO₃ দিয়ে হ্যালাইড পরীক্ষায় dilute HNO₃ ব্যবহারের কারণ কী?',o:['বিঘ্নকারী আয়ন/কার্বনেটের প্রভাব কমিয়ে পরীক্ষা উপযুক্ত রাখা','নমুনায় অতিরিক্ত Cl⁻ যোগ করা','সমস্ত ধাতব আয়ন সরিয়ে ফেলা','নমুনা জমাট করা'],a:0,e:'HCl দিয়ে অম্লায়িত করলে নিজেই Cl⁻ যোগ হবে; তাই তা অনুপযুক্ত।'},
+  {q:'কোন আয়নটি ঋণায়ন?',o:['SO₄²⁻','NH₄⁺','Cu²⁺','Na⁺'],a:0,e:'সালফেটের আধান −2; এটি একটি পলিআটমিক ঋণায়ন।'},
+  {q:'একটি পরীক্ষায় কোনো বৈশিষ্ট্যপূর্ণ ফল না পেলে সবচেয়ে যুক্তিসংগত সিদ্ধান্ত কী?',o:['এই পরীক্ষায় নিশ্চিত প্রমাণ মেলেনি; আরেকটি উপযুক্ত পরীক্ষা দরকার','নমুনায় কোনো আয়ন নেই','যেকোনো আয়ন বেছে নেওয়া','নমুনার সব আধান শূন্য'],a:0,e:'নেতিবাচক ফল মানেই নমুনায় আয়ন নেই—এমন নয়।'}
+ ];
+ var admissionQs=[
+  {q:'Cu²⁺ + OH⁻ থেকে কোন অধঃক্ষেপ তৈরি হয়?',o:['Cu(OH)₂','AgCl','BaSO₄','AgBr'],a:0,e:'Cu(OH)₂ নীল অধঃক্ষেপ।'},
+  {q:'কোন আয়ন NaOH দিয়ে উষ্ণ করলে NH₃ গ্যাস দিতে পারে?',o:['NH₄⁺','Na⁺','Cu²⁺','Ba²⁺'],a:0,e:'NH₄⁺ + OH⁻ → NH₃ + H₂O।'},
+  {q:'সঠিক আয়নিক সমীকরণটি কোনটি?',o:['Ag⁺ + Cl⁻ → AgCl↓','Na⁺ + Cl⁻ → NaCl↓ (সবসময়)','K⁺ + NO₃⁻ → KNO₃↓ (পানিে)','H⁺ + CO₃²⁻ → O₂'],a:0,e:'AgCl অদ্রবণীয় সাদা অধঃক্ষেপ। NaCl ও KNO₃ পানিে দ্রবণীয়।'},
+  {q:'SO₄²⁻ শনাক্তে বৈশিষ্ট্যপূর্ণ অধঃক্ষেপ কোনটি?',o:['BaSO₄','Cu(OH)₂','AgI','Fe(OH)₃'],a:0,e:'BaSO₄ সাদা ও অদ্রবণীয়।'},
+  {q:'একটি নমুনায় CO₃²⁻ থাকলে পাতলা অ্যাসিডে কোন লক্ষণ প্রত্যাশিত?',o:['CO₂-এর বুদ্‌বুদ','লিলাক শিখা','ক্রিম AgBr','সাদা BaSO₄ অবশ্যই'],a:0,e:'কার্বনেট থেকে CO₂ নির্গত হয়।'},
+  {q:'কোন জোড়ায় ধনায়ন ও ঋণায়ন দুটিই সঠিকভাবে মেলে?',o:['NH₄⁺ ধনায়ন, NO₃⁻ ঋণায়ন','Cl⁻ ধনায়ন, Na⁺ ঋণায়ন','SO₄²⁻ ধনায়ন, Cu²⁺ ঋণায়ন','Br⁻ ও I⁻ দুটিই ধনায়ন'],a:0,e:'NH₄⁺ ধনাত্মক এবং NO₃⁻ ঋণাত্মক আয়ন।'},
+  {q:'Na⁺ শনাক্তকরণে সাধারণত কোন শিখা দেখা যায়?',o:['তীব্র হলুদ','ক্রিমসন লাল','হালকা বেগুনি','আপেল-সবুজ'],a:0,e:'Na⁺-এর হলুদ শিখা খুব তীব্র হতে পারে।'},
+  {q:'Fe³⁺-এর সঙ্গে NaOH যোগে কোন ফল সবচেয়ে সম্ভাব্য?',o:['লালচে-বাদামি Fe(OH)₃','নীল Cu(OH)₂','সাদা AgCl','CO₂ গ্যাস'],a:0,e:'Fe³⁺ + 3OH⁻ → Fe(OH)₃↓।'},
+  {q:'নিশ্চিতকরণ পরীক্ষায় একাধিক আলাদা ফল নেওয়ার প্রধান কারণ কী?',o:['ভুল সিদ্ধান্তের ঝুঁকি কমানো','পরীক্ষা যত দীর্ঘ তত ভালো','সব আয়নের একই ফল','আধান অকার্যকর করা'],a:0,e:'একাধিক স্বতন্ত্র পর্যবেক্ষণ সিদ্ধান্তকে বেশি নির্ভরযোগ্য করে।'},
+  {q:'K⁺-এর শিখা সম্পর্কে সবচেয়ে সঠিক বক্তব্য কোনটি?',o:['হালকা বেগুনি; Na-এর হলুদ শিখায় ঢাকা পড়তে পারে','সবসময় সোনালি হলুদ','তীব্র ক্রিমসন লাল','শিখা পরীক্ষা কখনো প্রযোজ্য নয়'],a:0,e:'K⁺-এর lilac শিখা sodium contamination-এর কারণে দেখা কঠিন হতে পারে.'}
+ ];
+ var banks={flame:flameQs,precip:precipQs,anion:anionQs,admission:admissionQs};
+ function quizStartMode(mode){if(quizTimer){clearInterval(quizTimer);quizTimer=null}activeMode=mode;quizList=shuffle(banks[mode]).slice(0,mode==='admission'?10:8);quizIndex=0;quizScore=0;quizRight=0;quizLock=false;quizOver=false;quizMissed=[];quizStart=Date.now();quizSeconds=60;quizShow();if(mode==='admission')quizTimer=A.every(r,250,function(){if(activeMode!=='admission'||quizOver)return;var left=Math.max(0,60-Math.floor((Date.now()-quizStart)/1000)),el=r.querySelector('#ionTimer');if(el)el.textContent=left+'s';var bar=r.querySelector('#ionTimerBar');if(bar)bar.style.width=(left/60*100)+'%';if(left<=0)quizFinish(true)});}
+ function quizShow(){if(quizIndex>=quizList.length){quizFinish(false);return}activeMode=activeMode||'flame';var mode=activeMode,q=quizList[quizIndex],opts=shuffle(q.o.map(function(t,i){return{t:t,ok:i===q.a}}));quizLock=false;
+  var label={flame:'শিখা পরীক্ষা',precip:'অধঃক্ষেপের ধাঁধা',anion:'ঋণায়ন অনুসন্ধান',admission:'Admission Battle'}[mode]||'কুইজ';
+  r.innerHTML='<div class="ion-topline"><button class="btn" data-ion-home>← Ion Detective</button><span class="ion-mode-pill">'+(mode==='flame'?'🔥':mode==='precip'?'🧪':mode==='anion'?'🫧':'⚔️')+' '+E(label)+'</span><span class="ion-round">'+(quizIndex+1)+' / '+quizList.length+'</span></div><div class="ion-quiz-hud"><div><small>স্কোর</small><b>'+quizScore+'</b></div><div><small>সঠিক</small><b>'+quizRight+' / '+quizList.length+'</b></div><div><small>'+(mode==='admission'?'সময়':'ধাপ')+'</small><b id="ionTimer">'+(mode==='admission'?'60s':(quizIndex+1)+'/'+quizList.length)+'</b></div></div>'+(mode==='admission'?'<div class="ion-timer-track"><i id="ionTimerBar" style="width:100%"></i></div>':'')+'<section class="ion-question card"><span class="ion-step">INVESTIGATION '+String(quizIndex+1).padStart(2,'0')+'</span><h3>'+E(q.q)+'</h3><div class="ion-quiz-options">'+opts.map(function(o,i){return'<button type="button" class="ion-quiz-option" data-quiz-answer="'+(o.ok?'1':'0')+'"><span>'+String.fromCharCode(65+i)+'</span><b>'+E(o.t)+'</b></button>'}).join('')+'</div><p id="ionQuizFeedback" class="ion-feedback" aria-live="polite"></p><div class="ion-actions"><button type="button" class="btn pri" data-quiz-next hidden>'+(quizIndex===quizList.length-1?'ফলাফল দেখুন →':'পরের প্রশ্ন →')+'</button><button type="button" class="btn" data-mode="notebook">📓 নোটবুক দেখুন</button></div></section>';scrollGameToTop();
+ }
+ function quizAnswer(b){if(quizLock||quizOver)return;quizLock=true;var q=quizList[quizIndex],ok=b.dataset.quizAnswer==='1';if(ok){quizRight++;quizScore+=10}else if(quizMissed.length<12)quizMissed.push({q:q.q,a:q.o[q.a],e:q.e});Array.prototype.forEach.call(r.querySelectorAll('[data-quiz-answer]'),function(x){x.disabled=true;if(x.dataset.quizAnswer==='1')x.classList.add('correct');else if(x===b)x.classList.add('incorrect')});var fb=r.querySelector('#ionQuizFeedback');if(fb)fb.innerHTML='<b class="'+(ok?'ion-good':'ion-bad')+'">'+(ok?'✔ সঠিক সিদ্ধান্ত':'✘ সঠিক উত্তর: '+E(q.o[q.a]))+'</b><span>'+E(q.e)+'</span>';var nx=r.querySelector('[data-quiz-next]');if(nx)nx.hidden=false;var t=r.querySelector('#ionTimer');if(t&&activeMode!=='admission')t.textContent=(quizIndex+1)+'/'+quizList.length;}
+ function quizFinish(byTime){if(quizOver)return;quizOver=true;if(quizTimer){clearInterval(quizTimer);quizTimer=null}A.done({score:quizScore,pct:quizRight/Math.max(1,quizList.length),detail:quizRight+' / '+quizList.length+'টি সঠিক'+(byTime?' · সময় শেষ':'') ,review:quizMissed})}
+ function notebook(resumeLab){if(quizTimer){clearInterval(quizTimer);quizTimer=null}activeMode='notebook';notebookResumeLab=!!resumeLab;var rows=[
+  ['NaOH + Cu²⁺','নীল Cu(OH)₂ অধঃক্ষেপ','Cu²⁺ + 2OH⁻ → Cu(OH)₂↓','ধাপ ৩ · নীল অধঃক্ষেপ কপার(II) আয়নের পক্ষে প্রমাণ; অন্য পরীক্ষার ফলও মিলিয়ে নাও.'],
+  ['NaOH + Fe²⁺','প্রথমে সবুজাভ অধঃক্ষেপ','Fe²⁺ + 2OH⁻ → Fe(OH)₂↓','ধাপ ৩ · বাতাসে জারিত হয়ে বাদামি হতে পারে; তাই পর্যবেক্ষণের সময় লিখে রাখো.'],
+  ['NaOH + Fe³⁺','লালচে-বাদামি অধঃক্ষেপ','Fe³⁺ + 3OH⁻ → Fe(OH)₃↓','ধাপ ৩ · আয়রন(III) আয়নের পক্ষে প্রমাণ; Fe²⁺-এর সবুজাভ অধঃক্ষেপের সঙ্গে তুলনা করো.'],
+  ['NaOH দিয়ে NH₄⁺ উষ্ণ করা','NH₃ গ্যাস; সিক্ত লাল লিটমাস নীল','NH₄⁺ + OH⁻ → NH₃↑ + H₂O','অ্যামোনিয়াম নিশ্চিত করতে গ্যাস শনাক্ত করতে হয়'],
+  ['অম্লায়িত নমুনা + AgNO₃','Cl⁻: সাদা; Br⁻: ক্রিম; I⁻: হলুদ অধঃক্ষেপ','Ag⁺ + X⁻ → AgX↓','হ্যালাইডের ধরন আলাদা করতে রং তুলনা করো'],
+  ['অম্লীয় মাধ্যমে BaCl₂','সাদা BaSO₄ অধঃক্ষেপ','Ba²⁺ + SO₄²⁻ → BaSO₄↓','সালফেট শনাক্তকরণের ক্লাসিক ফল'],
+  ['CO₃²⁻ + পাতলা অ্যাসিড','বুদ্‌বুদ; CO₂ চুনপানি ঘোলা করে','CO₃²⁻ + 2H⁺ → CO₂↑ + H₂O','কার্বনেটের নির্দেশক পরীক্ষা'],
+  ['নাইট্রেটের নিশ্চিতকরণ পরীক্ষা','ধারণাগত মডেলে সংযোগস্থলে বাদামি ring','নাইট্রেট শনাক্তের নির্দিষ্ট পরীক্ষা','ধাপ ৩ · এটি একটি নির্দেশক ফল; বাস্তব পরীক্ষার শর্ত ও প্রশিক্ষকের নিরাপত্তা নির্দেশনা অপরিহার্য.'],
+  ['NaOH + Al³⁺','সাদা জেলির মতো Al(OH)₃; অতিরিক্ত NaOH-এ দ্রবীভূত হতে পারে','Al³⁺ + 3OH⁻ → Al(OH)₃↓','ধাপ ৩ · অতিরিক্ত ক্ষারে দ্রবীভূত হওয়া Al³⁺ ও Mg²⁺ আলাদা করতে সাহায্য করে.'],
+  ['NaOH + Mg²⁺','সাদা Mg(OH)₂ অধঃক্ষেপ','Mg²⁺ + 2OH⁻ → Mg(OH)₂↓','ধাপ ৩ · এই মডেলে সাদা অধঃক্ষেপ অতিরিক্ত NaOH-এ Al(OH)₃-এর মতো দ্রবীভূত হয় না.']
+ ];
+  r.innerHTML='<div class="ion-topline"><button class="btn" data-ion-home>← Ion Detective</button><span class="ion-mode-pill">📓 REACTION NOTEBOOK</span></div><section class="ion-notebook-hero"><span>📚</span><div><h3>Reaction Notebook</h3><p>বিকারক কী করল → কী দেখা গেল → কোন আয়নের পক্ষে প্রমাণ</p></div></section><div class="ion-notebook-grid">'+rows.map(function(x,i){return'<article class="ion-note-card"><span class="ion-step">TEST '+String(i+1).padStart(2,'0')+'</span><h4>'+E(x[0])+'</h4><p><b>ধাপ ২ · পর্যবেক্ষণ:</b> '+E(x[1])+'</p><small class="ion-equation-label">ধাপ ২ · আয়নিক সমীকরণ</small><code>'+E(x[2])+'</code><small class="ion-note-meaning">'+E(x[3])+'</small></article>'}).join('')+'</div><div class="ion-simulation-guide ion-notebook-guide"><b>নোট পড়ার নিয়ম</b><div class="ion-guide-steps"><span>১ · বিকারক/শর্ত</span><i>→</i><span>২ · পর্যবেক্ষণ + সমীকরণ</span><i>→</i><span>৩ · ব্যাখ্যা</span></div><p>রঙ বা অধঃক্ষেপ একা সব সময় চূড়ান্ত পরিচয় নয়। দ্রাব্যতা, pH, বিঘ্নকারী আয়ন এবং নিশ্চিতকরণ পরীক্ষার ফলও বিবেচনা করো।</p></div><div class="ion-actions"><button type="button" class="btn pri" data-mode="lab">🧫 '+(notebookResumeLab?'আগের ল্যাবে ফিরে যাও':'ল্যাব শুরু করো')+'</button><button type="button" class="btn" data-mode="admission">⚔️ Admission Battle</button></div><p class="ion-safety-note">এই নোটবুক শিক্ষামূলক ও ভার্চুয়াল; বাস্তব রাসায়নিক ব্যবহার করার নির্দেশিকা নয়।</p>';scrollGameToTop();
+ }
+ r.onclick=function(e){var b=e.target.closest('button');if(!b)return;e.preventDefault();e.stopPropagation();
+  if(b.hasAttribute('data-ion-home'))return home();
+  if(b.dataset.mode){var m=b.dataset.mode;if(m==='home')return home();if(m==='lab'){if(activeMode==='notebook'&&notebookResumeLab&&labList.length)return labShow(true);return labStart()}if(m==='notebook')return notebook(activeMode==='lab');if(banks[m])return quizStartMode(m);return}
+  if(b.hasAttribute('data-hint')){labHint=!labHint;var hi=r.querySelector('#ionHint');if(hi)hi.hidden=!labHint;b.textContent=labHint?'💡 ইঙ্গিত লুকাও':'💡 পরীক্ষা নির্বাচনের ইঙ্গিত';return}
+  if(b.dataset.test&&!labAnswered){var t=tests.filter(function(x){return x.id===b.dataset.test})[0];if(!t||labTested[t.id])return;labTested[t.id]=testResult(t.id,labList[labIndex]);labShowKeepSelection();return}
+  if(b.dataset.ionKind&&!labAnswered){labSelected[b.dataset.ionKind]=b.dataset.ionValue;labShowKeepSelection();return}
+  if(b.hasAttribute('data-submit-ion')&&!labAnswered){if(!labSelected.cation||!labSelected.anion){var fm=r.querySelector('#ionLabFeedback');if(fm)fm.textContent='জমা দেওয়ার আগে একটি ধনায়ন ও একটি ঋণায়ন বেছে নাও।';return}var sample=labList[labIndex],cOk=labSelected.cation===sample.cation,aOk=labSelected.anion===sample.anion,bonus=Math.min(10,Object.keys(labTested).length*2),earned=(cOk?20:0)+(aOk?20:0)+bonus;labScore+=earned;if(cOk&&aOk)labPerfect++;else if(labMissed.length<12)labMissed.push({q:'নমুনা '+sample.id+' শনাক্তকরণ',a:sample.cation+' ও '+sample.anion,e:sample.why});labAnswered=true;var msg=(cOk?'✔ ধনায়ন সঠিক। ':'✘ ধনায়ন: '+sample.cation+'। ')+(aOk?'✔ ঋণায়ন সঠিক। ':'✘ ঋণায়ন: '+sample.anion+'। ')+'+'+earned+' পয়েন্ট। '+sample.why;labShowKeepSelection();var f=r.querySelector('#ionLabFeedback');if(f)f.textContent=msg;var area=r.querySelector('.ion-actions');if(area)area.innerHTML='<button type="button" class="btn pri" data-next-sample>'+(labIndex===labList.length-1?'ফলাফল দেখুন →':'পরের নমুনা →')+'</button><button type="button" class="btn" data-mode="notebook">📓 Reaction Notebook</button>';return}
+  if(b.hasAttribute('data-next-sample')){labIndex++;return labShow()}
+  if(b.hasAttribute('data-quiz-answer'))return quizAnswer(b);
+  if(b.hasAttribute('data-quiz-next')){if(!quizLock)return;quizIndex++;return quizShow()}
+ };
+ function labShowKeepSelection(){labShow(true)}
+ home();
+};
+
+
+/* ================= Interactive Simulation Explorer =================
+   One reusable, parameter-driven engine for the new chapter simulations.
+   These are exploration/experiment experiences, not staged quizzes. */
+G.simExplorer=function(r,g,A){
+ var E=A.E, cfg=(g.data&&g.data.sim)||{}, kind=cfg.kind||'line', current={}, initial={}, observations=[], defs;
+ var P={
+  motion:[['acceleration','ত্বরণ',-5,5,.5,2,'m/s²'],['time','সময়',1,12,1,5,'s']],
+  projectile:[['speed','আদিবেগ',5,50,1,25,'m/s'],['angle','নিক্ষেপ কোণ',5,85,1,45,'°'],['gravity','g',1,20,.1,9.8,'m/s²']],
+  newton:[['force','বল',1,50,1,12,'N'],['mass','ভর',.5,20,.5,3,'kg']],
+  friction:[['mass','ভর',1,30,1,5,'kg'],['mu','ঘর্ষণ সহগ',.05,1,.05,.3,''],['pull','টান বল',0,100,1,20,'N']],
+  momentum:[['m1','প্রথম ভর',.5,10,.5,2,'kg'],['u1','প্রথম বেগ',-10,10,.5,5,'m/s'],['m2','দ্বিতীয় ভর',.5,10,.5,3,'kg'],['u2','দ্বিতীয় বেগ',-10,10,.5,-1,'m/s']],
+  energy:[['mass','ভর',.5,20,.5,4,'kg'],['speed','বেগ',0,30,1,6,'m/s'],['height','উচ্চতা',0,30,1,3,'m']],
+  spring:[['k','স্প্রিং ধ্রুবক',10,500,10,150,'N/m'],['stretch','প্রসারণ',.01,.5,.01,.12,'m']],
+  orbit:[['radius','কক্ষীয় ব্যাসার্ধ',6500,50000,500,7000,'km']],
+  gravity:[['altitude','উচ্চতা',0,30000,250,1000,'km']],
+  pendulum:[['length','দৈর্ঘ্য',.1,5,.1,1,'m'],['gravity','g',1,20,.1,9.8,'m/s²']],
+  oscillator:[['mass','ভর',.1,10,.1,.5,'kg'],['k','স্প্রিং ধ্রুবক',5,500,5,80,'N/m']],
+  wave:[['frequency','কম্পাঙ্ক',.5,20,.5,5,'Hz'],['wavelength','তরঙ্গদৈর্ঘ্য',.1,8,.1,2,'m']],
+  sound:[['frequency','কম্পাঙ্ক',100,2000,10,440,'Hz'],['temperature','তাপমাত্রা',-10,45,1,25,'°C']],
+  doppler:[['frequency','উৎস কম্পাঙ্ক',200,1500,50,700,'Hz'],['sourceSpeed','উৎসের বেগ (+ কাছে / − দূরে)',-80,80,1,20,'m/s'],['observerSpeed','পর্যবেক্ষকের বেগ (+ কাছে / − দূরে)',-50,50,1,0,'m/s']],
+  gas:[['temperature','পরম তাপমাত্রা',200,700,10,300,'K'],['volume','আয়তন',1,40,1,10,'L'],['moles','মোল সংখ্যা',.1,5,.1,1,'mol']],
+  pressure:[['density','ঘনত্ব',500,1500,25,1000,'kg/m³'],['depth','গভীরতা',.1,20,.1,4,'m']],
+  buoyancy:[['volume','আয়তন',.001,.1,.001,.02,'m³'],['fluidDensity','তরলের ঘনত্ব',600,1400,25,1000,'kg/m³'],['objectDensity','বস্তুর ঘনত্ব',300,1800,25,800,'kg/m³']],
+  fluid:[['radius1','প্রথম ব্যাসার্ধ',1,8,.5,4,'cm'],['radius2','দ্বিতীয় ব্যাসার্ধ',1,8,.5,2,'cm'],['velocity1','প্রথম বেগ',.2,10,.1,1.5,'m/s']],
+  thermal:[['length','প্রাথমিক দৈর্ঘ্য',.1,10,.1,2,'m'],['alpha','প্রসারণ গুণাঙ্ক',.000001,.00003,.000001,.000012,'/°C'],['deltaT','তাপমাত্রা পরিবর্তন',-50,200,5,60,'°C']],
+  calorimetry:[['mass','ভর',.1,10,.1,.5,'kg'],['specificHeat','সুনির্দিষ্ট তাপ',100,5000,100,4200,'J/kg°C'],['deltaT','তাপমাত্রা পরিবর্তন',-50,100,1,15,'°C']],
+  torque:[['force','বল',1,100,1,30,'N'],['arm','লম্ব বাহু',.05,2,.05,.4,'m'],['angle','কোণ',0,180,5,90,'°']],
+  coulomb:[['q1','প্রথম আধান',.1,10,.1,2,'μC'],['q2','দ্বিতীয় আধান',.1,10,.1,3,'μC'],['distance','দূরত্ব',.05,1,.05,.2,'m']],
+  electricField:[['charge','আধান',.1,10,.1,3,'μC'],['distance','দূরত্ব',.05,2,.05,.3,'m']],
+  capacitor:[['area','পাতের ক্ষেত্রফল',.001,.1,.001,.02,'m²'],['gap','পাতের ব্যবধান',.0002,.01,.0002,.001,'m'],['voltage','বিভব',1,100,1,12,'V']],
+  ohm:[['voltage','বিভব',1,100,1,12,'V'],['resistance','রোধ',1,100,1,6,'Ω']],
+  parallel:[['voltage','বিভব',1,100,1,12,'V'],['r1','প্রথম রোধ',1,100,1,6,'Ω'],['r2','দ্বিতীয় রোধ',1,100,1,6,'Ω']],
+  magneticForce:[['charge','আধান',.1,10,.1,2,'μC'],['speed','বেগ',100,10000,100,3000,'m/s'],['field','চৌম্বক ক্ষেত্র',.01,2,.01,.4,'T'],['angle','কোণ',0,180,5,90,'°']],
+  induction:[['turns','পাকসংখ্যা',1,1000,10,100,'turn'],['deltaB','ΔB',.01,1,.01,.2,'T'],['area','ক্ষেত্রফল',.001,.1,.001,.01,'m²'],['time','সময়',.01,1,.01,.05,'s']],
+  ac:[['peakVoltage','সর্বোচ্চ বিভব',10,400,10,170,'V'],['frequency','কম্পাঙ্ক',1,200,1,50,'Hz'],['time','সময়',0,.02,.001,.005,'s']],
+  lens:[['focalLength','ফোকাল দৈর্ঘ্য',2,30,1,10,'cm'],['objectDistance','বস্তুর দূরত্ব',3,100,1,30,'cm']],
+  interference:[['wavelength','তরঙ্গদৈর্ঘ্য',380,750,10,550,'nm'],['screenDistance','পর্দার দূরত্ব',.5,5,.1,2,'m'],['slitGap','চিরের ব্যবধান',.1,2,.1,.5,'mm']],
+  periodicTrend:[['period','পর্যায়',1,7,1,3,''],['group','গ্রুপ',1,18,1,16,'']],
+  atomicRadius:[['period','পর্যায়',1,7,1,3,''],['group','গ্রুপ',1,18,1,1,'']],
+  ionization:[['period','পর্যায়',1,7,1,2,''],['group','গ্রুপ',1,18,1,17,'']],
+  electronegativity:[['period','পর্যায়',1,7,1,2,''],['group','গ্রুপ',1,18,1,16,'']],
+  polarity:[['en1','প্রথম EN',0,4,.1,2.1,''],['en2','দ্বিতীয় EN',0,4,.1,3,'']],
+  molecule:[['bonds','বন্ধন অঞ্চল',2,6,1,4,''],['lonePairs','নিঃসঙ্গ জোড়',0,3,1,0,'']],
+  kinetics:[['concentration','প্রাথমিক ঘনমাত্রা',.1,5,.1,1,'mol/L'],['rateConstant','হার ধ্রুবক',.01,1,.01,.25,'s⁻¹']],
+  equilibrium:[['K','K',.1,10,.1,4,''],['Q','Q',.1,10,.1,1,'']],
+  ph:[['concentration','[H⁺]',.0000001,1,.0001,.01,'mol/L']],
+  titration:[['acidConc','অ্যাসিড ঘনমাত্রা',.01,1,.01,.1,'M'],['baseConc','ক্ষার ঘনমাত্রা',.01,1,.01,.1,'M'],['acidVolume','অ্যাসিডের আয়তন',5,50,1,25,'mL'],['baseVolume','ক্ষারের আয়তন',0,60,1,25,'mL']],
+  solubility:[['temperature','তাপমাত্রা',0,100,1,40,'°C']],
+  dilution:[['stockConc','স্টক ঘনমাত্রা',.1,5,.1,2,'M'],['stockVolume','স্টক আয়তন',1,50,1,10,'mL'],['finalVolume','চূড়ান্ত আয়তন',10,500,10,100,'mL']],
+  stoich:[['molesA','A-এর মোল',.1,10,.1,2,'mol'],['molesB','B-এর মোল',.1,10,.1,3,'mol'],['ratioB','প্রতি A-তে B',1,4,1,2,'mol/mol']],
+  thermo:[['deltaH','ΔH',-150,150,5,-50,'kJ/mol'],['progress','অগ্রগতি',0,1,.05,.5,'']],
+  electrochem:[['cathodePotential','ক্যাথোড বিভব',-2,2,.1,.8,'V'],['anodePotential','অ্যানোড বিভব',-2,2,.1,-.3,'V']],
+  electrolysis:[['current','প্রবাহ',.1,10,.1,2,'A'],['seconds','সময়',30,3600,30,600,'s'],['molarMass','মোলার ভর',1,200,1,63.5,'g/mol'],['electrons','e⁻ সংখ্যা',1,6,1,2,'']],
+  alkane:[['carbons','কার্বন সংখ্যা',1,20,1,4,'']],
+  molarity:[['mass','দ্রবের ভর',.1,100,.1,5.85,'g'],['molarMass','মোলার ভর',1,300,1,58.5,'g/mol'],['volume','দ্রবণের আয়তন',.05,5,.05,.5,'L']],
+  spectrum:[['energyEV','ফোটন শক্তি',1,5,.1,2.5,'eV']],
+  redox:[['electrons','ইলেকট্রন',1,6,1,2,'e⁻'],['donor','দাতা আধানের গুণক',1,5,1,1,''],['acceptor','গ্রহীতার গুণক',1,5,1,1,'']],
+  line:[['slope','ঢাল',-5,5,.25,2,''],['intercept','y-intercept',-5,5,.25,1,'']],
+  quadratic:[['a','a',-3,3,.25,1,''],['b','b',-8,8,.5,-2,''],['c','c',-8,8,.5,-3,'']],
+  polynomial:[['a','a',-3,3,.25,1,''],['b','b',-8,8,.5,0,''],['c','c',-8,8,.5,-4,'']],
+  absolute:[['a','স্কেল a',.2,3,.1,1,''],['h','অনুভূমিক শিফট h',-4,4,.5,1,''],['k','উল্লম্ব শিফট k',-4,4,.5,0,'']],
+  exponential:[['a','প্রারম্ভিক স্কেল a',.2,3,.1,1,''],['rate','বৃদ্ধির হার k',-.5,.8,.05,.3,'']],
+  logarithm:[['a','স্কেল a',.2,5,.1,2,'']],
+  trig:[['amplitude','বিস্তার A',.2,4,.1,2,''],['frequency','কৌণিক হার ω',.25,3,.25,1,''],['phase','phase φ',-3.14,3.14,.1,0,'rad']],
+  cosine:[['amplitude','বিস্তার A',.2,4,.1,1.5,''],['frequency','কৌণিক হার ω',.25,3,.25,1,''],['phase','phase φ',-3.14,3.14,.1,.5,'rad']],
+  unitCircle:[['angle','কোণ θ',-360,360,5,45,'°']],
+  vector:[['ax','Aₓ',-10,10,.5,3,''],['ay','Aᵧ',-10,10,.5,4,'']],
+  dotCross:[['ax','Aₓ',-5,5,.5,2,''],['ay','Aᵧ',-5,5,.5,1,''],['bx','Bₓ',-5,5,.5,1,''],['by','Bᵧ',-5,5,.5,-2,'']],
+  matrix:[['rotation','ঘূর্ণন',-180,180,5,30,'°'],['scaleX','x-স্কেল',.2,3,.1,1.5,'×'],['scaleY','y-স্কেল',.2,3,.1,.75,'×'],['x','x',-5,5,.5,2,''],['y','y',-5,5,.5,1,'']],
+  determinant:[['a','a',-5,5,.5,2,''],['b','b',-5,5,.5,1,''],['c','c',-5,5,.5,1,''],['d','d',-5,5,.5,3,'']],
+  intersections:[['m1','প্রথম ঢাল',-5,5,.5,2,''],['b1','প্রথম intercept',-5,5,.5,1,''],['m2','দ্বিতীয় ঢাল',-5,5,.5,-1,''],['b2','দ্বিতীয় intercept',-5,5,.5,4,'']],
+  circle:[['h','কেন্দ্র h',-5,5,.5,1,''],['k','কেন্দ্র k',-5,5,.5,-1,''],['radius','ব্যাসার্ধ',.5,5,.5,3,'']],
+  ellipse:[['a','অর্ধ-অক্ষ a',1,6,.5,4,''],['b','অর্ধ-অক্ষ b',.5,5,.5,2,'']],
+  derivative:[['a','a',-3,3,.25,1,''],['b','b',-8,8,.5,-2,''],['c','c',-8,8,.5,1,''],['x','যে বিন্দুতে x',-4,4,.5,2,'']],
+  derivativeCurve:[['a','a',-3,3,.25,1,''],['b','b',-8,8,.5,2,'']],
+  integral:[['a','ঢাল a',-3,3,.25,1,''],['b','intercept b',-5,5,.5,1,''],['upper','উপরের সীমা',.5,6,.5,4,'']],
+  riemann:[['a','ঢাল a',-3,3,.25,1,''],['b','intercept b',-5,5,.5,0,''],['upper','উপরের সীমা',.5,6,.5,4,''],['n','আয়তক্ষেত্র সংখ্যা',2,40,1,8,'']],
+  probability:[['n','পরীক্ষা সংখ্যা n',1,100,1,20,''],['p','সাফল্যের সম্ভাবনা p',.01,.99,.01,.3,''],['x','সাফল্য সংখ্যা x',0,30,1,5,'']],
+  combinatorics:[['n','মোট বস্তু n',2,12,1,6,''],['r','বাছাই r',0,8,1,3,'']],
+  sequence:[['a','প্রথম পদ a',-20,20,1,3,''],['d','সাধারণ অন্তর d',-10,10,1,2,''],['n','পদ নম্বর n',1,40,1,10,'']],
+  complex:[['real','বাস্তব অংশ',-10,10,.5,3,''],['imag','কাল্পনিক অংশ',-10,10,.5,4,'']],
+  linprog:[['c1','c₁',-5,5,.5,3,''],['c2','c₂',-5,5,.5,2,''],['x','x',0,10,.5,4,''],['y','y',0,10,.5,3,'']],
+  limit:[['a','a বিন্দু',-5,5,.5,2,'']]
+ };
+ defs=(P[kind]||P.line).map(function(x){return{id:x[0],label:x[1],min:x[2],max:x[3],step:x[4],value:x[5],unit:x[6]}});
+ defs.forEach(function(p){var val=cfg.values&&cfg.values[p.id];if(val!==undefined&&isFinite(+val))p.value=Math.max(p.min,Math.min(p.max,+val));current[p.id]=p.value;initial[p.id]=p.value});
+ function n(v){return isFinite(v)?v:0} function f(v,d){if(!isFinite(v))return'—';d=d===undefined?2:d;var x=Number(v);if(Math.abs(x)<1e-8)x=0;return x.toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:0})}
+ function fact(v){var z=1;for(var i=2;i<=Math.min(170,Math.floor(v));i++)z*=i;return z}
+ function choose(n0,r0){if(r0<0||n0<r0||n0>170)return 0;return fact(n0)/(fact(r0)*fact(n0-r0))}
+ function calculate(){var v=current,k=kind,o=[],ins='',aux={};function m(a,b){o.push({label:a,value:String(b)})}
+  switch(k){
+   case'motion':var a=v.acceleration,t=v.time,s=.5*a*t*t;m('শেষ বেগ',f(a*t)+' m/s');m('সরণ',f(s)+' m');m('ত্বরণ',f(a)+' m/s²');ins='v = at এবং s = ½at² (প্রাথমিক বেগ শূন্য)';break;
+   case'projectile':var u=v.speed,th=v.angle*Math.PI/180,g0=v.gravity,T=2*u*Math.sin(th)/g0,R=u*u*Math.sin(2*th)/g0,H=u*u*Math.sin(th)**2/(2*g0);m('পাল্লা',f(R)+' m');m('সর্বোচ্চ উচ্চতা',f(H)+' m');m('উড্ডয়নকাল',f(T)+' s');ins='আদর্শ প্রক্ষেপণ; বায়ুর বাধা উপেক্ষিত';aux.range=R;aux.height=H;break;
+   case'newton':m('ত্বরণ',f(v.force/v.mass)+' m/s²');m('ওজন',f(v.mass*9.81)+' N');m('বল',f(v.force)+' N');ins='a = F/m';break;
+   case'friction':var N=v.mass*9.81,fr=v.mu*N;m('সর্বোচ্চ স্থিতিঘর্ষণ',f(fr)+' N');m('টান বল',f(v.pull)+' N');m('আনুমানিক নিট বল',f(Math.max(0,v.pull-fr))+' N');ins=v.pull>fr?'টান বল সীমা ছাড়িয়েছে; বস্তু চলতে পারে।':'টান সর্বোচ্চ স্থিতিঘর্ষণের মধ্যে; বস্তু স্থিরও থাকতে পারে।';break;
+   case'momentum':var p=v.m1*v.u1+v.m2*v.u2,fin=p/(v.m1+v.m2);m('প্রাথমিক মোট ভরবেগ',f(p)+' kg·m/s');m('একত্রে চলার বেগ',f(fin)+' m/s');m('মোট ভর',f(v.m1+v.m2)+' kg');ins='সম্পূর্ণ অনাস্থিতিস্থাপক সংঘর্ষের আদর্শ মডেল';break;
+   case'energy':var ke=.5*v.mass*v.speed*v.speed,pe=v.mass*9.81*v.height;m('গতিশক্তি',f(ke)+' J');m('মহাকর্ষীয় বিভবশক্তি',f(pe)+' J');m('মোট যান্ত্রিক শক্তি',f(ke+pe)+' J');ins='K = ½mv²; U = mgh';break;
+   case'spring':m('প্রত্যাবর্তী বলের মান',f(v.k*v.stretch)+' N');m('সঞ্চিত শক্তি',f(.5*v.k*v.stretch*v.stretch)+' J');m('স্প্রিং ধ্রুবক',f(v.k)+' N/m');ins='আদর্শ হুকের সূত্র';break;
+   case'orbit':var rr=v.radius*1000,GM=3.986004418e14,vo=Math.sqrt(GM/rr),period=2*Math.PI*Math.sqrt(rr**3/GM);m('কক্ষীয় বেগ',f(vo/1000,3)+' km/s');m('পর্যায়কাল',f(period/3600)+' h');m('ব্যাসার্ধ',f(v.radius)+' km');ins='পৃথিবীর ভর অপরিবর্তিত ধরা হয়েছে';break;
+   case'gravity':var R0=6371,gH=9.81*Math.pow(R0/(R0+v.altitude),2);m('মহাকর্ষজ ত্বরণ',f(gH)+' m/s²');m('পৃষ্ঠের তুলনায়',f(gH/9.81*100)+'%');m('উচ্চতা',f(v.altitude)+' km');ins='পৃথিবীকে গোলক ও g₀=9.81 m/s² ধরা হয়েছে';break;
+   case'pendulum':var T0=2*Math.PI*Math.sqrt(v.length/v.gravity);m('দোলনকাল',f(T0)+' s');m('কম্পাঙ্ক',f(1/T0)+' Hz');m('দৈর্ঘ্য',f(v.length)+' m');ins='ক্ষুদ্র কৌণিক বিস্তার';break;
+   case'oscillator':var T1=2*Math.PI*Math.sqrt(v.mass/v.k);m('দোলনকাল',f(T1)+' s');m('কম্পাঙ্ক',f(1/T1)+' Hz');m('কৌণিক কম্পাঙ্ক',f(Math.sqrt(v.k/v.mass))+' rad/s');ins='আদর্শ স্প্রিং-ভর ব্যবস্থা';break;
+   case'wave':var ws=v.frequency*v.wavelength;m('তরঙ্গের বেগ',f(ws)+' m/s');m('পর্যায়কাল',f(1/v.frequency)+' s');m('তরঙ্গদৈর্ঘ্য',f(v.wavelength)+' m');ins='v = fλ';break;
+   case'sound':var vs=331+.6*v.temperature;m('শব্দের বেগ',f(vs)+' m/s');m('তরঙ্গদৈর্ঘ্য',f(vs/v.frequency)+' m');m('পর্যায়কাল',f(1/v.frequency,5)+' s');ins='শুষ্ক বায়ুর আনুমানিক মডেল';break;
+   case'doppler':var sp=Math.max(-0.9*343,Math.min(0.9*343,v.sourceSpeed)),ob=Math.max(-0.9*343,Math.min(0.9*343,v.observerSpeed)),fd=v.frequency*(343+ob)/(343-sp);m('পর্যবেক্ষিত কম্পাঙ্ক',f(fd)+' Hz');m('কম্পাঙ্ক পরিবর্তন',f(fd-v.frequency)+' Hz');m('শব্দের বেগ', '343 m/s');ins='উৎস ও পর্যবেক্ষক একে অপরের দিকে এগোচ্ছে—এমন সরলীকৃত মডেল';break;
+   case'gas':var pres=v.moles*8.314*v.temperature/v.volume;m('চাপ',f(pres)+' kPa');m('আয়তন',f(v.volume)+' L');m('তাপমাত্রা',f(v.temperature)+' K');ins='PV=nRT; kPa·L = J';break;
+   case'pressure':var pz=v.density*9.81*v.depth/1000;m('গেজ-চাপ',f(pz)+' kPa');m('গভীরতা',f(v.depth)+' m');m('ঘনত্ব',f(v.density)+' kg/m³');ins='বায়ুমণ্ডলীয় চাপ বাদে স্থির তরলের চাপ';break;
+   case'buoyancy':var fb=v.fluidDensity*9.81*v.volume,weight=v.objectDensity*9.81*v.volume;m('প্লবতা',f(fb)+' N');m('বস্তুর ওজন',f(weight)+' N');m('নেট ঊর্ধ্ব বল',f(fb-weight)+' N');ins=v.objectDensity<v.fluidDensity?'বস্তুর ঘনত্ব কম; ভাসার প্রবণতা':'বস্তুর ঘনত্ব বেশি/সমান; ডোবার বা নিরপেক্ষ থাকার প্রবণতা';break;
+   case'fluid':var v2=v.velocity1*Math.pow(v.radius1/v.radius2,2);m('দ্বিতীয় অংশের বেগ',f(v2)+' m/s');m('ক্ষেত্রফল অনুপাত A₁/A₂',f(Math.pow(v.radius1/v.radius2,2)));m('প্রথম বেগ',f(v.velocity1)+' m/s');ins='অসংকোচনীয় প্রবাহ: A₁v₁=A₂v₂';break;
+   case'thermal':var dl=v.alpha*v.length*v.deltaT;m('দৈর্ঘ্য পরিবর্তন',f(dl*1000,4)+' mm');m('চূড়ান্ত দৈর্ঘ্য',f(v.length+dl)+' m');m('ΔT',f(v.deltaT)+' °C');ins='ছোট তাপমাত্রা পরিবর্তনের রৈখিক প্রসারণ মডেল';break;
+   case'calorimetry':m('তাপ Q',f(v.mass*v.specificHeat*v.deltaT)+' J');m('ভর',f(v.mass)+' kg');m('সুনির্দিষ্ট তাপ',f(v.specificHeat)+' J/kg°C');ins='অবস্থা পরিবর্তন বা তাপক্ষয় উপেক্ষা করা হয়েছে';break;
+   case'torque':m('টর্কের মান',f(v.force*v.arm*Math.sin(v.angle*Math.PI/180))+' N·m');m('লম্ব বাহু',f(v.arm*Math.sin(v.angle*Math.PI/180))+' m');m('কোণ',f(v.angle)+'°');ins='τ = rF sinθ';break;
+   case'coulomb':var cf=8.9875517923e9*Math.abs(v.q1*v.q2)*1e-12/(v.distance*v.distance);m('তড়িৎ বল',f(cf)+' N');m('দূরত্ব দ্বিগুণ করলে বল',f(cf/4)+' N');m('চার্জের গুণফল',f(v.q1*v.q2)+' μC²');ins='দুটি বিন্দু আধানের জন্য কুলম্বের সূত্র';break;
+   case'electricField':var ef=8.9875517923e9*Math.abs(v.charge)*1e-6/(v.distance*v.distance);m('ক্ষেত্রের প্রাবল্য',f(ef)+' N/C');m('দূরত্ব দ্বিগুণে',f(ef/4)+' N/C');m('আধান',f(v.charge)+' μC');ins='বিন্দু আধানের ক্ষেত্র; পরীক্ষা-আধানের মান নয়';break;
+   case'capacitor':var cap=8.8541878128e-12*v.area/v.gap,U=.5*cap*v.voltage*v.voltage;m('ধারকত্ব',f(cap*1e9,3)+' nF');m('সঞ্চিত শক্তি',f(U*1e6,4)+' μJ');m('আধান',f(cap*v.voltage*1e6,3)+' μC');ins='বায়ু/শূন্যস্থান এবং প্রান্ত-প্রভাব উপেক্ষা';break;
+   case'ohm':m('প্রবাহ',f(v.voltage/v.resistance)+' A');m('ক্ষমতা',f(v.voltage*v.voltage/v.resistance)+' W');m('রোধ',f(v.resistance)+' Ω');ins='ওহমিক রোধ, তাপমাত্রা স্থির';break;
+   case'parallel':var rp=1/(1/v.r1+1/v.r2);m('তুল্য রোধ',f(rp)+' Ω');m('মোট প্রবাহ',f(v.voltage/rp)+' A');m('মোট ক্ষমতা',f(v.voltage*v.voltage/rp)+' W');ins='দুটি আদর্শ রোধ সমান্তরালে';break;
+   case'magneticForce':var mf=Math.abs(v.charge)*1e-6*v.speed*v.field*Math.sin(v.angle*Math.PI/180);m('চৌম্বক বল',f(mf)+' N');m('কোণ',f(v.angle)+'°');m('বেগ',f(v.speed)+' m/s');ins='F=|q|vB sinθ; বৈদ্যুতিক বল বাদে';break;
+   case'induction':var emf=v.turns*v.area*v.deltaB/v.time;m('আবিষ্ট emf',f(emf)+' V');m('পাকসংখ্যা',f(v.turns));m('সময়',f(v.time)+' s');ins='ক্ষেত্রের লম্ব অভিন্ন ফ্লাক্স-পরিবর্তন';break;
+   case'ac':var omega=2*Math.PI*v.frequency,vt=v.peakVoltage*Math.sin(omega*v.time);m('তাৎক্ষণিক বিভব',f(vt)+' V');m('RMS বিভব',f(v.peakVoltage/Math.sqrt(2))+' V');m('কৌণিক কম্পাঙ্ক',f(omega)+' rad/s');ins='শুদ্ধ সাইন তরঙ্গ';break;
+   case'lens':var den=v.objectDistance-v.focalLength,iv=Math.abs(den)<.05?Infinity:v.focalLength*v.objectDistance/den;m('প্রতিবিম্ব দূরত্ব',isFinite(iv)?f(iv)+' cm':'ফোকাসের খুব কাছে ∞');m('বিবর্ধনের মান',isFinite(iv)?f(Math.abs(iv/v.objectDistance)):'অনেক বড়');m('ফোকাল দৈর্ঘ্য',f(v.focalLength)+' cm');ins=den>0?'সরলীকৃত উত্তল লেন্স: বস্তু ফোকাসের বাইরে':'বস্তু ফোকাসের ভেতরে; প্রতিবিম্ব অবাস্তব/সোজা হতে পারে';break;
+   case'interference':var fringe=v.wavelength*1e-9*v.screenDistance/(v.slitGap*1e-3);m('ফ্রিঞ্জ প্রস্থ',f(fringe*1000,3)+' mm');m('পর্দার দূরত্ব',f(v.screenDistance)+' m');m('চিরের ব্যবধান',f(v.slitGap)+' mm');ins='ইয়ং-এর দ্বি-চিরের ক্ষুদ্র-কোণ মডেল';break;
+   case'periodicTrend':case'atomicRadius':case'ionization':case'electronegativity':var down=v.period,grp=v.group,relRadius=(8-down*.35)+(grp-1)*(-.23),relIE=(down*.85)+(grp*.17),relEN=(down*.35)+(grp*.2);if(k==='atomicRadius'){m('আপেক্ষিক ব্যাসার্ধ',f(relRadius)+' একক');m('পর্যায়',f(down));m('গ্রুপ',f(grp));ins='ধারণামূলক trend index; বাস্তব মৌলভিত্তিক মান নয়'}else if(k==='ionization'){m('আপেক্ষিক আয়নীকরণ প্রবণতা',f(relIE));m('পর্যায়',f(down));m('গ্রুপ',f(grp));ins='সাধারণ প্রবণতা; পরিচিত ব্যতিক্রম রয়েছে'}else if(k==='electronegativity'){m('আপেক্ষিক EN প্রবণতা',f(relEN));m('পর্যায়',f(down));m('গ্রুপ',f(grp));ins='ধারণামূলক trend index; প্রকৃত Pauling মান নয়'}else{m('অবস্থান','পর্যায় '+f(down)+' · গ্রুপ '+f(grp));m('আপেক্ষিক radius index',f(relRadius));m('আপেক্ষিক IE index',f(relIE));ins='শেখার মডেল; মৌলভেদে ব্যতিক্রম/প্রকৃত মান আলাদা';}break;
+   case'polarity':var de=Math.abs(v.en1-v.en2);m('তড়িৎঋণাত্মকতার পার্থক্য',f(de));m('বন্ধনের ধরন',de<.4?'প্রায় অমেরু সমযোজী':de<1.7?'মেরু সমযোজী':'প্রবল মেরু/আয়নিক প্রবণতা');m('ইলেকট্রন টান',v.en1===v.en2?'সমান':'অসমান');ins='সীমাগুলো আনুমানিক নির্দেশক; রাসায়নিক পরিবেশও গুরুত্বপূর্ণ';break;
+   case'molecule':var bp=v.bonds,lp=v.lonePairs,shape=bp===2&&lp===0?'সরলরৈখিক':bp===3&&lp===0?'ত্রিকোণীয় সমতল':bp===4&&lp===0?'টেট্রাহেড্রাল':lp===1?'এক/একাধিক lone pair-সহ বাঁকানো/পিরামিডাল':'ইলেকট্রন-অঞ্চলের বিন্যাস দেখুন';m('বন্ধন অঞ্চল',f(bp));m('lone pair',f(lp));m('আকৃতির ধারণা',shape);ins='VSEPR-এর সরল ধারণামূলক মডেল';break;
+   case'kinetics':var conc=v.concentration*Math.exp(-v.rateConstant*4);m('৪ s পরে [A]',f(conc,4)+' mol/L');m('প্রাথমিক [A]',f(v.concentration)+' mol/L');m('t½',f(Math.LN2/v.rateConstant)+' s');ins='প্রথম-ক্রমের বিক্রিয়া মডেল';break;
+   case'equilibrium':m('K',f(v.K));m('Q',f(v.Q));m('প্রবণতা',Math.abs(v.K-v.Q)<.0001?'সাম্যাবস্থা':v.Q<v.K?'সামনের দিকে':'বিপরীত দিকে');ins='একই তাপমাত্রা ও সঠিক reaction quotient ধরে তুলনা';break;
+   case'ph':var pp=-Math.log10(Math.max(1e-14,v.concentration));m('pH',f(pp,3));m('pOH (25°C)',f(14-pp,3));m('[H⁺]',f(v.concentration,7)+' mol/L');ins='শক্তিশালী একপ্রোটিক অ্যাসিডের সরল মডেল';break;
+   case'titration':var na=v.acidConc*v.acidVolume/1000,nb=v.baseConc*v.baseVolume/1000,tot=(v.acidVolume+v.baseVolume)/1000,ex=(nb-na)/Math.max(1e-12,tot),ph0=nb>=na?14+Math.log10(Math.max(1e-14,ex)): -Math.log10(Math.max(1e-14,-ex));if(Math.abs(nb-na)<1e-8)ph0=7;m('অ্যাসিড মোল',f(na,5)+' mol');m('ক্ষার মোল',f(nb,5)+' mol');m('pH (আনুমানিক)',f(Math.max(0,Math.min(14,ph0)),2));ins='শক্তিশালী একপ্রোটিক অ্যাসিড-ক্ষারের সরলীকৃত stoichiometric মডেল';break;
+   case'solubility':var sol=14+0.55*v.temperature;m('ধারণামূলক দ্রাব্যতা',f(sol)+' g/100 g পানি');m('তাপমাত্রা',f(v.temperature)+' °C');m('পরিবর্তন',f(.55*v.temperature)+' model units');ins='শুধু trend শেখানোর উদাহরণ; কোনো নির্দিষ্ট লবণের পরীক্ষামূলক ডেটা নয়';break;
+   case'dilution':m('চূড়ান্ত ঘনমাত্রা',f(v.stockConc*v.stockVolume/v.finalVolume,4)+' M');m('স্টক থেকে মোল',f(v.stockConc*v.stockVolume/1000,4)+' mol');m('মোট আয়তন',f(v.finalVolume)+' mL');ins='দ্রবের ক্ষয়/প্রতিক্রিয়া নেই ধরে C₁V₁=C₂V₂';break;
+   case'stoich':var possibleA=v.molesA,possibleB=v.molesB/v.ratioB,lim=Math.min(possibleA,possibleB);m('সীমাবদ্ধ বিকারক',possibleA<possibleB?'A':possibleB<possibleA?'B':'দুজনই stoichiometric');m('সর্বোচ্চ A-অনুযায়ী উৎপাদ',f(lim)+' mol');m('অবশিষ্ট B',f(Math.max(0,v.molesB-lim*v.ratioB))+' mol');ins='A + ratioB·B → উৎপাদ, 1:ratioB অনুপাত';break;
+   case'thermo':var h=v.deltaH*v.progress;m('প্রতিক্রিয়া enthalpy',f(v.deltaH)+' kJ/mol');m('বর্তমান অগ্রগতির স্কেল',f(h)+' kJ/mol');m('শক্তির ধরন',v.deltaH<0?'উষ্মাক্ষেপী':'উষ্মাশোষী');ins='প্রোফাইলটি ধারণামূলক; activation energy আলাদা রাশি';break;
+   case'electrochem':var ec=v.cathodePotential-v.anodePotential;m('কোষ বিভব',f(ec)+' V');m('ইঙ্গিত',ec>0?'মানক অবস্থায় স্বতঃস্ফূর্ত প্রবণতা':ec<0?'উল্টো দিকে স্বতঃস্ফূর্ত প্রবণতা':'সীমান্ত মান');m('ক্যাথোড বিভব',f(v.cathodePotential)+' V');ins='E°cell = E°cathode − E°anode';break;
+   case'electrolysis':var mass=v.molarMass*v.current*v.seconds/(v.electrons*96485);m('তাত্ত্বিক জমা ভর',f(mass,4)+' g');m('মোট চার্জ',f(v.current*v.seconds)+' C');m('সময়',f(v.seconds)+' s');ins='ফ্যারাডের সূত্র; ১০০% current efficiency';break;
+   case'alkane':var cc=Math.floor(v.carbons);m('আণবিক সূত্র','C'+cc+'H'+(2*cc+2));m('আনুমানিক মোলার ভর',f(12.011*cc+1.008*(2*cc+2))+' g/mol');m('C–C বন্ধনের সংখ্যা',f(Math.max(0,cc-1)));ins='শুধু উন্মুক্ত-শৃঙ্খল সম্পৃক্ত অ্যালকেন';break;
+   case'molarity':m('মোলারিটি',f((v.mass/v.molarMass)/v.volume,4)+' mol/L');m('দ্রবের মোল',f(v.mass/v.molarMass,4)+' mol');m('আয়তন',f(v.volume)+' L');ins='V হলো সম্পূর্ণ দ্রবণের লিটার এককে আয়তন';break;
+   case'spectrum':var lam=1239.841984/v.energyEV;m('তরঙ্গদৈর্ঘ্য',f(lam)+' nm');m('ফোটন শক্তি',f(v.energyEV)+' eV');m('বর্ণালির অঞ্চল',lam<400?'অতিবেগুনি':lam<450?'বেগুনি':lam<495?'নীল':lam<570?'সবুজ/হলুদ':lam<620?'কমলা':lam<=750?'লাল':'অবলোহিত');ins='E(eV)λ(nm) ≈ 1240';break;
+   case'redox':m('ইলেকট্রন স্থানান্তর',f(v.electrons)+' e⁻');m('দাতা পক্ষ',f(v.electrons*v.donor)+' e⁻ হারালে জারণ');m('গ্রহীতা পক্ষ',f(v.electrons*v.acceptor)+' e⁻ গ্রহণে বিজারণ');ins='সমীকরণ সাম্য করতে দুই পাশে মোট e⁻ সমান রাখতে হয়';break;
+   case'line':m('y(2)',f(v.slope*2+v.intercept));m('ঢাল',f(v.slope));m('y-intercept',f(v.intercept));ins='y = mx+c';break;
+   case'quadratic':case'polynomial':var disc=v.b*v.b-4*v.a*v.c,rx1,rx2;rx1=v.a?(-v.b+Math.sqrt(Math.max(0,disc)))/(2*v.a):NaN;rx2=v.a?(-v.b-Math.sqrt(Math.max(0,disc)))/(2*v.a):NaN;m('Discriminant D',f(disc));m('বাস্তব মূল',v.a===0?'a=0; quadratic নয়':disc>0?'২টি':disc===0?'১টি দ্বিগুণ':'কোনো বাস্তব মূল নেই');m('গ্রাফের খোলা দিক',v.a>0?'উপরে':v.a<0?'নিচে':'সরলরেখা');ins='D = b²−4ac';break;
+   case'absolute':m('শীর্ষবিন্দু','('+f(v.h)+', '+f(v.k)+')');m('x=0 এ y',f(v.a*Math.abs(v.h)+v.k));m('ঢাল (ডান বাহু)',f(v.a));ins='y = a|x−h|+k';break;
+   case'exponential':m('y(0)',f(v.a));m('y(2)',f(v.a*Math.exp(2*v.rate)));m('প্রবণতা',v.rate>0?'সূচকীয় বৃদ্ধি':v.rate<0?'সূচকীয় হ্রাস':'ধ্রুবক');ins='y = aeᵏˣ';break;
+   case'logarithm':m('y(1)',f(v.a*Math.log(7)));m('y(4)',f(v.a*Math.log(10)));m('ডোমেইন','x > −6');ins='y = a ln(x+6); log-এর আর্গুমেন্ট ধনাত্মক';break;
+   case'trig':case'cosine':var rad=(v.phase||0);m('বিস্তার',f(v.amplitude));m('পর্যায়',f(2*Math.PI/v.frequency)+' rad');m('y(0)',f(v.amplitude*(k==='cosine'?Math.cos(rad):Math.sin(rad))));ins=k==='cosine'?'y=A cos(ωx+φ)':'y=A sin(ωx+φ)';break;
+   case'unitCircle':var th=v.angle*Math.PI/180,ss=Math.sin(th),cc=Math.cos(th);m('sin θ',f(ss,4));m('cos θ',f(cc,4));m('tan θ',Math.abs(cc)<1e-8?'অসংজ্ঞায়িত':f(ss/cc,4));ins='বৃত্তের ব্যাসার্ধ 1';break;
+   case'vector':var mag=Math.hypot(v.ax,v.ay),ang=Math.atan2(v.ay,v.ax)*180/Math.PI;m('ভেক্টরের মান',f(mag));m('দিক',f(ang)+'°');m('x,y উপাংশ','('+f(v.ax)+', '+f(v.ay)+')');ins='|A| = √(Aₓ²+Aᵧ²)';break;
+   case'dotCross':m('ডট গুণফল',f(v.ax*v.bx+v.ay*v.by));m('2D ক্রসের z-উপাংশ',f(v.ax*v.by-v.ay*v.bx));m('A·B = 0?',Math.abs(v.ax*v.bx+v.ay*v.by)<1e-8?'হ্যাঁ':'না');ins='ডট scalar; 2D cross-এর z-component signed scalar';break;
+   case'matrix':var th2=v.rotation*Math.PI/180,x0=v.x,y0=v.y,x1=v.scaleX*(x0*Math.cos(th2)-y0*Math.sin(th2)),y1=v.scaleY*(x0*Math.sin(th2)+y0*Math.cos(th2));m('রূপান্তরিত বিন্দু','('+f(x1)+', '+f(y1)+')');m('determinant',f(v.scaleX*v.scaleY));m('ঘূর্ণন',f(v.rotation)+'°');ins='সমন্বিত rotation ও axis-aligned scaling';break;
+   case'determinant':var det=v.a*v.d-v.b*v.c;m('det(A)',f(det));m('ক্ষেত্রফল-স্কেল',f(Math.abs(det)));m('রূপান্তর',Math.abs(det)<1e-8?'ক্ষেত্র সংকুচিত/রেখীয়':'ক্ষেত্রফল বদলায়');ins='det(A)=ad−bc';break;
+   case'intersections':var dm=v.m1-v.m2;if(Math.abs(dm)<1e-8){m('ছেদবিন্দু',Math.abs(v.b1-v.b2)<1e-8?'একই রেখা':'সমান্তরাল');m('x','একক ছেদবিন্দু নেই');m('y','—');}else{var xi=(v.b2-v.b1)/dm,yi=v.m1*xi+v.b1;m('ছেদবিন্দু','('+f(xi)+', '+f(yi)+')');m('x',f(xi));m('y',f(yi));}ins='m₁x+b₁ = m₂x+b₂';break;
+   case'circle':m('ক্ষেত্রফল',f(Math.PI*v.radius*v.radius));m('পরিধি',f(2*Math.PI*v.radius));m('সমীকরণ','(x−'+f(v.h)+')²+(y−'+f(v.k)+')²='+f(v.radius*v.radius));ins='কেন্দ্র ('+f(v.h)+', '+f(v.k)+')';break;
+   case'ellipse':var aa=Math.max(v.a,v.b),bb=Math.min(v.a,v.b),ecc=Math.sqrt(Math.max(0,1-(bb*bb)/(aa*aa)));m('ক্ষেত্রফল',f(Math.PI*v.a*v.b));m('eccentricity',f(ecc,4));m('অর্ধ-অক্ষ','a='+f(v.a)+', b='+f(v.b));ins='a ও b ধনাত্মক; বৃহত্তর অর্ধ-অক্ষকে প্রধান অক্ষ ধরা হয়';break;
+   case'derivative':var yy=v.a*v.x*v.x+v.b*v.x+v.c,dy=2*v.a*v.x+v.b;m('f(x)',f(yy));m('f′(x)',f(dy));m('স্পর্শক', 'y = '+f(dy)+'(x−'+f(v.x)+') + '+f(yy));ins='স্পর্শকের ঢাল = ঐ বিন্দুতে derivative';break;
+   case'derivativeCurve':m('মূল ফাংশনের ঢাল',f(2*v.a));m('f′(0)',f(v.b));m('f′(x)', '2ax + b');ins='মূল ফাংশন ax²+bx; derivative একটি সরলরেখা';break;
+   case'integral':case'riemann':var ub=v.upper,exact=.5*v.a*ub*ub+v.b*ub,nn=k==='riemann'?Math.max(1,Math.floor(v.n)):1,dx=ub/nn,sum=0;for(var ii=0;ii<nn;ii++){var xx=k==='riemann'?(ii+.5)*dx:ii*dx;sum+=(v.a*xx+v.b)*dx;}m(k==='riemann'?'মধ্যবিন্দু Riemann sum':'নির্দিষ্ট সমাকলন',f(k==='riemann'?sum:exact));m('ধারাবাহিক মান',f(exact));m('আয়তক্ষেত্র সংখ্যা',k==='riemann'?f(nn):'—');ins=k==='riemann'?'midpoint rule-এর আনুমানিক মান':'∫₀ᵇ(ax+c)dx';break;
+   case'probability':var nn2=Math.floor(v.n),xx2=Math.floor(v.x),pr=Math.max(0,Math.min(1,v.p));m('প্রত্যাশিত সাফল্য np',f(nn2*pr));m('বিচরণ np(1−p)',f(nn2*pr*(1-pr)));m('সফলতার লক্ষ্য',Math.min(nn2,xx2)+' / '+nn2);ins='independent Bernoulli trial; একটি probability model';break;
+   case'combinatorics':var cn=Math.floor(v.n),cr=Math.min(cn,Math.floor(v.r));m('Permutation nPr',f(fact(cn)/fact(cn-cr),0));m('Combination nCr',f(choose(cn,cr),0));m('ক্রম গুরুত্বপূর্ণ?',cr>1?'Permutation-এ হ্যাঁ':'এই r-এর জন্য সীমিত প্রভাব');ins='n ≤ 12-এ factorial-ভিত্তিক হিসাব';break;
+   case'sequence':var nt=Math.floor(v.n),an=v.a+(nt-1)*v.d,sn=nt*(2*v.a+(nt-1)*v.d)/2;m('n-তম পদ',f(an));m('প্রথম n পদের যোগফল',f(sn));m('সাধারণ অন্তর',f(v.d));ins='সমান্তর ধারার সূত্র';break;
+   case'complex':var cm=Math.hypot(v.real,v.imag),arg=Math.atan2(v.imag,v.real)*180/Math.PI;m('মডুলাস |z|',f(cm));m('আর্গুমেন্ট',f(arg)+'°');m('z',f(v.real)+(v.imag<0?' − ':' + ')+f(Math.abs(v.imag))+'i');ins='Argand সমতলে real ↔ x, imaginary ↔ y';break;
+   case'linprog':m('Objective Z',f(v.c1*v.x+v.c2*v.y));m('x',f(v.x));m('y',f(v.y));ins='এটি objective value explorer; পূর্ণ feasibility যাচাই আলাদা করে করুন';break;
+   case'limit':m('a বিন্দু',f(v.a));m('2a',f(2*v.a));m('দুই পাশের limiting value',f(2*v.a));ins='(x²−a²)/(x−a)=x+a, x ≠ a';break;
+   default:m('মডেল',kind);m('পরামিতি',String(defs.length));m('পরীক্ষা', 'মান পরিবর্তন করে দেখুন');ins='নিয়ন্ত্রণগুলো বদলে লাইভ ফল দেখুন';
+  }
+  aux.metrics=o;aux.insight=ins||cfg.mission||'পরামিতি বদলে ফলাফল পর্যবেক্ষণ করুন';aux.formula=cfg.formula||ins||'';return aux;
+ }
+ function graphY(x){var v=current,k=kind;switch(k){
+  case'motion':return .5*v.acceleration*x*x;
+  case'projectile':var rr=(x+5)/10,theta=v.angle*Math.PI/180;return Math.max(-0.5,(v.speed*v.speed*Math.sin(theta)*Math.sin(theta)/(2*(v.gravity||9.8)))*4*rr*(1-rr));
+  case'wave':return Math.sin(2*Math.PI*x/(v.wavelength||1))*Math.min(4,v.frequency/4);
+  case'sound':case'doppler':case'ac':return Math.sin(x*(kind==='ac'?Math.max(.5,current.frequency/25):kind==='sound'?Math.max(1,current.frequency/250):2));
+  case'line':return v.slope*x+v.intercept;
+  case'quadratic':case'polynomial':return v.a*x*x+v.b*x+v.c;
+  case'absolute':return v.a*Math.abs(x-v.h)+v.k;
+  case'exponential':return v.a*Math.exp(Math.max(-8,Math.min(4,v.rate*x)));
+  case'logarithm':return v.a*Math.log(Math.max(.03,x+6));
+  case'trig':return v.amplitude*Math.sin(v.frequency*x+v.phase);
+  case'cosine':return v.amplitude*Math.cos(v.frequency*x+v.phase);
+  case'unitCircle':return Math.sin(x*Math.PI/5);
+  case'kinetics':return current.concentration*Math.exp(-current.rateConstant*(x+5)/2);
+  case'ph':return -Math.log10(Math.max(1e-14,current.concentration))*x/5;
+  case'titration':var trialVol=(x+5)*6,acidM=current.acidConc*current.acidVolume/1000,baseM=current.baseConc*trialVol/1000,totM=(current.acidVolume+trialVol)/1000,exM=(baseM-acidM)/Math.max(1e-9,totM);if(Math.abs(baseM-acidM)<1e-7)return 7;return Math.max(0,Math.min(14,baseM>acidM?14+Math.log10(Math.max(1e-14,exM)):-Math.log10(Math.max(1e-14,-exM))));
+  case'solubility':return 14+.55*(x+5)*10;
+  case'periodicTrend':return (8-current.period*.4)+(x+5)*.15;
+  case'atomicRadius':return 8-current.period*.4-(x+5)*.15;
+  case'ionization':case'electronegativity':return current.period*.5+(x+5)*.2;
+  case'derivative':return current.a*x*x+current.b*x+current.c;
+  case'derivativeCurve':return 2*current.a*x+current.b;
+  case'integral':case'riemann':return current.a*x+current.b;
+  case'limit':return x+current.a;
+  default:return Math.sin(x*1.15)*1.8+Math.cos(x*.4)*.6;
+ }}
+ function pathFrom(fn,xmin,xmax,ymin,ymax){var pts=[],i,N=80;for(i=0;i<=N;i++){var x=xmin+(xmax-xmin)*i/N,y=fn(x);if(!isFinite(y))continue;pts.push([x,y])}if(!pts.length)return'';return pts.map(function(p,j){var px=42+(p[0]-xmin)/(xmax-xmin)*620,py=218-(p[1]-ymin)/(ymax-ymin)*170;return(j?'L':'M')+px.toFixed(1)+','+py.toFixed(1)}).join(' ')}
+ function standardGraph(){var vals=[],i;for(i=0;i<=80;i++){var x=-5+10*i/80,yy=graphY(x);if(isFinite(yy))vals.push(yy)}var max=4,min=-4;if(vals.length){var ext=Math.max(1,Math.max.apply(null,vals.map(Math.abs)));max=ext*1.12;min=-ext*1.12}var grid='';for(i=0;i<=10;i++){var xx=42+i*62,yy=35+i*17;grid+='<line x1="'+xx+'" y1="30" x2="'+xx+'" y2="220" stroke="currentColor" opacity=".08"/><line x1="42" y1="'+(32+i*18)+'" x2="662" y2="'+(32+i*18)+'" stroke="currentColor" opacity=".08"/>'}var y0=218-(0-min)/(max-min)*170,x0=42+(0+5)/10*620;return'<svg viewBox="0 0 700 260" role="img" aria-label="পরামিতি বদলালে পরিবর্তিত গ্রাফ" class="sim-explorer-svg">'+grid+'<line x1="42" y1="'+y0+'" x2="664" y2="'+y0+'" stroke="currentColor" opacity=".55" stroke-width="1.4"/><line x1="'+x0+'" y1="30" x2="'+x0+'" y2="220" stroke="currentColor" opacity=".55" stroke-width="1.4"/><path d="'+pathFrom(graphY,-5,5,min,max)+'" fill="none" stroke="var(--p,#7c7cff)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><text x="654" y="242" font-size="11" fill="currentColor">x</text><text x="23" y="40" font-size="11" fill="currentColor">y</text><text x="42" y="245" font-size="10" fill="currentColor">−5</text><text x="345" y="245" font-size="10" fill="currentColor">0</text><text x="650" y="245" font-size="10" fill="currentColor">5</text></svg>'}
+ function scene(){
+  if(['periodicTrend','atomicRadius','ionization','electronegativity'].indexOf(kind)>=0){var p=current.period,gr=current.group,blocks='';for(var rr=1;rr<=7;rr++){for(var cc=1;cc<=18;cc++){var occupied=(cc<=2)||(cc>=13)||rr>=4||(rr===2&&cc<=18)||(rr===3&&cc<=18);if(!occupied)continue;var active=rr===p&&cc===gr;blocks+='<rect x="'+(25+(cc-1)*35)+'" y="'+(18+(rr-1)*27)+'" width="30" height="22" rx="4" fill="'+(active?'var(--p,#7c7cff)':'currentColor')+'" opacity="'+(active?'.95':'.12')+'"/><text x="'+(40+(cc-1)*35)+'" y="'+(33+(rr-1)*27)+'" font-size="9" text-anchor="middle" fill="'+(active?'white':'currentColor')+'">'+(active?'●':'')+'</text>'}}return'<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="পর্যায় সারণির অবস্থান">'+blocks+'<text x="24" y="221" fill="currentColor" font-size="11">পর্যায় '+p+' · গ্রুপ '+gr+' হাইলাইট করা</text></svg>'}
+  if(kind==='alkane'){
+   var carb=Math.max(1,Math.min(20,Math.floor(current.carbons))),spacing=Math.min(27,560/Math.max(1,carb-1)),startX=340-(carb-1)*spacing/2,chain='';
+   for(var ci=0;ci<carb;ci++){var pxC=startX+ci*spacing;if(ci)chain+='<line x1="'+(pxC-spacing+10)+'" y1="105" x2="'+(pxC-10)+'" y2="105" stroke="currentColor" stroke-width="3"/>';chain+='<circle cx="'+pxC+'" cy="105" r="14" fill="rgba(124,124,255,.15)" stroke="var(--p,#7c7cff)" stroke-width="2"/><text x="'+pxC+'" y="109" text-anchor="middle" font-size="11" fill="currentColor">C</text>';}
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="উন্মুক্ত শৃঙ্খলের অ্যালকেন"><text x="20" y="35" font-size="13" fill="currentColor">কার্বন শৃঙ্খল · '+carb+'টি C পরমাণু</text>'+chain+'<text x="340" y="175" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor">C'+carb+'H'+(2*carb+2)+'</text><text x="340" y="202" text-anchor="middle" font-size="11" fill="currentColor">শুধু সরল উন্মুক্ত শৃঙ্খলের অ্যালকেনের মডেল</text></svg>';
+  }
+  if(kind==='newton'||kind==='friction'){
+   var forceVal=kind==='newton'?current.force:current.pull,frVal=kind==='friction'?current.mu*current.mass*9.81:0,forceLen=40+Math.min(180,forceVal*2.2),frLen=20+Math.min(150,frVal*2.2);
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="বস্তুর ওপর বল ও ঘর্ষণের চিত্র"><defs><marker id="sim-force-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2bb6a8"/></marker><marker id="sim-fric-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e58b45"/></marker></defs><path d="M35 172 H645" stroke="currentColor" stroke-width="3" opacity=".4"/><rect x="280" y="110" width="120" height="60" rx="9" fill="rgba(124,124,255,.16)" stroke="var(--p,#7c7cff)" stroke-width="2"/><text x="340" y="145" text-anchor="middle" font-size="13" fill="currentColor">m = '+f(current.mass||0)+' kg</text><path d="M340 110 V70" stroke="currentColor" stroke-width="2"/><path d="M340 70 L340 55" stroke="currentColor" stroke-width="3"/><text x="340" y="42" text-anchor="middle" font-size="12" fill="currentColor">N</text><path d="M400 136 H'+Math.min(625,400+forceLen)+'" stroke="#2bb6a8" stroke-width="4" marker-end="url(#sim-force-arrow)"/><text x="'+Math.min(610,405+forceLen/2)+'" y="124" text-anchor="middle" font-size="12" fill="currentColor">'+(kind==='newton'?'F = '+f(forceVal)+' N':'টান = '+f(forceVal)+' N')+'</text>'+(kind==='friction'?'<path d="M280 151 H'+Math.max(50,280-frLen)+'" stroke="#e58b45" stroke-width="4" marker-end="url(#sim-fric-arrow)"/><text x="'+Math.max(75,280-frLen/2)+'" y="140" text-anchor="middle" font-size="12" fill="currentColor">f = '+f(frVal)+' N</text>':'')+'<text x="24" y="211" font-size="11" fill="currentColor">'+(kind==='newton'?'একই বল, ভিন্ন ভর → ভিন্ন ত্বরণ':'টান ও সর্বোচ্চ স্থিতিঘর্ষণ তুলনা করুন')+'</text></svg>';
+  }
+  if(kind==='momentum'){
+   var vl1=current.u1,vl2=current.u2,ml1=44+Math.min(100,Math.abs(vl1)*9),ml2=44+Math.min(100,Math.abs(vl2)*9),x1=220,x2=460;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="সংঘর্ষের আগে দুটি বস্তুর ভর ও বেগ"><defs><marker id="sim-mom-arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7c7cff"/></marker><marker id="sim-mom-arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2bb6a8"/></marker></defs><path d="M30 174 H650" stroke="currentColor" opacity=".35" stroke-width="2"/><rect x="'+(x1-35)+'" y="115" width="70" height="58" rx="8" fill="rgba(124,124,255,.18)" stroke="#7c7cff" stroke-width="2"/><rect x="'+(x2-35)+'" y="115" width="70" height="58" rx="8" fill="rgba(43,182,168,.17)" stroke="#2bb6a8" stroke-width="2"/><text x="'+x1+'" y="148" text-anchor="middle" font-size="12" fill="currentColor">m₁='+f(current.m1)+'</text><text x="'+x2+'" y="148" text-anchor="middle" font-size="12" fill="currentColor">m₂='+f(current.m2)+'</text><path d="M'+x1+' 103 '+(vl1>=0?'H'+(x1+ml1):'H'+(x1-ml1))+'" stroke="#7c7cff" stroke-width="4" marker-end="url(#sim-mom-arrow1)"/><path d="M'+x2+' 103 '+(vl2>=0?'H'+Math.min(635,x2+ml2):'H'+Math.max(45,x2-ml2))+'" stroke="#2bb6a8" stroke-width="4" marker-end="url(#sim-mom-arrow2)"/><text x="340" y="45" text-anchor="middle" font-size="13" fill="currentColor">মোট প্রাথমিক ভরবেগ = '+f(current.m1*vl1+current.m2*vl2)+' kg·m/s</text><text x="340" y="211" text-anchor="middle" font-size="11" fill="currentColor">সংঘর্ষের পর একত্রে চলার বেগ = '+f((current.m1*vl1+current.m2*vl2)/(current.m1+current.m2))+' m/s</text></svg>';
+  }
+  if(kind==='energy'){
+   var kE=.5*current.mass*current.speed*current.speed,pE=current.mass*9.81*current.height,totE=Math.max(1,kE+pE),barK=500*kE/totE,barP=500*pE/totE;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="গতিশক্তি ও বিভবশক্তির তুলনা"><text x="24" y="32" font-size="13" fill="currentColor">যান্ত্রিক শক্তি: '+f(kE+pE)+' J</text><text x="24" y="76" font-size="12" fill="currentColor">গতিশক্তি K = '+f(kE)+' J</text><rect x="24" y="88" width="'+barK+'" height="30" rx="5" fill="var(--p,#7c7cff)"/><text x="24" y="153" font-size="12" fill="currentColor">মহাকর্ষীয় বিভবশক্তি U = '+f(pE)+' J</text><rect x="24" y="165" width="'+barP+'" height="30" rx="5" fill="#2bb6a8"/><text x="640" y="218" text-anchor="end" font-size="11" fill="currentColor">বেগ ও উচ্চতা বদলে শক্তির ভাগ তুলনা করুন</text></svg>';
+  }
+  if(kind==='spring'||kind==='oscillator'){
+   var ext=kind==='spring'?current.stretch:Math.min(.5,current.mass/current.k*2),blockX=400+Math.min(85,ext*200),springPath='M150 120';for(var sx=0;sx<10;sx++){springPath+=' L'+(170+sx*22)+' '+(sx%2?105:135)}springPath+=' L'+(blockX)+' 120';
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="স্প্রিং ও যুক্ত বস্তুর মডেল"><path d="M145 65 V175 M135 65 H155 M135 175 H155" stroke="currentColor" stroke-width="4"/><path d="'+springPath+'" fill="none" stroke="var(--p,#7c7cff)" stroke-width="3.5" stroke-linejoin="round"/><rect x="'+blockX+'" y="94" width="85" height="52" rx="8" fill="rgba(43,182,168,.18)" stroke="#2bb6a8" stroke-width="2"/><text x="'+(blockX+42)+'" y="124" text-anchor="middle" font-size="12" fill="currentColor">m = '+f(current.mass||1)+'</text><text x="340" y="45" text-anchor="middle" font-size="13" fill="currentColor">k = '+f(current.k)+' N/m</text><text x="340" y="200" text-anchor="middle" font-size="12" fill="currentColor">'+(kind==='spring'?'x = '+f(current.stretch,3)+' m · U = ½kx²':'T = '+f(2*Math.PI*Math.sqrt(current.mass/current.k))+' s')+'</text></svg>';
+  }
+  if(kind==='pendulum'){
+   var pendLen=45+Math.min(95,current.length*23),pendY=35+pendLen;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="দৈর্ঘ্য পরিবর্তনশীল সরল দোলক"><path d="M240 30 H440 M340 30 L340 '+pendY+'" stroke="currentColor" stroke-width="3"/><circle cx="340" cy="'+pendY+'" r="18" fill="rgba(124,124,255,.22)" stroke="var(--p,#7c7cff)" stroke-width="2.5"/><circle cx="340" cy="30" r="5" fill="currentColor"/><text x="365" y="'+(pendY-15)+'" font-size="12" fill="currentColor">L = '+f(current.length)+' m</text><text x="340" y="205" text-anchor="middle" font-size="13" fill="currentColor">T = '+f(2*Math.PI*Math.sqrt(current.length/current.gravity))+' s · g = '+f(current.gravity)+' m/s²</text></svg>';
+  }
+  if(kind==='orbit'||kind==='gravity'){
+   var orbR=kind==='orbit'?Math.min(100,32+current.radius/800):Math.min(105,35+current.altitude/300),satX=340+orbR*.95,satY=116-orbR*.3;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="পৃথিবীর চারপাশে কক্ষপথ ও উচ্চতার মডেল"><circle cx="340" cy="116" r="39" fill="rgba(43,182,168,.18)" stroke="#2bb6a8" stroke-width="2"/><path d="M312 113 Q340 85 367 113 Q340 143 312 113" fill="none" stroke="#2bb6a8" stroke-width="2"/><circle cx="340" cy="116" r="'+orbR+'" fill="none" stroke="var(--p,#7c7cff)" stroke-width="2" stroke-dasharray="5 5"/><circle cx="'+satX+'" cy="'+satY+'" r="9" fill="var(--p,#7c7cff)"/><text x="340" y="20" text-anchor="middle" font-size="13" fill="currentColor">'+(kind==='orbit'?'r = '+f(current.radius)+' km':'h = '+f(current.altitude)+' km · g(h) = '+f(9.81*Math.pow(6371/(6371+current.altitude),2),3)+' m/s²')+'</text><text x="340" y="218" text-anchor="middle" font-size="11" fill="currentColor">পৃথিবীকে গোলক ধরে কক্ষপথের মডেল</text></svg>';
+  }
+  if(kind==='torque'){
+   var torqueRad=current.angle*Math.PI/180,tLen=110,tx2=340+Math.cos(torqueRad)*tLen,ty2=125-Math.sin(torqueRad)*tLen;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="বল ও লম্ব বাহু থেকে টর্ক"><path d="M130 125 H550" stroke="currentColor" opacity=".25"/><path d="M340 125 L'+tx2+' '+ty2+'" stroke="var(--p,#7c7cff)" stroke-width="5"/><path d="M320 145 L340 105 L360 145 Z" fill="rgba(43,182,168,.2)" stroke="#2bb6a8" stroke-width="2"/><circle cx="340" cy="125" r="5" fill="currentColor"/><text x="340" y="30" text-anchor="middle" font-size="13" fill="currentColor">τ = '+f(current.force*current.arm*Math.sin(torqueRad))+' N·m</text><text x="340" y="205" text-anchor="middle" font-size="11" fill="currentColor">r = '+f(current.arm)+' m · F = '+f(current.force)+' N · θ = '+f(current.angle)+'°</text></svg>';
+  }
+  if(kind==='gas'){
+   var gasH=45+Math.min(100,current.volume*2),topP=200-gasH,gasDots='';for(var gd=0;gd<12;gd++){var gx=278+(gd%4)*28,gy=topP+18+Math.floor(gd/4)*24;gasDots+='<circle cx="'+gx+'" cy="'+gy+'" r="4.5" fill="var(--p,#7c7cff)" opacity=".8"/>'}
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="আদর্শ গ্যাস পিস্টন মডেল"><path d="M250 36 V202 H430 V36" fill="rgba(43,182,168,.08)" stroke="currentColor" stroke-width="3"/><rect x="250" y="'+(topP-6)+'" width="180" height="12" rx="3" fill="var(--p,#7c7cff)"/><path d="M340 '+(topP-6)+' V26" stroke="currentColor" stroke-width="3"/><text x="340" y="17" text-anchor="middle" font-size="11" fill="currentColor">চাপ: '+f(current.moles*8.314*current.temperature/current.volume)+' kPa</text>'+gasDots+'<text x="340" y="220" text-anchor="middle" font-size="11" fill="currentColor">V = '+f(current.volume)+' L · T = '+f(current.temperature)+' K</text></svg>';
+  }
+  if(kind==='pressure'){
+   var waterTop=40,waterBottom=198,probeY=waterTop+Math.min(145,current.depth*7.2);
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="তরলের গভীরতার সঙ্গে চাপ"><rect x="220" y="'+waterTop+'" width="240" height="'+(waterBottom-waterTop)+'" rx="8" fill="rgba(43,182,168,.16)" stroke="#2bb6a8" stroke-width="2"/><path d="M220 '+waterTop+' H460" stroke="#2bb6a8" stroke-width="4"/><path d="M340 '+probeY+' H505" stroke="var(--p,#7c7cff)" stroke-width="3"/><circle cx="340" cy="'+probeY+'" r="7" fill="var(--p,#7c7cff)"/><text x="505" y="'+(probeY-10)+'" font-size="12" fill="currentColor">h = '+f(current.depth)+' m</text><text x="340" y="218" text-anchor="middle" font-size="12" fill="currentColor">P = ρgh = '+f(current.density*9.81*current.depth/1000)+' kPa</text></svg>';
+  }
+  if(kind==='buoyancy'){
+   var floatY=current.objectDensity<current.fluidDensity?80:115,immersion=current.objectDensity<current.fluidDensity?Math.min(65,25+current.objectDensity/current.fluidDensity*40):60;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="তরলে বস্তুর ভাসা বা ডোবার ধারণামূলক চিত্র"><rect x="110" y="110" width="460" height="92" rx="8" fill="rgba(43,182,168,.18)" stroke="#2bb6a8" stroke-width="2"/><path d="M110 110 Q135 102 160 110 T210 110 T260 110 T310 110 T360 110 T410 110 T460 110 T510 110 T560 110" fill="none" stroke="#2bb6a8" stroke-width="3"/><rect x="290" y="'+floatY+'" width="100" height="'+immersion+'" rx="8" fill="rgba(124,124,255,.25)" stroke="var(--p,#7c7cff)" stroke-width="2.5"/><text x="340" y="90" text-anchor="middle" font-size="12" fill="currentColor">ρবস্তু = '+f(current.objectDensity)+' kg/m³</text><text x="340" y="220" text-anchor="middle" font-size="11" fill="currentColor">ρতরল = '+f(current.fluidDensity)+' kg/m³ · '+(current.objectDensity<current.fluidDensity?'ভাসার প্রবণতা':'ডোবা/নিরপেক্ষ থাকার প্রবণতা')+'</text></svg>';
+  }
+  if(kind==='fluid'){
+   var radOne=16+current.radius1*5,radTwo=16+current.radius2*5;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="পরিবর্তনশীল প্রস্থের নলে তরল প্রবাহ"><path d="M35 '+(115-radOne)+' H240 V'+(115-radTwo)+' H645 M35 '+(115+radOne)+' H240 V'+(115+radTwo)+' H645" fill="none" stroke="#2bb6a8" stroke-width="3"/><path d="M60 115 H205 M280 115 H430 M470 115 H600" stroke="var(--p,#7c7cff)" stroke-width="4" stroke-dasharray="8 7"/><text x="135" y="'+(96-radOne)+'" text-anchor="middle" font-size="11" fill="currentColor">r₁ = '+f(current.radius1)+'</text><text x="420" y="'+(96-radTwo)+'" text-anchor="middle" font-size="11" fill="currentColor">r₂ = '+f(current.radius2)+'</text><text x="340" y="210" text-anchor="middle" font-size="12" fill="currentColor">v₁ = '+f(current.velocity1)+' m/s · v₂ = '+f(current.velocity1*Math.pow(current.radius1/current.radius2,2))+' m/s</text></svg>';
+  }
+  if(kind==='thermal'||kind==='calorimetry'){
+   if(kind==='thermal')return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="তাপমাত্রা পরিবর্তনে দণ্ডের প্রসারণ"><rect x="75" y="85" width="'+Math.min(510,400+current.alpha*current.length*current.deltaT*400000)+'" height="42" rx="6" fill="rgba(124,124,255,.18)" stroke="var(--p,#7c7cff)" stroke-width="2.5"/><path d="M75 65 V150 M600 65 V150" stroke="currentColor" opacity=".45" stroke-width="2"/><text x="340" y="45" text-anchor="middle" font-size="13" fill="currentColor">ΔL = '+f(current.alpha*current.length*current.deltaT*1000,3)+' mm</text><text x="340" y="180" text-anchor="middle" font-size="12" fill="currentColor">ΔT = '+f(current.deltaT)+' °C · α = '+f(current.alpha,6)+'</text></svg>';
+   var heatW=Math.min(430,100+current.mass*110);
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="ক্যালরিমেট্রিতে তাপ বিনিময়ের মডেল"><path d="M200 50 L220 190 Q340 220 460 190 L480 50" fill="rgba(43,182,168,.14)" stroke="#2bb6a8" stroke-width="3"/><path d="M213 130 Q340 146 467 130 L460 190 Q340 220 220 190 Z" fill="rgba(124,124,255,.16)"/><text x="340" y="84" text-anchor="middle" font-size="13" fill="currentColor">Q = '+f(current.mass*current.specificHeat*current.deltaT)+' J</text><text x="340" y="216" text-anchor="middle" font-size="11" fill="currentColor">m = '+f(current.mass)+' kg · c = '+f(current.specificHeat)+' J/kg°C · ΔT = '+f(current.deltaT)+' °C</text></svg>';
+  }
+  if(kind==='coulomb'||kind==='electricField'){
+   var dist=current.distance,chargeOne=kind==='coulomb'?current.q1:current.charge,chargeTwo=kind==='coulomb'?current.q2:0,distPx=Math.min(250,80+dist*160),c1x=340-distPx/2,c2x=340+distPx/2,rq=Math.max(18,Math.min(28,Math.abs(chargeOne)*2.6));
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="বিন্দু আধানের দূরত্ব ও তড়িৎ ক্ষেত্র"><path d="M55 116 H625" stroke="currentColor" opacity=".2"/><circle cx="'+c1x+'" cy="116" r="'+rq+'" fill="rgba(124,124,255,.18)" stroke="var(--p,#7c7cff)" stroke-width="2.5"/><text x="'+c1x+'" y="120" text-anchor="middle" font-size="12" fill="currentColor">'+(chargeOne<0?'−':'+')+'</text>'+(kind==='coulomb'?'<circle cx="'+c2x+'" cy="116" r="'+Math.max(18,Math.min(28,Math.abs(chargeTwo)*2.6))+'" fill="rgba(43,182,168,.18)" stroke="#2bb6a8" stroke-width="2.5"/><text x="'+c2x+'" y="120" text-anchor="middle" font-size="12" fill="currentColor">'+(chargeTwo<0?'−':'+')+'</text>':'')+'<path d="M'+c1x+' 72 H'+c2x+'" stroke="currentColor" stroke-dasharray="5 4" opacity=".5"/><text x="340" y="53" text-anchor="middle" font-size="12" fill="currentColor">r = '+f(dist)+' m</text><text x="340" y="196" text-anchor="middle" font-size="12" fill="currentColor">'+(kind==='coulomb'?'q₁ = '+f(current.q1)+' μC · q₂ = '+f(current.q2)+' μC':'E = k|q|/r² · q = '+f(current.charge)+' μC')+'</text></svg>';
+  }
+  if(kind==='lens'){
+   var lensD=current.objectDistance,lensF=current.focalLength,lensDen=lensD-lensF,lensImage=Math.abs(lensDen)<.05?0:lensF*lensD/lensDen,lx=340,ox=lx-Math.min(240,lensD*5),ix=lx+Math.max(-250,Math.min(250,lensImage*5));
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="উত্তল লেন্সে বস্তুর ও প্রতিবিম্বের অবস্থান"><path d="M35 125 H645" stroke="currentColor" opacity=".4" stroke-width="2"/><path d="M340 35 Q310 125 340 215 Q370 125 340 35 Z" fill="rgba(43,182,168,.15)" stroke="#2bb6a8" stroke-width="2.5"/><path d="M'+ox+' 125 V75" stroke="var(--p,#7c7cff)" stroke-width="4"/><path d="M'+ox+' 75 l-8 14 h16 Z" fill="var(--p,#7c7cff)"/><text x="'+ox+'" y="60" text-anchor="middle" font-size="11" fill="currentColor">বস্তু</text>'+(Math.abs(lensDen)>.05?'<path d="M'+ix+' 125 V'+(125+(lensDen>.05?1:-1)*Math.max(10,Math.min(90,Math.abs(lensImage)*2)))+'" stroke="#e58b45" stroke-width="4"/><text x="'+ix+'" y="'+(125+(lensDen>.05?1:-1)*Math.max(10,Math.min(90,Math.abs(lensImage)*2))+(lensDen>.05?18:-10))+'" text-anchor="middle" font-size="11" fill="currentColor">'+(lensDen>.05?'বাস্তব প্রতিবিম্ব':'অবাস্তব প্রতিবিম্ব')+'</text>':'')+'<text x="340" y="220" text-anchor="middle" font-size="11" fill="currentColor">f = '+f(lensF)+' cm · u = '+f(lensD)+' cm</text></svg>';
+  }
+  if(kind==='interference'){
+   var fringePx=Math.max(3,Math.min(28,current.wavelength*current.screenDistance/(current.slitGap*100))),stripes='';for(var fi=0;fi<23;fi++){var fx=485+(fi-11)*fringePx/1.7;stripes+='<rect x="'+fx+'" y="45" width="'+Math.max(1,fringePx/2.7)+'" height="145" fill="'+(fi%2?'#2bb6a8':'var(--p,#7c7cff)')+'" opacity=".78"/>'}
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="দ্বি-চির ব্যতিচারে পর্দার ফ্রিঞ্জ"><path d="M120 45 V190 M145 45 V190" stroke="currentColor" stroke-width="5"/><circle cx="120" cy="93" r="5" fill="#2bb6a8"/><circle cx="120" cy="143" r="5" fill="#2bb6a8"/><path d="M145 93 L435 93 M145 143 L435 143" stroke="currentColor" stroke-dasharray="5 6" opacity=".4"/><rect x="475" y="40" width="128" height="155" rx="5" fill="rgba(124,124,255,.06)" stroke="currentColor" opacity=".5"/>'+stripes+'<text x="340" y="218" text-anchor="middle" font-size="11" fill="currentColor">ফ্রিঞ্জ প্রস্থ β = '+f(current.wavelength*1e-9*current.screenDistance/(current.slitGap*1e-3)*1000,3)+' mm</text></svg>';
+  }
+  if(kind==='equilibrium'){
+   var qbar=500*Math.min(1,current.Q/Math.max(current.K,current.Q,1)),kbar=500*Math.min(1,current.K/Math.max(current.K,current.Q,1));
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="বিক্রিয়া ভাগফল Q ও সাম্য ধ্রুবক K তুলনা"><text x="24" y="36" font-size="13" fill="currentColor">Q = '+f(current.Q)+' · K = '+f(current.K)+'</text><text x="24" y="78" font-size="12" fill="currentColor">Reaction quotient Q</text><rect x="24" y="88" width="'+qbar+'" height="30" rx="5" fill="var(--p,#7c7cff)"/><text x="24" y="146" font-size="12" fill="currentColor">Equilibrium constant K</text><rect x="24" y="156" width="'+kbar+'" height="30" rx="5" fill="#2bb6a8"/><text x="640" y="218" text-anchor="end" font-size="11" fill="currentColor">'+(current.Q<current.K?'সামনের দিকে এগোনোর প্রবণতা':current.Q>current.K?'বিপরীত দিকে এগোনোর প্রবণতা':'Q = K · সাম্যাবস্থা')+'</text></svg>';
+  }
+  if(kind==='stoich'){
+   var limA=current.molesA,limB=current.molesB/Math.max(1,current.ratioB),limScale=50,usedA=Math.min(420,limA/Math.max(1,limA,limB)*420),usedB=Math.min(420,limB/Math.max(1,limA,limB)*420);
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="সীমাবদ্ধ বিকারক নির্ণয়ের মডেল"><text x="24" y="35" font-size="13" fill="currentColor">A + '+f(current.ratioB)+'B → উৎপাদ</text><text x="24" y="75" font-size="12" fill="currentColor">বিকারক A: '+f(current.molesA)+' mol</text><rect x="24" y="86" width="'+usedA+'" height="28" rx="5" fill="var(--p,#7c7cff)"/><text x="24" y="142" font-size="12" fill="currentColor">বিকারক B: '+f(current.molesB)+' mol (অনুপাত অনুযায়ী)</text><rect x="24" y="153" width="'+usedB+'" height="28" rx="5" fill="#2bb6a8"/><text x="640" y="218" text-anchor="end" font-size="11" fill="currentColor">সীমাবদ্ধ বিকারক নির্ভর করে available moles/stoichiometric ratio-এর ওপর</text></svg>';
+  }
+  if(kind==='dilution'||kind==='molarity'){
+   var concNow=kind==='dilution'?current.stockConc*current.stockVolume/current.finalVolume:(current.mass/current.molarMass)/current.volume,fillHeight=35+Math.min(120,concNow*25);
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="দ্রবণ প্রস্তুতি ও ঘনমাত্রা"><path d="M240 36 L255 190 Q340 215 425 190 L440 36" fill="rgba(43,182,168,.1)" stroke="#2bb6a8" stroke-width="3"/><path d="M250 '+(190-fillHeight)+' Q340 '+(200-fillHeight)+' 430 '+(190-fillHeight)+' L425 190 Q340 215 255 190 Z" fill="rgba(124,124,255,.28)"/><text x="340" y="70" text-anchor="middle" font-size="13" fill="currentColor">M = '+f(concNow,4)+' mol/L</text><text x="340" y="220" text-anchor="middle" font-size="11" fill="currentColor">'+(kind==='dilution'?'C₁V₁ = C₂V₂':'দ্রবের মোল / দ্রবণের আয়তন')+'</text></svg>';
+  }
+  if(kind==='thermo'){
+   var startEn=150,productEn=startEn+(current.deltaH>=0?-current.deltaH:Math.abs(current.deltaH))*0.55,progressX=100+current.progress*480;
+   productEn=startEn-current.deltaH*.55;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="বিক্রিয়ার এনথালপি পরিবর্তনের ধারণামূলক চিত্র"><path d="M55 '+startEn+' H180 Q250 35 330 80 Q400 130 470 '+productEn+' H625" fill="none" stroke="var(--p,#7c7cff)" stroke-width="4"/><path d="M55 '+startEn+' H625" stroke="currentColor" opacity=".14" stroke-dasharray="5 4"/><circle cx="'+progressX+'" cy="'+Math.max(45,Math.min(190,startEn+(productEn-startEn)*current.progress))+'" r="7" fill="#2bb6a8"/><text x="24" y="25" font-size="12" fill="currentColor">ΔH = '+f(current.deltaH)+' kJ/mol</text><text x="24" y="218" font-size="11" fill="currentColor">'+(current.deltaH<0?'উষ্মাক্ষেপী: উৎপাদের শক্তি কম':'উষ্মাশোষী: উৎপাদের শক্তি বেশি')+' · অগ্রগতি '+f(current.progress*100)+'%</text></svg>';
+  }
+  if(kind==='molecule'||kind==='polarity'||kind==='alkane'||kind==='redox'){var count=kind==='molecule'?Math.max(2,current.bonds):kind==='alkane'?Math.min(10,current.carbons):kind==='redox'?Math.max(2,current.electrons+1):2;var rad=kind==='molecule'?65:kind==='alkane'?Math.min(250,count*24):90,atom='',cx=340,cy=110;for(var j=0;j<count;j++){var theta=2*Math.PI*j/count,px=cx+rad*Math.cos(theta),py=cy+rad*Math.sin(theta);atom+='<line x1="'+cx+'" y1="'+cy+'" x2="'+px+'" y2="'+py+'" stroke="currentColor" opacity=".45" stroke-width="3"/><circle cx="'+px+'" cy="'+py+'" r="16" fill="rgba(45,180,190,.22)" stroke="var(--p,#7c7cff)" stroke-width="2"/><text x="'+px+'" y="'+(py+4)+'" font-size="12" text-anchor="middle" fill="currentColor">'+(kind==='alkane'?'C':kind==='redox'?'e⁻':kind==='polarity'?(j?'δ−':'δ+'):'X')+'</text>'}atom+='<circle cx="'+cx+'" cy="'+cy+'" r="20" fill="var(--p,#7c7cff)"/><text x="'+cx+'" y="'+(cy+4)+'" font-size="13" text-anchor="middle" fill="white">'+(kind==='alkane'?'C':kind==='redox'?'e⁻':'A')+'</text>';return'<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="অণু/আধানের ধারণামূলক বিন্যাস">'+atom+'</svg>'}
+  if(['ohm','parallel','capacitor','electrochem','electrolysis','induction'].indexOf(kind)>=0){return'<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="তড়িৎ বর্তনী বা কোষের ধারণামূলক চিত্র"><path d="M130 55 H550 V175 H130 Z" fill="none" stroke="currentColor" opacity=".65" stroke-width="3"/><path d="M280 55 v35 m15 -45 v55 m15 -45 v35" stroke="var(--p,#7c7cff)" stroke-width="4"/><rect x="360" y="43" width="85" height="24" rx="5" fill="rgba(45,180,190,.22)" stroke="var(--p,#7c7cff)" stroke-width="2"/><text x="402" y="59" font-size="12" text-anchor="middle" fill="currentColor">'+(kind==='capacitor'?'C':kind==='electrochem'?'Cell':'R')+'</text><circle cx="550" cy="115" r="20" fill="rgba(45,180,190,.18)" stroke="var(--p,#7c7cff)" stroke-width="2"/><text x="550" y="119" font-size="12" text-anchor="middle" fill="currentColor">'+(kind==='electrochem'?'e⁻':'I')+'</text><text x="130" y="205" font-size="12" fill="currentColor">পরামিতি বদলালে মডেলের পরিমাপও বদলায়</text></svg>'}
+  if(kind==='vector'){
+   var voX=340,voY=116,vs=15,vpx=voX+current.ax*vs,vpy=voY-current.ay*vs;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="ভেক্টরের উপাংশের চিত্র"><defs><marker id="sim-vector-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--p,#7c7cff)"/></marker></defs><path d="M45 116 H635 M340 18 V212" stroke="currentColor" opacity=".25" stroke-width="1.5"/><path d="M'+voX+' '+voY+' L'+vpx+' '+vpy+'" stroke="var(--p,#7c7cff)" stroke-width="4" marker-end="url(#sim-vector-arrow)"/><circle cx="'+voX+'" cy="'+voY+'" r="4" fill="currentColor"/><text x="'+(vpx+10)+'" y="'+(vpy-10)+'" font-size="13" fill="currentColor">A ('+f(current.ax)+', '+f(current.ay)+')</text><text x="620" y="106" font-size="11" fill="currentColor">x</text><text x="350" y="22" font-size="11" fill="currentColor">y</text></svg>';
+  }
+  if(kind==='dotCross'){
+   var ox=340,oy=116,sc=24,ax=ox+current.ax*sc,ay=oy-current.ay*sc,bx=ox+current.bx*sc,by=oy-current.by*sc;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="দুটি ভেক্টরের ডট ও ক্রস গুণফল"><defs><marker id="sim-dot-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7c7cff"/></marker><marker id="sim-dot-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2bb6a8"/></marker></defs><path d="M45 116 H635 M340 18 V212" stroke="currentColor" opacity=".25"/><path d="M'+ox+' '+oy+' L'+ax+' '+ay+'" stroke="#7c7cff" stroke-width="4" marker-end="url(#sim-dot-a)"/><path d="M'+ox+' '+oy+' L'+bx+' '+by+'" stroke="#2bb6a8" stroke-width="4" marker-end="url(#sim-dot-b)"/><text x="'+(ax+8)+'" y="'+(ay-8)+'" font-size="12" fill="currentColor">A</text><text x="'+(bx+8)+'" y="'+(by-8)+'" font-size="12" fill="currentColor">B</text><text x="20" y="220" font-size="11" fill="currentColor">বেগুনি: A · সবুজ: B</text></svg>';
+  }
+  if(kind==='matrix'){
+   var thm=current.rotation*Math.PI/180,mx=current.x,my=current.y,tx=current.scaleX*(mx*Math.cos(thm)-my*Math.sin(thm)),ty=current.scaleY*(mx*Math.sin(thm)+my*Math.cos(thm)),ms=70/Math.max(1,Math.abs(mx),Math.abs(my),Math.abs(tx),Math.abs(ty)),mox=340,moy=116,mx0=mox+mx*ms,my0=moy-my*ms,mx1=mox+tx*ms,my1=moy-ty*ms;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="ম্যাট্রিক্স রূপান্তরের আগে ও পরে বিন্দু"><path d="M45 116 H635 M340 18 V212" stroke="currentColor" opacity=".25"/><path d="M'+mox+' '+moy+' L'+mx0+' '+my0+'" stroke="currentColor" stroke-width="3" opacity=".55" stroke-dasharray="5 4"/><path d="M'+mox+' '+moy+' L'+mx1+' '+my1+'" stroke="var(--p,#7c7cff)" stroke-width="4"/><circle cx="'+mx0+'" cy="'+my0+'" r="6" fill="currentColor"/><circle cx="'+mx1+'" cy="'+my1+'" r="7" fill="var(--p,#7c7cff)"/><text x="'+(mx0+8)+'" y="'+(my0-8)+'" fill="currentColor" font-size="12">আগে ('+f(mx)+', '+f(my)+')</text><text x="'+(mx1+8)+'" y="'+(my1+17)+'" fill="currentColor" font-size="12">পরে ('+f(tx)+', '+f(ty)+')</text></svg>';
+  }
+  if(kind==='circle'||kind==='ellipse'){
+   var cx=340+(kind==='circle'?current.h:0)*15,cy=116-(kind==='circle'?current.k:0)*15,rx=(kind==='circle'?current.radius:current.a)*15,ry=(kind==='circle'?current.radius:current.b)*15;
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="'+(kind==='circle'?'পরিবর্তনশীল কেন্দ্র ও ব্যাসার্ধের বৃত্ত':'পরিবর্তনশীল অর্ধ-অক্ষের উপবৃত্ত')+'"><path d="M45 116 H635 M340 18 V212" stroke="currentColor" opacity=".25"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="rgba(124,124,255,.12)" stroke="var(--p,#7c7cff)" stroke-width="3"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="currentColor"/><text x="24" y="220" fill="currentColor" font-size="11">'+(kind==='circle'?'কেন্দ্র ('+f(current.h)+', '+f(current.k)+') · r = '+f(current.radius):'অর্ধ-অক্ষ a = '+f(current.a)+' · b = '+f(current.b))+'</text></svg>';
+  }
+  if(kind==='intersections'){
+   var imax=5,isc=48,isy=116,iz=4.8,ip1='',ip2='';for(var ip=0;ip<=80;ip++){var ix=-imax+ip*imax*2/80,iy1=current.m1*ix+current.b1,iy2=current.m2*ix+current.b2,px=340+ix*isc,py1=isy-iy1*iz,py2=isy-iy2*iz;ip1+=(ip?'L':'M')+px.toFixed(1)+','+py1.toFixed(1);ip2+=(ip?'L':'M')+px.toFixed(1)+','+py2.toFixed(1)}
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="দুটি সরলরেখার ছেদ ও সমান্তরাল অবস্থা"><path d="M45 116 H635 M340 18 V212" stroke="currentColor" opacity=".25"/><path d="'+ip1+'" fill="none" stroke="#7c7cff" stroke-width="3.5"/><path d="'+ip2+'" fill="none" stroke="#2bb6a8" stroke-width="3.5"/><text x="20" y="220" fill="currentColor" font-size="11">বেগুনি: y = m₁x + b₁ · সবুজ: y = m₂x + b₂</text></svg>';
+  }
+  if(kind==='probability'){
+   var pn=current.n,ps=current.p,ex=pn*ps,px2=pn*(1-ps),scaleB=500/Math.max(1,pn),bw1=Math.max(2,ex*scaleB),bw2=Math.max(2,px2*scaleB);
+   return '<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="দ্বিপদী সম্ভাবনা মডেলে প্রত্যাশিত সাফল্য ও ব্যর্থতা"><text x="24" y="32" font-size="12" fill="currentColor">পরীক্ষা: '+pn+' · p = '+f(ps,2)+'</text><text x="24" y="72" font-size="12" fill="currentColor">প্রত্যাশিত সাফল্য np = '+f(ex)+'</text><rect x="24" y="82" width="'+bw1+'" height="28" rx="5" fill="var(--p,#7c7cff)"/><text x="24" y="142" font-size="12" fill="currentColor">প্রত্যাশিত ব্যর্থতা n(1−p) = '+f(px2)+'</text><rect x="24" y="152" width="'+bw2+'" height="28" rx="5" fill="#2bb6a8"/><text x="24" y="210" font-size="11" fill="currentColor">লক্ষ্য সাফল্য সংখ্যা x = '+f(current.x)+'</text></svg>';
+  }
+  if(kind==='vector'||kind==='dotCross'||kind==='matrix'||kind==='circle'||kind==='ellipse'||kind==='intersections'||kind==='line'||kind==='quadratic'||kind==='polynomial'||kind==='absolute'||kind==='exponential'||kind==='logarithm'||kind==='trig'||kind==='cosine'||kind==='unitCircle'||kind==='derivative'||kind==='derivativeCurve'||kind==='integral'||kind==='riemann'||kind==='limit')return standardGraph();
+  if(kind==='spectrum'){var col=current.energyEV<1.7?'#7b4cff':current.energyEV<2.1?'#405dff':current.energyEV<2.5?'#1fb4ac':current.energyEV<2.8?'#e6d746':current.energyEV<3.2?'#ff8a34':'#f45178';return'<svg viewBox="0 0 680 230" role="img" class="sim-explorer-svg" aria-label="ফোটন শক্তির সঙ্গে বর্ণালির অবস্থান"><defs><linearGradient id="spectrumGradient"><stop offset="0%" stop-color="#7755ff"/><stop offset="22%" stop-color="#3973ff"/><stop offset="42%" stop-color="#36cbb3"/><stop offset="58%" stop-color="#f0d74b"/><stop offset="76%" stop-color="#ff8a35"/><stop offset="100%" stop-color="#f04462"/></linearGradient></defs><rect x="40" y="70" width="600" height="55" rx="12" fill="url(#spectrumGradient)" opacity=".85"/><path d="M'+(40+(Math.min(5,Math.max(1,current.energyEV))-1)/4*600)+' 50 v95" stroke="currentColor" stroke-width="3"/><text x="40" y="160" font-size="12" fill="currentColor">দীর্ঘ তরঙ্গদৈর্ঘ্য</text><text x="640" y="160" font-size="12" text-anchor="end" fill="currentColor">ছোট তরঙ্গদৈর্ঘ্য</text><text x="340" y="35" text-anchor="middle" font-size="14" fill="currentColor">ফোটন শক্তি: '+current.energyEV+' eV</text></svg>'}
+  if(kind==='projectile'||kind==='motion'||kind==='wave'||kind==='sound'||kind==='doppler'||kind==='ac'||kind==='kinetics'||kind==='ph'||kind==='titration'||kind==='solubility'||kind==='periodicTrend'||kind==='atomicRadius'||kind==='ionization'||kind==='electronegativity')return standardGraph();
+  return standardGraph();
+ }
+ function snapshot(){return defs.map(function(p){return p.label+'='+f(current[p.id],4)+(p.unit?' '+p.unit:'')}).join(' · ')}
+ function renderMetrics(){var c=calculate();var el=r.querySelector('#simMetrics');if(el)el.innerHTML=c.metrics.map(function(it){return'<div class="sim-metric"><small>'+E(it.label)+'</small><b>'+E(it.value)+'</b></div>'}).join('');var fo=r.querySelector('#simFormula');if(fo)fo.textContent=c.formula;var ins=r.querySelector('#simInsight');if(ins)ins.textContent=c.insight;var vis=r.querySelector('#simVisual');if(vis)vis.innerHTML=scene();var tar=r.querySelector('#simObservationCount');if(tar)tar.textContent=observations.length+' / 3';var fin=r.querySelector('#simFinish');if(fin)fin.disabled=observations.length<3;var hist=r.querySelector('#simObservationLog');if(hist)hist.innerHTML=observations.length?observations.slice().reverse().map(function(o,i){return'<div class="sim-observation"><span>'+(observations.length-i)+'.</span><div><b>'+E(o.summary)+'</b><small>'+E(o.result)+'</small></div></div>'}).join(''):'<p class="mutt">এখনও কোনো পর্যবেক্ষণ সংরক্ষিত হয়নি।</p>'}
+ r.innerHTML='<div class="sim-explorer"><div class="sim-explorer-intro"><span class="sim-explorer-label">INTERACTIVE SIMULATION · '+E((g.subjectKey||'').toUpperCase())+'</span><h2>'+E(g.t||cfg.title||'Simulation Lab')+'</h2><p>'+E(g.d||'পরামিতি বদলে ফলাফল পর্যবেক্ষণ করুন।')+'</p><div class="sim-explorer-mission"><b>🔬 পরীক্ষার মিশন</b><span>'+E(cfg.mission||'কমপক্ষে তিনটি ভিন্ন সেটিং পরীক্ষা করে পর্যবেক্ষণ নথিভুক্ত করুন।')+'</span></div></div><div class="sim-explorer-layout"><section class="sim-explorer-controls"><div class="sim-explorer-section-title"><span>01</span><h3>পরামিতি নিয়ন্ত্রণ</h3></div>'+defs.map(function(p){return'<label class="sim-param"><span><b>'+E(p.label)+'</b><small data-unit-for="'+E(p.id)+'">'+E(p.unit||'')+'</small></span><input type="range" min="'+p.min+'" max="'+p.max+'" step="'+p.step+'" value="'+current[p.id]+'" data-sim-range="'+E(p.id)+'" aria-label="'+E(p.label)+'"><span class="sim-param-numeric"><input type="number" min="'+p.min+'" max="'+p.max+'" step="'+p.step+'" value="'+current[p.id]+'" data-sim-number="'+E(p.id)+'" aria-label="'+E(p.label)+' মান"><small>'+E(p.unit||'')+'</small></span></label>'}).join('')+'<div class="sim-explorer-presets" aria-label="দ্রুত পরীক্ষার মান"><span>দ্রুত পরীক্ষা</span><button type="button" data-sim-preset="low">কম মান</button><button type="button" data-sim-preset="default">শুরুর মান</button><button type="button" data-sim-preset="high">বেশি মান</button></div><button type="button" class="btn" id="simReset">↺ শুরুতে ফিরুন</button></section><section class="sim-explorer-main"><div class="sim-explorer-section-title"><span>02</span><h3>লাইভ মডেল</h3></div><div class="sim-explorer-visual" id="simVisual"></div><div class="sim-explorer-metrics" id="simMetrics"></div><div class="sim-explorer-formula"><small>মডেলের সূত্র / সম্পর্ক</small><b id="simFormula"></b><p id="simInsight"></p></div></section></div><section class="sim-observation-panel"><div class="sim-observation-head"><div><span>03 · EXPERIMENT JOURNAL</span><h3>পর্যবেক্ষণ নথি</h3><p>একই মডেলে বিভিন্ন মান দিয়ে ফলাফল তুলনা করুন।</p></div><span class="sim-observation-count" id="simObservationCount">0 / 3</span></div><div class="sim-observation-actions"><button type="button" class="btn pri" id="simRecord">＋ এই পরীক্ষার ফল সংরক্ষণ</button><button type="button" class="btn" id="simFinish" disabled>মিশন সম্পন্ন করুন →</button></div><div id="simRecordMessage" class="mutt" role="status" aria-live="polite"></div><div id="simObservationLog" class="sim-observation-log"></div></section><p class="sim-explorer-footnote">এটি শেখার জন্য তৈরি ইন্টারঅ্যাকটিভ মডেল। যেখানে “ধারণামূলক” বলা হয়েছে সেখানে মানগুলো বাস্তব পরীক্ষার ডেটা নয়।</p></div>';
+ function syncValues(id,val,source){var p=defs.filter(function(x){return x.id===id})[0];if(!p)return;val=Number(val);if(!isFinite(val))return;val=Math.max(p.min,Math.min(p.max,val));var steps=Math.round((val-p.min)/p.step);val=Math.max(p.min,Math.min(p.max,p.min+steps*p.step));current[id]=val;var a=r.querySelector('[data-sim-range="'+id+'"]'),b=r.querySelector('[data-sim-number="'+id+'"]');if(a&&source!=='range')a.value=val;if(b&&source!=='number')b.value=val;renderMetrics()}
+ defs.forEach(function(p){var a=r.querySelector('[data-sim-range="'+p.id+'"]'),b=r.querySelector('[data-sim-number="'+p.id+'"]');if(a)a.addEventListener('input',function(){syncValues(p.id,a.value,'range')});if(b)b.addEventListener('change',function(){if(b.value===''){b.value=current[p.id];return}syncValues(p.id,b.value,'number')});if(b)b.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();if(b.value!=='')syncValues(p.id,b.value,'number');b.blur()}})});
+ r.querySelectorAll('[data-sim-preset]').forEach(function(btn){btn.addEventListener('click',function(){var mode=btn.dataset.simPreset;defs.forEach(function(p){var raw=mode==='default'?initial[p.id]:p.min+(p.max-p.min)*(mode==='low'?.25:.75),steps=Math.round((raw-p.min)/p.step),val=Math.max(p.min,Math.min(p.max,p.min+steps*p.step));current[p.id]=val;var a=r.querySelector('[data-sim-range="'+p.id+'"]'),b=r.querySelector('[data-sim-number="'+p.id+'"]');if(a)a.value=val;if(b)b.value=val});var msg=r.querySelector('#simRecordMessage');if(msg)msg.textContent='দ্রুত পরীক্ষার মান প্রয়োগ করা হয়েছে। চাইলে প্রতিটি সংখ্যা নিজের মতো বদলান।';renderMetrics()})});
+ r.querySelector('#simReset').addEventListener('click',function(){defs.forEach(function(p){current[p.id]=initial[p.id];var a=r.querySelector('[data-sim-range="'+p.id+'"]'),b=r.querySelector('[data-sim-number="'+p.id+'"]');if(a)a.value=initial[p.id];if(b)b.value=initial[p.id]});observations=[];r.querySelector('#simRecordMessage').textContent='পরীক্ষা শুরুর মানে ফিরে গেছেন।';renderMetrics()});
+ r.querySelector('#simRecord').addEventListener('click',function(){var snap=JSON.stringify(current);if(observations.some(function(o){return o.snap===snap})){r.querySelector('#simRecordMessage').textContent='এই মানগুলোর পর্যবেক্ষণ আগে সংরক্ষিত হয়েছে; অন্য মান দিয়ে আবার পরীক্ষা করুন।';return}var c=calculate();observations.push({snap:snap,summary:snapshot(),result:c.metrics.slice(0,2).map(function(x){return x.label+': '+x.value}).join(' · ')});r.querySelector('#simRecordMessage').textContent='পর্যবেক্ষণ সংরক্ষিত হয়েছে। আরও '+Math.max(0,3-observations.length)+'টি আলাদা পরীক্ষা করুন।';renderMetrics()});
+ r.querySelector('#simFinish').addEventListener('click',function(){if(observations.length<3)return;var varied=defs.filter(function(p){return observations.some(function(o){try{return JSON.parse(o.snap)[p.id]!==initial[p.id]}catch(e){return false}})}).length;var score=Math.min(1000,observations.length*180+varied*35);A.done({score:score,pct:Math.min(1,.55+varied*.1),detail:observations.length+'টি পরীক্ষা নথিভুক্ত · '+varied+'টি পরামিতি বদলে দেখা হয়েছে'})});
+ renderMetrics();
+};
+
+return G})();
