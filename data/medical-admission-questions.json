@@ -1,0 +1,3782 @@
+{
+  "title": "Medical Admission English – Vocabulary Questions",
+  "source": "Medical_Admission_Vocabulary_Questions_Answered.docx",
+  "sourceBankQuestionCount": 361,
+  "extractedVocabularyQuestionCount": 111,
+  "questions": [
+    {
+      "id": "med-q8",
+      "sourceQuestion": 8,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "A person unable to pay back debts is called -",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "poor"
+        },
+        {
+          "letter": "খ",
+          "text": "cheat"
+        },
+        {
+          "letter": "গ",
+          "text": "miser"
+        },
+        {
+          "letter": "ঘ",
+          "text": "bankrupt"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "bankrupt"
+      },
+      "explanation": "Bankrupt = ঋণ পরিশোধে অক্ষম ব্যক্তি বা প্রতিষ্ঠান।",
+      "reference": "Medical Admission Question Bank · Original Q8",
+      "target": "Bankrupt",
+      "wordIds": [
+        "medical-bankrupt"
+      ]
+    },
+    {
+      "id": "med-q9",
+      "sourceQuestion": 9,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The synonym of 'ideal' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "correct"
+        },
+        {
+          "letter": "খ",
+          "text": "perfect"
+        },
+        {
+          "letter": "গ",
+          "text": "good"
+        },
+        {
+          "letter": "ঘ",
+          "text": "appropriate"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "perfect"
+      },
+      "explanation": "Ideal-এর synonym হিসেবে perfect সবচেয়ে উপযুক্ত।",
+      "reference": "Medical Admission Question Bank · Original Q9",
+      "target": "ideal",
+      "wordIds": [
+        "medical-ideal"
+      ]
+    },
+    {
+      "id": "med-q10",
+      "sourceQuestion": 10,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "“I could hardly make out the traffic signs through the fog.\" The underlined phrase means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "recognize"
+        },
+        {
+          "letter": "খ",
+          "text": "distinguish"
+        },
+        {
+          "letter": "গ",
+          "text": "locate"
+        },
+        {
+          "letter": "ঘ",
+          "text": "obey"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "distinguish"
+      },
+      "explanation": "Make out = কষ্টে দেখতে বা বুঝতে পারা; এখানে distinguish অর্থে।",
+      "reference": "Medical Admission Question Bank · Original Q10",
+      "target": "Make out",
+      "wordIds": [
+        "medical-make-out"
+      ]
+    },
+    {
+      "id": "med-q13",
+      "sourceQuestion": 13,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "\"We mobilized funds for his treatment.\" Here mobilized means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "spent"
+        },
+        {
+          "letter": "খ",
+          "text": "gave"
+        },
+        {
+          "letter": "গ",
+          "text": "allocated"
+        },
+        {
+          "letter": "ঘ",
+          "text": "collected"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "collected"
+      },
+      "explanation": "Mobilize funds = অর্থ সংগ্রহ/সংগঠিত করা।",
+      "reference": "Medical Admission Question Bank · Original Q13",
+      "target": "Mobilize funds",
+      "wordIds": [
+        "medical-mobilize-funds"
+      ]
+    },
+    {
+      "id": "med-q30",
+      "sourceQuestion": 30,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The word 'artisan' means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "an artist"
+        },
+        {
+          "letter": "খ",
+          "text": "a producer"
+        },
+        {
+          "letter": "গ",
+          "text": "a crafts person"
+        },
+        {
+          "letter": "ঘ",
+          "text": "a craft"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "a crafts person"
+      },
+      "explanation": "Artisan = দক্ষ কারুশিল্পী বা crafts person।",
+      "reference": "Medical Admission Question Bank · Original Q30",
+      "target": "Artisan",
+      "wordIds": [
+        "medical-artisan"
+      ]
+    },
+    {
+      "id": "med-q32",
+      "sourceQuestion": 32,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The antonym of the word 'impediment' is:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "helpful"
+        },
+        {
+          "letter": "খ",
+          "text": "hindrance"
+        },
+        {
+          "letter": "গ",
+          "text": "obstacle"
+        },
+        {
+          "letter": "ঘ",
+          "text": "useful"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "useful"
+      },
+      "explanation": "প্রশ্নব্যাংকের সম্ভাব্য উত্তর useful; তবে helpful-ও impediment-এর বিপরীত ভাব প্রকাশ করতে পারে।",
+      "reference": "Medical Admission Question Bank · Original Q32",
+      "target": "impediment",
+      "wordIds": [
+        "medical-impediment"
+      ]
+    },
+    {
+      "id": "med-q46",
+      "sourceQuestion": 46,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The synonym of the word 'anarchy' is:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "discipline"
+        },
+        {
+          "letter": "খ",
+          "text": "lawlessness"
+        },
+        {
+          "letter": "গ",
+          "text": "placidity"
+        },
+        {
+          "letter": "ঘ",
+          "text": "serenity"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "lawlessness"
+      },
+      "explanation": "Anarchy = lawlessness বা আইনশৃঙ্খলাহীনতা।",
+      "reference": "Medical Admission Question Bank · Original Q46",
+      "target": "Anarchy",
+      "wordIds": [
+        "medical-anarchy"
+      ]
+    },
+    {
+      "id": "med-q49",
+      "sourceQuestion": 49,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The word 'recalcitrant' means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "mutinous"
+        },
+        {
+          "letter": "খ",
+          "text": "compliant"
+        },
+        {
+          "letter": "গ",
+          "text": "docile"
+        },
+        {
+          "letter": "ঘ",
+          "text": "amenable"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "mutinous"
+      },
+      "explanation": "Recalcitrant = অবাধ্য/একগুঁয়ে; mutinous সবচেয়ে কাছাকাছি।",
+      "reference": "Medical Admission Question Bank · Original Q49",
+      "target": "Recalcitrant",
+      "wordIds": [
+        "medical-recalcitrant"
+      ]
+    },
+    {
+      "id": "med-q59",
+      "sourceQuestion": 59,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The antonym of 'harbinger' is —",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "leader"
+        },
+        {
+          "letter": "খ",
+          "text": "educator"
+        },
+        {
+          "letter": "গ",
+          "text": "messenger"
+        },
+        {
+          "letter": "ঘ",
+          "text": "follower"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "follower"
+      },
+      "explanation": "Harbinger = অগ্রদূত; বিপরীত ভাব follower।",
+      "reference": "Medical Admission Question Bank · Original Q59",
+      "target": "Harbinger",
+      "wordIds": [
+        "medical-harbinger"
+      ]
+    },
+    {
+      "id": "med-q65",
+      "sourceQuestion": 65,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Antonym of \"deceive\" is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Trick"
+        },
+        {
+          "letter": "খ",
+          "text": "Cheat"
+        },
+        {
+          "letter": "গ",
+          "text": "Mislead"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Advise"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Advise"
+      },
+      "explanation": "Deceive = প্রতারণা করা; প্রদত্ত বিকল্পে advise সবচেয়ে কাছাকাছি বিপরীত।",
+      "reference": "Medical Admission Question Bank · Original Q65",
+      "target": "Deceive",
+      "wordIds": [
+        "medical-deceive"
+      ]
+    },
+    {
+      "id": "med-q69",
+      "sourceQuestion": 69,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Synonym for \"Polite\" is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Kindness"
+        },
+        {
+          "letter": "খ",
+          "text": "Rich"
+        },
+        {
+          "letter": "গ",
+          "text": "Brilliant"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Courteous"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Courteous"
+      },
+      "explanation": "Polite = courteous বা ভদ্র।",
+      "reference": "Medical Admission Question Bank · Original Q69",
+      "target": "Polite",
+      "wordIds": [
+        "medical-polite"
+      ]
+    },
+    {
+      "id": "med-q77",
+      "sourceQuestion": 77,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Antonym of 'bizarre' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Flexible"
+        },
+        {
+          "letter": "খ",
+          "text": "Horrible"
+        },
+        {
+          "letter": "গ",
+          "text": "Messy"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Normal"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Normal"
+      },
+      "explanation": "Bizarre = অদ্ভুত; antonym normal।",
+      "reference": "Medical Admission Question Bank · Original Q77",
+      "target": "Bizarre",
+      "wordIds": [
+        "medical-bizarre"
+      ]
+    },
+    {
+      "id": "med-q87",
+      "sourceQuestion": 87,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Synonym of 'unwavering' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Unreliable"
+        },
+        {
+          "letter": "খ",
+          "text": "Steady"
+        },
+        {
+          "letter": "গ",
+          "text": "Urgent"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Ensure"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Steady"
+      },
+      "explanation": "Unwavering = অবিচল; steady।",
+      "reference": "Medical Admission Question Bank · Original Q87",
+      "target": "Unwavering",
+      "wordIds": [
+        "unwavering"
+      ]
+    },
+    {
+      "id": "med-q89",
+      "sourceQuestion": 89,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which one of the following is an antonym of 'Laud' ?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Adore"
+        },
+        {
+          "letter": "খ",
+          "text": "Inept"
+        },
+        {
+          "letter": "গ",
+          "text": "Latch"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Abhor"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Abhor"
+      },
+      "explanation": "Laud = প্রশংসা করা; abhor = ঘৃণা করা।",
+      "reference": "Medical Admission Question Bank · Original Q89",
+      "target": "Laud",
+      "wordIds": [
+        "medical-laud"
+      ]
+    },
+    {
+      "id": "med-q93",
+      "sourceQuestion": 93,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Antonym of \"Refractory\" is -",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Cussed"
+        },
+        {
+          "letter": "খ",
+          "text": "Intractable"
+        },
+        {
+          "letter": "গ",
+          "text": "Stubborn"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Obedient"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Obedient"
+      },
+      "explanation": "Refractory = অবাধ্য; antonym obedient।",
+      "reference": "Medical Admission Question Bank · Original Q93",
+      "target": "Refractory",
+      "wordIds": [
+        "medical-refractory"
+      ]
+    },
+    {
+      "id": "med-q103",
+      "sourceQuestion": 103,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Synonyms of \"Ability\" are all of the following, except:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Talent"
+        },
+        {
+          "letter": "খ",
+          "text": "Avail"
+        },
+        {
+          "letter": "গ",
+          "text": "Skill"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Competency"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Avail"
+      },
+      "explanation": "Avail = উপকার/সুযোগ; এটি ability-এর synonym নয়।",
+      "reference": "Medical Admission Question Bank · Original Q103",
+      "target": "Avail",
+      "wordIds": [
+        "medical-avail"
+      ]
+    },
+    {
+      "id": "med-q106",
+      "sourceQuestion": 106,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The antonym of 'Revenge' is",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Reprisal"
+        },
+        {
+          "letter": "খ",
+          "text": "Penalty"
+        },
+        {
+          "letter": "গ",
+          "text": "Grace"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Wrath"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Grace"
+      },
+      "explanation": "Revenge = প্রতিশোধ; grace = ক্ষমা/অনুগ্রহ—বিপরীত ভাব।",
+      "reference": "Medical Admission Question Bank · Original Q106",
+      "target": "Revenge",
+      "wordIds": [
+        "medical-revenge"
+      ]
+    },
+    {
+      "id": "med-q112",
+      "sourceQuestion": 112,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The antonym of \"well mannered\" is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Decorous"
+        },
+        {
+          "letter": "খ",
+          "text": "Courteous"
+        },
+        {
+          "letter": "গ",
+          "text": "Chivalrous"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Sassy"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Sassy"
+      },
+      "explanation": "Well-mannered-এর antonym হিসেবে sassy (উদ্ধত/বেয়াদব) উপযুক্ত।",
+      "reference": "Medical Admission Question Bank · Original Q112",
+      "target": "well mannered",
+      "wordIds": [
+        "medical-well-mannered"
+      ]
+    },
+    {
+      "id": "med-q113",
+      "sourceQuestion": 113,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "What is the synonym of \"exhausted\"?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Plenty"
+        },
+        {
+          "letter": "খ",
+          "text": "Stored"
+        },
+        {
+          "letter": "গ",
+          "text": "Animated"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Drained"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Drained"
+      },
+      "explanation": "Exhausted = drained বা সম্পূর্ণ ক্লান্ত।",
+      "reference": "Medical Admission Question Bank · Original Q113",
+      "target": "Exhausted",
+      "wordIds": [
+        "exhausted"
+      ]
+    },
+    {
+      "id": "med-q114",
+      "sourceQuestion": 114,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "\"Pragmatic\" শব্দের অর্থ কী?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "অসাধারণ"
+        },
+        {
+          "letter": "খ",
+          "text": "বাস্তবধর্মী"
+        },
+        {
+          "letter": "গ",
+          "text": "ঘৃণা"
+        },
+        {
+          "letter": "ঘ",
+          "text": "সৌহার্দ্যপূর্ণ"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "বাস্তবধর্মী"
+      },
+      "explanation": "Pragmatic = বাস্তবধর্মী/ব্যবহারিক।",
+      "reference": "Medical Admission Question Bank · Original Q114",
+      "target": "Pragmatic",
+      "wordIds": [
+        "pragmatic"
+      ]
+    },
+    {
+      "id": "med-q132",
+      "sourceQuestion": 132,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Antonym of 'Modern' is",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Outdated"
+        },
+        {
+          "letter": "খ",
+          "text": "Ancient"
+        },
+        {
+          "letter": "গ",
+          "text": "Past"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Medieval"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Ancient"
+      },
+      "explanation": "Modern-এর antonym Ancient।",
+      "reference": "Medical Admission Question Bank · Original Q132",
+      "target": "Modern",
+      "wordIds": [
+        "medical-modern"
+      ]
+    },
+    {
+      "id": "med-q133",
+      "sourceQuestion": 133,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "An antonym for 'smart' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Irrelevant"
+        },
+        {
+          "letter": "খ",
+          "text": "Boring"
+        },
+        {
+          "letter": "গ",
+          "text": "Stupid"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Difficult"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Stupid"
+      },
+      "explanation": "Smart-এর antonym এখানে stupid।",
+      "reference": "Medical Admission Question Bank · Original Q133",
+      "target": "smart",
+      "wordIds": [
+        "medical-smart"
+      ]
+    },
+    {
+      "id": "med-q134",
+      "sourceQuestion": 134,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Synonym for 'courteous' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "intelligent"
+        },
+        {
+          "letter": "খ",
+          "text": "well off"
+        },
+        {
+          "letter": "গ",
+          "text": "polite"
+        },
+        {
+          "letter": "ঘ",
+          "text": "kindness"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "polite"
+      },
+      "explanation": "Courteous = polite বা ভদ্র।",
+      "reference": "Medical Admission Question Bank · Original Q134",
+      "target": "Courteous",
+      "wordIds": [
+        "medical-courteous"
+      ]
+    },
+    {
+      "id": "med-q145",
+      "sourceQuestion": 145,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "A synonym for- ‘Legendary’ is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Famous"
+        },
+        {
+          "letter": "খ",
+          "text": "Fictitious"
+        },
+        {
+          "letter": "গ",
+          "text": "Intelligent"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Legitimate"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Famous"
+      },
+      "explanation": "Legendary = বিখ্যাত/জনশ্রুত; famous সবচেয়ে কাছাকাছি।",
+      "reference": "Medical Admission Question Bank · Original Q145",
+      "target": "Legendary",
+      "wordIds": [
+        "legendary"
+      ]
+    },
+    {
+      "id": "med-q148",
+      "sourceQuestion": 148,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "A synonym for ‘Synergy’ is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Conflict"
+        },
+        {
+          "letter": "খ",
+          "text": "Autonomy"
+        },
+        {
+          "letter": "গ",
+          "text": "Antagonism"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Alliance"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Alliance"
+      },
+      "explanation": "Synergy = সম্মিলিত সহযোগিতার ফল; alliance সবচেয়ে কাছাকাছি প্রদত্ত উত্তর।",
+      "reference": "Medical Admission Question Bank · Original Q148",
+      "target": "Synergy",
+      "wordIds": [
+        "medical-synergy"
+      ]
+    },
+    {
+      "id": "med-q150",
+      "sourceQuestion": 150,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "An antonym of \"facilitate\" is ____",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "hallow"
+        },
+        {
+          "letter": "খ",
+          "text": "hide"
+        },
+        {
+          "letter": "গ",
+          "text": "hamper"
+        },
+        {
+          "letter": "ঘ",
+          "text": "hold"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "hamper"
+      },
+      "explanation": "Facilitate = সহজ করা; hamper = বাধাগ্রস্ত করা।",
+      "reference": "Medical Admission Question Bank · Original Q150",
+      "target": "Facilitate",
+      "wordIds": [
+        "medical-facilitate"
+      ]
+    },
+    {
+      "id": "med-q159",
+      "sourceQuestion": 159,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "A synonym for \"delinquent\" is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "bold"
+        },
+        {
+          "letter": "খ",
+          "text": "profuse"
+        },
+        {
+          "letter": "গ",
+          "text": "offending"
+        },
+        {
+          "letter": "ঘ",
+          "text": "mild"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "offending"
+      },
+      "explanation": "Delinquent = অপরাধপ্রবণ/অপরাধকারী; offending সবচেয়ে কাছাকাছি।",
+      "reference": "Medical Admission Question Bank · Original Q159",
+      "target": "Delinquent",
+      "wordIds": [
+        "medical-delinquent"
+      ]
+    },
+    {
+      "id": "med-q162",
+      "sourceQuestion": 162,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "An antonym of \"native\" is -",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "alien"
+        },
+        {
+          "letter": "খ",
+          "text": "congenial"
+        },
+        {
+          "letter": "গ",
+          "text": "real"
+        },
+        {
+          "letter": "ঘ",
+          "text": "inborn"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "alien"
+      },
+      "explanation": "Native-এর antonym alien (বিদেশি/অপরিচিত)।",
+      "reference": "Medical Admission Question Bank · Original Q162",
+      "target": "native",
+      "wordIds": [
+        "medical-native"
+      ]
+    },
+    {
+      "id": "med-q163",
+      "sourceQuestion": 163,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "An antonym of \"ruthless\" is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "reckless"
+        },
+        {
+          "letter": "খ",
+          "text": "rude"
+        },
+        {
+          "letter": "গ",
+          "text": "careless"
+        },
+        {
+          "letter": "ঘ",
+          "text": "merciful"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "merciful"
+      },
+      "explanation": "Ruthless = নির্দয়; merciful = দয়ালু।",
+      "reference": "Medical Admission Question Bank · Original Q163",
+      "target": "Ruthless",
+      "wordIds": [
+        "medical-ruthless"
+      ]
+    },
+    {
+      "id": "med-q170",
+      "sourceQuestion": 170,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "\"Termination\" means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "to begin"
+        },
+        {
+          "letter": "খ",
+          "text": "to end"
+        },
+        {
+          "letter": "গ",
+          "text": "to start"
+        },
+        {
+          "letter": "ঘ",
+          "text": "to continue"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "to end"
+      },
+      "explanation": "Termination = সমাপ্তি/শেষ করা।",
+      "reference": "Medical Admission Question Bank · Original Q170",
+      "target": "Termination",
+      "wordIds": [
+        "medical-termination"
+      ]
+    },
+    {
+      "id": "med-q175",
+      "sourceQuestion": 175,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Bangladesh is overpopulated. What is the meaning of the underlined word mentioned above?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "many people"
+        },
+        {
+          "letter": "খ",
+          "text": "too many people"
+        },
+        {
+          "letter": "গ",
+          "text": "so much people"
+        },
+        {
+          "letter": "ঘ",
+          "text": "too much people"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "too many people"
+      },
+      "explanation": "Overpopulated = অতিরিক্ত জনবহুল; too many people।",
+      "reference": "Medical Admission Question Bank · Original Q175",
+      "target": "Overpopulated",
+      "wordIds": [
+        "medical-overpopulated"
+      ]
+    },
+    {
+      "id": "med-q182",
+      "sourceQuestion": 182,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Antonym of the word 'Concord' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Harmony"
+        },
+        {
+          "letter": "খ",
+          "text": "Thrifty"
+        },
+        {
+          "letter": "গ",
+          "text": "Conflict"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Scanty"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Conflict"
+      },
+      "explanation": "Concord = সম্প্রীতি; antonym conflict।",
+      "reference": "Medical Admission Question Bank · Original Q182",
+      "target": "Concord",
+      "wordIds": [
+        "medical-concord"
+      ]
+    },
+    {
+      "id": "med-q192",
+      "sourceQuestion": 192,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Choose the correct synonym of the word ‘Cop’.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Troops"
+        },
+        {
+          "letter": "খ",
+          "text": "Scout"
+        },
+        {
+          "letter": "গ",
+          "text": "Hit"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Police"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Police"
+      },
+      "explanation": "Cop কথ্য শব্দ; অর্থ police officer।",
+      "reference": "Medical Admission Question Bank · Original Q192",
+      "target": "Cop",
+      "wordIds": [
+        "medical-cop"
+      ]
+    },
+    {
+      "id": "med-q193",
+      "sourceQuestion": 193,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "A Synonym for 'Ascent' is -",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "regress"
+        },
+        {
+          "letter": "খ",
+          "text": "further"
+        },
+        {
+          "letter": "গ",
+          "text": "low down"
+        },
+        {
+          "letter": "ঘ",
+          "text": "progress"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "progress"
+      },
+      "explanation": "Ascent = ঊর্ধ্বগমন/উন্নতি; প্রদত্ত বিকল্পে progress সবচেয়ে কাছাকাছি।",
+      "reference": "Medical Admission Question Bank · Original Q193",
+      "target": "Ascent",
+      "wordIds": [
+        "medical-ascent"
+      ]
+    },
+    {
+      "id": "med-q195",
+      "sourceQuestion": 195,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The word \"blockhead\" means—",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "A foolish person"
+        },
+        {
+          "letter": "খ",
+          "text": "A quiet person"
+        },
+        {
+          "letter": "গ",
+          "text": "Clever"
+        },
+        {
+          "letter": "ঘ",
+          "text": "A dangerous person"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "A foolish person"
+      },
+      "explanation": "Blockhead = foolish person।",
+      "reference": "Medical Admission Question Bank · Original Q195",
+      "target": "Blockhead",
+      "wordIds": [
+        "medical-blockhead"
+      ]
+    },
+    {
+      "id": "med-q204",
+      "sourceQuestion": 204,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Find the antonym of the word “Urbane”-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Rural"
+        },
+        {
+          "letter": "খ",
+          "text": "Shave"
+        },
+        {
+          "letter": "গ",
+          "text": "Sophisticated"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Uncouth"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Uncouth"
+      },
+      "explanation": "Urbane = মার্জিত/শিষ্ট; uncouth = অমার্জিত।",
+      "reference": "Medical Admission Question Bank · Original Q204",
+      "target": "Urbane",
+      "wordIds": [
+        "medical-urbane"
+      ]
+    },
+    {
+      "id": "med-q208",
+      "sourceQuestion": 208,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The correct antonym for 'grievance' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "distress"
+        },
+        {
+          "letter": "খ",
+          "text": "happiness"
+        },
+        {
+          "letter": "গ",
+          "text": "discomfort"
+        },
+        {
+          "letter": "ঘ",
+          "text": "peace"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "happiness"
+      },
+      "explanation": "Grievance = অভিযোগ/অসন্তোষ; happiness বিপরীত ভাবের উত্তর।",
+      "reference": "Medical Admission Question Bank · Original Q208",
+      "target": "Grievance",
+      "wordIds": [
+        "grievance"
+      ]
+    },
+    {
+      "id": "med-q212",
+      "sourceQuestion": 212,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which one of the following is not a synonym of the word 'coinage'?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Currency"
+        },
+        {
+          "letter": "খ",
+          "text": "Denomination"
+        },
+        {
+          "letter": "গ",
+          "text": "Change"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Invention"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Denomination"
+      },
+      "explanation": "Coinage = মুদ্রা/নতুন শব্দ গঠন; denomination (মুদ্রার মূল্যমান) সরাসরি synonym নয়।",
+      "reference": "Medical Admission Question Bank · Original Q212",
+      "target": "Coinage",
+      "wordIds": [
+        "medical-coinage"
+      ]
+    },
+    {
+      "id": "med-q213",
+      "sourceQuestion": 213,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "The meaning of which word is not correct?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Tear- অশ্রু"
+        },
+        {
+          "letter": "খ",
+          "text": "Fear- সুন্দর"
+        },
+        {
+          "letter": "গ",
+          "text": "Gear- বেগবান করা"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Desire- ইচ্ছা পোষণ করা"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Fear- সুন্দর"
+      },
+      "explanation": "Fear-এর অর্থ ভয়; সুন্দর নয়।",
+      "reference": "Medical Admission Question Bank · Original Q213",
+      "target": "Fear- সুন্দর",
+      "wordIds": [
+        "medical-fear"
+      ]
+    },
+    {
+      "id": "med-q233",
+      "sourceQuestion": 233,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which of the following word is the correct synonym of 'Libel'?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Misrepresentation"
+        },
+        {
+          "letter": "খ",
+          "text": "Convincing"
+        },
+        {
+          "letter": "গ",
+          "text": "Annihilate"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Enervated"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Misrepresentation"
+      },
+      "explanation": "Libel = লিখিত মানহানি; প্রদত্ত বিকল্পে misrepresentation সবচেয়ে কাছাকাছি।",
+      "reference": "Medical Admission Question Bank · Original Q233",
+      "target": "Libel",
+      "wordIds": [
+        "medical-libel"
+      ]
+    },
+    {
+      "id": "med-q240",
+      "sourceQuestion": 240,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which of the following pairs contains a correct antonym?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Oblivious : Unconscious"
+        },
+        {
+          "letter": "খ",
+          "text": "Perilous : Comfortable"
+        },
+        {
+          "letter": "গ",
+          "text": "Laconic : Terse"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Nebulous : Imprecise"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Perilous : Comfortable"
+      },
+      "explanation": "Perilous = বিপজ্জনক; comfortable বিপরীত অর্থ প্রকাশ করে।",
+      "reference": "Medical Admission Question Bank · Original Q240",
+      "target": "Perilous",
+      "wordIds": [
+        "medical-perilous"
+      ]
+    },
+    {
+      "id": "med-q247",
+      "sourceQuestion": 247,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which of the following pairs contains the correct Bangla meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Droll : এক কুঁজওয়ালা উট"
+        },
+        {
+          "letter": "খ",
+          "text": "Dropsy : তুমল"
+        },
+        {
+          "letter": "গ",
+          "text": "Drone : নিষ্কর্মা লোক"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Dromedary : হাস্যকর"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Drone : নিষ্কর্মা লোক"
+      },
+      "explanation": "Drone = নিষ্কর্মা/অলস ব্যক্তি (এখানে প্রদত্ত বাংলা অর্থ)।",
+      "reference": "Medical Admission Question Bank · Original Q247",
+      "target": "Drone",
+      "wordIds": [
+        "medical-drone"
+      ]
+    },
+    {
+      "id": "med-q249",
+      "sourceQuestion": 249,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which of the following is the correct Bangla meaning of the English word?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Tyrannise - অত্যাচার করা"
+        },
+        {
+          "letter": "খ",
+          "text": "Tremble - জয়লাভ করা"
+        },
+        {
+          "letter": "গ",
+          "text": "Proficient - লাভজনক"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Indignant - অপরিহার্য"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Tyrannise - অত্যাচার করা"
+      },
+      "explanation": "Tyrannise = অত্যাচার করা/নির্যাতন করা।",
+      "reference": "Medical Admission Question Bank · Original Q249",
+      "target": "Tyrannise",
+      "wordIds": [
+        "medical-tyrannise"
+      ]
+    },
+    {
+      "id": "med-q252",
+      "sourceQuestion": 252,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which of the following pair contain correct synonym?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Powerful : leverage"
+        },
+        {
+          "letter": "খ",
+          "text": "Practice : hands-on"
+        },
+        {
+          "letter": "গ",
+          "text": "Plan : Platform"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Possibility : Viable"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Practice : hands-on"
+      },
+      "explanation": "Hands-on = ব্যবহারিক/নিজে করে শেখার অভিজ্ঞতা; practice-এর কাছাকাছি অর্থ।",
+      "reference": "Medical Admission Question Bank · Original Q252",
+      "target": "Hands-on",
+      "wordIds": [
+        "medical-hands-on"
+      ]
+    },
+    {
+      "id": "med-q268",
+      "sourceQuestion": 268,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Which of the following will not be the proper replacement of the underlined word in this sentence - \"Shaheed Dr. Shamshujjoha is considered to be the first intellectual who attained martyrdom during the pre-liberation period of Bangladesh \".",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Wise person"
+        },
+        {
+          "letter": "খ",
+          "text": "Academic"
+        },
+        {
+          "letter": "গ",
+          "text": "Scholarly"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Practical"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Practical"
+      },
+      "explanation": "Intellectual-এর অর্থ বুদ্ধিবৃত্তিক/জ্ঞানচর্চাকারী; practical এর যথাযথ replacement নয়।",
+      "reference": "Medical Admission Question Bank · Original Q268",
+      "target": "Practical",
+      "wordIds": [
+        "medical-practical"
+      ]
+    },
+    {
+      "id": "med-q284",
+      "sourceQuestion": 284,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "What is the synonym of 'Hospitality'?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Clinic"
+        },
+        {
+          "letter": "খ",
+          "text": "Hospital"
+        },
+        {
+          "letter": "গ",
+          "text": "Welcome"
+        },
+        {
+          "letter": "ঘ",
+          "text": "ill"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Welcome"
+      },
+      "explanation": "Hospitality = আতিথেয়তা/অতিথিপরায়ণতা; welcome সবচেয়ে কাছাকাছি।",
+      "reference": "Medical Admission Question Bank · Original Q284",
+      "target": "Hospitality",
+      "wordIds": [
+        "hospitality"
+      ]
+    },
+    {
+      "id": "med-q300",
+      "sourceQuestion": 300,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "\"Sanction\" বলতে কি বুঝায়?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "verify"
+        },
+        {
+          "letter": "খ",
+          "text": "plan"
+        },
+        {
+          "letter": "গ",
+          "text": "prohibit"
+        },
+        {
+          "letter": "ঘ",
+          "text": "authorization"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "authorization"
+      },
+      "explanation": "Sanction = অনুমোদন/authorization; প্রসঙ্গভেদে নিষেধাজ্ঞাও হতে পারে।",
+      "reference": "Medical Admission Question Bank · Original Q300",
+      "target": "Sanction",
+      "wordIds": [
+        "medical-sanction"
+      ]
+    },
+    {
+      "id": "med-q302",
+      "sourceQuestion": 302,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "Equivocal  এর বিপরীত শব্দ নিচের কোনটি?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "mistaken"
+        },
+        {
+          "letter": "খ",
+          "text": "Azure"
+        },
+        {
+          "letter": "গ",
+          "text": "Quiet"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Clear"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Clear"
+      },
+      "explanation": "Equivocal = দ্ব্যর্থক/অস্পষ্ট; antonym clear।",
+      "reference": "Medical Admission Question Bank · Original Q302",
+      "target": "Equivocal",
+      "wordIds": [
+        "medical-equivocal"
+      ]
+    },
+    {
+      "id": "med-q349",
+      "sourceQuestion": 349,
+      "category": "Word Meaning, Synonym & Antonym",
+      "prompt": "He maintains a clandestine link with the godfather. This means that he maintains-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "A questionable link"
+        },
+        {
+          "letter": "খ",
+          "text": "A candid link"
+        },
+        {
+          "letter": "গ",
+          "text": "A criminal link"
+        },
+        {
+          "letter": "ঘ",
+          "text": "A secret link"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "A secret link"
+      },
+      "explanation": "Clandestine = গোপন; a clandestine link = secret link।",
+      "reference": "Medical Admission Question Bank · Original Q349",
+      "target": "Clandestine",
+      "wordIds": [
+        "medical-clandestine"
+      ]
+    },
+    {
+      "id": "med-q4",
+      "sourceQuestion": 4,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "I heard the story from the horse's mouth. The underlined phrase means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "from an authentic source"
+        },
+        {
+          "letter": "খ",
+          "text": "from a doubtful source"
+        },
+        {
+          "letter": "গ",
+          "text": "from an open source"
+        },
+        {
+          "letter": "ঘ",
+          "text": "from an unreliable source"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "from an authentic source"
+      },
+      "explanation": "from the horse’s mouth = সরাসরি/বিশ্বস্ত উৎস থেকে।",
+      "reference": "Medical Admission Question Bank · Original Q4",
+      "target": "from the horse’s mouth",
+      "wordIds": [
+        "medical-from-the-horse-s-mouth"
+      ]
+    },
+    {
+      "id": "med-q33",
+      "sourceQuestion": 33,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Let's call it a day means____.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "isn’t it day time?"
+        },
+        {
+          "letter": "খ",
+          "text": "let’s stop work now"
+        },
+        {
+          "letter": "গ",
+          "text": "let’s presume it to be a day"
+        },
+        {
+          "letter": "ঘ",
+          "text": "let’s compare it with a day"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "let’s stop work now"
+      },
+      "explanation": "Let’s call it a day = আজকের মতো কাজ বন্ধ করি।",
+      "reference": "Medical Admission Question Bank · Original Q33",
+      "target": "Let’s call it a day",
+      "wordIds": [
+        "medical-let-s-call-it-a-day"
+      ]
+    },
+    {
+      "id": "med-q43",
+      "sourceQuestion": 43,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "What does the phrase \"keep your chin up\" means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "be cheerful"
+        },
+        {
+          "letter": "খ",
+          "text": "be brave"
+        },
+        {
+          "letter": "গ",
+          "text": "be careful"
+        },
+        {
+          "letter": "ঘ",
+          "text": "be smart"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "be cheerful"
+      },
+      "explanation": "Keep your chin up = মনোবল ধরে রাখো/প্রফুল্ল থাকো।",
+      "reference": "Medical Admission Question Bank · Original Q43",
+      "target": "Keep your chin up",
+      "wordIds": [
+        "medical-keep-your-chin-up"
+      ]
+    },
+    {
+      "id": "med-q62",
+      "sourceQuestion": 62,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Choose the sentence with incorrect use of a phrase-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "I don't want to hear a long description; I just want the bottom line"
+        },
+        {
+          "letter": "খ",
+          "text": "When I come home late, my wife gives me the third degree"
+        },
+        {
+          "letter": "গ",
+          "text": "Don't sell yourself short; you are a good doctor"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Now that the construction is almost finished, you can pull out all the stops and take it easy."
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Now that the construction is almost finished, you can pull out all the stops and take it easy."
+      },
+      "explanation": "Pull out all the stops = সর্বোচ্চ চেষ্টা করা; take it easy-এর সঙ্গে বাক্যটি অসংগত।",
+      "reference": "Medical Admission Question Bank · Original Q62",
+      "target": "Pull out all the stops",
+      "wordIds": [
+        "medical-pull-out-all-the-stops"
+      ]
+    },
+    {
+      "id": "med-q68",
+      "sourceQuestion": 68,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following is the meaning of the phrase \"read between the lines\"?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "read what is categorically stated"
+        },
+        {
+          "letter": "খ",
+          "text": "understand what is implied not what is explicitly stated"
+        },
+        {
+          "letter": "গ",
+          "text": "understand the inner meaning"
+        },
+        {
+          "letter": "ঘ",
+          "text": "read what is implied"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "understand what is implied not what is explicitly stated"
+      },
+      "explanation": "Read between the lines = সরাসরি বলা হয়নি, এমন অন্তর্নিহিত অর্থ বোঝা।",
+      "reference": "Medical Admission Question Bank · Original Q68",
+      "target": "Read between the lines",
+      "wordIds": [
+        "medical-read-between-the-lines"
+      ]
+    },
+    {
+      "id": "med-q80",
+      "sourceQuestion": 80,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Fill in the blank with the appropriate option. \"____ the word in the dictionary.\"",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "look over"
+        },
+        {
+          "letter": "খ",
+          "text": "look after"
+        },
+        {
+          "letter": "গ",
+          "text": "look up"
+        },
+        {
+          "letter": "ঘ",
+          "text": "look to"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "look up"
+      },
+      "explanation": "Look up a word = অভিধানে কোনো শব্দের অর্থ খোঁজা।",
+      "reference": "Medical Admission Question Bank · Original Q80",
+      "target": "Look up a word",
+      "wordIds": [
+        "medical-look-up-a-word"
+      ]
+    },
+    {
+      "id": "med-q137",
+      "sourceQuestion": 137,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Choose the correct group verb to complete the following sentence: \"Why are you looking so ____?\"",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "run down"
+        },
+        {
+          "letter": "খ",
+          "text": "run across"
+        },
+        {
+          "letter": "গ",
+          "text": "run into"
+        },
+        {
+          "letter": "ঘ",
+          "text": "run off"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "run down"
+      },
+      "explanation": "Run down = ক্লান্ত/অবসন্ন; ‘looking run down’ অর্থ ক্লান্ত দেখাচ্ছে।",
+      "reference": "Medical Admission Question Bank · Original Q137",
+      "target": "Run down",
+      "wordIds": [
+        "medical-run-down"
+      ]
+    },
+    {
+      "id": "med-q151",
+      "sourceQuestion": 151,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "\"Take one to task\" means -",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "to question"
+        },
+        {
+          "letter": "খ",
+          "text": "to praise"
+        },
+        {
+          "letter": "গ",
+          "text": "to flatter"
+        },
+        {
+          "letter": "ঘ",
+          "text": "to rebuke"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "to rebuke"
+      },
+      "explanation": "Take someone to task = কাউকে তিরস্কার করা।",
+      "reference": "Medical Admission Question Bank · Original Q151",
+      "target": "Take someone to task",
+      "wordIds": [
+        "medical-take-someone-to-task"
+      ]
+    },
+    {
+      "id": "med-q152",
+      "sourceQuestion": 152,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "\"To fight shy of\" means-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "to adopt"
+        },
+        {
+          "letter": "খ",
+          "text": "to snatch"
+        },
+        {
+          "letter": "গ",
+          "text": "to quarrel"
+        },
+        {
+          "letter": "ঘ",
+          "text": "to avoid"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "to avoid"
+      },
+      "explanation": "Fight shy of = এড়িয়ে চলা।",
+      "reference": "Medical Admission Question Bank · Original Q152",
+      "target": "Fight shy of",
+      "wordIds": [
+        "medical-fight-shy-of"
+      ]
+    },
+    {
+      "id": "med-q166",
+      "sourceQuestion": 166,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "The idiom \"without issue\" means____",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "no mother"
+        },
+        {
+          "letter": "খ",
+          "text": "illiterate"
+        },
+        {
+          "letter": "গ",
+          "text": "childless"
+        },
+        {
+          "letter": "ঘ",
+          "text": "no wealth"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "childless"
+      },
+      "explanation": "Without issue = সন্তানহীন।",
+      "reference": "Medical Admission Question Bank · Original Q166",
+      "target": "Without issue",
+      "wordIds": [
+        "medical-without-issue"
+      ]
+    },
+    {
+      "id": "med-q171",
+      "sourceQuestion": 171,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "White elephant means -------.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "An elephant of white color"
+        },
+        {
+          "letter": "খ",
+          "text": "A hoarder"
+        },
+        {
+          "letter": "গ",
+          "text": "A black marketer"
+        },
+        {
+          "letter": "ঘ",
+          "text": "A very troublesome possession"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "A very troublesome possession"
+      },
+      "explanation": "White elephant = ব্যয়বহুল কিন্তু খুব কম উপকারী বা ঝামেলাপূর্ণ সম্পদ।",
+      "reference": "Medical Admission Question Bank · Original Q171",
+      "target": "White elephant",
+      "wordIds": [
+        "medical-white-elephant"
+      ]
+    },
+    {
+      "id": "med-q189",
+      "sourceQuestion": 189,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "“Foodloose and fancy free” means—",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Imaginative"
+        },
+        {
+          "letter": "খ",
+          "text": "Unemployed"
+        },
+        {
+          "letter": "গ",
+          "text": "Whose foot is lost"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Free to enjoy oneself"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Free to enjoy oneself"
+      },
+      "explanation": "Footloose and fancy-free = বাধাহীনভাবে স্বাধীন জীবন উপভোগ করা।",
+      "reference": "Medical Admission Question Bank · Original Q189",
+      "target": "Footloose and fancy-free",
+      "wordIds": [
+        "medical-footloose-and-fancy-free"
+      ]
+    },
+    {
+      "id": "med-q190",
+      "sourceQuestion": 190,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Correct English translation of, \"তাহার বুদ্ধি বড় মোটা' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "He is a blockhead"
+        },
+        {
+          "letter": "খ",
+          "text": "He is blockheaded"
+        },
+        {
+          "letter": "গ",
+          "text": "He is coarse headed"
+        },
+        {
+          "letter": "ঘ",
+          "text": "His intelligence is thick"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "He is a blockhead"
+      },
+      "explanation": "Blockhead = বোকা ব্যক্তি/মূর্খ।",
+      "reference": "Medical Admission Question Bank · Original Q190",
+      "target": "Blockhead",
+      "wordIds": [
+        "medical-blockhead"
+      ]
+    },
+    {
+      "id": "med-q206",
+      "sourceQuestion": 206,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which one will be the appropriate phrase to fill up the gap of the sentence “He showed _______ when the danger came”?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Cold feel"
+        },
+        {
+          "letter": "খ",
+          "text": "cold war"
+        },
+        {
+          "letter": "গ",
+          "text": "Cold water"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Cold shoulder"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Cold shoulder"
+      },
+      "explanation": "Cold shoulder = অবজ্ঞা করা/উপেক্ষা করা।",
+      "reference": "Medical Admission Question Bank · Original Q206",
+      "target": "Cold shoulder",
+      "wordIds": [
+        "medical-cold-shoulder"
+      ]
+    },
+    {
+      "id": "med-q211",
+      "sourceQuestion": 211,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "A person whose \"head\" is in the \"Clouds\" is BSMRSTU F 17-18,MAT 11-12,JU F 15-16,DAT 11-12",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "a day dreamer"
+        },
+        {
+          "letter": "খ",
+          "text": "useless"
+        },
+        {
+          "letter": "গ",
+          "text": "proud"
+        },
+        {
+          "letter": "ঘ",
+          "text": "an aviator"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "a day dreamer"
+      },
+      "explanation": "Head in the clouds = দিবাস্বপ্নে বিভোর ব্যক্তি।",
+      "reference": "Medical Admission Question Bank · Original Q211",
+      "target": "Head in the clouds",
+      "wordIds": [
+        "medical-head-in-the-clouds"
+      ]
+    },
+    {
+      "id": "med-q219",
+      "sourceQuestion": 219,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following idiom contains English meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Keep the flag flying : Keep surviving"
+        },
+        {
+          "letter": "খ",
+          "text": "A piece of cake : An integral part"
+        },
+        {
+          "letter": "গ",
+          "text": "A rear bird : See a solution"
+        },
+        {
+          "letter": "ঘ",
+          "text": "In the twinkling of an eye : Eventually"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Keep the flag flying : Keep surviving"
+      },
+      "explanation": "Keep the flag flying = টিকে থাকা/সাফল্য বা মনোবল বজায় রাখা।",
+      "reference": "Medical Admission Question Bank · Original Q219",
+      "target": "Keep the flag flying",
+      "wordIds": [
+        "medical-keep-the-flag-flying"
+      ]
+    },
+    {
+      "id": "med-q220",
+      "sourceQuestion": 220,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following phrases is having the correct meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Square Meal : A nutritious meal"
+        },
+        {
+          "letter": "খ",
+          "text": "Under the water : If good luck is willing"
+        },
+        {
+          "letter": "গ",
+          "text": "Take a dive : Undecided until the end, at the last minute"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Straight and narrow : Accomplishment of three successes or wins"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Square Meal : A nutritious meal"
+      },
+      "explanation": "Square meal = পুষ্টিকর ও পরিপূর্ণ খাবার।",
+      "reference": "Medical Admission Question Bank · Original Q220",
+      "target": "Square meal",
+      "wordIds": [
+        "medical-square-meal"
+      ]
+    },
+    {
+      "id": "med-q223",
+      "sourceQuestion": 223,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "In which of the following sentence the word “Bring” is used mean in Bangla \"ঘটানো' ?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "He tried to bring about a quarrel between them."
+        },
+        {
+          "letter": "খ",
+          "text": "The good harvest bought down the price of rice."
+        },
+        {
+          "letter": "গ",
+          "text": "His property brings him in Taka 500000/- a year."
+        },
+        {
+          "letter": "ঘ",
+          "text": "She is brought up by her mother."
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "He tried to bring about a quarrel between them."
+      },
+      "explanation": "Bring about = ঘটানো/সৃষ্টি করা।",
+      "reference": "Medical Admission Question Bank · Original Q223",
+      "target": "Bring about",
+      "wordIds": [
+        "medical-bring-about"
+      ]
+    },
+    {
+      "id": "med-q239",
+      "sourceQuestion": 239,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following pairs contains the correct Bengali translation of the English proverb?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "To add fuel to the fire: ঝোপ বুঝে কোপ মারা"
+        },
+        {
+          "letter": "খ",
+          "text": "To carry coal to Newcastle: তেলা মাথায় তেল দেওয়া"
+        },
+        {
+          "letter": "গ",
+          "text": "Practice makes a man perfect: ঘরপোড়া গরু সিঁদুরে মেঘ দেখলে ডরায়"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Strike the iron while it is hot: কাঁটা দিয়ে কাঁটা তোলা"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "To carry coal to Newcastle: তেলা মাথায় তেল দেওয়া"
+      },
+      "explanation": "To carry coal to Newcastle = যেখানে প্রচুর আছে, সেখানে একই জিনিস নিয়ে যাওয়া; নিষ্ফল/অপ্রয়োজনীয় কাজ।",
+      "reference": "Medical Admission Question Bank · Original Q239",
+      "target": "To carry coal to Newcastle",
+      "wordIds": [
+        "medical-to-carry-coal-to-newcastle"
+      ]
+    },
+    {
+      "id": "med-q254",
+      "sourceQuestion": 254,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following phrases has the correct meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "In the pink: In good health and ready to go"
+        },
+        {
+          "letter": "খ",
+          "text": "Lock and load: To be less than fully prepared"
+        },
+        {
+          "letter": "গ",
+          "text": "Drop the hammer: Get ready"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Loose cannon: Directly from the source"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "In the pink: In good health and ready to go"
+      },
+      "explanation": "In the pink = সুস্বাস্থ্যে থাকা।",
+      "reference": "Medical Admission Question Bank · Original Q254",
+      "target": "In the pink",
+      "wordIds": [
+        "medical-in-the-pink"
+      ]
+    },
+    {
+      "id": "med-q255",
+      "sourceQuestion": 255,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following phrases has the correct Bangla meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "At the end of my rope: অত্যন্ত মুগ্ধকর"
+        },
+        {
+          "letter": "খ",
+          "text": "By the short hairs: সম্পূর্ণ নিয়ন্ত্রণে বা অসহায় অবস্থায়"
+        },
+        {
+          "letter": "গ",
+          "text": "One for the road: চলে যাওয়ার পর মতামত বিবেচনা করা"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Tongue in cheek: শিক্ষানবিশ হিসেবে গ্রহণ করা"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "By the short hairs: সম্পূর্ণ নিয়ন্ত্রণে বা অসহায় অবস্থায়"
+      },
+      "explanation": "By the short hairs = কাউকে সম্পূর্ণ নিয়ন্ত্রণে/অসহায় অবস্থায় রাখা।",
+      "reference": "Medical Admission Question Bank · Original Q255",
+      "target": "By the short hairs",
+      "wordIds": [
+        "medical-by-the-short-hairs"
+      ]
+    },
+    {
+      "id": "med-q259",
+      "sourceQuestion": 259,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following phrases has the correct Bangla meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Down to the wire: প্রতিযোগিতায় উদ্দেশ্য প্রণোদিতভাবে হারা"
+        },
+        {
+          "letter": "খ",
+          "text": "knock wood: সৌভাগ্য অব্যাহত থাকুক বা অমঙ্গল না ঘটুক—এই আশা প্রকাশ করা"
+        },
+        {
+          "letter": "গ",
+          "text": "Pass the buck: কারো মতামত উল্লেখ করা"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Drop the hammer: পুরোপুরি প্রস্তুত না হওয়া"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "knock wood: সৌভাগ্য অব্যাহত থাকুক বা অমঙ্গল না ঘটুক—এই আশা প্রকাশ করা"
+      },
+      "explanation": "Knock wood = অমঙ্গল এড়ানো বা সৌভাগ্য বজায় থাকার কামনা করা।",
+      "reference": "Medical Admission Question Bank · Original Q259",
+      "target": "Knock wood",
+      "wordIds": [
+        "medical-knock-wood"
+      ]
+    },
+    {
+      "id": "med-q264",
+      "sourceQuestion": 264,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Which of the following idioms has the correct English meaning?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Keep the flag flying : Keep surviving"
+        },
+        {
+          "letter": "খ",
+          "text": "A piece of cake : An integral part"
+        },
+        {
+          "letter": "গ",
+          "text": "A rare bird : See a solution"
+        },
+        {
+          "letter": "ঘ",
+          "text": "In the twinkling of an eye : Eventually"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Keep the flag flying : Keep surviving"
+      },
+      "explanation": "Keep the flag flying = টিকে থাকা/কোনো কাজ বা আদর্শ চালিয়ে যাওয়া।",
+      "reference": "Medical Admission Question Bank · Original Q264",
+      "target": "Keep the flag flying",
+      "wordIds": [
+        "medical-keep-the-flag-flying"
+      ]
+    },
+    {
+      "id": "med-q286",
+      "sourceQuestion": 286,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "What is the meaning of the phrase 'Hold water'?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Keep water for the dry season"
+        },
+        {
+          "letter": "খ",
+          "text": "bear examination"
+        },
+        {
+          "letter": "গ",
+          "text": "store water"
+        },
+        {
+          "letter": "ঘ",
+          "text": "patience"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "bear examination"
+      },
+      "explanation": "Hold water = যুক্তি/দাবি হিসেবে পরীক্ষায় টিকে থাকা বা গ্রহণযোগ্য হওয়া।",
+      "reference": "Medical Admission Question Bank · Original Q286",
+      "target": "Hold water",
+      "wordIds": [
+        "medical-hold-water"
+      ]
+    },
+    {
+      "id": "med-q294",
+      "sourceQuestion": 294,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "Choose the correct English idiom for - 'শাস্তি দেওয়া'।",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Bring on book"
+        },
+        {
+          "letter": "খ",
+          "text": "Bring to light"
+        },
+        {
+          "letter": "গ",
+          "text": "Bring in light"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Bring to book"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Bring to book"
+      },
+      "explanation": "Bring to book = শাস্তি দেওয়া/জবাবদিহির মুখোমুখি করা।",
+      "reference": "Medical Admission Question Bank · Original Q294",
+      "target": "Bring to book",
+      "wordIds": [
+        "medical-bring-to-book"
+      ]
+    },
+    {
+      "id": "med-q323",
+      "sourceQuestion": 323,
+      "category": "Idioms, Phrases & Proverbs",
+      "prompt": "সঠিক preposition বসাও: \"A drowning man catches ---- straw.\"",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "for"
+        },
+        {
+          "letter": "খ",
+          "text": "to"
+        },
+        {
+          "letter": "গ",
+          "text": "at"
+        },
+        {
+          "letter": "ঘ",
+          "text": "on"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "at"
+      },
+      "explanation": "A drowning man catches at a straw = বিপদে পড়া মানুষ সামান্য আশ্রয়ও আঁকড়ে ধরে।",
+      "reference": "Medical Admission Question Bank · Original Q323",
+      "target": "A drowning man catches at a straw",
+      "wordIds": [
+        "medical-a-drowning-man-catches-at-a-straw"
+      ]
+    },
+    {
+      "id": "med-q1",
+      "sourceQuestion": 1,
+      "category": "Spelling & Word Forms",
+      "prompt": "A prefix containing word is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "immoral"
+        },
+        {
+          "letter": "খ",
+          "text": "immediate"
+        },
+        {
+          "letter": "গ",
+          "text": "immense"
+        },
+        {
+          "letter": "ঘ",
+          "text": "important"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "immoral"
+      },
+      "explanation": "immoral শব্দে im- prefix আছে; এখানে im- অর্থ not।",
+      "reference": "Medical Admission Question Bank · Original Q1",
+      "target": "immoral",
+      "wordIds": [
+        "medical-immoral"
+      ]
+    },
+    {
+      "id": "med-q2",
+      "sourceQuestion": 2,
+      "category": "Spelling & Word Forms",
+      "prompt": "The word without a prefix is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "irrational"
+        },
+        {
+          "letter": "খ",
+          "text": "irritable"
+        },
+        {
+          "letter": "গ",
+          "text": "irresponsible"
+        },
+        {
+          "letter": "ঘ",
+          "text": "irregular"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "irritable"
+      },
+      "explanation": "irritable শব্দটি ir- + root হিসেবে গঠিত নয়; অন্যগুলোতে negative prefix ir- আছে।",
+      "reference": "Medical Admission Question Bank · Original Q2",
+      "target": "irritable",
+      "wordIds": [
+        "medical-irritable"
+      ]
+    },
+    {
+      "id": "med-q15",
+      "sourceQuestion": 15,
+      "category": "Spelling & Word Forms",
+      "prompt": "The verb of the word 'habit' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "habitual"
+        },
+        {
+          "letter": "খ",
+          "text": "habituate"
+        },
+        {
+          "letter": "গ",
+          "text": "habitable"
+        },
+        {
+          "letter": "ঘ",
+          "text": "habitat"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "habituate"
+      },
+      "explanation": "Habit-এর verb form হলো habituate।",
+      "reference": "Medical Admission Question Bank · Original Q15",
+      "target": "habit",
+      "wordIds": [
+        "medical-habit"
+      ]
+    },
+    {
+      "id": "med-q31",
+      "sourceQuestion": 31,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which one of the following is an abstract noun?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "child"
+        },
+        {
+          "letter": "খ",
+          "text": "childhood"
+        },
+        {
+          "letter": "গ",
+          "text": "family"
+        },
+        {
+          "letter": "ঘ",
+          "text": "boy"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "childhood"
+      },
+      "explanation": "Childhood = শৈশব; এটি abstract noun।",
+      "reference": "Medical Admission Question Bank · Original Q31",
+      "target": "Childhood",
+      "wordIds": [
+        "medical-childhood"
+      ]
+    },
+    {
+      "id": "med-q34",
+      "sourceQuestion": 34,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the correctly spelled word:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "renaissance"
+        },
+        {
+          "letter": "খ",
+          "text": "renaisance"
+        },
+        {
+          "letter": "গ",
+          "text": "reneissance"
+        },
+        {
+          "letter": "ঘ",
+          "text": "reneisance"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "renaissance"
+      },
+      "explanation": "সঠিক বানান renaissance।",
+      "reference": "Medical Admission Question Bank · Original Q34",
+      "target": "renaissance",
+      "wordIds": [
+        "renaissance"
+      ]
+    },
+    {
+      "id": "med-q38",
+      "sourceQuestion": 38,
+      "category": "Spelling & Word Forms",
+      "prompt": "Few men are free from faults. Here 'few' means ___.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Some"
+        },
+        {
+          "letter": "খ",
+          "text": "Not much"
+        },
+        {
+          "letter": "গ",
+          "text": "None"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Hardly any"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Hardly any"
+      },
+      "explanation": "Few এখানে hardly any অর্থে ব্যবহৃত হয়েছে।",
+      "reference": "Medical Admission Question Bank · Original Q38",
+      "target": "few",
+      "wordIds": [
+        "medical-few"
+      ]
+    },
+    {
+      "id": "med-q39",
+      "sourceQuestion": 39,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the word which never has a plural form:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "information"
+        },
+        {
+          "letter": "খ",
+          "text": "mouse"
+        },
+        {
+          "letter": "গ",
+          "text": "woman"
+        },
+        {
+          "letter": "ঘ",
+          "text": "inventor"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "information"
+      },
+      "explanation": "Information uncountable noun; সাধারণত plural form হয় না।",
+      "reference": "Medical Admission Question Bank · Original Q39",
+      "target": "information",
+      "wordIds": [
+        "medical-information"
+      ]
+    },
+    {
+      "id": "med-q42",
+      "sourceQuestion": 42,
+      "category": "Spelling & Word Forms",
+      "prompt": "Find out the mis-spelled word.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "suggestive"
+        },
+        {
+          "letter": "খ",
+          "text": "symbolic"
+        },
+        {
+          "letter": "গ",
+          "text": "symetery"
+        },
+        {
+          "letter": "ঘ",
+          "text": "scintillating"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "symetery"
+      },
+      "explanation": "সঠিক বানান symmetry; symetery ভুল।",
+      "reference": "Medical Admission Question Bank · Original Q42",
+      "target": "symetery",
+      "wordIds": [
+        "medical-symetery"
+      ]
+    },
+    {
+      "id": "med-q45",
+      "sourceQuestion": 45,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the correctly spelled word:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "rendezvous"
+        },
+        {
+          "letter": "খ",
+          "text": "rondervoux"
+        },
+        {
+          "letter": "গ",
+          "text": "rondervous"
+        },
+        {
+          "letter": "ঘ",
+          "text": "rindezvous"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "rendezvous"
+      },
+      "explanation": "সঠিক বানান rendezvous।",
+      "reference": "Medical Admission Question Bank · Original Q45",
+      "target": "rendezvous",
+      "wordIds": [
+        "medical-rendezvous"
+      ]
+    },
+    {
+      "id": "med-q75",
+      "sourceQuestion": 75,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which of the following is not a noun?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Friendliness"
+        },
+        {
+          "letter": "খ",
+          "text": "Softly"
+        },
+        {
+          "letter": "গ",
+          "text": "Livelihood"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Responsibility"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Softly"
+      },
+      "explanation": "Softly adverb; অন্যগুলো noun।",
+      "reference": "Medical Admission Question Bank · Original Q75",
+      "target": "Softly",
+      "wordIds": [
+        "medical-softly"
+      ]
+    },
+    {
+      "id": "med-q76",
+      "sourceQuestion": 76,
+      "category": "Spelling & Word Forms",
+      "prompt": "What is the 'noun' form of the word 'beneficial'?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "beneficiary"
+        },
+        {
+          "letter": "খ",
+          "text": "beneficient"
+        },
+        {
+          "letter": "গ",
+          "text": "beneficialness"
+        },
+        {
+          "letter": "ঘ",
+          "text": "benefit"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "benefit"
+      },
+      "explanation": "Beneficial-এর noun form হিসেবে benefit সঠিক।",
+      "reference": "Medical Admission Question Bank · Original Q76",
+      "target": "beneficial",
+      "wordIds": [
+        "medical-beneficial"
+      ]
+    },
+    {
+      "id": "med-q78",
+      "sourceQuestion": 78,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the correct spelling:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Soverenity"
+        },
+        {
+          "letter": "খ",
+          "text": "Sovereignty"
+        },
+        {
+          "letter": "গ",
+          "text": "Sovrcinty"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Sovreignty"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Sovereignty"
+      },
+      "explanation": "সঠিক বানান sovereignty।",
+      "reference": "Medical Admission Question Bank · Original Q78",
+      "target": "Sovereignty",
+      "wordIds": [
+        "sovereignty"
+      ]
+    },
+    {
+      "id": "med-q79",
+      "sourceQuestion": 79,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which pair of the words is synonymous?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Clutter and Consistent"
+        },
+        {
+          "letter": "খ",
+          "text": "Acclimatize and Accustom"
+        },
+        {
+          "letter": "গ",
+          "text": "Apartheid and Apprehend"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Philanthropic and Pessimistic"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Acclimatize and Accustom"
+      },
+      "explanation": "Acclimatize ও accustom—দুটির অর্থ অভ্যস্ত করে তোলা/অভ্যস্ত হওয়া।",
+      "reference": "Medical Admission Question Bank · Original Q79",
+      "target": "Acclimatize and Accustom",
+      "wordIds": [
+        "medical-acclimatize-and-accustom"
+      ]
+    },
+    {
+      "id": "med-q83",
+      "sourceQuestion": 83,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the correct spelling.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Entreprenor"
+        },
+        {
+          "letter": "খ",
+          "text": "Entrepreneor"
+        },
+        {
+          "letter": "গ",
+          "text": "Entrepreneur"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Enterpreneur"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Entrepreneur"
+      },
+      "explanation": "সঠিক বানান entrepreneur।",
+      "reference": "Medical Admission Question Bank · Original Q83",
+      "target": "Entrepreneur",
+      "wordIds": [
+        "medical-entrepreneur"
+      ]
+    },
+    {
+      "id": "med-q85",
+      "sourceQuestion": 85,
+      "category": "Spelling & Word Forms",
+      "prompt": "Masculine gender for \"bee\" is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Drake"
+        },
+        {
+          "letter": "খ",
+          "text": "Dam"
+        },
+        {
+          "letter": "গ",
+          "text": "Drone"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Doe"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Drone"
+      },
+      "explanation": "Bee-এর masculine হলো drone।",
+      "reference": "Medical Admission Question Bank · Original Q85",
+      "target": "bee",
+      "wordIds": [
+        "medical-bee"
+      ]
+    },
+    {
+      "id": "med-q94",
+      "sourceQuestion": 94,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which one of the following is not a noun?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Loneliness"
+        },
+        {
+          "letter": "খ",
+          "text": "Childhood"
+        },
+        {
+          "letter": "গ",
+          "text": "Purity"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Fairly"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Fairly"
+      },
+      "explanation": "Fairly adverb; অন্যগুলো noun।",
+      "reference": "Medical Admission Question Bank · Original Q94",
+      "target": "Fairly",
+      "wordIds": [
+        "medical-fairly"
+      ]
+    },
+    {
+      "id": "med-q118",
+      "sourceQuestion": 118,
+      "category": "Spelling & Word Forms",
+      "prompt": "What is the adjective form of the word home?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Homeliness"
+        },
+        {
+          "letter": "খ",
+          "text": "Homeful"
+        },
+        {
+          "letter": "গ",
+          "text": "Homely"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Homege"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Homely"
+      },
+      "explanation": "Home-এর adjective form হলো homely।",
+      "reference": "Medical Admission Question Bank · Original Q118",
+      "target": "Homely",
+      "wordIds": [
+        "medical-homely"
+      ]
+    },
+    {
+      "id": "med-q138",
+      "sourceQuestion": 138,
+      "category": "Spelling & Word Forms",
+      "prompt": "Identify the word in the plural form:",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Agendum"
+        },
+        {
+          "letter": "খ",
+          "text": "Physics"
+        },
+        {
+          "letter": "গ",
+          "text": "Radii"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Civics"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Radii"
+      },
+      "explanation": "Radii হলো radius-এর plural।",
+      "reference": "Medical Admission Question Bank · Original Q138",
+      "target": "Radii",
+      "wordIds": [
+        "medical-radii"
+      ]
+    },
+    {
+      "id": "med-q144",
+      "sourceQuestion": 144,
+      "category": "Spelling & Word Forms",
+      "prompt": "An antonym of 'Combination' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Mixture"
+        },
+        {
+          "letter": "খ",
+          "text": "Aggregate"
+        },
+        {
+          "letter": "গ",
+          "text": "Fusion"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Separation"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Separation"
+      },
+      "explanation": "Combination = সংমিশ্রণ; antonym separation।",
+      "reference": "Medical Admission Question Bank · Original Q144",
+      "target": "Combination",
+      "wordIds": [
+        "medical-combination"
+      ]
+    },
+    {
+      "id": "med-q146",
+      "sourceQuestion": 146,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which one of the following is the correct spelling?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Abborigines"
+        },
+        {
+          "letter": "খ",
+          "text": "Aboriginnes"
+        },
+        {
+          "letter": "গ",
+          "text": "Aborigines"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Aboregence"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Aborigines"
+      },
+      "explanation": "সঠিক বানান aborigines।",
+      "reference": "Medical Admission Question Bank · Original Q146",
+      "target": "Aborigines",
+      "wordIds": [
+        "medical-aborigines"
+      ]
+    },
+    {
+      "id": "med-q157",
+      "sourceQuestion": 157,
+      "category": "Spelling & Word Forms",
+      "prompt": "Find the incorrectly spelled word-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Committee"
+        },
+        {
+          "letter": "খ",
+          "text": "receive"
+        },
+        {
+          "letter": "গ",
+          "text": "psychology"
+        },
+        {
+          "letter": "ঘ",
+          "text": "seperate"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "seperate"
+      },
+      "explanation": "সঠিক বানান separate; seperate ভুল।",
+      "reference": "Medical Admission Question Bank · Original Q157",
+      "target": "Separate",
+      "wordIds": [
+        "medical-separate"
+      ]
+    },
+    {
+      "id": "med-q165",
+      "sourceQuestion": 165,
+      "category": "Spelling & Word Forms",
+      "prompt": "A person who writes about his own life writes-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "a diary"
+        },
+        {
+          "letter": "খ",
+          "text": "a biography"
+        },
+        {
+          "letter": "গ",
+          "text": "a chronicle"
+        },
+        {
+          "letter": "ঘ",
+          "text": "an autobiography"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "an autobiography"
+      },
+      "explanation": "নিজের জীবন সম্পর্কে নিজে লিখলে autobiography।",
+      "reference": "Medical Admission Question Bank · Original Q165",
+      "target": "an autobiography",
+      "wordIds": [
+        "medical-an-autobiography"
+      ]
+    },
+    {
+      "id": "med-q167",
+      "sourceQuestion": 167,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the correct spelling.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Separate"
+        },
+        {
+          "letter": "খ",
+          "text": "Saparete"
+        },
+        {
+          "letter": "গ",
+          "text": "Seperate"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Saperate"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "Separate"
+      },
+      "explanation": "সঠিক বানান separate।",
+      "reference": "Medical Admission Question Bank · Original Q167",
+      "target": "Separate",
+      "wordIds": [
+        "medical-separate"
+      ]
+    },
+    {
+      "id": "med-q168",
+      "sourceQuestion": 168,
+      "category": "Spelling & Word Forms",
+      "prompt": "Choose the correct spelling.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Lefteant"
+        },
+        {
+          "letter": "খ",
+          "text": "Leiutenant"
+        },
+        {
+          "letter": "গ",
+          "text": "Leutenant"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Lieutenant"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "Lieutenant"
+      },
+      "explanation": "সঠিক বানান lieutenant।",
+      "reference": "Medical Admission Question Bank · Original Q168",
+      "target": "Lieutenant",
+      "wordIds": [
+        "medical-lieutenant"
+      ]
+    },
+    {
+      "id": "med-q181",
+      "sourceQuestion": 181,
+      "category": "Spelling & Word Forms",
+      "prompt": "Fill in the blanks in the following sentences by selecting the most appropriate alternative from among the four choices given: Parliamentary democracy demands discipline and ____ to the rules.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "adherence"
+        },
+        {
+          "letter": "খ",
+          "text": "respectful"
+        },
+        {
+          "letter": "গ",
+          "text": "knowledge"
+        },
+        {
+          "letter": "ঘ",
+          "text": "awareness"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "adherence"
+      },
+      "explanation": "Adherence to rules = নিয়ম মেনে চলা/নিয়মের প্রতি আনুগত্য।",
+      "reference": "Medical Admission Question Bank · Original Q181",
+      "target": "Adherence to rules",
+      "wordIds": [
+        "medical-adherence-to-rules"
+      ]
+    },
+    {
+      "id": "med-q184",
+      "sourceQuestion": 184,
+      "category": "Spelling & Word Forms",
+      "prompt": "Find out the correct spelling.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "excessive"
+        },
+        {
+          "letter": "খ",
+          "text": "axcessive"
+        },
+        {
+          "letter": "গ",
+          "text": "excesive"
+        },
+        {
+          "letter": "ঘ",
+          "text": "excesive"
+        }
+      ],
+      "answer": {
+        "letter": "ক",
+        "text": "excessive"
+      },
+      "explanation": "সঠিক বানান excessive।",
+      "reference": "Medical Admission Question Bank · Original Q184",
+      "target": "excessive",
+      "wordIds": [
+        "excessive"
+      ]
+    },
+    {
+      "id": "med-q196",
+      "sourceQuestion": 196,
+      "category": "Spelling & Word Forms",
+      "prompt": "Find the adjective of the word 'contempt':",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "contempting"
+        },
+        {
+          "letter": "খ",
+          "text": "contempatation"
+        },
+        {
+          "letter": "গ",
+          "text": "Contemptible"
+        },
+        {
+          "letter": "ঘ",
+          "text": "contemptable"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Contemptible"
+      },
+      "explanation": "Contempt-এর adjective form contemptible।",
+      "reference": "Medical Admission Question Bank · Original Q196",
+      "target": "contempt",
+      "wordIds": [
+        "medical-contempt"
+      ]
+    },
+    {
+      "id": "med-q199",
+      "sourceQuestion": 199,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which one of the following pairs is not correct?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "False, Falsify"
+        },
+        {
+          "letter": "খ",
+          "text": "Weak, Weakly"
+        },
+        {
+          "letter": "গ",
+          "text": "Sure, Ensure"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Able, Enable"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Weak, Weakly"
+      },
+      "explanation": "Weak-এর adverb weakly; এটি অন্যগুলোর মতো verb-form pair নয়—প্রশ্নটির গঠন কিছুটা অস্পষ্ট।",
+      "reference": "Medical Admission Question Bank · Original Q199",
+      "target": "Weak, Weakly",
+      "wordIds": [
+        "medical-weak-weakly"
+      ]
+    },
+    {
+      "id": "med-q227",
+      "sourceQuestion": 227,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which of the following pair is correct to express in a single word in বাংলা for a group of words?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Incapable of being questioned: সন্দেহাতীত"
+        },
+        {
+          "letter": "খ",
+          "text": "Not bearing the name of a writer: সর্বজ্ঞ"
+        },
+        {
+          "letter": "গ",
+          "text": "One leaving his native country to settle in another: অভিবাসী"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Characterized by dull uniformity: অলৌকিক"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "One leaving his native country to settle in another: অভিবাসী"
+      },
+      "explanation": "One leaving own country to settle elsewhere = emigrant; দেশত্যাগ করে অন্য দেশে বসতি স্থাপনকারী।",
+      "reference": "Medical Admission Question Bank · Original Q227",
+      "target": "One leaving own country to settle elsewhere",
+      "wordIds": [
+        "medical-one-leaving-own-country-to-settle-elsewhere"
+      ]
+    },
+    {
+      "id": "med-q228",
+      "sourceQuestion": 228,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which of the following word is a verb?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Idiocy"
+        },
+        {
+          "letter": "খ",
+          "text": "Joyously"
+        },
+        {
+          "letter": "গ",
+          "text": "Glorify"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Horrible"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Glorify"
+      },
+      "explanation": "Glorify = মহিমান্বিত করা; verb।",
+      "reference": "Medical Admission Question Bank · Original Q228",
+      "target": "Glorify",
+      "wordIds": [
+        "glorify"
+      ]
+    },
+    {
+      "id": "med-q234",
+      "sourceQuestion": 234,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which of the following word is a noun?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Ricochet"
+        },
+        {
+          "letter": "খ",
+          "text": "Ordian"
+        },
+        {
+          "letter": "গ",
+          "text": "Imprimatur"
+        },
+        {
+          "letter": "ঘ",
+          "text": "Pontificate"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Imprimatur"
+      },
+      "explanation": "Imprimatur = অনুমোদন/প্রকাশের আনুষ্ঠানিক অনুমতি; noun।",
+      "reference": "Medical Admission Question Bank · Original Q234",
+      "target": "Imprimatur",
+      "wordIds": [
+        "medical-imprimatur"
+      ]
+    },
+    {
+      "id": "med-q236",
+      "sourceQuestion": 236,
+      "category": "Spelling & Word Forms",
+      "prompt": "Which of the following words is the correct English translation of the Bangla word 'প্রতিমাননা'?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "corroborative"
+        },
+        {
+          "letter": "খ",
+          "text": "transliteration"
+        },
+        {
+          "letter": "গ",
+          "text": "homage"
+        },
+        {
+          "letter": "ঘ",
+          "text": "coming towards"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "homage"
+      },
+      "explanation": "Homage = শ্রদ্ধা/শ্রদ্ধাঞ্জলি।",
+      "reference": "Medical Admission Question Bank · Original Q236",
+      "target": "Homage",
+      "wordIds": [
+        "medical-homage"
+      ]
+    },
+    {
+      "id": "med-q267",
+      "sourceQuestion": 267,
+      "category": "Spelling & Word Forms",
+      "prompt": "In which of the following sentences is the word \"like\" used as an adjective?",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Do not talk like that."
+        },
+        {
+          "letter": "খ",
+          "text": "We shall not see his like again."
+        },
+        {
+          "letter": "গ",
+          "text": "Children like sweets."
+        },
+        {
+          "letter": "ঘ",
+          "text": "They are men of like build and stature."
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "They are men of like build and stature."
+      },
+      "explanation": "Like build and stature = একই ধরনের গঠন ও উচ্চতা; like এখানে adjective।",
+      "reference": "Medical Admission Question Bank · Original Q267",
+      "target": "Like build and stature",
+      "wordIds": [
+        "medical-like-build-and-stature"
+      ]
+    },
+    {
+      "id": "med-q288",
+      "sourceQuestion": 288,
+      "category": "Spelling & Word Forms",
+      "prompt": "Singular of \"Appendices\" is -",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Appendice"
+        },
+        {
+          "letter": "খ",
+          "text": "Appendix"
+        },
+        {
+          "letter": "গ",
+          "text": "Appendex"
+        },
+        {
+          "letter": "ঘ",
+          "text": "None of this"
+        }
+      ],
+      "answer": {
+        "letter": "খ",
+        "text": "Appendix"
+      },
+      "explanation": "Appendices-এর singular হলো appendix।",
+      "reference": "Medical Admission Question Bank · Original Q288",
+      "target": "Appendices",
+      "wordIds": [
+        "medical-appendices"
+      ]
+    },
+    {
+      "id": "med-q298",
+      "sourceQuestion": 298,
+      "category": "Spelling & Word Forms",
+      "prompt": "The antonym for 'dull' is-",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "thrilling"
+        },
+        {
+          "letter": "খ",
+          "text": "monotonous"
+        },
+        {
+          "letter": "গ",
+          "text": "experiencing"
+        },
+        {
+          "letter": "ঘ",
+          "text": "interesting"
+        }
+      ],
+      "answer": {
+        "letter": "ঘ",
+        "text": "interesting"
+      },
+      "explanation": "Dull-এর antonym হিসেবে interesting সবচেয়ে উপযুক্ত।",
+      "reference": "Medical Admission Question Bank · Original Q298",
+      "target": "dull",
+      "wordIds": [
+        "medical-dull"
+      ]
+    },
+    {
+      "id": "med-q344",
+      "sourceQuestion": 344,
+      "category": "Spelling & Word Forms",
+      "prompt": "The most suitable pair of words that can be substituted in the blanks: Throughout Bangladesh, thousands of tube wells have tested ______ for arsenic and have been declared ______ for human consumption.",
+      "options": [
+        {
+          "letter": "ক",
+          "text": "Contaminated........precarious"
+        },
+        {
+          "letter": "খ",
+          "text": "Affirmative..........risky"
+        },
+        {
+          "letter": "গ",
+          "text": "Positive.........unsafe"
+        },
+        {
+          "letter": "ঘ",
+          "text": "New..........unsuitable"
+        }
+      ],
+      "answer": {
+        "letter": "গ",
+        "text": "Positive.........unsafe"
+      },
+      "explanation": "Tested positive for arsenic; declared unsafe for human consumption।",
+      "reference": "Medical Admission Question Bank · Original Q344",
+      "target": "Positive",
+      "wordIds": [
+        "medical-positive"
+      ]
+    }
+  ]
+}
