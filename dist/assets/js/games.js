@@ -34,18 +34,41 @@ G.logicCircuit=function(r,g,A){var E=A.E,levels=[
  render();};
 
 /* ================= Quiz Blitz ================= */
-G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||''}});
- if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
- if(pool.length<2)return empty(r,'এই গেমের প্রশ্ন এখনো প্রস্তুত নয়। অন্য একটি গেম বেছে নিন।');
- var T=+d.time||60,targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[],lastCountdown=-1;
- r.innerHTML=hud([[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+'<div class="tbar"><i id="tb"></i></div><div class="card qa" id="qa"></div>';
- function h(){qa(r,'#sc').textContent=score;qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}
- function nxt(){if(over)return;if(targetRounds&&asked>=targetRounds)return end();if(!order.length)order=sh(pool.slice());cur=order.pop();asked++;var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');lock=false}
- qa(r,'#qa').onclick=function(e){var b=e.target.closest('.opt');if(!b||lock||over)return;lock=true;var ok=b.dataset.ok=='1';
-  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives--;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<12)missed.push({q:cur.q,a:cur.o[cur.a],yourAnswer:b.textContent,e:cur.e});if(cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}}
-  h();if(lives<=0)return setTimeout(end,cur.e&&!ok?1800:800);setTimeout(nxt,ok?320:(cur.e?1900:950))};
- A.every(r,150,function(){var left=T-(performance.now()-t0)/1000,seconds=Math.max(0,Math.ceil(left));qa(r,'#tm').textContent=seconds;qa(r,'#tb').style.width=Math.max(0,left/T*100)+'%';if(seconds<=5&&seconds>0&&seconds!==lastCountdown){lastCountdown=seconds;if(window.SFX)window.SFX.play('countdown',seconds)}if(left<=0)end()});
- function end(){if(over)return;over=true;A.done({score:score,pct:targetRounds?Math.min(1,correct/targetRounds):Math.min(1,score/200),detail:correct+' correct'+(targetRounds?' / '+targetRounds+' questions':''),review:missed})}
+G.blitz=function(r,g,A){var X=A.X,E=A.E,d=g.data||{},chapterQuiz=!!g.chapterQuiz,pool=(d.q||[]).filter(function(q){return q&&q.q&&q.o&&q.o.length>=2}).map(function(q){return{q:q.q,o:q.o.slice(0,4).filter(Boolean),a:+q.a,e:q.e||'',longExplain:q.longExplain||q.e||'',simpleExplain:q.simpleExplain||'',formulaExplain:q.formulaExplain||'',topic:q.topic||'',tier:+q.tier||2}});
+ if(String(g.id||'').indexOf('physics-formula-sprint')>=0||String(g.t||'').trim()==='Physics Formula Sprint'){d.useChapters='0';pool=pool.filter(function(q){return !/(chemistry|রসায়ন|রাসায়নিক|আয়ন|pH|মোলারিটি|অক্সিডেশন|বিক্রিয়া|পর্যায় সারণি)/i.test(String(q.q)+' '+String(q.e||'')+' '+q.o.join(' '))})}if(!chapterQuiz&&String(d.useChapters)!=='0'&&String(d.useChapters)!=='false')pool=pool.concat(A.questions());
+ if(pool.length<2)return empty(r,'এই কুইজের প্রশ্ন এখনো প্রস্তুত নয়। অন্য একটি কুইজ বেছে নিন।');
+ var T=chapterQuiz?0:(+d.time||60),targetRounds=g.levelId?(+d.rounds||pool.length):0,asked=0,score=0,lives=3,combo=0,order=[],cur,lock=false,t0=performance.now(),over=false,correct=0,missed=[],lastCountdown=-1;
+ var total=targetRounds||pool.length;
+ r.innerHTML=hud(chapterQuiz?[[X('g_score'),'sc',0],['সঠিক উত্তর','cb','0 / '+total]]:[[X('g_score'),'sc',0],[X('g_combo'),'cb','x1'],[X('g_lives'),'lv',''],[X('g_time'),'tm',T]])+(chapterQuiz?'':'<div class="tbar"><i id="tb"></i></div>')+'<div class="card qa'+(chapterQuiz?' cq-card':'')+'" id="qa"></div>';
+ function h(){qa(r,'#sc').textContent=score;if(chapterQuiz){qa(r,'#cb').textContent=correct+' / '+total}else{qa(r,'#cb').textContent='x'+Math.min(4,1+Math.floor(combo/3));qa(r,'#lv').innerHTML=hearts(lives)}}
+ function scrollChapterQuestionIntoView(){if(!chapterQuiz)return;requestAnimationFrame(function(){requestAnimationFrame(function(){var target=qa(r,'.cq-question-top')||qa(r,'#qa');if(!target||!target.isConnected)return;var header=document.querySelector('header'),offset=(header?header.getBoundingClientRect().height:0)+14;var top=window.pageYOffset+target.getBoundingClientRect().top-offset;var doc=document.documentElement,old=doc.style.scrollBehavior;doc.style.scrollBehavior='auto';window.scrollTo(0,Math.max(0,top));requestAnimationFrame(function(){doc.style.scrollBehavior=old;});});});}
+ function nxt(){if(over)return;if((chapterQuiz&&asked>=total)||(!chapterQuiz&&targetRounds&&asked>=targetRounds))return end();if(!order.length)order=sh(pool.slice());cur=order.pop();asked++;var opts=sh(cur.o.map(function(t,i){return{t:t,ok:i==cur.a}}));
+  if(chapterQuiz){var pct=Math.round((asked-1)/Math.max(1,total)*100),letters=['A','B','C','D'],tierLabels=['সহজ','মাঝারি','কঠিন','গভীর চিন্তা'];qa(r,'#qa').innerHTML='<div class="cq-question-top"><b class="cq-count">প্রশ্ন '+String(asked).padStart(2,'0')+' / '+total+'</b><span class="cq-difficulty cq-difficulty-'+Math.max(1,Math.min(4,cur.tier||2))+'">'+E(tierLabels[Math.max(0,Math.min(3,(cur.tier||2)-1))])+'</span></div><div class="cq-progress-track"><i style="width:'+pct+'%"></i></div><p class="bn qt cq-question-text">'+E(cur.q)+'</p><div class="cq-option-list" role="group" aria-label="উত্তর বেছে নিন">'+opts.map(function(o,i){return'<button type="button" class="opt cq-option" data-ok="'+(o.ok?1:0)+'"><span class="cq-option-letter">'+letters[i]+'</span><span class="cq-option-copy">'+E(o.t)+'</span><span class="cq-option-mark" aria-hidden="true"></span></button>'}).join('')+'</div><div class="cq-answer-feedback" id="cqFeedback" aria-live="polite" hidden></div>'}
+  else qa(r,'#qa').innerHTML='<p class="bn qt">'+E(cur.q)+'</p>'+opts.map(function(o){return'<button class="opt" data-ok="'+(o.ok?1:0)+'">'+E(o.t)+'</button>'}).join('');
+  lock=false;h();if(chapterQuiz&&asked>1)scrollChapterQuestionIntoView()}
+ function cqExplanationMarkup(question,index){
+  var main=String(question.longExplain||question.e||'প্রশ্নের মূল ধারণা ও সংশ্লিষ্ট নিয়মটি আবার মিলিয়ে দেখুন।').trim();
+  var simple=String(question.simpleExplain||'প্রশ্নের শর্তগুলো একে একে মিলিয়ে ধারণাটি প্রয়োগ করো।').trim();
+  var formula=String(question.formulaExplain||'').trim();
+  var parts=main.split(/(?<=[।!?])\s+|;\s+/).map(function(x){return x.trim()}).filter(Boolean);
+  if(!parts.length)parts=[main];
+  var body='',style=index%4;
+  var paragraphs=parts.map(function(x){return '<p>'+E(x)+'</p>'}).join('');
+  if(style===0){body='<section class="cq-explain-section cq-explain-concept"><h4>মূল ধারণা</h4><p class="cq-explain-lead">'+E(parts[0])+'</p>'+(parts.length>1?parts.slice(1).map(function(x){return '<p>'+E(x)+'</p>'}).join(''):'')+'</section>';}
+  else if(style===1){body='<section class="cq-explain-section cq-explain-prose"><h4>বিষয়টি বুঝে নাও</h4><p class="cq-explain-prose-text">'+E(main)+'</p></section>';}
+  else if(style===2){body='<section class="cq-explain-section cq-explain-analysis"><h4>কেন এই উত্তরটি সঠিক?</h4><p class="cq-explain-prose-text">'+E(main)+'</p></section>';}
+  else{body='<section class="cq-explain-section cq-explain-reasoning"><h4>ধারণা থেকে সিদ্ধান্ত</h4><p class="cq-explain-lead">'+E(parts[0])+'</p>'+(parts.length>1?'<div class="cq-explain-detail">'+parts.slice(1).map(function(x){return '<p>'+E(x)+'</p>'}).join('')+'</div>':'')+'</section>';}
+  if(formula)body+='<aside class="cq-formula-explain"><b>সূত্র / নীতি প্রয়োগ</b><p>'+E(formula)+'</p></aside>';
+  body+='<aside class="cq-simple-explain"><b>সহজভাবে মনে রাখো</b><p>'+E(simple)+'</p></aside>';
+  return body;
+ }
+ qa(r,'#qa').onclick=function(e){var nextBtn=e.target.closest('#cqNext');if(nextBtn&&chapterQuiz){e.preventDefault();e.stopPropagation();if(nextBtn.blur)nextBtn.blur();if(over)return;nxt();return}var b=e.target.closest('.opt');if(!b||lock||over)return;lock=true;var ok=b.dataset.ok=='1';
+  if(ok){combo++;score+=10*Math.min(4,1+Math.floor(combo/3));correct++;b.classList.add('ok')}else{combo=0;lives=chapterQuiz?Math.max(0,lives-1):lives-1;b.classList.add('no');qq(r,'.opt').forEach(function(o){if(o.dataset.ok=='1')o.classList.add('ok')});if(missed.length<60)missed.push({q:cur.q,a:cur.o[cur.a],yourAnswer:b.textContent,e:cur.e})}
+  if(chapterQuiz){qq(r,'.opt').forEach(function(o){o.disabled=true});var fb=qa(r,'#cqFeedback');if(fb){fb.hidden=false;fb.className='cq-answer-feedback '+(ok?'is-correct':'is-wrong');fb.innerHTML='<strong>'+(ok?'✓ সঠিক উত্তর':'✕ সঠিক উত্তর: '+E(cur.o[cur.a]))+'</strong><details class="cq-explanation" '+(ok?'':'open')+'><summary>ব্যাখ্যা দেখুন</summary><div class="cq-explanation-body">'+cqExplanationMarkup(cur,asked)+'</div></details><button type="button" class="btn pri cq-next-question" id="cqNext">'+(asked>=total?'ফলাফল দেখুন':'পরের প্রশ্নে যান')+' →</button><span>'+(ok?'চমৎকার! এবার চাইলে ব্যাখ্যা পড়ে ধারণাটি আরও পাকা করো।':'ভুল থেকে শেখো—ব্যাখ্যাটি খুলে সঠিক ধারণা ও সূত্র বুঝে নাও।')+'</span>'}}
+  else if(!ok&&cur.e){var xe=document.createElement('p');xe.className='ex wrongex';xe.textContent='✘ '+cur.e;qa(r,'#qa').appendChild(xe)}
+  h();if(!chapterQuiz&&lives<=0)return setTimeout(end,cur.e&&!ok?1800:800);if(!chapterQuiz)setTimeout(nxt,ok?320:(cur.e?1900:950))};
+ if(!chapterQuiz)A.every(r,150,function(){var left=T-(performance.now()-t0)/1000,seconds=Math.max(0,Math.ceil(left)),timer=qa(r,'#tm'),bar=qa(r,'#tb');if(timer)timer.textContent=seconds;if(bar)bar.style.width=Math.max(0,left/T*100)+'%';if(seconds<=5&&seconds>0&&seconds!==lastCountdown){lastCountdown=seconds;if(window.SFX)window.SFX.play('countdown',seconds)}if(left<=0)end()});
+ function end(){if(over)return;over=true;var n=targetRounds||asked;A.done({score:score,pct:n?Math.min(1,correct/n):0,detail:correct+' / '+n+'টি প্রশ্নের সঠিক উত্তর'+(chapterQuiz?' · সম্পূর্ণ অধ্যায় কুইজ':'') ,review:missed})}
  h();nxt()};
 
 /* ================= Formula Memory ================= */
